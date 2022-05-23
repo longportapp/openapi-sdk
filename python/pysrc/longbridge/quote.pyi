@@ -337,63 +337,217 @@ class PrePostQuote:
 
 
 class SecurityQuote:
+    """
+    Quote of securitity
+    """
+    
     symbol: str
+    """
+    Security code
+    """
+
     last_done: Decimal
+    """
+    Latest price
+    """
+
     prev_close: Decimal
+    """
+    Yesterday's close
+    """
+
     open: Decimal
+    """
+    Open
+    """
+
     high: Decimal
+    """
+    High
+    """
+
     low: Decimal
+    """
+    Low
+    """
+
     timestamp: datetime
+    """
+    Time of latest price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     turnover: Decimal
+    """
+    Turnover
+    """
+
     trade_status: Type[TradeStatus]
+    """
+    Security trading status
+    """
+
     pre_market_quote: Optional[PrePostQuote]
+    """
+    Quote of US pre market
+    """
+
     post_market_quote: Optional[PrePostQuote]
+    """
+    Quote of US post market
+    """
 
 
 class OptionType:
+    """
+    Option type
+    """
+
     class Unknown(OptionType):
-        ...
+        """
+        Unknown
+        """
 
     class American(OptionType):
-        ...
+        """
+        American
+        """
 
     class Europe(OptionType):
-        ...
+        """
+        Europe
+        """
 
 
 class OptionDirection:
+    """
+    Option direction
+    """
+
     class Unknown(OptionDirection):
-        ...
+        """
+        Unknown
+        """
 
     class Put(OptionDirection):
-        ...
+        """
+        Put
+        """
 
     class Call(OptionDirection):
-        ...
+        """
+        Call
+        """
 
 
 class OptionQuote:
+    """
+    Quote of option
+    """
+
     symbol: str
+    """
+    Security code
+    """
+
     last_done: Decimal
+    """
+    Latest price
+    """
+
     prev_close: Decimal
+    """
+    Yesterday's close
+    """
+
     open: Decimal
+    """
+    Open
+    """
+
     high: Decimal
+    """
+    High
+    """
+
     low: Decimal
+    """
+    Low
+    """
+
     timestamp: datetime
+    """
+    Time of latest price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     turnover: Decimal
+    """
+    Turnover
+    """
+
     trade_status: Type[TradeStatus]
+    """
+    Security trading status
+    """
+
     implied_volatility: Decimal
+    """
+    Implied volatility
+    """
+
     open_interest: int
+    """
+    Number of open positions
+    """
+
     expiry_date: date
+    """
+    Exprity date
+    """
+
     strike_price: Decimal
+    """
+    Strike price
+    """
+
     contract_multiplier: Decimal
+    """
+    Contract multiplier
+    """
+
     contract_type: Type[OptionType]
+    """
+    Option type
+    """
+
     contract_size: Decimal
+    """
+    Contract size
+    """
+
     direction: Type[OptionDirection]
+    """
+    Option direction
+    """
+
     historical_volatility: Decimal
+    """
+    Underlying security historical volatility of the option
+    """
+
     underlying_symbol: str
+    """
+    Underlying security symbol of the option
+    """
 
 
 class WarrantType:

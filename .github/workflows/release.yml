@@ -3,18 +3,24 @@ on:
   push:
     branches:
       - release
-    paths:
-      - "**/Cargo.toml"
-      - ".github/workflows/release.yml"
 
 jobs:
   publish_rust_sdk:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       max-parallel: 1
       matrix:
         package:
+          - name: longbridge-proto
+            registryName: longbridge-proto
+            path: rust/crates/proto
+          - name: longbridge-httpcli
+            registryName: longbridge-httpcli
+            path: rust/crates/httpclient
+          - name: longbridge-wscli
+            registryName: longbridge-wscli
+            path: rust/crates/wsclient
           - name: longbridge
             registryName: longbridge
             path: rust
@@ -53,6 +59,10 @@ jobs:
 
   build_python_sdk_macos:
     runs-on: macos-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
     steps:
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
@@ -62,7 +72,7 @@ jobs:
           submodules: true
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: ${{ matrix.python-version }}
           architecture: x64
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -74,19 +84,19 @@ jobs:
         uses: messense/maturin-action@v1
         with:
           target: x86_64
-          args: --release --out dist -m python/Cargo.toml
+          args: -i python --release --out dist -m python/Cargo.toml
       - name: Install built wheel - x86_64
         run: |
           pip install longbridge --no-index --find-links dist --force-reinstall
-          python -c "import longbridge"
       - name: Build wheels - universal2
+        if: ${{ matrix.python-version >= '3.8' || matrix.python-version == '3.10' }}
         uses: messense/maturin-action@v1
         with:
-          args: --release --universal2 --out dist --no-sdist -m python/Cargo.toml
+          args: -i python --release --universal2 --out dist --no-sdist -m python/Cargo.toml
       - name: Install built wheel - universal2
+        if: ${{ matrix.python-version >= '3.8' }}
         run: |
           pip install longbridge --no-index --find-links dist --force-reinstall
-          python -c "import longbridge"
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
@@ -96,7 +106,9 @@ jobs:
   build_python_sdk_windows:
     runs-on: windows-latest
     strategy:
+      fail-fast: true
       matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
         target: [x64, x86]
     steps:
       - name: Install Protoc
@@ -107,7 +119,7 @@ jobs:
           submodules: true
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: ${{ matrix.python-version }}
           architecture: ${{ matrix.target }}
       - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -119,7 +131,7 @@ jobs:
         uses: messense/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist --no-sdist -m python/Cargo.toml
+          args: -i python --release --out dist --no-sdist -m python/Cargo.toml
       - name: Install built wheel
         run: |
           pip install longbridge --no-index --find-links dist --force-reinstall
@@ -130,10 +142,12 @@ jobs:
           name: wheels
           path: dist
 
-  linux:
+  build_python_sdk_linux:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
         target: [x86_64, i686]
     steps:
       - name: Install Protoc
@@ -144,14 +158,13 @@ jobs:
           submodules: true
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
-          architecture: x64
+          python-version: ${{ matrix.python-version }}
       - name: Build wheels
         uses: messense/maturin-action@v1
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: --release --out dist --no-sdist -m python/Cargo.toml
+          args: -i ${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
       - name: Install built wheel
         if: matrix.target == 'x86_64'
         run: |
@@ -163,11 +176,13 @@ jobs:
           name: wheels
           path: dist
 
-  linux-cross:
+  build_python_sdk_linux_cross:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
-        target: [aarch64, armv7, s390x, ppc64le, ppc64]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        target: [aarch64, armv7, s390x, ppc64le]
     steps:
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
@@ -175,129 +190,58 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
       - name: Build wheels
         uses: messense/maturin-action@v1
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: --release --out dist --no-sdist -m python/Cargo.toml
-      - uses: uraimo/run-on-arch-action@v2.0.5
+          args: -i ${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
+      - uses: uraimo/run-on-arch-action@v2.2.0
         if: matrix.target != 'ppc64'
         name: Install built wheel
         with:
           arch: ${{ matrix.target }}
-          distro: ubuntu18.04
+          distro: ubuntu20.04
           githubToken: ${{ github.token }}
+          dockerRunArgs: |
+            --volume "${PWD}/dist:/artifacts"
           install: |
             apt-get update
-            apt-get install -y --no-install-recommends python3 python3-pip
-            pip3 install -U pip
+            apt-get install -y --no-install-recommends python3 python3-venv software-properties-common
+            add-apt-repository ppa:deadsnakes/ppa
+            apt-get update
+            apt-get install -y curl python3.7-venv python3.8-venv python3.9-venv python3.10-venv
           run: |
-            pip3 install longbridge --no-index --find-links dist/ --force-reinstall
-            python3 -c "import longbridge"
+            ls -lrth /artifacts
+            PYTHON=python${{ matrix.python-version }}
+            $PYTHON -m venv venv
+            venv/bin/pip install -U pip
+            venv/bin/pip install longbridge --no-index --find-links /artifacts --force-reinstall
+            venv/bin/python -c 'import longbridge'
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
           name: wheels
           path: dist
 
-  musllinux:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          - x86_64-unknown-linux-musl
-          - i686-unknown-linux-musl
-    steps:
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v1
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-          architecture: x64
-      - name: Build wheels
-        uses: messense/maturin-action@v1
-        with:
-          target: ${{ matrix.target }}
-          manylinux: musllinux_1_2
-          args: --release --out dist --no-sdist -m python/Cargo.toml
-      - name: Install built wheel
-        if: matrix.target == 'x86_64-unknown-linux-musl'
-        uses: addnab/docker-run-action@v3
-        with:
-          image: alpine:latest
-          options: -v ${{ github.workspace }}:/io -w /io
-          run: |
-            apk add py3-pip
-            pip3 install -U pip
-            pip3 install longbridge --no-index --find-links /io/dist/ --force-reinstall
-            python3 -c "import longbridge"
-      - name: Upload wheels
-        uses: actions/upload-artifact@v2
-        with:
-          name: wheels
-          path: dist
-
-  musllinux-cross:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        platform:
-          - target: aarch64-unknown-linux-musl
-            arch: aarch64
-          - target: armv7-unknown-linux-musleabihf
-            arch: armv7
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Build wheels
-        uses: messense/maturin-action@v1
-        with:
-          target: ${{ matrix.platform.target }}
-          manylinux: musllinux_1_2
-          args: --release --out dist --no-sdist -m python/Cargo.toml
-      - uses: uraimo/run-on-arch-action@master
-        name: Install built wheel
-        with:
-          arch: ${{ matrix.platform.arch }}
-          distro: alpine_latest
-          githubToken: ${{ github.token }}
-          install: |
-            apk add py3-pip
-            pip3 install -U pip
-          run: |
-            pip3 install longbridge --no-index --find-links dist/ --force-reinstall
-            python3 -c "import longbridge"
-      - name: Upload wheels
-        uses: actions/upload-artifact@v2
-        with:
-          name: wheels
-          path: dist
-
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    needs: [macos, windows, linux, linux-cross, musllinux, musllinux-cross]
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: wheels
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Publish to PyPi
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          pip install --upgrade twine
-          twine upload --skip-existing *
+  # publish_python_sdk:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - build_python_sdk_macos
+  #     - build_python_sdk_windows
+  #     - build_python_sdk_linux
+  #     - build_python_sdk_linux_cross
+  #   steps:
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: wheels
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.7
+  #     - name: Publish to PyPi
+  #       env:
+  #         TWINE_USERNAME: __token__
+  #         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  #       run: |
+  #         pip install --upgrade twine
+  #         twine upload --skip-existing *
