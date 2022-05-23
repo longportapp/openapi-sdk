@@ -1,0 +1,3 @@
+[tasks.build-rust-sdk]
+command = "cargo"
+args = ["build", "-p", "longbridge-sdk"]

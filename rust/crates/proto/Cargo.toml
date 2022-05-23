@@ -1,0 +1,10 @@
+[package]
+edition = "2021"
+name = "longbridge-proto"
+version = "0.1.0"
+
+[dependencies]
+prost = "0.10.3"
+
+[build-dependencies]
+prost-build = "0.10.3"

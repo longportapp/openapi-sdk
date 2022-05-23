@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package qop.error;
+
+message Error {
+  uint64 code = 1;
+  string msg = 2; 
+}

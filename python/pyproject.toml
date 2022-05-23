@@ -1,0 +1,25 @@
+[project]
+name = "longbridge"
+classifiers = [
+    "Software Development :: Libraries :: Python Modules",
+    "Topic :: Office/Business :: Financial",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+description = "A Python library for Longbridge Open API"
+readme = "README.md"
+repository = "https://github.com/longbridgeapp/openapi-sdk"
+dependencies = []
+
+[license]
+text = "MIT OR Apache-2.0"
+
+[build-system]
+requires = ["maturin>=0.12,<0.13"]
+build-backend = "maturin"
+
+[project.urls]
+homepage = "https://open.longbridgeapp.com/en/"
+documentation = "readthedocs.org"
+repository = "https://github.com/longbridgeapp/openapi-sdk"
+changelog = "https://github.com/longbridgeapp/openapi-sdk/blob/master/python/CHAGELOG.md"

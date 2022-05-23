@@ -1,0 +1,7 @@
+extend = [{ path = "rust/Makefile.toml" }, { path = "python/Makefile.toml" }]
+
+[config]
+default_to_workspace = false
+skip_core_tasks = true
+
+[tasks.default]
