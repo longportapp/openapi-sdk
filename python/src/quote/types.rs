@@ -56,10 +56,10 @@ pub(crate) enum TradeSession {
     /// Trading
     #[py(from = "NormalTrade")]
     Normal,
-    /// Pre-Tradeing
+    /// Pre-Trading
     #[py(from = "PreTrade")]
     Pre,
-    /// Post-Tradeing
+    /// Post-Trading
     #[py(from = "PostTrade")]
     Post,
 }
@@ -148,11 +148,11 @@ pub(crate) enum WarrantType {
     Call,
     /// Put
     Put,
-    /// Call
+    /// Bull
     Bull,
-    /// Call
+    /// Bear
     Bear,
-    /// Call
+    /// Inline
     Inline,
 }
 
@@ -443,7 +443,7 @@ pub(crate) struct SecurityDepth {
 pub(crate) struct Brokers {
     /// Position
     position: i32,
-    /// Broker ID
+    /// Broker IDs
     broker_ids: Vec<i32>,
 }
 

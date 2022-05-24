@@ -6,7 +6,7 @@ use time::OffsetDateTime;
 
 use crate::quote::{cmd_code, Brokers, Depth, Trade};
 
-/// Push real-time quote
+/// Quote message
 #[derive(Debug, Clone)]
 pub struct PushQuote {
     /// Latest price
@@ -45,7 +45,7 @@ impl Default for PushQuote {
     }
 }
 
-/// Push real-time depth
+/// Depth message
 #[derive(Debug)]
 pub struct PushDepth {
     /// Ask depth
@@ -54,7 +54,7 @@ pub struct PushDepth {
     pub bids: Vec<Depth>,
 }
 
-/// Push real-time brokers
+/// Brokers message
 #[derive(Debug)]
 pub struct PushBrokers {
     /// Ask brokers
@@ -63,7 +63,7 @@ pub struct PushBrokers {
     pub bid_brokers: Vec<Brokers>,
 }
 
-/// Push real-time trades
+/// Trades message
 #[derive(Debug)]
 pub struct PushTrades {
     /// Trades data

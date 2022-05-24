@@ -69,7 +69,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     // Get basic information of securities
     let resp = quote_ctx
-        .quote(vec!["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+        .quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
         .await?;
     println!("{:?}", resp);
 
@@ -98,3 +98,10 @@ To avoid compiling unused dependencies, Poem gates certain features, all of whic
 | Feature  | Description                                                                                      |
 |----------|--------------------------------------------------------------------------------------------------|
 | blocking | Provides the [blocking](https://docs.rs/reqwest/0.11.10/reqwest/blocking/index.html) client API. |
+
+## License
+
+Licensed under either of
+
+* Apache License, Version 2.0,([LICENSE-APACHE](./LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
+* MIT license ([LICENSE-MIT](./LICENSE-MIT) or http://opensource.org/licenses/MIT) at your option.

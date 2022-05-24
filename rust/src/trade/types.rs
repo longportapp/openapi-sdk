@@ -96,13 +96,13 @@ pub enum OrderStatus {
     PendingCancel,
     /// Rejected
     #[strum(serialize = "RejectedStatus")]
-    RejectedStatus,
+    Rejected,
     /// Canceled
     #[strum(serialize = "CanceledStatus")]
-    CanceledStatus,
+    Canceled,
     /// Expired
     #[strum(serialize = "ExpiredStatus")]
-    ExpiredStatus,
+    Expired,
     /// Partial Withdrawal
     #[strum(serialize = "PartialWithdrawal")]
     PartialWithdrawal,
@@ -197,13 +197,13 @@ pub enum TriggerStatus {
     /// Not active
     #[strum(serialize = "NOT_ACTIVE")]
     NotActive,
-    /// Not active
+    /// Deactive
     #[strum(serialize = "DEACTIVE")]
     Deactive,
-    /// Not active
+    /// Active
     #[strum(serialize = "ACTIVE")]
     Active,
-    /// Not active
+    /// Released
     #[strum(serialize = "RELEASED")]
     Released,
 }

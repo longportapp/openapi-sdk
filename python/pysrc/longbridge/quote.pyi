@@ -8,7 +8,7 @@ from longbridge import Config, Market
 
 class PushQuote:
     """
-    Push real-time quote
+    Quote message
     """
 
     last_done: Decimal
@@ -59,7 +59,7 @@ class PushQuote:
 
 class PushDepth:
     """
-    Push real-time depth
+    Depth message
     """
 
     asks: List[Depth]
@@ -75,7 +75,7 @@ class PushDepth:
 
 class PushBrokers:
     """
-    Push real-time brokers
+    Brokers message
     """
 
     ask_brokers: List[Brokers]
@@ -91,7 +91,7 @@ class PushBrokers:
 
 class PushTrades:
     """
-    Push real-time trades
+    Trades message
     """
 
     trades: List[Trade]
@@ -340,7 +340,7 @@ class SecurityQuote:
     """
     Quote of securitity
     """
-    
+
     symbol: str
     """
     Security code
@@ -551,188 +551,561 @@ class OptionQuote:
 
 
 class WarrantType:
+    """
+    Warrant type
+    """
+
     class Unknown(WarrantType):
-        ...
+        """
+        Unknown
+        """
 
     class Call(WarrantType):
-        ...
+        """
+        Call
+        """
 
     class Put(WarrantType):
-        ...
+        """
+        Put
+        """
 
     class Bull(WarrantType):
-        ...
+        """
+        Bull
+        """
 
     class Bear(WarrantType):
-        ...
+        """
+        Bear
+        """
 
     class Inline(WarrantType):
-        ...
+        """
+        Inline
+        """
 
 
 class WarrantQuote:
+    """
+    Quote of warrant
+    """
+
     symbol: str
+    """
+    Security code
+    """
+
     last_done: Decimal
+    """
+    Latest price
+    """
+
     prev_close: Decimal
+    """
+    Yesterday's close
+    """
+
     open: Decimal
+    """
+    Open
+    """
+
     high: Decimal
+    """
+    High
+    """
+
     low: Decimal
+    """
+    Low
+    """
+
     timestamp: datetime
+    """
+    Time of latest price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     turnover: Decimal
+    """
+    Turnover
+    """
+
     trade_status: Type[TradeStatus]
+    """
+    Security trading status
+    """
+
     implied_volatility: Decimal
+    """
+    Implied volatility
+    """
+
     expiry_date: date
+    """
+    Exprity date
+    """
+
     last_trade_date: date
+    """
+    Last tradalbe date
+    """
+
     outstanding_ratio: Decimal
+    """
+    Outstanding ratio
+    """
+
     outstanding_qty: int
+    """
+    Outstanding quantity
+    """
+
     conversion_ratio: Decimal
+    """
+    Conversion ratio
+    """
+
     category: Type[WarrantType]
+    """
+    Warrant type
+    """
+
     strike_price: Decimal
+    """
+    Strike price
+    """
+
     upper_strike_price: Decimal
+    """
+    Upper bound price
+    """
+
     lower_strike_price: Decimal
+    """
+    Lower bound price
+    """
+
     call_price: Decimal
+    """
+    Call price
+    """
+
     underlying_symbol: str
+    """
+    Underlying security symbol of the warrant
+    """
 
 
 class Depth:
+    """
+    Depth
+    """
+
     position: int
+    """
+    Position
+    """
+
     price: Decimal
+    """
+    Price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     order_num: int
+    """
+    Number of orders
+    """
 
 
 class SecuritiyDepth:
+    """
+    Security depth
+    """
+
     asks: List[Depth]
+    """
+    Ask depth
+    """
+
     asks: List[Depth]
+    """
+    Bid depth
+    """
 
 
 class Brokers:
+    """
+    Brokers
+    """
+
     position: int
+    """
+    Position
+    """
+
     broker_ids: List[int]
+    """
+    Broker IDs
+    """
 
 
 class SecurityBrokers:
+    """
+    Security brokers
+    """
+
     ask_brokers: List[Brokers]
+    """
+    Ask brokers
+    """
+
     bid_brokers: List[Brokers]
+    """
+    Bid brokers
+    """
 
 
 class ParticipantInfo:
+    """
+    Participant info
+    """
+
     broker_ids: List[int]
+    """
+    Broker IDs
+    """
+
     name_cn: str
+    """
+    Participant name (zh-CN)
+    """
+
     name_en: str
+    """
+    Participant name (en)
+    """
+
     name_hk: str
+    """
+    Participant name (zh-HK)
+    """
 
 
 class TradeDirection:
+    """
+    Trade direction
+    """
+
     class Nature(TradeDirection):
-        ...
+        """
+        Nature
+        """
 
     class Down(TradeDirection):
-        ...
+        """
+        Down
+        """
 
     class Up(TradeDirection):
-        ...
+        """
+        Up
+        """
 
 
 class TradeSession:
+    """
+    Trade session
+    """
+
     class Normal(TradeSession):
-        ...
+        """
+        Trading
+        """
 
     class Pre(TradeSession):
-        ...
+        """
+        Pre-Trading
+        """
 
     class Post(TradeSession):
-        ...
+        """
+        Post-Trading
+        """
 
 
 class Trade:
+    """
+    Trade
+    """
+
     price: Decimal
+    """
+    Price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     timestamp: datetime
+    """
+    Time of trading
+    """
+
     trade_type: str
+    """
+    Trade type
+    """
+
     direction: Type[TradeDirection]
+    """
+    Trade direction
+    """
+
     trade_session: Type[TradeSession]
+    """
+    Trade session
+    """
 
 
 class IntradayLine:
+    """
+    Intraday line
+    """
+
     price: Decimal
+    """
+    Close price of the minute
+    """
+
     timestamp: datetime
+    """
+    Start time of the minute
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     turnover: Decimal
+    """
+    Turnover
+    """
+
     avg_price: Decimal
+    """
+    Average price
+    """
 
 
 class Candlestick:
+    """
+    Candlestick
+    """
+
     close: Decimal
+    """
+    Close price
+    """
+
     open: Decimal
+    """
+    Open price
+    """
+
     low: Decimal
+    """
+    Low price
+    """
+
     high: Decimal
+    """
+    High price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     turnover: Decimal
+    """
+    Turnover
+    """
+
     timestamp: datetime
+    """
+    Timestamp
+    """
 
 
 class AdjustType:
+    """
+    Candlestick adjustment type
+    """
+
     class NoAdjust(AdjustType):
-        ...
+        """
+        Actual
+        """
 
     class ForwardAdjust(AdjustType):
-        ...
+        """
+        Adjust forward
+        """
 
 
 class Period:
+    """
+    Candlestick period
+    """
+
     class Min_1(Period):
-        ...
+        """
+        One Minute
+        """
 
     class Min_5(Period):
-        ...
+        """
+        Five Minutes
+        """
 
     class Min_15(Period):
-        ...
+        """
+        Fifteen Minutes
+        """
 
     class Min_30(Period):
-        ...
+        """
+        Thirty Minutes
+        """
 
     class Min_60(Period):
-        ...
+        """
+        Sixty Minutes
+        """
 
     class Day(Period):
-        ...
+        """
+        One Days
+        """
 
     class Week(Period):
-        ...
+        """
+        One Week
+        """
 
     class Month(Period):
-        ...
+        """
+        One Month
+        """
 
     class Year(Period):
-        ...
+        """
+        One Year
+        """
 
 
 class StrikePriceInfo:
+    """
+    Strike price info
+    """
+
     price: Decimal
+    """
+    Strike price
+    """
+
     call_symbol: str
+    """
+    Security code of call option
+    """
+
     put_symbol: str
+    """
+    Security code of put option
+    """
+
     standard: bool
+    """
+    Is standard
+    """
 
 
 class IssuerInfo:
+    """
+    Issuer info
+    """
+
     issuer_id: int
+    """
+    Issuer ID
+    """
+
     name_cn: str
+    """
+    Issuer name (zh-CN)
+    """
+
     name_en: str
+    """
+    Issuer name (en)
+    """
+
     name_hk: str
+    """
+    Issuer name (zh-HK)
+    """
 
 
 class TradingSessionInfo:
+    """
+    The information of trading session
+    """
+
     begin_time: time
+    """
+    Being trading time
+    """
+
     end_time: time
+    """
+    End trading time
+    """
+
     trade_session: Type[TradeSession]
+    """
+    Trading session
+    """
 
 
 class MarketTradingSession:
+    """
+    Market trading session
+    """
+
     market: Type[Market]
+    """
+    Market
+    """
+
     trade_session: List[TradingSessionInfo]
+    """
+    Trading session
+    """
 
 
 class MarketTradingDays:
@@ -741,15 +1114,54 @@ class MarketTradingDays:
 
 
 class RealtimeQuote:
+    """
+    Real-time quote
+    """
+
     symbol: str
+    """
+    Security code
+    """
+
     last_done: Decimal
+    """
+    Latest price
+    """
+
     open: Decimal
+    """
+    Open
+    """
+
     high: Decimal
+    """
+    High
+    """
+
     low: Decimal
+    """
+    Low
+    """
+
     timestamp: datetime
+    """
+    Time of latest price
+    """
+
     volume: int
+    """
+    Volume
+    """
+
     turnover: Decimal
+    """
+    Turnover
+    """
+
     trade_status: Type[TradeStatus]
+    """
+    Security trading status
+    """
 
 
 class QuoteContext:

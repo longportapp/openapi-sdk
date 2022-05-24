@@ -26,7 +26,7 @@ impl TryFrom<quote::Depth> for Depth {
     fn try_from(depth: quote::Depth) -> Result<Self, Self::Error> {
         Ok(Self {
             position: depth.position,
-            price: depth.price.parse()?,
+            price: depth.price.parse().unwrap_or_default(),
             volume: depth.volume,
             order_num: depth.order_num,
         })
@@ -38,7 +38,7 @@ impl TryFrom<quote::Depth> for Depth {
 pub struct Brokers {
     /// Position
     pub position: i32,
-    /// Broker ID
+    /// Broker IDs
     pub broker_ids: Vec<i32>,
 }
 
@@ -378,7 +378,10 @@ impl TryFrom<quote::OptionQuote> for OptionQuote {
             contract_type: option_extend.contract_type.parse().unwrap_or_default(),
             contract_size: option_extend.contract_size.parse().unwrap_or_default(),
             direction: option_extend.contract_type.parse().unwrap_or_default(),
-            historical_volatility: option_extend.historical_volatility.parse()?,
+            historical_volatility: option_extend
+                .historical_volatility
+                .parse()
+                .unwrap_or_default(),
             underlying_symbol: option_extend.underlying_symbol,
         })
     }
@@ -395,11 +398,11 @@ pub enum WarrantType {
     Call = 0,
     /// Put
     Put = 1,
-    /// Call
+    /// Bull
     Bull = 2,
-    /// Call
+    /// Bear
     Bear = 3,
-    /// Call
+    /// Inline
     Inline = 4,
 }
 
@@ -556,11 +559,11 @@ impl TryFrom<quote::Line> for IntradayLine {
 
     fn try_from(value: quote::Line) -> Result<Self, Self::Error> {
         Ok(Self {
-            price: value.price.parse()?,
+            price: value.price.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)?,
             volume: value.volume,
-            turnover: value.turnover.parse()?,
-            avg_price: value.avg_price.parse()?,
+            turnover: value.turnover.parse().unwrap_or_default(),
+            avg_price: value.avg_price.parse().unwrap_or_default(),
         })
     }
 }
@@ -589,10 +592,10 @@ impl TryFrom<quote::Candlestick> for Candlestick {
 
     fn try_from(value: quote::Candlestick) -> Result<Self, Self::Error> {
         Ok(Self {
-            close: value.close.parse()?,
-            open: value.open.parse()?,
-            low: value.low.parse()?,
-            high: value.high.parse()?,
+            close: value.close.parse().unwrap_or_default(),
+            open: value.open.parse().unwrap_or_default(),
+            low: value.low.parse().unwrap_or_default(),
+            high: value.high.parse().unwrap_or_default(),
             volume: value.volume,
             turnover: value.turnover.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)?,
@@ -618,7 +621,7 @@ impl TryFrom<quote::StrikePriceInfo> for StrikePriceInfo {
 
     fn try_from(value: quote::StrikePriceInfo) -> Result<Self, Self::Error> {
         Ok(Self {
-            price: value.price.parse()?,
+            price: value.price.parse().unwrap_or_default(),
             call_symbol: value.call_symbol,
             put_symbol: value.put_symbol,
             standard: value.standard,

@@ -9,7 +9,7 @@ use crate::trade::{
     cmd_code, serde_utils, OrderSide, OrderStatus, OrderTag, OrderType, TriggerStatus,
 };
 
-/// Order changed notification
+/// Order changed message
 #[derive(Debug, Deserialize)]
 pub struct PushOrderChanged {
     /// Order side

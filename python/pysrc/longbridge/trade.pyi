@@ -2,230 +2,577 @@ from datetime import datetime, date
 from decimal import Decimal
 from typing import Any, List, Optional
 from typing_extensions import Protocol
-from longbridge_sdk import Config, Market
+from longbridge import Config, Market
 
 
 class OrderSide:
+    """
+    Order side
+    """
+
     class Unknown(OrderSide):
-        ...
+        """
+        Unknown
+        """
 
     class Buy(OrderSide):
-        ...
+        """
+        Buy
+        """
 
     class Sell(OrderSide):
-        ...
+        """
+        Sell
+        """
 
 
 class OrderType:
+    """
+    Order type
+    """
+
     class Unknown(OrderType):
-        ...
+        """
+        Unknown
+        """
 
     class Limit(OrderType):
-        ...
+        """
+        Limit Order
+        """
 
     class EnhancedLimit(OrderType):
-        ...
+        """
+        Enhanced Limit Order
+        """
 
     class Market(OrderType):
-        ...
+        """
+        Market Order
+        """
 
     class AtAuction(OrderType):
-        ...
+        """
+        At-auction Order
+        """
 
     class AtAuctionLimit(OrderType):
-        ...
+        """
+        At-auction Limit Order
+        """
 
     class OddLots(OrderType):
-        ...
+        """
+        Odd Lots
+        """
 
     class LimitIfTouched(OrderType):
-        ...
+        """
+        Limit If Touched
+        """
 
     class MarketIfTouched(OrderType):
-        ...
+        """
+        Market If Touched
+        """
 
     class TrailingLimitIfTouchedAmount(OrderType):
-        ...
+        """
+        Trailing Limit If Touched (Trailing Amount)
+        """
 
     class TrailingLimitIfTouchedPercent(OrderType):
-        ...
+        """
+        Trailing Limit If Touched (Trailing Percent)
+        """
 
     class TrailingMarketIfTouchedAmount(OrderType):
-        ...
+        """
+        Trailing Market If Touched (Trailing Amount)
+        """
 
     class TrailingMarketIfTouchedPercent(OrderType):
-        ...
+        """
+        Trailing Market If Touched (Trailing Percent)
+        """
 
 
 class OrderStatus:
+    """
+    Order status
+    """
+
     class Unknown(OrderStatus):
-        ...
+        """
+        Unknown
+        """
 
     class NotReported(OrderStatus):
-        ...
+        """
+        Not reported
+        """
 
     class ReplacedNotReported(OrderStatus):
-        ...
+        """
+        Not reported (Replaced Order)
+        """
 
     class ProtectedNotReported(OrderStatus):
-        ...
+        """
+        Not reported (Protected Order)
+        """
 
     class VarietiesNotReported(OrderStatus):
-        ...
+        """
+        Not reported (Conditional Order)
+        """
 
     class Filled(OrderStatus):
-        ...
+        """
+        Filled
+        """
 
     class WaitToNew(OrderStatus):
-        ...
+        """
+        Wait To New
+        """
 
     class New(OrderStatus):
-        ...
+        """
+        New
+        """
 
     class WaitToReplace(OrderStatus):
-        ...
+        """
+        Wait To Replace
+        """
 
     class PendingReplace(OrderStatus):
-        ...
+        """
+        Pending Replace
+        """
 
     class Replaced(OrderStatus):
-        ...
+        """
+        Replaced
+        """
 
     class PartialFilled(OrderStatus):
-        ...
+        """
+        Partial Filled
+        """
 
     class WaitToCancel(OrderStatus):
-        ...
+        """
+        Wait To Cancel
+        """
 
     class PendingCancel(OrderStatus):
-        ...
+        """
+        Pending Cancel
+        """
 
-    class RejectedStatus(OrderStatus):
-        ...
+    class Rejected(OrderStatus):
+        """
+        Rejected
+        """
 
-    class CanceledStatus(OrderStatus):
-        ...
+    class Canceled(OrderStatus):
+        """
+        Canceled
+        """
 
-    class ExpiredStatus(OrderStatus):
-        ...
+    class Expired(OrderStatus):
+        """
+        ExpiredStatus
+        """
 
     class PartialWithdrawal(OrderStatus):
-        ...
+        """
+        PartialWithdrawal
+        """
 
 
 class OrderTag:
+    """
+    Order tag
+    """
+
     class Unknown(OrderTag):
-        ...
+        """
+        Unknown
+        """
 
     class Buy(OrderTag):
-        ...
+        """
+        Buy
+        """
 
     class Sell(OrderTag):
-        ...
+        """
+        Sell
+        """
 
 
 class TriggerStatus:
+    """
+    Trigger status
+    """
+
     class Unknown(TriggerStatus):
-        ...
+        """
+        Unknown
+        """
 
     class NotActive(TriggerStatus):
-        ...
+        """
+        Not active
+        """
 
     class Deactive(TriggerStatus):
-        ...
+        """
+        Deactive
+        """
 
     class Active(TriggerStatus):
-        ...
+        """
+        Active
+        """
 
     class Released(TriggerStatus):
-        ...
+        """
+        Released
+        """
 
 
 class Trade:
+    """
+    Trade
+    """
+
     order_id: str
+    """
+    Order ID
+    """
+
     trade_id: str
+    """
+    Execution ID
+    """
+
     symbol: str
+    """
+    Security code
+    """
+
     trade_done_at: datetime
+    """
+    Trade done time
+    """
+
     quantity: Decimal
+    """
+    Executed quantity
+    """
+
     price: Decimal
+    """
+    Executed price
+    """
 
 
 class PushOrderChanged:
+    """
+    Order changed message
+    """
+
     side: OrderSide
+    """
+    Order side
+    """
+
     stock_name: str
+    """
+    Stock name
+    """
+
     quantity: str
+    """
+    Submitted quantity
+    """
+
     symbol: str
+    """
+    Order symbol
+    """
+
     order_type: OrderType
+    """
+    Order type
+    """
+
     price: Decimal
+    """
+    Submitted price
+    """
+
     executed_quantity: int
+    """
+    Executed quantity
+    """
+
     executed_price: Decimal
+    """
+    Executed price
+    """
+
     order_id: str
+    """
+    Order ID
+    """
+
     currency: str
+    """
+    Currency
+    """
+
     status: OrderStatus
+    """
+    Order status
+    """
+
     submitted_at: datetime
+    """
+    Submitted time
+    """
+
     updated_at: datetime
+    """
+    Last updated time
+    """
+
     trigger_price: Optional[Decimal]
+    """
+    Order trigger price
+    """
+
     msg: Optional[str]
+    """
+    Rejected message or remark
+    """
+
     tag: OrderTag
+    """
+    Order tag
+    """
+
     trigger_status: Optional[TriggerStatus]
+    """
+    Conditional order trigger status
+    """
+
     trigger_at: Optional[datetime]
+    """
+    Conditional order trigger time
+    """
+
     trailing_amount: Optional[Decimal]
+    """
+    Trailing amount
+    """
+
     trailing_percent: Optional[Decimal]
+    """
+    Trailing percent
+    """
+
     limit_offset: Optional[Decimal]
+    """
+    Limit offset amount
+    """
+
     account_no: str
+    """
+    Account no
+    """
 
 
 class TimeInForceType:
+    """
+    Time in force type
+    """
+
     class Unknown(TimeInForceType):
-        ...
+        """
+        Unknown
+        """
 
     class Day(TimeInForceType):
-        ...
+        """
+        Day Order
+        """
 
     class GoodTilCanceled(TimeInForceType):
-        ...
+        """
+        Good Til Canceled Order
+        """
 
     class GoodTilDate(TimeInForceType):
-        ...
+        """
+        Good Til Date Order
+        """
 
 
 class OutsideRTH:
+    """
+    Enable or disable outside regular trading hours
+    """
+
     class Unknown(OutsideRTH):
-        ...
+        """
+        Unknown
+        """
 
     class RTHOnly(OutsideRTH):
-        ...
+        """
+        Regular trading hour only
+        """
 
     class AnyTime(OutsideRTH):
-        ...
+        """
+        Any time
+        """
 
 
 class Order:
+    """
+    Order
+    """
+
     order_id: str
+    """
+    Order ID
+    """
+
     status: OrderStatus
+    """
+    Order status
+    """
+
     stock_name: str
+    """
+    Stock name
+    """
+
     quantity: Decimal
+    """
+    Submitted quantity
+    """
+
     executed_qty: Decimal
+    """
+    Executed quantity
+    """
+
     price: Optional[Decimal]
+    """
+    Submitted price
+    """
+
     executed_price: Optional[Decimal]
+    """
+    Executed price
+    """
+
     submitted_at: Optional[datetime]
+    """
+    Submitted time
+    """
+
     side: OrderSide
+    """
+    Order side
+    """
+
     symbol: str
+    """
+    Security code
+    """
+
     order_type: OrderType
+    """
+    Order type
+    """
+
     last_done: Optional[Decimal]
+    """
+    Last done
+    """
+
     trigger_price: Optional[Decimal]
+    """
+    `LIT` / `MIT` Order Trigger Price
+    """
+
     msg: Optional[str]
+    """
+    Rejected Message or remark
+    """
+
     tag: OrderTag
+    """
+    Order tag
+    """
+
     time_in_force: TimeInForceType
+    """
+    Time in force type
+    """
+
     expire_date: Optional[date]
+    """
+    Long term order expire date
+    """
+
     updated_at: Optional[datetime]
+    """
+    Last updated time
+    """
+
     trigger_at: Optional[datetime]
+    """
+    Conditional order trigger time
+    """
+
     trailing_amount: Optional[Decimal]
+    """
+    `TSMAMT` / `TSLPAMT` order trailing amount
+    """
+
     trailing_percent: Optional[Decimal]
+    """
+    `TSMPCT` / `TSLPPCT` order trailing percent
+    """
+
     limit_offset: Optional[Decimal]
+    """
+    `TSLPAMT` / `TSLPPCT` order limit offset amount
+    """
+
     trigger_status: Optional[TriggerStatus]
+    """
+    Conditional order trigger status
+    """
+
     currency: str
+    """
+    Currency
+    """
+
     outside_rth: Optional[OutsideRTH]
+    """
+    Enable or disable outside regular trading hours
+    """
 
 
 class TradeHandler(Protocol):
@@ -240,7 +587,14 @@ class TradeHandler(Protocol):
 
 
 class SubmitOrderResponse:
+    """
+    Response for withdraw order request
+    """
+
     order_id: str
+    """
+    Order id
+    """
 
 
 class CashInfo:

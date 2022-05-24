@@ -52,8 +52,6 @@ impl HttpClientConfig {
                 name: "LONGBRIDGE_ACCESS_TOKEN",
             }
         })?;
-        // let access_token =
-        // std::env::var("LONGBRIDGE_HTTP_URL").unwrap_or_else(|| HTTP_URL.to_string());
         Ok(Self::new(app_key, app_secret, access_token))
     }
 

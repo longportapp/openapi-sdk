@@ -58,11 +58,11 @@ pub(crate) enum OrderStatus {
     /// Pending Cancel
     PendingCancel,
     /// Rejected
-    RejectedStatus,
+    Rejected,
     /// Canceled
-    CanceledStatus,
+    Canceled,
     /// Expired
-    ExpiredStatus,
+    Expired,
     /// Partial Withdrawal
     PartialWithdrawal,
 }
@@ -111,6 +111,7 @@ pub(crate) enum OrderType {
     TrailingMarketIfTouchedPercent,
 }
 
+/// Order tag
 #[pyclass]
 #[derive(Debug, PyEnum, Copy, Clone, Hash, Eq, PartialEq)]
 #[py(from = "longbridge::trade::OrderTag")]
@@ -125,6 +126,7 @@ pub(crate) enum OrderTag {
     Grey,
 }
 
+/// Time in force type
 #[pyclass]
 #[derive(Debug, PyEnum, Copy, Clone, Hash, Eq, PartialEq)]
 #[py(from = "longbridge::trade::TimeInForceType")]
@@ -148,11 +150,11 @@ pub enum TriggerStatus {
     Unknown,
     /// Not active
     NotActive,
-    /// Not active
+    /// Deactive
     Deactive,
-    /// Not active
+    /// Active
     Active,
-    /// Not active
+    /// Released
     Released,
 }
 
@@ -169,6 +171,7 @@ pub enum OutsideRTH {
     AnyTime,
 }
 
+/// Order
 #[pyclass]
 #[derive(Debug, PyObject)]
 #[py(from = "longbridge::trade::Order")]
@@ -239,6 +242,7 @@ pub(crate) struct Order {
     outside_rth: Option<OutsideRTH>,
 }
 
+/// Order changed message
 #[pyclass]
 #[derive(Debug, PyObject)]
 #[py(from = "longbridge::trade::PushOrderChanged")]
