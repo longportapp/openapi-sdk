@@ -1,7 +1,6 @@
 from datetime import datetime, date, time
 from decimal import Decimal
-from typing import List, Optional, Type
-from typing_extensions import Protocol
+from typing import List, Optional, Type, Protocol
 
 from longbridge import Config, Market
 
@@ -105,9 +104,9 @@ class QuoteHandler(Protocol):
     Quote push message handler
     """
 
-    def on_push(self, symbol: str, msg: PushQuote | PushDepth | PushBrokers | PushTrades) -> None:
+    def on_event(self, symbol: str, msg: PushQuote | PushDepth | PushBrokers | PushTrades) -> None:
         """
-        Push message callback
+        Called when a new message is received
         """
 
 

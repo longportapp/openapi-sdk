@@ -16,7 +16,7 @@ fn handle_quote(handler: &PyObject, symbol: String, quote: PushQuote) {
     let _ = Python::with_gil(|py| {
         handler.call_method1(
             py,
-            "on_push",
+            "on_event",
             (symbol, crate::quote::types::PushQuote::try_from(quote)?),
         )?;
         Ok::<_, PyErr>(())
@@ -27,7 +27,7 @@ fn handle_depth(handler: &PyObject, symbol: String, depth: PushDepth) {
     let _ = Python::with_gil(|py| {
         handler.call_method1(
             py,
-            "on_push",
+            "on_event",
             (symbol, crate::quote::types::PushDepth::try_from(depth)?),
         )?;
         Ok::<_, PyErr>(())
@@ -38,7 +38,7 @@ fn handle_brokers(handler: &PyObject, symbol: String, brokers: PushBrokers) {
     let _ = Python::with_gil(|py| {
         handler.call_method1(
             py,
-            "on_push",
+            "on_event",
             (symbol, crate::quote::types::PushBrokers::try_from(brokers)?),
         )?;
         Ok::<_, PyErr>(())
@@ -49,7 +49,7 @@ fn handle_trades(handler: &PyObject, symbol: String, trades: PushTrades) {
     let _ = Python::with_gil(|py| {
         handler.call_method1(
             py,
-            "on_push",
+            "on_event",
             (symbol, crate::quote::types::PushTrades::try_from(trades)?),
         )?;
         Ok::<_, PyErr>(())

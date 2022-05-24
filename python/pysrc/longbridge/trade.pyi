@@ -580,9 +580,9 @@ class TradeHandler(Protocol):
     Trade push message handler
     """
 
-    def on_push(self, symbol: str, msg: PushOrderChanged) -> None:
+    def on_event(self, symbol: str, msg: PushOrderChanged) -> None:
         """
-        Push message callback
+        Called when a new message is received
         """
 
 

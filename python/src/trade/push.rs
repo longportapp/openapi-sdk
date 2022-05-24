@@ -11,7 +11,7 @@ fn handle_order_changed(handler: &PyObject, order_changed: PushOrderChanged) {
     let _ = Python::with_gil(|py| {
         handler.call_method1(
             py,
-            "on_push",
+            "on_event",
             (crate::trade::types::PushOrderChanged::try_from(
                 order_changed,
             )?,),

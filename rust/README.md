@@ -22,7 +22,7 @@
 
 `longbridge` provides an easy-to-use interface for invokes [`Longbridge OpenAPI`](https://open.longbridgeapp.com/en/).
 
-# Quickstart
+## Quickstart
 
 _Add dependencies to `Cargo.toml`_
 
@@ -47,6 +47,8 @@ setx LONGBRIDGE_APP_SECRET "App Secret get from user center"
 setx LONGBRIDGE_ACCESS_TOKEN "Access Token get from user center"
 ```
 
+## Quote API _(Get basic information of securities)_
+
 ```rust,no_run
 use std::{error::Error, sync::Arc};
 
@@ -62,36 +64,85 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let config = Arc::new(Config::from_env()?);
 
     // Create a context for quote APIs
-    let (quote_ctx, _) = QuoteContext::try_new(config.clone()).await?;
-
-    // Create a context for trade APIs
-    let (trade_ctx, _) = TradeContext::try_new(config).await?;
+    let (ctx, _) = QuoteContext::try_new(config.clone()).await?;
 
     // Get basic information of securities
-    let resp = quote_ctx
+    let resp = ctx
         .quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
         .await?;
     println!("{:?}", resp);
+
+    Ok(())
+}
+```
+
+## Quote API _(Subscribe quotes)_
+
+```rust, no_run
+use std::sync::Arc;
+
+use anyhow::Result;
+use longbridge::{quote::SubFlags, Config, QuoteContext};
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    // Load configuration from environment variables
+    let config = Arc::new(Config::from_env()?);
+
+    // Create a context for quote APIs
+    let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+
+    // Subscribe
+    ctx.subscribe(["700.HK"], SubFlags::QUOTE, true).await?;
+
+    // Receive push events
+    while let Some(event) = receiver.recv().await {
+        println!("{:?}", event);
+    }
+
+    Ok(())
+}
+```
+
+## Trade API _(Submit order)_
+
+```rust, no_run
+use std::sync::Arc;
+
+use anyhow::Result;
+use longbridge::{
+    decimal,
+    trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType},
+    Config, TradeContext,
+};
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    // Load configuration from environment variables
+    let config = Arc::new(Config::from_env()?);
+
+    // Create a context for trade APIs
+    let (ctx, _) = TradeContext::try_new(config).await?;
 
     // Submit order
     let opts = SubmitOrderOptions::new(
         "700.HK",
         OrderType::Limit,
         OrderSide::Buy,
-        decimal!(50i32),
+        decimal!(500i32),
         TimeInForceType::Day,
     )
     .submitted_price(decimal!(50i32))
     .remark("Hello from Python SDK".to_string());
 
-    let resp = trade_ctx.submit_order(opts).await?;
-    print!("order id: {}", resp.order_id);
+    let resp = ctx.submit_order(opts).await?;
+    println!("{:?}", resp);
 
     Ok(())
 }
 ```
 
-# Crate features
+## Crate features
 
 To avoid compiling unused dependencies, Poem gates certain features, all of which are disabled by default:
 
