@@ -1,6 +1,5 @@
 import sys
 
-from .longbridge import *
+from .longbridge import openapi
 
-sys.modules['longbridge.trade'] = trade
-sys.modules['longbridge.quote'] = quote
+sys.modules['longbridge.openapi'] = openapi

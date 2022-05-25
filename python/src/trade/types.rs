@@ -82,33 +82,34 @@ pub(crate) enum OrderSide {
 #[pyclass]
 #[derive(Debug, PyEnum, Copy, Clone, Hash, Eq, PartialEq)]
 #[py(from = "longbridge::trade::OrderType")]
+#[allow(clippy::upper_case_acronyms)]
 pub(crate) enum OrderType {
     /// Unknown
     Unknown,
     /// Limit Order
-    Limit,
+    LO,
     /// Enhanced Limit Order
-    EnhancedLimit,
+    ELO,
     /// Market Order
-    Market,
+    MO,
     /// At-auction Order
-    AtAuction,
+    AO,
     /// At-auction Limit Order
-    AtAuctionLimit,
+    ALO,
     /// Odd Lots
-    OddLots,
+    ODD,
     /// Limit If Touched
-    LimitIfTouched,
+    LIT,
     /// Market If Touched
-    MarketIfTouched,
+    MIT,
     /// Trailing Limit If Touched (Trailing Amount)
-    TrailingLimitIfTouchedAmount,
+    TSLPAMT,
     /// Trailing Limit If Touched (Trailing Percent)
-    TrailingLimitIfTouchedPercent,
+    TSLPPCT,
     /// Trailing Market If Touched (Trailing Amount)
-    TrailingMarketIfTouchedAmount,
+    TSMAMT,
     /// Trailing Market If Touched (Trailing Percent)
-    TrailingMarketIfTouchedPercent,
+    TSMPCT,
 }
 
 /// Order tag

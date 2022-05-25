@@ -4,42 +4,38 @@ mod types;
 
 use pyo3::prelude::*;
 
-pub(crate) fn register_module(py: Python<'_>, parent: &PyModule) -> PyResult<()> {
-    let quote = PyModule::new(py, "quote")?;
+pub(crate) fn register_types(parent: &PyModule) -> PyResult<()> {
+    parent.add_class::<types::DerivativeType>()?;
+    parent.add_class::<types::TradeStatus>()?;
+    parent.add_class::<types::TradeSession>()?;
+    parent.add_class::<types::SubType>()?;
+    parent.add_class::<types::TradeDirection>()?;
+    parent.add_class::<types::OptionType>()?;
+    parent.add_class::<types::Period>()?;
+    parent.add_class::<types::AdjustType>()?;
+    parent.add_class::<types::SecuritiyStaticInfo>()?;
+    parent.add_class::<types::PrePostQuote>()?;
+    parent.add_class::<types::SecurityQuote>()?;
+    parent.add_class::<types::OptionQuote>()?;
+    parent.add_class::<types::WarrantQuote>()?;
+    parent.add_class::<types::Depth>()?;
+    parent.add_class::<types::SecurityDepth>()?;
+    parent.add_class::<types::Brokers>()?;
+    parent.add_class::<types::SecurityBrokers>()?;
+    parent.add_class::<types::ParticipantInfo>()?;
+    parent.add_class::<types::Trade>()?;
+    parent.add_class::<types::IntradayLine>()?;
+    parent.add_class::<types::Candlestick>()?;
+    parent.add_class::<types::StrikePriceInfo>()?;
+    parent.add_class::<types::IssuerInfo>()?;
+    parent.add_class::<types::TradingSessionInfo>()?;
+    parent.add_class::<types::MarketTradingSession>()?;
+    parent.add_class::<types::RealtimeQuote>()?;
+    parent.add_class::<types::PushQuote>()?;
+    parent.add_class::<types::PushDepth>()?;
+    parent.add_class::<types::PushBrokers>()?;
+    parent.add_class::<types::PushTrades>()?;
 
-    quote.add_class::<types::DerivativeType>()?;
-    quote.add_class::<types::TradeStatus>()?;
-    quote.add_class::<types::TradeSession>()?;
-    quote.add_class::<types::SubType>()?;
-    quote.add_class::<types::TradeDirection>()?;
-    quote.add_class::<types::OptionType>()?;
-    quote.add_class::<types::Period>()?;
-    quote.add_class::<types::AdjustType>()?;
-    quote.add_class::<types::SecuritiyStaticInfo>()?;
-    quote.add_class::<types::PrePostQuote>()?;
-    quote.add_class::<types::SecurityQuote>()?;
-    quote.add_class::<types::OptionQuote>()?;
-    quote.add_class::<types::WarrantQuote>()?;
-    quote.add_class::<types::Depth>()?;
-    quote.add_class::<types::SecurityDepth>()?;
-    quote.add_class::<types::Brokers>()?;
-    quote.add_class::<types::SecurityBrokers>()?;
-    quote.add_class::<types::ParticipantInfo>()?;
-    quote.add_class::<types::Trade>()?;
-    quote.add_class::<types::IntradayLine>()?;
-    quote.add_class::<types::Candlestick>()?;
-    quote.add_class::<types::StrikePriceInfo>()?;
-    quote.add_class::<types::IssuerInfo>()?;
-    quote.add_class::<types::TradingSessionInfo>()?;
-    quote.add_class::<types::MarketTradingSession>()?;
-    quote.add_class::<types::RealtimeQuote>()?;
-    quote.add_class::<types::PushQuote>()?;
-    quote.add_class::<types::PushDepth>()?;
-    quote.add_class::<types::PushBrokers>()?;
-    quote.add_class::<types::PushTrades>()?;
-
-    quote.add_class::<context::QuoteContext>()?;
-
-    parent.add_submodule(quote)?;
+    parent.add_class::<context::QuoteContext>()?;
     Ok(())
 }

@@ -127,7 +127,7 @@ async fn main() -> Result<()> {
     // Submit order
     let opts = SubmitOrderOptions::new(
         "700.HK",
-        OrderType::Limit,
+        OrderType::LO,
         OrderSide::Buy,
         decimal!(500i32),
         TimeInForceType::Day,

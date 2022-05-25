@@ -4,22 +4,18 @@ mod types;
 
 use pyo3::prelude::*;
 
-pub(crate) fn register_module(py: Python<'_>, parent: &PyModule) -> PyResult<()> {
-    let trade = PyModule::new(py, "trade")?;
+pub(crate) fn register_types(parent: &PyModule) -> PyResult<()> {
+    parent.add_class::<types::Trade>()?;
+    parent.add_class::<types::OrderStatus>()?;
+    parent.add_class::<types::OrderSide>()?;
+    parent.add_class::<types::OrderType>()?;
+    parent.add_class::<types::OrderTag>()?;
+    parent.add_class::<types::TimeInForceType>()?;
+    parent.add_class::<types::TriggerStatus>()?;
+    parent.add_class::<types::OutsideRTH>()?;
+    parent.add_class::<types::Order>()?;
+    parent.add_class::<types::PushOrderChanged>()?;
 
-    trade.add_class::<types::Trade>()?;
-    trade.add_class::<types::OrderStatus>()?;
-    trade.add_class::<types::OrderSide>()?;
-    trade.add_class::<types::OrderType>()?;
-    trade.add_class::<types::OrderTag>()?;
-    trade.add_class::<types::TimeInForceType>()?;
-    trade.add_class::<types::TriggerStatus>()?;
-    trade.add_class::<types::OutsideRTH>()?;
-    trade.add_class::<types::Order>()?;
-    trade.add_class::<types::PushOrderChanged>()?;
-
-    trade.add_class::<context::TradeContext>()?;
-
-    parent.add_submodule(trade)?;
+    parent.add_class::<context::TradeContext>()?;
     Ok(())
 }

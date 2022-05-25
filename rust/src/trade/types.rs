@@ -7,46 +7,47 @@ use crate::trade::serde_utils;
 
 /// Order type
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+#[allow(clippy::upper_case_acronyms)]
 pub enum OrderType {
     /// Unknown
     #[strum(disabled)]
     Unknown,
     /// Limit Order
     #[strum(serialize = "LO")]
-    Limit,
+    LO,
     /// Enhanced Limit Order
     #[strum(serialize = "ELO")]
-    EnhancedLimit,
+    ELO,
     /// Market Order
     #[strum(serialize = "MO")]
-    Market,
+    MO,
     /// At-auction Order
     #[strum(serialize = "AO")]
-    AtAuction,
+    AO,
     /// At-auction Limit Order
     #[strum(serialize = "ALO")]
-    AtAuctionLimit,
+    ALO,
     /// Odd Lots
     #[strum(serialize = "ODD")]
-    OddLots,
+    ODD,
     /// Limit If Touched
     #[strum(serialize = "LIT")]
-    LimitIfTouched,
+    LIT,
     /// Market If Touched
     #[strum(serialize = "MIT")]
-    MarketIfTouched,
+    MIT,
     /// Trailing Limit If Touched (Trailing Amount)
     #[strum(serialize = "TSLPAMT")]
-    TrailingLimitIfTouchedAmount,
+    TSLPAMT,
     /// Trailing Limit If Touched (Trailing Percent)
     #[strum(serialize = "TSLPPCT")]
-    TrailingLimitIfTouchedPercent,
+    TSLPPCT,
     /// Trailing Market If Touched (Trailing Amount)
     #[strum(serialize = "TSMAMT")]
-    TrailingMarketIfTouchedAmount,
+    TSMAMT,
     /// Trailing Market If Touched (Trailing Percent)
     #[strum(serialize = "TSMPCT")]
-    TrailingMarketIfTouchedPercent,
+    TSMPCT,
 }
 
 /// Order status

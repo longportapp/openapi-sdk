@@ -29,7 +29,8 @@ setx LONGBRIDGE_ACCESS_TOKEN "Access Token get from user center"
 ## Quote API _(Get basic information of securities)_
 
 ```python
-from longbridge.openapi import Config, QuoteContext
+from longbridge import Config
+from longbridge.quote import QuoteContext
 
 # Load configuration from environment variables
 config = Config.from_env()
@@ -46,7 +47,8 @@ print(resp)
 
 ```python
 from time import sleep
-from longbridge.openapi import Config, QuoteContext, SubType, PushQuote
+from longbridge import Config
+from longbridge.quote import QuoteContext, SubType, PushQuote
 
 # Load configuration from environment variables
 config = Config.from_env()
@@ -79,5 +81,5 @@ sleep(30)
 
 Licensed under either of
 
-* Apache License, Version 2.0,([LICENSE-APACHE](./LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
-* MIT license ([LICENSE-MIT](./LICENSE-MIT) or http://opensource.org/licenses/MIT) at your option.
+* Apache License, Version 2.0 ([LICENSE-APACHE](http://www.apache.org/licenses/LICENSE-2.0))
+* MIT license [LICENSE-MIT](http://opensource.org/licenses/MIT) at your option.

@@ -1,0 +1,36 @@
+site_name: Longbridge OpenAPI SDK
+docs_dir: docs
+
+theme:
+  name: readthedocs
+
+nav:
+  - Index: index.md
+  - Code Reference:
+      - Config: config.md
+      - QuoteContext: quote_context.md
+      - TradeContext: trade_context.md
+      - All: reference_all.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+          selection:
+            docstring_style: google
+          rendering:
+            show_source: false
+            show_signature: true
+            show_if_no_docstring: false
+            show_signature_annotations: true
+            members_order: source

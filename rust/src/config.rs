@@ -36,7 +36,7 @@ impl Config {
     /// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
     /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
     /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url
-    /// - `LONGBRIDGE_TRADE_WS_URL` - Trafe websocket endpoint url
+    /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
     pub fn from_env() -> Result<Self> {
         let http_cli_config = HttpClientConfig::from_env()?;
         let mut config = Config {
