@@ -33,7 +33,7 @@ impl QuoteContext {
         Ok(Self(ctx))
     }
 
-    /// Subscribe quote
+    /// Subscribe
     #[args(is_first_push = false)]
     fn subscribe(
         &self,
@@ -46,7 +46,7 @@ impl QuoteContext {
         Ok(())
     }
 
-    /// Unsubscribe quote
+    /// Unsubscribe
     fn unsubscribe(&self, symbols: Vec<String>, sub_types: Vec<SubType>) -> PyResult<()> {
         self.0.unsubscribe(symbols, SubTypes(sub_types))?;
         Ok(())

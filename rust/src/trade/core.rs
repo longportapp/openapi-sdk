@@ -6,7 +6,7 @@ use longbridge_wscli::{CodecType, Platform, ProtocolVersion, WsClient, WsEvent, 
 use tokio::sync::{mpsc, oneshot};
 
 use crate::{
-    trade::{cmd_code, PushEvent},
+    trade::{cmd_code, PushEvent, TopicType},
     Config,
 };
 
@@ -14,11 +14,11 @@ const RECONNECT_DELAY: Duration = Duration::from_secs(2);
 
 pub(crate) enum Command {
     Subscribe {
-        topics: Vec<String>,
+        topics: Vec<TopicType>,
         reply_tx: oneshot::Sender<Result<()>>,
     },
     Unsubscribe {
-        topics: Vec<String>,
+        topics: Vec<TopicType>,
         reply_tx: oneshot::Sender<Result<()>>,
     },
 }
@@ -194,11 +194,9 @@ impl Core {
         }
     }
 
-    async fn handle_subscribe(&mut self, topics: Vec<String>) -> Result<()> {
-        tracing::debug!(topics = ?topics, "subscribe");
-
+    async fn handle_subscribe(&mut self, topics: Vec<TopicType>) -> Result<()> {
         let req = Sub {
-            topics: topics.clone(),
+            topics: topics.iter().map(ToString::to_string).collect(),
         };
         let resp: SubResponse = self.ws_cli.request(cmd_code::SUBSCRIBE, None, req).await?;
         self.subscriptions = resp.current.into_iter().collect();
@@ -206,11 +204,9 @@ impl Core {
         Ok(())
     }
 
-    async fn handle_unsubscribe(&mut self, topics: Vec<String>) -> Result<()> {
-        tracing::debug!(topics = ?topics, "unsubscribe");
-
+    async fn handle_unsubscribe(&mut self, topics: Vec<TopicType>) -> Result<()> {
         let req = Unsub {
-            topics: topics.clone(),
+            topics: topics.iter().map(ToString::to_string).collect(),
         };
         let resp: UnsubResponse = self
             .ws_cli

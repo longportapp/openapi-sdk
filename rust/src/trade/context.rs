@@ -10,9 +10,9 @@ use crate::{
     trade::{
         core::{Command, Core},
         AccountBalance, CashFlow, Execution, FundPositionsResponse, GetCashFlowOptions,
-        GetHistoryExecutionsOptions, GetHistoryOrdersOptions, GetTodayExecutionsOptions,
-        GetTodayOrdersOptions, Order, PushEvent, ReplaceOrderOptions, StockPositionsResponse,
-        SubmitOrderOptions,
+        GetFundPositionsOptions, GetHistoryExecutionsOptions, GetHistoryOrdersOptions,
+        GetStockPositionsOptions, GetTodayExecutionsOptions, GetTodayOrdersOptions, Order,
+        PushEvent, ReplaceOrderOptions, StockPositionsResponse, SubmitOrderOptions, TopicType,
     },
     Config,
 };
@@ -49,36 +49,34 @@ impl TradeContext {
         ))
     }
 
-    /// Subscribe topics
+    /// Subscribe
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/trade-push#subscribe>
-    pub async fn subscribe<I, T>(&self, topics: I) -> Result<()>
+    pub async fn subscribe<I>(&self, topics: I) -> Result<()>
     where
-        I: IntoIterator<Item = T>,
-        T: Into<String>,
+        I: IntoIterator<Item = TopicType>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
         self.command_tx
             .send(Command::Subscribe {
-                topics: topics.into_iter().map(Into::into).collect(),
+                topics: topics.into_iter().collect(),
                 reply_tx,
             })
             .map_err(|_| WsClientError::ClientClosed)?;
         reply_rx.await.map_err(|_| WsClientError::ClientClosed)?
     }
 
-    /// Unsubscribe topics
+    /// Unsubscribe
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/trade-push#cancel-subscribe>
-    pub async fn unsubscribe<I, T>(&self, topics: I) -> Result<()>
+    pub async fn unsubscribe<I>(&self, topics: I) -> Result<()>
     where
-        I: IntoIterator<Item = T>,
-        T: Into<String>,
+        I: IntoIterator<Item = TopicType>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
         self.command_tx
             .send(Command::Unsubscribe {
-                topics: topics.into_iter().map(Into::into).collect(),
+                topics: topics.into_iter().collect(),
                 reply_tx,
             })
             .map_err(|_| WsClientError::ClientClosed)?;
@@ -88,9 +86,34 @@ impl TradeContext {
     /// Get history executions
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/execution/history_executions>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetHistoryExecutionsOptions, TradeContext},
+    ///     Config,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetHistoryExecutionsOptions::new()
+    ///     .symbol("700.HK")
+    ///     .start_at(datetime!(2022-05-09 0:00 UTC))
+    ///     .end_at(datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.history_executions(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn history_executions(
         &self,
-        options: Option<GetHistoryExecutionsOptions>,
+        options: impl Into<Option<GetHistoryExecutionsOptions>>,
     ) -> Result<Vec<Execution>> {
         #[derive(Deserialize)]
         struct Response {
@@ -100,7 +123,7 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/trade/execution/history")
-            .query_params(options.unwrap_or_default())
+            .query_params(options.into().unwrap_or_default())
             .response::<Response>()
             .send()
             .await?
@@ -110,9 +133,30 @@ impl TradeContext {
     /// Get today executions
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/execution/today_executions>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetTodayExecutionsOptions, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetTodayExecutionsOptions::new().symbol("700.HK");
+    /// let resp = ctx.today_executions(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn today_executions(
         &self,
-        options: Option<GetTodayExecutionsOptions>,
+        options: impl Into<Option<GetTodayExecutionsOptions>>,
     ) -> Result<Vec<Execution>> {
         #[derive(Deserialize)]
         struct Response {
@@ -122,7 +166,7 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/trade/execution/today")
-            .query_params(options.unwrap_or_default())
+            .query_params(options.into().unwrap_or_default())
             .response::<Response>()
             .send()
             .await?
@@ -132,9 +176,37 @@ impl TradeContext {
     /// Get history orders
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/order/history_orders>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetHistoryOrdersOptions, OrderSide, OrderStatus, TradeContext},
+    ///     Config, Market,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetHistoryOrdersOptions::new()
+    ///     .symbol("700.HK")
+    ///     .status([OrderStatus::Filled, OrderStatus::New])
+    ///     .side(OrderSide::Buy)
+    ///     .market(Market::HK)
+    ///     .start_at(datetime!(2022-05-09 0:00 UTC))
+    ///     .end_at(datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.history_orders(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn history_orders(
         &self,
-        options: Option<GetHistoryOrdersOptions>,
+        options: impl Into<Option<GetHistoryOrdersOptions>>,
     ) -> Result<Vec<Order>> {
         #[derive(Deserialize)]
         struct Response {
@@ -144,7 +216,7 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/trade/order/history")
-            .query_params(options.unwrap_or_default())
+            .query_params(options.into().unwrap_or_default())
             .response::<Response>()
             .send()
             .await?
@@ -154,7 +226,35 @@ impl TradeContext {
     /// Get today orders
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/order/today_orders>
-    pub async fn today_orders(&self, options: Option<GetTodayOrdersOptions>) -> Result<Vec<Order>> {
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetTodayOrdersOptions, OrderSide, OrderStatus, TradeContext},
+    ///     Config, Market,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetTodayOrdersOptions::new()
+    ///     .symbol("700.HK")
+    ///     .status([OrderStatus::Filled, OrderStatus::New])
+    ///     .side(OrderSide::Buy)
+    ///     .market(Market::HK);
+    /// let resp = ctx.today_orders(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
+    pub async fn today_orders(
+        &self,
+        options: impl Into<Option<GetTodayOrdersOptions>>,
+    ) -> Result<Vec<Order>> {
         #[derive(Deserialize)]
         struct Response {
             orders: Vec<Order>,
@@ -163,7 +263,7 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/trade/order/today")
-            .query_params(options.unwrap_or_default())
+            .query_params(options.into().unwrap_or_default())
             .response::<Response>()
             .send()
             .await?
@@ -171,6 +271,31 @@ impl TradeContext {
     }
 
     /// Replace order
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/order/replace>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     decimal,
+    ///     trade::{ReplaceOrderOptions, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts =
+    ///     ReplaceOrderOptions::new("709043056541253632", decimal!(100i32)).price(decimal!(300i32));
+    /// let resp = ctx.replace_order(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn replace_order(&self, options: ReplaceOrderOptions) -> Result<()> {
         Ok(self
             .http_cli
@@ -181,6 +306,37 @@ impl TradeContext {
     }
 
     /// Submit order
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/order/submit>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     decimal,
+    ///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = SubmitOrderOptions::new(
+    ///     "700.HK",
+    ///     OrderType::LO,
+    ///     OrderSide::Buy,
+    ///     decimal!(200i32),
+    ///     TimeInForceType::Day,
+    /// )
+    /// .submitted_price(decimal!(50i32));
+    /// let resp = ctx.submit_order(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn submit_order(&self, options: SubmitOrderOptions) -> Result<SubmitOrderResponse> {
         Ok(self
             .http_cli
@@ -192,6 +348,25 @@ impl TradeContext {
     }
 
     /// Withdraw order
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/order/withdraw>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.withdraw_order("709043056541253632").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn withdraw_order(&self, order_id: impl Into<String>) -> Result<()> {
         #[derive(Debug, Serialize)]
         struct Request {
@@ -209,6 +384,25 @@ impl TradeContext {
     }
 
     /// Get account balance
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/asset/account>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.account_balance().await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn account_balance(&self) -> Result<Vec<AccountBalance>> {
         #[derive(Debug, Deserialize)]
         struct Response {
@@ -225,6 +419,30 @@ impl TradeContext {
     }
 
     /// Get cash flow
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/asset/cashflow>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetCashFlowOptions, TradeContext},
+    ///     Config,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetCashFlowOptions::new(datetime!(2022-05-09 0:00 UTC), datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.cash_flow(opts).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn cash_flow(&self, options: GetCashFlowOptions) -> Result<Vec<CashFlow>> {
         #[derive(Debug, Deserialize)]
         struct Response {
@@ -242,44 +460,70 @@ impl TradeContext {
     }
 
     /// Get fund positions
-    pub async fn fund_positions<I, T>(&self, symbols: I) -> Result<FundPositionsResponse>
-    where
-        I: IntoIterator<Item = T>,
-        T: Into<String>,
-    {
-        #[derive(Debug, Serialize)]
-        struct Request {
-            symbols: Vec<String>,
-        }
-
+    ///
+    /// If `symbols` is empty, it means to get all fund positions.
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/asset/fund>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.fund_positions(None).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
+    pub async fn fund_positions(
+        &self,
+        opts: impl Into<Option<GetFundPositionsOptions>>,
+    ) -> Result<FundPositionsResponse> {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/asset/fund")
-            .query_params(Request {
-                symbols: symbols.into_iter().map(Into::into).collect(),
-            })
+            .query_params(opts.into().unwrap_or_default())
             .response::<FundPositionsResponse>()
             .send()
             .await?)
     }
 
     /// Get stock positions
-    pub async fn stock_positions<I, T>(&self, symbols: I) -> Result<StockPositionsResponse>
-    where
-        I: IntoIterator<Item = T>,
-        T: Into<String>,
-    {
-        #[derive(Debug, Serialize)]
-        struct Request {
-            symbols: Vec<String>,
-        }
-
+    ///
+    /// If `symbols` is empty, it means to get all stock positions.
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/trade/asset/stock>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.stock_positions(None).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
+    pub async fn stock_positions(
+        &self,
+        opts: impl Into<Option<GetStockPositionsOptions>>,
+    ) -> Result<StockPositionsResponse> {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/asset/stock")
-            .query_params(Request {
-                symbols: symbols.into_iter().map(Into::into).collect(),
-            })
+            .query_params(opts.into().unwrap_or_default())
             .response::<StockPositionsResponse>()
             .send()
             .await?)

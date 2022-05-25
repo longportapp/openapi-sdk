@@ -1,8 +1,8 @@
 use anyhow::Result;
 use longbridge_httpcli::{HttpClient, HttpClientConfig};
 
-const QUOTE_WS_URL: &str = "https://openapi-quote.longbridge.global";
-const TRADE_WS_URL: &str = "https://openapi-trade.longbridge.global";
+const QUOTE_WS_URL: &str = "wss://openapi-quote.longbridgeapp.com";
+const TRADE_WS_URL: &str = "wss://openapi-trade.longbridgeapp.com";
 
 /// Configuration options for Longbridge sdk
 #[derive(Debug, Clone)]
@@ -34,9 +34,11 @@ impl Config {
     /// - `LONGBRIDGE_APP_KEY` - App key
     /// - `LONGBRIDGE_APP_SECRET` - App secret
     /// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
-    /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
-    /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url
-    /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
+    /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url (Default: `https://openapi.longbridgeapp.com`)
+    /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url (Default:
+    ///   `wss://openapi-quote.longbridgeapp.com`)
+    /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url (Default:
+    ///   `wss://openapi-trade.longbridgeapp.com`)
     pub fn from_env() -> Result<Self> {
         let http_cli_config = HttpClientConfig::from_env()?;
         let mut config = Config {
@@ -62,7 +64,7 @@ impl Config {
 
     /// Specifies the url of the OpenAPI server.
     ///
-    /// Default: `https://openapi.longbridge.global`
+    /// Default: `https://openapi.longbridgeapp.com`
     ///
     /// NOTE: Usually you don't need to change it.
     #[must_use]
@@ -73,7 +75,7 @@ impl Config {
 
     /// Specifies the url of the OpenAPI quote websocket server.
     ///
-    /// Default: `https://openapi-quote.longbridge.global`
+    /// Default: `wss://openapi-quote.longbridgeapp.com`
     ///
     /// NOTE: Usually you don't need to change it.
     #[must_use]
@@ -86,7 +88,7 @@ impl Config {
 
     /// Specifies the url of the OpenAPI trade websocket server.
     ///
-    /// Default: `https://openapi-trade.longbridge.global`
+    /// Default: `wss://openapi-trade.longbridgeapp.com`
     ///
     /// NOTE: Usually you don't need to change it.
     #[must_use]

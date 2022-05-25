@@ -1,6 +1,6 @@
 use crate::HttpClientError;
 
-const HTTP_URL: &str = "https://openapi.longbridge.global";
+const HTTP_URL: &str = "https://openapi.longbridgeapp.com";
 
 /// Configuration options for Http client
 #[derive(Debug, Clone)]
@@ -57,7 +57,7 @@ impl HttpClientConfig {
 
     /// Specifies the url of the OpenAPI server.
     ///
-    /// Default: <https://openapi.longbridge.global>
+    /// Default: <https://openapi.longbridgeapp.com>
     /// NOTE: Usually you don't need to change it.
     #[must_use]
     pub fn http_url(self, url: impl Into<String>) -> Self {

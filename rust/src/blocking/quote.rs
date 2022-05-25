@@ -29,7 +29,7 @@ impl QuoteContextSync {
         Ok(Self { rt })
     }
 
-    /// Subscribe quote
+    /// Subscribe
     pub fn subscribe<I, T, F>(&self, symbols: I, sub_types: F, is_first_push: bool) -> Result<()>
     where
         I: IntoIterator<Item = T> + Send + 'static,
@@ -192,7 +192,10 @@ impl QuoteContextSync {
             .call(move |ctx| async move { ctx.trading_days(market, begin, end).await })
     }
 
-    /// Get real-time quote
+    /// Get real-time quotes
+    ///
+    /// Get real-time quotes of the subscribed symbols, it always returns the
+    /// data in the local storage.
     pub fn realtime_quote<I, T>(&self, symbols: I) -> Result<Vec<RealtimeQuote>>
     where
         I: IntoIterator<Item = T> + Send + 'static,

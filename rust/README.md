@@ -144,11 +144,11 @@ async fn main() -> Result<()> {
 
 ## Crate features
 
-To avoid compiling unused dependencies, Poem gates certain features, all of which are disabled by default:
+To avoid compiling unused dependencies, Longbridge gates certain features, all of which are disabled by default:
 
-| Feature  | Description                                                                                      |
-|----------|--------------------------------------------------------------------------------------------------|
-| blocking | Provides the [blocking](https://docs.rs/reqwest/0.11.10/reqwest/blocking/index.html) client API. |
+| Feature  | Description                         |
+|----------|-------------------------------------|
+| blocking | Provides the `blocking` client API. |
 
 ## License
 

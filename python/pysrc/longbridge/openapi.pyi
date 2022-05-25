@@ -21,9 +21,9 @@ class Config:
         app_key: str,
         app_secret: str,
         access_token: str,
-        http_url: str = "https://openapi.longbridge.global",
-        quote_ws_url: str = "https://openapi.longbridge.global",
-        trade_ws_url: str = "https://openapi.longbridge.global",
+        http_url: str = "https://openapi.longbridgeapp.com",
+        quote_ws_url: str = "wss://openapi-quote.longbridgeapp.com",
+        trade_ws_url: str = "wss://openapi-trade.longbridgeapp.com",
     ) -> None: ...
 
     @classmethod
@@ -1248,7 +1248,7 @@ class QuoteContext:
 
     def subscribe(self, symbols: List[str], sub_types: List[Type[SubType]], is_first_push: bool = False) -> None:
         """
-        Subscribe quote
+        Subscribe
 
         Args:
             symbols: Security codes
@@ -1258,7 +1258,7 @@ class QuoteContext:
 
     def unsubscribe(self, symbols: List[str], sub_types: List[Type[SubType]]) -> None:
         """
-        Unsubscribe quote
+        Unsubscribe
 
         Args:
             symbols: Security codes
@@ -2259,6 +2259,18 @@ class StockPositionsResponse:
     """
 
 
+class TopicType:
+    """
+    Topic type
+    """
+
+    class Private(TopicType):
+        """
+        Private notification for trade
+        """
+        ...
+
+
 class TradeContext:
     """
     Trade context
@@ -2276,7 +2288,7 @@ class TradeContext:
 
     def subscribe(self, topics: List[str]) -> None:
         """
-        Subscribe topics
+        Subscribe
 
         Args:
             topics: Topic list
@@ -2284,7 +2296,7 @@ class TradeContext:
 
     def unsubscribe(self, topics: List[str]) -> None:
         """
-        Unsubscribe topics
+        Unsubscribe
 
         Args:
             topics: Topic list
@@ -2398,12 +2410,12 @@ class TradeContext:
         Get fund positions
 
         Args:
-            symbols: Fund codes
+            symbols: Filter by fund codes
         """
 
     def stock_positions(self, symbols: List[str] = []) -> StockPositionsResponse:
         """
         Get stock positions
         Args:
-            symbols: Stock codes
+            symbols: Filter by stock codes
         """

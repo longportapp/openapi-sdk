@@ -3,8 +3,9 @@ use std::sync::Arc;
 use longbridge::{
     blocking::TradeContextSync,
     trade::{
-        GetCashFlowOptions, GetHistoryExecutionsOptions, GetHistoryOrdersOptions,
-        GetTodayExecutionsOptions, GetTodayOrdersOptions, ReplaceOrderOptions, SubmitOrderOptions,
+        GetCashFlowOptions, GetFundPositionsOptions, GetHistoryExecutionsOptions,
+        GetHistoryOrdersOptions, GetStockPositionsOptions, GetTodayExecutionsOptions,
+        GetTodayOrdersOptions, ReplaceOrderOptions, SubmitOrderOptions,
     },
 };
 use pyo3::{pyclass, pymethods, PyObject, PyResult};
@@ -18,7 +19,7 @@ use crate::{
         types::{
             AccountBalance, BalanceType, CashFlow, Execution, FundPositionsResponse, Order,
             OrderSide, OrderStatus, OrderType, OutsideRTH, StockPositionsResponse,
-            SubmitOrderResponse, TimeInForceType,
+            SubmitOrderResponse, TimeInForceType, TopicType,
         },
     },
     types::Market,
@@ -39,15 +40,15 @@ impl TradeContext {
         Ok(Self(ctx))
     }
 
-    /// Subscribe topics
-    fn subscribe(&self, topics: Vec<String>) -> PyResult<()> {
-        self.0.subscribe(topics)?;
+    /// Subscribe
+    fn subscribe(&self, topics: Vec<TopicType>) -> PyResult<()> {
+        self.0.subscribe(topics.into_iter().map(Into::into))?;
         Ok(())
     }
 
-    /// Unsubscribe topics
-    fn unsubscribe(&self, topics: Vec<String>) -> PyResult<()> {
-        self.0.unsubscribe(topics)?;
+    /// Unsubscribe
+    fn unsubscribe(&self, topics: Vec<TopicType>) -> PyResult<()> {
+        self.0.unsubscribe(topics.into_iter().map(Into::into))?;
         Ok(())
     }
 
@@ -304,12 +305,18 @@ impl TradeContext {
     }
 
     /// Get fund positions
+    #[args(symbols = "vec![]")]
     pub fn fund_positions(&self, symbols: Vec<String>) -> PyResult<FundPositionsResponse> {
-        self.0.fund_positions(symbols)?.try_into()
+        self.0
+            .fund_positions(GetFundPositionsOptions::new().symbols(symbols))?
+            .try_into()
     }
 
     /// Get stock positions
+    #[args(symbols = "vec![]")]
     pub fn stock_positions(&self, symbols: Vec<String>) -> PyResult<StockPositionsResponse> {
-        self.0.stock_positions(symbols)?.try_into()
+        self.0
+            .stock_positions(GetStockPositionsOptions::new().symbols(symbols))?
+            .try_into()
     }
 }

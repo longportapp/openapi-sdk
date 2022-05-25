@@ -9,10 +9,11 @@ mod serde_utils;
 mod types;
 
 pub use context::{SubmitOrderResponse, TradeContext};
-pub use push_types::{PushEvent, PushOrderChanged};
+pub use push_types::{PushEvent, PushOrderChanged, TopicType};
 pub use requests::{
-    GetCashFlowOptions, GetHistoryExecutionsOptions, GetHistoryOrdersOptions,
-    GetTodayExecutionsOptions, GetTodayOrdersOptions, ReplaceOrderOptions, SubmitOrderOptions,
+    GetCashFlowOptions, GetFundPositionsOptions, GetHistoryExecutionsOptions,
+    GetHistoryOrdersOptions, GetStockPositionsOptions, GetTodayExecutionsOptions,
+    GetTodayOrdersOptions, ReplaceOrderOptions, SubmitOrderOptions,
 };
 pub use types::{
     AccountBalance, BalanceType, CashFlow, CashFlowDirection, CashInfo, Execution, FundPosition,

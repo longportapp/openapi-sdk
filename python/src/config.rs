@@ -7,9 +7,9 @@ pub(crate) struct Config(pub(crate) longbridge::Config);
 impl Config {
     #[new]
     #[args(
-        http_url = "\"https://openapi.longbridge.global\"",
-        quote_ws_url = "\"https://openapi-quote.longbridge.global\"",
-        trade_ws_url = "\"https://openapi-trade.longbridge.global\""
+        http_url = "\"https://openapi.longbridgeapp.com\"",
+        quote_ws_url = "\"wss://openapi-quote.longbridgeapp.com\"",
+        trade_ws_url = "\"wss://openapi-trade.longbridgeapp.com\""
     )]
     fn py_new(
         app_key: String,

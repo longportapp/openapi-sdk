@@ -6,9 +6,10 @@ use crate::{
     blocking::runtime::BlockingRuntime,
     trade::{
         AccountBalance, CashFlow, Execution, FundPositionsResponse, GetCashFlowOptions,
-        GetHistoryExecutionsOptions, GetHistoryOrdersOptions, GetTodayExecutionsOptions,
-        GetTodayOrdersOptions, Order, PushEvent, ReplaceOrderOptions, StockPositionsResponse,
-        SubmitOrderOptions, SubmitOrderResponse, TradeContext,
+        GetFundPositionsOptions, GetHistoryExecutionsOptions, GetHistoryOrdersOptions,
+        GetStockPositionsOptions, GetTodayExecutionsOptions, GetTodayOrdersOptions, Order,
+        PushEvent, ReplaceOrderOptions, StockPositionsResponse, SubmitOrderOptions,
+        SubmitOrderResponse, TopicType, TradeContext,
     },
     Config,
 };
@@ -29,20 +30,18 @@ impl TradeContextSync {
     }
 
     /// Subscribe topics
-    pub fn subscribe<I, T>(&self, topics: I) -> Result<()>
+    pub fn subscribe<I>(&self, topics: I) -> Result<()>
     where
-        I: IntoIterator<Item = T> + Send + 'static,
-        T: Into<String>,
+        I: IntoIterator<Item = TopicType> + Send + 'static,
     {
         self.rt
             .call(move |ctx| async move { ctx.subscribe(topics).await })
     }
 
     /// Unsubscribe topics
-    pub fn unsubscribe<I, T>(&self, topics: I) -> Result<()>
+    pub fn unsubscribe<I>(&self, topics: I) -> Result<()>
     where
-        I: IntoIterator<Item = T> + Send + 'static,
-        T: Into<String>,
+        I: IntoIterator<Item = TopicType> + Send + 'static,
     {
         self.rt
             .call(move |ctx| async move { ctx.unsubscribe(topics).await })
@@ -51,7 +50,7 @@ impl TradeContextSync {
     /// Get history executions
     pub fn history_executions(
         &self,
-        options: Option<GetHistoryExecutionsOptions>,
+        options: impl Into<Option<GetHistoryExecutionsOptions>> + Send + 'static,
     ) -> Result<Vec<Execution>> {
         self.rt
             .call(move |ctx| async move { ctx.history_executions(options).await })
@@ -60,20 +59,26 @@ impl TradeContextSync {
     /// Get today executions
     pub fn today_executions(
         &self,
-        options: Option<GetTodayExecutionsOptions>,
+        options: impl Into<Option<GetTodayExecutionsOptions>> + Send + 'static,
     ) -> Result<Vec<Execution>> {
         self.rt
             .call(move |ctx| async move { ctx.today_executions(options).await })
     }
 
     /// Get history orders
-    pub fn history_orders(&self, options: Option<GetHistoryOrdersOptions>) -> Result<Vec<Order>> {
+    pub fn history_orders(
+        &self,
+        options: impl Into<Option<GetHistoryOrdersOptions>> + Send + 'static,
+    ) -> Result<Vec<Order>> {
         self.rt
             .call(move |ctx| async move { ctx.history_orders(options).await })
     }
 
     /// Get today orders
-    pub fn today_orders(&self, options: Option<GetTodayOrdersOptions>) -> Result<Vec<Order>> {
+    pub fn today_orders(
+        &self,
+        options: impl Into<Option<GetTodayOrdersOptions>> + Send + 'static,
+    ) -> Result<Vec<Order>> {
         self.rt
             .call(move |ctx| async move { ctx.today_orders(options).await })
     }
@@ -109,24 +114,24 @@ impl TradeContextSync {
     }
 
     /// Get fund positions
-    pub fn fund_positions<I, T>(&self, symbols: I) -> Result<FundPositionsResponse>
-    where
-        I: IntoIterator<Item = T> + Send + 'static,
-        I::IntoIter: Send + 'static,
-        T: Into<String> + Send + 'static,
-    {
+    ///
+    /// If `symbols` is empty, it means to get all fund positions.
+    pub fn fund_positions(
+        &self,
+        opts: impl Into<Option<GetFundPositionsOptions>> + Send + 'static,
+    ) -> Result<FundPositionsResponse> {
         self.rt
-            .call(move |ctx| async move { ctx.fund_positions(symbols).await })
+            .call(move |ctx| async move { ctx.fund_positions(opts).await })
     }
 
     /// Get stock positions
-    pub fn stock_positions<I, T>(&self, symbols: I) -> Result<StockPositionsResponse>
-    where
-        I: IntoIterator<Item = T> + Send + 'static,
-        I::IntoIter: Send + 'static,
-        T: Into<String> + Send + 'static,
-    {
+    ///
+    /// If `symbols` is empty, it means to get all stock positions.
+    pub fn stock_positions(
+        &self,
+        opts: impl Into<Option<GetStockPositionsOptions>> + Send + 'static,
+    ) -> Result<StockPositionsResponse> {
         self.rt
-            .call(move |ctx| async move { ctx.stock_positions(symbols).await })
+            .call(move |ctx| async move { ctx.stock_positions(opts).await })
     }
 }

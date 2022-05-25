@@ -6,6 +6,15 @@ use crate::{
     time::{PyDateWrapper, PyOffsetDateTimeWrapper},
 };
 
+/// Topic type
+#[pyclass]
+#[derive(Debug, PyEnum, Copy, Clone, Hash, Eq, PartialEq)]
+#[py(from = "longbridge::trade::TopicType")]
+pub enum TopicType {
+    /// Private notification for trade
+    Private,
+}
+
 /// Trade
 #[pyclass]
 #[derive(Debug, PyObject)]

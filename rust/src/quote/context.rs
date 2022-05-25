@@ -94,7 +94,7 @@ impl QuoteContext {
         Ok(R::decode(&*resp)?)
     }
 
-    /// Subscribe quote
+    /// Subscribe
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/subscribe/subscribe>
     ///
@@ -142,7 +142,7 @@ impl QuoteContext {
         reply_rx.await.map_err(|_| WsClientError::ClientClosed)?
     }
 
-    /// Unsubscribe quote
+    /// Unsubscribe
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/subscribe/unsubscribe>
     ///
@@ -158,7 +158,7 @@ impl QuoteContext {
     ///
     /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
     /// let config = Arc::new(Config::from_env()?);
-    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
     ///     .await?;
@@ -191,17 +191,14 @@ impl QuoteContext {
     /// ```no_run
     /// use std::sync::Arc;
     ///
-    /// use longbridge::{
-    ///     quote::{QuoteContext, SubFlags},
-    ///     Config,
-    /// };
+    /// use longbridge::{quote::QuoteContext, Config};
     ///
     /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
     /// let config = Arc::new(Config::from_env()?);
-    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx
-    ///     .quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+    ///     .static_info(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
     ///     .await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, anyhow::Error>(())
@@ -229,6 +226,25 @@ impl QuoteContext {
     /// Get quote of securities
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/quote>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+    ///     .await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn quote<I, T>(&self, symbols: I) -> Result<Vec<SecurityQuote>>
     where
         I: IntoIterator<Item = T>,
@@ -248,6 +264,23 @@ impl QuoteContext {
     /// Get quote of option securities
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/option-quote>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.option_quote(["AAPL230317P160000.US"]).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn option_quote<I, T>(&self, symbols: I) -> Result<Vec<OptionQuote>>
     where
         I: IntoIterator<Item = T>,
@@ -267,6 +300,23 @@ impl QuoteContext {
     /// Get quote of warrant securities
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/warrant-quote>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.warrant_quote(["21125.HK"]).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn warrant_quote<I, T>(&self, symbols: I) -> Result<Vec<WarrantQuote>>
     where
         I: IntoIterator<Item = T>,
@@ -286,6 +336,23 @@ impl QuoteContext {
     /// Get security depth
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/depth>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.depth("700.HK").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn depth(&self, symbol: impl Into<String>) -> Result<SecurityDepth> {
         let resp: quote::SecurityDepthResponse = self
             .request(
@@ -312,6 +379,23 @@ impl QuoteContext {
     /// Get security brokers
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/brokers>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.brokers("700.HK").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn brokers(&self, symbol: impl Into<String>) -> Result<SecurityBrokers> {
         let resp: quote::SecurityBrokersResponse = self
             .request(
@@ -330,6 +414,23 @@ impl QuoteContext {
     /// Get participants
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/broker-ids>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.participants().await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn participants(&self) -> Result<Vec<ParticipantInfo>> {
         self.cache_participants
             .get_or_update(|| async {
@@ -351,6 +452,23 @@ impl QuoteContext {
     /// Get security trades
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/trade>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.trades("700.HK", 10).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn trades(&self, symbol: impl Into<String>, count: usize) -> Result<Vec<Trade>> {
         let resp: quote::SecurityTradeResponse = self
             .request(
@@ -372,6 +490,23 @@ impl QuoteContext {
     /// Get security intraday
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/intraday>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.intraday("700.HK").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn intraday(&self, symbol: impl Into<String>) -> Result<Vec<IntradayLine>> {
         let resp: quote::SecurityIntradayResponse = self
             .request(
@@ -392,6 +527,28 @@ impl QuoteContext {
     /// Get security candlesticks
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/candlestick>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{AdjustType, Period, QuoteContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .candlesticks("700.HK", Period::Day, 10, AdjustType::NoAdjust)
+    ///     .await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn candlesticks(
         &self,
         symbol: impl Into<String>,
@@ -421,6 +578,23 @@ impl QuoteContext {
     /// Get option chain expiry date list
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/optionchain-date>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.option_chain_expiry_date_list("AAPL.US").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn option_chain_expiry_date_list(
         &self,
         symbol: impl Into<String>,
@@ -444,6 +618,26 @@ impl QuoteContext {
     /// Get option chain info by date
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/optionchain-date-strike>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    /// use time::macros::date;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .option_chain_info_by_date("AAPL.US", date!(2023 - 01 - 20))
+    ///     .await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn option_chain_info_by_date(
         &self,
         symbol: impl Into<String>,
@@ -474,6 +668,23 @@ impl QuoteContext {
     /// Get warrant issuers
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/issuer>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.warrant_issuers().await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn warrant_issuers(&self) -> Result<Vec<IssuerInfo>> {
         self.cache_issuers
             .get_or_update(|| async {
@@ -490,6 +701,23 @@ impl QuoteContext {
     /// Get trading session of the day
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/trade-session>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.trading_session().await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn trading_session(&self) -> Result<Vec<MarketTradingSession>> {
         self.cache_trading_session
             .get_or_update(|| async {
@@ -509,6 +737,26 @@ impl QuoteContext {
     /// Get market trading days
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/trade-day>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config, Market};
+    /// use time::macros::date;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .trading_days(Market::HK, date!(2022 - 01 - 20), date!(2022 - 02 - 20))
+    ///     .await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn trading_days(
         &self,
         market: Market,
@@ -541,7 +789,34 @@ impl QuoteContext {
         })
     }
 
-    /// Get real-time quote
+    /// Get real-time quotes
+    ///
+    /// Get real-time quotes of the subscribed symbols, it always returns the
+    /// data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::QUOTE, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_quote(["HK.700", "AAPL.US"]).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn realtime_quote<I, T>(&self, symbols: I) -> Result<Vec<RealtimeQuote>>
     where
         I: IntoIterator<Item = T>,
@@ -558,6 +833,33 @@ impl QuoteContext {
     }
 
     /// Get real-time depth
+    ///
+    /// Get real-time depth of the subscribed symbols, it always returns the
+    /// data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::DEPTH, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_depth("HK.700").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn realtime_depth(&self, symbol: impl Into<String>) -> Result<SecurityDepth> {
         let (reply_tx, reply_rx) = oneshot::channel();
         self.command_tx
@@ -570,6 +872,33 @@ impl QuoteContext {
     }
 
     /// Get real-time trades
+    ///
+    /// Get real-time trades of the subscribed symbols, it always returns the
+    /// data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::TRADE, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_trades("HK.700", 10).await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn realtime_trades(
         &self,
         symbol: impl Into<String>,
@@ -587,6 +916,34 @@ impl QuoteContext {
     }
 
     /// Get real-time broker queue
+    ///
+    ///
+    /// Get real-time broker queue of the subscribed symbols, it always returns
+    /// the data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::BROKER, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_brokers("HK.700").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn realtime_brokers(&self, symbol: impl Into<String>) -> Result<SecurityBrokers> {
         let (reply_tx, reply_rx) = oneshot::channel();
         self.command_tx
