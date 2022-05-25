@@ -1610,14 +1610,19 @@ class OrderTag:
         Unknown
         """
 
-    class Buy(OrderTag):
+    class Normal(OrderTag):
         """
-        Buy
+        Normal Order
         """
 
-    class Sell(OrderTag):
+    class LongTerm(OrderTag):
         """
-        Sell
+        Long term Order
+        """
+
+    class Grey(OrderTag):
+        """
+        Grey Order
         """
 
 
@@ -1693,7 +1698,7 @@ class PushOrderChanged:
     Order changed message
     """
 
-    side: OrderSide
+    side: Type[OrderSide]
     """
     Order side
     """
@@ -1713,7 +1718,7 @@ class PushOrderChanged:
     Order symbol
     """
 
-    order_type: OrderType
+    order_type: Type[OrderType]
     """
     Order type
     """
@@ -1743,7 +1748,7 @@ class PushOrderChanged:
     Currency
     """
 
-    status: OrderStatus
+    status: Type[OrderStatus]
     """
     Order status
     """
@@ -1768,12 +1773,12 @@ class PushOrderChanged:
     Rejected message or remark
     """
 
-    tag: OrderTag
+    tag: Type[OrderTag]
     """
     Order tag
     """
 
-    trigger_status: Optional[TriggerStatus]
+    trigger_status: Optional[Type[TriggerStatus]]
     """
     Conditional order trigger status
     """
@@ -1861,7 +1866,7 @@ class Order:
     Order ID
     """
 
-    status: OrderStatus
+    status: Type[OrderStatus]
     """
     Order status
     """
@@ -1896,7 +1901,7 @@ class Order:
     Submitted time
     """
 
-    side: OrderSide
+    side: Type[OrderSide]
     """
     Order side
     """
@@ -1906,7 +1911,7 @@ class Order:
     Security code
     """
 
-    order_type: OrderType
+    order_type: Type[OrderType]
     """
     Order type
     """
@@ -1926,12 +1931,12 @@ class Order:
     Rejected Message or remark
     """
 
-    tag: OrderTag
+    tag: Type[OrderTag]
     """
     Order tag
     """
 
-    time_in_force: TimeInForceType
+    time_in_force: Type[TimeInForceType]
     """
     Time in force type
     """
@@ -1966,7 +1971,7 @@ class Order:
     `TSLPAMT` / `TSLPPCT` order limit offset amount
     """
 
-    trigger_status: Optional[TriggerStatus]
+    trigger_status: Optional[Type[TriggerStatus]]
     """
     Conditional order trigger status
     """
@@ -1976,7 +1981,7 @@ class Order:
     Currency
     """
 
-    outside_rth: Optional[OutsideRTH]
+    outside_rth: Optional[Type[OutsideRTH]]
     """
     Enable or disable outside regular trading hours
     """
@@ -2114,12 +2119,12 @@ class CashFlow:
     Cash flow name
     """
 
-    direction: CashFlowDirection
+    direction: Type[CashFlowDirection]
     """
     Outflow direction
     """
 
-    business_type: BalanceType
+    business_type: Type[BalanceType]
     """
     Balance type
     """
@@ -2304,7 +2309,7 @@ class TradeContext:
             order_id: Filter by Order ID
         """
 
-    def history_orders(self, symbol: Optional[str] = None, status: List[OrderStatus] = [], side: Optional[OrderSide] = None, market: Optional[Market] = None, start_at: Optional[date] = None, end_at: Optional[date] = None) -> List[Order]:
+    def history_orders(self, symbol: Optional[str] = None, status: List[Type[OrderStatus]] = [], side: Optional[Type[OrderSide]] = None, market: Optional[Type[Market]] = None, start_at: Optional[date] = None, end_at: Optional[date] = None) -> List[Order]:
         """
         Get history orders
 
@@ -2317,7 +2322,7 @@ class TradeContext:
             end_at: End time
         """
 
-    def today_orders(self, symbol: Optional[str] = None, status: List[OrderStatus] = [], side: Optional[OrderSide] = None, market: Optional[Market] = None) -> List[Order]:
+    def today_orders(self, symbol: Optional[str] = None, status: List[Type[OrderStatus]] = [], side: Optional[Type[OrderSide]] = None, market: Optional[Type[Market]] = None) -> List[Order]:
         """
         Get today orders
 
@@ -2342,7 +2347,7 @@ class TradeContext:
             remark: Remark (Maximum 64 characters)
         """
 
-    def submit_order(self, symbol: str, order_type: OrderType, side: OrderSide, submitted_quantity: Decimal, time_in_force: TimeInForceType, submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[OutsideRTH] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
+    def submit_order(self, symbol: str, order_type: Type[OrderType], side: Type[OrderSide], submitted_quantity: Decimal, time_in_force: Type[TimeInForceType], submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[Type[OutsideRTH]] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
         """
         Submit order
 
@@ -2375,7 +2380,7 @@ class TradeContext:
         Get account balance
         """
 
-    def cash_flow(self, start_at: datetime, end_at: datetime, business_type: Optional[BalanceType] = None, symbol: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None) -> List[CashFlow]:
+    def cash_flow(self, start_at: datetime, end_at: datetime, business_type: Optional[Type[BalanceType]] = None, symbol: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None) -> List[CashFlow]:
         """
         Get cash flow
 

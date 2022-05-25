@@ -133,7 +133,7 @@ async fn main() -> Result<()> {
         TimeInForceType::Day,
     )
     .submitted_price(decimal!(50i32))
-    .remark("Hello from Python SDK".to_string());
+    .remark("Hello from Rust SDK".to_string());
 
     let resp = ctx.submit_order(opts).await?;
     println!("{:?}", resp);
