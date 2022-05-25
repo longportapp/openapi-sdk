@@ -50,6 +50,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#quote-api-subscribe-quotes">Quote API (Subscribe quotes)</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#trade-api-submit-order">Trade API (Submit order)</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#license">License</a>
     </li>
     </ul>
@@ -145,6 +147,20 @@ resp = ctx.subscribe(["700.HK"], [SubType.Quote], is_first_push=True)
 
 # Receive push duration to 30 seconds
 sleep(30)</code></pre>
+<h2 id="trade-api-submit-order">Trade API <em>(Submit order)</em></h2>
+<pre class="highlight"><code class="language-python">from decimal import Decimal
+from longbridge.openapi import TradeContext, Config, OrderType, OrderSide, TimeInForceType
+
+# Load configuration from environment variables
+config = Config.from_env()
+
+# Create a context for trade APIs
+ctx = TradeContext(config)
+
+# Submit order
+resp = ctx.submit_order("700.HK", OrderType.LO, OrderSide.Buy, Decimal(
+    "500"), TimeInForceType.Day, submitted_price=Decimal("50"), remark="Hello from Python SDK")
+print(resp)</code></pre>
 <h2 id="license">License</h2>
 <p>Licensed under either of</p>
 <ul>
@@ -198,5 +214,5 @@ sleep(30)</code></pre>
 
 <!--
 MkDocs version : 1.3.0
-Build Date UTC : 2022-05-25 09:50:15.942364+00:00
+Build Date UTC : 2022-05-25 10:14:13.680234+00:00
 -->
