@@ -2403,7 +2403,7 @@ class TradeContext:
 
     def stock_positions(self, symbols: List[str] = []) -> StockPositionsResponse:
         """
-        Get fund positions
+        Get stock positions
         Args:
             symbols: Stock codes
         """

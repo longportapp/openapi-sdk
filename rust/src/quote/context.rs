@@ -97,6 +97,29 @@ impl QuoteContext {
     /// Subscribe quote
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/subscribe/subscribe>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
+    ///     .await?;
+    /// while let Some(msg) = receiver.recv().await {
+    ///     println!("{:?}", msg);
+    /// }
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn subscribe<I, T>(
         &self,
         symbols: I,
@@ -122,6 +145,27 @@ impl QuoteContext {
     /// Unsubscribe quote
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/subscribe/unsubscribe>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
+    ///     .await?;
+    /// ctx.unsubscribe(["AAPL.US"], SubFlags::QUOTE).await?;
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn unsubscribe<I, T>(&self, symbols: I, sub_types: SubFlags) -> Result<()>
     where
         I: IntoIterator<Item = T>,
@@ -141,6 +185,28 @@ impl QuoteContext {
     /// Get basic information of securities
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/static>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+    ///     .await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, anyhow::Error>(())
+    /// # });
+    /// ```
     pub async fn static_info<I, T>(&self, symbols: I) -> Result<Vec<SecuritiyStaticInfo>>
     where
         I: IntoIterator<Item = T>,
