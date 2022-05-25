@@ -52,6 +52,8 @@ jobs:
       - name: Copy to gh-pages
         run: |
           mkdir -p gh-pages
+          mkdir -p gh-pages/rust
+          mkdir -p gh-pages/python
           mv -f target/doc gh-pages/rust/$RUST_SDK_VERSION
           mv -f python/site gh-pages/python/$PYTHON_SDK_VERSION
           mv -f misc/docs.html gh-pages/index.html
