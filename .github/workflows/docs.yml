@@ -44,16 +44,22 @@ jobs:
         run: |
           mkdocs build
         working-directory: ./python
+      - name: Get SDK Version
+        working-directory: ${{ matrix.package.path }}
+        run: |
+          echo RUST_SDK_VERSION=$(sed -nE 's/^\s*version = "(.*?)"/\1/p' rust/Cargo.toml) >> $GITHUB_ENV
+          echo PYTHON_SDK_VERSION=$(sed -nE 's/^\s*version = "(.*?)"/\1/p' python/Cargo.toml) >> $GITHUB_ENV
       - name: Copy to gh-pages
         run: |
-          mkdir gh-pages
-          mv target/doc gh-pages/rust
-          mv python/site gh-pages/python
+          mkdir -p gh-pages
+          mv -f target/doc gh-pages/rust/$RUST_SDK_VERSION
+          mv -f python/site gh-pages/python/$PYTHON_SDK_VERSION
+          mv -f misc/docs.html gh-pages/index.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2.5.1
         with:
           emptyCommits: true
-          keepFiles: false
+          keepFiles: true
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           PUBLISH_BRANCH: gh-pages
