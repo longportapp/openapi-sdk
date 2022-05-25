@@ -9,10 +9,10 @@ use tokio::sync::{mpsc, oneshot};
 use crate::{
     trade::{
         core::{Command, Core},
-        AccountBalance, CashFlow, FundPositionsResponse, GetCashFlowOptions,
+        AccountBalance, CashFlow, Execution, FundPositionsResponse, GetCashFlowOptions,
         GetHistoryExecutionsOptions, GetHistoryOrdersOptions, GetTodayExecutionsOptions,
         GetTodayOrdersOptions, Order, PushEvent, ReplaceOrderOptions, StockPositionsResponse,
-        SubmitOrderOptions, Trade,
+        SubmitOrderOptions,
     },
     Config,
 };
@@ -91,10 +91,10 @@ impl TradeContext {
     pub async fn history_executions(
         &self,
         options: Option<GetHistoryExecutionsOptions>,
-    ) -> Result<Vec<Trade>> {
+    ) -> Result<Vec<Execution>> {
         #[derive(Deserialize)]
         struct Response {
-            trades: Vec<Trade>,
+            trades: Vec<Execution>,
         }
 
         Ok(self
@@ -113,10 +113,10 @@ impl TradeContext {
     pub async fn today_executions(
         &self,
         options: Option<GetTodayExecutionsOptions>,
-    ) -> Result<Vec<Trade>> {
+    ) -> Result<Vec<Execution>> {
         #[derive(Deserialize)]
         struct Response {
-            trades: Vec<Trade>,
+            trades: Vec<Execution>,
         }
 
         Ok(self

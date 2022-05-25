@@ -16,9 +16,9 @@ use crate::{
     trade::{
         push::handle_push_event,
         types::{
-            AccountBalance, BalanceType, CashFlow, FundPositionsResponse, Order, OrderSide,
-            OrderStatus, OrderType, OutsideRTH, StockPositionsResponse, SubmitOrderResponse,
-            TimeInForceType, Trade,
+            AccountBalance, BalanceType, CashFlow, Execution, FundPositionsResponse, Order,
+            OrderSide, OrderStatus, OrderType, OutsideRTH, StockPositionsResponse,
+            SubmitOrderResponse, TimeInForceType,
         },
     },
     types::Market,
@@ -57,7 +57,7 @@ impl TradeContext {
         symbol: Option<String>,
         start_at: Option<PyOffsetDateTimeWrapper>,
         end_at: Option<PyOffsetDateTimeWrapper>,
-    ) -> PyResult<Vec<Trade>> {
+    ) -> PyResult<Vec<Execution>> {
         let mut opts = GetHistoryExecutionsOptions::new();
 
         if let Some(symbol) = symbol {
@@ -82,7 +82,7 @@ impl TradeContext {
         &self,
         symbol: Option<String>,
         order_id: Option<String>,
-    ) -> PyResult<Vec<Trade>> {
+    ) -> PyResult<Vec<Execution>> {
         let mut opts = GetTodayExecutionsOptions::new();
 
         if let Some(symbol) = symbol {

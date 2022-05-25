@@ -9,8 +9,8 @@ use crate::{
 /// Trade
 #[pyclass]
 #[derive(Debug, PyObject)]
-#[py(from = "longbridge::trade::Trade")]
-pub(crate) struct Trade {
+#[py(from = "longbridge::trade::Execution")]
+pub(crate) struct Execution {
     /// Order ID
     order_id: String,
     /// Execution ID

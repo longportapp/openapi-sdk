@@ -911,9 +911,9 @@ class TradeSession:
         """
 
 
-class Trade:
+class Execution:
     """
-    Trade
+    Execution
     """
 
     price: Decimal

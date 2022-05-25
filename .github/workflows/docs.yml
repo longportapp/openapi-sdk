@@ -42,7 +42,7 @@ jobs:
           pip install -r python/docs/requirements.txt
       - name: Build Python docs
         run: |
-          mkdocs
+          mkdocs build
         working-directory: ./python
       - name: Copy to gh-pages
         run: |

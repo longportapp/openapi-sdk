@@ -15,7 +15,7 @@ pub use requests::{
     GetTodayExecutionsOptions, GetTodayOrdersOptions, ReplaceOrderOptions, SubmitOrderOptions,
 };
 pub use types::{
-    AccountBalance, BalanceType, CashFlow, CashFlowDirection, CashInfo, FundPosition,
+    AccountBalance, BalanceType, CashFlow, CashFlowDirection, CashInfo, Execution, FundPosition,
     FundPositionsResponse, Order, OrderSide, OrderStatus, OrderTag, OrderType, OutsideRTH,
-    StockPosition, StockPositionsResponse, TimeInForceType, Trade, TriggerPriceType, TriggerStatus,
+    StockPosition, StockPositionsResponse, TimeInForceType, TriggerPriceType, TriggerStatus,
 };

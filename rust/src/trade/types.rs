@@ -109,9 +109,9 @@ pub enum OrderStatus {
     PartialWithdrawal,
 }
 
-/// Trade
+/// Execution
 #[derive(Debug, Clone, Deserialize)]
-pub struct Trade {
+pub struct Execution {
     /// Order ID
     pub order_id: String,
     /// Execution ID

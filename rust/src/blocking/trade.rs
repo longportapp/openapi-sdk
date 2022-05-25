@@ -5,10 +5,10 @@ use anyhow::Result;
 use crate::{
     blocking::runtime::BlockingRuntime,
     trade::{
-        AccountBalance, CashFlow, FundPositionsResponse, GetCashFlowOptions,
+        AccountBalance, CashFlow, Execution, FundPositionsResponse, GetCashFlowOptions,
         GetHistoryExecutionsOptions, GetHistoryOrdersOptions, GetTodayExecutionsOptions,
         GetTodayOrdersOptions, Order, PushEvent, ReplaceOrderOptions, StockPositionsResponse,
-        SubmitOrderOptions, SubmitOrderResponse, Trade, TradeContext,
+        SubmitOrderOptions, SubmitOrderResponse, TradeContext,
     },
     Config,
 };
@@ -52,7 +52,7 @@ impl TradeContextSync {
     pub fn history_executions(
         &self,
         options: Option<GetHistoryExecutionsOptions>,
-    ) -> Result<Vec<Trade>> {
+    ) -> Result<Vec<Execution>> {
         self.rt
             .call(move |ctx| async move { ctx.history_executions(options).await })
     }
@@ -61,7 +61,7 @@ impl TradeContextSync {
     pub fn today_executions(
         &self,
         options: Option<GetTodayExecutionsOptions>,
-    ) -> Result<Vec<Trade>> {
+    ) -> Result<Vec<Execution>> {
         self.rt
             .call(move |ctx| async move { ctx.today_executions(options).await })
     }

@@ -21,6 +21,6 @@ build-backend = "maturin"
 
 [project.urls]
 homepage = "https://open.longbridgeapp.com/en/"
-documentation = "readthedocs.org"
+documentation = "https://open.longbridgeapp.com/en/docs"
 repository = "https://github.com/longbridgeapp/openapi-sdk"
-changelog = "https://github.com/longbridgeapp/openapi-sdk/blob/master/python/CHAGELOG.md"
+changelog = "https://github.com/longbridgeapp/openapi-sdk/blob/master/python/CHANGELOG.md"
