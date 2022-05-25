@@ -77,6 +77,24 @@ resp = ctx.subscribe(["700.HK"], [SubType.Quote], is_first_push=True)
 sleep(30)
 ```
 
+## Trade API _(Submit order)_
+
+```python
+from decimal import Decimal
+from longbridge.openapi import TradeContext, Config, OrderType, OrderSide, TimeInForceType
+
+# Load configuration from environment variables
+config = Config.from_env()
+
+# Create a context for trade APIs
+ctx = TradeContext(config)
+
+# Submit order
+resp = ctx.submit_order("700.HK", OrderType.LO, OrderSide.Buy, Decimal(
+    "500"), TimeInForceType.Day, submitted_price=Decimal("50"), remark="Hello from Python SDK")
+print(resp)
+```
+
 ## License
 
 Licensed under either of
