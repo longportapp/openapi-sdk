@@ -1,0 +1,60 @@
+name: Docs
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build_api_docs:
+    name: Build API docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rust-docs
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Build Rust docs
+        run: |
+          cargo doc -p longbridge --no-deps
+      - name: Build Python wheels
+        uses: messense/maturin-action@v1
+        with:
+          target: "x86_64"
+          manylinux: auto
+          args: -i 3.9 --release --out dist --no-sdist -m python/Cargo.toml
+      - name: Install built wheel
+        run: |
+          pip install longbridge --no-index --find-links dist --force-reinstall
+          python -c "import longbridge"
+      - name: Install mkdocs
+        run: |
+          pip install -r python/docs/requirements.txt
+      - name: Build Python docs
+        run: |
+          mkdocs
+        working-directory: ./python
+      - name: Copy to gh-pages
+        run: |
+          mkdir gh-pages
+          mv target/doc gh-pages/rust
+          mv python/site gh-pages/python
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v2.5.1
+        with:
+          emptyCommits: true
+          keepFiles: false
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: gh-pages

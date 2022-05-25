@@ -1246,7 +1246,7 @@ class QuoteContext:
         handler: Optional[QuoteHandler] = None,
     ) -> None: ...
 
-    def subscribe(self, symbols: List[str], sub_types: List[Type[SubType]], is_first_push=False) -> None:
+    def subscribe(self, symbols: List[str], sub_types: List[Type[SubType]], is_first_push: bool = False) -> None:
         """
         Subscribe quote
 
