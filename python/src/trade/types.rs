@@ -195,7 +195,8 @@ pub(crate) struct Order {
     /// Submitted quantity
     quantity: PyDecimal,
     /// Executed quantity
-    executed_qty: PyDecimal,
+    #[py(opt)]
+    executed_quantity: Option<PyDecimal>,
     /// Submitted price
     #[py(opt)]
     price: Option<PyDecimal>,
@@ -218,8 +219,7 @@ pub(crate) struct Order {
     #[py(opt)]
     trigger_price: Option<PyDecimal>,
     /// Rejected Message or remark
-    #[py(opt)]
-    msg: Option<String>,
+    msg: String,
     /// Order tag
     tag: OrderTag,
     /// Time in force type
@@ -287,7 +287,7 @@ pub(crate) struct PushOrderChanged {
     #[py(opt)]
     trigger_price: Option<PyDecimal>,
     /// Rejected message or remark
-    msg: Option<String>,
+    msg: String,
     /// Order tag
     tag: OrderTag,
     /// Conditional order trigger status
@@ -403,7 +403,7 @@ pub(crate) struct CashFlow {
     /// Associated Stock code information
     symbol: Option<String>,
     /// Cash flow description
-    description: Option<String>,
+    description: String,
 }
 
 /// Fund positions response
@@ -461,8 +461,7 @@ pub(crate) struct StockPosition {
     /// The number of holdings
     quality: PyDecimal,
     /// Available quantity
-    #[py(opt)]
-    available_quality: Option<PyDecimal>,
+    available_quality: PyDecimal,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or

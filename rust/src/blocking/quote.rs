@@ -580,7 +580,7 @@ impl QuoteContextSync {
     /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::TRADE, false)?;
     /// sleep(Duration::from_secs(5));
     ///
-    /// let resp = ctx.realtime_depth("HK.700")?;
+    /// let resp = ctx.realtime_trades("HK.700", 10)?;
     /// println!("{:?}", resp);
     /// # Ok(())
     /// # }

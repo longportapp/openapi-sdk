@@ -1254,6 +1254,22 @@ class QuoteContext:
             symbols: Security codes
             sub_types: Subscribe types
             is_first_push: Whether to perform a data push immediately after subscribing. (trade not supported)
+
+        Example:
+            ::
+
+                from time import sleep
+                from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+                class EventHandler:
+                    def on_event(self, symbol: str, msg):
+                        print(symbol, msg)
+
+                config = Config.from_env()
+                ctx = QuoteContext(config, EventHandler())
+
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
+                sleep(30)
         """
 
     def unsubscribe(self, symbols: List[str], sub_types: List[Type[SubType]]) -> None:
@@ -1263,6 +1279,16 @@ class QuoteContext:
         Args:
             symbols: Security codes
             sub_types: Subscribe types
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
+                ctx.unsubscribe(["AAPL.US"], [SubType.Quote])
         """
 
     def static_info(self, symbols: List[str]) -> List[SecuritiyStaticInfo]:
@@ -1271,6 +1297,17 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.static_info(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+                print(resp)
         """
 
     def quote(self, symbols: List[str]) -> List[SecurityQuote]:
@@ -1279,6 +1316,17 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+                print(resp)
         """
 
     def option_quote(self, symbols: List[str]) -> List[OptionQuote]:
@@ -1287,6 +1335,17 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.option_quote(["AAPL230317P160000.US"])
+                print(resp)
         """
 
     def warrant_quote(self, symbols: List[str]) -> List[WarrantQuote]:
@@ -1295,6 +1354,17 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.warrant_quote(["21125.HK"])
+                print(resp)
         """
 
     def depth(self, symbol: str) -> SecuritiyDepth:
@@ -1303,6 +1373,17 @@ class QuoteContext:
 
         Args:
             symbol: Security code
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.depth("700.HK")
+                print(resp)
         """
 
     def brokers(self, symbol: str) -> SecurityBrokers:
@@ -1311,11 +1392,33 @@ class QuoteContext:
 
         Args:
             symbol: Security code
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.brokers("700.HK")
+                print(resp)
         """
 
     def participants(self) -> List[ParticipantInfo]:
         """
         Get participants
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.participants()
+                print(resp)
         """
 
     def trades(self, symbol: str, count: int) -> List[Trade]:
@@ -1325,6 +1428,17 @@ class QuoteContext:
         Args:
             symbol: Security code
             count: Count of trades (Maximum is `1000`)
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.trades("700.HK", 10)
+                print(resp)
         """
 
     def intraday(self, symbol: str) -> List[IntradayLine]:
@@ -1333,6 +1447,17 @@ class QuoteContext:
 
         Args:
             symbol: Security code
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.intraday("700.HK")
+                print(resp)
         """
 
     def candlesticks(self, symbol: str, period: Type[Period], count: int, adjust_type: Type[AdjustType]) -> List[Candlestick]:
@@ -1344,6 +1469,17 @@ class QuoteContext:
             period: Candlestick period
             count: Count of cancdlestick (Maximum is `1000`)
             adjust_type: Adjustment type
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config, Period, AdjustType
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.candlesticks("700.HK", Period.Day, 10, AdjustType.NoAdjust)
+                print(resp)
         """
 
     def option_chain_expiry_date_list(self, symbol: str) -> List[date]:
@@ -1352,6 +1488,17 @@ class QuoteContext:
 
         Args:
             symbol: Security code
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.option_chain_expiry_date_list("AAPL.US")
+                print(resp)
         """
 
     def option_chain_info_by_date(self, symbol: str, expiry_date: date) -> List[StrikePriceInfo]:
@@ -1361,54 +1508,163 @@ class QuoteContext:
         Args:
             symbol: Security code
             expiry_date: Expiry date
+
+        Example:
+            ::
+
+                from datetime import date
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.option_chain_info_by_date("AAPL.US", date(2023, 1, 20))
+                print(resp)
         """
 
     def warrant_issuers(self) -> List[IssuerInfo]:
         """
         Get warrant issuers
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.warrant_issuers()
+                print(resp)
         """
 
     def trading_session(self) -> List[MarketTradingSession]:
         """
         Get trading session of the day
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.trading_session()
+                print(resp)
         """
 
     def trading_days(self) -> MarketTradingDays:
         """
         Get trading session of the day
+
+        Example:
+            ::
+
+                from longbridgeapp.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.trading_days()
+                print(resp)
         """
 
     def realtime_quote(self, symbols: List[str]) -> List[RealtimeQuote]:
         """
         Get real-time quote
 
+        Get real-time quotes of the subscribed symbols, it always returns the data in the local storage.
+
         Args:
             symbols: Security codes
+
+        Example:
+            ::
+
+                from time import sleep
+                from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Quote], is_first_push = True)
+                sleep(5)
+                resp = ctx.realtime_quote(["HK.700", "AAPL.US"])
+                print(resp)
         """
 
     def realtime_depth(self, symbol: str) -> SecuritiyDepth:
         """
         Get real-time depth
 
+        Get real-time depth of the subscribed symbols, it always returns the data in the local storage.
+
         Args:
             symbol: Security code
+
+        Example:
+            ::
+
+                from time import sleep
+                from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Depth], is_first_push = True)
+                sleep(5)
+                resp = ctx.realtime_depth("HK.700")
+                print(resp)
         """
 
     def realtime_brokers(self, symbol: str) -> SecurityBrokers:
         """
         Get real-time brokers
 
+        Get real-time brokers of the subscribed symbols, it always returns the data in the local storage.
+
         Args:
             symbol: Security code
+
+        Example:
+            ::
+
+                from time import sleep
+                from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Brokers], is_first_push = True)
+                sleep(5)
+                resp = ctx.realtime_brokers("HK.700")
+                print(resp)
         """
 
     def realtime_trades(self, symbol: str, count: int) -> List[Trade]:
         """
         Get real-time trades
 
+        Get real-time trades of the subscribed symbols, it always returns the data in the local storage.
+
         Args:
             symbol: Security code
             count: Count of trades
+
+        Example:
+            ::
+
+                from time import sleep
+                from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Trade], is_first_push = False)
+                sleep(5)
+                resp = ctx.realtime_trades("HK.700", 10)
+                print(resp)
         """
 
 
@@ -1768,7 +2024,7 @@ class PushOrderChanged:
     Order trigger price
     """
 
-    msg: Optional[str]
+    msg: str
     """
     Rejected message or remark
     """
@@ -1881,7 +2137,7 @@ class Order:
     Submitted quantity
     """
 
-    executed_qty: Decimal
+    executed_quantity: Decimal
     """
     Executed quantity
     """
@@ -1926,7 +2182,7 @@ class Order:
     `LIT` / `MIT` Order Trigger Price
     """
 
-    msg: Optional[str]
+    msg: str
     """
     Rejected Message or remark
     """
@@ -2149,7 +2405,7 @@ class CashFlow:
     Associated Stock code information
     """
 
-    description: Optional[str]
+    description: str
     """
     Cash flow description
     """
@@ -2227,7 +2483,7 @@ class StockPosition:
     The number of holdings
     """
 
-    available_quality: Optional[Decimal]
+    available_quality: Decimal
     """
     Available quantity
     """
@@ -2416,6 +2672,7 @@ class TradeContext:
     def stock_positions(self, symbols: List[str] = []) -> StockPositionsResponse:
         """
         Get stock positions
+
         Args:
             symbols: Filter by stock codes
         """

@@ -52,21 +52,26 @@ pub struct PushOrderChanged {
     #[serde(with = "serde_utils::timestamp")]
     pub updated_at: OffsetDateTime,
     /// Order trigger price
+    #[serde(with = "serde_utils::decimal_opt_0_is_none")]
     pub trigger_price: Option<Decimal>,
     /// Rejected message or remark
-    pub msg: Option<String>,
+    pub msg: String,
     /// Order tag
     pub tag: OrderTag,
     /// Conditional order trigger status
+    #[serde(with = "serde_utils::trigger_status")]
     pub trigger_status: Option<TriggerStatus>,
     /// Conditional order trigger time
     #[serde(with = "serde_utils::timestamp_opt")]
     pub trigger_at: Option<OffsetDateTime>,
     /// Trailing amount
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub trailing_amount: Option<Decimal>,
     /// Trailing percent
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub trailing_percent: Option<Decimal>,
     /// Limit offset amount
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub limit_offset: Option<Decimal>,
     /// Account no
     pub account_no: String,

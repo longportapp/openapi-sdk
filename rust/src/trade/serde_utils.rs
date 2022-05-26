@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 
-use std::fmt::Display;
+use std::{fmt::Display, str::FromStr};
 
-use serde::{de::Error, Deserialize, Deserializer, Serialize, Serializer};
+use serde::{de::Error, Deserialize, Deserializer, Serializer};
 use time::{Date, OffsetDateTime};
 
 pub(crate) mod timestamp {
@@ -34,16 +34,16 @@ pub(crate) mod timestamp_opt {
     where
         D: Deserializer<'de>,
     {
-        match <Option<String>>::deserialize(deserializer)? {
-            Some(value) if !value.is_empty() => {
-                let value = value
-                    .parse::<i64>()
-                    .map_err(|_| Error::custom("invalid timestamp"))?;
-                let datetime = OffsetDateTime::from_unix_timestamp(value)
-                    .map_err(|_| Error::custom("invalid timestamp"))?;
-                Ok(Some(datetime))
-            }
-            _ => Ok(None),
+        let value = String::deserialize(deserializer)?;
+        let value = value
+            .parse::<i64>()
+            .map_err(|_| Error::custom("invalid timestamp"))?;
+        if value == 0 {
+            let datetime = OffsetDateTime::from_unix_timestamp(value)
+                .map_err(|_| Error::custom("invalid timestamp"))?;
+            Ok(Some(datetime))
+        } else {
+            Ok(None)
         }
     }
 
@@ -68,16 +68,16 @@ pub(crate) mod date_opt {
     where
         D: Deserializer<'de>,
     {
-        match <Option<String>>::deserialize(deserializer)? {
-            Some(value) if !value.is_empty() => {
-                let datetime = Date::parse(
-                    &value,
-                    time::macros::format_description!("[year]-[month]-[day]"),
-                )
-                .map_err(|_| Error::custom("invalid timestamp"))?;
-                Ok(Some(datetime))
-            }
-            _ => Ok(None),
+        let value = String::deserialize(deserializer)?;
+        if !value.is_empty() {
+            let datetime = Date::parse(
+                &value,
+                time::macros::format_description!("[year]-[month]-[day]"),
+            )
+            .map_err(|_| Error::custom("invalid timestamp"))?;
+            Ok(Some(datetime))
+        } else {
+            Ok(None)
         }
     }
 
@@ -129,20 +129,10 @@ pub(crate) mod number_str_opt {
     }
 }
 
-pub(crate) mod decimal_opt {
+pub(crate) mod decimal_opt_empty_is_none {
     use rust_decimal::Decimal;
 
     use super::*;
-
-    pub(crate) fn serialize<S>(value: &Option<Decimal>, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        match value {
-            Some(value) => Serialize::serialize(&value, serializer),
-            None => serializer.serialize_none(),
-        }
-    }
 
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<Decimal>, D::Error>
     where
@@ -156,6 +146,78 @@ pub(crate) mod decimal_opt {
             Ok(Some(n))
         } else {
             Ok(None)
+        }
+    }
+}
+
+pub(crate) mod decimal_opt_0_is_none {
+    use rust_decimal::Decimal;
+
+    use super::*;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<Decimal>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        let n = value
+            .parse::<Decimal>()
+            .map_err(|err| Error::custom(err.to_string()))?;
+        if !n.is_zero() {
+            Ok(Some(n))
+        } else {
+            Ok(None)
+        }
+    }
+}
+
+pub(crate) mod trigger_status {
+    use super::*;
+    use crate::trade::TriggerStatus;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<TriggerStatus>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        match value.as_str() {
+            "NOT_USED" => Ok(None),
+            _ => Ok(Some(
+                TriggerStatus::from_str(value.as_str()).unwrap_or_default(),
+            )),
+        }
+    }
+}
+
+pub(crate) mod outside_rth {
+    use super::*;
+    use crate::trade::OutsideRTH;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<OutsideRTH>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        match value.as_str() {
+            "UnknownOutsideRth" => Ok(None),
+            _ => Ok(Some(
+                OutsideRTH::from_str(value.as_str()).unwrap_or_default(),
+            )),
+        }
+    }
+}
+
+pub(crate) mod cash_flow_symbol {
+    use super::*;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<String>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        match value.as_str() {
+            "." => Ok(None),
+            _ => Ok(Some(value)),
         }
     }
 }

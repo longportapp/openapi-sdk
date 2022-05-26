@@ -235,12 +235,13 @@ pub struct Order {
     /// Submitted quantity
     pub quantity: Decimal,
     /// Executed quantity
-    pub executed_qty: Decimal,
+    #[serde(with = "serde_utils::decimal_opt_0_is_none")]
+    pub executed_quantity: Option<Decimal>,
     /// Submitted price
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub price: Option<Decimal>,
     /// Executed price
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_0_is_none")]
     pub executed_price: Option<Decimal>,
     /// Submitted time
     #[serde(with = "serde_utils::timestamp_opt")]
@@ -252,13 +253,13 @@ pub struct Order {
     /// Order type
     pub order_type: OrderType,
     /// Last done
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub last_done: Option<Decimal>,
     /// `LIT` / `MIT` Order Trigger Price
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_0_is_none")]
     pub trigger_price: Option<Decimal>,
     /// Rejected Message or remark
-    pub msg: Option<String>,
+    pub msg: String,
     /// Order tag
     pub tag: OrderTag,
     /// Time in force type
@@ -273,19 +274,21 @@ pub struct Order {
     #[serde(with = "serde_utils::timestamp_opt")]
     pub trigger_at: Option<OffsetDateTime>,
     /// `TSMAMT` / `TSLPAMT` order trailing amount
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub trailing_amount: Option<Decimal>,
     /// `TSMPCT` / `TSLPPCT` order trailing percent
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub trailing_percent: Option<Decimal>,
     /// `TSLPAMT` / `TSLPPCT` order limit offset amount
-    #[serde(with = "serde_utils::decimal_opt")]
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub limit_offset: Option<Decimal>,
     /// Conditional order trigger status
+    #[serde(with = "serde_utils::trigger_status")]
     pub trigger_status: Option<TriggerStatus>,
     /// Currency
     pub currency: String,
     /// Enable or disable outside regular trading hours
+    #[serde(with = "serde_utils::outside_rth")]
     pub outside_rth: Option<OutsideRTH>,
 }
 
@@ -373,9 +376,10 @@ pub struct CashFlow {
     #[serde(with = "serde_utils::timestamp")]
     pub business_time: OffsetDateTime,
     /// Associated Stock code information
+    #[serde(with = "serde_utils::cash_flow_symbol")]
     pub symbol: Option<String>,
     /// Cash flow description
-    pub description: Option<String>,
+    pub description: String,
 }
 
 /// Fund positions response
@@ -425,8 +429,7 @@ pub struct StockPosition {
     /// The number of holdings
     pub quality: Decimal,
     /// Available quantity
-    #[serde(with = "serde_utils::decimal_opt")]
-    pub available_quality: Option<Decimal>,
+    pub available_quality: Decimal,
     /// Currency
     pub currency: String,
     /// Cost Price(According to the client's choice of average purchase or
