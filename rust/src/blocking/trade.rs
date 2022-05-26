@@ -48,6 +48,27 @@ impl TradeContextSync {
     }
 
     /// Get history executions
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, trade::GetHistoryExecutionsOptions, Config};
+    /// use time::macros::datetime;
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts = GetHistoryExecutionsOptions::new().symbol("700.HK")
+    ///     .start_at(datetime!(2022-05-09 0:00 UTC))
+    ///     .end_at(datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.history_executions(opts)?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn history_executions(
         &self,
         options: impl Into<Option<GetHistoryExecutionsOptions>> + Send + 'static,
@@ -57,6 +78,25 @@ impl TradeContextSync {
     }
 
     /// Get today executions
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, trade::GetTodayExecutionsOptions, Config};
+    /// use time::macros::datetime;
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts = GetTodayExecutionsOptions::new().symbol("700.HK");
+    /// let resp = ctx.today_executions(opts)?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn today_executions(
         &self,
         options: impl Into<Option<GetTodayExecutionsOptions>> + Send + 'static,
@@ -66,6 +106,35 @@ impl TradeContextSync {
     }
 
     /// Get history orders
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     blocking::TradeContextSync,
+    ///     trade::{GetHistoryOrdersOptions, OrderSide, OrderStatus},
+    ///     Config, Market,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts = GetHistoryOrdersOptions::new()
+    ///     .symbol("700.HK")
+    ///     .status([OrderStatus::Filled, OrderStatus::New])
+    ///     .side(OrderSide::Buy)
+    ///     .market(Market::HK)
+    ///     .start_at(datetime!(2022-05-09 0:00 UTC))
+    ///     .end_at(datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.history_orders(opts)?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn history_orders(
         &self,
         options: impl Into<Option<GetHistoryOrdersOptions>> + Send + 'static,
@@ -75,6 +144,32 @@ impl TradeContextSync {
     }
 
     /// Get today orders
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     blocking::TradeContextSync,
+    ///     trade::{GetTodayOrdersOptions, OrderSide, OrderStatus},
+    ///     Config, Market,
+    /// };
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts = GetTodayOrdersOptions::new()
+    ///     .symbol("700.HK")
+    ///     .status([OrderStatus::Filled, OrderStatus::New])
+    ///     .side(OrderSide::Buy)
+    ///     .market(Market::HK);
+    /// let resp = ctx.today_orders(opts)?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn today_orders(
         &self,
         options: impl Into<Option<GetTodayOrdersOptions>> + Send + 'static,
@@ -84,30 +179,129 @@ impl TradeContextSync {
     }
 
     /// Replace order
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, decimal, trade::ReplaceOrderOptions, Config};
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts =
+    ///     ReplaceOrderOptions::new("709043056541253632", decimal!(100i32)).price(decimal!(300i32));
+    /// let resp = ctx.replace_order(opts)?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn replace_order(&self, options: ReplaceOrderOptions) -> Result<()> {
         self.rt
             .call(move |ctx| async move { ctx.replace_order(options).await })
     }
 
     /// Submit order
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     blocking::TradeContextSync,
+    ///     decimal,
+    ///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType},
+    ///     Config,
+    /// };
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts = SubmitOrderOptions::new(
+    ///     "700.HK",
+    ///     OrderType::LO,
+    ///     OrderSide::Buy,
+    ///     decimal!(200i32),
+    ///     TimeInForceType::Day,
+    /// )
+    /// .submitted_price(decimal!(50i32));
+    /// let resp = ctx.submit_order(opts)?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn submit_order(&self, options: SubmitOrderOptions) -> Result<SubmitOrderResponse> {
         self.rt
             .call(move |ctx| async move { ctx.submit_order(options).await })
     }
 
     /// Withdraw order
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, Config};
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// ctx.withdraw_order("709043056541253632")?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn withdraw_order(&self, order_id: impl Into<String> + Send + 'static) -> Result<()> {
         self.rt
             .call(move |ctx| async move { ctx.withdraw_order(order_id).await })
     }
 
     /// Get account balance
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, Config};
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// ctx.account_balance()?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn account_balance(&self) -> Result<Vec<AccountBalance>> {
         self.rt
             .call(move |ctx| async move { ctx.account_balance().await })
     }
 
     /// Get cash flow
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, trade::GetCashFlowOptions, Config};
+    /// use time::macros::datetime;
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// let opts = GetCashFlowOptions::new(datetime!(2022-05-09 0:00 UTC), datetime!(2022-05-12 0:00 UTC));
+    /// ctx.cash_flow(opts)?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn cash_flow(&self, options: GetCashFlowOptions) -> Result<Vec<CashFlow>> {
         self.rt
             .call(move |ctx| async move { ctx.cash_flow(options).await })
@@ -115,7 +309,21 @@ impl TradeContextSync {
 
     /// Get fund positions
     ///
-    /// If `symbols` is empty, it means to get all fund positions.
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, Config};
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// ctx.fund_positions(None)?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn fund_positions(
         &self,
         opts: impl Into<Option<GetFundPositionsOptions>> + Send + 'static,
@@ -126,7 +334,21 @@ impl TradeContextSync {
 
     /// Get stock positions
     ///
-    /// If `symbols` is empty, it means to get all stock positions.
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::TradeContextSync, Config};
+    ///
+    /// # fn main() -> anyhow::Result<()> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = TradeContextSync::try_new(config, |_| ())?;
+    ///
+    /// ctx.stock_positions(None)?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn stock_positions(
         &self,
         opts: impl Into<Option<GetStockPositionsOptions>> + Send + 'static,

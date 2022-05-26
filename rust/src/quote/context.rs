@@ -890,7 +890,7 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::TRADE, true)
+    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::TRADE, false)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///

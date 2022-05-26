@@ -362,8 +362,7 @@ impl TradeContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = TradeContext::try_new(config).await?;
     ///
-    /// let resp = ctx.withdraw_order("709043056541253632").await?;
-    /// println!("{:?}", resp);
+    /// ctx.withdraw_order("709043056541253632").await?;
     /// # Ok::<_, anyhow::Error>(())
     /// # });
     /// ```
@@ -461,8 +460,6 @@ impl TradeContext {
 
     /// Get fund positions
     ///
-    /// If `symbols` is empty, it means to get all fund positions.
-    ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/asset/fund>
     ///
     /// # Examples
@@ -495,8 +492,6 @@ impl TradeContext {
     }
 
     /// Get stock positions
-    ///
-    /// If `symbols` is empty, it means to get all stock positions.
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/asset/stock>
     ///
