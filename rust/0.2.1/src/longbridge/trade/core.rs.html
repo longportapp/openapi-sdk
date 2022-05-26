@@ -231,10 +231,6 @@
 <span id="226">226</span>
 <span id="227">227</span>
 <span id="228">228</span>
-<span id="229">229</span>
-<span id="230">230</span>
-<span id="231">231</span>
-<span id="232">232</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashSet</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">anyhow::Result</span>;
@@ -243,7 +239,7 @@
 <span class="kw">use</span> <span class="ident">tokio::sync</span>::{<span class="ident">mpsc</span>, <span class="ident">oneshot</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">trade</span>::{<span class="ident">cmd_code</span>, <span class="ident">PushEvent</span>},
+    <span class="ident">trade</span>::{<span class="ident">cmd_code</span>, <span class="ident">PushEvent</span>, <span class="ident">TopicType</span>},
     <span class="ident">Config</span>,
 };
 
@@ -251,11 +247,11 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum</span> <span class="ident">Command</span> {
     <span class="ident">Subscribe</span> {
-        <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicType</span><span class="op">&gt;</span>,
         <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
     },
     <span class="ident">Unsubscribe</span> {
-        <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+        <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicType</span><span class="op">&gt;</span>,
         <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
     },
 }
@@ -431,11 +427,9 @@
         }
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_subscribe</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">tracing::debug!</span>(<span class="ident">topics</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">topics</span>, <span class="string">&quot;subscribe&quot;</span>);
-
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_subscribe</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicType</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">Sub</span> {
-            <span class="ident">topics</span>: <span class="ident">topics</span>.<span class="ident">clone</span>(),
+            <span class="ident">topics</span>: <span class="ident">topics</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="ident">ToString::to_string</span>).<span class="ident">collect</span>(),
         };
         <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">SubResponse</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">ws_cli</span>.<span class="ident">request</span>(<span class="ident">cmd_code::SUBSCRIBE</span>, <span class="prelude-val">None</span>, <span class="ident">req</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">subscriptions</span> <span class="op">=</span> <span class="ident">resp</span>.<span class="ident">current</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>();
@@ -443,11 +437,9 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_unsubscribe</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">tracing::debug!</span>(<span class="ident">topics</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">topics</span>, <span class="string">&quot;unsubscribe&quot;</span>);
-
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_unsubscribe</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TopicType</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">Unsub</span> {
-            <span class="ident">topics</span>: <span class="ident">topics</span>.<span class="ident">clone</span>(),
+            <span class="ident">topics</span>: <span class="ident">topics</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="ident">ToString::to_string</span>).<span class="ident">collect</span>(),
         };
         <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">UnsubResponse</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">ws_cli</span>

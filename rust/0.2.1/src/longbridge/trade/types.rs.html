@@ -463,6 +463,9 @@
 <span id="458">458</span>
 <span id="459">459</span>
 <span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
 <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
 <span class="kw">use</span> <span class="ident">strum_macros</span>::{<span class="ident">Display</span>, <span class="ident">EnumString</span>};
@@ -700,12 +703,13 @@
     <span class="doccomment">/// Submitted quantity</span>
     <span class="kw">pub</span> <span class="ident">quantity</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Executed quantity</span>
-    <span class="kw">pub</span> <span class="ident">executed_qty</span>: <span class="ident">Decimal</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">executed_quantity</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Submitted price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Executed price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">executed_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Submitted time</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]</span>
@@ -717,13 +721,13 @@
     <span class="doccomment">/// Order type</span>
     <span class="kw">pub</span> <span class="ident">order_type</span>: <span class="ident">OrderType</span>,
     <span class="doccomment">/// Last done</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// `LIT` / `MIT` Order Trigger Price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">trigger_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Rejected Message or remark</span>
-    <span class="kw">pub</span> <span class="ident">msg</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">msg</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Order tag</span>
     <span class="kw">pub</span> <span class="ident">tag</span>: <span class="ident">OrderTag</span>,
     <span class="doccomment">/// Time in force type</span>
@@ -738,19 +742,21 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">trigger_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OffsetDateTime</span><span class="op">&gt;</span>,
     <span class="doccomment">/// `TSMAMT` / `TSLPAMT` order trailing amount</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">trailing_amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// `TSMPCT` / `TSLPPCT` order trailing percent</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">trailing_percent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// `TSLPAMT` / `TSLPPCT` order limit offset amount</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">limit_offset</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Conditional order trigger status</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">trigger_status</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TriggerStatus</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Currency</span>
     <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Enable or disable outside regular trading hours</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::outside_rth&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">outside_rth</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OutsideRTH</span><span class="op">&gt;</span>,
 }
 
@@ -838,9 +844,10 @@
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">business_time</span>: <span class="ident">OffsetDateTime</span>,
     <span class="doccomment">/// Associated Stock code information</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::cash_flow_symbol&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Cash flow description</span>
-    <span class="kw">pub</span> <span class="ident">description</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">description</span>: <span class="ident">String</span>,
 }
 
 <span class="doccomment">/// Fund positions response</span>
@@ -890,8 +897,7 @@
     <span class="doccomment">/// The number of holdings</span>
     <span class="kw">pub</span> <span class="ident">quality</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Available quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">available_quality</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">available_quality</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Currency</span>
     <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Cost Price(According to the client&#39;s choice of average purchase or</span>

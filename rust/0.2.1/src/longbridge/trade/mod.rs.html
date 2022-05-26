@@ -24,6 +24,7 @@
 <span id="19">19</span>
 <span id="20">20</span>
 <span id="21">21</span>
+<span id="22">22</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Trade related types</span>
 
 <span class="kw">mod</span> <span class="ident">cmd_code</span>;
@@ -35,10 +36,11 @@
 <span class="kw">mod</span> <span class="ident">types</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">context</span>::{<span class="ident">SubmitOrderResponse</span>, <span class="ident">TradeContext</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">push_types</span>::{<span class="ident">PushEvent</span>, <span class="ident">PushOrderChanged</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">push_types</span>::{<span class="ident">PushEvent</span>, <span class="ident">PushOrderChanged</span>, <span class="ident">TopicType</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">requests</span>::{
-    <span class="ident">GetCashFlowOptions</span>, <span class="ident">GetHistoryExecutionsOptions</span>, <span class="ident">GetHistoryOrdersOptions</span>,
-    <span class="ident">GetTodayExecutionsOptions</span>, <span class="ident">GetTodayOrdersOptions</span>, <span class="ident">ReplaceOrderOptions</span>, <span class="ident">SubmitOrderOptions</span>,
+    <span class="ident">GetCashFlowOptions</span>, <span class="ident">GetFundPositionsOptions</span>, <span class="ident">GetHistoryExecutionsOptions</span>,
+    <span class="ident">GetHistoryOrdersOptions</span>, <span class="ident">GetStockPositionsOptions</span>, <span class="ident">GetTodayExecutionsOptions</span>,
+    <span class="ident">GetTodayOrdersOptions</span>, <span class="ident">ReplaceOrderOptions</span>, <span class="ident">SubmitOrderOptions</span>,
 };
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">types</span>::{
     <span class="ident">AccountBalance</span>, <span class="ident">BalanceType</span>, <span class="ident">CashFlow</span>, <span class="ident">CashFlowDirection</span>, <span class="ident">CashInfo</span>, <span class="ident">Execution</span>, <span class="ident">FundPosition</span>,

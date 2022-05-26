@@ -841,7 +841,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.Order.quantity">quantity</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.Order.executed_qty">executed_qty</a>
+    <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.Order.executed_quantity">executed_quantity</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.Order.price">price</a>
     </li>
@@ -1007,6 +1007,12 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#longbridge.openapi.TopicType">TopicType</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.TopicType.Private">Private</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#longbridge.openapi.TradeContext">TradeContext</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.TradeContext.subscribe">subscribe()</a>
@@ -1148,7 +1154,7 @@
           </td>
           <td><p>HTTP API url</p></td>
           <td>
-                <code>&#39;https://openapi.longbridge.global&#39;</code>
+                <code>&#39;https://openapi.longbridgeapp.com&#39;</code>
           </td>
         </tr>
         <tr>
@@ -1158,7 +1164,7 @@
           </td>
           <td><p>Websocket url for quote API</p></td>
           <td>
-                <code>&#39;https://openapi.longbridge.global&#39;</code>
+                <code>&#39;wss://openapi-quote.longbridgeapp.com&#39;</code>
           </td>
         </tr>
         <tr>
@@ -1168,7 +1174,7 @@
           </td>
           <td><p>Websocket url for trade API</p></td>
           <td>
-                <code>&#39;https://openapi.longbridge.global&#39;</code>
+                <code>&#39;wss://openapi-trade.longbridgeapp.com&#39;</code>
           </td>
         </tr>
     </tbody>
@@ -7410,7 +7416,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Subscribe quote</p>
+      <p>Subscribe</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -7456,6 +7462,25 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+class EventHandler:
+    def on_event(self, symbol: str, msg):
+        print(symbol, msg)
+
+config = Config.from_env()
+ctx = QuoteContext(config, EventHandler())
+
+ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
+sleep(30)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7475,7 +7500,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Unsubscribe quote</p>
+      <p>Unsubscribe</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -7511,6 +7536,19 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config, SubType
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
+ctx.unsubscribe(["AAPL.US"], [SubType.Quote])
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7556,6 +7594,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.static_info(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7601,6 +7653,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7646,6 +7712,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.option_quote(["AAPL230317P160000.US"])
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7691,6 +7771,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.warrant_quote(["21125.HK"])
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7736,6 +7830,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.depth("700.HK")
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7781,6 +7889,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.brokers("700.HK")
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7802,6 +7924,20 @@
 
       <p>Get participants</p>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.participants()
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7857,6 +7993,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.trades("700.HK", 10)
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7902,6 +8052,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.intraday("700.HK")
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -7977,6 +8141,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config, Period, AdjustType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.candlesticks("700.HK", Period.Day, 10, AdjustType.NoAdjust)
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8022,6 +8200,20 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.option_chain_expiry_date_list("AAPL.US")
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8077,6 +8269,21 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from datetime import date
+from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.option_chain_info_by_date("AAPL.US", date(2023, 1, 20))
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8098,6 +8305,20 @@
 
       <p>Get warrant issuers</p>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.warrant_issuers()
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8119,6 +8340,20 @@
 
       <p>Get trading session of the day</p>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.trading_session()
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8140,6 +8375,20 @@
 
       <p>Get trading session of the day</p>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.trading_days()
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8160,6 +8409,7 @@
     <div class="doc doc-contents ">
 
       <p>Get real-time quote</p>
+<p>Get real-time quotes of the subscribed symbols, it always returns the data in the local storage.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -8185,6 +8435,23 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Quote], is_first_push = True)
+sleep(5)
+resp = ctx.realtime_quote(["HK.700", "AAPL.US"])
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8205,6 +8472,7 @@
     <div class="doc doc-contents ">
 
       <p>Get real-time depth</p>
+<p>Get real-time depth of the subscribed symbols, it always returns the data in the local storage.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -8230,6 +8498,23 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Depth], is_first_push = True)
+sleep(5)
+resp = ctx.realtime_depth("HK.700")
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8250,6 +8535,7 @@
     <div class="doc doc-contents ">
 
       <p>Get real-time brokers</p>
+<p>Get real-time brokers of the subscribed symbols, it always returns the data in the local storage.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -8275,6 +8561,23 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Brokers], is_first_push = True)
+sleep(5)
+resp = ctx.realtime_brokers("HK.700")
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -8295,6 +8598,7 @@
     <div class="doc doc-contents ">
 
       <p>Get real-time trades</p>
+<p>Get real-time trades of the subscribed symbols, it always returns the data in the local storage.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -8330,6 +8634,23 @@
     </tbody>
   </table>
 
+<details class="example">
+  <summary>Example</summary>
+  <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longbridgeapp.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Trade], is_first_push = False)
+sleep(5)
+resp = ctx.realtime_trades("HK.700", 10)
+print(resp)
+
+
+</code></pre>
+</details>
     </div>
 
   </div>
@@ -10283,7 +10604,7 @@
 
 
 <h3 id="longbridge.openapi.PushOrderChanged.msg" class="doc doc-heading">
-<code class="highlight language-python">msg: Optional[str]</code>
+<code class="highlight language-python">msg: str</code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -10874,8 +11195,8 @@
 
 
 
-<h3 id="longbridge.openapi.Order.executed_qty" class="doc doc-heading">
-<code class="highlight language-python">executed_qty: Decimal</code>
+<h3 id="longbridge.openapi.Order.executed_quantity" class="doc doc-heading">
+<code class="highlight language-python">executed_quantity: Decimal</code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -11082,7 +11403,7 @@
 
 
 <h3 id="longbridge.openapi.Order.msg" class="doc doc-heading">
-<code class="highlight language-python">msg: Optional[str]</code>
+<code class="highlight language-python">msg: str</code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -12166,7 +12487,7 @@
 
 
 <h3 id="longbridge.openapi.CashFlow.description" class="doc doc-heading">
-<code class="highlight language-python">description: Optional[str]</code>
+<code class="highlight language-python">description: str</code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -12562,7 +12883,7 @@
 
 
 <h3 id="longbridge.openapi.StockPosition.available_quality" class="doc doc-heading">
-<code class="highlight language-python">available_quality: Optional[Decimal]</code>
+<code class="highlight language-python">available_quality: Decimal</code>
 
   <span class="doc doc-properties">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
@@ -12728,6 +13049,74 @@
 
 
 
+<h2 id="longbridge.openapi.TopicType" class="doc doc-heading">
+          <code>TopicType</code>
+
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+      <p>Topic type</p>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="longbridge.openapi.TopicType.Private" class="doc doc-heading">
+          <code>Private</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a class="autorefs autorefs-internal" title="longbridge.openapi.TopicType" href="#longbridge.openapi.TopicType">TopicType</a></code></p>
+
+
+      <p>Private notification for trade</p>
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
 <h2 id="longbridge.openapi.TradeContext" class="doc doc-heading">
           <code>TradeContext</code>
 
@@ -12802,7 +13191,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Subscribe topics</p>
+      <p>Subscribe</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -12847,7 +13236,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Unsubscribe topics</p>
+      <p>Unsubscribe</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -13631,7 +14020,7 @@
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Fund codes</p></td>
+          <td><p>Filter by fund codes</p></td>
           <td>
                 <code>[]</code>
           </td>
@@ -13658,7 +14047,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get fund positions</p>
+      <p>Get stock positions</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -13676,7 +14065,7 @@
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Stock codes</p></td>
+          <td><p>Filter by stock codes</p></td>
           <td>
                 <code>[]</code>
           </td>
