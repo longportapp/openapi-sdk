@@ -6,6 +6,7 @@ env = Environment(loader=FileSystemLoader("./misc/templates"))
 template = env.get_template("docs.html")
 
 root = Path("./gh-pages")
+
 rust_versions = []
 python_versions = []
 
@@ -18,3 +19,4 @@ result = template.render(
     rust_versions=rust_versions,
     python_versions=python_versions,
 )
+print(result)
