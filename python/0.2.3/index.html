@@ -105,8 +105,7 @@ export LONGBRIDGE_ACCESS_TOKEN="Access Token get from user center"</code></pre>
 setx LONGBRIDGE_APP_SECRET "App Secret get from user center"
 setx LONGBRIDGE_ACCESS_TOKEN "Access Token get from user center"</code></pre>
 <h2 id="quote-api-get-basic-information-of-securities">Quote API <em>(Get basic information of securities)</em></h2>
-<pre class="highlight"><code class="language-python">from longbridge import Config
-from longbridge.quote import QuoteContext
+<pre class="highlight"><code class="language-python">from longbridge.openapi import Config, QuoteContext
 
 # Load configuration from environment variables
 config = Config.from_env()
@@ -119,8 +118,7 @@ resp = ctx.quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
 print(resp)</code></pre>
 <h2 id="quote-api-subscribe-quotes">Quote API <em>(Subscribe quotes)</em></h2>
 <pre class="highlight"><code class="language-python">from time import sleep
-from longbridge import Config
-from longbridge.quote import QuoteContext, SubType, PushQuote
+from longbridge.openapi import Config, QuoteContext, SubType, PushQuote
 
 # Load configuration from environment variables
 config = Config.from_env()
@@ -214,5 +212,5 @@ print(resp)</code></pre>
 
 <!--
 MkDocs version : 1.3.0
-Build Date UTC : 2022-05-27 08:55:44.025465+00:00
+Build Date UTC : 2022-05-27 09:13:09.608021+00:00
 -->
