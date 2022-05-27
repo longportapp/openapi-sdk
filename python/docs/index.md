@@ -29,8 +29,7 @@ setx LONGBRIDGE_ACCESS_TOKEN "Access Token get from user center"
 ## Quote API _(Get basic information of securities)_
 
 ```python
-from longbridge import Config
-from longbridge.quote import QuoteContext
+from longbridge.openapi import Config, QuoteContext
 
 # Load configuration from environment variables
 config = Config.from_env()
@@ -47,8 +46,7 @@ print(resp)
 
 ```python
 from time import sleep
-from longbridge import Config
-from longbridge.quote import QuoteContext, SubType, PushQuote
+from longbridge.openapi import Config, QuoteContext, SubType, PushQuote
 
 # Load configuration from environment variables
 config = Config.from_env()
