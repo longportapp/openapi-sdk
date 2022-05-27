@@ -305,7 +305,7 @@ impl QuoteContextSync {
             .call(move |ctx| async move { ctx.trades(symbol, count).await })
     }
 
-    /// Get security intraday
+    /// Get security intraday lines
     ///
     /// # Examples
     ///

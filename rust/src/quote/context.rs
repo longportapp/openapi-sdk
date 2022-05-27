@@ -487,7 +487,7 @@ impl QuoteContext {
         Ok(trades)
     }
 
-    /// Get security intraday
+    /// Get security intraday lines
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/intraday>
     ///

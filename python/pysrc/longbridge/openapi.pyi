@@ -1329,6 +1329,9 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
+        Returns:
+            Security info list
+
         Examples:
             ::
 
@@ -1347,6 +1350,9 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Returns:
+            Security quote list
 
         Examples:
             ::
@@ -1367,6 +1373,9 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
+        Returns:
+            Option quote list
+
         Examples:
             ::
 
@@ -1385,6 +1394,9 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Returns:
+            Warrant quote list
 
         Examples:
             ::
@@ -1405,6 +1417,9 @@ class QuoteContext:
         Args:
             symbol: Security code
 
+        Returns:
+            Security depth
+
         Examples:
             ::
 
@@ -1424,6 +1439,9 @@ class QuoteContext:
         Args:
             symbol: Security code
 
+        Returns:
+            Security brokers
+
         Examples:
             ::
 
@@ -1439,6 +1457,9 @@ class QuoteContext:
     def participants(self) -> List[ParticipantInfo]:
         """
         Get participants
+
+        Returns:
+            Participants
 
         Examples:
             ::
@@ -1460,6 +1481,9 @@ class QuoteContext:
             symbol: Security code
             count: Count of trades (Maximum is `1000`)
 
+        Returns:
+            Trades
+
         Examples:
             ::
 
@@ -1474,10 +1498,13 @@ class QuoteContext:
 
     def intraday(self, symbol: str) -> List[IntradayLine]:
         """
-        Get security intraday
+        Get security intraday lines
 
         Args:
             symbol: Security code
+
+        Returns:
+            Intraday lines
 
         Examples:
             ::
@@ -1501,6 +1528,9 @@ class QuoteContext:
             count: Count of cancdlestick (Maximum is `1000`)
             adjust_type: Adjustment type
 
+        Returns:
+            Candlesticks
+
         Examples:
             ::
 
@@ -1519,6 +1549,9 @@ class QuoteContext:
 
         Args:
             symbol: Security code
+
+        Returns:
+            Option chain expiry date list
 
         Examples:
             ::
@@ -1540,6 +1573,9 @@ class QuoteContext:
             symbol: Security code
             expiry_date: Expiry date
 
+        Returns:
+            Option chain info
+
         Examples:
             ::
 
@@ -1557,6 +1593,9 @@ class QuoteContext:
         """
         Get warrant issuers
 
+        Returns:
+            Warrant issuers
+
         Examples:
             ::
 
@@ -1572,6 +1611,9 @@ class QuoteContext:
     def trading_session(self) -> List[MarketTradingSession]:
         """
         Get trading session of the day
+
+        Returns:
+            Trading session of the day
 
         Examples:
             ::
@@ -1596,6 +1638,9 @@ class QuoteContext:
             begin: Begin date
             end: End date
 
+        Returns:
+            Trading days
+
         Examples:
             ::
 
@@ -1617,6 +1662,9 @@ class QuoteContext:
 
         Args:
             symbols: Security codes
+
+        Returns:
+            Quote list
 
         Examples:
             ::
@@ -1642,6 +1690,9 @@ class QuoteContext:
         Args:
             symbol: Security code
 
+        Returns:
+            Security depth
+
         Examples:
             ::
 
@@ -1665,6 +1716,9 @@ class QuoteContext:
 
         Args:
             symbol: Security code
+
+        Returns:
+            Security brokers
 
         Examples:
             ::
@@ -1690,6 +1744,9 @@ class QuoteContext:
         Args:
             symbol: Security code
             count: Count of trades
+
+        Returns:
+            Security trades
 
         Examples:
             ::
@@ -2601,6 +2658,9 @@ class TradeContext:
             start_at: Start time
             end_at: End time
 
+        Returns:
+            Execution list
+
         Examples:
             ::
 
@@ -2626,6 +2686,9 @@ class TradeContext:
             symbol: Filter by security code
             order_id: Filter by Order ID
 
+        Returns:
+            Execution list
+
         Examples:
             ::
 
@@ -2649,6 +2712,9 @@ class TradeContext:
             market: Filter by market type
             start_at: Start time
             end_at: End time
+
+        Returns:
+            Order list
 
         Examples:
             ::
@@ -2679,6 +2745,9 @@ class TradeContext:
             status: Filter by order status
             side: Filter by order side
             market: Filter by market type
+
+        Returns:
+            Order list
 
         Examples:
             ::
@@ -2745,6 +2814,9 @@ class TradeContext:
             outside_rth: Enable or disable outside regular trading hours
             remark: Remark (Maximum 64 characters)
 
+        Returns:
+            Response
+
         Examples:
             ::
 
@@ -2788,6 +2860,9 @@ class TradeContext:
         """
         Get account balance
 
+        Returns:
+            Account list
+
         Examples:
             ::
 
@@ -2812,6 +2887,9 @@ class TradeContext:
             page: Start page (Default: 1)
             size: Page size (Default: 50)
 
+        Returns:
+            Cash flow list
+
         Examples:
             ::
 
@@ -2835,6 +2913,9 @@ class TradeContext:
         Args:
             symbols: Filter by fund codes
 
+        Returns:
+            Fund positions
+
         Examples:
             ::
 
@@ -2853,6 +2934,9 @@ class TradeContext:
 
         Args:
             symbols: Filter by stock codes
+
+        Returns:
+            Stock positions
 
         Examples:
             ::
