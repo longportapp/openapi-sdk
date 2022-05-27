@@ -1259,7 +1259,7 @@ class QuoteContext:
             ::
 
                 from time import sleep
-                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                from longbridge.openapi import QuoteContext, Config, SubType
 
                 class EventHandler:
                     def on_event(self, symbol: str, msg):
@@ -1283,7 +1283,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                from longbridge.openapi import QuoteContext, Config, SubType
                 config = Config.from_env()
                 ctx = QuoteContext(config)
 
@@ -1301,7 +1301,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1320,7 +1320,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1339,7 +1339,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1358,7 +1358,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1377,7 +1377,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1396,7 +1396,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1412,7 +1412,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1432,7 +1432,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1451,7 +1451,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1473,7 +1473,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config, Period, AdjustType
+                from longbridge.openapi import QuoteContext, Config, Period, AdjustType
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1492,7 +1492,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1513,7 +1513,7 @@ class QuoteContext:
             ::
 
                 from datetime import date
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1529,7 +1529,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1545,7 +1545,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1561,7 +1561,7 @@ class QuoteContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import QuoteContext, Config
+                from longbridge.openapi import QuoteContext, Config
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1583,7 +1583,7 @@ class QuoteContext:
             ::
 
                 from time import sleep
-                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                from longbridge.openapi import QuoteContext, Config, SubType
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1607,7 +1607,7 @@ class QuoteContext:
             ::
 
                 from time import sleep
-                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                from longbridge.openapi import QuoteContext, Config, SubType
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1631,7 +1631,7 @@ class QuoteContext:
             ::
 
                 from time import sleep
-                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                from longbridge.openapi import QuoteContext, Config, SubType
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -1656,7 +1656,7 @@ class QuoteContext:
             ::
 
                 from time import sleep
-                from longbridgeapp.openapi import QuoteContext, Config, SubType
+                from longbridge.openapi import QuoteContext, Config, SubType
 
                 config = Config.from_env()
                 ctx = QuoteContext(config)
@@ -2566,7 +2566,7 @@ class TradeContext:
             ::
 
                 from datetime import datetime
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2590,7 +2590,7 @@ class TradeContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2615,7 +2615,7 @@ class TradeContext:
             ::
 
                 from datetime import datetime
-                from longbridgeapp.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+                from longbridge.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2644,7 +2644,7 @@ class TradeContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+                from longbridge.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2675,7 +2675,7 @@ class TradeContext:
             ::
 
                 from decimal import Decimal
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2710,7 +2710,7 @@ class TradeContext:
             ::
 
                 from decimal import Decimal
-                from longbridgeapp.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType
+                from longbridge.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2737,7 +2737,7 @@ class TradeContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2752,7 +2752,7 @@ class TradeContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2777,7 +2777,7 @@ class TradeContext:
             ::
 
                 from datetime import datetime
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2799,7 +2799,7 @@ class TradeContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
@@ -2818,7 +2818,7 @@ class TradeContext:
         Examples:
             ::
 
-                from longbridgeapp.openapi import TradeContext, Config
+                from longbridge.openapi import TradeContext, Config
 
                 config = Config.from_env()
                 ctx = TradeContext(config)
