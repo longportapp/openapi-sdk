@@ -29,12 +29,5 @@ async fn main() -> Result<()> {
     let resp = ctx.submit_order(opts).await?;
     println!("{:?}", resp);
 
-    // Query orders
-    let resp = ctx.today_orders(None).await?;
-    println!("{:?}", resp);
-
-    let resp = ctx.account_balance().await?;
-    println!("{:?}", resp);
-
     Ok(())
 }

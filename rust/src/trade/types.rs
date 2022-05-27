@@ -195,9 +195,6 @@ pub enum TriggerStatus {
     /// Unknown
     #[strum(disabled)]
     Unknown,
-    /// Not active
-    #[strum(serialize = "NOT_ACTIVE")]
-    NotActive,
     /// Deactive
     #[strum(serialize = "DEACTIVE")]
     Deactive,

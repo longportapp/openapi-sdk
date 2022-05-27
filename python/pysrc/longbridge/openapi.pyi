@@ -1892,11 +1892,6 @@ class TriggerStatus:
         Unknown
         """
 
-    class NotActive(TriggerStatus):
-        """
-        Not active
-        """
-
     class Deactive(TriggerStatus):
         """
         Deactive
@@ -2566,6 +2561,22 @@ class TradeContext:
             symbol: Filter by security code, example: `700.HK`, `AAPL.US`
             start_at: Start time
             end_at: End time
+
+        Examples:
+            ::
+
+                from datetime import datetime
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.history_executions(
+                    symbol = "700.HK",
+                    start_at = datetime(2022, 5, 9),
+                    end_at = datetime(2022, 5, 12),
+                )
+                print(resp)
         """
 
     def today_executions(self, symbol: Optional[str] = None, order_id: Optional[str] = None) -> List[Trade]:
@@ -2575,6 +2586,17 @@ class TradeContext:
         Args:
             symbol: Filter by security code
             order_id: Filter by Order ID
+
+        Examples:
+            ::
+
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.today_executions(symbol = "700.HK")
+                print(resp)
         """
 
     def history_orders(self, symbol: Optional[str] = None, status: List[Type[OrderStatus]] = [], side: Optional[Type[OrderSide]] = None, market: Optional[Type[Market]] = None, start_at: Optional[date] = None, end_at: Optional[date] = None) -> List[Order]:
@@ -2588,6 +2610,25 @@ class TradeContext:
             market: Filter by market type
             start_at: Start time
             end_at: End time
+
+        Examples:
+            ::
+
+                from datetime import datetime
+                from longbridgeapp.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.history_orders(
+                    symbol = "700.HK",
+                    status = [OrderStatus.Filled, OrderStatus.New],
+                    side = OrderSide.Buy,
+                    market = Market.HK,
+                    start_at = datetime(2022, 5, 9),
+                    end_at = datetime(2022, 5, 12),
+                )
+                print(resp)
         """
 
     def today_orders(self, symbol: Optional[str] = None, status: List[Type[OrderStatus]] = [], side: Optional[Type[OrderSide]] = None, market: Optional[Type[Market]] = None) -> List[Order]:
@@ -2599,6 +2640,22 @@ class TradeContext:
             status: Filter by order status
             side: Filter by order side
             market: Filter by market type
+
+        Examples:
+            ::
+
+                from longbridgeapp.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.today_orders(
+                    symbol = "700.HK",
+                    status = [OrderStatus.Filled, OrderStatus.New],
+                    side = OrderSide.Buy,
+                    market = Market.HK,
+                )
+                print(resp)
         """
 
     def replace_order(self, order_id: str, quantity: Decimal, price: Optional[Decimal] = None, trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, remark: Optional[str] = None) -> None:
@@ -2613,6 +2670,21 @@ class TradeContext:
             trailing_amount: Trailing amount (`TSLPAMT` / `TSMAMT` Required)
             trailing_percent: Trailing percent (`TSLPPCT` / `TSMAPCT` Required)
             remark: Remark (Maximum 64 characters)
+
+        Examples:
+            ::
+
+                from decimal import Decimal
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                ctx.replace_order(
+                    order_id = "709043056541253632",
+                    quantity = Decimal("100"),
+                    price = Decimal("100"),
+                )
         """
 
     def submit_order(self, symbol: str, order_type: Type[OrderType], side: Type[OrderSide], submitted_quantity: Decimal, time_in_force: Type[TimeInForceType], submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[Type[OutsideRTH]] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
@@ -2633,6 +2705,26 @@ class TradeContext:
             expire_date: Long term order expire date (Required when `time_in_force` is `GoodTilDate`)
             outside_rth: Enable or disable outside regular trading hours
             remark: Remark (Maximum 64 characters)
+
+        Examples:
+            ::
+
+                from decimal import Decimal
+                from longbridgeapp.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.submit_order(
+                    side = OrderSide.Buy,
+                    symbol = "700.HK",
+                    order_type = OrderType.LO,
+                    submitted_price = Decimal("50"),
+                    submitted_quantity = Decimal("200"),
+                    time_in_force = TimeInForceType.Day,
+                    remark = "Hello from Python SDK",
+                )
+                print(resp)
         """
 
     def withdraw_order(self, order_id: str) -> None:
@@ -2641,11 +2733,32 @@ class TradeContext:
 
         Args:
             order_id: Order ID
+
+        Examples:
+            ::
+
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                ctx.withdraw_order("709043056541253632")
         """
 
     def account_balance(self) -> List[AccountBalance]:
         """
         Get account balance
+
+        Examples:
+            ::
+
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.account_balance()
+                print(resp)
         """
 
     def cash_flow(self, start_at: datetime, end_at: datetime, business_type: Optional[Type[BalanceType]] = None, symbol: Optional[str] = None, page: Optional[int] = None, size: Optional[int] = None) -> List[CashFlow]:
@@ -2659,6 +2772,21 @@ class TradeContext:
             symbol: Target security code
             page: Start page (Default: 1)
             size: Page size (Default: 50)
+
+        Examples:
+            ::
+
+                from datetime import datetime
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.cash_flow(
+                    start_at = datetime(2022, 5, 9),
+                    end_at = datetime(2022, 5, 12),
+                )
+                print(resp)
         """
 
     def fund_positions(self, symbols: List[str] = []) -> FundPositionsResponse:
@@ -2667,6 +2795,17 @@ class TradeContext:
 
         Args:
             symbols: Filter by fund codes
+
+        Examples:
+            ::
+
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.fund_positions()
+                print(resp)
         """
 
     def stock_positions(self, symbols: List[str] = []) -> StockPositionsResponse:
@@ -2675,4 +2814,15 @@ class TradeContext:
 
         Args:
             symbols: Filter by stock codes
+
+        Examples:
+            ::
+
+                from longbridgeapp.openapi import TradeContext, Config
+
+                config = Config.from_env()
+                ctx = TradeContext(config)
+
+                resp = ctx.stock_positions()
+                print(resp)
         """

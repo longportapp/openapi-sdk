@@ -158,8 +158,6 @@ pub(crate) enum TimeInForceType {
 pub enum TriggerStatus {
     /// Unknown
     Unknown,
-    /// Not active
-    NotActive,
     /// Deactive
     Deactive,
     /// Active

@@ -38,7 +38,7 @@ pub(crate) mod timestamp_opt {
         let value = value
             .parse::<i64>()
             .map_err(|_| Error::custom("invalid timestamp"))?;
-        if value == 0 {
+        if value != 0 {
             let datetime = OffsetDateTime::from_unix_timestamp(value)
                 .map_err(|_| Error::custom("invalid timestamp"))?;
             Ok(Some(datetime))
