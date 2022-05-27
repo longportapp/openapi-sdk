@@ -1255,7 +1255,7 @@ class QuoteContext:
             sub_types: Subscribe types
             is_first_push: Whether to perform a data push immediately after subscribing. (trade not supported)
 
-        Example:
+        Examples:
             ::
 
                 from time import sleep
@@ -1280,7 +1280,7 @@ class QuoteContext:
             symbols: Security codes
             sub_types: Subscribe types
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config, SubType
@@ -1298,7 +1298,7 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1317,7 +1317,7 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1336,7 +1336,7 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1355,7 +1355,7 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1374,7 +1374,7 @@ class QuoteContext:
         Args:
             symbol: Security code
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1393,7 +1393,7 @@ class QuoteContext:
         Args:
             symbol: Security code
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1409,7 +1409,7 @@ class QuoteContext:
         """
         Get participants
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1429,7 +1429,7 @@ class QuoteContext:
             symbol: Security code
             count: Count of trades (Maximum is `1000`)
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1448,7 +1448,7 @@ class QuoteContext:
         Args:
             symbol: Security code
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1470,7 +1470,7 @@ class QuoteContext:
             count: Count of cancdlestick (Maximum is `1000`)
             adjust_type: Adjustment type
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config, Period, AdjustType
@@ -1489,7 +1489,7 @@ class QuoteContext:
         Args:
             symbol: Security code
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1509,7 +1509,7 @@ class QuoteContext:
             symbol: Security code
             expiry_date: Expiry date
 
-        Example:
+        Examples:
             ::
 
                 from datetime import date
@@ -1526,7 +1526,7 @@ class QuoteContext:
         """
         Get warrant issuers
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1542,7 +1542,7 @@ class QuoteContext:
         """
         Get trading session of the day
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1558,7 +1558,7 @@ class QuoteContext:
         """
         Get trading session of the day
 
-        Example:
+        Examples:
             ::
 
                 from longbridgeapp.openapi import QuoteContext, Config
@@ -1579,7 +1579,7 @@ class QuoteContext:
         Args:
             symbols: Security codes
 
-        Example:
+        Examples:
             ::
 
                 from time import sleep
@@ -1603,7 +1603,7 @@ class QuoteContext:
         Args:
             symbol: Security code
 
-        Example:
+        Examples:
             ::
 
                 from time import sleep
@@ -1627,7 +1627,7 @@ class QuoteContext:
         Args:
             symbol: Security code
 
-        Example:
+        Examples:
             ::
 
                 from time import sleep
@@ -1652,7 +1652,7 @@ class QuoteContext:
             symbol: Security code
             count: Count of trades
 
-        Example:
+        Examples:
             ::
 
                 from time import sleep
