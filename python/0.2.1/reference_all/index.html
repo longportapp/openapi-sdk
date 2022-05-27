@@ -735,8 +735,6 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.TriggerStatus.Unknown">Unknown</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.TriggerStatus.NotActive">NotActive</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.TriggerStatus.Deactive">Deactive</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#longbridge.openapi.TriggerStatus.Active">Active</a>
@@ -9952,34 +9950,6 @@ print(resp)
 
 
 
-<h3 id="longbridge.openapi.TriggerStatus.NotActive" class="doc doc-heading">
-          <code>NotActive</code>
-
-
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a class="autorefs autorefs-internal" title="longbridge.openapi.TriggerStatus" href="#longbridge.openapi.TriggerStatus">TriggerStatus</a></code></p>
-
-
-      <p>Not active</p>
-
-
-
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-class">
-
-
-
 <h3 id="longbridge.openapi.TriggerStatus.Deactive" class="doc doc-heading">
           <code>Deactive</code>
 
@@ -13327,6 +13297,24 @@ print(resp)
     </tbody>
   </table>
 
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import datetime
+from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.history_executions(
+    symbol = "700.HK",
+    start_at = datetime(2022, 5, 9),
+    end_at = datetime(2022, 5, 12),
+)
+print(resp)
+
+
+</code></pre>
+
     </div>
 
   </div>
@@ -13381,6 +13369,19 @@ print(resp)
         </tr>
     </tbody>
   </table>
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.today_executions(symbol = "700.HK")
+print(resp)
+
+
+</code></pre>
 
     </div>
 
@@ -13477,6 +13478,27 @@ print(resp)
     </tbody>
   </table>
 
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import datetime
+from longbridgeapp.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.history_orders(
+    symbol = "700.HK",
+    status = [OrderStatus.Filled, OrderStatus.New],
+    side = OrderSide.Buy,
+    market = Market.HK,
+    start_at = datetime(2022, 5, 9),
+    end_at = datetime(2022, 5, 12),
+)
+print(resp)
+
+
+</code></pre>
+
     </div>
 
   </div>
@@ -13551,6 +13573,24 @@ print(resp)
         </tr>
     </tbody>
   </table>
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.today_orders(
+    symbol = "700.HK",
+    status = [OrderStatus.Filled, OrderStatus.New],
+    side = OrderSide.Buy,
+    market = Market.HK,
+)
+print(resp)
+
+
+</code></pre>
 
     </div>
 
@@ -13656,6 +13696,23 @@ print(resp)
         </tr>
     </tbody>
   </table>
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from decimal import Decimal
+from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+ctx.replace_order(
+    order_id = "709043056541253632",
+    quantity = Decimal("100"),
+    price = Decimal("100"),
+)
+
+
+</code></pre>
 
     </div>
 
@@ -13822,6 +13879,28 @@ print(resp)
     </tbody>
   </table>
 
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from decimal import Decimal
+from longbridgeapp.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.submit_order(
+    side = OrderSide.Buy,
+    symbol = "700.HK",
+    order_type = OrderType.LO,
+    submitted_price = Decimal("50"),
+    submitted_quantity = Decimal("200"),
+    time_in_force = TimeInForceType.Day,
+    remark = "Hello from Python SDK",
+)
+print(resp)
+
+
+</code></pre>
+
     </div>
 
   </div>
@@ -13867,6 +13946,18 @@ print(resp)
     </tbody>
   </table>
 
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+ctx.withdraw_order("709043056541253632")
+
+
+</code></pre>
+
     </div>
 
   </div>
@@ -13887,6 +13978,19 @@ print(resp)
     <div class="doc doc-contents ">
 
       <p>Get account balance</p>
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.account_balance()
+print(resp)
+
+
+</code></pre>
 
     </div>
 
@@ -13983,6 +14087,23 @@ print(resp)
     </tbody>
   </table>
 
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import datetime
+from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.cash_flow(
+    start_at = datetime(2022, 5, 9),
+    end_at = datetime(2022, 5, 12),
+)
+print(resp)
+
+
+</code></pre>
+
     </div>
 
   </div>
@@ -14028,6 +14149,19 @@ print(resp)
     </tbody>
   </table>
 
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.fund_positions()
+print(resp)
+
+
+</code></pre>
+
     </div>
 
   </div>
@@ -14072,6 +14206,19 @@ print(resp)
         </tr>
     </tbody>
   </table>
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridgeapp.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.stock_positions()
+print(resp)
+
+
+</code></pre>
 
     </div>
 
