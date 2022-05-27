@@ -1,6 +1,6 @@
 from pathlib import Path
 from jinja2 import FileSystemLoader, Environment
-import os
+from semver import VersionInfo
 
 env = Environment(loader=FileSystemLoader("./misc/templates"))
 template = env.get_template("docs.html")
@@ -14,6 +14,9 @@ for item in (root / "rust").iterdir():
     rust_versions.append(item.name)
 for item in (root / "python").iterdir():
     python_versions.append(item.name)
+
+rust_versions.sort(key=lambda x: VersionInfo.parse(x), reverse=True)
+python_versions.sort(key=lambda x: VersionInfo.parse(x), reverse=True)
 
 result = template.render(
     rust_versions=rust_versions,
