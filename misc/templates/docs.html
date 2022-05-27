@@ -19,10 +19,14 @@
     <hr>
 
     <h2>Rust</h2>
-    <a href="rust/0.2.1/longbridge/index.html">0.2.1</a>
+    {% for version in rust_versions %}
+    <a href="rust/{{ version }}/longbridge/index.html">{{ version }}</a>
+    {% endfor %}
 
     <h2>Python</h2>
-    <a href="python/0.2.1/index.html">0.2.1</a>
+    {% for version in python_versions %}
+    <a href="python/{{ version }}/index.html">{{ version }}</a>
+    {% endfor %}
 </body>
 
 </html>
