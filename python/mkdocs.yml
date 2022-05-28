@@ -24,8 +24,8 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          # import:
-          #   - https://docs.python.org/3/objects.inv
+          import:
+            - https://docs.python.org/3/objects.inv
           selection:
             docstring_style: google
           rendering:
