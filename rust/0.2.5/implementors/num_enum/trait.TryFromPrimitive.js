@@ -1,3 +1,0 @@
-(function() {var implementors = {};
-implementors["longbridge"] = [{"text":"impl TryFromPrimitive for <a class=\"enum\" href=\"longbridge/quote/enum.TradeDirection.html\" title=\"enum longbridge::quote::TradeDirection\">TradeDirection</a>","synthetic":false,"types":["longbridge::quote::types::TradeDirection"]},{"text":"impl TryFromPrimitive for <a class=\"enum\" href=\"longbridge/quote/enum.DerivativeType.html\" title=\"enum longbridge::quote::DerivativeType\">DerivativeType</a>","synthetic":false,"types":["longbridge::quote::types::DerivativeType"]}];
-if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
