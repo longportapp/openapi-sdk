@@ -7,7 +7,7 @@ use rust_decimal::Decimal;
 static DECIMAL_TYPE: Lazy<PyObject> = Lazy::new(|| {
     Python::with_gil(|py| {
         let decimal_module = py.import("decimal")?;
-        let decimal_type = decimal_module.get_item("Decimal")?;
+        let decimal_type = decimal_module.getattr("Decimal")?;
         Ok::<_, PyErr>(decimal_type.to_object(py))
     })
     .expect("import decimal")
