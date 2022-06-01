@@ -963,9 +963,13 @@
 <span id="958">958</span>
 <span id="959">959</span>
 <span id="960">960</span>
+<span id="961">961</span>
+<span id="962">962</span>
+<span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
 
-<span class="kw">use</span> <span class="ident">anyhow::Result</span>;
 <span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>;
 <span class="kw">use</span> <span class="ident">longbridge_wscli::WsClientError</span>;
 <span class="kw">use</span> <span class="ident">time::Date</span>;
@@ -982,7 +986,7 @@
         <span class="ident">OptionQuote</span>, <span class="ident">ParticipantInfo</span>, <span class="ident">Period</span>, <span class="ident">PushEvent</span>, <span class="ident">RealtimeQuote</span>, <span class="ident">SecurityBrokers</span>,
         <span class="ident">SecurityDepth</span>, <span class="ident">SecurityQuote</span>, <span class="ident">SecurityStaticInfo</span>, <span class="ident">StrikePriceInfo</span>, <span class="ident">Trade</span>, <span class="ident">WarrantQuote</span>,
     },
-    <span class="ident">Config</span>, <span class="ident">Market</span>,
+    <span class="ident">Config</span>, <span class="ident">Error</span>, <span class="ident">Market</span>, <span class="prelude-ty">Result</span>,
 };
 
 <span class="kw">const</span> <span class="ident">PARTICIPANT_INFO_CACHE_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">30</span> <span class="op">*</span> <span class="number">60</span>);
@@ -1082,13 +1086,13 @@
     <span class="doccomment">/// while let Some(msg) = receiver.recv().await {</span>
     <span class="doccomment">///     println!(&quot;{:?}&quot;, msg);</span>
     <span class="doccomment">/// }</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">subscribe</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">symbols</span>: <span class="ident">I</span>,
-        <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>,
+        <span class="ident">sub_types</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">SubFlags</span><span class="op">&gt;</span>,
         <span class="ident">is_first_push</span>: <span class="ident">bool</span>,
     ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
     <span class="kw">where</span>
@@ -1099,7 +1103,7 @@
         <span class="self">self</span>.<span class="ident">command_tx</span>
             .<span class="ident">send</span>(<span class="ident">Command::Subscribe</span> {
                 <span class="ident">symbols</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
-                <span class="ident">sub_types</span>,
+                <span class="ident">sub_types</span>: <span class="ident">sub_types</span>.<span class="ident">into</span>(),
                 <span class="ident">is_first_push</span>,
                 <span class="ident">reply_tx</span>,
             })
@@ -1128,10 +1132,10 @@
     <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// ctx.unsubscribe([&quot;AAPL.US&quot;], SubFlags::QUOTE).await?;</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">unsubscribe</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>, <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">unsubscribe</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>, <span class="ident">sub_types</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">SubFlags</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
     <span class="kw">where</span>
         <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
         <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -1140,7 +1144,7 @@
         <span class="self">self</span>.<span class="ident">command_tx</span>
             .<span class="ident">send</span>(<span class="ident">Command::Unsubscribe</span> {
                 <span class="ident">symbols</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
-                <span class="ident">sub_types</span>,
+                <span class="ident">sub_types</span>: <span class="ident">sub_types</span>.<span class="ident">into</span>(),
                 <span class="ident">reply_tx</span>,
             })
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
@@ -1166,7 +1170,7 @@
     <span class="doccomment">///     .static_info([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">static_info</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SecurityStaticInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>
@@ -1207,7 +1211,7 @@
     <span class="doccomment">///     .quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SecurityQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
@@ -1243,7 +1247,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.option_quote([&quot;AAPL230317P160000.US&quot;]).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">option_quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OptionQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
@@ -1279,7 +1283,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.warrant_quote([&quot;21125.HK&quot;]).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">warrant_quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WarrantQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
@@ -1315,7 +1319,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.depth(&quot;700.HK&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityDepth</span><span class="op">&gt;</span> {
@@ -1358,7 +1362,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.brokers(&quot;700.HK&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">brokers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityBrokers</span><span class="op">&gt;</span> {
@@ -1393,7 +1397,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.participants().await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">participants</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParticipantInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1431,7 +1435,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.trades(&quot;700.HK&quot;, 10).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trades</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">count</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1469,7 +1473,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.intraday(&quot;700.HK&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">intraday</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IntradayLine</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1511,7 +1515,7 @@
     <span class="doccomment">///     .candlesticks(&quot;700.HK&quot;, Period::Day, 10, AdjustType::NoAdjust)</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">candlesticks</span>(
@@ -1557,7 +1561,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.option_chain_expiry_date_list(&quot;AAPL.US&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">option_chain_expiry_date_list</span>(
@@ -1574,7 +1578,9 @@
                     .<span class="kw">await</span><span class="question-mark">?</span>;
                 <span class="ident">resp</span>.<span class="ident">expiry_date</span>
                     .<span class="ident">iter</span>()
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> <span class="ident">parse_date</span>(<span class="ident">value</span>))
+                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
+                        <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;date&quot;</span>, <span class="ident">err</span>))
+                    })
                     .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()
             })
             .<span class="kw">await</span>
@@ -1600,7 +1606,7 @@
     <span class="doccomment">///     .option_chain_info_by_date(&quot;AAPL.US&quot;, date!(2023 - 01 - 20))</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">option_chain_info_by_date</span>(
@@ -1647,7 +1653,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.warrant_issuers().await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">warrant_issuers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IssuerInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1680,7 +1686,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.trading_session().await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trading_session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MarketTradingSession</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1722,7 +1728,7 @@
     <span class="doccomment">///     .trading_days(Market::HK, date!(2022 - 01 - 20), date!(2022 - 02 - 20))</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trading_days</span>(
@@ -1744,12 +1750,16 @@
         <span class="kw">let</span> <span class="ident">trading_days</span> <span class="op">=</span> <span class="ident">resp</span>
             .<span class="ident">trade_day</span>
             .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> <span class="ident">parse_date</span>(<span class="ident">value</span>))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
+                <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;trade_day&quot;</span>, <span class="ident">err</span>))
+            })
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">half_trading_days</span> <span class="op">=</span> <span class="ident">resp</span>
             .<span class="ident">half_trade_day</span>
             .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> <span class="ident">parse_date</span>(<span class="ident">value</span>))
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
+                <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;half_trade_day&quot;</span>, <span class="ident">err</span>))
+            })
             .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">MarketTradingDays</span> {
             <span class="ident">trading_days</span>,
@@ -1782,7 +1792,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.realtime_quote([&quot;HK.700&quot;, &quot;AAPL.US&quot;]).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RealtimeQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
@@ -1825,7 +1835,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.realtime_depth(&quot;HK.700&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityDepth</span><span class="op">&gt;</span> {
@@ -1864,7 +1874,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.realtime_trades(&quot;HK.700&quot;, 10).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_trades</span>(
@@ -1909,7 +1919,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.realtime_brokers(&quot;HK.700&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_brokers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityBrokers</span><span class="op">&gt;</span> {

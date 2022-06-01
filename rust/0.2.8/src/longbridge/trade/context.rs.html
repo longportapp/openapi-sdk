@@ -528,10 +528,8 @@
 <span id="523">523</span>
 <span id="524">524</span>
 <span id="525">525</span>
-<span id="526">526</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
-<span class="kw">use</span> <span class="ident">anyhow::Result</span>;
 <span class="kw">use</span> <span class="ident">longbridge_httpcli</span>::{<span class="ident">HttpClient</span>, <span class="ident">Method</span>};
 <span class="kw">use</span> <span class="ident">longbridge_wscli::WsClientError</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
@@ -545,7 +543,7 @@
         <span class="ident">GetStockPositionsOptions</span>, <span class="ident">GetTodayExecutionsOptions</span>, <span class="ident">GetTodayOrdersOptions</span>, <span class="ident">Order</span>,
         <span class="ident">PushEvent</span>, <span class="ident">ReplaceOrderOptions</span>, <span class="ident">StockPositionsResponse</span>, <span class="ident">SubmitOrderOptions</span>, <span class="ident">TopicType</span>,
     },
-    <span class="ident">Config</span>,
+    <span class="ident">Config</span>, <span class="prelude-ty">Result</span>,
 };
 
 <span class="doccomment">/// Response for withdraw order request</span>
@@ -639,7 +637,7 @@
     <span class="doccomment">///     .end_at(datetime!(2022-05-12 0:00 UTC));</span>
     <span class="doccomment">/// let resp = ctx.history_executions(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">history_executions</span>(
@@ -682,7 +680,7 @@
     <span class="doccomment">/// let opts = GetTodayExecutionsOptions::new().symbol(&quot;700.HK&quot;);</span>
     <span class="doccomment">/// let resp = ctx.today_executions(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">today_executions</span>(
@@ -732,7 +730,7 @@
     <span class="doccomment">///     .end_at(datetime!(2022-05-12 0:00 UTC));</span>
     <span class="doccomment">/// let resp = ctx.history_orders(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">history_orders</span>(
@@ -779,7 +777,7 @@
     <span class="doccomment">///     .market(Market::HK);</span>
     <span class="doccomment">/// let resp = ctx.today_orders(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">today_orders</span>(
@@ -824,7 +822,7 @@
     <span class="doccomment">///     ReplaceOrderOptions::new(&quot;709043056541253632&quot;, decimal!(100i32)).price(decimal!(300i32));</span>
     <span class="doccomment">/// let resp = ctx.replace_order(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">replace_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="ident">ReplaceOrderOptions</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
@@ -865,7 +863,7 @@
     <span class="doccomment">/// .submitted_price(decimal!(50i32));</span>
     <span class="doccomment">/// let resp = ctx.submit_order(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">submit_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="ident">SubmitOrderOptions</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SubmitOrderResponse</span><span class="op">&gt;</span> {
@@ -894,7 +892,7 @@
     <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// ctx.withdraw_order(&quot;709043056541253632&quot;).await?;</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">withdraw_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">order_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
@@ -930,7 +928,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.account_balance().await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">account_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountBalance</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -970,7 +968,7 @@
     <span class="doccomment">/// let opts = GetCashFlowOptions::new(datetime!(2022-05-09 0:00 UTC), datetime!(2022-05-12 0:00 UTC));</span>
     <span class="doccomment">/// let resp = ctx.cash_flow(opts).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cash_flow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="ident">GetCashFlowOptions</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CashFlow</span><span class="op">&gt;</span><span class="op">&gt;</span> {
@@ -1006,7 +1004,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.fund_positions(None).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">fund_positions</span>(
@@ -1039,7 +1037,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// let resp = ctx.stock_positions(None).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, anyhow::Error&gt;(())</span>
+    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">stock_positions</span>(

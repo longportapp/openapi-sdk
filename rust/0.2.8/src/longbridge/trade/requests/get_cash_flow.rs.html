@@ -81,7 +81,7 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::trade</span>::{<span class="ident">serde_utils</span>, <span class="ident">BalanceType</span>};
 
 <span class="doccomment">/// Options for submit order request</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">GetCashFlowOptions</span> {
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;start_time&quot;</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
     <span class="ident">start_at</span>: <span class="ident">OffsetDateTime</span>,

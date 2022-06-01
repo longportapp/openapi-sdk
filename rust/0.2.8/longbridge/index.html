@@ -3,8 +3,8 @@
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"><a href="#">Crate longbridge</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.2.8</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li></ul></div></section><div id="sidebar-vars" data-name="longbridge" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../longbridge/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
-    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">longbridge</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/longbridge/lib.rs.html#1-23">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="longbridge-openapi-sdk-for-rust"><a href="#longbridge-openapi-sdk-for-rust">Longbridge OpenAPI SDK for Rust</a></h2><div align="center">
+        </a><h2 class="location"><a href="#">Crate longbridge</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.2.8</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#types">Type Definitions</a></li></ul></div></section><div id="sidebar-vars" data-name="longbridge" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../longbridge/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">longbridge</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/longbridge/lib.rs.html#1-25">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="longbridge-openapi-sdk-for-rust"><a href="#longbridge-openapi-sdk-for-rust">Longbridge OpenAPI SDK for Rust</a></h2><div align="center">
   <a href="https://crates.io/crates/longbridge">
     <img src="https://img.shields.io/crates/v/longbridge.svg?style=flat-square"
     alt="Crates.io version" />
@@ -35,7 +35,7 @@ export LONGBRIDGE_ACCESS_TOKEN=&quot;Access Token get from user center&quot;</co
 <div class="example-wrap"><pre class="language-powershell"><code>setx LONGBRIDGE_APP_KEY &quot;App Key get from user center&quot;
 setx LONGBRIDGE_APP_SECRET &quot;App Secret get from user center&quot;
 setx LONGBRIDGE_ACCESS_TOKEN &quot;Access Token get from user center&quot;</code></pre></div><h3 id="quote-api-get-basic-information-of-securities"><a href="#quote-api-get-basic-information-of-securities">Quote API <em>(Get basic information of securities)</em></a></h3>
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error::Error</span>, <span class="ident">sync::Arc</span>};
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
 <span class="kw">use</span> <span class="ident">longbridge</span>::{
     <span class="ident">decimal</span>,
@@ -44,7 +44,7 @@ setx LONGBRIDGE_ACCESS_TOKEN &quot;Access Token get from user center&quot;</code
 };
 
 <span class="attribute">#[<span class="ident">tokio::main</span>]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="comment">// Load configuration from environment variables</span>
     <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Config::from_env</span>()<span class="question-mark">?</span>);
 
@@ -62,11 +62,10 @@ setx LONGBRIDGE_ACCESS_TOKEN &quot;Access Token get from user center&quot;</code
 <h3 id="quote-api-subscribe-quotes"><a href="#quote-api-subscribe-quotes">Quote API <em>(Subscribe quotes)</em></a></h3>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
-<span class="kw">use</span> <span class="ident">anyhow::Result</span>;
 <span class="kw">use</span> <span class="ident">longbridge</span>::{<span class="ident">quote::SubFlags</span>, <span class="ident">Config</span>, <span class="ident">QuoteContext</span>};
 
 <span class="attribute">#[<span class="ident">tokio::main</span>]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="comment">// Load configuration from environment variables</span>
     <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Config::from_env</span>()<span class="question-mark">?</span>);
 
@@ -86,7 +85,6 @@ setx LONGBRIDGE_ACCESS_TOKEN &quot;Access Token get from user center&quot;</code
 <h3 id="trade-api-submit-order"><a href="#trade-api-submit-order">Trade API <em>(Submit order)</em></a></h3>
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 
-<span class="kw">use</span> <span class="ident">anyhow::Result</span>;
 <span class="kw">use</span> <span class="ident">longbridge</span>::{
     <span class="ident">decimal</span>,
     <span class="ident">trade</span>::{<span class="ident">OrderSide</span>, <span class="ident">OrderType</span>, <span class="ident">SubmitOrderOptions</span>, <span class="ident">TimeInForceType</span>},
@@ -94,7 +92,7 @@ setx LONGBRIDGE_ACCESS_TOKEN &quot;Access Token get from user center&quot;</code
 };
 
 <span class="attribute">#[<span class="ident">tokio::main</span>]</span>
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="comment">// Load configuration from environment variables</span>
     <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Config::from_env</span>()<span class="question-mark">?</span>);
 
@@ -142,6 +140,9 @@ between 0 and 28 inclusive.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.QuoteContext.html" title="longbridge::QuoteContext struct">QuoteContext</a></div><div class="item-right docblock-short"><p>Quote context</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TradeContext.html" title="longbridge::TradeContext struct">TradeContext</a></div><div class="item-right docblock-short"><p>Trade context</p>
 </div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
-<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Market.html" title="longbridge::Market enum">Market</a></div><div class="item-right docblock-short"><p>Market</p>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Error.html" title="longbridge::Error enum">Error</a></div><div class="item-right docblock-short"><p>Longbridge OpenAPI SDK error type</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Market.html" title="longbridge::Market enum">Market</a></div><div class="item-right docblock-short"><p>Market</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Result.html" title="longbridge::Result type">Result</a></div><div class="item-right docblock-short"><p>Longbridge OpenAPI SDK result type</p>
 </div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
 </body></html>

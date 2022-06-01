@@ -433,10 +433,8 @@
 <span id="428">428</span>
 <span id="429">429</span>
 <span id="430">430</span>
-<span id="431">431</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashMap</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
 
-<span class="kw">use</span> <span class="ident">anyhow::Result</span>;
 <span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>::{<span class="ident">SubscribeRequest</span>, <span class="ident">SubscriptionResponse</span>, <span class="ident">UnsubscribeRequest</span>};
 <span class="kw">use</span> <span class="ident">longbridge_wscli</span>::{<span class="ident">CodecType</span>, <span class="ident">Platform</span>, <span class="ident">ProtocolVersion</span>, <span class="ident">WsClient</span>, <span class="ident">WsEvent</span>, <span class="ident">WsSession</span>};
 <span class="kw">use</span> <span class="ident">tokio::sync</span>::{<span class="ident">mpsc</span>, <span class="ident">oneshot</span>};
@@ -446,7 +444,7 @@
         <span class="ident">cmd_code</span>, <span class="ident">store::Store</span>, <span class="ident">sub_flags::SubFlags</span>, <span class="ident">PushEvent</span>, <span class="ident">RealtimeQuote</span>, <span class="ident">SecurityBrokers</span>,
         <span class="ident">SecurityDepth</span>, <span class="ident">Trade</span>,
     },
-    <span class="ident">Config</span>,
+    <span class="ident">Config</span>, <span class="prelude-ty">Result</span>,
 };
 
 <span class="kw">const</span> <span class="ident">RECONNECT_DELAY</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">2</span>);

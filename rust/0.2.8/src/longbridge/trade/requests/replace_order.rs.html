@@ -105,7 +105,7 @@
 <span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 
 <span class="doccomment">/// Options for replace order request</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ReplaceOrderOptions</span> {
     <span class="ident">order_id</span>: <span class="ident">String</span>,
     <span class="ident">quantity</span>: <span class="ident">Decimal</span>,
