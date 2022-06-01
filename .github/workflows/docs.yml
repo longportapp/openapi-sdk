@@ -45,7 +45,7 @@ jobs:
 
       - name: Build Python docs
         run: |
-          pip install -r python/docs/requirements.txt
+          pip install -r docs/requirements.txt
           mkdocs build
         working-directory: ./python
 

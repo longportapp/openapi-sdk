@@ -2,7 +2,7 @@ from pathlib import Path
 from jinja2 import FileSystemLoader, Environment
 from semver import VersionInfo
 
-env = Environment(loader=FileSystemLoader("./misc/templates"))
+env = Environment(loader=FileSystemLoader("./.github/misc/templates"))
 template = env.get_template("docs.html")
 
 root = Path("./gh-pages")

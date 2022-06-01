@@ -8,3 +8,8 @@ npm
 rustfmt.toml
 yarn.lock
 *.node
+crates
+src
+tsconfig.json
+build.rs
+Cargo.toml
