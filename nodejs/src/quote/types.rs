@@ -603,7 +603,7 @@ pub struct RealtimeQuote {
 
 /// Push real-time quote
 #[napi_derive::napi]
-#[derive(Debug, JsObject)]
+#[derive(Debug, JsObject, Clone)]
 #[js(remote = "longbridge::quote::PushQuote")]
 pub struct PushQuote {
     /// Latest price
@@ -623,13 +623,13 @@ pub struct PushQuote {
     turnover: Decimal,
     /// Security trading status
     trade_status: TradeStatus,
-    /// Trade session,
+    /// Trade session
     trade_session: TradeSession,
 }
 
 /// Push real-time depth
 #[napi_derive::napi]
-#[derive(Debug, JsObject)]
+#[derive(Debug, JsObject, Clone)]
 #[js(remote = "longbridge::quote::PushDepth")]
 pub struct PushDepth {
     /// Ask depth
@@ -642,7 +642,7 @@ pub struct PushDepth {
 
 /// Push real-time brokers
 #[napi_derive::napi]
-#[derive(Debug, JsObject)]
+#[derive(Debug, JsObject, Clone)]
 #[js(remote = "longbridge::quote::PushBrokers")]
 pub struct PushBrokers {
     /// Ask brokers
@@ -655,7 +655,7 @@ pub struct PushBrokers {
 
 /// Push real-time trades
 #[napi_derive::napi]
-#[derive(Debug, JsObject)]
+#[derive(Debug, JsObject, Clone)]
 #[js(remote = "longbridge::quote::PushTrades")]
 pub struct PushTrades {
     /// Trades data

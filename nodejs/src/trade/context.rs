@@ -20,40 +20,50 @@ use crate::{
     utils::JsCallback,
 };
 
+type TradeCallback = JsCallback<PushOrderChanged>;
+
 /// Trade context
 #[napi_derive::napi]
 #[derive(Clone)]
 pub struct TradeContext {
-    ctx: longbridge::trade::TradeContext,
-    on_order_changed: JsCallback<PushOrderChanged>,
+    config: longbridge::Config,
+    ctx: Option<longbridge::trade::TradeContext>,
+    on_push: Option<TradeCallback>,
 }
 
 #[napi_derive::napi]
 impl TradeContext {
+    #[napi(ts_args_type = "callback: (err: null | Error, event: PushOrderChanged) => void")]
+    pub fn new(config: &Config, on_push: Option<JsFunction>) -> Result<TradeContext> {
+        Ok(TradeContext {
+            config: config.0.clone(),
+            ctx: None,
+            on_push: on_push
+                .map(|on_push| on_push.create_threadsafe_function(32, |ctx| Ok(vec![ctx.value])))
+                .transpose()?,
+        })
+    }
+
+    /// Open trade context
     #[napi]
-    pub async fn new(config: &Config) -> Result<TradeContext> {
+    pub async fn open(&mut self) -> Result<()> {
+        check_ctx_exists!(self.ctx);
+
         let (ctx, mut receiver) =
-            longbridge::trade::TradeContext::try_new(Arc::new(config.0.clone()))
+            longbridge::trade::TradeContext::try_new(Arc::new(self.config.clone()))
                 .await
                 .map_err(ErrorNewType)?;
-        let js_ctx = Self {
-            ctx,
-            on_order_changed: Default::default(),
-        };
+        self.ctx = Some(ctx);
 
-        tokio::spawn({
-            let js_ctx = js_ctx.clone();
-            async move {
-                while let Some(msg) = receiver.recv().await {
-                    match msg {
-                        PushEvent::OrderChanged(order_changed) => {
-                            if let Some(handler) = js_ctx.on_order_changed.lock().clone() {
-                                if let Ok(order_changed) = order_changed.try_into() {
-                                    handler.call(
-                                        Ok(order_changed),
-                                        ThreadsafeFunctionCallMode::Blocking,
-                                    );
-                                }
+        let handler = self.on_push.take();
+        tokio::spawn(async move {
+            while let Some(msg) = receiver.recv().await {
+                match msg {
+                    PushEvent::OrderChanged(order_changed) => {
+                        if let Some(handler) = &handler {
+                            if let Ok(order_changed) = order_changed.try_into() {
+                                handler
+                                    .call(Ok(order_changed), ThreadsafeFunctionCallMode::Blocking);
                             }
                         }
                     }
@@ -61,23 +71,13 @@ impl TradeContext {
             }
         });
 
-        Ok(js_ctx)
-    }
-
-    #[napi(
-        setter,
-        ts_args_type = "callback: (err: null | Error, event: PushOrderChanged) => void"
-    )]
-    pub fn on_order_changed(&mut self, handler: JsFunction) -> Result<()> {
-        *self.on_order_changed.lock() =
-            Some(handler.create_threadsafe_function(32, |ctx| Ok(vec![ctx.value]))?);
         Ok(())
     }
 
     /// Subscribe
     #[napi]
     pub async fn subscribe(&self, topics: Vec<TopicType>) -> Result<()> {
-        self.ctx
+        get_ctx!(self.ctx)
             .subscribe(topics.into_iter().map(Into::into))
             .await
             .map_err(ErrorNewType)?;
@@ -87,7 +87,7 @@ impl TradeContext {
     /// Unsubscribe
     #[napi]
     pub async fn unsubscribe(&self, topics: Vec<TopicType>) -> Result<()> {
-        self.ctx
+        get_ctx!(self.ctx)
             .unsubscribe(topics.into_iter().map(Into::into))
             .await
             .map_err(ErrorNewType)?;
@@ -100,7 +100,7 @@ impl TradeContext {
         &self,
         opts: Option<&GetHistoryExecutionsOptions>,
     ) -> Result<Vec<Execution>> {
-        self.ctx
+        get_ctx!(self.ctx)
             .history_executions(opts.cloned().map(Into::into))
             .await
             .map_err(ErrorNewType)?
@@ -115,7 +115,7 @@ impl TradeContext {
         &self,
         opts: Option<&GetTodayExecutionsOptions>,
     ) -> Result<Vec<Execution>> {
-        self.ctx
+        get_ctx!(self.ctx)
             .today_executions(opts.cloned().map(Into::into))
             .await
             .map_err(ErrorNewType)?
@@ -130,7 +130,7 @@ impl TradeContext {
         &self,
         opts: Option<&GetHistoryOrdersOptions>,
     ) -> Result<Vec<Order>> {
-        self.ctx
+        get_ctx!(self.ctx)
             .history_orders(opts.cloned().map(Into::into))
             .await
             .map_err(ErrorNewType)?
@@ -142,7 +142,7 @@ impl TradeContext {
     /// Get today orders
     #[napi]
     pub async fn today_orders(&self, opts: Option<&GetTodayOrdersOptions>) -> Result<Vec<Order>> {
-        self.ctx
+        get_ctx!(self.ctx)
             .today_orders(opts.cloned().map(Into::into))
             .await
             .map_err(ErrorNewType)?
@@ -154,7 +154,7 @@ impl TradeContext {
     /// Replace order
     #[napi]
     pub async fn replace_order(&self, opts: &ReplaceOrderOptions) -> Result<()> {
-        self.ctx
+        get_ctx!(self.ctx)
             .replace_order(opts.clone().into())
             .await
             .map_err(ErrorNewType)?;
@@ -164,7 +164,7 @@ impl TradeContext {
     /// Submit order
     #[napi]
     pub async fn submit_order(&self, opts: &SubmitOrderOptions) -> Result<SubmitOrderResponse> {
-        self.ctx
+        get_ctx!(self.ctx)
             .submit_order(opts.clone().into())
             .await
             .map_err(ErrorNewType)?
@@ -174,7 +174,7 @@ impl TradeContext {
     /// Withdraw order
     #[napi]
     pub async fn withdraw_order(&self, order_id: String) -> Result<()> {
-        self.ctx
+        get_ctx!(self.ctx)
             .withdraw_order(order_id)
             .await
             .map_err(ErrorNewType)?;
@@ -184,7 +184,7 @@ impl TradeContext {
     /// Get account balance
     #[napi]
     pub async fn account_balance(&self) -> Result<Vec<AccountBalance>> {
-        self.ctx
+        get_ctx!(self.ctx)
             .account_balance()
             .await
             .map_err(ErrorNewType)?
@@ -196,7 +196,7 @@ impl TradeContext {
     /// Get cash flow
     #[napi]
     pub async fn cash_flow(&self, opts: &GetCashFlowOptions) -> Result<Vec<CashFlow>> {
-        self.ctx
+        get_ctx!(self.ctx)
             .cash_flow(opts.clone().into())
             .await
             .map_err(ErrorNewType)?
@@ -211,7 +211,7 @@ impl TradeContext {
         &self,
         symbols: Option<Vec<String>>,
     ) -> Result<FundPositionsResponse> {
-        self.ctx
+        get_ctx!(self.ctx)
             .fund_positions(GetFundPositionsOptions::new().symbols(symbols.unwrap_or_default()))
             .await
             .map_err(ErrorNewType)?
@@ -224,7 +224,7 @@ impl TradeContext {
         &self,
         symbols: Option<Vec<String>>,
     ) -> Result<StockPositionsResponse> {
-        self.ctx
+        get_ctx!(self.ctx)
             .stock_positions(GetStockPositionsOptions::new().symbols(symbols.unwrap_or_default()))
             .await
             .map_err(ErrorNewType)?

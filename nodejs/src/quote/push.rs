@@ -12,13 +12,15 @@ macro_rules! define_push_event {
         #[napi_derive::napi]
         impl $name {
             #[napi(getter)]
+            #[inline]
             pub fn symbol(&self) -> &str {
                 &self.symbol
             }
 
             #[napi(getter)]
-            pub fn data(&self) -> &$ty {
-                &self.data
+            #[inline]
+            pub fn data(&self) -> $ty {
+                self.data.clone()
             }
         }
     };

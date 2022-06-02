@@ -2,6 +2,7 @@ use napi::Result;
 
 use crate::error::ErrorNewType;
 
+/// Configuration parameters
 #[napi_derive::napi(object)]
 pub struct ConfigParams {
     /// App Key
@@ -20,6 +21,7 @@ pub struct ConfigParams {
     pub trade_ws_url: Option<String>,
 }
 
+/// Configuration for Longbridge sdk
 #[napi_derive::napi]
 pub struct Config(pub(crate) longbridge::Config);
 

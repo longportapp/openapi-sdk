@@ -38,7 +38,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
 
     let s = match data {
         Data::Struct(s) => s,
-        _ => return Err(Error::new_spanned(ident, "Can only be applied to an struct.").into()),
+        _ => return Err(Error::new_spanned(ident, "can only be applied to an struct").into()),
     };
 
     let mut getters = Vec::new();
@@ -98,7 +98,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
                     #field_ident: crate::utils::to_datetime(value.#field_ident),
                 });
             }
-            _ => return Err(Error::new_spanned(ident, "Invalid attribute.").into()),
+            _ => return Err(Error::new_spanned(ident, "invalid attributes").into()),
         }
     }
 

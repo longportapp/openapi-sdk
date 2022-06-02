@@ -45,7 +45,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
 
     let e = match data {
         Data::Enum(e) => e,
-        _ => return Err(Error::new_spanned(ident, "Can only be applied to an enum.").into()),
+        _ => return Err(Error::new_spanned(ident, "can only be applied to an enum").into()),
     };
 
     let mut from_remote = Vec::new();
@@ -55,7 +55,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         if !variant.fields.is_empty() {
             return Err(Error::new_spanned(
                 &variant.ident,
-                format!("Invalid enum variant {}.", variant.ident),
+                format!("invalid enum variant {}.", variant.ident),
             )
             .into());
         }
