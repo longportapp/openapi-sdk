@@ -5,7 +5,11 @@
   "types": "index.d.ts",
   "napi": {
     "name": "longbridge",
-    "triples": {}
+    "triples": {
+      "additional": [
+        "aarch64-apple-darwin"
+      ]
+    }
   },
   "license": "MIT OR Apache-2.0",
   "description": "A Node.js library for Longbridge Open API",
