@@ -537,10 +537,10 @@ impl QuoteContextSync {
     /// let config = Arc::new(Config::from_env()?);
     /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::QUOTE, true)?;
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, true)?;
     /// sleep(Duration::from_secs(5));
     ///
-    /// let resp = ctx.realtime_quote(["HK.700", "AAPL.US"])?;
+    /// let resp = ctx.realtime_quote(["700.HK", "AAPL.US"])?;
     /// println!("{:?}", resp);
     /// # Ok(())
     /// # }
@@ -571,10 +571,10 @@ impl QuoteContextSync {
     /// let config = Arc::new(Config::from_env()?);
     /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::DEPTH, true)?;
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::DEPTH, true)?;
     /// sleep(Duration::from_secs(5));
     ///
-    /// let resp = ctx.realtime_depth("HK.700")?;
+    /// let resp = ctx.realtime_depth("700.HK")?;
     /// println!("{:?}", resp);
     /// # Ok(())
     /// # }
@@ -603,10 +603,10 @@ impl QuoteContextSync {
     /// let config = Arc::new(Config::from_env()?);
     /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::TRADE, false)?;
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::TRADE, false)?;
     /// sleep(Duration::from_secs(5));
     ///
-    /// let resp = ctx.realtime_trades("HK.700", 10)?;
+    /// let resp = ctx.realtime_trades("700.HK", 10)?;
     /// println!("{:?}", resp);
     /// # Ok(())
     /// # }
@@ -636,10 +636,10 @@ impl QuoteContextSync {
     /// let config = Arc::new(Config::from_env()?);
     /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::BROKER, false)?;
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::BROKER, false)?;
     /// sleep(Duration::from_secs(5));
     ///
-    /// let resp = ctx.realtime_brokers("HK.700")?;
+    /// let resp = ctx.realtime_brokers("700.HK")?;
     /// println!("{:?}", resp);
     /// # Ok(())
     /// # }

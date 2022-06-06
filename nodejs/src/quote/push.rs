@@ -22,6 +22,11 @@ macro_rules! define_push_event {
             pub fn data(&self) -> $ty {
                 self.data.clone()
             }
+
+            #[napi]
+            pub fn to_string(&self) -> String {
+                ::std::format!("{:?}", self)
+            }
         }
     };
 }

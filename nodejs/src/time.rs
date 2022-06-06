@@ -42,7 +42,7 @@ impl NaiveDate {
         self.0.day()
     }
 
-    #[napi(getter)]
+    #[napi]
     #[inline]
     #[allow(clippy::wrong_self_convention, clippy::inherent_to_string)]
     pub fn to_string(&self) -> String {

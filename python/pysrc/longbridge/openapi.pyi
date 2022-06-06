@@ -1707,9 +1707,9 @@ class QuoteContext:
                 config = Config.from_env()
                 ctx = QuoteContext(config)
 
-                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Quote], is_first_push = True)
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
                 sleep(5)
-                resp = ctx.realtime_quote(["HK.700", "AAPL.US"])
+                resp = ctx.realtime_quote(["700.HK", "AAPL.US"])
                 print(resp)
         """
 
@@ -1734,9 +1734,9 @@ class QuoteContext:
                 config = Config.from_env()
                 ctx = QuoteContext(config)
 
-                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Depth], is_first_push = True)
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Depth], is_first_push = True)
                 sleep(5)
-                resp = ctx.realtime_depth("HK.700")
+                resp = ctx.realtime_depth("700.HK")
                 print(resp)
         """
 
@@ -1761,9 +1761,9 @@ class QuoteContext:
                 config = Config.from_env()
                 ctx = QuoteContext(config)
 
-                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Brokers], is_first_push = True)
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Brokers], is_first_push = True)
                 sleep(5)
-                resp = ctx.realtime_brokers("HK.700")
+                resp = ctx.realtime_brokers("700.HK")
                 print(resp)
         """
 
@@ -1789,9 +1789,9 @@ class QuoteContext:
                 config = Config.from_env()
                 ctx = QuoteContext(config)
 
-                ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Trade], is_first_push = False)
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Trade], is_first_push = False)
                 sleep(5)
-                resp = ctx.realtime_trades("HK.700", 10)
+                resp = ctx.realtime_trades("700.HK", 10)
                 print(resp)
         """
 

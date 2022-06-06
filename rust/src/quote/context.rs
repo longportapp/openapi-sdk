@@ -848,11 +848,11 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::QUOTE, true)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, true)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_quote(["HK.700", "AAPL.US"]).await?;
+    /// let resp = ctx.realtime_quote(["700.HK", "AAPL.US"]).await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
     /// # });
@@ -891,11 +891,11 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::DEPTH, true)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::DEPTH, true)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_depth("HK.700").await?;
+    /// let resp = ctx.realtime_depth("700.HK").await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
     /// # });
@@ -930,11 +930,11 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::TRADE, false)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::TRADE, false)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_trades("HK.700", 10).await?;
+    /// let resp = ctx.realtime_trades("700.HK", 10).await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
     /// # });
@@ -975,11 +975,11 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe(["HK.700", "AAPL.US"], SubFlags::BROKER, true)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::BROKER, true)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_brokers("HK.700").await?;
+    /// let resp = ctx.realtime_brokers("700.HK").await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
     /// # });

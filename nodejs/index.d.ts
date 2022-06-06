@@ -751,12 +751,12 @@ export class QuoteContext {
    * #### Example
    *
    * ```javascript
-   * import { Config, QuoteContext, NaiveDate } from 'longbridge'
+   * import { Config, QuoteContext, Market, NaiveDate } from 'longbridge'
    *
    * let config = Config.fromEnv()
    * let ctx = new QuoteContext(config);
    * await ctx.open()
-   * let resp = await ctx.tradingDays()
+   * let resp = await ctx.tradingDays(Market.HK, new NaiveDate(2022, 1, 20), new NaiveDate(2022, 2, 20))
    * console.log(resp.toString())
    * ```
    */
@@ -767,18 +767,19 @@ export class QuoteContext {
    * #### Example
    *
    * ```javascript
-   * import { Config, QuoteContext, NaiveDate, SubType, sleep } from 'longbridge'
+   * import { Config, QuoteContext, SubType } from 'longbridge'
    *
    * let config = Config.fromEnv()
    * let ctx = new QuoteContext(config);
-   * await ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Quote], true)
    * await ctx.open()
+   * await ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], true)
    *
    * setTimeout(() => {
-   *     let resp = await ctx.realtimeQuote(["HK.700", "AAPL.US"])
-   *     for (let obj of resp) {
-   *         console.log(obj.toString())
-   *     }
+   *     ctx.realtimeQuote(["700.HK", "AAPL.US"]).then(resp => {
+   *         for (let obj of resp) {
+   *             console.log(obj.toString())
+   *         }
+   *     })
    * }, 5000)
    * ```
    */
@@ -789,17 +790,14 @@ export class QuoteContext {
    * #### Example
    *
    * ```javascript
-   * import { Config, QuoteContext, NaiveDate, SubType, sleep } from 'longbridge'
+   * import { Config, QuoteContext, SubType } from 'longbridge'
    *
    * let config = Config.fromEnv()
-   * let ctx = new QuoteContext(config);
-   * await ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Depth], true)
    * await ctx.open()
+   * let ctx = new QuoteContext(config);
+   * await ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Depth], true)
    *
-   * setTimeout(() => {
-   *     let resp = await ctx.realtimeDepth("HK.700")
-   *     console.log(resp.toString())
-   * }, 5000)
+   * setTimeout(() => ctx.realtimeDepth("700.HK").then(resp => console.log(resp.toString())), 5000)
    * ```
    */
   realtimeDepth(symbol: string): Promise<SecurityDepth>
@@ -809,17 +807,14 @@ export class QuoteContext {
    * #### Example
    *
    * ```javascript
-   * import { Config, QuoteContext, NaiveDate, SubType, sleep } from 'longbridge'
+   * import { Config, QuoteContext, NaiveDate, SubType } from 'longbridge'
    *
    * let config = Config.fromEnv()
    * let ctx = new QuoteContext(config);
-   * await ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Brokers], true)
    * await ctx.open()
+   * await ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Brokers], true)
    *
-   * setTimeout(() => {
-   *     let resp = await ctx.realtimeBrokers("HK.700")
-   *     console.log(resp.toString())
-   * }, 5000)
+   * setTimeout(() => ctx.realtimeBrokers("700.HK").then(resp => console.log(resp.toString())), 5000)
    * ```
    */
   realtimeBrokers(symbol: string): Promise<SecurityBrokers>
@@ -829,18 +824,19 @@ export class QuoteContext {
    * #### Example
    *
    * ```javascript
-   * import { Config, QuoteContext, NaiveDate, SubType, sleep } from 'longbridge'
+   * import { Config, QuoteContext, NaiveDate, SubType } from 'longbridge'
    *
    * let config = Config.fromEnv()
    * let ctx = new QuoteContext(config);
-   * await ctx.subscribe(["HK.700", "AAPL.US"], [SubType.Trade], false)
    * await ctx.open()
+   * await ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Trade], false)
    *
    * setTimeout(() => {
-   *     let resp = await ctx.realtimeTrades("HK.700")
-   *     for (let obj of resp) {
-   *         console.log(obj.toString())
-   *     }
+   *     ctx.realtimeTrades("700.HK", 10).then(resp => {
+   *         for (let obj of resp) {
+   *             console.log(obj.toString())
+   *         }
+   *     })
    * }, 5000)
    * ```
    */
@@ -849,18 +845,22 @@ export class QuoteContext {
 export class PushQuoteEvent {
   get symbol(): string
   get data(): PushQuote
+  toString(): string
 }
 export class PushDepthEvent {
   get symbol(): string
   get data(): PushDepth
+  toString(): string
 }
 export class PushBrokersEvent {
   get symbol(): string
   get data(): PushBrokers
+  toString(): string
 }
 export class PushTradesEvent {
   get symbol(): string
   get data(): PushTrades
+  toString(): string
 }
 /** Subscription */
 export class Subscription {
@@ -1258,7 +1258,7 @@ export class NaiveDate {
   get year(): number
   get month(): number
   get day(): number
-  get toString(): string
+  toString(): string
 }
 /** Naive date type */
 export class Time {
