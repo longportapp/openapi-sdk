@@ -12,12 +12,12 @@ longbridge-nodejs-macros = { path = "crates/macros", version = "0.2.12" }
 
 # napi = { version = "2.4.3", default-features = false, features = ["napi4"] }
 # napi-derive = "2.4.1"
-napi = { git = "https://github.com/sunli829/napi-rs", rev = "d708d55", default-features = false, features = [
+napi = { git = "https://github.com/napi-rs/napi-rs", rev = "548f358", default-features = false, features = [
     "napi4",
     "chrono_date",
     "async",
 ] }
-napi-derive = { git = "https://github.com/sunli829/napi-rs", rev = "d708d55" }
+napi-derive = { git = "https://github.com/napi-rs/napi-rs", rev = "548f358" }
 rust_decimal = { version = "1.23.1", features = ["maths"] }
 chrono = "0.4.19"
 time = { version = "0.3.9", features = ["macros", "formatting"] }

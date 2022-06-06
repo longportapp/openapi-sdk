@@ -40,6 +40,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         _ => return Err(Error::new_spanned(ident, "can only be applied to an struct").into()),
     };
 
+    let mut fields = Vec::new();
     let mut getters = Vec::new();
     let mut from_fields = Vec::new();
 
@@ -47,6 +48,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         let field_ident = field.ident.as_ref().unwrap();
         let field_type = &field.ty;
 
+        fields.push(field_ident);
         getters.push(quote! {
             #[getter]
             #[inline]
@@ -57,25 +59,25 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
 
         if field.sub_types {
             from_fields.push(quote! {
-                #field_ident: crate::quote::types::SubTypes::from(value.#field_ident).0,
+                #field_ident: crate::quote::types::SubTypes::from(#field_ident).0,
             });
         } else if field.array {
             from_fields.push(quote! {
-                #field_ident: value.#field_ident
+                #field_ident: #field_ident
                     .into_iter()
                     .map(TryInto::try_into)
                     .collect::<Result<::std::vec::Vec<_>, _>>()?,
             });
         } else if field.opt {
             from_fields.push(quote! {
-                #field_ident: match value.#field_ident {
+                #field_ident: match #field_ident {
                     ::std::option::Option::Some(value) => ::std::option::Option::Some(value.try_into()?),
                     ::std::option::Option::None => ::std::option::Option::None,
                 },
             });
         } else {
             from_fields.push(quote! {
-                #field_ident: value.#field_ident.try_into()?,
+                #field_ident: #field_ident.try_into()?,
             });
         }
     }
@@ -97,7 +99,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         impl ::std::convert::TryFrom<#remote> for #ident {
             type Error = ::pyo3::PyErr;
 
-            fn try_from(value: #remote) -> ::std::result::Result<Self, Self::Error> {
+            fn try_from(#remote { #(#fields),* }: #remote) -> ::std::result::Result<Self, Self::Error> {
                 use ::std::convert::TryInto;
                 use ::std::iter::Iterator;
 

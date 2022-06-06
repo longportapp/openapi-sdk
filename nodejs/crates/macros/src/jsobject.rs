@@ -43,6 +43,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         _ => return Err(Error::new_spanned(ident, "can only be applied to an struct").into()),
     };
 
+    let mut fields = Vec::new();
     let mut getters = Vec::new();
     let mut from_fields = Vec::new();
 
@@ -51,6 +52,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         let field_type = &field.ty;
         let attrs = &field.attrs;
 
+        fields.push(field_ident);
         getters.push(quote! {
             #[napi(getter)]
             #[inline]
@@ -62,7 +64,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
 
         if field.sub_types {
             from_fields.push(quote! {
-                #field_ident: crate::quote::types::SubTypes::from(value.#field_ident).0,
+                #field_ident: crate::quote::types::SubTypes::from(#field_ident).0,
             });
             continue;
         }
@@ -70,7 +72,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         match (field.array, field.opt, field.datetime) {
             (true, false, false) => {
                 from_fields.push(quote! {
-                    #field_ident: value.#field_ident
+                    #field_ident: #field_ident
                         .into_iter()
                         .map(TryInto::try_into)
                         .collect::<::std::result::Result<::std::vec::Vec<_>, _>>()?,
@@ -78,7 +80,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
             }
             (false, true, false) => {
                 from_fields.push(quote! {
-                    #field_ident: match value.#field_ident {
+                    #field_ident: match #field_ident {
                         ::std::option::Option::Some(value) => ::std::option::Option::Some(value.try_into()?),
                         ::std::option::Option::None => ::std::option::Option::None,
                     },
@@ -86,12 +88,12 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
             }
             (false, false, false) => {
                 from_fields.push(quote! {
-                    #field_ident: value.#field_ident.try_into()?,
+                    #field_ident: #field_ident.try_into()?,
                 });
             }
             (true, false, true) => {
                 from_fields.push(quote! {
-                    #field_ident: value.#field_ident
+                    #field_ident: #field_ident
                         .into_iter()
                         .map(crate::utils::to_datetime)
                         .collect::<::std::result::Result<::std::vec::Vec<_>, _>>()?,
@@ -99,12 +101,12 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
             }
             (false, true, true) => {
                 from_fields.push(quote! {
-                    #field_ident: value.#field_ident.map(crate::utils::to_datetime),
+                    #field_ident: #field_ident.map(crate::utils::to_datetime),
                 });
             }
             (false, false, true) => {
                 from_fields.push(quote! {
-                    #field_ident: crate::utils::to_datetime(value.#field_ident),
+                    #field_ident: crate::utils::to_datetime(#field_ident),
                 });
             }
             _ => return Err(Error::new_spanned(ident, "invalid attributes").into()),
@@ -125,7 +127,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         impl ::std::convert::TryFrom<#remote> for #ident {
             type Error = ::napi::Error;
 
-            fn try_from(value: #remote) -> ::std::result::Result<Self, Self::Error> {
+            fn try_from(#remote { #(#fields),* }: #remote) -> ::std::result::Result<Self, Self::Error> {
                 use ::std::convert::TryInto;
                 use ::std::iter::Iterator;
 
