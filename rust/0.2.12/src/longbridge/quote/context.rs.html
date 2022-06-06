@@ -1850,11 +1850,11 @@
     <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
     <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;HK.700&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, true)</span>
+    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, true)</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_quote([&quot;HK.700&quot;, &quot;AAPL.US&quot;]).await?;</span>
+    <span class="doccomment">/// let resp = ctx.realtime_quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;]).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
     <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
@@ -1893,11 +1893,11 @@
     <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
     <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;HK.700&quot;, &quot;AAPL.US&quot;], SubFlags::DEPTH, true)</span>
+    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::DEPTH, true)</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_depth(&quot;HK.700&quot;).await?;</span>
+    <span class="doccomment">/// let resp = ctx.realtime_depth(&quot;700.HK&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
     <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
@@ -1932,11 +1932,11 @@
     <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
     <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;HK.700&quot;, &quot;AAPL.US&quot;], SubFlags::TRADE, false)</span>
+    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::TRADE, false)</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_trades(&quot;HK.700&quot;, 10).await?;</span>
+    <span class="doccomment">/// let resp = ctx.realtime_trades(&quot;700.HK&quot;, 10).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
     <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
@@ -1977,11 +1977,11 @@
     <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
     <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;HK.700&quot;, &quot;AAPL.US&quot;], SubFlags::BROKER, true)</span>
+    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::BROKER, true)</span>
     <span class="doccomment">///     .await?;</span>
     <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_brokers(&quot;HK.700&quot;).await?;</span>
+    <span class="doccomment">/// let resp = ctx.realtime_brokers(&quot;700.HK&quot;).await?;</span>
     <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
     <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
     <span class="doccomment">/// # });</span>
