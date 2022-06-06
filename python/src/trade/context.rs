@@ -147,6 +147,7 @@ impl TradeContext {
     }
 
     /// Get today orders
+    #[args(status = "vec![]")]
     fn today_orders(
         &self,
         symbol: Option<String>,
