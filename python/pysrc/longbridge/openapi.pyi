@@ -1262,6 +1262,22 @@ class RealtimeQuote:
     """
 
 
+class Subscription:
+    """
+    Subscription
+    """
+
+    symbol: str
+    """
+    Security code
+    """
+
+    sub_types: List[SubType]
+    """
+    Subscription types
+    """
+
+
 class QuoteContext:
     """
     Quote context
@@ -1320,6 +1336,22 @@ class QuoteContext:
 
                 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
                 ctx.unsubscribe(["AAPL.US"], [SubType.Quote])
+        """
+
+    def subscriptions(self) -> List[Subscription]:
+        """
+        Get subscription information
+
+        Examples:
+            ::
+
+                from longbridge.openapi import QuoteContext, Config, SubType
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
+                resp = ctx.subscriptions()
+                print(resp)
         """
 
     def static_info(self, symbols: List[str]) -> List[SecurityStaticInfo]:

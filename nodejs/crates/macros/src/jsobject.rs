@@ -18,6 +18,8 @@ struct ObjectField {
     opt: bool,
     #[darling(default)]
     datetime: bool,
+    #[darling(default)]
+    sub_types: bool,
 }
 
 #[derive(FromDeriveInput)]
@@ -57,6 +59,13 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
                 self.#field_ident.clone()
             }
         });
+
+        if field.sub_types {
+            from_fields.push(quote! {
+                #field_ident: crate::quote::types::SubTypes::from(value.#field_ident).0,
+            });
+            continue;
+        }
 
         match (field.array, field.opt, field.datetime) {
             (true, false, false) => {

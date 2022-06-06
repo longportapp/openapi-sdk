@@ -4,7 +4,19 @@ use rust_decimal::Decimal;
 use strum_macros::EnumString;
 use time::{Date, OffsetDateTime, Time};
 
-use crate::{quote::utils::parse_date, Error, Market, Result};
+use crate::{
+    quote::{utils::parse_date, SubFlags},
+    Error, Market, Result,
+};
+
+/// Subscription
+#[derive(Debug, Clone)]
+pub struct Subscription {
+    /// Security code
+    pub symbol: String,
+    /// Subscription flags
+    pub sub_types: SubFlags,
+}
 
 /// Depth
 #[derive(Debug, Clone)]

@@ -4,7 +4,10 @@ use std::{
 };
 
 use napi::{Either, Error, Result};
-use rust_decimal::prelude::{FromPrimitive, ToPrimitive};
+use rust_decimal::{
+    prelude::{FromPrimitive, ToPrimitive},
+    MathematicalOps,
+};
 
 #[napi_derive::napi]
 #[derive(Copy, Clone, Default)]
@@ -216,43 +219,193 @@ impl Decimal {
         Self(-self.0)
     }
 
+    /// Returns `true` if the value of this Decimal is greater than the value of
+    /// `x`, otherwise returns `false`.
     #[napi]
     #[inline]
-    pub fn gt(&self, other: &Decimal) -> bool {
+    pub fn greater_than(&self, other: &Decimal) -> bool {
         self.0 > other.0
     }
 
+    /// Returns `true` if the value of this Decimal is greater than or equal to
+    /// the value of `x`, otherwise returns `false`.
     #[napi]
     #[inline]
-    pub fn ge(&self, other: &Decimal) -> bool {
+    pub fn greater_than_or_equal_to(&self, other: &Decimal) -> bool {
         self.0 >= other.0
     }
 
+    /// Returns `true` if the value of this Decimal equals the value of `x`,
+    /// otherwise returns `false`.
     #[napi]
     #[inline]
-    pub fn eq(&self, other: &Decimal) -> bool {
+    pub fn equals(&self, other: &Decimal) -> bool {
         self.0 == other.0
     }
 
+    /// Returns `true` if the value of this Decimal is less than the value of
+    /// `x`, otherwise returns `false`.
     #[napi]
     #[inline]
-    pub fn lt(&self, other: &Decimal) -> bool {
-        self.0 < other.0
-    }
-
-    #[napi]
-    #[inline]
-    pub fn le(&self, other: &Decimal) -> bool {
+    pub fn less_than(&self, other: &Decimal) -> bool {
         self.0 <= other.0
     }
 
+    /// Returns `true` if the value of this Decimal is less than or equal to the
+    /// value of `x`, otherwise returns `false`.
     #[napi]
     #[inline]
-    pub fn compare(&self, other: &Decimal) -> i32 {
+    pub fn less_than_or_equal_to(&self, other: &Decimal) -> bool {
+        self.0 <= other.0
+    }
+
+    /// Compares the values of two Decimals.
+    ///
+    /// Returns `-1` if the value of this Decimal is less than the value of
+    /// `x`.
+    ///
+    /// Returns `1` if the value of this Decimal is greater than the value of
+    /// `x`.
+    ///
+    /// Returns `0` if the value of this Decimal equals the value of `x`.
+    #[napi]
+    #[inline]
+    pub fn compared_to(&self, other: &Decimal) -> i32 {
         match self.0.cmp(&other.0) {
             Ordering::Less => -1,
             Ordering::Equal => 0,
             Ordering::Greater => 1,
         }
+    }
+
+    /// Computes the sine of a number (in radians)
+    #[napi]
+    #[inline]
+    pub fn sin(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_sin()
+                .ok_or_else(|| Error::from_reason("overflowed"))?,
+        ))
+    }
+
+    /// Computes the cosine of a number (in radians)
+    #[napi]
+    #[inline]
+    pub fn cos(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_cos()
+                .ok_or_else(|| Error::from_reason("overflowed"))?,
+        ))
+    }
+
+    /// Computes the tangent of a number (in radians). Panics upon overflow or
+    /// upon approaching a limit.
+    #[napi]
+    #[inline]
+    pub fn tan(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_tan()
+                .ok_or_else(|| Error::from_reason("overflowed"))?,
+        ))
+    }
+
+    /// The square root of a Decimal. Uses a standard Babylonian method.
+    #[napi]
+    #[inline]
+    pub fn sqrt(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .sqrt()
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
+    }
+
+    /// Raise self to the given Decimal exponent: x<sup>y</sup>. If `exp` is not
+    /// whole then the approximation e<sup>y*ln(x)</sup> is used.
+    #[napi]
+    #[inline]
+    pub fn pow(&self, exp: &Decimal) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_powd(exp.0)
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
+    }
+
+    /// Calculates the natural logarithm for a Decimal calculated using Taylor’s
+    /// series.
+    #[napi]
+    #[inline]
+    pub fn ln(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_ln()
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
+    }
+
+    /// Calculates the base 10 logarithm of a specified Decimal number.
+    #[napi]
+    #[inline]
+    pub fn log10(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_log10()
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
+    }
+
+    /// The estimated exponential function, ex. Stops calculating when it is
+    /// within tolerance of roughly `0.0000002`.
+    #[napi]
+    #[inline]
+    pub fn exp(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_exp()
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
+    }
+
+    /// The estimated exponential function, e<sup>x</sup> using the `tolerance`
+    /// provided as a hint as to when to stop calculating. A larger
+    /// tolerance will cause the number to stop calculating sooner at the
+    /// potential cost of a slightly less accurate result.
+    #[napi]
+    #[inline]
+    pub fn exp_with_tolerance(&self, tolerance: &Decimal) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_exp_with_tolerance(tolerance.0)
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
+    }
+
+    /// Abramowitz Approximation of Error Function from [wikipedia](https://en.wikipedia.org/wiki/Error_function#Numerical_approximations)
+    #[napi]
+    #[inline]
+    pub fn erf(&self) -> Self {
+        Self(self.0.erf())
+    }
+
+    /// The Cumulative distribution function for a Normal distribution
+    #[napi]
+    #[inline]
+    pub fn norm_cdf(&self) -> Self {
+        Self(self.0.norm_cdf())
+    }
+
+    /// The Probability density function for a Normal distribution.
+    #[napi]
+    #[inline]
+    pub fn norm_pdf(&self) -> Result<Self> {
+        Ok(Self(
+            self.0
+                .checked_norm_pdf()
+                .ok_or_else(|| Error::from_reason("overflow"))?,
+        ))
     }
 }

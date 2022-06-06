@@ -12,7 +12,7 @@ use crate::{
             AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays,
             MarketTradingSession, OptionQuote, ParticipantInfo, Period, RealtimeQuote,
             SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-            SubType, SubTypes, Trade, WarrantQuote,
+            SubType, SubTypes, Subscription, Trade, WarrantQuote,
         },
     },
     time::PyDateWrapper,
@@ -55,6 +55,16 @@ impl QuoteContext {
             .unsubscribe(symbols, SubTypes(sub_types))
             .map_err(ErrorNewType)?;
         Ok(())
+    }
+
+    /// Get subscription information
+    fn subscriptions(&self) -> PyResult<Vec<Subscription>> {
+        self.0
+            .subscriptions()
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
     }
 
     /// Get basic information of securities

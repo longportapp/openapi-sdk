@@ -14,7 +14,8 @@ use crate::{
         utils::{format_date, parse_date},
         AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession,
         OptionQuote, ParticipantInfo, Period, PushEvent, RealtimeQuote, SecurityBrokers,
-        SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Trade, WarrantQuote,
+        SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade,
+        WarrantQuote,
     },
     Config, Error, Market, Result,
 };
@@ -179,6 +180,37 @@ impl QuoteContext {
             })
             .map_err(|_| WsClientError::ClientClosed)?;
         reply_rx.await.map_err(|_| WsClientError::ClientClosed)?
+    }
+
+    /// Get subscription information
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
+    ///     .await?;
+    /// let resp = ctx.subscriptions().await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, Box<dyn std::error::Error>>(())
+    /// # });
+    /// ```
+    pub async fn subscriptions(&self) -> Result<Vec<Subscription>> {
+        let (reply_tx, reply_rx) = oneshot::channel();
+        self.command_tx
+            .send(Command::Subscriptions { reply_tx })
+            .map_err(|_| WsClientError::ClientClosed)?;
+        Ok(reply_rx.await.map_err(|_| WsClientError::ClientClosed)?)
     }
 
     /// Get basic information of securities

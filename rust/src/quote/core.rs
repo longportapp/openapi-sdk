@@ -7,7 +7,7 @@ use tokio::sync::{mpsc, oneshot};
 use crate::{
     quote::{
         cmd_code, store::Store, sub_flags::SubFlags, PushEvent, RealtimeQuote, SecurityBrokers,
-        SecurityDepth, Trade,
+        SecurityDepth, Subscription, Trade,
     },
     Config, Result,
 };
@@ -30,6 +30,9 @@ pub(crate) enum Command {
         symbols: Vec<String>,
         sub_types: SubFlags,
         reply_tx: oneshot::Sender<Result<()>>,
+    },
+    Subscriptions {
+        reply_tx: oneshot::Sender<Vec<Subscription>>,
     },
     GetRealtimeQuote {
         symbols: Vec<String>,
@@ -217,6 +220,11 @@ impl Core {
                 let _ = reply_tx.send(res);
                 Ok(())
             }
+            Command::Subscriptions { reply_tx } => {
+                let res = self.handle_subscriptions().await;
+                let _ = reply_tx.send(res);
+                Ok(())
+            }
             Command::GetRealtimeQuote { symbols, reply_tx } => {
                 let _ = reply_tx.send(self.handle_get_realtime_quote(symbols));
                 Ok(())
@@ -325,6 +333,16 @@ impl Core {
         }
 
         Ok(())
+    }
+
+    async fn handle_subscriptions(&mut self) -> Vec<Subscription> {
+        self.subscriptions
+            .iter()
+            .map(|(symbol, sub_flags)| Subscription {
+                symbol: symbol.clone(),
+                sub_types: *sub_flags,
+            })
+            .collect()
     }
 
     async fn handle_ws_event(&mut self, event: WsEvent) -> Result<()> {

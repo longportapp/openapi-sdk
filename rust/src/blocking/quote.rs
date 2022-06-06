@@ -7,8 +7,8 @@ use crate::{
     quote::{
         AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession,
         OptionQuote, ParticipantInfo, Period, PushEvent, RealtimeQuote, SecurityBrokers,
-        SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, SubFlags, Trade,
-        WarrantQuote,
+        SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, SubFlags, Subscription,
+        Trade, WarrantQuote,
     },
     Config, Market, QuoteContext, Result,
 };
@@ -94,6 +94,30 @@ impl QuoteContextSync {
     {
         self.rt
             .call(move |ctx| async move { ctx.unsubscribe(symbols, sub_types.into()).await })
+    }
+
+    /// Get subscription information
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::QuoteContextSync, quote::SubFlags, Config};
+    ///
+    /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
+    ///
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)?;
+    /// let resp = ctx.subscriptions();
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn subscriptions(&self) -> Result<Vec<Subscription>> {
+        self.rt
+            .call(move |ctx| async move { ctx.subscriptions().await })
     }
 
     /// Get basic information of securities

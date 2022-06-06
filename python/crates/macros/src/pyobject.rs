@@ -15,6 +15,8 @@ struct ObjectField {
     array: bool,
     #[darling(default)]
     opt: bool,
+    #[darling(default)]
+    sub_types: bool,
 }
 
 #[derive(FromDeriveInput)]
@@ -53,7 +55,11 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
             }
         });
 
-        if field.array {
+        if field.sub_types {
+            from_fields.push(quote! {
+                #field_ident: crate::quote::types::SubTypes::from(value.#field_ident).0,
+            });
+        } else if field.array {
             from_fields.push(quote! {
                 #field_ident: value.#field_ident
                     .into_iter()

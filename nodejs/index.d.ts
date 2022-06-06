@@ -366,12 +366,84 @@ export class Decimal {
   rem(other: Decimal): Decimal
   /** Performs the unary `-` operation. */
   neg(): Decimal
-  gt(other: Decimal): boolean
-  ge(other: Decimal): boolean
-  eq(other: Decimal): boolean
-  lt(other: Decimal): boolean
-  le(other: Decimal): boolean
-  compare(other: Decimal): number
+  /**
+   * Returns `true` if the value of this Decimal is greater than the value of
+   * `x`, otherwise returns `false`.
+   */
+  greaterThan(other: Decimal): boolean
+  /**
+   * Returns `true` if the value of this Decimal is greater than or equal to
+   * the value of `x`, otherwise returns `false`.
+   */
+  greaterThanOrEqualTo(other: Decimal): boolean
+  /**
+   * Returns `true` if the value of this Decimal equals the value of `x`,
+   * otherwise returns `false`.
+   */
+  equals(other: Decimal): boolean
+  /**
+   * Returns `true` if the value of this Decimal is less than the value of
+   * `x`, otherwise returns `false`.
+   */
+  lessThan(other: Decimal): boolean
+  /**
+   * Returns `true` if the value of this Decimal is less than or equal to the
+   * value of `x`, otherwise returns `false`.
+   */
+  lessThanOrEqualTo(other: Decimal): boolean
+  /**
+   * Compares the values of two Decimals.
+   *
+   * Returns `-1` if the value of this Decimal is less than the value of
+   * `x`.
+   *
+   * Returns `1` if the value of this Decimal is greater than the value of
+   * `x`.
+   *
+   * Returns `0` if the value of this Decimal equals the value of `x`.
+   */
+  comparedTo(other: Decimal): number
+  /** Computes the sine of a number (in radians) */
+  sin(): this
+  /** Computes the cosine of a number (in radians) */
+  cos(): this
+  /**
+   * Computes the tangent of a number (in radians). Panics upon overflow or
+   * upon approaching a limit.
+   */
+  tan(): this
+  /** The square root of a Decimal. Uses a standard Babylonian method. */
+  sqrt(): this
+  /**
+   * Raise self to the given Decimal exponent: x<sup>y</sup>. If `exp` is not
+   * whole then the approximation e<sup>y*ln(x)</sup> is used.
+   */
+  pow(exp: Decimal): this
+  /**
+   * Calculates the natural logarithm for a Decimal calculated using Taylor’s
+   * series.
+   */
+  ln(): this
+  /** Calculates the base 10 logarithm of a specified Decimal number. */
+  log10(): this
+  /**
+   * The estimated exponential function, ex. Stops calculating when it is
+   * within tolerance of roughly `0.0000002`.
+   */
+  exp(): this
+  /**
+   * The estimated exponential function, e<sup>x</sup> using the `tolerance`
+   * provided as a hint as to when to stop calculating. A larger
+   * tolerance will cause the number to stop calculating sooner at the
+   * potential cost of a slightly less accurate result.
+   */
+  expWithTolerance(tolerance: Decimal): this
+  /** Abramowitz Approximation of Error Function from [wikipedia](https://en.wikipedia.org/wiki/Error_function#Numerical_approximations) */
+  erf(): Decimal
+  /** The Cumulative distribution function for a Normal distribution */
+  normCdf(): Decimal
+  /** The Probability density function for a Normal distribution. */
+  normPdf(): this
 }
 /** Quote context */
 export class QuoteContext {
@@ -409,6 +481,23 @@ export class QuoteContext {
    * ```
    */
   unsubscribe(symbols: Array<string>, subTypes: Array<SubType>): Promise<void>
+  /**
+   * Get subscription information
+   *
+   * #### Example
+   *
+   * ```javascript
+   * import { Config, QuoteContext, SubType } from 'longbridge'
+   *
+   * let config = Config.fromEnv()
+   * let ctx = new QuoteContext(config)
+   * await ctx.open()
+   * await ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], true)
+   * let resp = await ctx.subscriptions()
+   * console.log(resp.toString())
+   * ```
+   */
+  subscriptions(): Promise<Array<Subscription>>
   /**
    * Get basic information of securities
    *
@@ -773,6 +862,12 @@ export class PushBrokersEvent {
 export class PushTradesEvent {
   get symbol(): string
   get data(): PushTrades
+}
+/** Subscription */
+export class Subscription {
+  toString(): string
+  get symbol(): string
+  get subTypes(): Array<SubType>
 }
 /** The basic information of securities */
 export class SecurityStaticInfo {

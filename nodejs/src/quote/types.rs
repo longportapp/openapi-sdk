@@ -9,6 +9,16 @@ use crate::{
     types::Market,
 };
 
+/// Subscription
+#[napi_derive::napi]
+#[derive(Debug, JsObject, Clone)]
+#[js(remote = "longbridge::quote::Subscription")]
+pub struct Subscription {
+    symbol: String,
+    #[js(sub_types)]
+    sub_types: Vec<SubType>,
+}
+
 /// Derivative type
 #[napi_derive::napi]
 #[derive(JsEnum, Debug, Hash, Eq, PartialEq)]
@@ -96,6 +106,25 @@ impl From<SubTypes> for SubFlags {
                 acc |= flag;
                 acc
             })
+    }
+}
+
+impl From<SubFlags> for SubTypes {
+    fn from(flags: SubFlags) -> Self {
+        let mut res = Vec::new();
+        if flags.contains(SubFlags::QUOTE) {
+            res.push(SubType::Quote);
+        }
+        if flags.contains(SubFlags::DEPTH) {
+            res.push(SubType::Quote);
+        }
+        if flags.contains(SubFlags::BROKER) {
+            res.push(SubType::Quote);
+        }
+        if flags.contains(SubFlags::TRADE) {
+            res.push(SubType::Quote);
+        }
+        SubTypes(res)
     }
 }
 

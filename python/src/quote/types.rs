@@ -8,6 +8,16 @@ use crate::{
     types::Market,
 };
 
+/// Subscription
+#[pyclass]
+#[derive(Debug, PyObject)]
+#[py(remote = "longbridge::quote::Subscription")]
+pub(crate) struct Subscription {
+    symbol: String,
+    #[py(sub_types)]
+    sub_types: Vec<SubType>,
+}
+
 /// Derivative type
 #[pyclass]
 #[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
@@ -95,6 +105,25 @@ impl From<SubTypes> for SubFlags {
                 acc |= flag;
                 acc
             })
+    }
+}
+
+impl From<SubFlags> for SubTypes {
+    fn from(flags: SubFlags) -> Self {
+        let mut res = Vec::new();
+        if flags.contains(SubFlags::QUOTE) {
+            res.push(SubType::Quote);
+        }
+        if flags.contains(SubFlags::DEPTH) {
+            res.push(SubType::Quote);
+        }
+        if flags.contains(SubFlags::BROKER) {
+            res.push(SubType::Quote);
+        }
+        if flags.contains(SubFlags::TRADE) {
+            res.push(SubType::Quote);
+        }
+        SubTypes(res)
     }
 }
 

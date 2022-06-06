@@ -14,7 +14,7 @@ use crate::{
             AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays,
             MarketTradingSession, OptionQuote, ParticipantInfo, Period, RealtimeQuote,
             SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-            SubType, SubTypes, Trade, WarrantQuote,
+            SubType, SubTypes, Subscription, Trade, WarrantQuote,
         },
     },
     time::NaiveDate,
@@ -170,6 +170,31 @@ impl QuoteContext {
             .await
             .map_err(ErrorNewType)?;
         Ok(())
+    }
+
+    /// Get subscription information
+    ///
+    /// #### Example
+    ///
+    /// ```javascript
+    /// import { Config, QuoteContext, SubType } from 'longbridge'
+    ///
+    /// let config = Config.fromEnv()
+    /// let ctx = new QuoteContext(config)
+    /// await ctx.open()
+    /// await ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], true)
+    /// let resp = await ctx.subscriptions()
+    /// console.log(resp.toString())
+    /// ```
+    #[napi]
+    pub async fn subscriptions(&self) -> Result<Vec<Subscription>> {
+        get_ctx!(self.ctx)
+            .subscriptions()
+            .await
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
     }
 
     /// Get basic information of securities
