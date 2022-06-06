@@ -236,7 +236,7 @@ impl TradeContextSync {
             .call(move |ctx| async move { ctx.submit_order(options).await })
     }
 
-    /// Withdraw order
+    /// Cancel order
     ///
     /// # Examples
     ///
@@ -249,13 +249,13 @@ impl TradeContextSync {
     /// let config = Arc::new(Config::from_env()?);
     /// let ctx = TradeContextSync::try_new(config, |_| ())?;
     ///
-    /// ctx.withdraw_order("709043056541253632")?;
+    /// ctx.cancel_order("709043056541253632")?;
     /// # Ok(())
     /// # }
     /// ```
-    pub fn withdraw_order(&self, order_id: impl Into<String> + Send + 'static) -> Result<()> {
+    pub fn cancel_order(&self, order_id: impl Into<String> + Send + 'static) -> Result<()> {
         self.rt
-            .call(move |ctx| async move { ctx.withdraw_order(order_id).await })
+            .call(move |ctx| async move { ctx.cancel_order(order_id).await })
     }
 
     /// Get account balance

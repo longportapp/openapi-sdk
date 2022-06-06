@@ -749,7 +749,7 @@ class WarrantQuote:
     Outstanding ratio
     """
 
-    outstanding_qty: int
+    outstanding_quantity: int
     """
     Outstanding quantity
     """
@@ -2400,7 +2400,7 @@ class TradeHandler(Protocol):
 
 class SubmitOrderResponse:
     """
-    Response for withdraw order request
+    Response for submit order request
     """
 
     order_id: str
@@ -2967,9 +2967,9 @@ class TradeContext:
                 print(resp)
         """
 
-    def withdraw_order(self, order_id: str) -> None:
+    def cancel_order(self, order_id: str) -> None:
         """
-        Withdraw order
+        Cancel order
 
         Args:
             order_id: Order ID
@@ -2982,7 +2982,7 @@ class TradeContext:
                 config = Config.from_env()
                 ctx = TradeContext(config)
 
-                ctx.withdraw_order("709043056541253632")
+                ctx.cancel_order("709043056541253632")
         """
 
     def account_balance(self) -> List[AccountBalance]:

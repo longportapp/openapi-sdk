@@ -307,7 +307,7 @@ pub(crate) struct PushOrderChanged {
     account_no: String,
 }
 
-/// Response for withdraw order request
+/// Response for submit order request
 #[pyclass]
 #[derive(Debug, PyObject)]
 #[py(remote = "longbridge::trade::SubmitOrderResponse")]

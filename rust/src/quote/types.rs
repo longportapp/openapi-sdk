@@ -485,7 +485,7 @@ pub struct WarrantQuote {
     /// Outstanding ratio
     pub outstanding_ratio: Decimal,
     /// Outstanding quantity
-    pub outstanding_qty: i64,
+    pub outstanding_quantity: i64,
     /// Conversion ratio
     pub conversion_ratio: Decimal,
     /// Warrant type
@@ -529,7 +529,7 @@ impl TryFrom<quote::WarrantQuote> for WarrantQuote {
             last_trade_date: parse_date(&warrant_extend.last_trade_date)
                 .map_err(|err| Error::parse_field_error("last_trade_date", err))?,
             outstanding_ratio: warrant_extend.outstanding_ratio.parse().unwrap_or_default(),
-            outstanding_qty: warrant_extend.outstanding_qty,
+            outstanding_quantity: warrant_extend.outstanding_qty,
             conversion_ratio: warrant_extend.conversion_ratio.parse().unwrap_or_default(),
             category: warrant_extend.category.parse().unwrap_or_default(),
             strike_price: warrant_extend.strike_price.parse().unwrap_or_default(),

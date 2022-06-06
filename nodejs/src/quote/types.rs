@@ -405,7 +405,7 @@ pub struct WarrantQuote {
     /// Outstanding ratio
     outstanding_ratio: Decimal,
     /// Outstanding quantity
-    outstanding_qty: i64,
+    outstanding_quantity: i64,
     /// Conversion ratio
     conversion_ratio: Decimal,
     /// Warrant type

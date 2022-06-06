@@ -1,4 +1,8 @@
-extend = [{ path = "rust/Makefile.toml" }, { path = "python/Makefile.toml" }]
+extend = [
+    { path = "rust/Makefile.toml" },
+    { path = "python/Makefile.toml" },
+    { path = "java/Makefile.toml" },
+]
 
 [config]
 default_to_workspace = false

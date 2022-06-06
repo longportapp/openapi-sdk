@@ -400,7 +400,7 @@ pub(crate) struct WarrantQuote {
     /// Outstanding ratio
     outstanding_ratio: PyDecimal,
     /// Outstanding quantity
-    outstanding_qty: i64,
+    outstanding_quantity: i64,
     /// Conversion ratio
     conversion_ratio: PyDecimal,
     /// Warrant type

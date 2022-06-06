@@ -268,9 +268,9 @@ impl TradeContext {
         self.0.submit_order(opts).map_err(ErrorNewType)?.try_into()
     }
 
-    /// Withdraw order
-    fn withdraw_order(&self, order_id: String) -> PyResult<()> {
-        self.0.withdraw_order(order_id).map_err(ErrorNewType)?;
+    /// Cancel order
+    fn cancel_order(&self, order_id: String) -> PyResult<()> {
+        self.0.cancel_order(order_id).map_err(ErrorNewType)?;
         Ok(())
     }
 

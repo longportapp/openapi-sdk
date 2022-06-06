@@ -308,7 +308,7 @@ pub struct PushOrderChanged {
     account_no: String,
 }
 
-/// Response for withdraw order request
+/// Response for submit order request
 #[napi_derive::napi]
 #[derive(Debug, JsObject)]
 #[js(remote = "longbridge::trade::SubmitOrderResponse")]

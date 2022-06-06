@@ -16,7 +16,7 @@ use crate::{
     Config, Result,
 };
 
-/// Response for withdraw order request
+/// Response for submit order request
 #[derive(Debug, Deserialize)]
 pub struct SubmitOrderResponse {
     /// Order id
@@ -379,7 +379,7 @@ impl TradeContext {
             .await?)
     }
 
-    /// Withdraw order
+    /// Cancel order
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/order/withdraw>
     ///
@@ -394,11 +394,11 @@ impl TradeContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = TradeContext::try_new(config).await?;
     ///
-    /// ctx.withdraw_order("709043056541253632").await?;
+    /// ctx.cancel_order("709043056541253632").await?;
     /// # Ok::<_, Box<dyn std::error::Error>>(())
     /// # });
     /// ```
-    pub async fn withdraw_order(&self, order_id: impl Into<String>) -> Result<()> {
+    pub async fn cancel_order(&self, order_id: impl Into<String>) -> Result<()> {
         #[derive(Debug, Serialize)]
         struct Request {
             order_id: String,

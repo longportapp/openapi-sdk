@@ -1,0 +1,39 @@
+[tasks.build-java-sdk]
+command = "cargo"
+args = ["build", "-p", "longbridge-java"]
+
+[tasks.javac]
+command = "javac"
+args = [
+    "-sourcepath",
+    "javasrc",
+    "-d",
+    "classes",
+    "javasrc/com/longbridge/*.java",
+    "javasrc/com/longbridge/quote/*.java",
+]
+cwd = "java"
+
+[tasks.javah]
+command = "javac"
+args = [
+    "-h",
+    "c",
+    "-sourcepath",
+    "javasrc",
+    "-d",
+    "classes",
+    "javasrc/com/longbridge/SdkNative.java",
+]
+cwd = "java"
+dependencies = ["javac"]
+
+[tasks.compile-test-java]
+command = "javac"
+args = ["-cp", "classes", "-d", "classes", "test/Test.java"]
+cwd = "java"
+
+[tasks.test-java]
+command = "java"
+args = ["-Djava.library.path=target/debug", "-cp", "java/classes", "Test"]
+dependencies = ["build-java-sdk", "javac", "compile-test-java"]

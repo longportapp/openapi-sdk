@@ -336,12 +336,12 @@ impl TradeContext {
     /// let ctx = new TradeContext(config)
     ///
     /// ctx.open()
-    ///     .then(() => ctx.withdrawOrder("709043056541253632"))
+    ///     .then(() => ctx.cancelOrder("709043056541253632"))
     /// ```
     #[napi]
-    pub async fn withdraw_order(&self, order_id: String) -> Result<()> {
+    pub async fn cancel_order(&self, order_id: String) -> Result<()> {
         get_ctx!(self.ctx)
-            .withdraw_order(order_id)
+            .cancel_order(order_id)
             .await
             .map_err(ErrorNewType)?;
         Ok(())
