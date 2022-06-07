@@ -907,6 +907,11 @@
 <span id="902">902</span>
 <span id="903">903</span>
 <span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">num_enum</span>::{<span class="ident">FromPrimitive</span>, <span class="ident">IntoPrimitive</span>};
 <span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
@@ -1298,7 +1303,7 @@
     <span class="doccomment">/// Cash currency</span>
     <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Business time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_int&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">business_time</span>: <span class="ident">OffsetDateTime</span>,
     <span class="doccomment">/// Associated Stock code information</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::cash_flow_symbol&quot;</span>)]</span>
@@ -1332,17 +1337,20 @@
     <span class="doccomment">/// Fund ISIN code</span>
     <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Current equity</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">current_net_asset_value</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Current equity time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_int&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">net_asset_value_day</span>: <span class="ident">OffsetDateTime</span>,
     <span class="doccomment">/// Fund name</span>
     <span class="kw">pub</span> <span class="ident">symbol_name</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Currency</span>
     <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Net cost</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">cost_net_asset_value</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Holding units</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">holding_units</span>: <span class="ident">Decimal</span>,
 }
 
@@ -1360,7 +1368,7 @@
     <span class="doccomment">/// Account type</span>
     <span class="kw">pub</span> <span class="ident">account_channel</span>: <span class="ident">String</span>,
 
-    <span class="doccomment">/// Fund positions</span>
+    <span class="doccomment">/// Stock positions</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;stock_info&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">positions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StockPosition</span><span class="op">&gt;</span>,
 }
@@ -1373,14 +1381,16 @@
     <span class="doccomment">/// Stock name</span>
     <span class="kw">pub</span> <span class="ident">symbol_name</span>: <span class="ident">String</span>,
     <span class="doccomment">/// The number of holdings</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;quality&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;quality&quot;</span>, <span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">quantity</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Available quantity</span>
-    <span class="kw">pub</span> <span class="ident">available_quality</span>: <span class="ident">Decimal</span>,
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">available_quality</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Currency</span>
     <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Cost Price(According to the client&#39;s choice of average purchase or</span>
     <span class="doccomment">/// diluted cost)</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">cost_price</span>: <span class="ident">Decimal</span>,
 }
 
@@ -1424,7 +1434,7 @@
                     &quot;holding_units&quot;: &quot;5.000&quot;,
                     &quot;current_net_asset_value&quot;: &quot;0&quot;,
                     &quot;cost_net_asset_value&quot;: &quot;0.00&quot;,
-                    &quot;net_asset_value_day&quot;: 1649865600
+                    &quot;net_asset_value_day&quot;: &quot;1649865600&quot;
                 }]
             }]
         }
@@ -1489,7 +1499,7 @@
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;腾讯控股&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;HK&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">quantity</span>, <span class="macro">decimal!</span>(<span class="number">650i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quality</span>, <span class="macro">decimal!</span>(<span class="op">-</span><span class="number">450i32</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quality</span>, <span class="prelude-val">Some</span>(<span class="macro">decimal!</span>(<span class="op">-</span><span class="number">450i32</span>)));
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_price</span>, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
 
         <span class="kw">let</span> <span class="ident">position</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">channel</span>.<span class="ident">positions</span>[<span class="number">0</span>];
@@ -1497,7 +1507,7 @@
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;腾讯控股&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;HK&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">quantity</span>, <span class="macro">decimal!</span>(<span class="number">650i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quality</span>, <span class="macro">decimal!</span>(<span class="op">-</span><span class="number">450i32</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quality</span>, <span class="prelude-val">Some</span>(<span class="macro">decimal!</span>(<span class="op">-</span><span class="number">450i32</span>)));
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_price</span>, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
 
         <span class="kw">let</span> <span class="ident">position</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">channel</span>.<span class="ident">positions</span>[<span class="number">1</span>];
@@ -1505,7 +1515,7 @@
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;宝尊电商-SW&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;HK&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">quantity</span>, <span class="macro">decimal!</span>(<span class="number">200i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quality</span>, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
+        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quality</span>, <span class="prelude-val">Some</span>(<span class="macro">decimal!</span>(<span class="number">0i32</span>)));
         <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_price</span>, <span class="macro">decimal!</span>(<span class="number">32.25f32</span>));
     }
 
@@ -1520,7 +1530,7 @@
                 &quot;balance&quot;: &quot;-248.60&quot;,
                 &quot;currency&quot;: &quot;USD&quot;,
                 &quot;business_type&quot;: 1,
-                &quot;business_time&quot;: 1621507957,
+                &quot;business_time&quot;: &quot;1621507957&quot;,
                 &quot;symbol&quot;: &quot;AAPL.US&quot;,
                 &quot;description&quot;: &quot;AAPL&quot;
               },
@@ -1530,7 +1540,7 @@
                 &quot;balance&quot;: &quot;-125.16&quot;,
                 &quot;currency&quot;: &quot;USD&quot;,
                 &quot;business_type&quot;: 2,
-                &quot;business_time&quot;: 1621504824,
+                &quot;business_time&quot;: &quot;1621504824&quot;,
                 &quot;symbol&quot;: &quot;AAPL.US&quot;,
                 &quot;description&quot;: &quot;AAPL&quot;
               }
