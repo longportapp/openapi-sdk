@@ -482,7 +482,8 @@ pub struct StockPosition {
     /// The number of holdings
     quantity: Decimal,
     /// Available quantity
-    available_quality: Decimal,
+    #[js(opt)]
+    available_quality: Option<Decimal>,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or

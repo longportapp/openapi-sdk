@@ -478,7 +478,8 @@ pub(crate) struct StockPosition {
     /// The number of holdings
     quantity: PyDecimal,
     /// Available quantity
-    available_quality: PyDecimal,
+    #[py(opt)]
+    available_quality: Option<PyDecimal>,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or

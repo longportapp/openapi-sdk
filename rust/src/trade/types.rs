@@ -389,7 +389,7 @@ pub struct CashFlow {
     /// Cash currency
     pub currency: String,
     /// Business time
-    #[serde(with = "serde_utils::timestamp_int")]
+    #[serde(with = "serde_utils::timestamp")]
     pub business_time: OffsetDateTime,
     /// Associated Stock code information
     #[serde(with = "serde_utils::cash_flow_symbol")]
@@ -425,7 +425,7 @@ pub struct FundPosition {
     /// Current equity
     pub current_net_asset_value: Decimal,
     /// Current equity time
-    #[serde(with = "serde_utils::timestamp_int")]
+    #[serde(with = "serde_utils::timestamp")]
     pub net_asset_value_day: OffsetDateTime,
     /// Fund name
     pub symbol_name: String,
@@ -464,14 +464,16 @@ pub struct StockPosition {
     /// Stock name
     pub symbol_name: String,
     /// The number of holdings
-    #[serde(rename = "quality")]
+    #[serde(rename = "quality", with = "serde_utils::decimal_empty_is_0")]
     pub quantity: Decimal,
     /// Available quantity
-    pub available_quality: Decimal,
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
+    pub available_quality: Option<Decimal>,
     /// Currency
     pub currency: String,
     /// Cost Price(According to the client's choice of average purchase or
     /// diluted cost)
+    #[serde(with = "serde_utils::decimal_empty_is_0")]
     pub cost_price: Decimal,
 }
 
@@ -515,7 +517,7 @@ mod tests {
                     "holding_units": "5.000",
                     "current_net_asset_value": "0",
                     "cost_net_asset_value": "0.00",
-                    "net_asset_value_day": 1649865600
+                    "net_asset_value_day": "1649865600"
                 }]
             }]
         }
@@ -580,7 +582,7 @@ mod tests {
         assert_eq!(position.symbol_name, "腾讯控股");
         assert_eq!(position.currency, "HK");
         assert_eq!(position.quantity, decimal!(650i32));
-        assert_eq!(position.available_quality, decimal!(-450i32));
+        assert_eq!(position.available_quality, Some(decimal!(-450i32)));
         assert_eq!(position.cost_price, decimal!(457.53f32));
 
         let position = &channel.positions[0];
@@ -588,7 +590,7 @@ mod tests {
         assert_eq!(position.symbol_name, "腾讯控股");
         assert_eq!(position.currency, "HK");
         assert_eq!(position.quantity, decimal!(650i32));
-        assert_eq!(position.available_quality, decimal!(-450i32));
+        assert_eq!(position.available_quality, Some(decimal!(-450i32)));
         assert_eq!(position.cost_price, decimal!(457.53f32));
 
         let position = &channel.positions[1];
@@ -596,7 +598,7 @@ mod tests {
         assert_eq!(position.symbol_name, "宝尊电商-SW");
         assert_eq!(position.currency, "HK");
         assert_eq!(position.quantity, decimal!(200i32));
-        assert_eq!(position.available_quality, decimal!(0i32));
+        assert_eq!(position.available_quality, Some(decimal!(0i32)));
         assert_eq!(position.cost_price, decimal!(32.25f32));
     }
 
@@ -611,7 +613,7 @@ mod tests {
                 "balance": "-248.60",
                 "currency": "USD",
                 "business_type": 1,
-                "business_time": 1621507957,
+                "business_time": "1621507957",
                 "symbol": "AAPL.US",
                 "description": "AAPL"
               },
@@ -621,7 +623,7 @@ mod tests {
                 "balance": "-125.16",
                 "currency": "USD",
                 "business_type": 2,
-                "business_time": 1621504824,
+                "business_time": "1621504824",
                 "symbol": "AAPL.US",
                 "description": "AAPL"
               }
