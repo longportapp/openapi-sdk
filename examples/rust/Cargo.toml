@@ -1,0 +1,2 @@
+[workspace]
+members = ["account_asset", "subscribe_quote", "submit_order","today_orders"]

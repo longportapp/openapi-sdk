@@ -1,0 +1,15 @@
+use std::sync::Arc;
+
+use longbridge::{trade::TradeContext, Config};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let config = Arc::new(Config::from_env()?);
+    let (ctx, _) = TradeContext::try_new(config).await?;
+
+    let resp = ctx.today_orders(None).await?;
+    for obj in resp {
+        println!("{:?}", obj);
+    }
+    Ok(())
+}

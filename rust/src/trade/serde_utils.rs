@@ -61,18 +61,6 @@ pub(crate) mod timestamp_opt {
     }
 }
 
-pub(crate) mod timestamp_int {
-    use super::*;
-
-    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<OffsetDateTime, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let value = i64::deserialize(deserializer)?;
-        OffsetDateTime::from_unix_timestamp(value).map_err(|_| Error::custom("invalid timestamp"))
-    }
-}
-
 pub(crate) mod date_opt {
     use super::*;
 
@@ -137,6 +125,27 @@ pub(crate) mod number_str_opt {
             Ok(Some(n))
         } else {
             Ok(None)
+        }
+    }
+}
+
+pub(crate) mod decimal_empty_is_0 {
+    use rust_decimal::Decimal;
+
+    use super::*;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Decimal, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        if !value.is_empty() {
+            let n = value
+                .parse::<Decimal>()
+                .map_err(|err| Error::custom(err.to_string()))?;
+            Ok(n)
+        } else {
+            Ok(Decimal::ZERO)
         }
     }
 }

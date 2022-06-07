@@ -2622,7 +2622,7 @@ class StockPosition:
     The number of holdings
     """
 
-    available_quality: Decimal
+    available_quality: Optional[Decimal]
     """
     Available quantity
     """
