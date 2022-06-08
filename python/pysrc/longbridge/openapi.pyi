@@ -3,6 +3,25 @@ from decimal import Decimal
 from typing import List, Optional, Type, Protocol
 
 
+class OpenApiException(Exception):
+    """
+    OpenAPI exception
+    """
+
+    code: Optional[int]
+    """
+    Error code
+    """
+
+    message: str
+    """
+    Error message
+    """
+
+    def __init__(self, code: int, message: str) -> None:
+        ...
+
+
 class Config:
     """
     Configuration options for Longbridge sdk

@@ -1,17 +1,13 @@
-use pyo3::{exceptions::PyException, PyErr};
+use pyo3::PyErr;
 
-pyo3::create_exception!(
-    longbridge,
-    LongbridgeSDKException,
-    PyException,
-    "Some description."
-);
+pyo3::import_exception!(longbridge.openapi, OpenApiException);
 
 pub(crate) struct ErrorNewType(pub(crate) longbridge::Error);
 
 impl std::convert::From<ErrorNewType> for PyErr {
     #[inline]
     fn from(err: ErrorNewType) -> PyErr {
-        LongbridgeSDKException::new_err(err.0.to_string())
+        let err = err.0.into_simple_error();
+        OpenApiException::new_err((err.code(), err.message().to_string()))
     }
 }
