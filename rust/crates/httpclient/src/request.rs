@@ -102,11 +102,15 @@ where
     pub async fn send(self) -> HttpClientResult<R> {
         let HttpClient { http_cli, config } = &self.client;
         let now = Timestamp::now();
+        let app_key_value =
+            HeaderValue::from_str(&config.app_key).map_err(|_| HttpClientError::InvalidApiKey)?;
+        let access_token_value = HeaderValue::from_str(&config.access_token)
+            .map_err(|_| HttpClientError::InvalidAccessToken)?;
 
         let mut request_builder = http_cli
             .request(self.method, &format!("{}{}", config.http_url, self.path))
-            .header("X-Api-Key", &config.app_key)
-            .header("Authorization", &config.access_token)
+            .header("X-Api-Key", app_key_value)
+            .header("Authorization", access_token_value)
             .header("X-Timestamp", now.to_string())
             .header("Content-Type", "application/json; charset=utf-8");
 
