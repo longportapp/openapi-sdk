@@ -30,6 +30,9 @@ impl Config {
 
     /// Create a new `Config` from the given environment variables
     ///
+    /// It first gets the environment variables from the `.env` file in the
+    /// current directory.
+    ///
     /// # Variables
     ///
     /// - `LONGBRIDGE_APP_KEY` - App key
@@ -41,6 +44,8 @@ impl Config {
     /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url (Default:
     ///   `wss://openapi-trade.longbridgeapp.com`)
     pub fn from_env() -> Result<Self> {
+        let _ = dotenv::dotenv();
+
         let http_cli_config = HttpClientConfig::from_env()?;
         let mut config = Config {
             http_cli_config,

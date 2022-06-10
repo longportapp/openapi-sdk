@@ -49,6 +49,18 @@ impl Config {
     }
 
     /// Create a new `Config` from the given environment variables
+    ///
+    /// It first gets the environment variables from the `.env` file in the
+    /// current directory.
+    ///
+    /// # Variables
+    ///
+    /// - `LONGBRIDGE_APP_KEY` - App key
+    /// - `LONGBRIDGE_APP_SECRET` - App secret
+    /// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+    /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
+    /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url
+    /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
     #[napi(factory)]
     pub fn from_env() -> Result<Self> {
         Ok(Self(longbridge::Config::from_env().map_err(ErrorNewType)?))

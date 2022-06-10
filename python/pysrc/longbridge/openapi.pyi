@@ -50,6 +50,8 @@ class Config:
         """
         Create a new `Config` from the given environment variables
 
+        It first gets the environment variables from the `.env` file in the current directory.
+
         # Variables
 
         - `LONGBRIDGE_APP_KEY` - App key
