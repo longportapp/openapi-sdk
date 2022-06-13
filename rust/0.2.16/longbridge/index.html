@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Longbridge OpenAPI SDK for Rust"><meta name="keywords" content="rust, rustlang, rust-lang, longbridge"><title>longbridge - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate longbridge</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.2.16</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#types">Type Definitions</a></li></ul></div></section><div id="sidebar-vars" data-name="longbridge" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../longbridge/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">longbridge</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/longbridge/lib.rs.html#1-25">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="longbridge-openapi-sdk-for-rust"><a href="#longbridge-openapi-sdk-for-rust">Longbridge OpenAPI SDK for Rust</a></h2><div align="center">
+  <a href="https://crates.io/crates/longbridge">
+    <img src="https://img.shields.io/crates/v/longbridge.svg?style=flat-square"
+    alt="Crates.io version" />
+  </a>
+  <a href="https://docs.rs/longbridge">
+    <img src="https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square"
+      alt="docs.rs docs" />
+  </a>
+  <a href="https://github.com/rust-secure-code/safety-dance/">
+    <img src="https://img.shields.io/badge/unsafe-forbidden-success.svg?style=flat-square"
+      alt="Unsafe Rust forbidden" />
+  </a>
+  <a href="https://blog.rust-lang.org/2021/11/01/Rust-1.56.1.html">
+    <img src="https://img.shields.io/badge/rustc-1.56.1+-ab6000.svg"
+      alt="rustc 1.56.1+" />
+  </a>
+</div>
+<p><code>longbridge</code> provides an easy-to-use interface for invokes <a href="https://open.longbridgeapp.com/en/"><code>Longbridge OpenAPI</code></a>.</p>
+<h3 id="quickstart"><a href="#quickstart">Quickstart</a></h3>
+<p><em>Add dependencies to <code>Cargo.toml</code></em></p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+longbridge = &quot;0.1.0&quot;</code></pre></div>
+<p><em>Setting environment variables(MacOS/Linux)</em></p>
+<div class="example-wrap"><pre class="language-bash"><code>export LONGBRIDGE_APP_KEY=&quot;App Key get from user center&quot;
+export LONGBRIDGE_APP_SECRET=&quot;App Secret get from user center&quot;
+export LONGBRIDGE_ACCESS_TOKEN=&quot;Access Token get from user center&quot;</code></pre></div>
+<p><em>Setting environment variables(Windows)</em></p>
+<div class="example-wrap"><pre class="language-powershell"><code>setx LONGBRIDGE_APP_KEY &quot;App Key get from user center&quot;
+setx LONGBRIDGE_APP_SECRET &quot;App Secret get from user center&quot;
+setx LONGBRIDGE_ACCESS_TOKEN &quot;Access Token get from user center&quot;</code></pre></div><h3 id="quote-api-get-basic-information-of-securities"><a href="#quote-api-get-basic-information-of-securities">Quote API <em>(Get basic information of securities)</em></a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
+
+<span class="kw">use</span> <span class="ident">longbridge</span>::{
+    <span class="ident">decimal</span>,
+    <span class="ident">trade</span>::{<span class="ident">OrderSide</span>, <span class="ident">OrderType</span>, <span class="ident">SubmitOrderOptions</span>, <span class="ident">TimeInForceType</span>},
+    <span class="ident">Config</span>, <span class="ident">QuoteContext</span>, <span class="ident">TradeContext</span>,
+};
+
+<span class="attribute">#[<span class="ident">tokio::main</span>]</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="comment">// Load configuration from environment variables</span>
+    <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Config::from_env</span>()<span class="question-mark">?</span>);
+
+    <span class="comment">// Create a context for quote APIs</span>
+    <span class="kw">let</span> (<span class="ident">ctx</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">QuoteContext::try_new</span>(<span class="ident">config</span>.<span class="ident">clone</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// Get basic information of securities</span>
+    <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="ident">ctx</span>
+        .<span class="ident">quote</span>([<span class="string">&quot;700.HK&quot;</span>, <span class="string">&quot;AAPL.US&quot;</span>, <span class="string">&quot;TSLA.US&quot;</span>, <span class="string">&quot;NFLX.US&quot;</span>])
+        .<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="macro">println!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">resp</span>);
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre></div>
+<h3 id="quote-api-subscribe-quotes"><a href="#quote-api-subscribe-quotes">Quote API <em>(Subscribe quotes)</em></a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
+
+<span class="kw">use</span> <span class="ident">longbridge</span>::{<span class="ident">quote::SubFlags</span>, <span class="ident">Config</span>, <span class="ident">QuoteContext</span>};
+
+<span class="attribute">#[<span class="ident">tokio::main</span>]</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="comment">// Load configuration from environment variables</span>
+    <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Config::from_env</span>()<span class="question-mark">?</span>);
+
+    <span class="comment">// Create a context for quote APIs</span>
+    <span class="kw">let</span> (<span class="ident">ctx</span>, <span class="kw-2">mut</span> <span class="ident">receiver</span>) <span class="op">=</span> <span class="ident">QuoteContext::try_new</span>(<span class="ident">config</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// Subscribe</span>
+    <span class="ident">ctx</span>.<span class="ident">subscribe</span>([<span class="string">&quot;700.HK&quot;</span>], <span class="ident">SubFlags::QUOTE</span>, <span class="bool-val">true</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// Receive push events</span>
+    <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">event</span>) <span class="op">=</span> <span class="ident">receiver</span>.<span class="ident">recv</span>().<span class="kw">await</span> {
+        <span class="macro">println!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">event</span>);
+    }
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre></div>
+<h3 id="trade-api-submit-order"><a href="#trade-api-submit-order">Trade API <em>(Submit order)</em></a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
+
+<span class="kw">use</span> <span class="ident">longbridge</span>::{
+    <span class="ident">decimal</span>,
+    <span class="ident">trade</span>::{<span class="ident">OrderSide</span>, <span class="ident">OrderType</span>, <span class="ident">SubmitOrderOptions</span>, <span class="ident">TimeInForceType</span>},
+    <span class="ident">Config</span>, <span class="ident">TradeContext</span>,
+};
+
+<span class="attribute">#[<span class="ident">tokio::main</span>]</span>
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="comment">// Load configuration from environment variables</span>
+    <span class="kw">let</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Config::from_env</span>()<span class="question-mark">?</span>);
+
+    <span class="comment">// Create a context for trade APIs</span>
+    <span class="kw">let</span> (<span class="ident">ctx</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">TradeContext::try_new</span>(<span class="ident">config</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+    <span class="comment">// Submit order</span>
+    <span class="kw">let</span> <span class="ident">opts</span> <span class="op">=</span> <span class="ident">SubmitOrderOptions::new</span>(
+        <span class="string">&quot;700.HK&quot;</span>,
+        <span class="ident">OrderType::LO</span>,
+        <span class="ident">OrderSide::Buy</span>,
+        <span class="number">500</span>,
+        <span class="ident">TimeInForceType::Day</span>,
+    )
+    .<span class="ident">submitted_price</span>(<span class="macro">decimal!</span>(<span class="number">50i32</span>))
+    .<span class="ident">remark</span>(<span class="string">&quot;Hello from Rust SDK&quot;</span>.<span class="ident">to_string</span>());
+
+    <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="ident">ctx</span>.<span class="ident">submit_order</span>(<span class="ident">opts</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="macro">println!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="ident">resp</span>);
+
+    <span class="prelude-val">Ok</span>(())
+}</code></pre></div>
+<h3 id="crate-features"><a href="#crate-features">Crate features</a></h3>
+<p>To avoid compiling unused dependencies, Longbridge gates certain features, all of which are disabled by default:</p>
+<div><table><thead><tr><th>Feature</th><th>Description</th></tr></thead><tbody>
+<tr><td>blocking</td><td>Provides the <code>blocking</code> client API.</td></tr>
+</tbody></table>
+</div><h3 id="license"><a href="#license">License</a></h3>
+<p>Licensed under either of</p>
+<ul>
+<li>Apache License, Version 2.0,(<a href="./LICENSE-APACHE">LICENSE-APACHE</a> or <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>)</li>
+<li>MIT license (<a href="./LICENSE-MIT">LICENSE-MIT</a> or <a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a>) at your option.</li>
+</ul>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="quote/index.html" title="longbridge::quote mod">quote</a></div><div class="item-right docblock-short"><p>Quote related types</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="trade/index.html" title="longbridge::trade mod">trade</a></div><div class="item-right docblock-short"><p>Trade related types</p>
+</div></div></div><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.decimal.html" title="longbridge::decimal macro">decimal</a></div><div class="item-right docblock-short"><p>A macro to construct decimal.</p>
+</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Config.html" title="longbridge::Config struct">Config</a></div><div class="item-right docblock-short"><p>Configuration options for Longbridge sdk</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Decimal.html" title="longbridge::Decimal struct">Decimal</a></div><div class="item-right docblock-short"><p><code>Decimal</code> represents a 128 bit representation of a fixed-precision decimal number.
+The finite set of values of type <code>Decimal</code> are of the form m / 10<sup>e</sup>,
+where m is an integer such that -2<sup>96</sup> &lt; m &lt; 2<sup>96</sup>, and e is an integer
+between 0 and 28 inclusive.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.QuoteContext.html" title="longbridge::QuoteContext struct">QuoteContext</a></div><div class="item-right docblock-short"><p>Quote context</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TradeContext.html" title="longbridge::TradeContext struct">TradeContext</a></div><div class="item-right docblock-short"><p>Trade context</p>
+</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Error.html" title="longbridge::Error enum">Error</a></div><div class="item-right docblock-short"><p>Longbridge OpenAPI SDK error type</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.Market.html" title="longbridge::Market enum">Market</a></div><div class="item-right docblock-short"><p>Market</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SimpleError.html" title="longbridge::SimpleError enum">SimpleError</a></div><div class="item-right docblock-short"><p>Simple error type</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.Result.html" title="longbridge::Result type">Result</a></div><div class="item-right docblock-short"><p>Longbridge OpenAPI SDK result type</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
+</body></html>
