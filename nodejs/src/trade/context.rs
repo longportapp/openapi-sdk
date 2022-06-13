@@ -78,6 +78,40 @@ impl TradeContext {
     }
 
     /// Subscribe
+    ///
+    /// #### Example
+    ///
+    /// ```javascript
+    /// const {
+    ///     Config,
+    ///     TradeContext,
+    ///     SubmitOrderOptions,
+    ///     Decimal,
+    ///     OrderSide,
+    ///     TimeInForceType,
+    ///     OrderType,
+    ///     TopicType,
+    ///   } = require("longbridge");
+    ///   
+    ///   let config = Config.fromEnv();
+    ///   let ctx = new TradeContext(config, (_, event) => console.log(event.toString()));
+    ///   
+    ///   ctx
+    ///     .open()
+    ///     .then(() => ctx.subscribe([TopicType.Private]))
+    ///     .then(() =>
+    ///       ctx.submitOrder(
+    ///         new SubmitOrderOptions(
+    ///           "700.HK",
+    ///           OrderType.LO,
+    ///           OrderSide.Buy,
+    ///           200,
+    ///           TimeInForceType.Day
+    ///         ).submittedPrice(new Decimal("50"))
+    ///       )
+    ///     )
+    ///     .then((resp) => console.log(resp.toString()));      
+    /// ```
     #[napi]
     pub async fn subscribe(&self, topics: Vec<TopicType>) -> Result<()> {
         get_ctx!(self.ctx)
@@ -118,7 +152,6 @@ impl TradeContext {
     ///             console.log(obj.toString())
     ///         }    
     ///     })
-    /// )
     /// ```
     #[napi]
     pub async fn history_executions(
@@ -251,7 +284,7 @@ impl TradeContext {
     /// let ctx = new TradeContext(config)
     ///
     /// ctx.open()
-    ///     .then(() => ctx.replaceOrder(new ReplaceOrderOptions("700.HK", new Decimal("100")).price(new Decimal("300"))))
+    ///     .then(() => ctx.replaceOrder(new ReplaceOrderOptions("700.HK", 100).price(new Decimal("300"))))
     ///     .then((resp) => {
     ///         for (let obj of resp) {
     ///             console.log(obj.toString())
@@ -277,7 +310,7 @@ impl TradeContext {
     /// let config = Config.fromEnv()
     /// let ctx = new TradeContext(config)
     ///
-    /// let opts = new SubmitOrderOptions("700.HK", OrderType.LO, OrderSide.Buy, new Decimal("200"), TimeInForceType.Day)
+    /// let opts = new SubmitOrderOptions("700.HK", OrderType.LO, OrderSide.Buy, 200, TimeInForceType.Day)
     ///     .submittedPrice(new Decimal("300"));
     /// ctx.open()
     ///     .then(() => ctx.submitOrder(opts))

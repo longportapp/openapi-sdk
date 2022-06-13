@@ -2082,7 +2082,7 @@ class Execution:
     Trade done time
     """
 
-    quantity: Decimal
+    quantity: int
     """
     Executed quantity
     """
@@ -2108,7 +2108,7 @@ class PushOrderChanged:
     Stock name
     """
 
-    quantity: str
+    submitted_quantity: int
     """
     Submitted quantity
     """
@@ -2123,7 +2123,7 @@ class PushOrderChanged:
     Order type
     """
 
-    price: Decimal
+    submitted_price: Decimal
     """
     Submitted price
     """
@@ -2133,7 +2133,7 @@ class PushOrderChanged:
     Executed quantity
     """
 
-    executed_price: Decimal
+    executed_price: Optional[Decimal]
     """
     Executed price
     """
@@ -2276,12 +2276,12 @@ class Order:
     Stock name
     """
 
-    quantity: Decimal
+    quantity: int
     """
     Submitted quantity
     """
 
-    executed_quantity: Decimal
+    executed_quantity: int
     """
     Executed quantity
     """
@@ -2392,7 +2392,7 @@ class TradeHandler(Protocol):
     Trade push message handler
     """
 
-    def on_event(self, symbol: str, msg: PushOrderChanged) -> None:
+    def on_event(self, msg: PushOrderChanged) -> None:
         """
         Called when a new message is received
         """
@@ -2653,12 +2653,12 @@ class StockPosition:
     Stock name
     """
 
-    quantity: Decimal
+    quantity: int
     """
     The number of holdings
     """
 
-    available_quantity: Optional[Decimal]
+    available_quantity: int
     """
     Available quantity
     """
@@ -2733,12 +2733,41 @@ class TradeContext:
         handler: Optional[TradeHandler] = None,
     ) -> None: ...
 
-    def subscribe(self, topics: List[str]) -> None:
+    def subscribe(self, topics: List[Type[TopicType]]) -> None:
         """
         Subscribe
 
         Args:
             topics: Topic list
+
+        Examples:
+            ::
+
+                from time import sleep
+                from decimal import Decimal
+                from longbridge.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType, PushOrderChanged, TopicType
+
+
+                class EventHandler:
+                    def on_event(self, msg: PushOrderChanged):
+                        print(msg)
+
+
+                config = Config.from_env()
+                ctx = TradeContext(config, EventHandler())
+                ctx.subscribe([TopicType.Private])
+
+                resp = ctx.submit_order(
+                    side=OrderSide.Buy,
+                    symbol="700.HK",
+                    order_type=OrderType.LO,
+                    submitted_price=Decimal("50"),
+                    submitted_quantity=200,
+                    time_in_force=TimeInForceType.Day,
+                    remark="Hello from Python SDK",
+                )
+                print(resp)
+                sleep(5)  # waiting for push event
         """
 
     def unsubscribe(self, topics: List[str]) -> None:
@@ -2866,7 +2895,7 @@ class TradeContext:
                 print(resp)
         """
 
-    def replace_order(self, order_id: str, quantity: Decimal, price: Optional[Decimal] = None, trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, remark: Optional[str] = None) -> None:
+    def replace_order(self, order_id: str, quantity: int, price: Optional[Decimal] = None, trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, remark: Optional[str] = None) -> None:
         """
         Replace order
 
@@ -2890,12 +2919,12 @@ class TradeContext:
 
                 ctx.replace_order(
                     order_id = "709043056541253632",
-                    quantity = Decimal("100"),
+                    quantity = 100,
                     price = Decimal("100"),
                 )
         """
 
-    def submit_order(self, symbol: str, order_type: Type[OrderType], side: Type[OrderSide], submitted_quantity: Decimal, time_in_force: Type[TimeInForceType], submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[Type[OutsideRTH]] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
+    def submit_order(self, symbol: str, order_type: Type[OrderType], side: Type[OrderSide], submitted_quantity: int, time_in_force: Type[TimeInForceType], submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[Type[OutsideRTH]] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
         """
         Submit order
 
@@ -2931,7 +2960,7 @@ class TradeContext:
                     symbol = "700.HK",
                     order_type = OrderType.LO,
                     submitted_price = Decimal("50"),
-                    submitted_quantity = Decimal("200"),
+                    submitted_quantity = 200,
                     time_in_force = TimeInForceType.Day,
                     remark = "Hello from Python SDK",
                 )

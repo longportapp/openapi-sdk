@@ -10,9 +10,9 @@ impl ReplaceOrderOptions {
     /// Create a new `ReplaceOrderOptions`
     #[napi(constructor)]
     #[inline]
-    pub fn new(order_id: String, quantity: &Decimal) -> ReplaceOrderOptions {
+    pub fn new(order_id: String, quantity: i64) -> ReplaceOrderOptions {
         Self(longbridge::trade::ReplaceOrderOptions::new(
-            order_id, quantity.0,
+            order_id, quantity,
         ))
     }
 

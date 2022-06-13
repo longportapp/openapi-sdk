@@ -51,6 +51,40 @@ impl TradeContext {
     /// Subscribe
     ///
     /// Reference: <https://open.longbridgeapp.com/en/docs/trade/trade-push#subscribe>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     decimal,
+    ///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = SubmitOrderOptions::new(
+    ///     "700.HK",
+    ///     OrderType::LO,
+    ///     OrderSide::Buy,
+    ///     200,
+    ///     TimeInForceType::Day,
+    /// )
+    /// .submitted_price(decimal!(50i32));
+    /// let resp = ctx.submit_order(opts).await?;
+    /// println!("{:?}", resp);
+    ///
+    /// while let Some(event) = receiver.recv().await {
+    ///     println!("{:?}", event);
+    /// }
+    ///
+    /// # Ok::<_, Box<dyn std::error::Error>>(())
+    /// # });
+    /// ```
     pub async fn subscribe<I>(&self, topics: I) -> Result<()>
     where
         I: IntoIterator<Item = TopicType>,
@@ -288,8 +322,7 @@ impl TradeContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = TradeContext::try_new(config).await?;
     ///
-    /// let opts =
-    ///     ReplaceOrderOptions::new("709043056541253632", decimal!(100i32)).price(decimal!(300i32));
+    /// let opts = ReplaceOrderOptions::new("709043056541253632", 100).price(decimal!(300i32));
     /// let resp = ctx.replace_order(opts).await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
@@ -327,7 +360,7 @@ impl TradeContext {
     ///     "700.HK",
     ///     OrderType::LO,
     ///     OrderSide::Buy,
-    ///     decimal!(200i32),
+    ///     200,
     ///     TimeInForceType::Day,
     /// )
     /// .submitted_price(decimal!(50i32));

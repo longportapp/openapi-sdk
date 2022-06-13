@@ -45,11 +45,11 @@ impl Core {
         let (event_tx, event_rx) = mpsc::unbounded_channel();
 
         tracing::debug!(
-            url = config.quote_ws_url.as_str(),
+            url = config.trade_ws_url.as_str(),
             "connecting to trade server",
         );
         let ws_cli = WsClient::open(
-            &config.quote_ws_url,
+            &config.trade_ws_url,
             ProtocolVersion::Version1,
             CodecType::Protobuf,
             Platform::OpenAPI,
@@ -57,7 +57,7 @@ impl Core {
         )
         .await?;
 
-        tracing::debug!(url = config.quote_ws_url.as_str(), "trade server connected");
+        tracing::debug!(url = config.trade_ws_url.as_str(), "trade server connected");
 
         let session = ws_cli.request_auth(otp).await?;
 
@@ -173,7 +173,7 @@ impl Core {
             }
             Ok(None) => {}
             Err(err) => {
-                tracing::error!(error = %err, "failed to parse push message");
+                tracing::error!(error = %err, "failed to parse push message")
             }
         }
         Ok(())
@@ -200,7 +200,6 @@ impl Core {
         };
         let resp: SubResponse = self.ws_cli.request(cmd_code::SUBSCRIBE, None, req).await?;
         self.subscriptions = resp.current.into_iter().collect();
-
         Ok(())
     }
 

@@ -19,7 +19,7 @@ ctx
         "700.HK",
         OrderType.LO,
         OrderSide.Buy,
-        new Decimal("200"),
+        "200",
         TimeInForceType.Day
       ).submittedPrice(new Decimal("50"))
     )

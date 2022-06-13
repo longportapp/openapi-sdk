@@ -134,6 +134,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "dotenv"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
+
+[[package]]
 name = "either"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -476,16 +482,14 @@ dependencies = [
 
 [[package]]
 name = "longbridge"
-version = "0.2.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43d5da7719c58f4b603e095247e94717914cd02b04571363365765ef28ccb743"
+version = "0.2.15"
 dependencies = [
  "bitflags",
+ "dotenv",
  "futures-util",
  "longbridge-httpcli",
  "longbridge-proto",
  "longbridge-wscli",
- "num-traits",
  "num_enum",
  "prost",
  "rust_decimal",
@@ -501,9 +505,7 @@ dependencies = [
 
 [[package]]
 name = "longbridge-httpcli"
-version = "0.2.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b694a8ff4e3d3505cd508881b205e99093d844ce75cf350135da95bf88865f74"
+version = "0.2.15"
 dependencies = [
  "futures-util",
  "hmac",
@@ -521,9 +523,7 @@ dependencies = [
 
 [[package]]
 name = "longbridge-proto"
-version = "0.2.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2132e46534438a277bf05ea9d27a6c4d262e14781d158360ac3985d7ca6aef52"
+version = "0.2.15"
 dependencies = [
  "prost",
  "prost-build",
@@ -531,9 +531,7 @@ dependencies = [
 
 [[package]]
 name = "longbridge-wscli"
-version = "0.2.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76dc209b7fa2e05dc005e4021175cd3d8a5df8ed0b98be88590fcf850f1151e7"
+version = "0.2.15"
 dependencies = [
  "byteorder",
  "flate2",

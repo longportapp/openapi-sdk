@@ -227,3 +227,42 @@ pub(crate) mod cash_flow_symbol {
         }
     }
 }
+
+pub(crate) mod int64_str {
+    use super::*;
+
+    pub(crate) fn serialize<S>(value: &i64, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.collect_str(value)
+    }
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<i64, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        Ok(value.parse::<i64>().unwrap_or_default())
+    }
+}
+
+pub(crate) mod int64_str_empty_is_none {
+    use super::*;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<i64>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        if !value.is_empty() {
+            Ok(Some(
+                value
+                    .parse::<i64>()
+                    .map_err(|err| D::Error::custom(err.to_string()))?,
+            ))
+        } else {
+            Ok(None)
+        }
+    }
+}

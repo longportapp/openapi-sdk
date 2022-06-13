@@ -28,7 +28,7 @@ pub struct Execution {
     #[js(datetime)]
     trade_done_at: DateTime<Utc>,
     /// Executed quantity
-    quantity: Decimal,
+    quantity: i64,
     /// Executed price
     price: Decimal,
 }
@@ -190,10 +190,9 @@ pub struct Order {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: Decimal,
+    quantity: i64,
     /// Executed quantity
-    #[js(opt)]
-    executed_quantity: Option<Decimal>,
+    executed_quantity: i64,
     /// Submitted price
     #[js(opt)]
     price: Option<Decimal>,
@@ -259,17 +258,18 @@ pub struct PushOrderChanged {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: String,
+    submitted_quantity: i64,
     /// Order symbol
     symbol: String,
     /// Order type
     order_type: OrderType,
     /// Submitted price
-    price: Decimal,
+    submitted_price: Decimal,
     /// Executed quantity
     executed_quantity: i64,
     /// Executed price
-    executed_price: Decimal,
+    #[js(opt)]
+    executed_price: Option<Decimal>,
     /// Order ID
     order_id: String,
     /// Currency
@@ -486,10 +486,9 @@ pub struct StockPosition {
     /// Stock name
     symbol_name: String,
     /// The number of holdings
-    quantity: Decimal,
+    quantity: i64,
     /// Available quantity
-    #[js(opt)]
-    available_quantity: Option<Decimal>,
+    available_quantity: i64,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or

@@ -18,14 +18,14 @@ impl SubmitOrderOptions {
         symbol: String,
         order_type: OrderType,
         side: OrderSide,
-        submitted_quantity: &Decimal,
+        submitted_quantity: i64,
         time_in_force: TimeInForceType,
     ) -> SubmitOrderOptions {
         Self(longbridge::trade::SubmitOrderOptions::new(
             symbol,
             order_type.into(),
             side.into(),
-            submitted_quantity.0,
+            submitted_quantity,
             time_in_force.into(),
         ))
     }

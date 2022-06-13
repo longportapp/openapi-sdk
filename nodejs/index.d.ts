@@ -300,7 +300,21 @@ export const enum Market {
 export class Config {
   /** Create a new `Config` */
   constructor(params: ConfigParams)
-  /** Create a new `Config` from the given environment variables */
+  /**
+   * Create a new `Config` from the given environment variables
+   *
+   * It first gets the environment variables from the `.env` file in the
+   * current directory.
+   *
+   * # Variables
+   *
+   * - `LONGBRIDGE_APP_KEY` - App key
+   * - `LONGBRIDGE_APP_SECRET` - App secret
+   * - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+   * - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
+   * - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url
+   * - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
+   */
   static fromEnv(): Config
 }
 export class Decimal {
@@ -1419,7 +1433,7 @@ export class TradeContext {
    * let ctx = new TradeContext(config)
    *
    * ctx.open()
-   *     .then(() => ctx.replaceOrder(new ReplaceOrderOptions("700.HK", new Decimal("100")).price(new Decimal("300"))))
+   *     .then(() => ctx.replaceOrder(new ReplaceOrderOptions("700.HK", 100).price(new Decimal("300"))))
    *     .then((resp) => {
    *         for (let obj of resp) {
    *             console.log(obj.toString())
@@ -1439,7 +1453,7 @@ export class TradeContext {
    * let config = Config.fromEnv()
    * let ctx = new TradeContext(config)
    *
-   * let opts = new SubmitOrderOptions("700.HK", OrderType.LO, OrderSide.Buy, new Decimal("200"), TimeInForceType.Day)
+   * let opts = new SubmitOrderOptions("700.HK", OrderType.LO, OrderSide.Buy, 200, TimeInForceType.Day)
    *     .submittedPrice(new Decimal("300"));
    * ctx.open()
    *     .then(() => ctx.submitOrder(opts))
@@ -1605,7 +1619,7 @@ export class GetTodayOrdersOptions {
 /** Options for get today orders request */
 export class ReplaceOrderOptions {
   /** Create a new `ReplaceOrderOptions` */
-  constructor(orderId: string, quantity: Decimal)
+  constructor(orderId: string, quantity: number)
   /** Set the price */
   price(price: Decimal): ReplaceOrderOptions
   /** Set the trigger price */
@@ -1622,7 +1636,7 @@ export class ReplaceOrderOptions {
 /** Options for submit order request */
 export class SubmitOrderOptions {
   /** Create a new `SubmitOrderOptions` */
-  constructor(symbol: string, orderType: OrderType, side: OrderSide, submittedQuantity: Decimal, timeInForce: TimeInForceType)
+  constructor(symbol: string, orderType: OrderType, side: OrderSide, submittedQuantity: number, timeInForce: TimeInForceType)
   /** Set the submitted price */
   submittedPrice(submittedPrice: Decimal): SubmitOrderOptions
   /** Set the trigger price */
@@ -1652,7 +1666,7 @@ export class Execution {
   /** Trade done time */
   get tradeDoneAt(): Date
   /** Executed quantity */
-  get quantity(): Decimal
+  get quantity(): number
   /** Executed price */
   get price(): Decimal
 }
@@ -1666,9 +1680,9 @@ export class Order {
   /** Stock name */
   get stockName(): string
   /** Submitted quantity */
-  get quantity(): Decimal
+  get quantity(): number
   /** Executed quantity */
-  get executedQuantity(): Decimal | null
+  get executedQuantity(): number
   /** Submitted price */
   get price(): Decimal | null
   /** Executed price */
@@ -1718,17 +1732,17 @@ export class PushOrderChanged {
   /** Stock name */
   get stockName(): string
   /** Submitted quantity */
-  get quantity(): string
+  get submittedQuantity(): number
   /** Order symbol */
   get symbol(): string
   /** Order type */
   get orderType(): OrderType
   /** Submitted price */
-  get price(): Decimal
+  get submittedPrice(): Decimal
   /** Executed quantity */
   get executedQuantity(): number
   /** Executed price */
-  get executedPrice(): Decimal
+  get executedPrice(): Decimal | null
   /** Order ID */
   get orderId(): string
   /** Currency */
@@ -1874,9 +1888,9 @@ export class StockPosition {
   /** Stock name */
   get symbolName(): string
   /** The number of holdings */
-  get quantity(): Decimal
+  get quantity(): number
   /** Available quantity */
-  get availableQuantity(): Decimal | null
+  get availableQuantity(): number
   /** Currency */
   get currency(): string
   /**

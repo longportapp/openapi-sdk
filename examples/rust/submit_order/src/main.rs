@@ -15,7 +15,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "700.HK",
         OrderType::LO,
         OrderSide::Buy,
-        decimal!(200i32),
+        200,
         TimeInForceType::Day,
     )
     .submitted_price(decimal!(50i32));

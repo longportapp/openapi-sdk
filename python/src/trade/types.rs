@@ -30,7 +30,7 @@ pub(crate) struct Execution {
     /// Trade done time
     trade_done_at: PyOffsetDateTimeWrapper,
     /// Executed quantity
-    quantity: PyDecimal,
+    quantity: i64,
     /// Executed price
     price: PyDecimal,
 }
@@ -192,10 +192,9 @@ pub(crate) struct Order {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: PyDecimal,
+    quantity: i64,
     /// Executed quantity
-    #[py(opt)]
-    executed_quantity: Option<PyDecimal>,
+    executed_quantity: i64,
     /// Submitted price
     #[py(opt)]
     price: Option<PyDecimal>,
@@ -260,17 +259,18 @@ pub(crate) struct PushOrderChanged {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: String,
+    submitted_quantity: i64,
     /// Order symbol
     symbol: String,
     /// Order type
     order_type: OrderType,
     /// Submitted price
-    price: PyDecimal,
+    submitted_price: PyDecimal,
     /// Executed quantity
     executed_quantity: i64,
     /// Executed price
-    executed_price: PyDecimal,
+    #[py(opt)]
+    executed_price: Option<PyDecimal>,
     /// Order ID
     order_id: String,
     /// Currency
@@ -483,10 +483,9 @@ pub(crate) struct StockPosition {
     /// Stock name
     symbol_name: String,
     /// The number of holdings
-    quantity: PyDecimal,
+    quantity: i64,
     /// Available quantity
-    #[py(opt)]
-    available_quantity: Option<PyDecimal>,
+    available_quantity: i64,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or

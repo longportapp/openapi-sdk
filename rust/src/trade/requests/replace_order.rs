@@ -1,11 +1,14 @@
 use rust_decimal::Decimal;
 use serde::Serialize;
 
+use crate::trade::serde_utils;
+
 /// Options for replace order request
 #[derive(Debug, Serialize, Clone)]
 pub struct ReplaceOrderOptions {
     order_id: String,
-    quantity: Decimal,
+    #[serde(with = "serde_utils::int64_str")]
+    quantity: i64,
     #[serde(skip_serializing_if = "Option::is_none")]
     price: Option<Decimal>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -23,7 +26,7 @@ pub struct ReplaceOrderOptions {
 impl ReplaceOrderOptions {
     /// Create a new `ReplaceOrderOptions`
     #[inline]
-    pub fn new(order_id: impl Into<String>, quantity: Decimal) -> Self {
+    pub fn new(order_id: impl Into<String>, quantity: i64) -> Self {
         Self {
             order_id: order_id.into(),
             quantity,
