@@ -1,11 +1,14 @@
-use longbridge::quote::{
-    DerivativeType, OptionDirection, OptionType, TradeDirection, TradeSession, TradeStatus,
-    WarrantType,
-};
+use longbridge_java_macros::impl_java_enum;
 
-enum_type!(
-    TradeStatus,
+impl_java_enum!(
+    "com/longbridge/Market",
+    longbridge::Market,
+    [Unknown, US, HK, CN, SG]
+);
+
+impl_java_enum!(
     "com/longbridge/quote/TradeStatus",
+    longbridge::quote::TradeStatus,
     [
         Normal,
         Halted,
@@ -21,38 +24,67 @@ enum_type!(
     ]
 );
 
-enum_type!(
-    TradeSession,
+impl_java_enum!(
     "com/longbridge/quote/TradeSession",
+    longbridge::quote::TradeSession,
     [NormalTrade, PreTrade, PostTrade]
 );
 
-enum_type!(
-    TradeDirection,
+impl_java_enum!(
     "com/longbridge/quote/TradeDirection",
+    longbridge::quote::TradeDirection,
     [Neutral, Down, Up]
 );
 
-enum_type!(
-    DerivativeType,
+impl_java_enum!(
     "com/longbridge/quote/DerivativeType",
+    longbridge::quote::DerivativeType,
     [Option, Warrant]
 );
 
-enum_type!(
-    OptionType,
+impl_java_enum!(
     "com/longbridge/quote/OptionType",
+    longbridge::quote::OptionType,
     [Unknown, American, Europe]
 );
 
-enum_type!(
-    OptionDirection,
+impl_java_enum!(
     "com/longbridge/quote/OptionDirection",
+    longbridge::quote::OptionDirection,
     [Unknown, Put, Call]
 );
 
-enum_type!(
-    WarrantType,
+impl_java_enum!(
     "com/longbridge/quote/WarrantType",
+    longbridge::quote::WarrantType,
     [Unknown, Call, Put, Bull, Bear, Inline]
+);
+
+impl_java_enum!(
+    "com/longbridge/quote/Period",
+    longbridge::quote::Period,
+    [
+        #[java(remote = "UnknownPeriod")]
+        Unknown,
+        #[java(remote = "OneMinute")]
+        Min_1,
+        #[java(remote = "FiveMinute")]
+        Min_5,
+        #[java(remote = "FifteenMinute")]
+        Min_15,
+        #[java(remote = "ThirtyMinute")]
+        Min_30,
+        #[java(remote = "SixtyMinute")]
+        Min_60,
+        Day,
+        Week,
+        Month,
+        Year
+    ]
+);
+
+impl_java_enum!(
+    "com/longbridge/quote/AdjustType",
+    longbridge::quote::AdjustType,
+    [NoAdjust, ForwardAdjust]
 );

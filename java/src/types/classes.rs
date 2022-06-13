@@ -219,3 +219,70 @@ impl_java_class!(
         name_hk
     ]
 );
+
+impl_java_class!(
+    "com/longbridge/quote/IntradayLine",
+    longbridge::quote::IntradayLine,
+    [price, timestamp, volume, turnover, avg_price]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/Candlestick",
+    longbridge::quote::Candlestick,
+    [close, open, low, high, volume, turnover, timestamp]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/StrikePriceInfo",
+    longbridge::quote::StrikePriceInfo,
+    [price, call_symbol, put_symbol, standard]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/IssuerInfo",
+    longbridge::quote::IssuerInfo,
+    [issuer_id, name_cn, name_en, name_hk]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/MarketTradingSession",
+    longbridge::quote::MarketTradingSession,
+    [
+        market,
+        #[java(objarray)]
+        trade_session
+    ]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/MarketTradingSession",
+    longbridge::quote::TradingSessionInfo,
+    [begin_time, end_time, trade_session]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/MarketTradingDays",
+    longbridge::quote::MarketTradingDays,
+    [
+        #[java(objarray)]
+        trading_days,
+        #[java(objarray)]
+        half_trading_days
+    ]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/RealtimeQuote",
+    longbridge::quote::RealtimeQuote,
+    [
+        symbol,
+        last_done,
+        open,
+        high,
+        low,
+        timestamp,
+        volume,
+        turnover,
+        trade_status
+    ]
+);

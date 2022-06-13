@@ -8,9 +8,10 @@ use jni::{
     JNIEnv, JavaVM,
 };
 use longbridge::{
-    quote::{PushEvent, PushEventDetail, SubFlags},
-    Config, QuoteContext,
+    quote::{AdjustType, Period, PushEvent, PushEventDetail, SubFlags},
+    Config, Market, QuoteContext,
 };
+use time::Date;
 
 use crate::{
     async_util,
@@ -328,6 +329,226 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextTrades(
         async_util::execute(&env, callback, async move {
             Ok(ObjectArray(
                 context.trades(symbol, count.max(0) as usize).await?,
+            ))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextIntraday(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(context.intraday(symbol).await?))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextCandlesticks(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    period: JObject,
+    count: i32,
+    adjust_type: JObject,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        let period: Period = FromJValue::from_jvalue(&env, period.into())?;
+        let adjust_type: AdjustType = FromJValue::from_jvalue(&env, adjust_type.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(
+                context
+                    .candlesticks(symbol, period, count.max(0) as usize, adjust_type)
+                    .await?,
+            ))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextOptionChainExpiryDateList(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(
+                context.option_chain_expiry_date_list(symbol).await?,
+            ))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextOptionChainInfoByDate(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    expiry_date: JObject,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        let expiry_date: Date = FromJValue::from_jvalue(&env, expiry_date.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(
+                context
+                    .option_chain_info_by_date(symbol, expiry_date)
+                    .await?,
+            ))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextWarrantIssuers(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(context.warrant_issuers().await?))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextTradingSession(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(context.trading_session().await?))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextTradingDays(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    market: JObject,
+    begin: JObject,
+    end: JObject,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let market: Market = FromJValue::from_jvalue(&env, market.into())?;
+        let begin: Date = FromJValue::from_jvalue(&env, begin.into())?;
+        let end: Date = FromJValue::from_jvalue(&env, end.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(context.trading_days(market, begin, end).await?)
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextRealtimeQuote(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbols: JObject,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbols: ObjectArray<String> = FromJValue::from_jvalue(&env, symbols.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(context.realtime_quote(symbols.0).await?))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn quoteContextRealtimeDepth(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(context.realtime_depth(symbol).await?)
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn quoteContextRealtimeBrokers(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(context.realtime_brokers(symbol).await?)
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextRealtimeTrades(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    count: i32,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const QuoteContext);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(
+                context
+                    .realtime_trades(symbol, count.max(0) as usize)
+                    .await?,
             ))
         })?;
         Ok(())

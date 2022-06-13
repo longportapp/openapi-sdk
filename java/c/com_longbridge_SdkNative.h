@@ -143,6 +143,94 @@ JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextParticipants
 JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextTrades
   (JNIEnv *, jclass, jlong, jstring, jint, jobject);
 
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextIntraday
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextIntraday
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextCandlesticks
+ * Signature: (JLjava/lang/String;Lcom/longbridge/quote/Period;ILcom/longbridge/quote/AdjustType;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextCandlesticks
+  (JNIEnv *, jclass, jlong, jstring, jobject, jint, jobject, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextOptionChainExpiryDateList
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextOptionChainExpiryDateList
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextOptionChainInfoByDate
+ * Signature: (JLjava/lang/String;Ljava/time/LocalDate;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextOptionChainInfoByDate
+  (JNIEnv *, jclass, jlong, jstring, jobject, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextWarrantIssuers
+ * Signature: (JLcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextWarrantIssuers
+  (JNIEnv *, jclass, jlong, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextTradingSession
+ * Signature: (JLcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextTradingSession
+  (JNIEnv *, jclass, jlong, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextTradingDays
+ * Signature: (JLcom/longbridge/Market;Ljava/time/LocalDate;Ljava/time/LocalDate;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextTradingDays
+  (JNIEnv *, jclass, jlong, jobject, jobject, jobject, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextRealtimeQuote
+ * Signature: (J[Ljava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextRealtimeQuote
+  (JNIEnv *, jclass, jlong, jobjectArray, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextRealtimeDepth
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextRealtimeDepth
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextRealtimeBrokers
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextRealtimeBrokers
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextRealtimeTrades
+ * Signature: (JLjava/lang/String;ILcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextRealtimeTrades
+  (JNIEnv *, jclass, jlong, jstring, jint, jobject);
+
 #ifdef __cplusplus
 }
 #endif

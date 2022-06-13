@@ -4,7 +4,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{
     parse::Parser, punctuated::Punctuated, token::Comma, Error, Expr, ExprArray, ExprLit, ExprPath,
-    Lit,
+    Lit, Path,
 };
 
 #[derive(FromMeta, Debug, Default)]
@@ -13,6 +13,12 @@ struct FieldArgs {
     objarray: bool,
     #[darling(default)]
     priarray: bool,
+}
+
+#[derive(FromMeta, Debug, Default)]
+struct EnumItemArgs {
+    #[darling(default)]
+    remote: Option<Path>,
 }
 
 #[proc_macro]
@@ -134,6 +140,140 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
                 let obj = env.new_object(cls, "()V", &[])?;
                 #(#set_fields)*
                 Ok(obj.into())
+            }
+        }
+    };
+
+    expanded.into()
+}
+
+#[proc_macro]
+pub fn impl_java_enum(input: TokenStream) -> TokenStream {
+    let parser = Punctuated::<Expr, Comma>::parse_separated_nonempty;
+    let mut exprs = match parser.parse(input) {
+        Ok(exprs) => exprs.into_iter(),
+        Err(err) => return err.to_compile_error().into(),
+    };
+
+    let classname = {
+        let expr = exprs.next();
+        match &expr {
+            Some(Expr::Lit(ExprLit {
+                lit: Lit::Str(str), ..
+            })) => str.value(),
+            _ => {
+                return Error::new_spanned(&expr, "missing class name")
+                    .to_compile_error()
+                    .into();
+            }
+        }
+    };
+
+    let type_path = {
+        let expr = exprs.next();
+        match &expr {
+            Some(Expr::Path(ExprPath { path, .. })) => path.clone(),
+            _ => {
+                return Error::new_spanned(&expr, "missing remote type")
+                    .to_compile_error()
+                    .into()
+            }
+        }
+    };
+
+    let items = {
+        let expr = exprs.next();
+        let mut items = Vec::new();
+
+        match &expr {
+            Some(Expr::Array(ExprArray { elems, .. })) => {
+                for elem in elems {
+                    match elem {
+                        Expr::Path(ExprPath { path, attrs, .. }) => {
+                            let args = attrs
+                                .iter()
+                                .find(|attr| attr.path.is_ident("java"))
+                                .and_then(|attr| attr.parse_meta().ok())
+                                .and_then(|meta| EnumItemArgs::from_meta(&meta).ok())
+                                .unwrap_or_default();
+                            items.push((path.clone(), args));
+                        }
+                        _ => {
+                            return Error::new_spanned(elem, "invalid enum item")
+                                .to_compile_error()
+                                .into()
+                        }
+                    }
+                }
+            }
+            _ => {
+                return Error::new_spanned(&expr, "missing enum items")
+                    .to_compile_error()
+                    .into()
+            }
+        }
+
+        items
+    };
+
+    let mut from_jsvalue = Vec::new();
+    let mut into_jsvalue = Vec::new();
+
+    for (item, args) in items {
+        let java_path = &item;
+        let remote_path = args.remote.as_ref().unwrap_or(&item);
+
+        from_jsvalue.push(quote! {
+            let r = env.get_static_field(cls, stringify!(#java_path), concat!("L", #classname, ";"))?.l()?;
+            if env.is_same_object(value, r)? {
+                return Ok(#remote_path);
+            }
+        });
+
+        into_jsvalue.push(quote! {
+            #remote_path => env.get_static_field(cls, stringify!(#java_path), concat!("L", #classname, ";")),
+        });
+    }
+
+    let expanded = quote! {
+        impl crate::types::JClassName for #type_path {
+            const CLASSNAME: &'static str = #classname;
+        }
+
+        impl crate::types::JSignature for #type_path {
+            fn signature() -> std::borrow::Cow<'static, str> {
+                concat!("L", #classname, ";").into()
+            }
+        }
+
+        impl crate::types::FromJValue for #type_path {
+            fn from_jvalue(
+                env: &jni::JNIEnv,
+                value: jni::objects::JValue,
+            ) -> jni::errors::Result<Self> {
+                use #type_path::*;
+                use jni::descriptors::Desc;
+
+                let cls: jni::objects::JClass = #classname.lookup(env).expect(concat!(#classname, " exists"));
+                let value = value.l()?;
+                #(#from_jsvalue)*
+                panic!("invalid enum value")
+            }
+        }
+
+        impl crate::types::IntoJValue for #type_path {
+            fn into_jvalue<'a>(
+                self,
+                env: &jni::JNIEnv<'a>,
+            ) -> jni::errors::Result<jni::objects::JValue<'a>> {
+                use jni::descriptors::Desc;
+                use #type_path::*;
+
+                let cls: jni::objects::JClass = #classname.lookup(env).expect(concat!(#classname, " exists"));
+
+                match self {
+                    #(#into_jsvalue)*
+                }
             }
         }
     };
