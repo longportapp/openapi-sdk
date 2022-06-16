@@ -5,6 +5,9 @@
   <groupId>io.github.longbridgeapp</groupId>
   <artifactId>openapi-sdk</artifactId>
   <version>0.0.1</version>
+  <name>longbridge-openapi</name>
+  <description>Longbridge OpenAPI SDK for Java</description>
+  <url>https://github.com/longbridgeapp/openapi-sdk</url>
   <packaging>jar</packaging>
 
   <scm>
