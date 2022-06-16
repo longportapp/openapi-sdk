@@ -30,6 +30,12 @@ jobs:
           node-version: 16
           check-latest: true
 
+      - name: Install JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: 'temurin'
+
       - name: Build Rust docs
         run: cargo doc -p longbridge --no-deps
       - name: Build Python wheels
@@ -55,11 +61,16 @@ jobs:
           typedoc
         working-directory: ./nodejs
 
+      - name: Build Java docs
+        working-directory: ./java
+        run: mvn javadoc:javadoc
+
       - name: Get SDK Version
         run: |
           echo RUST_SDK_VERSION=$(sed -nE 's/^\s*version = "(.*?)"/\1/p' rust/Cargo.toml) >> $GITHUB_ENV
           echo PYTHON_SDK_VERSION=$(sed -nE 's/^\s*version = "(.*?)"/\1/p' python/Cargo.toml) >> $GITHUB_ENV
           echo NODEJS_SDK_VERSION=$(sed -nE 's/^\s*version = "(.*?)"/\1/p' nodejs/Cargo.toml) >> $GITHUB_ENV
+          echo JAVA_SDK_VERSION=$(sed -nE 's/^\s*version = "(.*?)"/\1/p' java/Cargo.toml) >> $GITHUB_ENV
 
       - name: Copy to gh-pages
         run: |
@@ -67,9 +78,11 @@ jobs:
           mkdir -p gh-pages/rust
           mkdir -p gh-pages/python
           mkdir -p gh-pages/nodejs
+          mkdir -p gh-pages/java
           mv -f target/doc gh-pages/rust/$RUST_SDK_VERSION
           mv -f python/site gh-pages/python/$PYTHON_SDK_VERSION
           mv -f nodejs/docs gh-pages/nodejs/$NODEJS_SDK_VERSION
+          mv -f java/javasrc/target/site gh-pages/java/$JAVA_SDK_VERSION
           python .github/misc/render_docs_index.py > gh-pages/index.html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2.5.1
