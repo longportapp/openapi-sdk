@@ -105,4 +105,15 @@ public class OptionQuote {
     public String getUnderlyingSymbol() {
         return underlyingSymbol;
     }
+
+    @Override
+    public String toString() {
+        return "OptionQuote [contractMultiplier=" + contractMultiplier + ", contractSize=" + contractSize
+                + ", contractType=" + contractType + ", direction=" + direction + ", expiryDate=" + expiryDate
+                + ", high=" + high + ", historicalVolatility=" + historicalVolatility + ", impliedVolatility="
+                + impliedVolatility + ", lastDone=" + lastDone + ", low=" + low + ", open=" + open + ", openInterest="
+                + openInterest + ", prevClose=" + prevClose + ", strikePrice=" + strikePrice + ", symbol=" + symbol
+                + ", timestamp=" + timestamp + ", tradeStatus=" + tradeStatus + ", turnover=" + turnover
+                + ", underlyingSymbol=" + underlyingSymbol + ", volume=" + volume + "]";
+    }
 }

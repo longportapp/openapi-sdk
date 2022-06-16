@@ -1,5 +1,7 @@
 package com.longbridge.quote;
 
+import java.util.Arrays;
+
 import com.longbridge.Market;
 
 public class MarketTradingSession {
@@ -12,5 +14,10 @@ public class MarketTradingSession {
 
     public TradingSessionInfo[] getTradeSession() {
         return tradeSession;
+    }
+
+    @Override
+    public String toString() {
+        return "MarketTradingSession [market=" + market + ", tradeSession=" + Arrays.toString(tradeSession) + "]";
     }
 }

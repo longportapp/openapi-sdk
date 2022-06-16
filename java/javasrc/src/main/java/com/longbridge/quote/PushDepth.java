@@ -1,5 +1,7 @@
 package com.longbridge.quote;
 
+import java.util.Arrays;
+
 public class PushDepth {
     private Depth[] asks;
     private Depth[] bids;
@@ -10,5 +12,10 @@ public class PushDepth {
 
     public Depth[] getBids() {
         return bids;
+    }
+
+    @Override
+    public String toString() {
+        return "PushDepth [asks=" + Arrays.toString(asks) + ", bids=" + Arrays.toString(bids) + "]";
     }
 }

@@ -39,4 +39,10 @@ public class PrePostQuote {
     public BigDecimal getPrevClose() {
         return prevClose;
     }
+
+    @Override
+    public String toString() {
+        return "PrePostQuote [high=" + high + ", lastDone=" + lastDone + ", low=" + low + ", prevClose=" + prevClose
+                + ", timestamp=" + timestamp + ", turnover=" + turnover + ", volume=" + volume + "]";
+    }
 }

@@ -40,4 +40,11 @@ public class StockPosition {
     public Market getMarket() {
         return market;
     }
+
+    @Override
+    public String toString() {
+        return "StockPosition [availableQuantity=" + availableQuantity + ", costPrice=" + costPrice + ", currency="
+                + currency + ", market=" + market + ", quantity=" + quantity + ", symbol=" + symbol + ", symbolName="
+                + symbolName + "]";
+    }
 }

@@ -1,5 +1,7 @@
 package com.longbridge.trade;
 
+import java.util.Arrays;
+
 public class FundPositionChannel {
     private String accountChannel;
     private FundPosition[] positions;
@@ -10,5 +12,11 @@ public class FundPositionChannel {
 
     public FundPosition[] getPositions() {
         return positions;
+    }
+
+    @Override
+    public String toString() {
+        return "FundPositionChannel [accountChannel=" + accountChannel + ", positions=" + Arrays.toString(positions)
+                + "]";
     }
 }

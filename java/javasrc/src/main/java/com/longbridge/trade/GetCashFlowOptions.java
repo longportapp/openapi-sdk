@@ -20,20 +20,24 @@ public class GetCashFlowOptions {
         return businessType;
     }
 
-    public void setBusinessType(BalanceType businessType) {
+    public GetCashFlowOptions setBusinessType(BalanceType businessType) {
         this.businessType = businessType;
+        return this;
     }
 
-    public void setSymbol(String symbol) {
+    public GetCashFlowOptions setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 
-    public void setPage(int page) {
+    public GetCashFlowOptions setPage(int page) {
         this.page = page;
+        return this;
     }
 
-    public void setSize(int size) {
+    public GetCashFlowOptions setSize(int size) {
         this.size = size;
+        return this;
     }
 
 }

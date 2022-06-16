@@ -18,4 +18,10 @@ public class TradingSessionInfo {
     public TradeSession getTradeSession() {
         return tradeSession;
     }
+
+    @Override
+    public String toString() {
+        return "TradingSessionInfo [beginTime=" + beginTime + ", endTime=" + endTime + ", tradeSession=" + tradeSession
+                + "]";
+    }
 }

@@ -34,4 +34,10 @@ public class Execution {
     public BigDecimal getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Execution [orderId=" + orderId + ", price=" + price + ", quantity=" + quantity + ", symbol=" + symbol
+                + ", tradeDoneAt=" + tradeDoneAt + ", tradeId=" + tradeId + "]";
+    }
 }

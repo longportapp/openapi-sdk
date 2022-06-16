@@ -21,4 +21,10 @@ public class IssuerInfo {
     public String getNameHk() {
         return nameHk;
     }
+
+    @Override
+    public String toString() {
+        return "IssuerInfo [issuerId=" + issuerId + ", nameCn=" + nameCn + ", nameEn=" + nameEn + ", nameHk=" + nameHk
+                + "]";
+    }
 }

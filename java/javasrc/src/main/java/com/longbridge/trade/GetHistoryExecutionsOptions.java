@@ -8,15 +8,18 @@ public class GetHistoryExecutionsOptions {
     private OffsetDateTime startAt;
     private OffsetDateTime endAt;
 
-    public void setSymbol(String symbol) {
+    public GetHistoryExecutionsOptions setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 
-    public void setStartAt(OffsetDateTime startAt) {
+    public GetHistoryExecutionsOptions setStartAt(OffsetDateTime startAt) {
         this.startAt = startAt;
+        return this;
     }
 
-    public void setEndAt(OffsetDateTime endAt) {
+    public GetHistoryExecutionsOptions setEndAt(OffsetDateTime endAt) {
         this.endAt = endAt;
+        return this;
     }
 }

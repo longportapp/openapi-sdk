@@ -5,11 +5,13 @@ public class GetTodayExecutionsOptions {
     private String symbol;
     private String orderId;
 
-    public void setSymbol(String symbol) {
+    public GetTodayExecutionsOptions setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 
-    public void setOrderId(String orderId) {
+    public GetTodayExecutionsOptions setOrderId(String orderId) {
         this.orderId = orderId;
+        return this;
     }
 }

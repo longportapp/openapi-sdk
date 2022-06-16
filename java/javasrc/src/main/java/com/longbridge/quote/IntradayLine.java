@@ -29,4 +29,10 @@ public class IntradayLine {
     public BigDecimal getAvgPrice() {
         return avgPrice;
     }
+
+    @Override
+    public String toString() {
+        return "IntradayLine [avgPrice=" + avgPrice + ", price=" + price + ", timestamp=" + timestamp + ", turnover="
+                + turnover + ", volume=" + volume + "]";
+    }
 }

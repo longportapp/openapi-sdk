@@ -100,6 +100,15 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_newTradeContext(
 }
 
 #[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_freeTradeContext(
+    _env: JNIEnv,
+    _class: JClass,
+    ctx: i64,
+) {
+    let _ = Box::from_raw(ctx as *mut ContextObj);
+}
+
+#[no_mangle]
 pub unsafe extern "system" fn Java_com_longbridge_SdkNative_tradeContextSetOnOrderChanged(
     env: JNIEnv,
     _class: JClass,
@@ -422,7 +431,7 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_tradeContextCancelOr
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn tradeContextAccountBalance(
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_tradeContextAccountBalance(
     env: JNIEnv,
     _class: JClass,
     context: i64,
@@ -438,7 +447,7 @@ pub unsafe extern "system" fn tradeContextAccountBalance(
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn tradeContextCashFlow(
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_tradeContextCashFlow(
     env: JNIEnv,
     _class: JClass,
     context: i64,

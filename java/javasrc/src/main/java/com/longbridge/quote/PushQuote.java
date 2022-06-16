@@ -50,4 +50,11 @@ public class PushQuote {
         return tradeSession;
     }
 
+    @Override
+    public String toString() {
+        return "PushQuote [high=" + high + ", lastDone=" + lastDone + ", low=" + low + ", open=" + open + ", timestamp="
+                + timestamp + ", tradeSession=" + tradeSession + ", tradeStatus=" + tradeStatus + ", turnover="
+                + turnover + ", volume=" + volume + "]";
+    }
+
 }

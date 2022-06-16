@@ -1,5 +1,7 @@
 package com.longbridge.quote;
 
+import java.util.Arrays;
+
 public class ParticipantInfo {
     private int[] brokerIds;
     private String nameCn;
@@ -20,5 +22,11 @@ public class ParticipantInfo {
 
     public String getNameHk() {
         return nameHk;
+    }
+
+    @Override
+    public String toString() {
+        return "ParticipantInfo [brokerIds=" + Arrays.toString(brokerIds) + ", nameCn=" + nameCn + ", nameEn=" + nameEn
+                + ", nameHk=" + nameHk + "]";
     }
 }

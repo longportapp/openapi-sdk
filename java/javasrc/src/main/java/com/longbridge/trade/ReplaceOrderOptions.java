@@ -18,28 +18,34 @@ public class ReplaceOrderOptions {
         this.quantity = quantity;
     }
 
-    public void setPrice(BigDecimal price) {
+    public ReplaceOrderOptions setPrice(BigDecimal price) {
         this.price = price;
+        return this;
     }
 
-    public void setTriggerPrice(BigDecimal triggerPrice) {
+    public ReplaceOrderOptions setTriggerPrice(BigDecimal triggerPrice) {
         this.triggerPrice = triggerPrice;
+        return this;
     }
 
-    public void setLimitOffset(BigDecimal limitOffset) {
+    public ReplaceOrderOptions setLimitOffset(BigDecimal limitOffset) {
         this.limitOffset = limitOffset;
+        return this;
     }
 
-    public void setTrailingAmount(BigDecimal trailingAmount) {
+    public ReplaceOrderOptions setTrailingAmount(BigDecimal trailingAmount) {
         this.trailingAmount = trailingAmount;
+        return this;
     }
 
-    public void setTrailingPercent(BigDecimal trailingPercent) {
+    public ReplaceOrderOptions setTrailingPercent(BigDecimal trailingPercent) {
         this.trailingPercent = trailingPercent;
+        return this;
     }
 
-    public void setRemark(String remark) {
+    public ReplaceOrderOptions setRemark(String remark) {
         this.remark = remark;
+        return this;
     }
 
 }

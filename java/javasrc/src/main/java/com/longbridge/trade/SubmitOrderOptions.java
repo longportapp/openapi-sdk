@@ -32,35 +32,43 @@ public class SubmitOrderOptions {
         this.timeInForce = timeInForce;
     }
 
-    public void setSubmittedPrice(BigDecimal submittedPrice) {
+    public SubmitOrderOptions setSubmittedPrice(BigDecimal submittedPrice) {
         this.submittedPrice = submittedPrice;
+        return this;
     }
 
-    public void setTriggerPrice(BigDecimal triggerPrice) {
+    public SubmitOrderOptions setTriggerPrice(BigDecimal triggerPrice) {
         this.triggerPrice = triggerPrice;
+        return this;
     }
 
-    public void setLimitOffset(BigDecimal limitOffset) {
+    public SubmitOrderOptions setLimitOffset(BigDecimal limitOffset) {
         this.limitOffset = limitOffset;
+        return this;
     }
 
-    public void setTrailingAmount(BigDecimal trailingAmount) {
+    public SubmitOrderOptions setTrailingAmount(BigDecimal trailingAmount) {
         this.trailingAmount = trailingAmount;
+        return this;
     }
 
-    public void setTrailingPercent(BigDecimal trailingPercent) {
+    public SubmitOrderOptions setTrailingPercent(BigDecimal trailingPercent) {
         this.trailingPercent = trailingPercent;
+        return this;
     }
 
-    public void setExpireDate(LocalDate expireDate) {
+    public SubmitOrderOptions setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
+        return this;
     }
 
-    public void setOutsideRth(OutsideRTH outsideRth) {
+    public SubmitOrderOptions setOutsideRth(OutsideRTH outsideRth) {
         this.outsideRth = outsideRth;
+        return this;
     }
 
-    public void setRemark(String remark) {
+    public SubmitOrderOptions setRemark(String remark) {
         this.remark = remark;
+        return this;
     }
 }

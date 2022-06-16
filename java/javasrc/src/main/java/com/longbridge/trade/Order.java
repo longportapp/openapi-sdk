@@ -130,4 +130,16 @@ public class Order {
     public OutsideRTH getOutsideRth() {
         return outsideRth;
     }
+
+    @Override
+    public String toString() {
+        return "Order [currency=" + currency + ", executedPrice=" + executedPrice + ", executedQuantity="
+                + executedQuantity + ", expireDate=" + expireDate + ", lastDone=" + lastDone + ", limitOffset="
+                + limitOffset + ", msg=" + msg + ", orderId=" + orderId + ", orderType=" + orderType + ", outsideRth="
+                + outsideRth + ", price=" + price + ", quantity=" + quantity + ", side=" + side + ", status=" + status
+                + ", stockName=" + stockName + ", submittedAt=" + submittedAt + ", symbol=" + symbol + ", tag=" + tag
+                + ", timeInForce=" + timeInForce + ", trailingAmount=" + trailingAmount + ", trailingPercent="
+                + trailingPercent + ", triggerAt=" + triggerAt + ", triggerPrice=" + triggerPrice + ", triggerStatus="
+                + triggerStatus + ", updatedAt=" + updatedAt + "]";
+    }
 }

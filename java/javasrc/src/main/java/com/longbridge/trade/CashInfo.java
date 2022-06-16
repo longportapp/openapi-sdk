@@ -28,4 +28,10 @@ public class CashInfo {
     public String getCurrency() {
         return currency;
     }
+
+    @Override
+    public String toString() {
+        return "CashInfo [availableCash=" + availableCash + ", currency=" + currency + ", frozenCash=" + frozenCash
+                + ", settlingCash=" + settlingCash + ", withdrawCash=" + withdrawCash + "]";
+    }
 }

@@ -594,7 +594,7 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextRealtime
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn quoteContextRealtimeDepth(
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextRealtimeDepth(
     env: JNIEnv,
     _class: JClass,
     context: i64,
@@ -612,7 +612,7 @@ pub unsafe extern "system" fn quoteContextRealtimeDepth(
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn quoteContextRealtimeBrokers(
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextRealtimeBrokers(
     env: JNIEnv,
     _class: JClass,
     context: i64,

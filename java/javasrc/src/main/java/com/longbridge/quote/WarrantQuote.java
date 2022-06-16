@@ -120,4 +120,16 @@ public class WarrantQuote {
     public String getUnderlyingSymbol() {
         return underlyingSymbol;
     }
+
+    @Override
+    public String toString() {
+        return "WarrantQuote [call_price=" + call_price + ", category=" + category + ", conversionRatio="
+                + conversionRatio + ", expiryDate=" + expiryDate + ", high=" + high + ", impliedVolatility="
+                + impliedVolatility + ", lastDone=" + lastDone + ", lastTradeDate=" + lastTradeDate + ", low=" + low
+                + ", lowerStrikePrice=" + lowerStrikePrice + ", open=" + open + ", openInterest=" + openInterest
+                + ", outstandingQuantity=" + outstandingQuantity + ", outstandingRatio=" + outstandingRatio
+                + ", prevClose=" + prevClose + ", strikePrice=" + strikePrice + ", symbol=" + symbol + ", timestamp="
+                + timestamp + ", tradeStatus=" + tradeStatus + ", turnover=" + turnover + ", underlyingSymbol="
+                + underlyingSymbol + ", upperStrikePrice=" + upperStrikePrice + ", volume=" + volume + "]";
+    }
 }

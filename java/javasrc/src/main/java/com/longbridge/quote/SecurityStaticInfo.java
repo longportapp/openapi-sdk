@@ -1,6 +1,7 @@
 package com.longbridge.quote;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class SecurityStaticInfo {
     private String symbol;
@@ -77,5 +78,14 @@ public class SecurityStaticInfo {
 
     public DerivativeType[] getStockDerivatives() {
         return stockDerivatives;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityStaticInfo [bps=" + bps + ", circulatingShares=" + circulatingShares + ", currency=" + currency
+                + ", dividendYield=" + dividendYield + ", eps=" + eps + ", epsTtm=" + epsTtm + ", exchange=" + exchange
+                + ", hkShares=" + hkShares + ", lotSize=" + lotSize + ", nameCn=" + nameCn + ", nameEn=" + nameEn
+                + ", nameHk=" + nameHk + ", stockDerivatives=" + Arrays.toString(stockDerivatives) + ", symbol="
+                + symbol + ", totalShares=" + totalShares + "]";
     }
 }

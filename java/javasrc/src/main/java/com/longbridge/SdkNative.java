@@ -126,9 +126,11 @@ public class SdkNative {
     static {
         try {
             NativeLoader.loadLibrary("longbridge_java");
-            SdkNative.init();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.load("longbridge_java");
+        } finally {
+            SdkNative.init();
         }
+
     }
 }

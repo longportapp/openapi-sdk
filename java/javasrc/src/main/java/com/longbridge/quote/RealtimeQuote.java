@@ -49,4 +49,11 @@ public class RealtimeQuote {
     public TradeStatus getTradeStatus() {
         return tradeStatus;
     }
+
+    @Override
+    public String toString() {
+        return "RealtimeQuote [high=" + high + ", lastDone=" + lastDone + ", low=" + low + ", open=" + open
+                + ", symbol=" + symbol + ", timestamp=" + timestamp + ", tradeStatus=" + tradeStatus + ", turnover="
+                + turnover + ", volume=" + volume + "]";
+    }
 }

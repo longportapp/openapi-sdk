@@ -13,27 +13,33 @@ public class GetHistoryOrdersOptions {
     private OffsetDateTime startAt;
     private OffsetDateTime endAt;
 
-    public void setSymbol(String symbol) {
+    public GetHistoryOrdersOptions setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 
-    public void setStatus(OrderStatus[] status) {
+    public GetHistoryOrdersOptions setStatus(OrderStatus[] status) {
         this.status = status;
+        return this;
     }
 
-    public void setSide(OrderSide side) {
+    public GetHistoryOrdersOptions setSide(OrderSide side) {
         this.side = side;
+        return this;
     }
 
-    public void setMarket(Market market) {
+    public GetHistoryOrdersOptions setMarket(Market market) {
         this.market = market;
+        return this;
     }
 
-    public void setStartAt(OffsetDateTime startAt) {
+    public GetHistoryOrdersOptions setStartAt(OffsetDateTime startAt) {
         this.startAt = startAt;
+        return this;
     }
 
-    public void setEndAt(OffsetDateTime endAt) {
+    public GetHistoryOrdersOptions setEndAt(OffsetDateTime endAt) {
         this.endAt = endAt;
+        return this;
     }
 }

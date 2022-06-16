@@ -64,4 +64,12 @@ public class SecurityQuote {
     public PrePostQuote getPostMarketQuote() {
         return postMarketQuote;
     }
+
+    @Override
+    public String toString() {
+        return "SecurityQuote [high=" + high + ", lastDone=" + lastDone + ", low=" + low + ", open=" + open
+                + ", postMarketQuote=" + postMarketQuote + ", preMarketQuote=" + preMarketQuote + ", prevClose="
+                + prevClose + ", symbol=" + symbol + ", timestamp=" + timestamp + ", tradeStatus=" + tradeStatus
+                + ", turnover=" + turnover + ", volume=" + volume + "]";
+    }
 }

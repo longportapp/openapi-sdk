@@ -44,4 +44,11 @@ public class CashFlow {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "CashFlow [balance=" + balance + ", businessTime=" + businessTime + ", businessType=" + businessType
+                + ", currency=" + currency + ", description=" + description + ", direction=" + direction + ", symbol="
+                + symbol + ", transactionFlowName=" + transactionFlowName + "]";
+    }
 }

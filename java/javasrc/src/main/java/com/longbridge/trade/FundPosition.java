@@ -38,4 +38,11 @@ public class FundPosition {
     public BigDecimal getHoldingUnits() {
         return holdingUnits;
     }
+
+    @Override
+    public String toString() {
+        return "FundPosition [costNetAssetValue=" + costNetAssetValue + ", currency=" + currency
+                + ", currentNetAssetValue=" + currentNetAssetValue + ", holdingUnits=" + holdingUnits
+                + ", netAssetValueDay=" + netAssetValueDay + ", symbol=" + symbol + ", symbolName=" + symbolName + "]";
+    }
 }

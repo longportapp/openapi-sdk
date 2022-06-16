@@ -1,5 +1,7 @@
 package com.longbridge.quote;
 
+import java.util.Arrays;
+
 public class PushBrokers {
     private Brokers[] askBrokers;
     private Brokers[] bidBrokers;
@@ -10,5 +12,11 @@ public class PushBrokers {
 
     public Brokers[] getBidBrokers() {
         return bidBrokers;
+    }
+
+    @Override
+    public String toString() {
+        return "PushBrokers [askBrokers=" + Arrays.toString(askBrokers) + ", bidBrokers=" + Arrays.toString(bidBrokers)
+                + "]";
     }
 }

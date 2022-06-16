@@ -114,4 +114,16 @@ public class PushOrderChanged {
     public String getAccountNo() {
         return accountNo;
     }
+
+    @Override
+    public String toString() {
+        return "PushOrderChanged [accountNo=" + accountNo + ", currency=" + currency + ", executedPrice="
+                + executedPrice + ", executedQuantity=" + executedQuantity + ", limitOffset=" + limitOffset + ", msg="
+                + msg + ", orderId=" + orderId + ", orderType=" + orderType + ", side=" + side + ", status=" + status
+                + ", stockName=" + stockName + ", submittedAt=" + submittedAt + ", submittedPrice=" + submittedPrice
+                + ", submittedQuantity=" + submittedQuantity + ", symbol=" + symbol + ", tag=" + tag
+                + ", trailingAmount=" + trailingAmount + ", trailingPercent=" + trailingPercent + ", triggerAt="
+                + triggerAt + ", triggerPrice=" + triggerPrice + ", triggerStatus=" + triggerStatus + ", updatedAt="
+                + updatedAt + "]";
+    }
 }

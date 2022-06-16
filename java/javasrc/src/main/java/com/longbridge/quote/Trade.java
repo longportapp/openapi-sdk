@@ -34,4 +34,10 @@ public class Trade {
     public TradeSession getTrade_sessions() {
         return trade_sessions;
     }
+
+    @Override
+    public String toString() {
+        return "Trade [direction=" + direction + ", price=" + price + ", timestamp=" + timestamp + ", tradeType="
+                + tradeType + ", trade_sessions=" + trade_sessions + ", volume=" + volume + "]";
+    }
 }

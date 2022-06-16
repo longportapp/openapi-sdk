@@ -39,4 +39,10 @@ public class Candlestick {
     public OffsetDateTime getTimestamp() {
         return timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "Candlestick [close=" + close + ", high=" + high + ", low=" + low + ", open=" + open + ", timestamp="
+                + timestamp + ", turnover=" + turnover + ", volume=" + volume + "]";
+    }
 }

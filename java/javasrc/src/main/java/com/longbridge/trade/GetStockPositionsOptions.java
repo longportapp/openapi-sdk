@@ -4,7 +4,8 @@ package com.longbridge.trade;
 public class GetStockPositionsOptions {
     private String[] symbols;
 
-    public void setSymbols(String[] symbols) {
+    public GetStockPositionsOptions setSymbols(String[] symbols) {
         this.symbols = symbols;
+        return this;
     }
 }

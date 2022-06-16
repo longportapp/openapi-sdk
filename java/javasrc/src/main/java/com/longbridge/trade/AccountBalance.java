@@ -1,6 +1,7 @@
 package com.longbridge.trade;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public class AccountBalance {
     private BigDecimal totalCash;
@@ -52,5 +53,13 @@ public class AccountBalance {
 
     public BigDecimal getMaintenanceMargin() {
         return maintenanceMargin;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountBalance [cashInfos=" + Arrays.toString(cashInfos) + ", currency=" + currency + ", initMargin="
+                + initMargin + ", maintenanceMargin=" + maintenanceMargin + ", marginCall=" + marginCall
+                + ", maxFinanceAmount=" + maxFinanceAmount + ", netAssets=" + netAssets + ", remainingFinanceAmount="
+                + remainingFinanceAmount + ", riskLevel=" + riskLevel + ", totalCash=" + totalCash + "]";
     }
 }

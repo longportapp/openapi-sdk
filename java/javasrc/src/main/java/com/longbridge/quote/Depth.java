@@ -23,4 +23,10 @@ public class Depth {
     public long getOrderNum() {
         return orderNum;
     }
+
+    @Override
+    public String toString() {
+        return "Depth [orderNum=" + orderNum + ", position=" + position + ", price=" + price + ", volume=" + volume
+                + "]";
+    }
 }

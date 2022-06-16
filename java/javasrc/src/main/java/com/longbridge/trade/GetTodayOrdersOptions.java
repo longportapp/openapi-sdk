@@ -9,20 +9,24 @@ public class GetTodayOrdersOptions {
     private OrderSide side;
     private Market market;
 
-    public void setSymbol(String symbol) {
+    public GetTodayOrdersOptions setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 
-    public void setStatus(OrderStatus[] status) {
+    public GetTodayOrdersOptions setStatus(OrderStatus[] status) {
         this.status = status;
+        return this;
     }
 
-    public void setSide(OrderSide side) {
+    public GetTodayOrdersOptions setSide(OrderSide side) {
         this.side = side;
+        return this;
     }
 
-    public void setMarket(Market market) {
+    public GetTodayOrdersOptions setMarket(Market market) {
         this.market = market;
+        return this;
     }
 
 }

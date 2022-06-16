@@ -6,4 +6,9 @@ public class SubmitOrderResponse {
     public String getOrderId() {
         return orderId;
     }
+
+    @Override
+    public String toString() {
+        return "SubmitOrderResponse [orderId=" + orderId + "]";
+    }
 }
