@@ -205,4 +205,5 @@ jobs:
         run: cargo test -p longbridge-java --all-features
 
       - name: Compile java sources
-        run: cargo make mvn-package
+        working-directory: java/javasrc
+        run: mvn package
