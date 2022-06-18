@@ -9,12 +9,13 @@ Longbridge OpenAPI provides programmatic quote trading interfaces for investors 
 
 **This repo contains the following main components:**
 
-| Name                        | Description                                |
-|-----------------------------|--------------------------------------------|
-| [Rust](rust/README.md)      | Longbridge OpenAPI for Rust `(>= 1.56.1)`  |
-| [Python](python/README.md)  | Longbridge OpenAPI for Python 3 `(>= 3.7)` |
-| [Node.js](nodejs/README.md) | Longbridge OpenAPI for Node.js `(>= 10)`   |
-| Go                          | https://github.com/longbridgeapp/openapi-go                                        |
+| Name                        | Description                                 |
+|-----------------------------|---------------------------------------------|
+| [Rust](rust/README.md)      | Longbridge OpenAPI for Rust `(>= 1.56.1)`   |
+| [Python](python/README.md)  | Longbridge OpenAPI for Python 3 `(>= 3.7)`  |
+| [Node.js](nodejs/README.md) | Longbridge OpenAPI for Node.js `(>= 10)`    |
+| [Java](java/README.md)      | Longbridge OpenAPI for Java `(>= 1.8)`      |
+| Go                          | https://github.com/longbridgeapp/openapi-go |
 
 ## How to enable Longbridge OpenAPI
 
