@@ -1221,6 +1221,64 @@ class MarketTradingDays:
     half_trading_days: List[date]
 
 
+class CapitalFlowLine:
+    """
+    Capital flow line
+    """
+
+    inflow: Decimal
+    """
+    Inflow capital data
+    """
+
+    timestamp: datetime
+    """
+    Time
+    """
+
+
+class CapitalDistribution:
+    """
+    Capital distribution
+    """
+
+    large: Decimal
+    """
+    Large order
+    """
+
+    medium: Decimal
+    """
+    Medium order
+    """
+
+    small: Decimal
+    """
+    Small order
+    """
+
+
+class CapitalDistributionResponse:
+    """
+    Capital distribution response
+    """
+
+    timestamp: datetime
+    """
+    Time
+    """
+
+    capital_in: CapitalDistribution
+    """
+    Inflow capital data
+    """
+
+    capital_out: CapitalDistribution
+    """
+    Outflow capital data
+    """
+
+
 class RealtimeQuote:
     """
     Real-time quote
@@ -1708,6 +1766,50 @@ class QuoteContext:
                 ctx = QuoteContext(config)
 
                 resp = ctx.trading_days(Market.HK, date(2022, 1, 1), date(2022, 2, 1))
+                print(resp)
+        """
+
+    def capital_flow(self, symbol: str) -> List[CapitalFlowLine]:
+        """
+        Get capital flow intraday
+
+        Args:
+            symbol: Security code
+
+        Returns:
+            Capital flow list
+
+        Examples:
+            ::
+
+                from longbridge.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.capital_flow("700.HK")
+                print(resp)
+        """
+
+    def capital_distribution(self, symbol: str) -> CapitalDistributionResponse:
+        """
+        Get capital distribution
+
+        Args:
+            symbol: Security code
+
+        Returns:
+            Capital distribution
+
+        Examples:
+            ::
+
+                from longbridge.openapi import QuoteContext, Config
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.capital_distribution("700.HK")
                 print(resp)
         """
 

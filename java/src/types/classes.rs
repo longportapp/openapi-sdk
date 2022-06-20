@@ -272,6 +272,24 @@ impl_java_class!(
 );
 
 impl_java_class!(
+    "com/longbridge/quote/CapitalFlowLine",
+    longbridge::quote::CapitalFlowLine,
+    [inflow, timestamp]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/CapitalDistribution",
+    longbridge::quote::CapitalDistribution,
+    [large, medium, small]
+);
+
+impl_java_class!(
+    "com/longbridge/quote/CapitalDistributionResponse",
+    longbridge::quote::CapitalDistributionResponse,
+    [timestamp, capital_in, capital_out]
+);
+
+impl_java_class!(
     "com/longbridge/quote/RealtimeQuote",
     longbridge::quote::RealtimeQuote,
     [

@@ -12,10 +12,10 @@ use crate::{
         core::{Command, Core},
         sub_flags::SubFlags,
         utils::{format_date, parse_date},
-        AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession,
-        OptionQuote, ParticipantInfo, Period, PushEvent, RealtimeQuote, SecurityBrokers,
-        SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade,
-        WarrantQuote,
+        AdjustType, Candlestick, CapitalDistributionResponse, CapitalFlowLine, IntradayLine,
+        IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
+        PushEvent, RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote,
+        SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantQuote,
     },
     Config, Error, Market, Result,
 };
@@ -827,6 +827,72 @@ impl QuoteContext {
             trading_days,
             half_trading_days,
         })
+    }
+
+    /// Get capital flow intraday
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/capital-flow-intraday>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.capital_flow("700.HK").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, Box<dyn std::error::Error>>(())
+    /// # });
+    pub async fn capital_flow(&self, symbol: impl Into<String>) -> Result<Vec<CapitalFlowLine>> {
+        self.request::<_, quote::CapitalFlowIntradayResponse>(
+            cmd_code::GET_CAPITAL_FLOW_INTRADAY,
+            quote::CapitalFlowIntradayRequest {
+                symbol: symbol.into(),
+            },
+        )
+        .await?
+        .capital_flow_lines
+        .into_iter()
+        .map(TryInto::try_into)
+        .collect()
+    }
+
+    /// Get capital distribution
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/quote/pull/capital-distribution>
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.capital_distribution("700.HK").await?;
+    /// println!("{:?}", resp);
+    /// # Ok::<_, Box<dyn std::error::Error>>(())
+    /// # });
+    pub async fn capital_distribution(
+        &self,
+        symbol: impl Into<String>,
+    ) -> Result<CapitalDistributionResponse> {
+        self.request::<_, quote::CapitalDistributionResponse>(
+            cmd_code::GET_SECURITY_CAPITAL_DISTRIBUTION,
+            quote::SecurityRequest {
+                symbol: symbol.into(),
+            },
+        )
+        .await?
+        .try_into()
     }
 
     /// Get real-time quotes

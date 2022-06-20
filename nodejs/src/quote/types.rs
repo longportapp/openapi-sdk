@@ -704,3 +704,42 @@ pub struct MarketTradingDays {
     #[js(array)]
     half_trading_days: Vec<NaiveDate>,
 }
+
+/// Capital flow line
+#[napi_derive::napi]
+#[derive(Debug, JsObject)]
+#[js(remote = "longbridge::quote::CapitalFlowLine")]
+pub struct CapitalFlowLine {
+    /// Inflow capital data
+    inflow: Decimal,
+    /// Time
+    #[js(datetime)]
+    timestamp: DateTime<Utc>,
+}
+
+/// Capital distribution
+#[napi_derive::napi]
+#[derive(Debug, JsObject, Clone)]
+#[js(remote = "longbridge::quote::CapitalDistribution")]
+pub struct CapitalDistribution {
+    /// Large order
+    large: Decimal,
+    /// Medium order
+    medium: Decimal,
+    /// Small order
+    small: Decimal,
+}
+
+/// Capital distribution response
+#[napi_derive::napi]
+#[derive(Debug, JsObject)]
+#[js(remote = "longbridge::quote::CapitalDistributionResponse")]
+pub struct CapitalDistributionResponse {
+    /// Time
+    #[js(datetime)]
+    timestamp: DateTime<Utc>,
+    /// Inflow capital data
+    capital_in: CapitalDistribution,
+    /// Outflow capital data
+    capital_out: CapitalDistribution,
+}

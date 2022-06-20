@@ -3,6 +3,7 @@ use prost_build::Config;
 fn main() {
     Config::new()
         .out_dir("./src")
+        .protoc_arg("--experimental_allow_proto3_optional")
         .compile_protos(
             &[
                 "./openapi-protobufs/control/control.proto",

@@ -576,6 +576,42 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextTradingD
 }
 
 #[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextCapitalFlow(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const ContextObj);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(ObjectArray(context.ctx.capital_flow(symbol).await?))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextCapitalDistribution(
+    env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let context = &*(context as *const ContextObj);
+        let symbol: String = FromJValue::from_jvalue(&env, symbol.into())?;
+        async_util::execute(&env, callback, async move {
+            Ok(context.ctx.capital_distribution(symbol).await?)
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
 pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextRealtimeQuote(
     env: JNIEnv,
     _class: JClass,

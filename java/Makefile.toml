@@ -7,11 +7,13 @@ command = "javac"
 args = [
   "-h",
   "c",
+  "-cp",
+  "libs/native-lib-loader-2.4.0.jar;libs/slf4j-api-1.7.30.jar;",
   "-sourcepath",
-  "javasrc",
+  "javasrc/src/main/java",
   "-d",
   "classes",
-  "javasrc/com/longbridge/SdkNative.java",
+  "javasrc/src/main/java/com/longbridge/SdkNative.java",
 ]
 cwd = "java"
 

@@ -233,6 +233,22 @@ JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextTradingDays
 
 /*
  * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextCapitalFlow
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextCapitalFlow
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextCapitalDistribution
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextCapitalDistribution
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
  * Method:    quoteContextRealtimeQuote
  * Signature: (J[Ljava/lang/String;Lcom/longbridge/AsyncCallback;)V
  */

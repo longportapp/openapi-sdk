@@ -5,10 +5,10 @@ use time::Date;
 use crate::{
     blocking::runtime::BlockingRuntime,
     quote::{
-        AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession,
-        OptionQuote, ParticipantInfo, Period, PushEvent, RealtimeQuote, SecurityBrokers,
-        SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, SubFlags, Subscription,
-        Trade, WarrantQuote,
+        AdjustType, Candlestick, CapitalDistributionResponse, CapitalFlowLine, IntradayLine,
+        IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
+        PushEvent, RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote,
+        SecurityStaticInfo, StrikePriceInfo, SubFlags, Subscription, Trade, WarrantQuote,
     },
     Config, Market, QuoteContext, Result,
 };
@@ -519,6 +519,60 @@ impl QuoteContextSync {
     ) -> Result<MarketTradingDays> {
         self.rt
             .call(move |ctx| async move { ctx.trading_days(market, begin, end).await })
+    }
+
+    /// Get capital flow intraday
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::QuoteContextSync, Config};
+    /// use time::macros::date;
+    ///
+    /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
+    ///
+    /// let resp = ctx.capital_flow("700.HK")?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn capital_flow(
+        &self,
+        symbol: impl Into<String> + Send + 'static,
+    ) -> Result<Vec<CapitalFlowLine>> {
+        self.rt
+            .call(move |ctx| async move { ctx.capital_flow(symbol).await })
+    }
+
+    /// Get capital distribution
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{blocking::QuoteContextSync, Config};
+    /// use time::macros::date;
+    ///
+    /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let ctx = QuoteContextSync::try_new(config, |_| ())?;
+    ///
+    /// let resp = ctx.capital_distribution("700.HK")?;
+    /// println!("{:?}", resp);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn capital_distribution(
+        &self,
+        symbol: impl Into<String> + Send + 'static,
+    ) -> Result<CapitalDistributionResponse> {
+        self.rt
+            .call(move |ctx| async move { ctx.capital_distribution(symbol).await })
     }
 
     /// Get real-time quotes

@@ -648,6 +648,67 @@ public class QuoteContext implements AutoCloseable {
     }
 
     /**
+     * Get capital flow intraday
+     * 
+     * <pre>
+     * {@code
+     * import com.longbridge.*;
+     * import com.longbridge.quote.*;
+     * 
+     * class Main {
+     *     public static void main(String[] args) throws Exception {
+     *         try (Config config = Config.fromEnv(); QuoteContext ctx = QuoteContext.create(config).get()) {
+     *             CapitalFlowLine[] resp = ctx.getCapitalFlow("700.HK").get();
+     *             for (CapitalFlowLine obj : resp) {
+     *                 System.out.println(obj);
+     *             }
+     *         }
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * @param symbol Security code
+     * @return A Future representing the result of the operation
+     * @throws OpenApiException If an error occurs
+     */
+    public CompletableFuture<CapitalFlowLine[]> getCapitalFlow(String symbol) throws OpenApiException {
+        return AsyncCallback.executeTask((callback) -> {
+            SdkNative.quoteContextCapitalFlow(this.raw, symbol, callback);
+        });
+    }
+
+    /**
+     * Get capital distribution
+     * 
+     * <pre>
+     * {@code
+     * import com.longbridge.*;
+     * import com.longbridge.quote.*;
+     * 
+     * class Main {
+     *     public static void main(String[] args) throws Exception {
+     *         try (Config config = Config.fromEnv(); QuoteContext ctx = QuoteContext.create(config).get()) {
+     *             CapitalDistributionResponse resp = ctx.getCapitalDistribution("700.HK").get();
+     *             System.out.println(resp);
+     *         }
+     *     }
+     * }
+     * }
+     * </pre>
+     * 
+     * @param symbol Security code
+     * @return A Future representing the result of the operation
+     * @throws OpenApiException If an error occurs
+     */
+    public CompletableFuture<CapitalDistributionResponse> getCapitalDistribution(String symbol)
+            throws OpenApiException {
+        return AsyncCallback.executeTask((callback) -> {
+            SdkNative.quoteContextCapitalDistribution(this.raw, symbol, callback);
+        });
+    }
+
+    /**
      * Get real-time quotes
      * <p>
      * Get real-time quotes of the subscribed symbols, it always returns the data in

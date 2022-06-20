@@ -30,6 +30,8 @@ pub mod close {
 pub struct Heartbeat {
     #[prost(int64, tag="1")]
     pub timestamp: i64,
+    #[prost(int32, optional, tag="2")]
+    pub heartbeat_id: ::core::option::Option<i32>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AuthRequest {

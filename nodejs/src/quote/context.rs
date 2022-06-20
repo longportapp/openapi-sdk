@@ -10,10 +10,11 @@ use crate::{
     quote::{
         push::{PushBrokersEvent, PushDepthEvent, PushQuoteEvent, PushTradesEvent},
         types::{
-            AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays,
-            MarketTradingSession, OptionQuote, ParticipantInfo, Period, RealtimeQuote,
-            SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-            SubType, SubTypes, Subscription, Trade, WarrantQuote,
+            AdjustType, Candlestick, CapitalDistributionResponse, CapitalFlowLine, IntradayLine,
+            IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo,
+            Period, RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote,
+            SecurityStaticInfo, StrikePriceInfo, SubType, SubTypes, Subscription, Trade,
+            WarrantQuote,
         },
     },
     time::NaiveDate,
@@ -630,6 +631,57 @@ impl QuoteContext {
     ) -> Result<MarketTradingDays> {
         self.ctx
             .trading_days(market.into(), begin.0, end.0)
+            .await
+            .map_err(ErrorNewType)?
+            .try_into()
+    }
+
+    /// Get capital flow intraday
+    ///
+    /// #### Example
+    ///
+    /// ```javascript
+    /// const { Config, QuoteContext } = require("longbridge")
+    ///
+    /// let config = Config.fromEnv()
+    /// QuoteContext.new(config)
+    ///   .then((ctx) => ctx.capitalFlow("700.HK"))
+    ///   .then((resp) => {
+    ///     for (let obj of resp) {
+    ///       console.log(obj.toString())
+    ///     }
+    ///   })
+    /// ```
+    #[napi]
+    pub async fn capital_flow(&self, symbol: String) -> Result<Vec<CapitalFlowLine>> {
+        self.ctx
+            .capital_flow(symbol)
+            .await
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
+    /// Get capital distribution
+    ///
+    /// #### Example
+    ///
+    /// ```javascript
+    /// const { Config, QuoteContext } = require("longbridge")
+    ///
+    /// let config = Config.fromEnv()
+    /// QuoteContext.new(config)
+    ///   .then((ctx) => ctx.capitalDistribution("700.HK"))
+    ///   .then((resp) => console.log(resp.toString()))
+    /// ```
+    #[napi]
+    pub async fn capital_distribution(
+        &self,
+        symbol: String,
+    ) -> Result<CapitalDistributionResponse> {
+        self.ctx
+            .capital_distribution(symbol)
             .await
             .map_err(ErrorNewType)?
             .try_into()

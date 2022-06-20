@@ -818,4 +818,80 @@ pub struct MarketTradingDays {
     pub half_trading_days: Vec<Date>,
 }
 
+/// Capital flow line
+#[derive(Debug, Clone)]
+pub struct CapitalFlowLine {
+    /// Inflow capital data
+    pub inflow: Decimal,
+    /// Time
+    pub timestamp: OffsetDateTime,
+}
+
+impl TryFrom<quote::capital_flow_intraday_response::CapitalFlowLine> for CapitalFlowLine {
+    type Error = Error;
+
+    fn try_from(value: quote::capital_flow_intraday_response::CapitalFlowLine) -> Result<Self> {
+        Ok(Self {
+            inflow: value.inflow.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
+                .map_err(|err| Error::parse_field_error("timestamp", err))?,
+        })
+    }
+}
+
+/// Capital distribution
+#[derive(Debug, Clone, Default)]
+pub struct CapitalDistribution {
+    /// Large order
+    pub large: Decimal,
+    /// Medium order
+    pub medium: Decimal,
+    /// Small order
+    pub small: Decimal,
+}
+
+impl TryFrom<quote::capital_distribution_response::CapitalDistribution> for CapitalDistribution {
+    type Error = Error;
+
+    fn try_from(value: quote::capital_distribution_response::CapitalDistribution) -> Result<Self> {
+        Ok(Self {
+            large: value.large.parse().unwrap_or_default(),
+            medium: value.medium.parse().unwrap_or_default(),
+            small: value.small.parse().unwrap_or_default(),
+        })
+    }
+}
+
+/// Capital distribution response
+#[derive(Debug, Clone)]
+pub struct CapitalDistributionResponse {
+    /// Time
+    pub timestamp: OffsetDateTime,
+    /// Inflow capital data
+    pub capital_in: CapitalDistribution,
+    /// Outflow capital data
+    pub capital_out: CapitalDistribution,
+}
+
+impl TryFrom<quote::CapitalDistributionResponse> for CapitalDistributionResponse {
+    type Error = Error;
+
+    fn try_from(value: quote::CapitalDistributionResponse) -> Result<Self> {
+        Ok(Self {
+            timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
+                .map_err(|err| Error::parse_field_error("timestamp", err))?,
+            capital_in: value
+                .capital_in
+                .map(TryInto::try_into)
+                .transpose()?
+                .unwrap_or_default(),
+            capital_out: value
+                .capital_out
+                .map(TryInto::try_into)
+                .transpose()?
+                .unwrap_or_default(),
+        })
+    }
+}
+
 impl_default_for_enum_string!(OptionType, OptionDirection, WarrantType);

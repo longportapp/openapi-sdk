@@ -15,11 +15,11 @@ pub use longbridge_proto::quote::{AdjustType, Period, TradeSession, TradeStatus}
 pub use push_types::{PushBrokers, PushDepth, PushEvent, PushEventDetail, PushQuote, PushTrades};
 pub use sub_flags::SubFlags;
 pub use types::{
-    Brokers, Candlestick, Depth, DerivativeType, IntradayLine, IssuerInfo, MarketTradingDays,
-    MarketTradingSession, OptionDirection, OptionQuote, OptionType, ParticipantInfo, PrePostQuote,
-    RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo,
-    StrikePriceInfo, Subscription, Trade, TradeDirection, TradingSessionInfo, WarrantQuote,
-    WarrantType,
+    Brokers, Candlestick, CapitalDistribution, CapitalDistributionResponse, CapitalFlowLine, Depth,
+    DerivativeType, IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession,
+    OptionDirection, OptionQuote, OptionType, ParticipantInfo, PrePostQuote, RealtimeQuote,
+    SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
+    Subscription, Trade, TradeDirection, TradingSessionInfo, WarrantQuote, WarrantType,
 };
 // pub use types::{FilterWarrantExpiryDate,
 // FilterWarrantStatus,Language,SortType};

@@ -561,6 +561,10 @@ pub struct PushQuote {
     pub trade_status: i32,
     #[prost(enumeration="TradeSession", tag="11")]
     pub trade_session: i32,
+    #[prost(int64, tag="12")]
+    pub current_volume: i64,
+    #[prost(string, tag="13")]
+    pub current_turnover: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PushDepth {
@@ -608,6 +612,148 @@ pub struct MarketTradeDayResponse {
     pub trade_day: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, repeated, tag="2")]
     pub half_trade_day: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CapitalFlowIntradayRequest {
+    #[prost(string, tag="1")]
+    pub symbol: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CapitalFlowIntradayResponse {
+    #[prost(string, tag="1")]
+    pub symbol: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag="2")]
+    pub capital_flow_lines: ::prost::alloc::vec::Vec<capital_flow_intraday_response::CapitalFlowLine>,
+}
+/// Nested message and enum types in `CapitalFlowIntradayResponse`.
+pub mod capital_flow_intraday_response {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct CapitalFlowLine {
+        #[prost(string, tag="1")]
+        pub inflow: ::prost::alloc::string::String,
+        #[prost(int64, tag="2")]
+        pub timestamp: i64,
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CapitalDistributionResponse {
+    #[prost(string, tag="1")]
+    pub symbol: ::prost::alloc::string::String,
+    #[prost(int64, tag="2")]
+    pub timestamp: i64,
+    #[prost(message, optional, tag="3")]
+    pub capital_in: ::core::option::Option<capital_distribution_response::CapitalDistribution>,
+    #[prost(message, optional, tag="4")]
+    pub capital_out: ::core::option::Option<capital_distribution_response::CapitalDistribution>,
+}
+/// Nested message and enum types in `CapitalDistributionResponse`.
+pub mod capital_distribution_response {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct CapitalDistribution {
+        #[prost(string, tag="1")]
+        pub large: ::prost::alloc::string::String,
+        #[prost(string, tag="2")]
+        pub medium: ::prost::alloc::string::String,
+        #[prost(string, tag="3")]
+        pub small: ::prost::alloc::string::String,
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityCalcQuoteRequest {
+    #[prost(string, repeated, tag="1")]
+    pub symbols: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(enumeration="CalcIndex", repeated, tag="2")]
+    pub calc_index: ::prost::alloc::vec::Vec<i32>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityCalcIndex {
+    #[prost(string, tag="1")]
+    pub symbol: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub last_done: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub change_val: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub change_rate: ::prost::alloc::string::String,
+    #[prost(int64, tag="5")]
+    pub volume: i64,
+    #[prost(string, tag="6")]
+    pub turnover: ::prost::alloc::string::String,
+    #[prost(string, tag="7")]
+    pub ytd_change_rate: ::prost::alloc::string::String,
+    #[prost(string, tag="8")]
+    pub turnover_rate: ::prost::alloc::string::String,
+    #[prost(string, tag="9")]
+    pub total_market_value: ::prost::alloc::string::String,
+    #[prost(string, tag="10")]
+    pub capital_flow: ::prost::alloc::string::String,
+    #[prost(string, tag="11")]
+    pub amplitude: ::prost::alloc::string::String,
+    #[prost(string, tag="12")]
+    pub volume_ratio: ::prost::alloc::string::String,
+    #[prost(string, tag="13")]
+    pub pe_ttm_ratio: ::prost::alloc::string::String,
+    #[prost(string, tag="14")]
+    pub pb_ratio: ::prost::alloc::string::String,
+    #[prost(string, tag="15")]
+    pub dividend_ratio_ttm: ::prost::alloc::string::String,
+    #[prost(string, tag="16")]
+    pub five_day_change_rate: ::prost::alloc::string::String,
+    #[prost(string, tag="17")]
+    pub ten_day_change_rate: ::prost::alloc::string::String,
+    #[prost(string, tag="18")]
+    pub half_year_change_rate: ::prost::alloc::string::String,
+    #[prost(string, tag="19")]
+    pub five_minutes_change_rate: ::prost::alloc::string::String,
+    #[prost(string, tag="20")]
+    pub expiry_date: ::prost::alloc::string::String,
+    #[prost(string, tag="21")]
+    pub strike_price: ::prost::alloc::string::String,
+    #[prost(string, tag="22")]
+    pub upper_strike_price: ::prost::alloc::string::String,
+    #[prost(string, tag="23")]
+    pub lower_strike_price: ::prost::alloc::string::String,
+    #[prost(int64, tag="24")]
+    pub outstanding_qty: i64,
+    #[prost(string, tag="25")]
+    pub outstanding_ratio: ::prost::alloc::string::String,
+    #[prost(string, tag="26")]
+    pub premium: ::prost::alloc::string::String,
+    #[prost(string, tag="27")]
+    pub itm_otm: ::prost::alloc::string::String,
+    #[prost(string, tag="28")]
+    pub implied_volatility: ::prost::alloc::string::String,
+    #[prost(string, tag="29")]
+    pub warrant_delta: ::prost::alloc::string::String,
+    #[prost(string, tag="30")]
+    pub call_price: ::prost::alloc::string::String,
+    #[prost(string, tag="31")]
+    pub to_call_price: ::prost::alloc::string::String,
+    #[prost(string, tag="32")]
+    pub effective_leverage: ::prost::alloc::string::String,
+    #[prost(string, tag="33")]
+    pub leverage_ratio: ::prost::alloc::string::String,
+    #[prost(string, tag="34")]
+    pub conversion_ratio: ::prost::alloc::string::String,
+    #[prost(string, tag="35")]
+    pub balance_point: ::prost::alloc::string::String,
+    #[prost(int64, tag="36")]
+    pub open_interest: i64,
+    #[prost(string, tag="37")]
+    pub delta: ::prost::alloc::string::String,
+    #[prost(string, tag="38")]
+    pub gamma: ::prost::alloc::string::String,
+    #[prost(string, tag="39")]
+    pub theta: ::prost::alloc::string::String,
+    #[prost(string, tag="40")]
+    pub vega: ::prost::alloc::string::String,
+    #[prost(string, tag="41")]
+    pub rho: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityCalcQuoteResponse {
+    #[prost(message, repeated, tag="1")]
+    pub security_calc_index: ::prost::alloc::vec::Vec<SecurityCalcIndex>,
 }
 /// 协议指令定义
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -658,6 +804,12 @@ pub enum Command {
     QueryWarrantIssuerInfo = 22,
     ///查询轮证筛选列表
     QueryWarrantFilterList = 23,
+    ///查询标的的资金流分时
+    QueryCapitalFlowIntraday = 24,
+    ///查询标的资金流大小单
+    QueryCapitalFlowDistribution = 25,
+    ///查询标的指标数据
+    QuerySecurityCalcIndex = 26,
     ///推送行情
     PushQuoteData = 101,
     ///推送盘口
@@ -717,4 +869,49 @@ pub enum SubType {
     Depth = 2,
     Brokers = 3,
     Trade = 4,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum CalcIndex {
+    CalcindexUnknown = 0,
+    CalcindexLastDone = 1,
+    CalcindexChangeVal = 2,
+    CalcindexChangeRate = 3,
+    CalcindexVolume = 4,
+    CalcindexTurnover = 5,
+    CalcindexYtdChangeRate = 6,
+    CalcindexTurnoverRate = 7,
+    CalcindexTotalMarketValue = 8,
+    CalcindexCapitalFlow = 9,
+    CalcindexAmplitude = 10,
+    CalcindexVolumeRatio = 11,
+    CalcindexPeTtmRatio = 12,
+    CalcindexPbRatio = 13,
+    CalcindexDividendRatioTtm = 14,
+    CalcindexFiveDayChangeRate = 15,
+    CalcindexTenDayChangeRate = 16,
+    CalcindexHalfYearChangeRate = 17,
+    CalcindexFiveMinutesChangeRate = 18,
+    CalcindexExpiryDate = 19,
+    CalcindexStrikePrice = 20,
+    CalcindexUpperStrikePrice = 21,
+    CalcindexLowerStrikePrice = 22,
+    CalcindexOutstandingQty = 23,
+    CalcindexOutstandingRatio = 24,
+    CalcindexPremium = 25,
+    CalcindexItmOtm = 26,
+    CalcindexImpliedVolatility = 27,
+    CalcindexWarrantDelta = 28,
+    CalcindexCallPrice = 29,
+    CalcindexToCallPrice = 30,
+    CalcindexEffectiveLeverage = 31,
+    CalcindexLeverageRatio = 32,
+    CalcindexConversionRatio = 33,
+    CalcindexBalancePoint = 34,
+    CalcindexOpenInterest = 35,
+    CalcindexDelta = 36,
+    CalcindexGamma = 37,
+    CalcindexTheta = 38,
+    CalcindexVega = 39,
+    CalcindexRho = 40,
 }

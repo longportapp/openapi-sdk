@@ -695,3 +695,40 @@ pub struct MarketTradingDays {
     #[py(array)]
     half_trading_days: Vec<PyDateWrapper>,
 }
+
+/// Capital flow line
+#[pyclass]
+#[derive(Debug, PyObject)]
+#[py(remote = "longbridge::quote::CapitalFlowLine")]
+pub struct CapitalFlowLine {
+    /// Inflow capital data
+    inflow: PyDecimal,
+    /// Time
+    timestamp: PyOffsetDateTimeWrapper,
+}
+
+/// Capital distribution
+#[pyclass]
+#[derive(Debug, PyObject, Clone)]
+#[py(remote = "longbridge::quote::CapitalDistribution")]
+pub struct CapitalDistribution {
+    /// Large order
+    large: PyDecimal,
+    /// Medium order
+    medium: PyDecimal,
+    /// Small order
+    small: PyDecimal,
+}
+
+/// Capital distribution response
+#[pyclass]
+#[derive(Debug, PyObject, Clone)]
+#[py(remote = "longbridge::quote::CapitalDistributionResponse")]
+pub struct CapitalDistributionResponse {
+    /// Time
+    timestamp: PyOffsetDateTimeWrapper,
+    /// Inflow capital data
+    capital_in: CapitalDistribution,
+    /// Outflow capital data
+    capital_out: CapitalDistribution,
+}

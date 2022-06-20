@@ -10,10 +10,11 @@ use crate::{
     quote::{
         push::handle_push_event,
         types::{
-            AdjustType, Candlestick, IntradayLine, IssuerInfo, MarketTradingDays,
-            MarketTradingSession, OptionQuote, ParticipantInfo, Period, RealtimeQuote,
-            SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-            SubType, SubTypes, Subscription, Trade, WarrantQuote,
+            AdjustType, Candlestick, CapitalDistributionResponse, CapitalFlowLine, IntradayLine,
+            IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo,
+            Period, RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote,
+            SecurityStaticInfo, StrikePriceInfo, SubType, SubTypes, Subscription, Trade,
+            WarrantQuote,
         },
     },
     time::PyDateWrapper,
@@ -271,6 +272,24 @@ impl QuoteContext {
     ) -> PyResult<MarketTradingDays> {
         self.ctx
             .trading_days(market.into(), begin.0, end.0)
+            .map_err(ErrorNewType)?
+            .try_into()
+    }
+
+    /// Get capital flow intraday
+    fn capital_flow(&self, symbol: String) -> PyResult<Vec<CapitalFlowLine>> {
+        self.ctx
+            .capital_flow(symbol)
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
+    /// Get capital distribution
+    fn capital_distribution(&self, symbol: String) -> PyResult<CapitalDistributionResponse> {
+        self.ctx
+            .capital_distribution(symbol)
             .map_err(ErrorNewType)?
             .try_into()
     }

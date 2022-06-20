@@ -74,6 +74,10 @@ public class SdkNative {
     public static native void quoteContextTradingDays(long context, Market market, LocalDate begin, LocalDate end,
             AsyncCallback callback);
 
+    public static native void quoteContextCapitalFlow(long context, String symbol, AsyncCallback callback);
+
+    public static native void quoteContextCapitalDistribution(long context, String symbol, AsyncCallback callback);
+
     public static native void quoteContextRealtimeQuote(long context, String[] symbols, AsyncCallback callback);
 
     public static native void quoteContextRealtimeDepth(long context, String symbol, AsyncCallback callback);
