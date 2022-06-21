@@ -1,5 +1,6 @@
 use std::{collections::HashMap, sync::Arc, time::Duration};
 
+use longbridge_httpcli::HttpClient;
 use longbridge_proto::quote::{SubscribeRequest, SubscriptionResponse, UnsubscribeRequest};
 use longbridge_wscli::{CodecType, Platform, ProtocolVersion, WsClient, WsEvent, WsSession};
 use tokio::sync::{mpsc, oneshot};
@@ -59,6 +60,7 @@ pub(crate) struct Core {
     push_tx: mpsc::UnboundedSender<PushEvent>,
     event_tx: mpsc::UnboundedSender<WsEvent>,
     event_rx: mpsc::UnboundedReceiver<WsEvent>,
+    http_cli: HttpClient,
     ws_cli: WsClient,
     session: WsSession,
     close: bool,
@@ -72,7 +74,8 @@ impl Core {
         command_rx: mpsc::UnboundedReceiver<Command>,
         push_tx: mpsc::UnboundedSender<PushEvent>,
     ) -> Result<Self> {
-        let otp = config.create_http_client().get_otp().await?;
+        let http_cli = config.create_http_client();
+        let otp = http_cli.get_otp().await?;
 
         let (event_tx, event_rx) = mpsc::unbounded_channel();
 
@@ -99,6 +102,7 @@ impl Core {
             push_tx,
             event_tx,
             event_rx,
+            http_cli,
             ws_cli,
             session,
             close: false,
@@ -145,15 +149,33 @@ impl Core {
                 );
 
                 // request new session
-                match self
-                    .ws_cli
-                    .request_reconnect(&self.session.session_id)
-                    .await
-                {
-                    Ok(new_session) => self.session = new_session,
-                    Err(err) => {
-                        tracing::error!(error = %err, "failed to request session id");
-                        continue;
+                if self.session.is_expired() {
+                    let otp = match self.http_cli.get_otp().await {
+                        Ok(otp) => otp,
+                        Err(err) => {
+                            tracing::error!(error = %err, "failed to request otp");
+                            continue;
+                        }
+                    };
+
+                    match self.ws_cli.request_auth(otp).await {
+                        Ok(new_session) => self.session = new_session,
+                        Err(err) => {
+                            tracing::error!(error = %err, "failed to request session id");
+                            continue;
+                        }
+                    }
+                } else {
+                    match self
+                        .ws_cli
+                        .request_reconnect(&self.session.session_id)
+                        .await
+                    {
+                        Ok(new_session) => self.session = new_session,
+                        Err(err) => {
+                            tracing::error!(error = %err, "failed to request session id");
+                            continue;
+                        }
                     }
                 }
 
