@@ -1,14 +1,14 @@
 [package]
 edition = "2021"
 name = "longbridge-java"
-version = "0.2.19"
+version = "0.2.20"
 
 [lib]
 crate-type = ["cdylib"]
 
 [dependencies]
-longbridge = { path = "../rust", version = "0.2.12" }
-longbridge-java-macros = { path = "./crates/macros", version = "0.2.12" }
+longbridge = { path = "../rust" }
+longbridge-java-macros = { path = "./crates/macros" }
 
 jni = "0.19.0"
 thiserror = "1.0.31"

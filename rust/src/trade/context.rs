@@ -1,4 +1,4 @@
-use std::{collections::HashMap, sync::Arc};
+use std::sync::Arc;
 
 use longbridge_httpcli::{HttpClient, Method};
 use longbridge_wscli::WsClientError;
