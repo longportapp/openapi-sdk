@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use longbridge_httpcli::{HttpClient, Method};
 use longbridge_wscli::WsClientError;
@@ -15,6 +15,9 @@ use crate::{
     },
     Config, Result,
 };
+
+#[derive(Debug, Deserialize)]
+struct EmptyResponse {}
 
 /// Response for submit order request
 #[derive(Debug, Deserialize)]
@@ -333,8 +336,10 @@ impl TradeContext {
             .http_cli
             .request(Method::PUT, "/v1/trade/order")
             .body(options)
+            .response::<EmptyResponse>()
             .send()
-            .await?)
+            .await
+            .map(|_| ())?)
     }
 
     /// Submit order
@@ -407,11 +412,13 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::DELETE, "/v1/trade/order")
+            .response::<EmptyResponse>()
             .query_params(Request {
                 order_id: order_id.into(),
             })
             .send()
-            .await?)
+            .await
+            .map(|_| ())?)
     }
 
     /// Get account balance
