@@ -21,6 +21,9 @@ jobs:
           - name: longbridge-wscli
             registryName: longbridge-wscli
             path: rust/crates/wsclient
+          - name: longbridge-candlesticks
+            registryName: longbridge-candlesticks
+            path: rust/crates/candlesticks
           - name: longbridge
             registryName: longbridge
             path: rust
