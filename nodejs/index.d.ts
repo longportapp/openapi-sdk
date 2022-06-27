@@ -147,6 +147,116 @@ export const enum AdjustType {
   /** Adjust forward */
   ForwardAdjust = 1
 }
+/** Options for get cash flow request */
+export interface GetCashFlowOptions {
+  /** Start time */
+  startAt: Date
+  /** End time */
+  endAt: Date
+  /** Business type */
+  businessType?: BalanceType
+  /** Security symbol */
+  symbol?: string
+  /** Page number */
+  page?: number
+  /** Page size */
+  size?: number
+}
+/** Options for get histroy executions request */
+export interface GetHistoryExecutionsOptions {
+  /** Security symbol */
+  symbol?: string
+  /** Start time */
+  startAt?: Date
+  /** End time */
+  endAt?: Date
+}
+/** Options for get histroy orders request */
+export interface GetHistoryOrdersOptions {
+  /** Security symbol */
+  symbol?: string
+  /** Order status */
+  status?: Array<OrderStatus>
+  /** Order side */
+  side?: OrderSide
+  /** Market */
+  market?: Market
+  /** Start time */
+  startAt?: Date
+  /** End time */
+  endAt?: Date
+}
+/** Options for get today executions request */
+export interface GetTodayExecutionsOptions {
+  /** Security symbol */
+  symbol?: string
+  /** Order id */
+  orderId?: string
+}
+/** Options for get today orders request */
+export interface GetTodayOrdersOptions {
+  /** Security symbol */
+  symbol?: string
+  /** Order status */
+  status?: Array<OrderStatus>
+  /** Order side */
+  side?: OrderSide
+  /** Market */
+  market?: Market
+  /** Order id */
+  orderId?: string
+}
+/** Options for replace order request */
+export interface ReplaceOrderOptions {
+  /** Order id */
+  orderId: string
+  /** Replaced quantity */
+  quantity: number
+  /** Replaced price */
+  price?: Decimal
+  /** Trigger price (`LIT` / `MIT` Order Required) */
+  triggerPrice?: Decimal
+  /** Limit offset amount (`TSLPAMT` / `TSLPPCT` Required) */
+  limitOffset?: Decimal
+  /** Trailing amount (`TSLPAMT` / `TSMAMT` Required) */
+  trailingAmount?: Decimal
+  /** Trailing percent (`TSLPPCT` / `TSMAPCT` Required) */
+  trailingPercent?: Decimal
+  /** Remark (Maximum 64 characters) */
+  remark?: string
+}
+/** Options for submit order request */
+export interface SubmitOrderOptions {
+  /** Security code */
+  symbol: string
+  /** Order type */
+  orderType: OrderType
+  /** Order side */
+  side: OrderSide
+  /** Submitted quantity */
+  submittedQuantity: number
+  /** Time in force type */
+  timeInForce: TimeInForceType
+  /** Submitted price */
+  submittedPrice?: Decimal
+  /** Trigger price (`LIT` / `MIT` Required) */
+  triggerPrice?: Decimal
+  /** Limit offset amount (`TSLPAMT` / `TSLPPCT` Required) */
+  limitOffset?: Decimal
+  /** Trailing amount (`TSLPAMT` / `TSMAMT` Required) */
+  trailingAmount?: Decimal
+  /** Trailing percent (`TSLPPCT` / `TSMAPCT` Required) */
+  trailingPercent?: Decimal
+  /**
+   * Long term order expire date (Required when `time_in_force` is
+   * `GoodTilDate`)
+   */
+  expireDate?: NaiveDate
+  /** Enable or disable outside regular trading hours */
+  outsideRth?: OutsideRTH
+  /** Remark (Maximum 64 characters) */
+  remark?: string
+}
 /** Topic type */
 export const enum TopicType {
   /** Private notification for trade */
@@ -1447,14 +1557,13 @@ export class TradeContext {
    *
    * ```javascript
    * const {
-   *   Config,
-   *   TradeContext,
-   *   SubmitOrderOptions,
-   *   Decimal,
-   *   OrderSide,
-   *   TimeInForceType,
-   *   OrderType,
-   *   TopicType,
+   *  Config,
+   *  TradeContext,
+   *  Decimal,
+   *  OrderSide,
+   *  TimeInForceType,
+   *  OrderType,
+   *  TopicType,
    * } = require("longbridge");
    *
    * let config = Config.fromEnv();
@@ -1462,15 +1571,14 @@ export class TradeContext {
    *   .then((ctx) => {
    *     ctx.setOnQuote((_, event) => console.log(event.toString()));
    *     ctx.subscribe([TopicType.Private]);
-   *     return ctx.submitOrder(
-   *       new SubmitOrderOptions(
-   *         "700.HK",
-   *         OrderType.LO,
-   *         OrderSide.Buy,
-   *         200,
-   *         TimeInForceType.Day
-   *       ).submittedPrice(new Decimal("50"))
-   *     );
+   *     return ctx.submitOrder({
+   *       symbol: "700.HK",
+   *       orderType: OrderType.LO,
+   *       side: OrderSide.Buy,
+   *       submittedQuantity: 200,
+   *       timeInForce: TimeInForceType.Day,
+   *       submittedPrice: new Decimal("50"),
+   *     });
    *   })
    *   .then((resp) => console.log(resp.toString()));
    * ```
@@ -1484,20 +1592,22 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, GetHistoryExecutionsOptions } = require("longbridge")
+   * const { Config, TradeContext } = require("longbridge");
    *
-   * let config = Config.fromEnv()
-   * let opts = new GetHistoryExecutionsOptions()
-   *   .symbol("700.HK")
-   *   .startAt(new Date(2022, 5, 9))
-   *   .endAt(new Date(2022, 5, 12))
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.historyExecutions(opts))
+   *   .then((ctx) =>
+   *     ctx.historyExecutions({
+   *       symbol: "700.HK",
+   *       startAt: new Date(2022, 5, 9),
+   *       endAt: new Date(2022, 5, 12),
+   *     })
+   *   )
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
+   *   });
    * ```
    */
   historyExecutions(opts?: GetHistoryExecutionsOptions | undefined | null): Promise<Array<Execution>>
@@ -1507,16 +1617,16 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, GetTodayExecutionsOptions } = require("longbridge")
+   * const { Config, TradeContext } = require("longbridge");
    *
-   * let config = Config.fromEnv()
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.todayExecutions(new GetTodayExecutionsOptions().symbol("700.HK")))
+   *   .then((ctx) => ctx.todayExecutions({ symbol: "700.HK" }))
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
+   *   });
    * ```
    */
   todayExecutions(opts?: GetTodayExecutionsOptions | undefined | null): Promise<Array<Execution>>
@@ -1526,23 +1636,31 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, GetHistoryOrdersOptions, OrderStatus, OrderSide, Market } = require("longbridge")
+   * const {
+   *   Config,
+   *   TradeContext,
+   *   OrderStatus,
+   *   OrderSide,
+   *   Market,
+   * } = require("longbridge");
    *
-   * let config = Config.fromEnv()
-   * let opts = new GetHistoryOrdersOptions()
-   *   .symbol("700.HK")
-   *   .status([OrderStatus.Filled, OrderStatus.New])
-   *   .side(OrderSide.Buy)
-   *   .market(Market.HK)
-   *   .startAt(2022, 5, 9)
-   *   .endAt(2022, 5, 12)
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.historyOrders(opts))
+   *   .then((ctx) =>
+   *     ctx.historyOrders({
+   *       symbol: "700.HK",
+   *       status: [OrderStatus.Filled, OrderStatus.New],
+   *       side: OrderSide.Buy,
+   *       market: Market.HK,
+   *       startAt: new Date(2022, 5, 9),
+   *       endAt: new Date(2022, 5, 12),
+   *     })
+   *   )
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
+   *   });
    * ```
    */
   historyOrders(opts?: GetHistoryOrdersOptions | undefined | null): Promise<Array<Order>>
@@ -1552,23 +1670,29 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, GetTodayOrdersOptions, OrderStatus, OrderSide, Market } = require("longbridge")
+   * const {
+   *   Config,
+   *   TradeContext,
+   *   OrderStatus,
+   *   OrderSide,
+   *   Market,
+   * } = require("longbridge");
    *
-   * let config = Config.fromEnv()
-   *
-   * let opts = new GetTodayOrdersOptions()
-   *   .symbol("700.HK")
-   *   .status([OrderStatus.Filled, OrderStatus.New])
-   *   .side(OrderSide.Buy)
-   *   .market(Market.HK)
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.todayOrders(opts))
+   *   .then((ctx) =>
+   *     ctx.todayOrders({
+   *       symbol: "700.HK",
+   *       status: [OrderStatus.Filled, OrderStatus.New],
+   *       side: OrderSide.Buy,
+   *       market: Market.HK,
+   *     })
+   *   )
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
-   * )
+   *   });
    * ```
    */
   todayOrders(opts?: GetTodayOrdersOptions | undefined | null): Promise<Array<Order>>
@@ -1578,16 +1702,22 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, ReplaceOrderOptions, Decimal } = require("longbridge")
+   * const { Config, TradeContext, Decimal } = require("longbridge");
    *
-   * let config = Config.fromEnv()
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.replaceOrder(new ReplaceOrderOptions("700.HK", 100).price(new Decimal("300"))))
+   *   .then((ctx) =>
+   *     ctx.replaceOrder({
+   *       orderId: "709043056541253632",
+   *       quantity: 100,
+   *       price: new Decimal("300"),
+   *     })
+   *   )
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
+   *   });
    * ```
    */
   replaceOrder(opts: ReplaceOrderOptions): Promise<void>
@@ -1597,28 +1727,41 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, SubmitOrderOptions, OrderType, OrderSide, Decimal, TimeInForceType } = require("longbridge")
+   * const {
+   *   Config,
+   *   TradeContext,
+   *   OrderType,
+   *   OrderSide,
+   *   Decimal,
+   *   TimeInForceType,
+   * } = require("longbridge");
    *
-   * let config = Config.fromEnv()
-   * let opts = new SubmitOrderOptions("700.HK", OrderType.LO, OrderSide.Buy, 200, TimeInForceType.Day)
-   *   .submittedPrice(new Decimal("300"));
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.submitOrder(opts))
-   *   .then((resp) => console.log(resp))
+   *   .then((ctx) =>
+   *     ctx.submitOrder({
+   *       symbol: "700.HK",
+   *       orderType: OrderType.LO,
+   *       side: OrderSide.Buy,
+   *       timeInForce: TimeInForceType.Day,
+   *       submittedQuantity: 200,
+   *       submittedPrice: new Decimal("300"),
+   *     })
+   *   )
+   *   .then((resp) => console.log(resp.toString()));
    * ```
    */
   submitOrder(opts: SubmitOrderOptions): Promise<SubmitOrderResponse>
   /**
-   * Withdraw order
+   * Cancel order
    *
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext } = require("longbridge")
+   * const { Config, TradeContext } = require("longbridge");
    *
-   * let config = Config.fromEnv()
-   * TradeContext.new(config)
-   *   .then((ctx) => ctx.cancelOrder("709043056541253632"))
+   * let config = Config.fromEnv();
+   * TradeContext.new(config).then((ctx) => ctx.cancelOrder("709043056541253632"));
    * ```
    */
   cancelOrder(orderId: string): Promise<void>
@@ -1628,16 +1771,16 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext } = require("longbridge")
+   * const { Config, TradeContext } = require("longbridge");
    *
-   * let config = Config.fromEnv()
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
    *   .then((ctx) => ctx.accountBalance())
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
+   *   });
    * ```
    */
   accountBalance(): Promise<Array<AccountBalance>>
@@ -1647,16 +1790,21 @@ export class TradeContext {
    * #### Example
    *
    * ```javascript
-   * const { Config, TradeContext, GetCashFlowOptions } = require("longbridge")
+   * const { Config, TradeContext, GetCashFlowOptions } = require("longbridge");
    *
-   * let config = Config.fromEnv()
+   * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.cashFlow(new GetCashFlowOptions(new Date(2022, 5, 9), new Date(2022, 5, 12))))
+   *   .then((ctx) =>
+   *     ctx.cashFlow({
+   *       startAt: new Date(2022, 5, 9),
+   *       endAt: new Date(2022, 5, 12),
+   *     })
+   *   )
    *   .then((resp) => {
    *     for (let obj of resp) {
-   *       console.log(obj.toString())
+   *       console.log(obj.toString());
    *     }
-   *   })
+   *   });
    * ```
    */
   cashFlow(opts: GetCashFlowOptions): Promise<Array<CashFlow>>
@@ -1690,109 +1838,6 @@ export class TradeContext {
    * ```
    */
   stockPositions(symbols?: Array<string> | undefined | null): Promise<StockPositionsResponse>
-}
-/** Options for submit order request */
-export class GetCashFlowOptions {
-  /** Create a new `GetCashFlowOptions` */
-  constructor(startAt: Date, endAt: Date)
-  /** Set the business type */
-  businessType(businessType: BalanceType): GetCashFlowOptions
-  /** Set the security symbol */
-  symbol(symbol: string): GetCashFlowOptions
-  /** Set the page number */
-  page(page: number): GetCashFlowOptions
-  /** Set the page size */
-  size(size: number): GetCashFlowOptions
-}
-/** Options for get histroy executions request */
-export class GetHistoryExecutionsOptions {
-  /** Create a new `GetHistoryExecutionsOptions` */
-  constructor()
-  /** Set the security symbol */
-  symbol(symbol: string): GetHistoryExecutionsOptions
-  /** Set the start time */
-  startAt(startAt: Date): GetHistoryExecutionsOptions
-  /** Set the end time */
-  endAt(endAt: Date): GetHistoryExecutionsOptions
-}
-/** Options for get histroy orders request */
-export class GetHistoryOrdersOptions {
-  /** Create a new `GetHistoryOrdersOptions` */
-  constructor()
-  /** Set the security symbol */
-  symbol(symbol: string): GetHistoryOrdersOptions
-  /** Set the order status */
-  status(status: OrderStatus | Array<OrderStatus>): GetHistoryOrdersOptions
-  /** Set the order side */
-  side(side: OrderSide): GetHistoryOrdersOptions
-  /** Set the market */
-  market(market: Market): GetHistoryOrdersOptions
-  /** Set the start time */
-  startAt(startAt: Date): GetHistoryOrdersOptions
-  /** Set the end time */
-  endAt(endAt: Date): GetHistoryOrdersOptions
-}
-/** Options for get histroy executions request */
-export class GetTodayExecutionsOptions {
-  /** Create a new `GetTodayExecutionsOptions` */
-  constructor()
-  /** Set the security symbol */
-  symbol(symbol: string): GetTodayExecutionsOptions
-  /** Set the order id */
-  orderId(orderId: string): GetTodayExecutionsOptions
-}
-/** Options for get today orders request */
-export class GetTodayOrdersOptions {
-  /** Create a new `GetTodayOrdersOptions` */
-  constructor()
-  /** Set the security symbol */
-  symbol(symbol: string): GetTodayOrdersOptions
-  /** Set the order status */
-  status(status: OrderStatus | Array<OrderStatus>): GetTodayOrdersOptions
-  /** Set the order side */
-  side(side: OrderSide): GetTodayOrdersOptions
-  /** Set the market */
-  market(market: Market): GetTodayOrdersOptions
-  /** Set the order id */
-  orderId(orderId: string): GetTodayOrdersOptions
-}
-/** Options for get today orders request */
-export class ReplaceOrderOptions {
-  /** Create a new `ReplaceOrderOptions` */
-  constructor(orderId: string, quantity: number)
-  /** Set the price */
-  price(price: Decimal): ReplaceOrderOptions
-  /** Set the trigger price */
-  triggerPrice(triggerPrice: Decimal): ReplaceOrderOptions
-  /** Set the limit offset */
-  limitOffset(limitOffset: Decimal): ReplaceOrderOptions
-  /** Set the trailing amount */
-  trailingAmount(trailingAmount: Decimal): ReplaceOrderOptions
-  /** Set the trailing percent */
-  trailingPercent(trailingPercent: Decimal): ReplaceOrderOptions
-  /** Set the remark */
-  remark(remark: string): ReplaceOrderOptions
-}
-/** Options for submit order request */
-export class SubmitOrderOptions {
-  /** Create a new `SubmitOrderOptions` */
-  constructor(symbol: string, orderType: OrderType, side: OrderSide, submittedQuantity: number, timeInForce: TimeInForceType)
-  /** Set the submitted price */
-  submittedPrice(submittedPrice: Decimal): SubmitOrderOptions
-  /** Set the trigger price */
-  triggerPrice(triggerPrice: Decimal): SubmitOrderOptions
-  /** Set the limit offset */
-  limitOffset(limitOffset: Decimal): SubmitOrderOptions
-  /** Set the trailing amount */
-  trailingAmount(trailingAmount: Decimal): SubmitOrderOptions
-  /** Set the trailing percent */
-  trailingPercent(trailingPercent: Decimal): SubmitOrderOptions
-  /** Set the expire date */
-  expireDate(expireDate: NaiveDate): SubmitOrderOptions
-  /** Enable or disable outside regular trading hours */
-  outsideRth(outsideRth: OutsideRTH): SubmitOrderOptions
-  /** Set the remark */
-  remark(remark: string): SubmitOrderOptions
 }
 /** Trade */
 export class Execution {

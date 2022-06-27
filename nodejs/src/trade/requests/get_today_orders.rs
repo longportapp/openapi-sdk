@@ -1,66 +1,42 @@
-use napi::Either;
-
 use crate::{
     trade::types::{OrderSide, OrderStatus},
     types::Market,
 };
 
 /// Options for get today orders request
-#[napi_derive::napi]
-#[derive(Clone, Default)]
-pub struct GetTodayOrdersOptions(longbridge::trade::GetTodayOrdersOptions);
-
 #[napi_derive::napi(object)]
-impl GetTodayOrdersOptions {
-    /// Create a new `GetTodayOrdersOptions`
-    #[napi(constructor)]
-    #[inline]
-    pub fn new() -> GetTodayOrdersOptions {
-        Default::default()
-    }
-
-    /// Set the security symbol
-    #[napi]
-    #[inline]
-    pub fn symbol(&self, symbol: String) -> GetTodayOrdersOptions {
-        Self(self.0.clone().symbol(symbol))
-    }
-
-    /// Set the order status
-    #[napi]
-    #[inline]
-    pub fn status(&self, status: Either<OrderStatus, Vec<OrderStatus>>) -> GetTodayOrdersOptions {
-        Self(self.0.clone().status(match status {
-            Either::A(status) => vec![status.into()],
-            Either::B(status) => status.into_iter().map(Into::into).collect(),
-        }))
-    }
-
-    /// Set the order side
-    #[napi]
-    #[inline]
-    pub fn side(&self, side: OrderSide) -> GetTodayOrdersOptions {
-        Self(self.0.clone().side(side.into()))
-    }
-
-    /// Set the market
-    #[napi]
-    #[inline]
-    pub fn market(&self, market: Market) -> GetTodayOrdersOptions {
-        Self(self.0.clone().market(market.into()))
-    }
-
-    /// Set the order id
-    #[napi]
-    #[inline]
-    pub fn order_id(&self, order_id: String) -> GetTodayOrdersOptions {
-        Self(self.0.clone().order_id(order_id))
-    }
+pub struct GetTodayOrdersOptions {
+    /// Security symbol
+    pub symbol: Option<String>,
+    /// Order status
+    pub status: Option<Vec<OrderStatus>>,
+    /// Order side
+    pub side: Option<OrderSide>,
+    /// Market
+    pub market: Option<Market>,
+    /// Order id
+    pub order_id: Option<String>,
 }
 
 impl From<GetTodayOrdersOptions> for longbridge::trade::GetTodayOrdersOptions {
     #[inline]
     fn from(opts: GetTodayOrdersOptions) -> Self {
-        opts.0
+        let mut opts2 = longbridge::trade::GetTodayOrdersOptions::new();
+        if let Some(symbol) = opts.symbol {
+            opts2 = opts2.symbol(symbol);
+        }
+        if let Some(status) = opts.status {
+            opts2 = opts2.status(status.into_iter().map(Into::into));
+        }
+        if let Some(side) = opts.side {
+            opts2 = opts2.side(side.into());
+        }
+        if let Some(market) = opts.market {
+            opts2 = opts2.market(market.into());
+        }
+        if let Some(order_id) = opts.order_id {
+            opts2 = opts2.order_id(order_id);
+        }
+        opts2
     }
 }

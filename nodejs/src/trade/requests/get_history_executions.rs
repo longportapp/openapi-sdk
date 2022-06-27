@@ -3,44 +3,28 @@ use chrono::{DateTime, Utc};
 use crate::utils::from_datetime;
 
 /// Options for get histroy executions request
-#[napi_derive::napi]
-#[derive(Clone, Default)]
-pub struct GetHistoryExecutionsOptions(longbridge::trade::GetHistoryExecutionsOptions);
-
 #[napi_derive::napi(object)]
-impl GetHistoryExecutionsOptions {
-    /// Create a new `GetHistoryExecutionsOptions`
-    #[napi(constructor)]
-    #[inline]
-    pub fn new() -> GetHistoryExecutionsOptions {
-        Default::default()
-    }
-
-    /// Set the security symbol
-    #[napi]
-    #[inline]
-    pub fn symbol(&self, symbol: String) -> GetHistoryExecutionsOptions {
-        Self(self.0.clone().symbol(symbol))
-    }
-
-    /// Set the start time
-    #[napi]
-    #[inline]
-    pub fn start_at(&self, start_at: DateTime<Utc>) -> GetHistoryExecutionsOptions {
-        Self(self.0.clone().start_at(from_datetime(start_at)))
-    }
-
-    /// Set the end time
-    #[napi]
-    #[inline]
-    pub fn end_at(&self, end_at: DateTime<Utc>) -> GetHistoryExecutionsOptions {
-        Self(self.0.clone().end_at(from_datetime(end_at)))
-    }
+pub struct GetHistoryExecutionsOptions {
+    /// Security symbol
+    pub symbol: Option<String>,
+    /// Start time
+    pub start_at: Option<DateTime<Utc>>,
+    /// End time
+    pub end_at: Option<DateTime<Utc>>,
 }
 
 impl From<GetHistoryExecutionsOptions> for longbridge::trade::GetHistoryExecutionsOptions {
-    #[inline]
     fn from(opts: GetHistoryExecutionsOptions) -> Self {
-        opts.0
+        let mut opts2 = longbridge::trade::GetHistoryExecutionsOptions::new();
+        if let Some(symbol) = opts.symbol {
+            opts2 = opts2.symbol(symbol);
+        }
+        if let Some(start_at) = opts.start_at {
+            opts2 = opts2.start_at(from_datetime(start_at));
+        }
+        if let Some(end_at) = opts.end_at {
+            opts2 = opts2.end_at(from_datetime(end_at));
+        }
+        opts2
     }
 }

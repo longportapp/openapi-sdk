@@ -1,3 +1,5 @@
+use napi::bindgen_prelude::ClassInstance;
+
 use crate::{
     decimal::Decimal,
     time::NaiveDate,
@@ -5,91 +7,71 @@ use crate::{
 };
 
 /// Options for submit order request
-#[napi_derive::napi]
-#[derive(Clone)]
-pub struct SubmitOrderOptions(longbridge::trade::SubmitOrderOptions);
-
-#[napi_derive::napi]
-impl SubmitOrderOptions {
-    /// Create a new `SubmitOrderOptions`
-    #[napi(constructor)]
-    #[inline]
-    pub fn new(
-        symbol: String,
-        order_type: OrderType,
-        side: OrderSide,
-        submitted_quantity: i64,
-        time_in_force: TimeInForceType,
-    ) -> SubmitOrderOptions {
-        Self(longbridge::trade::SubmitOrderOptions::new(
-            symbol,
-            order_type.into(),
-            side.into(),
-            submitted_quantity,
-            time_in_force.into(),
-        ))
-    }
-
-    /// Set the submitted price
-    #[napi]
-    #[inline]
-    pub fn submitted_price(&self, submitted_price: &Decimal) -> SubmitOrderOptions {
-        Self(self.0.clone().submitted_price(submitted_price.0))
-    }
-
-    /// Set the trigger price
-    #[napi]
-    #[inline]
-    pub fn trigger_price(&self, trigger_price: &Decimal) -> SubmitOrderOptions {
-        Self(self.0.clone().trigger_price(trigger_price.0))
-    }
-
-    /// Set the limit offset
-    #[napi]
-    #[inline]
-    pub fn limit_offset(&self, limit_offset: &Decimal) -> SubmitOrderOptions {
-        Self(self.0.clone().limit_offset(limit_offset.0))
-    }
-
-    /// Set the trailing amount
-    #[napi]
-    #[inline]
-    pub fn trailing_amount(&self, trailing_amount: &Decimal) -> SubmitOrderOptions {
-        Self(self.0.clone().trailing_amount(trailing_amount.0))
-    }
-
-    /// Set the trailing percent
-    #[napi]
-    #[inline]
-    pub fn trailing_percent(&self, trailing_percent: &Decimal) -> SubmitOrderOptions {
-        Self(self.0.clone().trailing_percent(trailing_percent.0))
-    }
-
-    /// Set the expire date
-    #[napi]
-    #[inline]
-    pub fn expire_date(&self, expire_date: &NaiveDate) -> SubmitOrderOptions {
-        Self(self.0.clone().expire_date(expire_date.0))
-    }
-
+#[napi_derive::napi(object)]
+pub struct SubmitOrderOptions {
+    /// Security code
+    pub symbol: String,
+    /// Order type
+    pub order_type: OrderType,
+    /// Order side
+    pub side: OrderSide,
+    /// Submitted quantity
+    pub submitted_quantity: i64,
+    /// Time in force type
+    pub time_in_force: TimeInForceType,
+    /// Submitted price
+    pub submitted_price: Option<ClassInstance<Decimal>>,
+    /// Trigger price (`LIT` / `MIT` Required)
+    pub trigger_price: Option<ClassInstance<Decimal>>,
+    /// Limit offset amount (`TSLPAMT` / `TSLPPCT` Required)
+    pub limit_offset: Option<ClassInstance<Decimal>>,
+    /// Trailing amount (`TSLPAMT` / `TSMAMT` Required)
+    pub trailing_amount: Option<ClassInstance<Decimal>>,
+    /// Trailing percent (`TSLPPCT` / `TSMAPCT` Required)
+    pub trailing_percent: Option<ClassInstance<Decimal>>,
+    /// Long term order expire date (Required when `time_in_force` is
+    /// `GoodTilDate`)
+    pub expire_date: Option<ClassInstance<NaiveDate>>,
     /// Enable or disable outside regular trading hours
-    #[napi]
-    #[inline]
-    pub fn outside_rth(&self, outside_rth: OutsideRTH) -> SubmitOrderOptions {
-        Self(self.0.clone().outside_rth(outside_rth.into()))
-    }
-
-    /// Set the remark
-    #[napi]
-    #[inline]
-    pub fn remark(&self, remark: String) -> SubmitOrderOptions {
-        Self(self.0.clone().remark(remark))
-    }
+    pub outside_rth: Option<OutsideRTH>,
+    /// Remark (Maximum 64 characters)
+    pub remark: Option<String>,
 }
 
 impl From<SubmitOrderOptions> for longbridge::trade::SubmitOrderOptions {
     #[inline]
     fn from(opts: SubmitOrderOptions) -> Self {
-        opts.0
+        let mut opts2 = longbridge::trade::SubmitOrderOptions::new(
+            opts.symbol,
+            opts.order_type.into(),
+            opts.side.into(),
+            opts.submitted_quantity,
+            opts.time_in_force.into(),
+        );
+        if let Some(submitted_price) = opts.submitted_price {
+            opts2 = opts2.submitted_price(submitted_price.0);
+        }
+        if let Some(trigger_price) = opts.trigger_price {
+            opts2 = opts2.trigger_price(trigger_price.0);
+        }
+        if let Some(limit_offset) = opts.limit_offset {
+            opts2 = opts2.limit_offset(limit_offset.0);
+        }
+        if let Some(trailing_amount) = opts.trailing_amount {
+            opts2 = opts2.trailing_amount(trailing_amount.0);
+        }
+        if let Some(trailing_percent) = opts.trailing_percent {
+            opts2 = opts2.trailing_percent(trailing_percent.0);
+        }
+        if let Some(expire_date) = opts.expire_date {
+            opts2 = opts2.expire_date(expire_date.0);
+        }
+        if let Some(outside_rth) = opts.outside_rth {
+            opts2 = opts2.outside_rth(outside_rth.into());
+        }
+        if let Some(remark) = opts.remark {
+            opts2 = opts2.remark(remark);
+        }
+        opts2
     }
 }

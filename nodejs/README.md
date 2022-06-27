@@ -63,7 +63,6 @@ QuoteContext.new(config).then((ctx) => {
 const {
   Config,
   TradeContext,
-  SubmitOrderOptions,
   Decimal,
   OrderSide,
   TimeInForceType,
@@ -73,15 +72,14 @@ const {
 let config = Config.fromEnv();
 TradeContext.new(config)
   .then((ctx) =>
-    ctx.submitOrder(
-      new SubmitOrderOptions(
-        "700.HK",
-        OrderType.LO,
-        OrderSide.Buy,
-        200,
-        TimeInForceType.Day
-      ).submittedPrice(new Decimal("50"))
-    )
+    ctx.submitOrder({
+      symbol: "700.HK",
+      orderType: OrderType.LO,
+      side: OrderSide.Buy,
+      timeInForce: TimeInForceType.Day,
+      submittedPrice: new Decimal("50"),
+      submittedQuantity: 200,
+    })
   )
   .then((resp) => console.log(resp.toString()));
 ```

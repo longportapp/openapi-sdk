@@ -1,35 +1,22 @@
-/// Options for get histroy executions request
-#[napi_derive::napi]
-#[derive(Clone, Default)]
-pub struct GetTodayExecutionsOptions(longbridge::trade::GetTodayExecutionsOptions);
-
+/// Options for get today executions request
 #[napi_derive::napi(object)]
-impl GetTodayExecutionsOptions {
-    /// Create a new `GetTodayExecutionsOptions`
-    #[napi(constructor)]
-    #[inline]
-    pub fn new() -> GetTodayExecutionsOptions {
-        Default::default()
-    }
-
-    /// Set the security symbol
-    #[napi]
-    #[inline]
-    pub fn symbol(&self, symbol: String) -> GetTodayExecutionsOptions {
-        Self(self.0.clone().symbol(symbol))
-    }
-
-    /// Set the order id
-    #[napi]
-    #[inline]
-    pub fn order_id(&self, order_id: String) -> GetTodayExecutionsOptions {
-        Self(self.0.clone().order_id(order_id))
-    }
+pub struct GetTodayExecutionsOptions {
+    /// Security symbol
+    pub symbol: Option<String>,
+    /// Order id
+    pub order_id: Option<String>,
 }
 
 impl From<GetTodayExecutionsOptions> for longbridge::trade::GetTodayExecutionsOptions {
     #[inline]
     fn from(opts: GetTodayExecutionsOptions) -> Self {
-        opts.0
+        let mut opts2 = longbridge::trade::GetTodayExecutionsOptions::new();
+        if let Some(symbol) = opts.symbol {
+            opts2 = opts2.symbol(symbol);
+        }
+        if let Some(order_id) = opts.order_id {
+            opts2 = opts2.order_id(order_id);
+        }
+        opts2
     }
 }
