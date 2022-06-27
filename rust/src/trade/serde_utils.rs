@@ -213,17 +213,17 @@ pub(crate) mod outside_rth {
     }
 }
 
-pub(crate) mod cash_flow_symbol {
+pub(crate) mod symbol_opt {
     use super::*;
 
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<String>, D::Error>
     where
         D: Deserializer<'de>,
     {
-        let value = String::deserialize(deserializer)?;
-        match value.as_str() {
-            "." => Ok(None),
-            _ => Ok(Some(value)),
+        match <Option<String>>::deserialize(deserializer)? {
+            Some(value) if value.is_empty() => Ok(None),
+            Some(value) => Ok(Some(value)),
+            _ => Ok(None),
         }
     }
 }

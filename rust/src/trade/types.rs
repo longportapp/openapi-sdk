@@ -403,7 +403,7 @@ pub struct CashFlow {
     #[serde(with = "serde_utils::timestamp")]
     pub business_time: OffsetDateTime,
     /// Associated Stock code information
-    #[serde(with = "serde_utils::cash_flow_symbol")]
+    #[serde(with = "serde_utils::symbol_opt")]
     pub symbol: Option<String>,
     /// Cash flow description
     pub description: String,
