@@ -95,7 +95,8 @@ public class SdkNative {
     public static native void quoteContextRealtimeTrades(long context, String symbol, int count,
             AsyncCallback callback);
 
-    public static native void quoteContextRealtimeCandlesticks(long context, String symbol, Period period, int count,
+    public static native void quoteContextRealtimeCandlesticks(long context, String symbol, Period period,
+            int count,
             AsyncCallback callback);
 
     public static native void newTradeContext(long config, AsyncCallback callback);
@@ -142,10 +143,13 @@ public class SdkNative {
         try {
             NativeLoader.loadLibrary("longbridge_java");
         } catch (IOException e) {
+            System.out.println("======================================");
+            System.out.println("Failed to load longbridge_java");
+            e.printStackTrace();
+            System.out.println("======================================");
             System.load("longbridge_java");
         } finally {
             SdkNative.init();
         }
-
     }
 }

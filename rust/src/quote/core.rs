@@ -597,10 +597,19 @@ impl Core {
         let mut subscriptions: HashMap<SubFlags, Vec<String>> = HashMap::new();
 
         for (symbol, flags) in &self.subscriptions {
-            subscriptions
-                .entry(*flags)
-                .or_default()
-                .push(symbol.clone());
+            let mut flags = *flags;
+
+            if self
+                .store
+                .securities
+                .get(symbol)
+                .map(|data| !data.candlesticks.is_empty())
+                .unwrap_or_default()
+            {
+                flags |= SubFlags::TRADE;
+            }
+
+            subscriptions.entry(flags).or_default().push(symbol.clone());
         }
 
         for (flags, symbols) in subscriptions {
