@@ -1,5 +1,5 @@
 use longbridge_proto::quote::{self, Period, TradeSession, TradeStatus};
-use num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive};
 use rust_decimal::Decimal;
 use strum_macros::EnumString;
 use time::{Date, OffsetDateTime, Time};
@@ -141,14 +141,15 @@ impl TryFrom<quote::Trade> for Trade {
     }
 }
 
-/// Derivative type
-#[derive(Debug, TryFromPrimitive)]
-#[repr(i32)]
-pub enum DerivativeType {
-    /// US stock options
-    Option = 1,
-    /// HK warrants
-    Warrant = 2,
+bitflags::bitflags! {
+    /// Derivative type
+    pub struct DerivativeType: u8 {
+        /// Quote
+        const OPTION = 0x1;
+
+        /// Depth
+        const WARRANT = 0x2;
+    }
 }
 
 /// The basic information of securities
@@ -183,7 +184,7 @@ pub struct SecurityStaticInfo {
     /// Dividend yield
     pub dividend_yield: Decimal,
     /// Types of supported derivatives
-    pub stock_derivatives: Vec<DerivativeType>,
+    pub stock_derivatives: DerivativeType,
 }
 
 impl TryFrom<quote::StaticInfo> for SecurityStaticInfo {
@@ -205,11 +206,14 @@ impl TryFrom<quote::StaticInfo> for SecurityStaticInfo {
             eps_ttm: resp.eps_ttm.parse().unwrap_or_default(),
             bps: resp.bps.parse().unwrap_or_default(),
             dividend_yield: resp.dividend_yield.parse().unwrap_or_default(),
-            stock_derivatives: resp
-                .stock_derivatives
-                .into_iter()
-                .filter_map(|x| x.try_into().ok())
-                .collect(),
+            stock_derivatives: resp.stock_derivatives.into_iter().fold(
+                DerivativeType::empty(),
+                |acc, value| match value {
+                    1 => acc | DerivativeType::OPTION,
+                    2 => acc | DerivativeType::WARRANT,
+                    _ => acc,
+                },
+            ),
         })
     }
 }

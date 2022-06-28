@@ -20,17 +20,6 @@ pub(crate) struct Subscription {
     candlesticks: Vec<Period>,
 }
 
-/// Derivative type
-#[pyclass]
-#[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
-#[py(remote = "longbridge::quote::DerivativeType")]
-pub(crate) enum DerivativeType {
-    /// US stock options
-    Option,
-    /// HK warrants
-    Warrant,
-}
-
 #[pyclass]
 #[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
 #[py(remote = "longbridge::quote::TradeStatus")]
@@ -232,6 +221,31 @@ pub(crate) enum AdjustType {
     ForwardAdjust,
 }
 
+/// Derivative type
+#[pyclass]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+pub(crate) enum DerivativeType {
+    /// US stock options
+    Option,
+    /// HK warrants
+    Warrant,
+}
+
+struct DerivativeTypes(Vec<DerivativeType>);
+
+impl From<longbridge::quote::DerivativeType> for DerivativeTypes {
+    fn from(ty: longbridge::quote::DerivativeType) -> Self {
+        let mut res = Vec::new();
+        if ty.contains(longbridge::quote::DerivativeType::OPTION) {
+            res.push(DerivativeType::Option);
+        }
+        if ty.contains(longbridge::quote::DerivativeType::WARRANT) {
+            res.push(DerivativeType::Warrant);
+        }
+        DerivativeTypes(res)
+    }
+}
+
 /// The basic information of securities
 #[pyclass]
 #[derive(Debug, PyObject)]
@@ -266,7 +280,7 @@ pub(crate) struct SecurityStaticInfo {
     /// Dividend yield
     dividend_yield: PyDecimal,
     /// Types of supported derivatives
-    #[py(array)]
+    #[py(derivative_types)]
     stock_derivatives: Vec<DerivativeType>,
 }
 

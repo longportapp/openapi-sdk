@@ -111,7 +111,7 @@ impl_java_class!(
         eps_ttm,
         bps,
         dividend_yield,
-        #[java(objarray)]
+        #[java(derivative_types)]
         stock_derivatives
     ]
 );

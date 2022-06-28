@@ -14,6 +14,8 @@ struct FieldArgs {
     objarray: bool,
     #[darling(default)]
     priarray: bool,
+    #[darling(default)]
+    derivative_types: bool,
 }
 
 #[derive(FromMeta, Debug, Default)]
@@ -105,7 +107,11 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
         };
         let java_field = ident.to_string().to_camel_case();
 
-        if args.objarray {
+        if args.derivative_types {
+            set_fields.push(quote! {
+                crate::types::set_field(env, obj, #java_field, crate::types::enum_types::DerivativeTypes::from(#ident))?;
+            });
+        } else if args.objarray {
             set_fields.push(quote! {
                 crate::types::set_field(env, obj, #java_field, crate::types::ObjectArray(#ident))?;
             });

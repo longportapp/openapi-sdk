@@ -1,4 +1,14 @@
+use std::borrow::Cow;
+
+use jni::{
+    descriptors::Desc,
+    errors::Result,
+    objects::{JClass, JObject, JValue},
+    JNIEnv,
+};
 use longbridge_java_macros::impl_java_enum;
+
+use crate::types::{IntoJValue, JSignature};
 
 impl_java_enum!(
     "com/longbridge/Market",
@@ -36,11 +46,55 @@ impl_java_enum!(
     [Neutral, Down, Up]
 );
 
-impl_java_enum!(
-    "com/longbridge/quote/DerivativeType",
-    longbridge::quote::DerivativeType,
-    [Option, Warrant]
-);
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+enum DerivativeType {
+    Option,
+    Warrant,
+}
+
+pub(crate) struct DerivativeTypes(Vec<DerivativeType>);
+
+impl From<longbridge::quote::DerivativeType> for DerivativeTypes {
+    fn from(ty: longbridge::quote::DerivativeType) -> Self {
+        let mut res = Vec::new();
+        if ty.contains(longbridge::quote::DerivativeType::OPTION) {
+            res.push(DerivativeType::Option);
+        }
+        if ty.contains(longbridge::quote::DerivativeType::WARRANT) {
+            res.push(DerivativeType::Warrant);
+        }
+        DerivativeTypes(res)
+    }
+}
+
+impl JSignature for DerivativeTypes {
+    fn signature() -> Cow<'static, str> {
+        concat!("[L", "com/longbridge/quote/DerivativeType", ";").into()
+    }
+}
+
+impl IntoJValue for DerivativeTypes {
+    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+        let cls: JClass = "com/longbridge/quote/DerivativeType".lookup(env)?;
+        let array = env.new_object_array(self.0.len() as i32, cls, JObject::null())?;
+        for (i, obj) in self.0.into_iter().enumerate() {
+            let value = match obj {
+                DerivativeType::Option => env.get_static_field(
+                    cls,
+                    "Option",
+                    concat!("L", "com/longbridge/quote/DerivativeType", ";"),
+                )?,
+                DerivativeType::Warrant => env.get_static_field(
+                    cls,
+                    "Warrant",
+                    concat!("L", "com/longbridge/quote/DerivativeType", ";"),
+                )?,
+            };
+            env.set_object_array_element(array, i as i32, value.l()?)?;
+        }
+        Ok(array.into())
+    }
+}
 
 impl_java_enum!(
     "com/longbridge/quote/OptionType",

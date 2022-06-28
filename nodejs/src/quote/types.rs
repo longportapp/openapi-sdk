@@ -23,13 +23,27 @@ pub struct Subscription {
 
 /// Derivative type
 #[napi_derive::napi]
-#[derive(JsEnum, Debug, Hash, Eq, PartialEq)]
-#[js(remote = "longbridge::quote::DerivativeType")]
+#[derive(Debug, Hash, Eq, PartialEq)]
 pub enum DerivativeType {
     /// US stock options
     Option,
     /// HK warrants
     Warrant,
+}
+
+struct DerivativeTypes(Vec<DerivativeType>);
+
+impl From<longbridge::quote::DerivativeType> for DerivativeTypes {
+    fn from(ty: longbridge::quote::DerivativeType) -> Self {
+        let mut res = Vec::new();
+        if ty.contains(longbridge::quote::DerivativeType::OPTION) {
+            res.push(DerivativeType::Option);
+        }
+        if ty.contains(longbridge::quote::DerivativeType::WARRANT) {
+            res.push(DerivativeType::Warrant);
+        }
+        DerivativeTypes(res)
+    }
 }
 
 #[napi_derive::napi]
@@ -267,7 +281,7 @@ pub struct SecurityStaticInfo {
     /// Dividend yield
     dividend_yield: Decimal,
     /// Types of supported derivatives
-    #[js(array)]
+    #[js(derivative_types)]
     stock_derivatives: Vec<DerivativeType>,
 }
 
