@@ -9,6 +9,7 @@ use crate::{
     HttpClient, HttpClientError, HttpClientResult,
 };
 
+const USER_AGENT: &str = "openapi-sdk";
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(30);
 const RETRY_COUNT: usize = 5;
 const RETRY_INITIAL_DELAY: Duration = Duration::from_millis(100);
@@ -113,6 +114,7 @@ where
                 self.method.clone(),
                 &format!("{}{}", config.http_url, self.path),
             )
+            .header("User-Agent", USER_AGENT)
             .header("X-Api-Key", app_key_value)
             .header("Authorization", access_token_value)
             .header("X-Timestamp", now.to_string())
