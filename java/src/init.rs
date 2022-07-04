@@ -8,6 +8,7 @@ use once_cell::sync::OnceCell;
 use crate::types::ClassLoader;
 
 pub(crate) static LONG_CLASS: OnceCell<GlobalRef> = OnceCell::new();
+pub(crate) static STRING_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static DECIMAL_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TIME_INSTANT_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TIME_OFFSETDATETIME_CLASS: OnceCell<GlobalRef> = OnceCell::new();
@@ -56,6 +57,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_init(env: JNIEnv, _class: J
     init_class!(
         env,
         (LONG_CLASS, "java/lang/Long"),
+        (STRING_CLASS, "java/lang/String"),
         (DECIMAL_CLASS, "java/math/BigDecimal"),
         (TIME_INSTANT_CLASS, "java/time/Instant"),
         (TIME_OFFSETDATETIME_CLASS, "java/time/OffsetDateTime"),

@@ -6,10 +6,16 @@ use jni::{
     JNIEnv,
 };
 
-use crate::types::{FromJValue, IntoJValue, JClassName, JSignature};
+use crate::types::{ClassLoader, FromJValue, IntoJValue, JSignature};
 
-impl<T: JClassName> JClassName for Option<T> {
-    const CLASSNAME: &'static str = T::CLASSNAME;
+impl<T: ClassLoader> ClassLoader for Option<T> {
+    fn init(env: &JNIEnv) {
+        T::init(env)
+    }
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        T::class_ref()
+    }
 }
 
 impl<T: JSignature> JSignature for Option<T> {

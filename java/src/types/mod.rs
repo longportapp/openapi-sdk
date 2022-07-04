@@ -40,10 +40,6 @@ impl IntoJValue for () {
     }
 }
 
-pub(crate) trait JClassName {
-    const CLASSNAME: &'static str;
-}
-
 pub(crate) trait JSignature {
     fn signature() -> Cow<'static, str>;
 }

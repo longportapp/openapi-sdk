@@ -4,10 +4,17 @@ use jni::{
     JNIEnv,
 };
 
-use crate::types::{FromJValue, IntoJValue, JClassName, JSignature};
+use crate::{
+    init::STRING_CLASS,
+    types::{ClassLoader, FromJValue, IntoJValue, JSignature},
+};
 
-impl JClassName for String {
-    const CLASSNAME: &'static str = "java/lang/String";
+impl ClassLoader for String {
+    fn init(_env: &JNIEnv) {}
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        STRING_CLASS.get().cloned().unwrap()
+    }
 }
 
 impl JSignature for String {

@@ -147,10 +147,6 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
             }
         }
 
-        impl crate::types::JClassName for #type_path {
-            const CLASSNAME: &'static str = #classname;
-        }
-
         impl crate::types::JSignature for #type_path {
             #[inline]
             fn signature() -> ::std::borrow::Cow<'static, str> {
@@ -278,10 +274,6 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
             fn class_ref() -> jni::objects::GlobalRef {
                 #class_ref_name.get().cloned().unwrap()
             }
-        }
-
-        impl crate::types::JClassName for #type_path {
-            const CLASSNAME: &'static str = #classname;
         }
 
         impl crate::types::JSignature for #type_path {

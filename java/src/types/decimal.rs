@@ -5,11 +5,15 @@ use longbridge::Decimal;
 
 use crate::{
     init::DECIMAL_CLASS,
-    types::{FromJValue, IntoJValue, JClassName, JSignature},
+    types::{ClassLoader, FromJValue, IntoJValue, JSignature},
 };
 
-impl JClassName for Decimal {
-    const CLASSNAME: &'static str = "java/math/BigDecimal";
+impl ClassLoader for Decimal {
+    fn init(_env: &JNIEnv) {}
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        DECIMAL_CLASS.get().cloned().unwrap()
+    }
 }
 
 impl JSignature for Decimal {

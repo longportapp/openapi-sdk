@@ -8,11 +8,15 @@ use crate::{
         TIME_INSTANT_CLASS, TIME_LOCALDATE_CLASS, TIME_LOCALTIME_CLASS, TIME_OFFSETDATETIME_CLASS,
         TIME_ZONE_ID,
     },
-    types::{FromJValue, IntoJValue, JClassName, JSignature},
+    types::{ClassLoader, FromJValue, IntoJValue, JSignature},
 };
 
-impl JClassName for OffsetDateTime {
-    const CLASSNAME: &'static str = "java/time/OffsetDateTime";
+impl ClassLoader for OffsetDateTime {
+    fn init(_env: &JNIEnv) {}
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        TIME_OFFSETDATETIME_CLASS.get().cloned().unwrap()
+    }
 }
 
 impl JSignature for OffsetDateTime {
@@ -47,8 +51,12 @@ impl IntoJValue for OffsetDateTime {
     }
 }
 
-impl JClassName for Date {
-    const CLASSNAME: &'static str = "java/time/LocalDate";
+impl ClassLoader for Date {
+    fn init(_env: &JNIEnv) {}
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        TIME_LOCALDATE_CLASS.get().cloned().unwrap()
+    }
 }
 
 impl JSignature for Date {
@@ -85,8 +93,12 @@ impl IntoJValue for Date {
     }
 }
 
-impl JClassName for Time {
-    const CLASSNAME: &'static str = "java/time/LocalTime";
+impl ClassLoader for Time {
+    fn init(_env: &JNIEnv) {}
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        TIME_LOCALTIME_CLASS.get().cloned().unwrap()
+    }
 }
 
 impl JSignature for Time {

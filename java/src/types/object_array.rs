@@ -6,7 +6,7 @@ use jni::{
     JNIEnv,
 };
 
-use crate::types::{FromJValue, IntoJValue, JClassName, JSignature};
+use crate::types::{ClassLoader, FromJValue, IntoJValue, JSignature};
 
 pub(crate) struct ObjectArray<T>(pub(crate) Vec<T>);
 
@@ -37,9 +37,9 @@ impl<T: FromJValue> FromJValue for ObjectArray<T> {
     }
 }
 
-impl<T: IntoJValue + JClassName> IntoJValue for ObjectArray<T> {
+impl<T: IntoJValue + ClassLoader> IntoJValue for ObjectArray<T> {
     fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        let array = env.new_object_array(self.0.len() as i32, T::CLASSNAME, JObject::null())?;
+        let array = env.new_object_array(self.0.len() as i32, &T::class_ref(), JObject::null())?;
         for (i, obj) in self.0.into_iter().enumerate() {
             env.set_object_array_element(array, i as i32, obj.into_jvalue(env)?.l()?)?;
         }
