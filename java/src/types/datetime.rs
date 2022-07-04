@@ -4,7 +4,10 @@ use jni::{errors::Result, objects::JValue, JNIEnv};
 use time::{Date, Month, OffsetDateTime, Time};
 
 use crate::{
-    init::TIME_ZONE_ID,
+    init::{
+        TIME_INSTANT_CLASS, TIME_LOCALDATE_CLASS, TIME_LOCALTIME_CLASS, TIME_OFFSETDATETIME_CLASS,
+        TIME_ZONE_ID,
+    },
     types::{FromJValue, IntoJValue, JClassName, JSignature},
 };
 
@@ -29,14 +32,14 @@ impl FromJValue for OffsetDateTime {
 impl IntoJValue for OffsetDateTime {
     fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
         let instant = env.call_static_method(
-            "java/time/Instant",
+            TIME_INSTANT_CLASS.get().unwrap(),
             "ofEpochSecond",
             "(J)Ljava/time/Instant;",
             &[JValue::from(self.unix_timestamp())],
         )?;
 
         env.call_static_method(
-            "java/time/OffsetDateTime",
+            TIME_OFFSETDATETIME_CLASS.get().unwrap(),
             "ofInstant",
             "(Ljava/time/Instant;Ljava/time/ZoneId;)Ljava/time/OffsetDateTime;",
             &[instant, JValue::from(TIME_ZONE_ID.get().unwrap().as_obj())],
@@ -70,7 +73,7 @@ impl FromJValue for Date {
 impl IntoJValue for Date {
     fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
         env.call_static_method(
-            "java/time/LocalDate",
+            TIME_LOCALDATE_CLASS.get().unwrap(),
             "of",
             "(III)Ljava/time/LocalDate;",
             &[
@@ -105,7 +108,7 @@ impl FromJValue for Time {
 impl IntoJValue for Time {
     fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
         env.call_static_method(
-            "java/time/LocalTime",
+            TIME_LOCALTIME_CLASS.get().unwrap(),
             "of",
             "(III)Ljava/time/LocalTime;",
             &[

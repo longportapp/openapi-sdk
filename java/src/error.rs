@@ -1,9 +1,10 @@
 use jni::{
-    descriptors::Desc,
     errors::Result,
-    objects::{JClass, JObject, JThrowable, JValue},
+    objects::{JObject, JThrowable, JValue},
     JNIEnv,
 };
+
+use crate::init::{LONG_CLASS, OPENAPI_EXCEPTION_CLASS};
 
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum JniError {
@@ -32,13 +33,12 @@ impl JniError {
         env: &'a JNIEnv,
         err: longbridge::Error,
     ) -> Result<JObject<'a>> {
-        let exception_cls: JClass = "com/longbridge/OpenApiException".lookup(env)?;
+        let exception_cls = OPENAPI_EXCEPTION_CLASS.get().unwrap();
         let err = err.into_simple_error();
 
         let code = match err.code() {
             Some(code) => {
-                let long_cls: JClass = "java/lang/Long".lookup(env)?;
-                env.new_object(long_cls, "(J)V", &[JValue::from(code)])?
+                env.new_object(LONG_CLASS.get().unwrap(), "(J)V", &[JValue::from(code)])?
             }
             None => JObject::null(),
         };

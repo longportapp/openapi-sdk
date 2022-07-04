@@ -131,15 +131,21 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
     let def_class_ref = quote! {
         static #class_ref_name: once_cell::sync::OnceCell<jni::objects::GlobalRef> = once_cell::sync::OnceCell::new();
     };
-    let get_class_ref = quote! {
-        #class_ref_name.get_or_try_init(|| {
-            let cls: jni::objects::JClass = #classname.lookup(env)?;
-            env.new_global_ref(cls)
-        })?
-    };
 
     let expanded = quote! {
         #def_class_ref
+
+        impl crate::types::ClassLoader for #type_path {
+            fn init(env: &jni::JNIEnv) {
+                use jni::descriptors::Desc;
+                let cls: jni::objects::JClass = #classname.lookup(env).expect(#classname);
+                let _ = #class_ref_name.set(env.new_global_ref(cls).unwrap());
+            }
+
+            fn class_ref() -> jni::objects::GlobalRef {
+                #class_ref_name.get().cloned().unwrap()
+            }
+        }
 
         impl crate::types::JClassName for #type_path {
             const CLASSNAME: &'static str = #classname;
@@ -154,10 +160,9 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
 
         impl crate::types::IntoJValue for #type_path {
             fn into_jvalue<'a>(self, env: &jni::JNIEnv<'a>) -> jni::errors::Result<jni::objects::JValue<'a>> {
-                use jni::descriptors::Desc;
                 let #type_path { #(#field_names),* } = self;
-                let cls = #get_class_ref;
-                let obj = env.new_object(cls, "()V", &[])?;
+                let cls = <Self as crate::types::ClassLoader>::class_ref();
+                let obj = env.new_object(&cls, "()V", &[])?;
                 #(#set_fields)*
                 Ok(obj.into())
             }
@@ -244,14 +249,14 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
         let remote_path = args.remote.as_ref().unwrap_or(&item);
 
         from_jsvalue.push(quote! {
-            let r = env.get_static_field(cls, stringify!(#java_path), concat!("L", #classname, ";"))?.l()?;
+            let r = env.get_static_field(&cls, stringify!(#java_path), concat!("L", #classname, ";"))?.l()?;
             if env.is_same_object(value, r)? {
                 return Ok(#remote_path);
             }
         });
 
         into_jsvalue.push(quote! {
-            #remote_path => env.get_static_field(cls, stringify!(#java_path), concat!("L", #classname, ";")),
+            #remote_path => env.get_static_field(&cls, stringify!(#java_path), concat!("L", #classname, ";")),
         });
     }
 
@@ -259,15 +264,21 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
     let def_class_ref = quote! {
         static #class_ref_name: once_cell::sync::OnceCell<jni::objects::GlobalRef> = once_cell::sync::OnceCell::new();
     };
-    let get_class_ref = quote! {
-        #class_ref_name.get_or_try_init(|| {
-            let cls: jni::objects::JClass = #classname.lookup(env)?;
-            env.new_global_ref(cls)
-        })?
-    };
 
     let expanded = quote! {
         #def_class_ref
+
+        impl crate::types::ClassLoader for #type_path {
+            fn init(env: &jni::JNIEnv) {
+                use jni::descriptors::Desc;
+                let cls: jni::objects::JClass = #classname.lookup(env).expect(#classname);
+                let _ = #class_ref_name.set(env.new_global_ref(cls).unwrap());
+            }
+
+            fn class_ref() -> jni::objects::GlobalRef {
+                #class_ref_name.get().cloned().unwrap()
+            }
+        }
 
         impl crate::types::JClassName for #type_path {
             const CLASSNAME: &'static str = #classname;
@@ -286,9 +297,7 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
                 value: jni::objects::JValue,
             ) -> jni::errors::Result<Self> {
                 use #type_path::*;
-                use jni::descriptors::Desc;
-
-                let cls = #get_class_ref;
+                let cls = <Self as crate::types::ClassLoader>::class_ref();
                 let value = value.l()?;
                 #(#from_jsvalue)*
                 panic!("invalid enum value")
@@ -300,10 +309,9 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
                 self,
                 env: &jni::JNIEnv<'a>,
             ) -> jni::errors::Result<jni::objects::JValue<'a>> {
-                use jni::descriptors::Desc;
                 use #type_path::*;
 
-                let cls = #get_class_ref;
+                let cls = <Self as crate::types::ClassLoader>::class_ref();
                 match self {
                     #(#into_jsvalue)*
                 }

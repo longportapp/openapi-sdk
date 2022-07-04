@@ -1,14 +1,16 @@
 use std::borrow::Cow;
 
 use jni::{
-    descriptors::Desc,
     errors::Result,
-    objects::{JClass, JObject, JValue},
+    objects::{JObject, JValue},
     JNIEnv,
 };
 use longbridge_java_macros::impl_java_enum;
 
-use crate::types::{IntoJValue, JSignature};
+use crate::{
+    init::DERIVATIVE_TYPE_CLASS,
+    types::{IntoJValue, JSignature},
+};
 
 impl_java_enum!(
     "com/longbridge/Market",
@@ -75,7 +77,7 @@ impl JSignature for DerivativeTypes {
 
 impl IntoJValue for DerivativeTypes {
     fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        let cls: JClass = "com/longbridge/quote/DerivativeType".lookup(env)?;
+        let cls = DERIVATIVE_TYPE_CLASS.get().unwrap();
         let array = env.new_object_array(self.0.len() as i32, cls, JObject::null())?;
         for (i, obj) in self.0.into_iter().enumerate() {
             let value = match obj {

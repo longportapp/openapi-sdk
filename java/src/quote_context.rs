@@ -1,7 +1,6 @@
 use std::sync::Arc;
 
 use jni::{
-    descriptors::Desc,
     errors::Result,
     objects::{GlobalRef, JClass, JObject, JString, JValue},
     sys::{jboolean, jobjectArray},
@@ -17,6 +16,7 @@ use time::Date;
 use crate::{
     async_util,
     error::jni_result,
+    init::QUOTE_CONTEXT_CLASS,
     types::{set_field, FromJValue, IntoJValue, ObjectArray},
 };
 
@@ -119,8 +119,7 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_newQuoteContext(
 
     impl IntoJValue for ContextObjRef {
         fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-            let ctx_cls: JClass = "com/longbridge/quote/QuoteContext".lookup(env)?;
-            let ctx_obj = env.new_object(ctx_cls, "()V", &[])?;
+            let ctx_obj = env.new_object(QUOTE_CONTEXT_CLASS.get().unwrap(), "()V", &[])?;
             set_field(env, ctx_obj, "raw", self.0)?;
             Ok(JValue::from(ctx_obj))
         }

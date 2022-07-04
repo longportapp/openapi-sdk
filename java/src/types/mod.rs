@@ -13,12 +13,17 @@ use std::borrow::Cow;
 
 use jni::{
     errors::Result,
-    objects::{JObject, JValue},
+    objects::{GlobalRef, JObject, JValue},
     strings::JNIString,
     JNIEnv,
 };
 
 pub(crate) use self::{object_array::ObjectArray, primary_array::PrimaryArray};
+
+pub(crate) trait ClassLoader {
+    fn init(env: &JNIEnv);
+    fn class_ref() -> GlobalRef;
+}
 
 pub(crate) trait FromJValue: Sized {
     fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self>;
