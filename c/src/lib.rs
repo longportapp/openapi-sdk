@@ -1,9 +1,6 @@
-#![allow(clippy::missing_safety_doc)]
-
-mod async_util;
+mod async_call;
 mod config;
 mod error;
-mod init;
 mod quote_context;
 mod trade_context;
 mod types;

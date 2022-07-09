@@ -131,7 +131,7 @@ export const enum Period {
   Min_30 = 4,
   /** Sixty Minutes */
   Min_60 = 5,
-  /** One Days */
+  /** One Day */
   Day = 6,
   /** One Week */
   Week = 7,
@@ -446,6 +446,7 @@ export class Decimal {
   static TWO_PI(): Decimal
   static ZERO(): Decimal
   constructor(value: string | number)
+  static newWithScale(num: number, scale: number): Decimal
   toString(): string
   toNumber(): number
   /** Computes the absolute value. */
@@ -1575,9 +1576,9 @@ export class TradeContext {
    *       symbol: "700.HK",
    *       orderType: OrderType.LO,
    *       side: OrderSide.Buy,
-   *       submittedQuantity: 200,
    *       timeInForce: TimeInForceType.Day,
    *       submittedPrice: new Decimal("50"),
+   *       submittedQuantity: 200,
    *     });
    *   })
    *   .then((resp) => console.log(resp.toString()));

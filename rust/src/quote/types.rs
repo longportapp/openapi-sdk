@@ -144,10 +144,10 @@ impl TryFrom<quote::Trade> for Trade {
 bitflags::bitflags! {
     /// Derivative type
     pub struct DerivativeType: u8 {
-        /// Quote
+        /// US stock options
         const OPTION = 0x1;
 
-        /// Depth
+        /// HK warrants
         const WARRANT = 0x2;
     }
 }
@@ -827,7 +827,7 @@ pub struct MarketTradingSession {
     /// Market
     pub market: Market,
     /// Trading session
-    pub trade_session: Vec<TradingSessionInfo>,
+    pub trade_sessions: Vec<TradingSessionInfo>,
 }
 
 impl TryFrom<quote::MarketTradePeriod> for MarketTradingSession {
@@ -836,7 +836,7 @@ impl TryFrom<quote::MarketTradePeriod> for MarketTradingSession {
     fn try_from(value: quote::MarketTradePeriod) -> Result<Self> {
         Ok(Self {
             market: value.market.parse().unwrap_or_default(),
-            trade_session: value
+            trade_sessions: value
                 .trade_session
                 .into_iter()
                 .map(TryInto::try_into)

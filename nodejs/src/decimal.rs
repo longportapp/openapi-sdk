@@ -78,6 +78,11 @@ impl Decimal {
         }
     }
 
+    #[napi(factory)]
+    pub fn new_with_scale(num: i64, scale: u32) -> Self {
+        Decimal(rust_decimal::Decimal::new(num, scale))
+    }
+
     #[napi]
     #[allow(clippy::wrong_self_convention, clippy::inherent_to_string)]
     pub fn to_string(&self) -> String {

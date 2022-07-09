@@ -26,7 +26,7 @@ tokio = { version = "1.18.2", features = [
   "sync",
   "net",
 ] }
-rust_decimal = { version = "1.23.1", features = ["serde-with-str"] }
+rust_decimal = { version = "1.23.1", features = ["serde-with-str", "maths"] }
 num_enum = "0.5.7"
 prost = "0.10.3"
 tracing = "0.1.34"

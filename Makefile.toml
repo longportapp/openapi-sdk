@@ -2,6 +2,7 @@ extend = [
     { path = "rust/Makefile.toml" },
     { path = "python/Makefile.toml" },
     { path = "java/Makefile.toml" },
+    { path = "c/Makefile.toml" },
 ]
 
 [config]

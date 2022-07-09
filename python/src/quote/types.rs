@@ -200,7 +200,7 @@ pub(crate) enum Period {
     /// Sixty Minutes
     #[py(remote = "SixtyMinute")]
     Min_60,
-    /// One Days
+    /// One Day
     Day,
     /// One Week
     Week,
@@ -610,9 +610,9 @@ pub(crate) struct TradingSessionInfo {
 pub(crate) struct MarketTradingSession {
     /// Market
     market: Market,
-    /// Trading session
+    /// Trading sessions
     #[py(array)]
-    trade_session: Vec<TradingSessionInfo>,
+    trade_sessions: Vec<TradingSessionInfo>,
 }
 
 /// Real-time quote

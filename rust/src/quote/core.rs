@@ -176,7 +176,7 @@ impl Core {
     pub(crate) async fn run(mut self) {
         while !self.close {
             match self.main_loop().await {
-                Ok(()) => tracing::error!("quote disconnected"),
+                Ok(()) => return,
                 Err(err) => tracing::error!(error = %err, "quote disconnected"),
             }
 

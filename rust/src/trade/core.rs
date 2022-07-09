@@ -81,7 +81,7 @@ impl Core {
     pub(crate) async fn run(mut self) {
         while !self.close {
             match self.main_loop().await {
-                Ok(()) => tracing::error!("trade disconnected"),
+                Ok(()) => return,
                 Err(err) => tracing::error!(error = %err, "trade disconnected"),
             }
 

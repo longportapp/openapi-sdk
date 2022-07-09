@@ -226,7 +226,7 @@ pub enum Period {
     /// Sixty Minutes
     #[js(remote = "SixtyMinute")]
     Min_60,
-    /// One Days
+    /// One Day
     Day,
     /// One Week
     Week,
@@ -620,7 +620,7 @@ pub struct MarketTradingSession {
     market: Market,
     /// Trading session
     #[js(array)]
-    trade_session: Vec<TradingSessionInfo>,
+    trade_sessions: Vec<TradingSessionInfo>,
 }
 
 /// Real-time quote

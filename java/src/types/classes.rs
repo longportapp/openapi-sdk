@@ -261,7 +261,7 @@ impl_java_class!(
     [
         market,
         #[java(objarray)]
-        trade_session
+        trade_sessions
     ]
 );
 

@@ -1129,7 +1129,7 @@ class Period:
 
     class Day(Period):
         """
-        One Days
+        One Day
         """
 
     class Week(Period):
@@ -1215,9 +1215,9 @@ class TradingSessionInfo:
     End trading time
     """
 
-    trade_session: Type[TradeSession]
+    trade_sessions: Type[TradeSession]
     """
-    Trading session
+    Trading sessions
     """
 
 
