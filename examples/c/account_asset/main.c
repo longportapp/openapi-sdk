@@ -16,17 +16,19 @@ on_account_balance(const struct lb_async_result_t* res)
 
   lb_account_balance_t* data = (lb_account_balance_t*)res->data;
   for (int i = 0; i < res->length; i++) {
-    printf("total_cash: %f\n", lb_decimal_to_double(data->total_cash));
+    const lb_account_balance_t* balance = &data[i];
+
+    printf("total_cash: %f\n", lb_decimal_to_double(balance->total_cash));
     printf("max_finance_amount: %f\n",
-           lb_decimal_to_double(data->max_finance_amount));
+           lb_decimal_to_double(balance->max_finance_amount));
     printf("remaining_finance_amount: %f\n",
-           lb_decimal_to_double(data->remaining_finance_amount));
-    printf("risk_level: %d\n", data->risk_level);
-    printf("margin_call: %f\n", lb_decimal_to_double(data->margin_call));
-    printf("currency: %s\n", data->currency);
-    printf("init_margin: %f\n", lb_decimal_to_double(data->init_margin));
+           lb_decimal_to_double(balance->remaining_finance_amount));
+    printf("risk_level: %d\n", balance->risk_level);
+    printf("margin_call: %f\n", lb_decimal_to_double(balance->margin_call));
+    printf("currency: %s\n", balance->currency);
+    printf("init_margin: %f\n", lb_decimal_to_double(balance->init_margin));
     printf("maintenance_margin: %f\n",
-           lb_decimal_to_double(data->maintenance_margin));
+           lb_decimal_to_double(balance->maintenance_margin));
     printf("cash_infos:\n");
 
     for (int j = 0; j < data->num_cash_infos; j++) {

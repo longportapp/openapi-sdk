@@ -23,35 +23,31 @@ main(int argc, char const* argv[])
     return -1;
   }
 
-  QuoteContext ctx;
-
-  QuoteContext::create(config, [&](auto res) {
+  QuoteContext::create(config, [](auto res) {
     if (!res) {
       std::cout << "failed to create quote context: " << res.status().message()
                 << std::endl;
       return;
     }
 
-    ctx = res.context();
-
-    res.context().set_on_quote([](auto event) {
-      std::cout << event->symbol << " timestamp=" << event->timestamp
-                << " last_done=" << (double)event->last_done
-                << " open=" << (double)event->open
-                << " high=" << (double)event->high
-                << " low=" << (double)event->low << " volume=" << event->volume
-                << " turnover=" << event->turnover << std::endl;
-    });
-
     std::vector<std::string> symbols = {
       "700.HK", "AAPL.US", "TSLA.US", "NFLX.US"
     };
-
-    res.context().subscribe(symbols, SubFlags::QUOTE(), true, [](auto res) {
+    res.context().quote(symbols, [](auto res) {
       if (!res) {
-        std::cout << "failed to subscribe quote: " << res.status().message()
+        std::cout << "failed to get quote: " << res.status().message()
                   << std::endl;
         return;
+      }
+
+      for (auto it = res->cbegin(); it != res->cend(); ++it) {
+        std::cout << it->symbol << " timestamp=" << it->timestamp
+                  << " last_done=" << (double)it->last_done
+                  << " prev_close=" << (double)it->prev_close
+                  << " open=" << (double)it->open
+                  << " high=" << (double)it->high << " low=" << (double)it->low
+                  << " volume=" << it->volume << " turnover=" << it->turnover
+                  << std::endl;
       }
     });
   });

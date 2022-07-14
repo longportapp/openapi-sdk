@@ -30,11 +30,33 @@ QuoteContext::QuoteContext(const QuoteContext& ctx)
   }
 }
 
+QuoteContext::QuoteContext(QuoteContext&& ctx)
+{
+  ctx_ = ctx.ctx_;
+  ctx.ctx_ = nullptr;
+}
+
 QuoteContext::~QuoteContext()
 {
   if (ctx_) {
     lb_quote_context_release(ctx_);
   }
+}
+
+QuoteContext&
+QuoteContext::operator=(const QuoteContext& ctx)
+{
+  ctx_ = ctx.ctx_;
+  if (ctx_) {
+    lb_quote_context_retain(ctx_);
+  }
+  return *this;
+}
+
+size_t
+QuoteContext::ref_count() const
+{
+  return ctx_ ? lb_quote_context_ref_count(ctx_) : 0;
 }
 
 void
@@ -46,10 +68,13 @@ QuoteContext::create(const Config& config,
     [](auto res) {
       auto callback_ptr =
         callback::get_async_callback<QuoteContext, void>(res->userdata);
-      (*callback_ptr)(AsyncResult<QuoteContext, void>(
-        QuoteContext((const lb_quote_context_t*)res->ctx),
-        Status(res->error),
-        nullptr));
+      auto* ctx_ptr = (lb_quote_context_t*)res->ctx;
+      QuoteContext ctx(ctx_ptr);
+      if (ctx_ptr) {
+        lb_quote_context_release(ctx_ptr);
+      }
+      (*callback_ptr)(
+        AsyncResult<QuoteContext, void>(ctx, Status(res->error), nullptr));
     },
     new AsyncCallback<QuoteContext, void>(callback));
 }

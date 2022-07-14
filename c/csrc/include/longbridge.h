@@ -2307,6 +2307,8 @@ void lb_quote_context_retain(const struct lb_quote_context_t *ctx);
 
 void lb_quote_context_release(const struct lb_quote_context_t *ctx);
 
+uintptr_t lb_quote_context_ref_count(const struct lb_quote_context_t *ctx);
+
 void lb_quote_context_set_userdata(const struct lb_quote_context_t *ctx, void *userdata);
 
 void *lb_quote_context_userdata(const struct lb_quote_context_t *ctx);
@@ -2612,6 +2614,8 @@ void lb_trade_context_new(const struct lb_config_t *config,
 void lb_trade_context_retain(const struct lb_trade_context_t *ctx);
 
 void lb_trade_context_release(const struct lb_trade_context_t *ctx);
+
+uintptr_t lb_trade_context_ref_count(const struct lb_trade_context_t *ctx);
 
 void lb_trade_context_set_userdata(const struct lb_trade_context_t *ctx, void *userdata);
 

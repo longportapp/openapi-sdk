@@ -6,6 +6,7 @@ namespace longbridge {
 Status::Status()
 {
   err_ = nullptr;
+  need_free_ = false;
 }
 
 Status::Status(const lb_error_t* err)

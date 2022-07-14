@@ -19,12 +19,14 @@ private:
 
 public:
   TradeContext();
-
   TradeContext(const lb_trade_context_t* ctx);
-
   TradeContext(const TradeContext& ctx);
-
+  TradeContext(TradeContext&& ctx);
   ~TradeContext();
+
+  TradeContext& operator=(const TradeContext& ctx);
+
+  size_t ref_count() const;
 
   static void create(const Config& config,
                      AsyncCallback<TradeContext, void> callback);

@@ -199,6 +199,13 @@ pub unsafe extern "C" fn lb_quote_context_release(ctx: *const CQuoteContext) {
 }
 
 #[no_mangle]
+pub unsafe extern "C" fn lb_quote_context_ref_count(ctx: *const CQuoteContext) -> usize {
+    Arc::increment_strong_count(ctx);
+    let ctx = Arc::from_raw(ctx);
+    Arc::strong_count(&ctx)
+}
+
+#[no_mangle]
 pub unsafe extern "C" fn lb_quote_context_set_userdata(
     ctx: *const CQuoteContext,
     userdata: *mut c_void,

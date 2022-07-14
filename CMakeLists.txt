@@ -24,6 +24,11 @@ add_subdirectory(cpp)
 add_subdirectory(examples/c/account_asset)
 add_subdirectory(examples/c/subscribe_quote)
 add_subdirectory(examples/c/submit_order)
+add_subdirectory(examples/c/get_quote)
+add_subdirectory(examples/c/today_orders)
 
 add_subdirectory(examples/cpp/submit_order)
 add_subdirectory(examples/cpp/subscribe_quote)
+add_subdirectory(examples/cpp/get_quote)
+add_subdirectory(examples/cpp/today_orders)
+

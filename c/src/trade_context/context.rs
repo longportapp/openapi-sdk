@@ -130,6 +130,13 @@ pub unsafe extern "C" fn lb_trade_context_release(ctx: *const CTradeContext) {
 }
 
 #[no_mangle]
+pub unsafe extern "C" fn lb_trade_context_ref_count(ctx: *const CTradeContext) -> usize {
+    Arc::increment_strong_count(ctx);
+    let ctx = Arc::from_raw(ctx);
+    Arc::strong_count(&ctx)
+}
+
+#[no_mangle]
 pub unsafe extern "C" fn lb_trade_context_set_userdata(
     ctx: *const CTradeContext,
     userdata: *mut c_void,

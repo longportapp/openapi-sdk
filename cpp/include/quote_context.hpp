@@ -19,12 +19,14 @@ private:
 
 public:
   QuoteContext();
-
   QuoteContext(const lb_quote_context_t* ctx);
-
   QuoteContext(const QuoteContext& ctx);
-
+  QuoteContext(QuoteContext&& ctx);
   ~QuoteContext();
+
+  QuoteContext& operator=(const QuoteContext& ctx);
+
+  size_t ref_count() const;
 
   static void create(const Config& config,
                      AsyncCallback<QuoteContext, void> callback);
