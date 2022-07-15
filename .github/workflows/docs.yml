@@ -32,6 +32,11 @@ jobs:
           java-version: "11"
           distribution: "temurin"
 
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen
+
       - name: Build Rust docs
         run: cargo doc -p longbridge --no-deps
       - name: Build Python wheels
@@ -62,14 +67,12 @@ jobs:
         run: mvn javadoc:javadoc
 
       - name: Build C docs
-        uses: mattnotmitt/doxygen-action@v1.9.4
-        with:
-          working-directory: ./c
+        working-directory: ./c
+        run: doxygen
 
       - name: Build C++ docs
-        uses: mattnotmitt/doxygen-action@v1.9.4
-        with:
-          working-directory: ./cpp
+        working-directory: ./cpp
+        run: doxygen
 
       - name: Copy to gh-pages
         run: |
