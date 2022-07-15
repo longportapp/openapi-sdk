@@ -780,9 +780,9 @@ pub struct CapitalDistributionResponse {
 #[js(remote = "longbridge::quote::WatchListGroup")]
 pub struct WatchListGroup {
     /// Group id
-    pub id: i64,
+    id: i64,
     /// Group name
-    pub name: String,
+    name: String,
     /// Securities
     #[js(array)]
     securities: Vec<WatchListSecurity>,

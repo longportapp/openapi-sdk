@@ -1555,10 +1555,6 @@ export class CapitalDistributionResponse {
 }
 /** Watch list group */
 export class WatchListGroup {
-  /** Group id */
-  id: number
-  /** Group name */
-  name: string
   toString(): string
   /** Group id */
   get id(): number
