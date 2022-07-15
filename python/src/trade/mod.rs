@@ -16,6 +16,7 @@ pub(crate) fn register_types(parent: &PyModule) -> PyResult<()> {
     parent.add_class::<types::OutsideRTH>()?;
     parent.add_class::<types::Order>()?;
     parent.add_class::<types::PushOrderChanged>()?;
+    parent.add_class::<types::MarginRatio>()?;
 
     parent.add_class::<context::TradeContext>()?;
     Ok(())

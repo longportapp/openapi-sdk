@@ -23,6 +23,8 @@ export interface ConfigParams {
    * "wss://openapi-trade.longbridgeapp.com")
    */
   tradeWsUrl?: string
+  /** Language identifier (default: Language.EN) */
+  language?: Language
 }
 /** Derivative type */
 export const enum DerivativeType {
@@ -407,6 +409,14 @@ export const enum Market {
   CN = 3,
   /** SG market */
   SG = 4
+}
+export const enum Language {
+  /** zh-CN */
+  ZH_CN = 0,
+  /** zh-HK */
+  ZH_HK = 1,
+  /** en */
+  EN = 2
 }
 /** Configuration for Longbridge sdk */
 export class Config {
@@ -1566,8 +1576,8 @@ export class WatchListSecurity {
   get market(): Market
   /** Security name */
   get name(): string
-  /** Latest price */
-  get price(): Decimal
+  /** Watched price */
+  get watchedPrice(): Decimal | null
   /** Watched time */
   get watchedAt(): Date
 }

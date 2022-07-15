@@ -1,17 +1,41 @@
+pub(crate) use http::{header, HeaderValue, Request};
 use longbridge_httpcli::{HttpClient, HttpClientConfig};
+use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 
 use crate::error::Result;
 
 const QUOTE_WS_URL: &str = "wss://openapi-quote.longbridgeapp.com";
 const TRADE_WS_URL: &str = "wss://openapi-trade.longbridgeapp.com";
 
+/// Language identifier
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[allow(non_camel_case_types)]
+pub enum Language {
+    /// zh-CN
+    ZH_CN,
+    /// zh-HK
+    ZH_HK,
+    /// en
+    EN,
+}
+
+impl Language {
+    pub(crate) fn as_str(&self) -> &'static str {
+        match self {
+            Language::ZH_CN => "zh-CN",
+            Language::ZH_HK => "zh-HK",
+            Language::EN => "en",
+        }
+    }
+}
+
 /// Configuration options for Longbridge sdk
 #[derive(Debug, Clone)]
 pub struct Config {
     pub(crate) http_cli_config: HttpClientConfig,
     pub(crate) quote_ws_url: String,
-    #[allow(dead_code)]
     pub(crate) trade_ws_url: String,
+    language: Language,
 }
 
 impl Config {
@@ -25,6 +49,7 @@ impl Config {
             http_cli_config: HttpClientConfig::new(app_key, app_secret, access_token),
             quote_ws_url: QUOTE_WS_URL.to_string(),
             trade_ws_url: TRADE_WS_URL.to_string(),
+            language: Language::EN,
         }
     }
 
@@ -51,6 +76,7 @@ impl Config {
             http_cli_config,
             quote_ws_url: QUOTE_WS_URL.to_string(),
             trade_ws_url: TRADE_WS_URL.to_string(),
+            language: Language::EN,
         };
 
         if let Ok(http_url) = std::env::var("LONGBRIDGE_HTTP_URL") {
@@ -105,8 +131,39 @@ impl Config {
         }
     }
 
+    /// Specifies the language
+    ///
+    /// Default: `Language::EN`
+    pub fn language(self, language: Language) -> Self {
+        Self { language, ..self }
+    }
+
     #[inline]
     pub(crate) fn create_http_client(&self) -> HttpClient {
         HttpClient::new(self.http_cli_config.clone())
+            .header(header::ACCEPT_LANGUAGE, self.language.as_str())
+    }
+
+    fn create_ws_request(&self, url: &str) -> tokio_tungstenite::tungstenite::Result<Request<()>> {
+        let mut request = url.into_client_request()?;
+        request.headers_mut().append(
+            header::ACCEPT_LANGUAGE,
+            HeaderValue::from_str(self.language.as_str()).unwrap(),
+        );
+        Ok(request)
+    }
+
+    #[inline]
+    pub(crate) fn create_quote_ws_request(
+        &self,
+    ) -> tokio_tungstenite::tungstenite::Result<Request<()>> {
+        self.create_ws_request(&self.quote_ws_url)
+    }
+
+    #[inline]
+    pub(crate) fn create_trade_ws_request(
+        &self,
+    ) -> tokio_tungstenite::tungstenite::Result<Request<()>> {
+        self.create_ws_request(&self.trade_ws_url)
     }
 }

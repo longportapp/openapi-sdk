@@ -18,10 +18,10 @@ JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_init
 /*
  * Class:     com_longbridge_SdkNative
  * Method:    newConfig
- * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)J
+ * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/longbridge/Language;)J
  */
 JNIEXPORT jlong JNICALL Java_com_longbridge_SdkNative_newConfig
-  (JNIEnv *, jclass, jstring, jstring, jstring, jstring, jstring, jstring);
+  (JNIEnv *, jclass, jstring, jstring, jstring, jstring, jstring, jstring, jobject);
 
 /*
  * Class:     com_longbridge_SdkNative

@@ -13,6 +13,12 @@ use crate::{
 };
 
 impl_java_enum!(
+    "com/longbridge/Language",
+    longbridge::Language,
+    [ZH_CN, ZH_HK, EN]
+);
+
+impl_java_enum!(
     "com/longbridge/Market",
     longbridge::Market,
     [Unknown, US, HK, CN, SG]

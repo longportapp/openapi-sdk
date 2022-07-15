@@ -2,7 +2,10 @@ use std::{ffi::CStr, os::raw::c_char, sync::Arc};
 
 use longbridge::Config;
 
-use crate::error::{set_error, CError};
+use crate::{
+    error::{set_error, CError},
+    types::CLanguage,
+};
 
 /// Configuration options for Longbridge sdk
 pub struct CConfig(pub(crate) Arc<Config>);
@@ -44,6 +47,7 @@ pub unsafe extern "C" fn lb_config_new(
     http_url: *const c_char,
     quote_ws_url: *const c_char,
     trade_ws_url: *const c_char,
+    language: *const CLanguage,
 ) -> *mut CConfig {
     let app_key = CStr::from_ptr(app_key).to_str().expect("invalid app key");
     let app_secret = CStr::from_ptr(app_secret)
@@ -70,6 +74,9 @@ pub unsafe extern "C" fn lb_config_new(
                 .to_str()
                 .expect("invalid trade websocket url"),
         );
+    }
+    if !language.is_null() {
+        config = config.language((*language).into());
     }
 
     Box::into_raw(Box::new(CConfig(Arc::new(config))))

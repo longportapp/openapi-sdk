@@ -1,6 +1,6 @@
 use napi::Result;
 
-use crate::error::ErrorNewType;
+use crate::{error::ErrorNewType, types::Language};
 
 /// Configuration parameters
 #[napi_derive::napi(object)]
@@ -19,6 +19,8 @@ pub struct ConfigParams {
     /// Websocket url for trade API (default:
     /// "wss://openapi-trade.longbridgeapp.com")
     pub trade_ws_url: Option<String>,
+    /// Language identifier (default: Language.EN)
+    pub language: Option<Language>,
 }
 
 /// Configuration for Longbridge sdk
@@ -43,6 +45,10 @@ impl Config {
 
         if let Some(trade_ws_url) = params.trade_ws_url {
             config = config.trade_ws_url(trade_ws_url);
+        }
+
+        if let Some(language) = params.language {
+            config = config.language(language.into());
         }
 
         Self(config)

@@ -1,4 +1,5 @@
 #include "config.hpp"
+#include "convert.hpp"
 #include "longbridge.h"
 
 namespace longbridge {
@@ -24,14 +25,21 @@ Config::Config(const std::string& app_key,
                const std::string& access_token,
                const std::optional<std::string>& http_url,
                const std::optional<std::string>& quote_ws_url,
-               const std::optional<std::string>& trade_ws_url)
+               const std::optional<std::string>& trade_ws_url,
+               const std::optional<Language>& language)
 {
+  lb_language_t c_language;
+  if (language) {
+    c_language = convert::convert(*language);
+  }
+
   config_ = lb_config_new(app_key.c_str(),
                           app_secret.c_str(),
                           access_token.c_str(),
                           http_url ? http_url->c_str() : nullptr,
                           http_url ? quote_ws_url->c_str() : nullptr,
-                          http_url ? trade_ws_url->c_str() : nullptr);
+                          http_url ? trade_ws_url->c_str() : nullptr,
+                          language ? &c_language : nullptr);
 }
 
 Config::~Config()

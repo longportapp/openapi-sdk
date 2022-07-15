@@ -308,7 +308,7 @@ impl_java_class!(
 impl_java_class!(
     "com/longbridge/quote/WatchListSecurity",
     longbridge::quote::WatchListSecurity,
-    [symbol, market, name, price, watched_at]
+    [symbol, market, name, watched_price, watched_at]
 );
 
 impl_java_class!(

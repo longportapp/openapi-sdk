@@ -16,3 +16,16 @@ pub(crate) enum Market {
     /// SG market
     SG,
 }
+
+#[pyclass]
+#[derive(Debug, PyEnum, Copy, Clone, Hash, Eq, PartialEq)]
+#[allow(non_camel_case_types)]
+#[py(remote = "longbridge::Language")]
+pub(crate) enum Language {
+    /// zh-CN
+    ZH_CN,
+    /// zh-HK
+    ZH_HK,
+    /// en
+    EN,
+}

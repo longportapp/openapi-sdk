@@ -940,8 +940,9 @@ pub struct WatchListSecurity {
     pub market: Market,
     /// Security name
     pub name: String,
-    /// Latest price
-    pub price: Decimal,
+    /// Watched price
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
+    pub watched_price: Option<Decimal>,
     /// Watched time
     #[serde(with = "serde_utils::timestamp")]
     pub watched_at: OffsetDateTime,

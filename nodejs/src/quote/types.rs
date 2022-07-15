@@ -799,8 +799,9 @@ pub struct WatchListSecurity {
     market: Market,
     /// Security name
     name: String,
-    /// Latest price
-    price: Decimal,
+    /// Watched price
+    #[js(opt)]
+    watched_price: Option<Decimal>,
     /// Watched time
     #[js(datetime)]
     watched_at: DateTime<Utc>,

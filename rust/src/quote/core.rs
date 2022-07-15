@@ -9,7 +9,9 @@ use longbridge_proto::quote::{
     AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, Period, SecurityCandlestickRequest,
     SecurityCandlestickResponse, SubscribeRequest, TradeSession, UnsubscribeRequest,
 };
-use longbridge_wscli::{CodecType, Platform, ProtocolVersion, WsClient, WsEvent, WsSession};
+use longbridge_wscli::{
+    CodecType, Platform, ProtocolVersion, WsClient, WsClientError, WsEvent, WsSession,
+};
 use time::{Date, OffsetDateTime};
 use tokio::{
     sync::{mpsc, oneshot},
@@ -144,7 +146,9 @@ impl Core {
             "connecting to quote server",
         );
         let ws_cli = WsClient::open(
-            &config.quote_ws_url,
+            config
+                .create_quote_ws_request()
+                .map_err(WsClientError::from)?,
             ProtocolVersion::Version1,
             CodecType::Protobuf,
             Platform::OpenAPI,
@@ -190,7 +194,7 @@ impl Core {
                 );
 
                 match WsClient::open(
-                    &self.config.quote_ws_url,
+                    self.config.create_quote_ws_request().unwrap(),
                     ProtocolVersion::Version1,
                     CodecType::Protobuf,
                     Platform::OpenAPI,

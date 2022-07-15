@@ -1,9 +1,9 @@
 use jni::{
-    objects::{JClass, JString},
+    objects::{JClass, JObject, JString},
     sys::jlong,
     JNIEnv,
 };
-use longbridge::Config;
+use longbridge::{Config, Language};
 
 use crate::{error::jni_result, types::FromJValue};
 
@@ -17,6 +17,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
     http_url: JString,
     quote_ws_url: JString,
     trade_ws_url: JString,
+    language: JObject,
 ) -> jlong {
     jni_result(&env, 0, || {
         let app_key = String::from_jvalue(&env, app_key.into())?;
@@ -25,6 +26,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
         let http_url = <Option<String>>::from_jvalue(&env, http_url.into())?;
         let quote_ws_url = <Option<String>>::from_jvalue(&env, quote_ws_url.into())?;
         let trade_ws_url = <Option<String>>::from_jvalue(&env, trade_ws_url.into())?;
+        let language = <Option<Language>>::from_jvalue(&env, language.into())?;
 
         let mut config = Config::new(app_key, app_secret, access_token);
 
@@ -36,6 +38,9 @@ pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
         }
         if let Some(trade_ws_url) = trade_ws_url {
             config = config.trade_ws_url(trade_ws_url);
+        }
+        if let Some(language) = language {
+            config = config.language(language);
         }
 
         Ok(Box::into_raw(Box::new(config)) as jlong)

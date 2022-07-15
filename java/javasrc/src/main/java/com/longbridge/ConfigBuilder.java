@@ -10,6 +10,7 @@ public class ConfigBuilder {
     private String httpUrl;
     private String quoteWsUrl;
     private String tradeWsUrl;
+    private Language language;
 
     /**
      * Create a `Config` object builder
@@ -67,12 +68,23 @@ public class ConfigBuilder {
     }
 
     /**
+     * Specifies the language identifer
+     * 
+     * @param language Language identifer (Default: Language.EN)
+     * @return this object
+     */
+    public ConfigBuilder language(Language language) {
+        return this;
+    }
+
+    /**
      * Build a Config object
      * 
      * @return Config object
      * @throws OpenApiException If an error occurs
      */
     public Config build() throws OpenApiException {
-        return new Config(SdkNative.newConfig(appKey, appSecret, accessToken, httpUrl, quoteWsUrl, tradeWsUrl));
+        return new Config(
+                SdkNative.newConfig(appKey, appSecret, accessToken, httpUrl, quoteWsUrl, tradeWsUrl, language));
     }
 }

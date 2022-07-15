@@ -5,6 +5,7 @@
 #include <utility>
 
 #include "status.hpp"
+#include "types.hpp"
 
 typedef struct lb_config_t lb_config_t;
 
@@ -32,13 +33,15 @@ public:
    * wss://openapi-quote.longbridgeapp.com)
    * @param trade_ws_url Trade websocket endpoint url (Default:
    * wss://openapi-trade.longbridgeapp.com)
+   * @param language Language identifer (Default: Language::EN)
    */
   Config(const std::string& app_key,
          const std::string& app_secret,
          const std::string& access_token,
          const std::optional<std::string>& http_url,
          const std::optional<std::string>& quote_ws_url,
-         const std::optional<std::string>& trade_ws_url);
+         const std::optional<std::string>& trade_ws_url,
+         const std::optional<Language>& language);
 
   ~Config();
 

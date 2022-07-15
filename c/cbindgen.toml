@@ -4,6 +4,7 @@ documentation_style = "doxy"
 cpp_compat = true
 
 [export.rename]
+"CLanguage" = "lb_language_t"
 "CMarket" = "lb_market_t"
 "CDecimal" = "lb_decimal_t"
 "CAsyncCallback" = "lb_async_callback_t"

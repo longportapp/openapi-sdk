@@ -9,7 +9,7 @@ public class WatchListSecurity {
     private String symbol;
     private Market market;
     private String name;
-    private BigDecimal price;
+    private BigDecimal watchedPrice;
     private OffsetDateTime watchedAt;
 
     public String getSymbol() {
@@ -24,8 +24,8 @@ public class WatchListSecurity {
         return name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getWatchedPrice() {
+        return watchedPrice;
     }
 
     public OffsetDateTime getWatchedAt() {
@@ -34,7 +34,8 @@ public class WatchListSecurity {
 
     @Override
     public String toString() {
-        return "WatchListSecurity [market=" + market + ", name=" + name + ", price=" + price + ", symbol=" + symbol
+        return "WatchListSecurity [market=" + market + ", name=" + name + ", watchedPrice=" + watchedPrice + ", symbol="
+                + symbol
                 + ", watchedAt=" + watchedAt + "]";
     }
 

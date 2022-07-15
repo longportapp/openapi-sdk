@@ -102,7 +102,11 @@ where
     R: DeserializeOwned + Send + 'static,
 {
     async fn do_send(&self) -> HttpClientResult<R> {
-        let HttpClient { http_cli, config } = &self.client;
+        let HttpClient {
+            http_cli,
+            config,
+            default_headers,
+        } = &self.client;
         let now = Timestamp::now();
         let app_key_value =
             HeaderValue::from_str(&config.app_key).map_err(|_| HttpClientError::InvalidApiKey)?;
@@ -114,6 +118,7 @@ where
                 self.method.clone(),
                 &format!("{}{}", config.http_url, self.path),
             )
+            .headers(default_headers.clone())
             .header("User-Agent", USER_AGENT)
             .header("X-Api-Key", app_key_value)
             .header("Authorization", access_token_value)
@@ -160,7 +165,6 @@ where
         .map_err(|_| HttpClientError::RequestTimeout)??;
 
         tracing::debug!(body = text.as_str(), "http response");
-        println!("{}", text);
 
         match serde_json::from_str::<OpenApiResponse<R>>(&text) {
             Ok(resp) if resp.code == 0 => resp.data.ok_or(HttpClientError::UnexpectedResponse),

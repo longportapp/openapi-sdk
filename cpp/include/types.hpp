@@ -20,6 +20,17 @@ struct Time
   uint8_t second;
 };
 
+/// Language identifer
+enum class Language
+{
+  /// zh-CN
+  ZH_CN,
+  /// zh-HK
+  ZH_HK,
+  /// en
+  EN,
+};
+
 /// Market
 enum class Market
 {
@@ -655,8 +666,8 @@ struct WatchListSecurity
   Market market;
   /// Security name
   std::string name;
-  /// Latest price
-  Decimal price;
+  /// Watched price
+  std::optional<Decimal> watched_price;
   /// Watched time
   int64_t watched_at;
 };

@@ -74,6 +74,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_init(env: JNIEnv, _class: J
     // enum types
     init_class_by_classloader!(
         env,
+        longbridge::Language,
         longbridge::Market,
         longbridge::quote::TradeStatus,
         longbridge::quote::TradeSession,

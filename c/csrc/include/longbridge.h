@@ -91,6 +91,24 @@ typedef enum lb_cash_flow_direction_t {
 } lb_cash_flow_direction_t;
 
 /**
+ * Language identifer
+ */
+typedef enum lb_language_t {
+  /**
+   * zh-CN
+   */
+  Language_ZH_CN,
+  /**
+   * zh-HK
+   */
+  Language_ZH_HK,
+  /**
+   * en
+   */
+  Language_EN,
+} lb_language_t;
+
+/**
  * Market type
  */
 typedef enum lb_market_t {
@@ -2272,9 +2290,9 @@ typedef struct lb_watch_list_security_t {
    */
   const char *name;
   /**
-   * Latest price
+   * Watched price (maybe null)
    */
-  const struct lb_decimal_t *price;
+  const struct lb_decimal_t *watched_price;
   /**
    * Watched time
    */
@@ -2349,7 +2367,8 @@ struct lb_config_t *lb_config_new(const char *app_key,
                                   const char *access_token,
                                   const char *http_url,
                                   const char *quote_ws_url,
-                                  const char *trade_ws_url);
+                                  const char *trade_ws_url,
+                                  const enum lb_language_t *language);
 
 /**
  * Free the config object

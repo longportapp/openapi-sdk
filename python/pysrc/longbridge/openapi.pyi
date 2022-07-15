@@ -33,6 +33,7 @@ class Config:
         http_url: HTTP API url
         quote_ws_url: Websocket url for quote API
         trade_ws_url: Websocket url for trade API
+        language: Language identifier
     """
 
     def __init__(
@@ -43,6 +44,7 @@ class Config:
         http_url: str = "https://openapi.longbridgeapp.com",
         quote_ws_url: str = "wss://openapi-quote.longbridgeapp.com",
         trade_ws_url: str = "wss://openapi-trade.longbridgeapp.com",
+        language: Type[Language] = Language.EN,
     ) -> None: ...
 
     @classmethod
@@ -60,6 +62,27 @@ class Config:
         - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
         - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url
         - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
+        """
+
+
+class Language:
+    """
+    Language identifier
+    """
+
+    class ZH_CN(Language):
+        """
+        zh-CN
+        """
+
+    class ZH_HK(Language):
+        """
+        zh-HK
+        """
+
+    class EN(Language):
+        """
+        en
         """
 
 
@@ -1320,8 +1343,9 @@ class WatchListSecurity:
     Security name
     """
 
-    price: Decimal
+    watched_price: Optional[Decimal]
     """
+    Watched price
     """
 
     watched_at: datetime

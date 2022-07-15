@@ -18,7 +18,7 @@ pub mod blocking;
 pub mod quote;
 pub mod trade;
 
-pub use config::Config;
+pub use config::{Config, Language};
 pub use error::{Error, Result, SimpleError};
 pub use quote::QuoteContext;
 pub use rust_decimal::Decimal;

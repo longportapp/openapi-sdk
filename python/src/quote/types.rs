@@ -788,8 +788,9 @@ pub(crate) struct WatchListSecurity {
     market: Market,
     /// Security name
     name: String,
-    /// Latest price
-    price: PyDecimal,
+    /// Watched price
+    #[py(opt)]
+    watched_price: Option<PyDecimal>,
     /// Watched time
     watched_at: PyOffsetDateTimeWrapper,
 }

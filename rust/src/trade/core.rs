@@ -2,7 +2,9 @@ use std::{collections::HashSet, sync::Arc, time::Duration};
 
 use longbridge_httpcli::HttpClient;
 use longbridge_proto::trade::{Sub, SubResponse, Unsub, UnsubResponse};
-use longbridge_wscli::{CodecType, Platform, ProtocolVersion, WsClient, WsEvent, WsSession};
+use longbridge_wscli::{
+    CodecType, Platform, ProtocolVersion, WsClient, WsClientError, WsEvent, WsSession,
+};
 use tokio::sync::{mpsc, oneshot};
 
 use crate::{
@@ -52,7 +54,9 @@ impl Core {
             "connecting to trade server",
         );
         let ws_cli = WsClient::open(
-            &config.trade_ws_url,
+            config
+                .create_trade_ws_request()
+                .map_err(WsClientError::from)?,
             ProtocolVersion::Version1,
             CodecType::Protobuf,
             Platform::OpenAPI,
@@ -95,7 +99,7 @@ impl Core {
                 );
 
                 match WsClient::open(
-                    &self.config.trade_ws_url,
+                    self.config.create_trade_ws_request().unwrap(),
                     ProtocolVersion::Version1,
                     CodecType::Protobuf,
                     Platform::OpenAPI,

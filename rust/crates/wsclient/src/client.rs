@@ -1,5 +1,6 @@
 use std::{
     collections::HashMap,
+    str::FromStr,
     time::{Duration, SystemTime},
 };
 
@@ -14,7 +15,10 @@ use tokio::{
     net::TcpStream,
     sync::{mpsc, oneshot},
 };
-use tokio_tungstenite::{tungstenite::Message, MaybeTlsStream, WebSocketStream};
+use tokio_tungstenite::{
+    tungstenite::{client::IntoClientRequest, http::Uri, Message},
+    MaybeTlsStream, WebSocketStream,
+};
 use url::Url;
 
 use crate::{
@@ -219,14 +223,14 @@ pub struct WsClient {
 impl WsClient {
     /// Connect to `url` and returns a `WsClient` object
     pub async fn open(
-        url: impl AsRef<str>,
+        request: impl IntoClientRequest,
         version: ProtocolVersion,
         codec: CodecType,
         platform: Platform,
         event_sender: mpsc::UnboundedSender<WsEvent>,
     ) -> WsClientResult<Self> {
         let (command_tx, command_rx) = mpsc::unbounded_channel();
-        let conn = do_connect(url.as_ref(), version, codec, platform).await?;
+        let conn = do_connect(request, version, codec, platform).await?;
         tokio::spawn(client_loop(conn, command_rx, event_sender));
         Ok(Self { command_tx })
     }
@@ -315,21 +319,23 @@ impl WsClient {
 }
 
 async fn do_connect(
-    url: &str,
+    request: impl IntoClientRequest,
     version: ProtocolVersion,
     codec: CodecType,
     platform: Platform,
 ) -> WsClientResult<WebSocketStream<MaybeTlsStream<TcpStream>>> {
-    let mut url_obj = Url::parse(url)?;
+    let mut request = request.into_client_request()?;
+    let mut url_obj = Url::parse(&request.uri().to_string())?;
     url_obj.query_pairs_mut().extend_pairs(&[
         ("version", i32::from(version).to_string()),
         ("codec", i32::from(codec).to_string()),
         ("platform", i32::from(platform).to_string()),
     ]);
+    *request.uri_mut() = Uri::from_str(&url_obj.to_string()).expect("valid url");
 
     let conn = match tokio::time::timeout(
         CONNECT_TIMEOUT,
-        tokio_tungstenite::connect_async(url_obj).map_err(WsClientError::from),
+        tokio_tungstenite::connect_async(request).map_err(WsClientError::from),
     )
     .map_err(|_| WsClientError::ConnectTimeout)
     .await

@@ -1,6 +1,9 @@
 use std::sync::Arc;
 
-use reqwest::{Client, Method};
+use reqwest::{
+    header::{HeaderMap, HeaderName, HeaderValue},
+    Client, Method,
+};
 use serde::Deserialize;
 
 use crate::{HttpClientConfig, HttpClientResult, RequestBuilder};
@@ -10,6 +13,7 @@ use crate::{HttpClientConfig, HttpClientResult, RequestBuilder};
 pub struct HttpClient {
     pub(crate) http_cli: Client,
     pub(crate) config: Arc<HttpClientConfig>,
+    pub(crate) default_headers: HeaderMap,
 }
 
 impl HttpClient {
@@ -18,7 +22,22 @@ impl HttpClient {
         Self {
             http_cli: Client::new(),
             config: Arc::new(config),
+            default_headers: HeaderMap::new(),
         }
+    }
+
+    /// Set the default header
+    pub fn header<K, V>(mut self, key: K, value: V) -> Self
+    where
+        K: TryInto<HeaderName>,
+        V: TryInto<HeaderValue>,
+    {
+        let key = key.try_into();
+        let value = value.try_into();
+        if let (Ok(key), Ok(value)) = (key, value) {
+            self.default_headers.append(key, value);
+        }
+        self
     }
 
     /// Create a new request builder

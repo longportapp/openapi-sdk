@@ -1983,8 +1983,8 @@ pub struct CWatchListSecurity {
     pub market: CMarket,
     /// Security name
     pub name: *const c_char,
-    /// Latest price
-    pub price: *const CDecimal,
+    /// Watched price (maybe null)
+    pub watched_price: *const CDecimal,
     /// Watched time
     pub watched_at: i64,
 }
@@ -1994,7 +1994,7 @@ pub(crate) struct CWatchListSecurityOwned {
     symbol: CString,
     market: CMarket,
     name: CString,
-    price: CDecimal,
+    watched_price: Option<CDecimal>,
     watched_at: i64,
 }
 
@@ -2004,14 +2004,14 @@ impl From<WatchListSecurity> for CWatchListSecurityOwned {
             symbol,
             market,
             name,
-            price,
+            watched_price,
             watched_at,
         } = resp;
         CWatchListSecurityOwned {
             symbol: symbol.into(),
             market: market.into(),
             name: name.into(),
-            price: price.into(),
+            watched_price: watched_price.map(Into::into),
             watched_at: watched_at.unix_timestamp(),
         }
     }
@@ -2025,14 +2025,17 @@ impl ToFFI for CWatchListSecurityOwned {
             symbol,
             market,
             name,
-            price,
+            watched_price,
             watched_at,
         } = self;
         CWatchListSecurity {
             symbol: symbol.to_ffi_type(),
             market: *market,
             name: name.to_ffi_type(),
-            price: price.to_ffi_type(),
+            watched_price: watched_price
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
             watched_at: *watched_at,
         }
     }

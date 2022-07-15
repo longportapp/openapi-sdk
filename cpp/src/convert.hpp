@@ -77,6 +77,21 @@ using longbridge::trade::TimeInForceType;
 using longbridge::trade::TopicType;
 using longbridge::trade::TriggerStatus;
 
+inline lb_language_t
+convert(Language language)
+{
+  switch (language) {
+    case Language::ZH_CN:
+      return Language_ZH_CN;
+    case Language::ZH_HK:
+      return Language_ZH_HK;
+    case Language::EN:
+      return Language_EN;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
 inline Market
 convert(lb_market_t market)
 {
@@ -1287,8 +1302,12 @@ inline WatchListSecurity
 convert(const lb_watch_list_security_t* info)
 {
   return WatchListSecurity{
-    info->symbol,         convert(info->market), info->name,
-    Decimal(info->price), info->watched_at,
+    info->symbol,
+    convert(info->market),
+    info->name,
+    info->watched_price ? std::optional{ Decimal(info->watched_price) }
+                        : std::nullopt,
+    info->watched_at,
   };
 }
 
