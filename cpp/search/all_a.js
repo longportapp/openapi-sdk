@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['maintenance_5fmargin_180',['maintenance_margin',['../structlongbridge_1_1trade_1_1_account_balance.html#a6d694927630670deead8b1956370ce76',1,'longbridge::trade::AccountBalance']]],
+  ['margin_5fcall_181',['margin_call',['../structlongbridge_1_1trade_1_1_account_balance.html#acc3494e0a5e39693dc6241dc01767eb0',1,'longbridge::trade::AccountBalance']]],
+  ['margin_5fratio_182',['margin_ratio',['../classlongbridge_1_1trade_1_1_trade_context.html#a63733868dd08101f12e379ac7c63501e',1,'longbridge::trade::TradeContext']]],
+  ['marginratio_183',['MarginRatio',['../structlongbridge_1_1trade_1_1_margin_ratio.html',1,'longbridge::trade']]],
+  ['market_184',['market',['../structlongbridge_1_1quote_1_1_market_trading_session.html#afcf081ae2f8e0d9204a57762f4c07d51',1,'longbridge::quote::MarketTradingSession::market()'],['../structlongbridge_1_1quote_1_1_watch_list_security.html#ad6f2faae1758fd7f62583076aeb14530',1,'longbridge::quote::WatchListSecurity::market()'],['../structlongbridge_1_1trade_1_1_get_history_orders_options.html#a5fcba8e00262831c4f92d6ca1b00d4c8',1,'longbridge::trade::GetHistoryOrdersOptions::market()'],['../structlongbridge_1_1trade_1_1_get_today_orders_options.html#ac10fd85dfb20319ca3110da37e424c56',1,'longbridge::trade::GetTodayOrdersOptions::market()'],['../structlongbridge_1_1trade_1_1_stock_position.html#ac957277626326e12d3d9ec00937c8957',1,'longbridge::trade::StockPosition::market()'],['../namespacelongbridge.html#ac23c9164f0ed3247af35cd39ec1f0619',1,'longbridge::Market()']]],
+  ['markettradingdays_185',['MarketTradingDays',['../structlongbridge_1_1quote_1_1_market_trading_days.html',1,'longbridge::quote']]],
+  ['markettradingsession_186',['MarketTradingSession',['../structlongbridge_1_1quote_1_1_market_trading_session.html',1,'longbridge::quote']]],
+  ['max_187',['max',['../classlongbridge_1_1_decimal.html#a9841db703e5f072a2c69fc5b1e6d0002',1,'longbridge::Decimal']]],
+  ['max_5ffinance_5famount_188',['max_finance_amount',['../structlongbridge_1_1trade_1_1_account_balance.html#a1591077e4d01e78e1fd8e83afe4d572b',1,'longbridge::trade::AccountBalance']]],
+  ['medium_189',['medium',['../structlongbridge_1_1quote_1_1_capital_distribution.html#aba0db2b017ef72646009ecd22ac38cd6',1,'longbridge::quote::CapitalDistribution']]],
+  ['message_190',['message',['../classlongbridge_1_1_status.html#ad4aec38354c6c7eb45f5301e13740eea',1,'longbridge::Status']]],
+  ['min_191',['min',['../classlongbridge_1_1_decimal.html#ad94bc1d71cdd367fffb3cfc6ac839f49',1,'longbridge::Decimal']]],
+  ['min1_192',['Min1',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4ab24f6123111e5fd9d9444fcd337dcbd6',1,'longbridge::quote']]],
+  ['min15_193',['Min15',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4a97a580d0446206827c6ae4e20ed134bb',1,'longbridge::quote']]],
+  ['min30_194',['Min30',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4ab95b6f260f78066d9bb4030f2329b6d6',1,'longbridge::quote']]],
+  ['min5_195',['Min5',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4ae0b846401f21ef8503ab4bfa55649394',1,'longbridge::quote']]],
+  ['min60_196',['Min60',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4ab716a1caf194b2097b12292aae8a2338',1,'longbridge::quote']]],
+  ['minute_197',['minute',['../structlongbridge_1_1_time.html#a5f6359a31aff344eaa6f91f2009fe3b7',1,'longbridge::Time']]],
+  ['mit_198',['MIT',['../namespacelongbridge_1_1trade.html#ae7d41371b5280feed3513fe83f92685aa7abc1a233092fc104c7af72a89c0829c',1,'longbridge::trade']]],
+  ['mm_5ffactor_199',['mm_factor',['../structlongbridge_1_1trade_1_1_margin_ratio.html#a1194a314a1c416020e4f56c7b7d06d8d',1,'longbridge::trade::MarginRatio']]],
+  ['mo_200',['MO',['../namespacelongbridge_1_1trade.html#ae7d41371b5280feed3513fe83f92685aaeb0459bfce4185888ecf61fb07987581',1,'longbridge::trade']]],
+  ['month_201',['month',['../structlongbridge_1_1_date.html#a8e8325459a9f97a82e5affe1e8aac2b1',1,'longbridge::Date::month()'],['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4a7cbb885aa1164b390a0bc050a64e1812',1,'longbridge::quote::Month()']]],
+  ['msg_202',['msg',['../structlongbridge_1_1trade_1_1_order.html#a79a8f9a65e538b101b47fdca8fd4218b',1,'longbridge::trade::Order::msg()'],['../structlongbridge_1_1trade_1_1_push_order_changed.html#a9afa267669482f2c7c071f2a9fe62f70',1,'longbridge::trade::PushOrderChanged::msg()']]]
+];
