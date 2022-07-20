@@ -137,7 +137,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.FE_S3_OPEN_STATIC_PROD_BJ_ACCESS_KEY_SECRET }}
         run: |
           aws --region=${{ secrets.PROD_BJ_AWS_DEFAULT_REGION }} s3 cp openapi-cpp-sdk-$SDK_VERSION.tar.gz s3://${{ secrets.FE_S3_OPEN_STATIC_PROD_BJ_BUCKET }}/openapi-sdk/ --cache-control max-age=31536000
-          aws --region=${{ secrets.PROD_BJ_AWS_DEFAULT_REGION }} s3 cp openapi-cpp-sdk-latest s3://${{ secrets.FE_S3_OPEN_STATIC_PROD_BJ_BUCKET }}/openapi-sdk/ --website-redirect "/openapi-sdk/openapi-cpp-sdk-$SDK_VERSION.tar.gz"
+          aws --region=${{ secrets.PROD_BJ_AWS_DEFAULT_REGION }} s3 cp openapi-cpp-sdk-latest s3://${{ secrets.FE_S3_OPEN_STATIC_PROD_BJ_BUCKET }}/openapi-sdk/ --metadata "Website-Redirect-Location=/openapi-sdk/openapi-cpp-sdk-$SDK_VERSION.tar.gz" --cache-control max-age=60
 
       - name: Upload SDK to HK
         env:
@@ -145,4 +145,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.FE_S3_OPEN_STATIC_PROD_HK_ACCESS_KEY_SECRET }}
         run: |
           aws --region=${{ secrets.PROD_HK_AWS_DEFAULT_REGION }} s3 cp openapi-cpp-sdk-$SDK_VERSION.tar.gz s3://${{ secrets.FE_S3_OPEN_STATIC_PROD_HK_BUCKET }}/openapi-sdk/ --cache-control max-age=31536000
-          aws --region=${{ secrets.PROD_HK_AWS_DEFAULT_REGION }} s3 cp openapi-cpp-sdk-latest s3://${{ secrets.FE_S3_OPEN_STATIC_PROD_HK_BUCKET }}/openapi-sdk/ --website-redirect "/openapi-sdk/openapi-cpp-sdk-$SDK_VERSION.tar.gz"
+          aws --region=${{ secrets.PROD_HK_AWS_DEFAULT_REGION }} s3 cp openapi-cpp-sdk-latest s3://${{ secrets.FE_S3_OPEN_STATIC_PROD_HK_BUCKET }}/openapi-sdk/ --metadata "Website-Redirect-Location=/openapi-sdk/openapi-cpp-sdk-$SDK_VERSION.tar.gz" --cache-control max-age=60
