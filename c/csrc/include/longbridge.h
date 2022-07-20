@@ -411,6 +411,112 @@ typedef enum lb_period_t {
 } lb_period_t;
 
 /**
+ * Adjust type
+ */
+typedef enum lb_security_board_t {
+  /**
+   * Unknown
+   */
+  SecurityBoardUnknown,
+  /**
+   * US Main Board
+   */
+  SecurityBoardUSMain,
+  /**
+   * US Pink Board
+   */
+  SecurityBoardUSPink,
+  /**
+   * Dow Jones Industrial Average
+   */
+  SecurityBoardUSDJI,
+  /**
+   * Nasdsaq Index
+   */
+  SecurityBoardUSNSDQ,
+  /**
+   * US Industry Board
+   */
+  SecurityBoardUSSector,
+  /**
+   * US Option
+   */
+  SecurityBoardUSOption,
+  /**
+   * US Sepecial Option
+   */
+  SecurityBoardUSOptionS,
+  /**
+   * Hong Kong Equity Securities
+   */
+  SecurityBoardHKEquity,
+  /**
+   * HK PreIPO Security
+   */
+  SecurityBoardHKPreIPO,
+  /**
+   * HK Warrant
+   */
+  SecurityBoardHKWarrant,
+  /**
+   * Hang Seng Index
+   */
+  SecurityBoardHKHS,
+  /**
+   * HK Industry Board
+   */
+  SecurityBoardHKSector,
+  /**
+   * SH Main Board(Connect)
+   */
+  SecurityBoardSHMainConnect,
+  /**
+   * SH Main Board(Non Connect)
+   */
+  SecurityBoardSHMainNonConnect,
+  /**
+   * SH Science and Technology Innovation Board
+   */
+  SecurityBoardSHSTAR,
+  /**
+   * CN Index
+   */
+  SecurityBoardCNIX,
+  /**
+   * CN Industry Board
+   */
+  SecurityBoardCNSector,
+  /**
+   * SZ Main Board(Connect)
+   */
+  SecurityBoardSZMainConnect,
+  /**
+   * SZ Main Board(Non Connect)
+   */
+  SecurityBoardSZMainNonConnect,
+  /**
+   * SZ Gem Board(Connect)
+   */
+  SecurityBoardSZGEMConnect,
+  /**
+   * SZ Gem Board(Non Connect)
+   */
+  SecurityBoardSZGEMNonConnect,
+  /**
+   * SG Main Board
+   */
+  SecurityBoardSGMain,
+  /**
+   * Singapore Straits Index
+   */
+  SecurityBoardSTI,
+  /**
+   * SG Industry Board
+   */
+  SecurityBoardSGSector,
+} lb_security_board_t;
+
+/**
  * Time in force Type
  */
 typedef enum lb_time_in_force_type_t {
@@ -1314,6 +1420,10 @@ typedef struct lb_security_static_info_t {
    * Types of supported derivatives
    */
   uint8_t stock_derivatives;
+  /**
+   * Board
+   */
+  enum lb_security_board_t board;
 } lb_security_static_info_t;
 
 /**

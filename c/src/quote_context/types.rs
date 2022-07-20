@@ -4,15 +4,16 @@ use longbridge::quote::{
     Brokers, Candlestick, CapitalDistribution, CapitalDistributionResponse, CapitalFlowLine, Depth,
     IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionDirection,
     OptionQuote, OptionType, ParticipantInfo, Period, PrePostQuote, PushBrokers, PushCandlestick,
-    PushDepth, PushQuote, PushTrades, RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote,
-    SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, TradeDirection, TradeSession,
-    TradeStatus, TradingSessionInfo, WarrantQuote, WarrantType, WatchListGroup, WatchListSecurity,
+    PushDepth, PushQuote, PushTrades, RealtimeQuote, SecurityBoard, SecurityBrokers, SecurityDepth,
+    SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, TradeDirection,
+    TradeSession, TradeStatus, TradingSessionInfo, WarrantQuote, WarrantType, WatchListGroup,
+    WatchListSecurity,
 };
 
 use crate::{
     quote_context::enum_types::{
-        COptionDirection, COptionType, CPeriod, CTradeDirection, CTradeSession, CTradeStatus,
-        CWarrantType,
+        COptionDirection, COptionType, CPeriod, CSecurityBoard, CTradeDirection, CTradeSession,
+        CTradeStatus, CWarrantType,
     },
     types::{CDate, CDecimal, CMarket, COption, CString, CTime, CVec, ToFFI},
 };
@@ -650,6 +651,8 @@ pub struct CSecurityStaticInfo {
     pub dividend_yield: *const CDecimal,
     /// Types of supported derivatives
     pub stock_derivatives: u8,
+    /// Board
+    pub board: CSecurityBoard,
 }
 
 #[derive(Debug)]
@@ -669,6 +672,7 @@ pub(crate) struct CSecurityStaticInfoOwned {
     pub bps: CDecimal,
     pub dividend_yield: CDecimal,
     pub stock_derivatives: u8,
+    pub board: SecurityBoard,
 }
 
 impl From<SecurityStaticInfo> for CSecurityStaticInfoOwned {
@@ -689,6 +693,7 @@ impl From<SecurityStaticInfo> for CSecurityStaticInfoOwned {
             bps,
             dividend_yield,
             stock_derivatives,
+            board,
         } = info;
         CSecurityStaticInfoOwned {
             symbol: symbol.into(),
@@ -706,6 +711,7 @@ impl From<SecurityStaticInfo> for CSecurityStaticInfoOwned {
             bps: bps.into(),
             dividend_yield: dividend_yield.into(),
             stock_derivatives: stock_derivatives.bits(),
+            board,
         }
     }
 }
@@ -730,6 +736,7 @@ impl ToFFI for CSecurityStaticInfoOwned {
             bps,
             dividend_yield,
             stock_derivatives,
+            board,
         } = self;
         CSecurityStaticInfo {
             symbol: symbol.to_ffi_type(),
@@ -747,6 +754,7 @@ impl ToFFI for CSecurityStaticInfoOwned {
             bps: bps.to_ffi_type(),
             dividend_yield: dividend_yield.to_ffi_type(),
             stock_derivatives: *stock_derivatives,
+            board: (*board).into(),
         }
     }
 }

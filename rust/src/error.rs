@@ -31,6 +31,13 @@ pub enum Error {
         u8,
     ),
 
+    /// Invalid security symbol
+    #[error("invalid security symbol: {symbol}")]
+    InvalidSecuritySymbol {
+        /// Security symbol
+        symbol: String,
+    },
+
     /// HTTP client error
     #[error(transparent)]
     HttpClient(#[from] HttpClientError),
@@ -72,6 +79,7 @@ impl Error {
             },
             Error::DecodeProtobuf(_)
             | Error::DecodeJSON(_)
+            | Error::InvalidSecuritySymbol { .. }
             | Error::ParseField { .. }
             | Error::UnknownCommand(_)
             | Error::HttpClient(_)

@@ -247,6 +247,64 @@ pub enum AdjustType {
     ForwardAdjust,
 }
 
+/// Security board
+#[napi_derive::napi]
+#[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
+#[js(remote = "longbridge::quote::SecurityBoard")]
+#[allow(clippy::upper_case_acronyms)]
+pub enum SecurityBoard {
+    /// Unknown
+    Unknown,
+    /// US Main Board
+    USMain,
+    /// US Pink Board
+    USPink,
+    /// Dow Jones Industrial Average
+    USDJI,
+    /// Nasdsaq Index
+    USNSDQ,
+    /// US Industry Board
+    USSector,
+    /// US Option
+    USOption,
+    /// US Sepecial Option
+    USOptionS,
+    /// Hong Kong Equity Securities
+    HKEquity,
+    /// HK PreIPO Security
+    HKPreIPO,
+    /// HK Warrant
+    HKWarrant,
+    /// Hang Seng Index
+    HKHS,
+    /// HK Industry Board
+    HKSector,
+    /// SH Main Board(Connect)
+    SHMainConnect,
+    /// SH Main Board(Non Connect)
+    SHMainNonConnect,
+    /// SH Science and Technology Innovation Board
+    SHSTAR,
+    /// CN Index
+    CNIX,
+    /// CN Industry Board
+    CNSector,
+    /// SZ Main Board(Connect)
+    SZMainConnect,
+    /// SZ Main Board(Non Connect)
+    SZMainNonConnect,
+    /// SZ Gem Board(Connect)
+    SZGEMConnect,
+    /// SZ Gem Board(Non Connect)
+    SZGEMNonConnect,
+    /// SG Main Board
+    SGMain,
+    /// Singapore Straits Index
+    STI,
+    /// SG Industry Board
+    SGSector,
+}
+
 /// The basic information of securities
 #[napi_derive::napi]
 #[derive(Debug, JsObject)]
@@ -283,6 +341,8 @@ pub struct SecurityStaticInfo {
     /// Types of supported derivatives
     #[js(derivative_types)]
     stock_derivatives: Vec<DerivativeType>,
+    /// Board
+    board: SecurityBoard,
 }
 
 /// Quote of US pre/post market

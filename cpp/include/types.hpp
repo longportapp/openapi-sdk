@@ -223,6 +223,61 @@ struct PushBrokers
   std::vector<Brokers> bid_brokers;
 };
 
+/// Security board
+enum class SecurityBoard
+{
+  /// Unknown
+  Unknown,
+  /// US Main Board
+  USMain,
+  /// US Pink Board
+  USPink,
+  /// Dow Jones Industrial Average
+  USDJI,
+  /// Nasdsaq Index
+  USNSDQ,
+  /// US Industry Board
+  USSector,
+  /// US Option
+  USOption,
+  /// US Sepecial Option
+  USOptionS,
+  /// Hong Kong Equity Securities
+  HKEquity,
+  /// HK PreIPO Security
+  HKPreIPO,
+  /// HK Warrant
+  HKWarrant,
+  /// Hang Seng Index
+  HKHS,
+  /// HK Industry Board
+  HKSector,
+  /// SH Main Board(Connect)
+  SHMainConnect,
+  /// SH Main Board(Non Connect)
+  SHMainNonConnect,
+  /// SH Science and Technology Innovation Board
+  SHSTAR,
+  /// CN Index
+  CNIX,
+  /// CN Industry Board
+  CNSector,
+  /// SZ Main Board(Connect)
+  SZMainConnect,
+  /// SZ Main Board(Non Connect)
+  SZMainNonConnect,
+  /// SZ Gem Board(Connect)
+  SZGEMConnect,
+  /// SZ Gem Board(Non Connect)
+  SZGEMNonConnect,
+  /// SG Main Board
+  SGMain,
+  /// Singapore Straits Index
+  STI,
+  /// SG Industry Board
+  SGSector,
+};
+
 /// The basic information of securities
 struct SecurityStaticInfo
 {
@@ -256,6 +311,8 @@ struct SecurityStaticInfo
   Decimal dividend_yield;
   /// Types of supported derivatives
   DerivativeType stock_derivatives;
+  /// Board
+  SecurityBoard board;
 };
 
 /// Trade status

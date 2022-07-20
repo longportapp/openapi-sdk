@@ -84,6 +84,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_init(env: JNIEnv, _class: J
         longbridge::quote::WarrantType,
         longbridge::quote::Period,
         longbridge::quote::AdjustType,
+        longbridge::quote::SecurityBoard,
         longbridge::trade::OrderSide,
         longbridge::trade::OrderType,
         longbridge::trade::OrderStatus,

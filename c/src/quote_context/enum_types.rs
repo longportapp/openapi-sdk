@@ -149,6 +149,89 @@ pub enum CAdjustType {
     AdjustTypeForward,
 }
 
+/// Adjust type
+#[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
+#[c(remote = "longbridge::quote::SecurityBoard")]
+#[allow(clippy::enum_variant_names)]
+#[repr(C)]
+pub enum CSecurityBoard {
+    /// Unknown
+    #[c(remote = "Unknown")]
+    SecurityBoardUnknown,
+    /// US Main Board
+    #[c(remote = "USMain")]
+    SecurityBoardUSMain,
+    /// US Pink Board
+    #[c(remote = "USPink")]
+    SecurityBoardUSPink,
+    /// Dow Jones Industrial Average
+    #[c(remote = "USDJI")]
+    SecurityBoardUSDJI,
+    /// Nasdsaq Index
+    #[c(remote = "USNSDQ")]
+    SecurityBoardUSNSDQ,
+    /// US Industry Board
+    #[c(remote = "USSector")]
+    SecurityBoardUSSector,
+    /// US Option
+    #[c(remote = "USOption")]
+    SecurityBoardUSOption,
+    /// US Sepecial Option
+    #[c(remote = "USOptionS")]
+    SecurityBoardUSOptionS,
+    /// Hong Kong Equity Securities
+    #[c(remote = "HKEquity")]
+    SecurityBoardHKEquity,
+    /// HK PreIPO Security
+    #[c(remote = "HKPreIPO")]
+    SecurityBoardHKPreIPO,
+    /// HK Warrant
+    #[c(remote = "HKWarrant")]
+    SecurityBoardHKWarrant,
+    /// Hang Seng Index
+    #[c(remote = "HKHS")]
+    SecurityBoardHKHS,
+    /// HK Industry Board
+    #[c(remote = "HKSector")]
+    SecurityBoardHKSector,
+    /// SH Main Board(Connect)
+    #[c(remote = "SHMainConnect")]
+    SecurityBoardSHMainConnect,
+    /// SH Main Board(Non Connect)
+    #[c(remote = "SHMainNonConnect")]
+    SecurityBoardSHMainNonConnect,
+    /// SH Science and Technology Innovation Board
+    #[c(remote = "SHSTAR")]
+    SecurityBoardSHSTAR,
+    /// CN Index
+    #[c(remote = "CNIX")]
+    SecurityBoardCNIX,
+    /// CN Industry Board
+    #[c(remote = "CNSector")]
+    SecurityBoardCNSector,
+    /// SZ Main Board(Connect)
+    #[c(remote = "SZMainConnect")]
+    SecurityBoardSZMainConnect,
+    /// SZ Main Board(Non Connect)
+    #[c(remote = "SZMainNonConnect")]
+    SecurityBoardSZMainNonConnect,
+    /// SZ Gem Board(Connect)
+    #[c(remote = "SZGEMConnect")]
+    SecurityBoardSZGEMConnect,
+    /// SZ Gem Board(Non Connect)
+    #[c(remote = "SZGEMNonConnect")]
+    SecurityBoardSZGEMNonConnect,
+    /// SG Main Board
+    #[c(remote = "SGMain")]
+    SecurityBoardSGMain,
+    /// Singapore Straits Index
+    #[c(remote = "STI")]
+    SecurityBoardSTI,
+    /// SG Industry Board
+    #[c(remote = "SGSector")]
+    SecurityBoardSGSector,
+}
+
 /// Candlestick period
 #[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
 #[c(remote = "longbridge::quote::Period")]

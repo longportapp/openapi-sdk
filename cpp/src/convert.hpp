@@ -33,6 +33,7 @@ using longbridge::quote::PushDepth;
 using longbridge::quote::PushQuote;
 using longbridge::quote::PushTrades;
 using longbridge::quote::RealtimeQuote;
+using longbridge::quote::SecurityBoard;
 using longbridge::quote::SecurityBrokers;
 using longbridge::quote::SecurityDepth;
 using longbridge::quote::SecurityQuote;
@@ -188,6 +189,65 @@ convert(lb_period_t period)
   }
 }
 
+inline SecurityBoard
+convert(lb_security_board_t ty)
+{
+  switch (ty) {
+    case SecurityBoardUnknown:
+      return SecurityBoard::Unknown;
+    case SecurityBoardUSMain:
+      return SecurityBoard::USMain;
+    case SecurityBoardUSPink:
+      return SecurityBoard::USPink;
+    case SecurityBoardUSDJI:
+      return SecurityBoard::USDJI;
+    case SecurityBoardUSNSDQ:
+      return SecurityBoard::USNSDQ;
+    case SecurityBoardUSSector:
+      return SecurityBoard::USSector;
+    case SecurityBoardUSOption:
+      return SecurityBoard::USOption;
+    case SecurityBoardUSOptionS:
+      return SecurityBoard::USOptionS;
+    case SecurityBoardHKEquity:
+      return SecurityBoard::HKEquity;
+    case SecurityBoardHKPreIPO:
+      return SecurityBoard::HKPreIPO;
+    case SecurityBoardHKWarrant:
+      return SecurityBoard::HKWarrant;
+    case SecurityBoardHKHS:
+      return SecurityBoard::HKHS;
+    case SecurityBoardHKSector:
+      return SecurityBoard::HKSector;
+    case SecurityBoardSHMainConnect:
+      return SecurityBoard::SHMainConnect;
+    case SecurityBoardSHMainNonConnect:
+      return SecurityBoard::SHMainNonConnect;
+    case SecurityBoardSHSTAR:
+      return SecurityBoard::SHSTAR;
+    case SecurityBoardCNIX:
+      return SecurityBoard::CNIX;
+    case SecurityBoardCNSector:
+      return SecurityBoard::CNSector;
+    case SecurityBoardSZMainConnect:
+      return SecurityBoard::SZMainConnect;
+    case SecurityBoardSZMainNonConnect:
+      return SecurityBoard::SZMainNonConnect;
+    case SecurityBoardSZGEMConnect:
+      return SecurityBoard::SZGEMConnect;
+    case SecurityBoardSZGEMNonConnect:
+      return SecurityBoard::SZGEMNonConnect;
+    case SecurityBoardSGMain:
+      return SecurityBoard::SGMain;
+    case SecurityBoardSTI:
+      return SecurityBoard::STI;
+    case SecurityBoardSGSector:
+      return SecurityBoard::SGSector;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
 inline SecurityStaticInfo
 convert(const lb_security_static_info_t* info)
 {
@@ -205,7 +265,8 @@ convert(const lb_security_static_info_t* info)
                              Decimal(info->eps_ttm),
                              Decimal(info->bps),
                              Decimal(info->dividend_yield),
-                             DerivativeType{ info->stock_derivatives } };
+                             DerivativeType{ info->stock_derivatives },
+                             convert(info->board) };
 }
 
 inline Subscription

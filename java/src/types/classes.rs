@@ -112,7 +112,8 @@ impl_java_class!(
         bps,
         dividend_yield,
         #[java(derivative_types)]
-        stock_derivatives
+        stock_derivatives,
+        board,
     ]
 );
 

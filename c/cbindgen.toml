@@ -93,6 +93,7 @@ cpp_compat = true
 "CWatchListGroup" = "lb_watch_list_group_t"
 "CWatchListSecurity" = "lb_watch_list_security_t"
 "CMarginRatio" = "lb_margin_ratio_t"
+"CSecurityBoard" = "lb_security_board_t"
 
 [export]
 include = [

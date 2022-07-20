@@ -47,6 +47,8 @@ pub struct StaticInfo {
     pub dividend_yield: ::prost::alloc::string::String,
     #[prost(int32, repeated, tag="16")]
     pub stock_derivatives: ::prost::alloc::vec::Vec<i32>,
+    #[prost(string, tag="17")]
+    pub board: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SecurityQuoteResponse {

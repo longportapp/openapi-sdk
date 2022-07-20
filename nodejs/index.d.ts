@@ -149,6 +149,59 @@ export const enum AdjustType {
   /** Adjust forward */
   ForwardAdjust = 1
 }
+/** Security board */
+export const enum SecurityBoard {
+  /** Unknown */
+  Unknown = 0,
+  /** US Main Board */
+  USMain = 1,
+  /** US Pink Board */
+  USPink = 2,
+  /** Dow Jones Industrial Average */
+  USDJI = 3,
+  /** Nasdsaq Index */
+  USNSDQ = 4,
+  /** US Industry Board */
+  USSector = 5,
+  /** US Option */
+  USOption = 6,
+  /** US Sepecial Option */
+  USOptionS = 7,
+  /** Hong Kong Equity Securities */
+  HKEquity = 8,
+  /** HK PreIPO Security */
+  HKPreIPO = 9,
+  /** HK Warrant */
+  HKWarrant = 10,
+  /** Hang Seng Index */
+  HKHS = 11,
+  /** HK Industry Board */
+  HKSector = 12,
+  /** SH Main Board(Connect) */
+  SHMainConnect = 13,
+  /** SH Main Board(Non Connect) */
+  SHMainNonConnect = 14,
+  /** SH Science and Technology Innovation Board */
+  SHSTAR = 15,
+  /** CN Index */
+  CNIX = 16,
+  /** CN Industry Board */
+  CNSector = 17,
+  /** SZ Main Board(Connect) */
+  SZMainConnect = 18,
+  /** SZ Main Board(Non Connect) */
+  SZMainNonConnect = 19,
+  /** SZ Gem Board(Connect) */
+  SZGEMConnect = 20,
+  /** SZ Gem Board(Non Connect) */
+  SZGEMNonConnect = 21,
+  /** SG Main Board */
+  SGMain = 22,
+  /** Singapore Straits Index */
+  STI = 23,
+  /** SG Industry Board */
+  SGSector = 24
+}
 /** Options for get cash flow request */
 export interface GetCashFlowOptions {
   /** Start time */
@@ -1166,6 +1219,8 @@ export class SecurityStaticInfo {
   get dividendYield(): Decimal
   /** Types of supported derivatives */
   get stockDerivatives(): Array<DerivativeType>
+  /** Board */
+  get board(): SecurityBoard
 }
 /** Quote of US pre/post market */
 export class PrePostQuote {

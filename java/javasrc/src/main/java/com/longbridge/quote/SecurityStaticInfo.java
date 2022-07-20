@@ -19,6 +19,7 @@ public class SecurityStaticInfo {
     private BigDecimal bps;
     private BigDecimal dividendYield;
     private DerivativeType[] stockDerivatives;
+    private SecurityBoard board;
 
     public String getSymbol() {
         return symbol;
@@ -80,12 +81,17 @@ public class SecurityStaticInfo {
         return stockDerivatives;
     }
 
+    public SecurityBoard getBoard() {
+        return board;
+    }
+
     @Override
     public String toString() {
-        return "SecurityStaticInfo [bps=" + bps + ", circulatingShares=" + circulatingShares + ", currency=" + currency
-                + ", dividendYield=" + dividendYield + ", eps=" + eps + ", epsTtm=" + epsTtm + ", exchange=" + exchange
-                + ", hkShares=" + hkShares + ", lotSize=" + lotSize + ", nameCn=" + nameCn + ", nameEn=" + nameEn
-                + ", nameHk=" + nameHk + ", stockDerivatives=" + Arrays.toString(stockDerivatives) + ", symbol="
-                + symbol + ", totalShares=" + totalShares + "]";
+        return "SecurityStaticInfo [board=" + board + ", bps=" + bps + ", circulatingShares=" + circulatingShares
+                + ", currency=" + currency + ", dividendYield=" + dividendYield + ", eps=" + eps + ", epsTtm=" + epsTtm
+                + ", exchange=" + exchange + ", hkShares=" + hkShares + ", lotSize=" + lotSize + ", nameCn=" + nameCn
+                + ", nameEn=" + nameEn + ", nameHk=" + nameHk + ", stockDerivatives="
+                + Arrays.toString(stockDerivatives) + ", symbol=" + symbol + ", totalShares=" + totalShares + "]";
     }
+
 }

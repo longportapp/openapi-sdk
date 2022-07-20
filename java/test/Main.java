@@ -7,7 +7,8 @@ import java.util.Arrays;
 class Main {
     public static void main(String[] args) throws Exception {
         try (Config config = Config.fromEnv(); QuoteContext ctx = QuoteContext.create(config).get()) {
-            WatchListGroup[] resp = ctx.getWatchList().get();
+            SecurityStaticInfo[] resp = ctx.getStaticInfo(new String[] { "700.HK", "AAPL.US", "TSLA.US", "NFLX.US" })
+                    .get();
             System.out.println(Arrays.toString(resp));
         }
     }

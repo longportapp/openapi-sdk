@@ -6,8 +6,9 @@ use std::{
 use longbridge_candlesticks::{IsHalfTradeDay, Type, UpdateAction};
 use longbridge_httpcli::HttpClient;
 use longbridge_proto::quote::{
-    AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, Period, SecurityCandlestickRequest,
-    SecurityCandlestickResponse, SubscribeRequest, TradeSession, UnsubscribeRequest,
+    AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, MultiSecurityRequest, Period,
+    SecurityCandlestickRequest, SecurityCandlestickResponse, SecurityStaticInfoResponse,
+    SubscribeRequest, TradeSession, UnsubscribeRequest,
 };
 use longbridge_wscli::{
     CodecType, Platform, ProtocolVersion, WsClient, WsClientError, WsEvent, WsSession,
@@ -24,8 +25,8 @@ use crate::{
         store::Store,
         sub_flags::SubFlags,
         utils::{format_date, get_market_from_symbol, parse_date},
-        Candlestick, PushCandlestick, PushEvent, PushEventDetail, RealtimeQuote, SecurityBrokers,
-        SecurityDepth, Subscription, Trade,
+        Candlestick, PushCandlestick, PushEvent, PushEventDetail, RealtimeQuote, SecurityBoard,
+        SecurityBrokers, SecurityDepth, Subscription, Trade,
     },
     Config, Error, Market, Result,
 };
@@ -482,6 +483,27 @@ impl Core {
             return Ok(());
         }
 
+        let security_data = self.store.securities.entry(symbol.clone()).or_default();
+        if security_data.board != SecurityBoard::Unknown {
+            // update board
+            let resp: SecurityStaticInfoResponse = self
+                .ws_cli
+                .request(
+                    cmd_code::GET_BASIC_INFO,
+                    None,
+                    MultiSecurityRequest {
+                        symbol: vec![symbol.clone()],
+                    },
+                )
+                .await?;
+            if resp.secu_static_info.is_empty() {
+                return Err(Error::InvalidSecuritySymbol {
+                    symbol: symbol.clone(),
+                });
+            }
+            security_data.board = resp.secu_static_info[0].board.parse().unwrap_or_default();
+        }
+
         // pull candlesticks
         let resp: SecurityCandlestickResponse = self
             .ws_cli
@@ -496,14 +518,8 @@ impl Core {
                 },
             )
             .await?;
-        *self
-            .store
-            .securities
-            .entry(symbol.clone())
-            .or_default()
-            .candlesticks
-            .entry(period)
-            .or_default() = resp
+
+        *security_data.candlesticks.entry(period).or_default() = resp
             .candlesticks
             .into_iter()
             .map(TryInto::try_into)
@@ -645,11 +661,11 @@ impl Core {
                             _ => None,
                         });
                     if let Some(market) = market {
-                        if let Some(periods) = self
+                        if let Some((merge_ty, periods)) = self
                             .store
                             .securities
                             .get_mut(&event.symbol)
-                            .map(|data| &mut data.candlesticks)
+                            .map(|data| (get_merger_ty(data.board), &mut data.candlesticks))
                         {
                             for (period, candlesticks) in periods {
                                 let prev =
@@ -681,7 +697,7 @@ impl Core {
                                     }
 
                                     let res = merger.merge(
-                                        Type::Normal,
+                                        merge_ty,
                                         prev.as_ref(),
                                         longbridge_candlesticks::Trade {
                                             time: trade.timestamp,
@@ -812,6 +828,14 @@ impl Core {
                 candlesticks.to_vec()
             })
             .unwrap_or_default()
+    }
+}
+
+#[inline]
+fn get_merger_ty(board: SecurityBoard) -> Type {
+    match board {
+        SecurityBoard::USOptionS => Type::USOQ,
+        _ => Type::Normal,
     }
 }
 

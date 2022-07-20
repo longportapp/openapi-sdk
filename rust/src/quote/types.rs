@@ -2,7 +2,7 @@ use longbridge_proto::quote::{self, Period, TradeSession, TradeStatus};
 use num_enum::{FromPrimitive, IntoPrimitive};
 use rust_decimal::Decimal;
 use serde::Deserialize;
-use strum_macros::EnumString;
+use strum_macros::{Display, EnumString};
 use time::{Date, OffsetDateTime, Time};
 
 use crate::{
@@ -153,6 +153,63 @@ bitflags::bitflags! {
     }
 }
 
+/// Security board
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+#[allow(clippy::upper_case_acronyms)]
+pub enum SecurityBoard {
+    /// Unknown
+    #[strum(disabled)]
+    Unknown,
+    /// US Main Board
+    USMain,
+    /// US Pink Board
+    USPink,
+    /// Dow Jones Industrial Average
+    USDJI,
+    /// Nasdsaq Index
+    USNSDQ,
+    /// US Industry Board
+    USSector,
+    /// US Option
+    USOption,
+    /// US Sepecial Option
+    USOptionS,
+    /// Hong Kong Equity Securities
+    HKEquity,
+    /// HK PreIPO Security
+    HKPreIPO,
+    /// HK Warrant
+    HKWarrant,
+    /// Hang Seng Index
+    HKHS,
+    /// HK Industry Board
+    HKSector,
+    /// SH Main Board(Connect)
+    SHMainConnect,
+    /// SH Main Board(Non Connect)
+    SHMainNonConnect,
+    /// SH Science and Technology Innovation Board
+    SHSTAR,
+    /// CN Index
+    CNIX,
+    /// CN Industry Board
+    CNSector,
+    /// SZ Main Board(Connect)
+    SZMainConnect,
+    /// SZ Main Board(Non Connect)
+    SZMainNonConnect,
+    /// SZ Gem Board(Connect)
+    SZGEMConnect,
+    /// SZ Gem Board(Non Connect)
+    SZGEMNonConnect,
+    /// SG Main Board
+    SGMain,
+    /// Singapore Straits Index
+    STI,
+    /// SG Industry Board
+    SGSector,
+}
+
 /// The basic information of securities
 #[derive(Debug)]
 pub struct SecurityStaticInfo {
@@ -186,6 +243,8 @@ pub struct SecurityStaticInfo {
     pub dividend_yield: Decimal,
     /// Types of supported derivatives
     pub stock_derivatives: DerivativeType,
+    /// Board
+    pub board: SecurityBoard,
 }
 
 impl TryFrom<quote::StaticInfo> for SecurityStaticInfo {
@@ -215,6 +274,7 @@ impl TryFrom<quote::StaticInfo> for SecurityStaticInfo {
                     _ => acc,
                 },
             ),
+            board: resp.board.parse().unwrap_or(SecurityBoard::Unknown),
         })
     }
 }
@@ -960,4 +1020,4 @@ pub struct WatchListGroup {
     pub securities: Vec<WatchListSecurity>,
 }
 
-impl_default_for_enum_string!(OptionType, OptionDirection, WarrantType);
+impl_default_for_enum_string!(OptionType, OptionDirection, WarrantType, SecurityBoard);

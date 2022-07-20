@@ -269,6 +269,137 @@ class DerivativeType:
         """
 
 
+class SecurityBoard:
+    """
+    Security board
+    """
+
+    class Unknown(SecurityBoard):
+        """
+        Unknown
+        """
+
+    class USMain(SecurityBoard):
+        """
+        US Pink Board
+        """
+
+    class USPink(SecurityBoard):
+        """
+        US Pink Board
+        """
+
+    class USDJI(SecurityBoard):
+        """
+        Dow Jones Industrial Average
+        """
+
+    class USNSDQ(SecurityBoard):
+        """
+        Nasdsaq Index
+        """
+
+    class USSector(SecurityBoard):
+        """
+        US Industry Board
+        """
+
+    class USOption(SecurityBoard):
+        """
+        US Option
+        """
+
+    class USOptionS(SecurityBoard):
+        """
+        US Sepecial Option
+        """
+
+    class HKEquity(SecurityBoard):
+        """
+        Hong Kong Equity Securities
+        """
+
+    class HKPreIPO(SecurityBoard):
+        """
+        HK PreIPO Security
+        """
+
+    class HKWarrant(SecurityBoard):
+        """
+        HK Warrant
+        """
+
+    class HKHS(SecurityBoard):
+        """
+        Hang Seng Index
+        """
+
+    class HKSector(SecurityBoard):
+        """
+        HK Industry Board
+        """
+
+    class SHMainConnect(SecurityBoard):
+        """
+        SH Main Board(Connect)
+        """
+
+    class SHMainNonConnect(SecurityBoard):
+        """
+        SH Main Board(Non Connect)
+        """
+
+    class SHSTAR(SecurityBoard):
+        """
+        SH Science and Technology Innovation Board
+        """
+
+    class CNIX(SecurityBoard):
+        """
+        CN Index
+        """
+
+    class CNSector(SecurityBoard):
+        """
+        CN Industry Board
+        """
+
+    class SZMainConnect(SecurityBoard):
+        """
+        SZ Main Board(Connect)
+        """
+
+    class SZMainNonConnect(SecurityBoard):
+        """
+        SZ Main Board(Non Connect)
+        """
+
+    class SZGEMConnect(SecurityBoard):
+        """
+        SZ Gem Board(Connect)
+        """
+
+    class SZGEMNonConnect(SecurityBoard):
+        """
+        SZ Gem Board(Non Connect)
+        """
+
+    class SGMain(SecurityBoard):
+        """
+        SG Main Board
+        """
+
+    class STI(SecurityBoard):
+        """
+        Singapore Straits Index
+        """
+
+    class SGSector(SecurityBoard):
+        """
+        SG Industry Board
+        """
+
+
 class SecurityStaticInfo:
     """
     The basic information of securities
@@ -347,6 +478,11 @@ class SecurityStaticInfo:
     stock_derivatives: List[Type[DerivativeType]]
     """
     Types of supported derivatives
+    """
+
+    board: Type[SecurityBoard]
+    """
+    Board
     """
 
 

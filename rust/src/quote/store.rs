@@ -4,7 +4,8 @@ use longbridge_proto::quote::Period;
 
 use crate::quote::{
     push_types::{PushEventDetail, PushQuote},
-    Brokers, Candlestick, Depth, PushBrokers, PushDepth, PushEvent, PushTrades, Trade,
+    Brokers, Candlestick, Depth, PushBrokers, PushDepth, PushEvent, PushTrades, SecurityBoard,
+    Trade,
 };
 
 macro_rules! check_sequence {
@@ -52,6 +53,7 @@ pub(crate) struct SecuritiesData {
     pub(crate) trades_sequence: i64,
     pub(crate) trades: Vec<Trade>,
 
+    pub(crate) board: SecurityBoard,
     pub(crate) candlesticks: HashMap<Period, Vec<Candlestick>>,
 }
 

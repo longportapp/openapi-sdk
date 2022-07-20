@@ -152,6 +152,38 @@ impl_java_enum!(
 );
 
 impl_java_enum!(
+    "com/longbridge/quote/SecurityBoard",
+    longbridge::quote::SecurityBoard,
+    [
+        Unknown,
+        USMain,
+        USPink,
+        USDJI,
+        USNSDQ,
+        USSector,
+        USOption,
+        USOptionS,
+        HKEquity,
+        HKPreIPO,
+        HKWarrant,
+        HKHS,
+        HKSector,
+        SHMainConnect,
+        SHMainNonConnect,
+        SHSTAR,
+        CNIX,
+        CNSector,
+        SZMainConnect,
+        SZMainNonConnect,
+        SZGEMConnect,
+        SZGEMNonConnect,
+        SGMain,
+        STI,
+        SGSector,
+    ]
+);
+
+impl_java_enum!(
     "com/longbridge/trade/OrderSide",
     longbridge::trade::OrderSide,
     [Unknown, Buy, Sell]
