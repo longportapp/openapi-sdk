@@ -6,7 +6,7 @@
 
 _Install Longbridge OpenAPI SDK_
 
-[`Download C++ SDK`](https://static.lbkrs.com/openapi-sdk/openapi-cpp-sdk-0.2.28.tar.gz)
+[`Download C++ SDK`]([`Download C SDK`](https://github.com/longbridgeapp/openapi-sdk/releases))
 
 _Setting environment variables(MacOS/Linux)_
 
