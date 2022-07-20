@@ -966,11 +966,71 @@
 <span id="961">961</span>
 <span id="962">962</span>
 <span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
+<span id="966">966</span>
+<span id="967">967</span>
+<span id="968">968</span>
+<span id="969">969</span>
+<span id="970">970</span>
+<span id="971">971</span>
+<span id="972">972</span>
+<span id="973">973</span>
+<span id="974">974</span>
+<span id="975">975</span>
+<span id="976">976</span>
+<span id="977">977</span>
+<span id="978">978</span>
+<span id="979">979</span>
+<span id="980">980</span>
+<span id="981">981</span>
+<span id="982">982</span>
+<span id="983">983</span>
+<span id="984">984</span>
+<span id="985">985</span>
+<span id="986">986</span>
+<span id="987">987</span>
+<span id="988">988</span>
+<span id="989">989</span>
+<span id="990">990</span>
+<span id="991">991</span>
+<span id="992">992</span>
+<span id="993">993</span>
+<span id="994">994</span>
+<span id="995">995</span>
+<span id="996">996</span>
+<span id="997">997</span>
+<span id="998">998</span>
+<span id="999">999</span>
+<span id="1000">1000</span>
+<span id="1001">1001</span>
+<span id="1002">1002</span>
+<span id="1003">1003</span>
+<span id="1004">1004</span>
+<span id="1005">1005</span>
+<span id="1006">1006</span>
+<span id="1007">1007</span>
+<span id="1008">1008</span>
+<span id="1009">1009</span>
+<span id="1010">1010</span>
+<span id="1011">1011</span>
+<span id="1012">1012</span>
+<span id="1013">1013</span>
+<span id="1014">1014</span>
+<span id="1015">1015</span>
+<span id="1016">1016</span>
+<span id="1017">1017</span>
+<span id="1018">1018</span>
+<span id="1019">1019</span>
+<span id="1020">1020</span>
+<span id="1021">1021</span>
+<span id="1022">1022</span>
+<span id="1023">1023</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>::{<span class="self">self</span>, <span class="ident">Period</span>, <span class="ident">TradeSession</span>, <span class="ident">TradeStatus</span>};
 <span class="kw">use</span> <span class="ident">num_enum</span>::{<span class="ident">FromPrimitive</span>, <span class="ident">IntoPrimitive</span>};
 <span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
 <span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
-<span class="kw">use</span> <span class="ident">strum_macros::EnumString</span>;
+<span class="kw">use</span> <span class="ident">strum_macros</span>::{<span class="ident">Display</span>, <span class="ident">EnumString</span>};
 <span class="kw">use</span> <span class="ident">time</span>::{<span class="ident">Date</span>, <span class="ident">OffsetDateTime</span>, <span class="ident">Time</span>};
 
 <span class="kw">use</span> <span class="kw">crate</span>::{
@@ -1121,6 +1181,63 @@
     }
 }
 
+<span class="doccomment">/// Security board</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SecurityBoard</span> {
+    <span class="doccomment">/// Unknown</span>
+    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
+    <span class="ident">Unknown</span>,
+    <span class="doccomment">/// US Main Board</span>
+    <span class="ident">USMain</span>,
+    <span class="doccomment">/// US Pink Board</span>
+    <span class="ident">USPink</span>,
+    <span class="doccomment">/// Dow Jones Industrial Average</span>
+    <span class="ident">USDJI</span>,
+    <span class="doccomment">/// Nasdsaq Index</span>
+    <span class="ident">USNSDQ</span>,
+    <span class="doccomment">/// US Industry Board</span>
+    <span class="ident">USSector</span>,
+    <span class="doccomment">/// US Option</span>
+    <span class="ident">USOption</span>,
+    <span class="doccomment">/// US Sepecial Option</span>
+    <span class="ident">USOptionS</span>,
+    <span class="doccomment">/// Hong Kong Equity Securities</span>
+    <span class="ident">HKEquity</span>,
+    <span class="doccomment">/// HK PreIPO Security</span>
+    <span class="ident">HKPreIPO</span>,
+    <span class="doccomment">/// HK Warrant</span>
+    <span class="ident">HKWarrant</span>,
+    <span class="doccomment">/// Hang Seng Index</span>
+    <span class="ident">HKHS</span>,
+    <span class="doccomment">/// HK Industry Board</span>
+    <span class="ident">HKSector</span>,
+    <span class="doccomment">/// SH Main Board(Connect)</span>
+    <span class="ident">SHMainConnect</span>,
+    <span class="doccomment">/// SH Main Board(Non Connect)</span>
+    <span class="ident">SHMainNonConnect</span>,
+    <span class="doccomment">/// SH Science and Technology Innovation Board</span>
+    <span class="ident">SHSTAR</span>,
+    <span class="doccomment">/// CN Index</span>
+    <span class="ident">CNIX</span>,
+    <span class="doccomment">/// CN Industry Board</span>
+    <span class="ident">CNSector</span>,
+    <span class="doccomment">/// SZ Main Board(Connect)</span>
+    <span class="ident">SZMainConnect</span>,
+    <span class="doccomment">/// SZ Main Board(Non Connect)</span>
+    <span class="ident">SZMainNonConnect</span>,
+    <span class="doccomment">/// SZ Gem Board(Connect)</span>
+    <span class="ident">SZGEMConnect</span>,
+    <span class="doccomment">/// SZ Gem Board(Non Connect)</span>
+    <span class="ident">SZGEMNonConnect</span>,
+    <span class="doccomment">/// SG Main Board</span>
+    <span class="ident">SGMain</span>,
+    <span class="doccomment">/// Singapore Straits Index</span>
+    <span class="ident">STI</span>,
+    <span class="doccomment">/// SG Industry Board</span>
+    <span class="ident">SGSector</span>,
+}
+
 <span class="doccomment">/// The basic information of securities</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SecurityStaticInfo</span> {
@@ -1154,6 +1271,8 @@
     <span class="kw">pub</span> <span class="ident">dividend_yield</span>: <span class="ident">Decimal</span>,
     <span class="doccomment">/// Types of supported derivatives</span>
     <span class="kw">pub</span> <span class="ident">stock_derivatives</span>: <span class="ident">DerivativeType</span>,
+    <span class="doccomment">/// Board</span>
+    <span class="kw">pub</span> <span class="ident">board</span>: <span class="ident">SecurityBoard</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::StaticInfo</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SecurityStaticInfo</span> {
@@ -1183,6 +1302,7 @@
                     <span class="kw">_</span> =&gt; <span class="ident">acc</span>,
                 },
             ),
+            <span class="ident">board</span>: <span class="ident">resp</span>.<span class="ident">board</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or</span>(<span class="ident">SecurityBoard::Unknown</span>),
         })
     }
 }
@@ -1928,7 +2048,7 @@
     <span class="kw">pub</span> <span class="ident">securities</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WatchListSecurity</span><span class="op">&gt;</span>,
 }
 
-<span class="macro">impl_default_for_enum_string!</span>(<span class="ident">OptionType</span>, <span class="ident">OptionDirection</span>, <span class="ident">WarrantType</span>);
+<span class="macro">impl_default_for_enum_string!</span>(<span class="ident">OptionType</span>, <span class="ident">OptionDirection</span>, <span class="ident">WarrantType</span>, <span class="ident">SecurityBoard</span>);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.1 (e092d0b6b 2022-07-16)" ></div>
 </body></html>

@@ -138,13 +138,16 @@
 <span id="133">133</span>
 <span id="134">134</span>
 <span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 
 <span class="kw">use</span> <span class="ident">longbridge_proto::quote::Period</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::quote</span>::{
     <span class="ident">push_types</span>::{<span class="ident">PushEventDetail</span>, <span class="ident">PushQuote</span>},
-    <span class="ident">Brokers</span>, <span class="ident">Candlestick</span>, <span class="ident">Depth</span>, <span class="ident">PushBrokers</span>, <span class="ident">PushDepth</span>, <span class="ident">PushEvent</span>, <span class="ident">PushTrades</span>, <span class="ident">Trade</span>,
+    <span class="ident">Brokers</span>, <span class="ident">Candlestick</span>, <span class="ident">Depth</span>, <span class="ident">PushBrokers</span>, <span class="ident">PushDepth</span>, <span class="ident">PushEvent</span>, <span class="ident">PushTrades</span>, <span class="ident">SecurityBoard</span>,
+    <span class="ident">Trade</span>,
 };
 
 <span class="macro">macro_rules!</span> <span class="ident">check_sequence</span> {
@@ -192,6 +195,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">trades_sequence</span>: <span class="ident">i64</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">trades</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span>,
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">board</span>: <span class="ident">SecurityBoard</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">candlesticks</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Period</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Candlestick</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
@@ -274,5 +278,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.1 (e092d0b6b 2022-07-16)" ></div>
 </body></html>

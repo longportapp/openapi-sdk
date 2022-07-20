@@ -130,6 +130,14 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt::Display</span>;
 
 <span class="kw">use</span> <span class="ident">longbridge_httpcli::HttpClientError</span>;
@@ -162,6 +170,13 @@
         <span class="doccomment">/// Command code</span>
         <span class="ident">u8</span>,
     ),
+
+    <span class="doccomment">/// Invalid security symbol</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;invalid security symbol: {symbol}&quot;</span>)]</span>
+    <span class="ident">InvalidSecuritySymbol</span> {
+        <span class="doccomment">/// Security symbol</span>
+        <span class="ident">symbol</span>: <span class="ident">String</span>,
+    },
 
     <span class="doccomment">/// HTTP client error</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
@@ -204,6 +219,7 @@
             },
             <span class="ident">Error::DecodeProtobuf</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident">Error::DecodeJSON</span>(<span class="kw">_</span>)
+            <span class="op">|</span> <span class="ident">Error::InvalidSecuritySymbol</span> { .. }
             <span class="op">|</span> <span class="ident">Error::ParseField</span> { .. }
             <span class="op">|</span> <span class="ident">Error::UnknownCommand</span>(<span class="kw">_</span>)
             <span class="op">|</span> <span class="ident">Error::HttpClient</span>(<span class="kw">_</span>)
@@ -258,5 +274,5 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.1 (e092d0b6b 2022-07-16)" ></div>
 </body></html>
