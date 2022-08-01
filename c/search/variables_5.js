@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fm_5ffactor_729',['fm_factor',['../structlb__margin__ratio__t.html#acfc278928e0946bd0ab5d15d0156dd86',1,'lb_margin_ratio_t']]],
-  ['frozen_5fcash_730',['frozen_cash',['../structlb__cash__info__t.html#a574dd0ea4e1438186829379a0a305e11',1,'lb_cash_info_t']]]
+  ['fm_5ffactor_731',['fm_factor',['../structlb__margin__ratio__t.html#acfc278928e0946bd0ab5d15d0156dd86',1,'lb_margin_ratio_t']]],
+  ['frozen_5fcash_732',['frozen_cash',['../structlb__cash__info__t.html#a574dd0ea4e1438186829379a0a305e11',1,'lb_cash_info_t']]]
 ];

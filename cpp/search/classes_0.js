@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['accountbalance_472',['AccountBalance',['../structlongbridge_1_1trade_1_1_account_balance.html',1,'longbridge::trade']]],
-  ['asyncresult_473',['AsyncResult',['../structlongbridge_1_1_async_result.html',1,'longbridge']]]
+  ['accountbalance_473',['AccountBalance',['../structlongbridge_1_1trade_1_1_account_balance.html',1,'longbridge::trade']]],
+  ['asyncresult_474',['AsyncResult',['../structlongbridge_1_1_async_result.html',1,'longbridge']]]
 ];

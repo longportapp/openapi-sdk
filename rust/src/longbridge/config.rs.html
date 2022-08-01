@@ -172,8 +172,44 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
-</pre><pre class="rust"><code><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">http</span>::{<span class="ident">header</span>, <span class="ident">HeaderValue</span>, <span class="ident">Request</span>};
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">http::Method</span>;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">http</span>::{<span class="ident">header</span>, <span class="ident">HeaderValue</span>, <span class="ident">Request</span>};
 <span class="kw">use</span> <span class="ident">longbridge_httpcli</span>::{<span class="ident">HttpClient</span>, <span class="ident">HttpClientConfig</span>};
+<span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
 <span class="kw">use</span> <span class="ident">tokio_tungstenite::tungstenite::client::IntoClientRequest</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error::Result</span>;
@@ -339,6 +375,38 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
     ) -&gt; <span class="ident">tokio_tungstenite::tungstenite::Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">create_ws_request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">trade_ws_url</span>)
+    }
+
+    <span class="doccomment">/// Gets a new `access_token`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/refresh-token-api&gt;</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">refresh_access_token</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
+        <span class="kw">struct</span> <span class="ident">Response</span> {
+            <span class="ident">token</span>: <span class="ident">String</span>,
+        }
+
+        <span class="kw">let</span> <span class="ident">new_token</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">create_http_client</span>()
+            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/token/refresh&quot;</span>)
+            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
+            .<span class="ident">send</span>()
+            .<span class="kw">await</span><span class="question-mark">?</span>
+            .<span class="ident">token</span>;
+        <span class="prelude-val">Ok</span>(<span class="ident">new_token</span>)
+    }
+
+    <span class="doccomment">/// Gets a new `access_token`, and also replaces the `access_token` in</span>
+    <span class="doccomment">/// `Config`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/refresh-token-api&gt;</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;blocking&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;blocking&quot;</span>)))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">refresh_access_token_blocking</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="ident">tokio::runtime::Builder::new_current_thread</span>()
+            .<span class="ident">build</span>()
+            .<span class="ident">expect</span>(<span class="string">&quot;create tokio runtime&quot;</span>)
+            .<span class="ident">block_on</span>(<span class="self">self</span>.<span class="ident">refresh_access_token</span>())
     }
 }
 </code></pre></div>
