@@ -2486,6 +2486,13 @@ struct lb_config_t *lb_config_new(const char *app_key,
 void lb_config_free(struct lb_config_t *config);
 
 /**
+ * Gets a new `access_token`
+ */
+void lb_config_refresh_access_token(struct lb_config_t *config,
+                                    lb_async_callback_t callback,
+                                    void *userdata);
+
+/**
  * Free the error object
  */
 void lb_error_free(struct lb_error_t *error);

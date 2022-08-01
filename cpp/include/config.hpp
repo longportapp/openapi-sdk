@@ -4,6 +4,7 @@
 #include <string>
 #include <utility>
 
+#include "async_result.hpp"
 #include "status.hpp"
 #include "types.hpp"
 
@@ -47,6 +48,9 @@ public:
 
   operator const lb_config_t*() const;
   static Status from_env(Config& config);
+
+  /// Gets a new `access_token`
+  void refresh_access_token(AsyncCallback<void*, std::string> callback);
 };
 
 } // namespace longbridge

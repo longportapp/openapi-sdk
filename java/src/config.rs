@@ -5,7 +5,7 @@ use jni::{
 };
 use longbridge::{Config, Language};
 
-use crate::{error::jni_result, types::FromJValue};
+use crate::{async_util, error::jni_result, types::FromJValue};
 
 #[no_mangle]
 pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
@@ -65,4 +65,21 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_freeConfig(
     config: jlong,
 ) {
     let _ = Box::from_raw(config as *mut Config);
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_configRefreshAccessToken(
+    env: JNIEnv,
+    _class: JClass,
+    config: jlong,
+    callback: JObject,
+) {
+    jni_result(&env, (), || {
+        let config = &*(config as *const Config);
+        async_util::execute(&env, callback, async move {
+            let token = config.refresh_access_token().await?;
+            Ok(token)
+        })?;
+        Ok(())
+    })
 }

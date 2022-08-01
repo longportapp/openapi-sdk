@@ -1,4 +1,5 @@
 #include "config.hpp"
+#include "callback.hpp"
 #include "convert.hpp"
 #include "longbridge.h"
 
@@ -64,6 +65,29 @@ Config::from_env(Config& config)
     config.config_ = config_ptr;
   }
   return status;
+}
+
+void
+Config::refresh_access_token(AsyncCallback<void*, std::string> callback)
+{
+  lb_config_refresh_access_token(
+    config_,
+    [](auto res) {
+      auto callback_ptr =
+        callback::get_async_callback<void*, std::string>(res->userdata);
+      Status status(res->error);
+
+      if (status) {
+        std::string access_token = (const char*)res->data;
+
+        (*callback_ptr)(AsyncResult<void*, std::string>(
+          nullptr, std::move(status), &access_token));
+      } else {
+        (*callback_ptr)(
+          AsyncResult<void*, std::string>(nullptr, std::move(status), nullptr));
+      }
+    },
+    new AsyncCallback<void*, std::string>(callback));
 }
 
 } // namespace longbridge

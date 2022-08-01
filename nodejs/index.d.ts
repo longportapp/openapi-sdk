@@ -491,6 +491,11 @@ export class Config {
    * - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
    */
   static fromEnv(): Config
+  /**
+   * Gets a new `access_token`, and also replaces the `access_token` in
+   * `Config`
+   */
+  refreshAccessToken(): Promise<string>
 }
 export class Decimal {
   static E(): Decimal

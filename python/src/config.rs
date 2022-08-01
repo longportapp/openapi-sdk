@@ -36,4 +36,12 @@ impl Config {
     fn from_env(_cls: &PyType) -> PyResult<Self> {
         Ok(Self(longbridge::Config::from_env().map_err(ErrorNewType)?))
     }
+
+    /// Gets a new `access_token`.
+    pub fn refresh_access_token(&self) -> PyResult<String> {
+        Ok(self
+            .0
+            .refresh_access_token_blocking()
+            .map_err(ErrorNewType)?)
+    }
 }

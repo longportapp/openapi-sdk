@@ -1,10 +1,15 @@
-use std::{ffi::CStr, os::raw::c_char, sync::Arc};
+use std::{
+    ffi::{c_void, CStr},
+    os::raw::c_char,
+    sync::Arc,
+};
 
 use longbridge::Config;
 
 use crate::{
+    async_call::{execute_async, CAsyncCallback},
     error::{set_error, CError},
-    types::CLanguage,
+    types::{CLanguage, CString},
 };
 
 /// Configuration options for Longbridge sdk
@@ -86,4 +91,18 @@ pub unsafe extern "C" fn lb_config_new(
 #[no_mangle]
 pub unsafe extern "C" fn lb_config_free(config: *mut CConfig) {
     let _ = Box::from_raw(config);
+}
+
+/// Gets a new `access_token`
+#[no_mangle]
+pub unsafe extern "C" fn lb_config_refresh_access_token(
+    config: *mut CConfig,
+    callback: CAsyncCallback,
+    userdata: *mut c_void,
+) {
+    let config = &mut (*config).0;
+    execute_async::<c_void, _, _>(callback, std::ptr::null(), userdata, async move {
+        let token: CString = config.refresh_access_token().await?.into();
+        Ok(token)
+    });
 }

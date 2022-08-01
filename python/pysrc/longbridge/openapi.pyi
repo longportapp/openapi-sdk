@@ -64,6 +64,11 @@ class Config:
         - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url
         """
 
+    def refresh_access_token(self) -> str:
+        """
+        Gets a new `access_token`
+        """
+
 
 class Language:
     """

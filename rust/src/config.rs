@@ -1,5 +1,7 @@
+use http::Method;
 pub(crate) use http::{header, HeaderValue, Request};
 use longbridge_httpcli::{HttpClient, HttpClientConfig};
+use serde::Deserialize;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 
 use crate::error::Result;
@@ -165,5 +167,37 @@ impl Config {
         &self,
     ) -> tokio_tungstenite::tungstenite::Result<Request<()>> {
         self.create_ws_request(&self.trade_ws_url)
+    }
+
+    /// Gets a new `access_token`
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/refresh-token-api>
+    pub async fn refresh_access_token(&self) -> Result<String> {
+        #[derive(Debug, Deserialize)]
+        struct Response {
+            token: String,
+        }
+
+        let new_token = self
+            .create_http_client()
+            .request(Method::GET, "/v1/token/refresh")
+            .response::<Response>()
+            .send()
+            .await?
+            .token;
+        Ok(new_token)
+    }
+
+    /// Gets a new `access_token`, and also replaces the `access_token` in
+    /// `Config`.
+    ///
+    /// Reference: <https://open.longbridgeapp.com/en/docs/refresh-token-api>
+    #[cfg(feature = "blocking")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "blocking")))]
+    pub fn refresh_access_token_blocking(&self) -> Result<String> {
+        tokio::runtime::Builder::new_current_thread()
+            .build()
+            .expect("create tokio runtime")
+            .block_on(self.refresh_access_token())
     }
 }

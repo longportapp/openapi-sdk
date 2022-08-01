@@ -71,4 +71,10 @@ impl Config {
     pub fn from_env() -> Result<Self> {
         Ok(Self(longbridge::Config::from_env().map_err(ErrorNewType)?))
     }
+
+    /// Gets a new `access_token`
+    #[napi]
+    pub async fn refresh_access_token(&self) -> Result<String> {
+        Ok(self.0.refresh_access_token().await.map_err(ErrorNewType)?)
+    }
 }

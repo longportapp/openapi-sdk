@@ -1,5 +1,7 @@
 package com.longbridge;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Configuration options for Longbridge sdk
  */
@@ -37,5 +39,11 @@ public class Config implements AutoCloseable {
     @Override
     public void close() throws Exception {
         SdkNative.freeConfig(this.raw);
+    }
+
+    public CompletableFuture<String> refreshAccessToken() throws OpenApiException {
+        return AsyncCallback.executeTask((callback) -> {
+            SdkNative.configRefreshAccessToken(this.raw, callback);
+        });
     }
 }

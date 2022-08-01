@@ -33,6 +33,14 @@ JNIEXPORT jlong JNICALL Java_com_longbridge_SdkNative_newConfigFromEnv
 
 /*
  * Class:     com_longbridge_SdkNative
+ * Method:    configRefreshAccessToken
+ * Signature: (JLcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_configRefreshAccessToken
+  (JNIEnv *, jclass, jlong, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
  * Method:    freeConfig
  * Signature: (J)V
  */
