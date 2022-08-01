@@ -7,7 +7,7 @@ var searchData=
   ['realtime_5ftrades_313',['realtime_trades',['../classlongbridge_1_1quote_1_1_quote_context.html#aad55443daccc959fd1c8c9f954e00f03',1,'longbridge::quote::QuoteContext']]],
   ['realtimequote_314',['RealtimeQuote',['../structlongbridge_1_1quote_1_1_realtime_quote.html',1,'longbridge::quote']]],
   ['ref_5fcount_315',['ref_count',['../classlongbridge_1_1quote_1_1_quote_context.html#a807aa74c038c732f9f6f6fe2733057dd',1,'longbridge::quote::QuoteContext::ref_count()'],['../classlongbridge_1_1trade_1_1_trade_context.html#a4d8f14d41760351b0382c8fa0b4e3eff',1,'longbridge::trade::TradeContext::ref_count()']]],
-  ['refresh_5faccess_5ftoken_316',['refresh_access_token',['../classlongbridge_1_1_config.html#a5259eda3b5912b27be4d2d715fecfbdb',1,'longbridge::Config']]],
+  ['refresh_5faccess_5ftoken_316',['refresh_access_token',['../classlongbridge_1_1_config.html#a447fbd1dae470aa9a5211a1c5e8a892d',1,'longbridge::Config']]],
   ['rejected_317',['Rejected',['../namespacelongbridge_1_1trade.html#ae4ff3c9b718ed9ccb4e2267843a7425cad37b1f6c0512e2118cee17fea015b699',1,'longbridge::trade']]],
   ['released_318',['Released',['../namespacelongbridge_1_1trade.html#a5f3b72857c03c6a3faa2a102efa91952aea1e34304a5d8ffa7c9b0ed8ede4ef1a',1,'longbridge::trade']]],
   ['remaining_5ffinance_5famount_319',['remaining_finance_amount',['../structlongbridge_1_1trade_1_1_account_balance.html#ad7c6f8177b182a1d370ab34032205ecb',1,'longbridge::trade::AccountBalance']]],

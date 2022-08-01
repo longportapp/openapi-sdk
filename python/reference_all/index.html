@@ -685,11 +685,12 @@
 
 
 </h3>
-<pre class="highlight"><code class="language-python">refresh_access_token() -&gt; str</code></pre>
+<pre class="highlight"><code class="language-python">refresh_access_token(expired_at: Optional[datetime] = None) -&gt; str</code></pre>
 
   <div class="doc doc-contents ">
   
       <p>Gets a new <code>access_token</code></p>
+<p><code>expired_at</code> - The expiration time of the access token, defaults to <code>90</code> days.</p>
 
   </div>
 

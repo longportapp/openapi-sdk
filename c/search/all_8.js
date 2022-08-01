@@ -24,7 +24,7 @@ var searchData=
   ['lb_5fconfig_5ffree_95',['lb_config_free',['../longbridge_8h.html#a2bde35f4be29458bded4a14ad0df22aa',1,'longbridge.h']]],
   ['lb_5fconfig_5ffrom_5fenv_96',['lb_config_from_env',['../longbridge_8h.html#ab20ada1449c2fded9e2b9c11df9fc33c',1,'longbridge.h']]],
   ['lb_5fconfig_5fnew_97',['lb_config_new',['../longbridge_8h.html#abbd3be210a2ef8f6a065860a7e85143b',1,'longbridge.h']]],
-  ['lb_5fconfig_5frefresh_5faccess_5ftoken_98',['lb_config_refresh_access_token',['../longbridge_8h.html#a61b94910414d59f6695818e456ae6098',1,'longbridge.h']]],
+  ['lb_5fconfig_5frefresh_5faccess_5ftoken_98',['lb_config_refresh_access_token',['../longbridge_8h.html#a98beddab6e38b318e15a1936e7d97ee6',1,'longbridge.h']]],
   ['lb_5fconfig_5ft_99',['lb_config_t',['../longbridge_8h.html#a1dcafee980a8ac92f4de67fdb7541d55',1,'longbridge.h']]],
   ['lb_5fdate_5ft_100',['lb_date_t',['../structlb__date__t.html',1,'lb_date_t'],['../longbridge_8h.html#a7194451856cdd684bbdfc1a73c27e83e',1,'lb_date_t():&#160;longbridge.h']]],
   ['lb_5fdecimal_5fabs_101',['lb_decimal_abs',['../longbridge_8h.html#a30e2270af5af79a753361795a04b889b',1,'longbridge.h']]],

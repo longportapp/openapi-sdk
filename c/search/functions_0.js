@@ -3,7 +3,7 @@ var searchData=
   ['lb_5fconfig_5ffree_569',['lb_config_free',['../longbridge_8h.html#a2bde35f4be29458bded4a14ad0df22aa',1,'longbridge.h']]],
   ['lb_5fconfig_5ffrom_5fenv_570',['lb_config_from_env',['../longbridge_8h.html#ab20ada1449c2fded9e2b9c11df9fc33c',1,'longbridge.h']]],
   ['lb_5fconfig_5fnew_571',['lb_config_new',['../longbridge_8h.html#abbd3be210a2ef8f6a065860a7e85143b',1,'longbridge.h']]],
-  ['lb_5fconfig_5frefresh_5faccess_5ftoken_572',['lb_config_refresh_access_token',['../longbridge_8h.html#a61b94910414d59f6695818e456ae6098',1,'longbridge.h']]],
+  ['lb_5fconfig_5frefresh_5faccess_5ftoken_572',['lb_config_refresh_access_token',['../longbridge_8h.html#a98beddab6e38b318e15a1936e7d97ee6',1,'longbridge.h']]],
   ['lb_5fdecimal_5fabs_573',['lb_decimal_abs',['../longbridge_8h.html#a30e2270af5af79a753361795a04b889b',1,'longbridge.h']]],
   ['lb_5fdecimal_5fadd_574',['lb_decimal_add',['../longbridge_8h.html#a09989088056f6822a91e8d125223785c',1,'longbridge.h']]],
   ['lb_5fdecimal_5fceil_575',['lb_decimal_ceil',['../longbridge_8h.html#a21a041d42193f0835d461802f094c858',1,'longbridge.h']]],
