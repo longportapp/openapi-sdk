@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     str::FromStr,
-    time::{Duration, SystemTime},
+    time::{Duration, Instant, SystemTime},
 };
 
 use futures_util::{
@@ -27,7 +27,7 @@ use crate::{
 
 const CONNECT_TIMEOUT: Duration = Duration::from_secs(30);
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(30);
-
+const HEARTBEAT_TIMEOUT: Duration = Duration::from_secs(120);
 const AUTH_TIMEOUT: Duration = Duration::from_secs(5);
 const RECONNECT_TIMEOUT: Duration = Duration::from_secs(5);
 
@@ -104,11 +104,19 @@ impl<'a> Context<'a> {
     }
 
     async fn process_loop(&mut self) -> WsClientResult<()> {
+        let mut ping_time = Instant::now();
+        let mut checkout_timeout = tokio::time::interval(Duration::from_secs(1));
+
         loop {
             tokio::select! {
                 item = self.stream.next() => {
                     match item.transpose()? {
-                        Some(msg) => self.handle_message(msg).await?,
+                        Some(msg) => {
+                            if msg.is_ping() {
+                                ping_time = Instant::now();
+                            }
+                            self.handle_message(msg).await?;
+                        },
                         None => return Err(WsClientError::ConnectionClosed { reason: None }),
                     }
                 }
@@ -116,6 +124,11 @@ impl<'a> Context<'a> {
                     match item {
                         Some(command) => self.handle_command(command).await?,
                         None => return Ok(()),
+                    }
+                }
+                _ = checkout_timeout.tick() => {
+                    if (Instant::now() - ping_time) > HEARTBEAT_TIMEOUT {
+                        return Err(WsClientError::ConnectionClosed { reason: None });
                     }
                 }
             }
@@ -331,7 +344,7 @@ async fn do_connect(
         ("codec", i32::from(codec).to_string()),
         ("platform", i32::from(platform).to_string()),
     ]);
-    *request.uri_mut() = Uri::from_str(&url_obj.to_string()).expect("valid url");
+    *request.uri_mut() = Uri::from_str(url_obj.as_ref()).expect("valid url");
 
     let conn = match tokio::time::timeout(
         CONNECT_TIMEOUT,
