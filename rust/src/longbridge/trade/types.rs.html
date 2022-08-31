@@ -947,6 +947,9 @@
 <span id="941">941</span>
 <span id="942">942</span>
 <span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">num_enum</span>::{<span class="ident">FromPrimitive</span>, <span class="ident">IntoPrimitive</span>};
 <span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
@@ -998,6 +1001,9 @@
     <span class="doccomment">/// Trailing Market If Touched (Trailing Percent)</span>
     <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;TSMPCT&quot;</span>)]</span>
     <span class="ident">TSMPCT</span>,
+    <span class="doccomment">/// Special Limit Order</span>
+    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;SLO&quot;</span>)]</span>
+    <span class="ident">SLO</span>,
 }
 
 <span class="doccomment">/// Order status</span>
