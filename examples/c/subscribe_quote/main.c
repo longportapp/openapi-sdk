@@ -11,7 +11,7 @@ on_quote(const struct lb_quote_context_t* ctx,
          const struct lb_push_quote_t* quote,
          void* userdata)
 {
-  printf("%s timestamp=%lld last_done=%f open=%f high=%f low=%f volume=%lld "
+  printf("%s timestamp=%ld last_done=%f open=%f high=%f low=%f volume=%ld "
          "turnover=%f\n",
          quote->symbol,
          quote->timestamp,

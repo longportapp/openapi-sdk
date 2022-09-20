@@ -17,7 +17,7 @@ on_quote(const struct lb_async_result_t* res)
   lb_security_quote_t* data = (lb_security_quote_t*)res->data;
   for (int i = 0; i < res->length; i++) {
     const lb_security_quote_t* quote = &data[i];
-    printf("%s timestamp=%lld last_done=%f open=%f high=%f low=%f volume=%lld "
+    printf("%s timestamp=%ld last_done=%f open=%f high=%f low=%f volume=%ld "
            "turnover=%f\n",
            quote->symbol,
            quote->timestamp,
@@ -42,7 +42,7 @@ on_quote_context_created(const struct lb_async_result_t* res)
   *((const lb_quote_context_t**)res->userdata) = res->ctx;
 
   const char* symbols[] = { "700.HK", "AAPL.US", "TSLA.US", "NFLX.US" };
-  lb_quote_context_quote(res->ctx, symbols, on_quote, NULL);
+  lb_quote_context_quote(res->ctx, symbols, 4, on_quote, NULL);
 }
 
 int

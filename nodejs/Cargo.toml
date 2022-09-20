@@ -24,6 +24,3 @@ parking_lot = "0.12.1"
 
 [build-dependencies]
 napi-build = "2.0.0"
-
-[profile.release]
-lto = true
