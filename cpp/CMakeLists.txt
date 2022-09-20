@@ -11,6 +11,8 @@ add_library(
     longbridge_cpp SHARED
     ${SOURCES}
 )
+if(NOT CMAKE_HOST_LINUX)
 target_link_libraries(longbridge_cpp longbridge-c)
+endif()
 
 add_subdirectory(test)
