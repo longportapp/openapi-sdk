@@ -241,7 +241,7 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error::Result</span>;
 
 <span class="kw">const</span> <span class="ident">QUOTE_WS_URL</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;wss://openapi-quote.longbridgeapp.com&quot;</span>;
-<span class="kw">const</span> <span class="ident">TRADE_WS_URL</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;wss://openapi-trade.longbridgeapp.com&quot;</span>;
+<span class="kw">const</span> <span class="ident">TRADE_WS_URL</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;wss://openapi-trade.longbridgeapp.com/v2&quot;</span>;
 
 <span class="doccomment">/// Language identifier</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
@@ -356,7 +356,7 @@
 
     <span class="doccomment">/// Specifies the url of the OpenAPI trade websocket server.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Default: `wss://openapi-trade.longbridgeapp.com`</span>
+    <span class="doccomment">/// Default: `wss://openapi-trade.longbridgeapp.com/v2`</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// NOTE: Usually you don&#39;t need to change it.</span>
     <span class="attribute">#[<span class="ident">must_use</span>]</span>
