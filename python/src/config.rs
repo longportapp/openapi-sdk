@@ -10,7 +10,7 @@ impl Config {
     #[new]
     #[args(
         http_url = "\"https://openapi.longbridgeapp.com\"",
-        quote_ws_url = "\"wss://openapi-quote.longbridgeapp.com\"",
+        quote_ws_url = "\"wss://openapi-quote.longbridgeapp.com/v2\"",
         trade_ws_url = "\"wss://openapi-trade.longbridgeapp.com/v2\"",
         language = "Language::EN"
     )]

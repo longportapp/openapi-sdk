@@ -42,7 +42,7 @@ class Config:
         app_secret: str,
         access_token: str,
         http_url: str = "https://openapi.longbridgeapp.com",
-        quote_ws_url: str = "wss://openapi-quote.longbridgeapp.com",
+        quote_ws_url: str = "wss://openapi-quote.longbridgeapp.com/v2",
         trade_ws_url: str = "wss://openapi-trade.longbridgeapp.com/v2",
         language: Type[Language] = Language.EN,
     ) -> None: ...

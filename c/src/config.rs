@@ -28,7 +28,7 @@ pub struct CConfig(pub(crate) Arc<Config>);
 /// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
 /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url (Default: `https://openapi.longbridgeapp.com`)
 /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url (Default:
-///   `wss://openapi-quote.longbridgeapp.com`)
+///   `wss://openapi-quote.longbridgeapp.com/v2`)
 /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url (Default:
 ///   `wss://openapi-trade.longbridgeapp.com/v2`)
 #[no_mangle]

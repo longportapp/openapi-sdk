@@ -15,7 +15,7 @@ pub struct ConfigParams {
     /// HTTP API url (default: "https://openapi.longbridgeapp.com")
     pub http_url: Option<String>,
     /// Websocket url for quote API (default:
-    /// "wss://openapi-quote.longbridgeapp.com")
+    /// "wss://openapi-quote.longbridgeapp.com/v2")
     pub quote_ws_url: Option<String>,
     /// Websocket url for trade API (default:
     /// "wss://openapi-trade.longbridgeapp.com/v2")

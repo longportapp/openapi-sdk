@@ -7,7 +7,7 @@ use tokio_tungstenite::tungstenite::client::IntoClientRequest;
 
 use crate::error::Result;
 
-const QUOTE_WS_URL: &str = "wss://openapi-quote.longbridgeapp.com";
+const QUOTE_WS_URL: &str = "wss://openapi-quote.longbridgeapp.com/v2";
 const TRADE_WS_URL: &str = "wss://openapi-trade.longbridgeapp.com/v2";
 
 /// Language identifier
@@ -68,9 +68,9 @@ impl Config {
     /// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
     /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url (Default: `https://openapi.longbridgeapp.com`)
     /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url (Default:
-    ///   `wss://openapi-quote.longbridgeapp.com`)
+    ///   `wss://openapi-quote.longbridgeapp.com/v2`)
     /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url (Default:
-    ///   `wss://openapi-trade.longbridgeapp.com`)
+    ///   `wss://openapi-trade.longbridgeapp.com/v2`)
     pub fn from_env() -> Result<Self> {
         let _ = dotenv::dotenv();
 

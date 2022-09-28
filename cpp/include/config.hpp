@@ -31,7 +31,7 @@ public:
    * @param http_url HTTP  endpoint url (Default:
    * https://openapi.longbridgeapp.com)
    * @param quote_ws_url Quote websocket endpoint url (Default:
-   * wss://openapi-quote.longbridgeapp.com)
+   * wss://openapi-quote.longbridgeapp.com/v2)
    * @param trade_ws_url Trade websocket endpoint url (Default:
    * wss://openapi-trade.longbridgeapp.com/v2)
    * @param language Language identifer (Default: Language::EN)

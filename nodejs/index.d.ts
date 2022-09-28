@@ -15,7 +15,7 @@ export interface ConfigParams {
   httpUrl?: string
   /**
    * Websocket url for quote API (default:
-   * "wss://openapi-quote.longbridgeapp.com")
+   * "wss://openapi-quote.longbridgeapp.com/v2")
    */
   quoteWsUrl?: string
   /**
