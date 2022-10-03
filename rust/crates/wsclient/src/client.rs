@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     str::FromStr,
-    time::{Duration, Instant, SystemTime},
+    time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
 use futures_util::{
@@ -260,9 +260,16 @@ impl WsClient {
                 AuthRequest { token: otp.into() },
             )
             .await?;
+        let expires_mills = resp.expires.saturating_sub(
+            SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_millis() as i64,
+        ) as u64;
+        let deadline = SystemTime::now() + Duration::from_millis(expires_mills);
         Ok(WsSession {
             session_id: resp.session_id,
-            deadline: SystemTime::now() + Duration::from_millis(resp.expires as u64),
+            deadline,
         })
     }
 
