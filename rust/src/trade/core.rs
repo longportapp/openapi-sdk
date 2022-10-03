@@ -33,7 +33,7 @@ pub(crate) struct Core {
     event_rx: mpsc::UnboundedReceiver<WsEvent>,
     http_cli: HttpClient,
     ws_cli: WsClient,
-    session: WsSession,
+    session: Option<WsSession>,
     close: bool,
     subscriptions: HashSet<String>,
 }
@@ -76,7 +76,7 @@ impl Core {
             event_rx,
             http_cli,
             ws_cli,
-            session,
+            session: Some(session),
             close: false,
             subscriptions: HashSet::new(),
         })
@@ -120,32 +120,32 @@ impl Core {
                 );
 
                 // request new session
-                if self.session.is_expired() {
-                    let otp = match self.http_cli.get_otp_v2().await {
-                        Ok(otp) => otp,
-                        Err(err) => {
-                            tracing::error!(error = %err, "failed to request otp");
-                            continue;
-                        }
-                    };
-
-                    match self.ws_cli.request_auth(otp).await {
-                        Ok(new_session) => self.session = new_session,
-                        Err(err) => {
-                            tracing::error!(error = %err, "failed to request session id");
-                            continue;
+                match &self.session {
+                    Some(session) if !session.is_expired() => {
+                        match self.ws_cli.request_reconnect(&session.session_id).await {
+                            Ok(new_session) => self.session = Some(new_session),
+                            Err(err) => {
+                                self.session = None; // invalid session
+                                tracing::error!(error = %err, "failed to request session id");
+                                continue;
+                            }
                         }
                     }
-                } else {
-                    match self
-                        .ws_cli
-                        .request_reconnect(&self.session.session_id)
-                        .await
-                    {
-                        Ok(new_session) => self.session = new_session,
-                        Err(err) => {
-                            tracing::error!(error = %err, "failed to request session id");
-                            continue;
+                    _ => {
+                        let otp = match self.http_cli.get_otp_v2().await {
+                            Ok(otp) => otp,
+                            Err(err) => {
+                                tracing::error!(error = %err, "failed to request otp");
+                                continue;
+                            }
+                        };
+
+                        match self.ws_cli.request_auth(otp).await {
+                            Ok(new_session) => self.session = Some(new_session),
+                            Err(err) => {
+                                tracing::error!(error = %err, "failed to request session id");
+                                continue;
+                            }
                         }
                     }
                 }
