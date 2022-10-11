@@ -135,6 +135,11 @@
 <span id="135">135</span>
 <span id="136">136</span>
 <span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 
 <span class="kw">use</span> <span class="ident">longbridge_proto::quote::Period</span>;
@@ -144,6 +149,8 @@
     <span class="ident">Brokers</span>, <span class="ident">Candlestick</span>, <span class="ident">Depth</span>, <span class="ident">PushBrokers</span>, <span class="ident">PushDepth</span>, <span class="ident">PushEvent</span>, <span class="ident">PushTrades</span>, <span class="ident">SecurityBoard</span>,
     <span class="ident">Trade</span>,
 };
+
+<span class="kw">const</span> <span class="ident">MAX_TRADES</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">500</span>;
 
 <span class="macro">macro_rules!</span> <span class="ident">check_sequence</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">prev</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">new</span>:<span class="ident">expr</span>) =&gt; {
@@ -258,6 +265,9 @@
 
 <span class="kw">fn</span> <span class="ident">merge_trades</span>(<span class="ident">data</span>: <span class="kw-2">&amp;mut</span> <span class="ident">SecuritiesData</span>, <span class="ident">trades</span>: <span class="kw-2">&amp;</span><span class="ident">PushTrades</span>) {
     <span class="ident">data</span>.<span class="ident">trades</span>.<span class="ident">extend</span>(<span class="ident">trades</span>.<span class="ident">trades</span>.<span class="ident">clone</span>());
+    <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">trades</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">MAX_TRADES</span> <span class="op">*</span> <span class="number">2</span> {
+        <span class="ident">data</span>.<span class="ident">trades</span>.<span class="ident">drain</span>(..<span class="ident">MAX_TRADES</span>);
+    }
 }
 
 <span class="kw">fn</span> <span class="ident">replace</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">B</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">elements</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">others</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">f</span>: <span class="ident">F</span>)
