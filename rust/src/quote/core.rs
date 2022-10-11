@@ -32,6 +32,7 @@ use crate::{
 };
 
 const RECONNECT_DELAY: Duration = Duration::from_secs(2);
+const MAX_CANDLESTICKS: usize = 500;
 
 pub(crate) enum Command {
     Request {
@@ -715,6 +716,9 @@ impl Core {
                                         UpdateAction::AppendNew(candlestick) => {
                                             let candlestick = candlestick.into();
                                             candlesticks.push(candlestick);
+                                            if candlesticks.len() > MAX_CANDLESTICKS * 2 {
+                                                candlesticks.drain(..MAX_CANDLESTICKS);
+                                            }
                                             Some(candlestick)
                                         }
                                         UpdateAction::None => None,

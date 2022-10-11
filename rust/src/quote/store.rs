@@ -8,6 +8,8 @@ use crate::quote::{
     Trade,
 };
 
+const MAX_TRADES: usize = 500;
+
 macro_rules! check_sequence {
     ($prev:expr, $new:expr) => {
         if $new != 0 && $new <= $prev {
@@ -121,6 +123,9 @@ fn merge_brokers(data: &mut SecuritiesData, brokers: &PushBrokers) {
 
 fn merge_trades(data: &mut SecuritiesData, trades: &PushTrades) {
     data.trades.extend(trades.trades.clone());
+    if data.trades.len() > MAX_TRADES * 2 {
+        data.trades.drain(..MAX_TRADES);
+    }
 }
 
 fn replace<T, B, F>(elements: &mut Vec<T>, others: Vec<T>, f: F)
