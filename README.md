@@ -1,6 +1,6 @@
 # Longbridge OpenAPI SDK
 
-[![](https://img.shields.io/crates/v/longbridge.svg)](https://crates.io/crates/longbridge) [![Go project version](https://badge.fury.io/go/github.com%2Flongbridgeapp%2Fopenapi-go.svg)](https://badge.fury.io/go/github.com%2Flongbridgeapp%2Fopenapi-go) [![PyPI version](https://badge.fury.io/py/longbridge.svg)](https://badge.fury.io/py/longbridge) [![npm version](https://badge.fury.io/js/longbridge.svg)](https://badge.fury.io/js/longbridge) 
+[![](https://img.shields.io/crates/v/longbridge.svg)](https://crates.io/crates/longbridge) [![Go project version](https://badge.fury.io/go/github.com%2Flongbridgeapp%2Fopenapi-go.svg)](https://badge.fury.io/go/github.com%2Flongbridgeapp%2Fopenapi-go) [![PyPI version](https://badge.fury.io/py/longbridge.svg)](https://badge.fury.io/py/longbridge) [![npm version](https://badge.fury.io/js/longbridge.svg)](https://badge.fury.io/js/longbridge) [![Maven Central](https://img.shields.io/maven-central/v/io.github.longbridgeapp/openapi-sdk)](https://search.maven.org/artifact/io.github.longbridgeapp/openapi-sdk)
 
 
 Longbridge OpenAPI provides programmatic quote trading interfaces for investors with research and development capabilities and assists them to build trading or quote strategy analysis tools based on their own investment strategies. The functions fall into the following categories:
