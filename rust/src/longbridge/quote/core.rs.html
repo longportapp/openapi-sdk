@@ -873,6 +873,17 @@
 <span id="873">873</span>
 <span id="874">874</span>
 <span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
+<span id="880">880</span>
+<span id="881">881</span>
+<span id="882">882</span>
+<span id="883">883</span>
+<span id="884">884</span>
+<span id="885">885</span>
+<span id="886">886</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
     <span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
     <span class="ident">sync::Arc</span>,
@@ -886,7 +897,7 @@
     <span class="ident">SubscribeRequest</span>, <span class="ident">TradeSession</span>, <span class="ident">UnsubscribeRequest</span>,
 };
 <span class="kw">use</span> <span class="ident">longbridge_wscli</span>::{
-    <span class="ident">CodecType</span>, <span class="ident">Platform</span>, <span class="ident">ProtocolVersion</span>, <span class="ident">WsClient</span>, <span class="ident">WsClientError</span>, <span class="ident">WsEvent</span>, <span class="ident">WsSession</span>,
+    <span class="ident">CodecType</span>, <span class="ident">Platform</span>, <span class="ident">ProtocolVersion</span>, <span class="ident">RateLimit</span>, <span class="ident">WsClient</span>, <span class="ident">WsClientError</span>, <span class="ident">WsEvent</span>, <span class="ident">WsSession</span>,
 };
 <span class="kw">use</span> <span class="ident">time</span>::{<span class="ident">Date</span>, <span class="ident">OffsetDateTime</span>};
 <span class="kw">use</span> <span class="ident">tokio</span>::{
@@ -1007,6 +1018,15 @@
     <span class="ident">store</span>: <span class="ident">Store</span>,
 }
 
+<span class="kw">const</span> <span class="kw">fn</span> <span class="ident">rate_limit</span>() -&gt; <span class="ident">RateLimit</span> {
+    <span class="ident">RateLimit</span> {
+        <span class="ident">interval</span>: <span class="ident">Duration::from_millis</span>(<span class="number">100</span>),
+        <span class="ident">initial</span>: <span class="number">5</span>,
+        <span class="ident">max</span>: <span class="number">5</span>,
+        <span class="ident">refill</span>: <span class="number">1</span>,
+    }
+}
+
 <span class="kw">impl</span> <span class="ident">Core</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">try_new</span>(
         <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
@@ -1030,6 +1050,7 @@
             <span class="ident">CodecType::Protobuf</span>,
             <span class="ident">Platform::OpenAPI</span>,
             <span class="ident">event_tx</span>.<span class="ident">clone</span>(),
+            <span class="prelude-val">Some</span>(<span class="ident">rate_limit</span>()),
         )
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -1076,6 +1097,7 @@
                     <span class="ident">CodecType::Protobuf</span>,
                     <span class="ident">Platform::OpenAPI</span>,
                     <span class="self">self</span>.<span class="ident">event_tx</span>.<span class="ident">clone</span>(),
+                    <span class="prelude-val">Some</span>(<span class="ident">rate_limit</span>()),
                 )
                 .<span class="kw">await</span>
                 {

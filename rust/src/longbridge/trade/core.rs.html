@@ -251,6 +251,8 @@
 <span id="251">251</span>
 <span id="252">252</span>
 <span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashSet</span>, <span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
 
 <span class="kw">use</span> <span class="ident">longbridge_httpcli::HttpClient</span>;
@@ -314,6 +316,7 @@
             <span class="ident">CodecType::Protobuf</span>,
             <span class="ident">Platform::OpenAPI</span>,
             <span class="ident">event_tx</span>.<span class="ident">clone</span>(),
+            <span class="prelude-val">None</span>,
         )
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -357,6 +360,7 @@
                     <span class="ident">CodecType::Protobuf</span>,
                     <span class="ident">Platform::OpenAPI</span>,
                     <span class="self">self</span>.<span class="ident">event_tx</span>.<span class="ident">clone</span>(),
+                    <span class="prelude-val">None</span>,
                 )
                 .<span class="kw">await</span>
                 {
