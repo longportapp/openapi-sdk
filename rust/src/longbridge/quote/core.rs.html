@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/core.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>core.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/core.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>core.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -884,271 +884,271 @@
 <span id="884">884</span>
 <span id="885">885</span>
 <span id="886">886</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{
-    <span class="ident">collections</span>::{<span class="ident">HashMap</span>, <span class="ident">HashSet</span>},
-    <span class="ident">sync::Arc</span>,
+</pre><pre class="rust"><code><span class="kw">use </span>std::{
+    collections::{HashMap, HashSet},
+    sync::Arc,
 };
 
-<span class="kw">use</span> <span class="ident">longbridge_candlesticks</span>::{<span class="ident">IsHalfTradeDay</span>, <span class="ident">Type</span>, <span class="ident">UpdateAction</span>};
-<span class="kw">use</span> <span class="ident">longbridge_httpcli::HttpClient</span>;
-<span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>::{
-    <span class="ident">AdjustType</span>, <span class="ident">MarketTradeDayRequest</span>, <span class="ident">MarketTradeDayResponse</span>, <span class="ident">MultiSecurityRequest</span>, <span class="ident">Period</span>,
-    <span class="ident">SecurityCandlestickRequest</span>, <span class="ident">SecurityCandlestickResponse</span>, <span class="ident">SecurityStaticInfoResponse</span>,
-    <span class="ident">SubscribeRequest</span>, <span class="ident">TradeSession</span>, <span class="ident">UnsubscribeRequest</span>,
+<span class="kw">use </span>longbridge_candlesticks::{IsHalfTradeDay, Type, UpdateAction};
+<span class="kw">use </span>longbridge_httpcli::HttpClient;
+<span class="kw">use </span>longbridge_proto::quote::{
+    AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, MultiSecurityRequest, Period,
+    SecurityCandlestickRequest, SecurityCandlestickResponse, SecurityStaticInfoResponse,
+    SubscribeRequest, TradeSession, UnsubscribeRequest,
 };
-<span class="kw">use</span> <span class="ident">longbridge_wscli</span>::{
-    <span class="ident">CodecType</span>, <span class="ident">Platform</span>, <span class="ident">ProtocolVersion</span>, <span class="ident">RateLimit</span>, <span class="ident">WsClient</span>, <span class="ident">WsClientError</span>, <span class="ident">WsEvent</span>, <span class="ident">WsSession</span>,
+<span class="kw">use </span>longbridge_wscli::{
+    CodecType, Platform, ProtocolVersion, RateLimit, WsClient, WsClientError, WsEvent, WsSession,
 };
-<span class="kw">use</span> <span class="ident">time</span>::{<span class="ident">Date</span>, <span class="ident">OffsetDateTime</span>};
-<span class="kw">use</span> <span class="ident">tokio</span>::{
-    <span class="ident">sync</span>::{<span class="ident">mpsc</span>, <span class="ident">oneshot</span>},
-    <span class="ident">time</span>::{<span class="ident">Duration</span>, <span class="ident">Instant</span>},
-};
-
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">quote</span>::{
-        <span class="ident">cmd_code</span>,
-        <span class="ident">store::Store</span>,
-        <span class="ident">sub_flags::SubFlags</span>,
-        <span class="ident">utils</span>::{<span class="ident">format_date</span>, <span class="ident">get_market_from_symbol</span>, <span class="ident">parse_date</span>},
-        <span class="ident">Candlestick</span>, <span class="ident">PushCandlestick</span>, <span class="ident">PushEvent</span>, <span class="ident">PushEventDetail</span>, <span class="ident">RealtimeQuote</span>, <span class="ident">SecurityBoard</span>,
-        <span class="ident">SecurityBrokers</span>, <span class="ident">SecurityDepth</span>, <span class="ident">Subscription</span>, <span class="ident">Trade</span>,
-    },
-    <span class="ident">Config</span>, <span class="ident">Error</span>, <span class="ident">Market</span>, <span class="prelude-ty">Result</span>,
+<span class="kw">use </span>time::{Date, OffsetDateTime};
+<span class="kw">use </span>tokio::{
+    sync::{mpsc, oneshot},
+    time::{Duration, Instant},
 };
 
-<span class="kw">const</span> <span class="ident">RECONNECT_DELAY</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">2</span>);
-<span class="kw">const</span> <span class="ident">MAX_CANDLESTICKS</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">500</span>;
+<span class="kw">use crate</span>::{
+    quote::{
+        cmd_code,
+        store::Store,
+        sub_flags::SubFlags,
+        utils::{format_date, get_market_from_symbol, parse_date},
+        Candlestick, PushCandlestick, PushEvent, PushEventDetail, RealtimeQuote, SecurityBoard,
+        SecurityBrokers, SecurityDepth, Subscription, Trade,
+    },
+    Config, Error, Market, <span class="prelude-ty">Result</span>,
+};
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum</span> <span class="ident">Command</span> {
-    <span class="ident">Request</span> {
-        <span class="ident">command_code</span>: <span class="ident">u8</span>,
-        <span class="ident">body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+<span class="kw">const </span>RECONNECT_DELAY: Duration = Duration::from_secs(<span class="number">2</span>);
+<span class="kw">const </span>MAX_CANDLESTICKS: usize = <span class="number">500</span>;
+
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>Command {
+    Request {
+        command_code: u8,
+        body: Vec&lt;u8&gt;,
+        reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt;&gt;,
     },
-    <span class="ident">Subscribe</span> {
-        <span class="ident">symbols</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>,
-        <span class="ident">is_first_push</span>: <span class="ident">bool</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
+    Subscribe {
+        symbols: Vec&lt;String&gt;,
+        sub_types: SubFlags,
+        is_first_push: bool,
+        reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;,
     },
-    <span class="ident">Unsubscribe</span> {
-        <span class="ident">symbols</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
+    Unsubscribe {
+        symbols: Vec&lt;String&gt;,
+        sub_types: SubFlags,
+        reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;,
     },
-    <span class="ident">SubscribeCandlesticks</span> {
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
+    SubscribeCandlesticks {
+        symbol: String,
+        period: Period,
+        reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;,
     },
-    <span class="ident">UnsubscribeCandlesticks</span> {
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
+    UnsubscribeCandlesticks {
+        symbol: String,
+        period: Period,
+        reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;,
     },
-    <span class="ident">Subscriptions</span> {
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Subscription</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    Subscriptions {
+        reply_tx: oneshot::Sender&lt;Vec&lt;Subscription&gt;&gt;,
     },
-    <span class="ident">GetRealtimeQuote</span> {
-        <span class="ident">symbols</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RealtimeQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    GetRealtimeQuote {
+        symbols: Vec&lt;String&gt;,
+        reply_tx: oneshot::Sender&lt;Vec&lt;RealtimeQuote&gt;&gt;,
     },
-    <span class="ident">GetRealtimeDepth</span> {
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="ident">SecurityDepth</span><span class="op">&gt;</span>,
+    GetRealtimeDepth {
+        symbol: String,
+        reply_tx: oneshot::Sender&lt;SecurityDepth&gt;,
     },
-    <span class="ident">GetRealtimeTrade</span> {
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">count</span>: <span class="ident">usize</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    GetRealtimeTrade {
+        symbol: String,
+        count: usize,
+        reply_tx: oneshot::Sender&lt;Vec&lt;Trade&gt;&gt;,
     },
-    <span class="ident">GetRealtimeBrokers</span> {
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="ident">SecurityBrokers</span><span class="op">&gt;</span>,
+    GetRealtimeBrokers {
+        symbol: String,
+        reply_tx: oneshot::Sender&lt;SecurityBrokers&gt;,
     },
-    <span class="ident">GetRealtimeCandlesticks</span> {
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-        <span class="ident">count</span>: <span class="ident">usize</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Candlestick</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    GetRealtimeCandlesticks {
+        symbol: String,
+        period: Period,
+        count: usize,
+        reply_tx: oneshot::Sender&lt;Vec&lt;Candlestick&gt;&gt;,
     },
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">struct</span> <span class="ident">CurrentTradeDays</span> {
-    <span class="ident">half_days</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">Market</span>, <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+<span class="attribute">#[derive(Debug, Default)]
+</span><span class="kw">struct </span>CurrentTradeDays {
+    half_days: HashMap&lt;Market, HashSet&lt;Date&gt;&gt;,
 }
 
-<span class="kw">impl</span> <span class="ident">CurrentTradeDays</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">half_days</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">market</span>: <span class="ident">longbridge_candlesticks::Market</span>) -&gt; <span class="ident">HalfDays</span> {
-        <span class="kw">match</span> <span class="ident">market</span> {
-            <span class="ident">longbridge_candlesticks::Market::HK</span> =&gt; <span class="ident">HalfDays</span>(<span class="self">self</span>.<span class="ident">half_days</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">Market::HK</span>)),
-            <span class="ident">longbridge_candlesticks::Market::US</span> =&gt; <span class="ident">HalfDays</span>(<span class="self">self</span>.<span class="ident">half_days</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">Market::US</span>)),
+<span class="kw">impl </span>CurrentTradeDays {
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>half_days(<span class="kw-2">&amp;</span><span class="self">self</span>, market: longbridge_candlesticks::Market) -&gt; HalfDays {
+        <span class="kw">match </span>market {
+            longbridge_candlesticks::Market::HK =&gt; HalfDays(<span class="self">self</span>.half_days.get(<span class="kw-2">&amp;</span>Market::HK)),
+            longbridge_candlesticks::Market::US =&gt; HalfDays(<span class="self">self</span>.half_days.get(<span class="kw-2">&amp;</span>Market::US)),
         }
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">struct</span> <span class="ident">HalfDays</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span><span class="op">&gt;</span>);
+<span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="kw">struct </span>HalfDays&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HashSet&lt;Date&gt;&gt;);
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">IsHalfTradeDay</span> <span class="kw">for</span> <span class="ident">HalfDays</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">is_half</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">date</span>: <span class="ident">Date</span>) -&gt; <span class="ident">bool</span> {
-        <span class="kw">match</span> <span class="self">self</span>.<span class="number">0</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">days</span>) =&gt; <span class="ident">days</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">date</span>),
-            <span class="prelude-val">None</span> =&gt; <span class="bool-val">false</span>,
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; IsHalfTradeDay <span class="kw">for </span>HalfDays&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>is_half(<span class="kw-2">&amp;</span><span class="self">self</span>, date: Date) -&gt; bool {
+        <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
+            <span class="prelude-val">Some</span>(days) =&gt; days.contains(<span class="kw-2">&amp;</span>date),
+            <span class="prelude-val">None </span>=&gt; <span class="bool-val">false</span>,
         }
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">Core</span> {
-    <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
-    <span class="ident">command_rx</span>: <span class="ident">mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&gt;</span>,
-    <span class="ident">push_tx</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span>,
-    <span class="ident">event_tx</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">WsEvent</span><span class="op">&gt;</span>,
-    <span class="ident">event_rx</span>: <span class="ident">mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">WsEvent</span><span class="op">&gt;</span>,
-    <span class="ident">http_cli</span>: <span class="ident">HttpClient</span>,
-    <span class="ident">ws_cli</span>: <span class="ident">WsClient</span>,
-    <span class="ident">session</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WsSession</span><span class="op">&gt;</span>,
-    <span class="ident">close</span>: <span class="ident">bool</span>,
-    <span class="ident">subscriptions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">SubFlags</span><span class="op">&gt;</span>,
-    <span class="ident">current_trade_days</span>: <span class="ident">CurrentTradeDays</span>,
-    <span class="ident">store</span>: <span class="ident">Store</span>,
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Core {
+    config: Arc&lt;Config&gt;,
+    command_rx: mpsc::UnboundedReceiver&lt;Command&gt;,
+    push_tx: mpsc::UnboundedSender&lt;PushEvent&gt;,
+    event_tx: mpsc::UnboundedSender&lt;WsEvent&gt;,
+    event_rx: mpsc::UnboundedReceiver&lt;WsEvent&gt;,
+    http_cli: HttpClient,
+    ws_cli: WsClient,
+    session: <span class="prelude-ty">Option</span>&lt;WsSession&gt;,
+    close: bool,
+    subscriptions: HashMap&lt;String, SubFlags&gt;,
+    current_trade_days: CurrentTradeDays,
+    store: Store,
 }
 
-<span class="kw">const</span> <span class="kw">fn</span> <span class="ident">rate_limit</span>() -&gt; <span class="ident">RateLimit</span> {
-    <span class="ident">RateLimit</span> {
-        <span class="ident">interval</span>: <span class="ident">Duration::from_millis</span>(<span class="number">100</span>),
-        <span class="ident">initial</span>: <span class="number">5</span>,
-        <span class="ident">max</span>: <span class="number">5</span>,
-        <span class="ident">refill</span>: <span class="number">1</span>,
+<span class="kw">const fn </span>rate_limit() -&gt; RateLimit {
+    RateLimit {
+        interval: Duration::from_millis(<span class="number">100</span>),
+        initial: <span class="number">5</span>,
+        max: <span class="number">5</span>,
+        refill: <span class="number">1</span>,
     }
 }
 
-<span class="kw">impl</span> <span class="ident">Core</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">try_new</span>(
-        <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
-        <span class="ident">command_rx</span>: <span class="ident">mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&gt;</span>,
-        <span class="ident">push_tx</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">http_cli</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">create_http_client</span>();
-        <span class="kw">let</span> <span class="ident">otp</span> <span class="op">=</span> <span class="ident">http_cli</span>.<span class="ident">get_otp_v2</span>().<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="kw">impl </span>Core {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>try_new(
+        config: Arc&lt;Config&gt;,
+        command_rx: mpsc::UnboundedReceiver&lt;Command&gt;,
+        push_tx: mpsc::UnboundedSender&lt;PushEvent&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="kw">let </span>http_cli = config.create_http_client();
+        <span class="kw">let </span>otp = http_cli.get_otp_v2().<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="kw">let</span> (<span class="ident">event_tx</span>, <span class="ident">event_rx</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded_channel</span>();
+        <span class="kw">let </span>(event_tx, event_rx) = mpsc::unbounded_channel();
 
         <span class="macro">tracing::debug!</span>(
-            <span class="ident">url</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">quote_ws_url</span>.<span class="ident">as_str</span>(),
+            url = config.quote_ws_url.as_str(),
             <span class="string">&quot;connecting to quote server&quot;</span>,
         );
-        <span class="kw">let</span> <span class="ident">ws_cli</span> <span class="op">=</span> <span class="ident">WsClient::open</span>(
-            <span class="ident">config</span>
-                .<span class="ident">create_quote_ws_request</span>()
-                .<span class="ident">map_err</span>(<span class="ident">WsClientError::from</span>)<span class="question-mark">?</span>,
-            <span class="ident">ProtocolVersion::Version1</span>,
-            <span class="ident">CodecType::Protobuf</span>,
-            <span class="ident">Platform::OpenAPI</span>,
-            <span class="ident">event_tx</span>.<span class="ident">clone</span>(),
-            <span class="prelude-val">Some</span>(<span class="ident">rate_limit</span>()),
+        <span class="kw">let </span>ws_cli = WsClient::open(
+            config
+                .create_quote_ws_request()
+                .map_err(WsClientError::from)<span class="question-mark">?</span>,
+            ProtocolVersion::Version1,
+            CodecType::Protobuf,
+            Platform::OpenAPI,
+            event_tx.clone(),
+            <span class="prelude-val">Some</span>(rate_limit()),
         )
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="macro">tracing::debug!</span>(<span class="ident">url</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">quote_ws_url</span>.<span class="ident">as_str</span>(), <span class="string">&quot;quote server connected&quot;</span>);
+        <span class="macro">tracing::debug!</span>(url = config.quote_ws_url.as_str(), <span class="string">&quot;quote server connected&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">session</span> <span class="op">=</span> <span class="ident">ws_cli</span>.<span class="ident">request_auth</span>(<span class="ident">otp</span>).<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">current_trade_days</span> <span class="op">=</span> <span class="ident">fetch_current_trade_days</span>(<span class="kw-2">&amp;</span><span class="ident">ws_cli</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>session = ws_cli.request_auth(otp).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>current_trade_days = fetch_current_trade_days(<span class="kw-2">&amp;</span>ws_cli).<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">config</span>,
-            <span class="ident">command_rx</span>,
-            <span class="ident">push_tx</span>,
-            <span class="ident">event_tx</span>,
-            <span class="ident">event_rx</span>,
-            <span class="ident">http_cli</span>,
-            <span class="ident">ws_cli</span>,
-            <span class="ident">session</span>: <span class="prelude-val">Some</span>(<span class="ident">session</span>),
-            <span class="ident">close</span>: <span class="bool-val">false</span>,
-            <span class="ident">subscriptions</span>: <span class="ident">HashMap::new</span>(),
-            <span class="ident">current_trade_days</span>,
-            <span class="ident">store</span>: <span class="ident">Store::default</span>(),
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            config,
+            command_rx,
+            push_tx,
+            event_tx,
+            event_rx,
+            http_cli,
+            ws_cli,
+            session: <span class="prelude-val">Some</span>(session),
+            close: <span class="bool-val">false</span>,
+            subscriptions: HashMap::new(),
+            current_trade_days,
+            store: Store::default(),
         })
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">mut</span> <span class="self">self</span>) {
-        <span class="kw">while</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">close</span> {
-            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">main_loop</span>().<span class="kw">await</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>run(<span class="kw-2">mut </span><span class="self">self</span>) {
+        <span class="kw">while </span>!<span class="self">self</span>.close {
+            <span class="kw">match </span><span class="self">self</span>.main_loop().<span class="kw">await </span>{
                 <span class="prelude-val">Ok</span>(()) =&gt; <span class="kw">return</span>,
-                <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;quote disconnected&quot;</span>),
+                <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;quote disconnected&quot;</span>),
             }
 
-            <span class="kw">loop</span> {
-                <span class="comment">// reconnect</span>
-                <span class="ident">tokio::time::sleep</span>(<span class="ident">RECONNECT_DELAY</span>).<span class="kw">await</span>;
+            <span class="kw">loop </span>{
+                <span class="comment">// reconnect
+                </span>tokio::time::sleep(RECONNECT_DELAY).<span class="kw">await</span>;
 
                 <span class="macro">tracing::debug!</span>(
-                    <span class="ident">url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">quote_ws_url</span>.<span class="ident">as_str</span>(),
+                    url = <span class="self">self</span>.config.quote_ws_url.as_str(),
                     <span class="string">&quot;connecting to quote server&quot;</span>,
                 );
 
-                <span class="kw">match</span> <span class="ident">WsClient::open</span>(
-                    <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">create_quote_ws_request</span>().<span class="ident">unwrap</span>(),
-                    <span class="ident">ProtocolVersion::Version1</span>,
-                    <span class="ident">CodecType::Protobuf</span>,
-                    <span class="ident">Platform::OpenAPI</span>,
-                    <span class="self">self</span>.<span class="ident">event_tx</span>.<span class="ident">clone</span>(),
-                    <span class="prelude-val">Some</span>(<span class="ident">rate_limit</span>()),
+                <span class="kw">match </span>WsClient::open(
+                    <span class="self">self</span>.config.create_quote_ws_request().unwrap(),
+                    ProtocolVersion::Version1,
+                    CodecType::Protobuf,
+                    Platform::OpenAPI,
+                    <span class="self">self</span>.event_tx.clone(),
+                    <span class="prelude-val">Some</span>(rate_limit()),
                 )
-                .<span class="kw">await</span>
-                {
-                    <span class="prelude-val">Ok</span>(<span class="ident">ws_cli</span>) =&gt; <span class="self">self</span>.<span class="ident">ws_cli</span> <span class="op">=</span> <span class="ident">ws_cli</span>,
-                    <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; {
-                        <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;failed to connect quote server&quot;</span>);
+                .<span class="kw">await
+                </span>{
+                    <span class="prelude-val">Ok</span>(ws_cli) =&gt; <span class="self">self</span>.ws_cli = ws_cli,
+                    <span class="prelude-val">Err</span>(err) =&gt; {
+                        <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to connect quote server&quot;</span>);
                         <span class="kw">continue</span>;
                     }
                 }
 
                 <span class="macro">tracing::debug!</span>(
-                    <span class="ident">url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">quote_ws_url</span>.<span class="ident">as_str</span>(),
-                    <span class="string">&quot;quote server connected&quot;</span>
-                );
+                    url = <span class="self">self</span>.config.quote_ws_url.as_str(),
+                    <span class="string">&quot;quote server connected&quot;
+                </span>);
 
-                <span class="comment">// request new session</span>
-                <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">session</span> {
-                    <span class="prelude-val">Some</span>(<span class="ident">session</span>) <span class="kw">if</span> <span class="op">!</span><span class="ident">session</span>.<span class="ident">is_expired</span>() =&gt; {
-                        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">ws_cli</span>.<span class="ident">request_reconnect</span>(<span class="kw-2">&amp;</span><span class="ident">session</span>.<span class="ident">session_id</span>).<span class="kw">await</span> {
-                            <span class="prelude-val">Ok</span>(<span class="ident">new_session</span>) =&gt; <span class="self">self</span>.<span class="ident">session</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_session</span>),
-                            <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; {
-                                <span class="self">self</span>.<span class="ident">session</span> <span class="op">=</span> <span class="prelude-val">None</span>; <span class="comment">// invalid session</span>
-                                <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;failed to request session id&quot;</span>);
+                <span class="comment">// request new session
+                </span><span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.session {
+                    <span class="prelude-val">Some</span>(session) <span class="kw">if </span>!session.is_expired() =&gt; {
+                        <span class="kw">match </span><span class="self">self</span>.ws_cli.request_reconnect(<span class="kw-2">&amp;</span>session.session_id).<span class="kw">await </span>{
+                            <span class="prelude-val">Ok</span>(new_session) =&gt; <span class="self">self</span>.session = <span class="prelude-val">Some</span>(new_session),
+                            <span class="prelude-val">Err</span>(err) =&gt; {
+                                <span class="self">self</span>.session = <span class="prelude-val">None</span>; <span class="comment">// invalid session
+                                </span><span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to request session id&quot;</span>);
                                 <span class="kw">continue</span>;
                             }
                         }
                     }
-                    <span class="kw">_</span> =&gt; {
-                        <span class="kw">let</span> <span class="ident">otp</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">http_cli</span>.<span class="ident">get_otp_v2</span>().<span class="kw">await</span> {
-                            <span class="prelude-val">Ok</span>(<span class="ident">otp</span>) =&gt; <span class="ident">otp</span>,
-                            <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; {
-                                <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;failed to request otp&quot;</span>);
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="kw">let </span>otp = <span class="kw">match </span><span class="self">self</span>.http_cli.get_otp_v2().<span class="kw">await </span>{
+                            <span class="prelude-val">Ok</span>(otp) =&gt; otp,
+                            <span class="prelude-val">Err</span>(err) =&gt; {
+                                <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to request otp&quot;</span>);
                                 <span class="kw">continue</span>;
                             }
                         };
 
-                        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">ws_cli</span>.<span class="ident">request_auth</span>(<span class="ident">otp</span>).<span class="kw">await</span> {
-                            <span class="prelude-val">Ok</span>(<span class="ident">new_session</span>) =&gt; <span class="self">self</span>.<span class="ident">session</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">new_session</span>),
-                            <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; {
-                                <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;failed to request session id&quot;</span>);
+                        <span class="kw">match </span><span class="self">self</span>.ws_cli.request_auth(otp).<span class="kw">await </span>{
+                            <span class="prelude-val">Ok</span>(new_session) =&gt; <span class="self">self</span>.session = <span class="prelude-val">Some</span>(new_session),
+                            <span class="prelude-val">Err</span>(err) =&gt; {
+                                <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to request session id&quot;</span>);
                                 <span class="kw">continue</span>;
                             }
                         }
                     }
                 }
 
-                <span class="comment">// handle reconnect</span>
-                <span class="kw">match</span> <span class="self">self</span>.<span class="ident">resubscribe</span>().<span class="kw">await</span> {
+                <span class="comment">// handle reconnect
+                </span><span class="kw">match </span><span class="self">self</span>.resubscribe().<span class="kw">await </span>{
                     <span class="prelude-val">Ok</span>(()) =&gt; <span class="kw">break</span>,
-                    <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; {
-                        <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;failed to subscribe topics&quot;</span>);
+                    <span class="prelude-val">Err</span>(err) =&gt; {
+                        <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to subscribe topics&quot;</span>);
                         <span class="kw">continue</span>;
                     }
                 }
@@ -1156,329 +1156,329 @@
         }
     }
 
-    <span class="attribute">#[<span class="ident">tracing::instrument</span>(<span class="ident">level</span> <span class="op">=</span> <span class="string">&quot;debug&quot;</span>, <span class="ident">skip</span>(<span class="self">self</span>))]</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">main_loop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">update_trade_days_interval</span> <span class="op">=</span> <span class="ident">tokio::time::interval_at</span>(
-            <span class="ident">Instant::now</span>() <span class="op">+</span> <span class="ident">Duration::from_secs</span>(<span class="number">60</span> <span class="op">*</span> <span class="number">60</span> <span class="op">*</span> <span class="number">24</span>),
-            <span class="ident">Duration::from_secs</span>(<span class="number">60</span> <span class="op">*</span> <span class="number">60</span> <span class="op">*</span> <span class="number">24</span>),
+    <span class="attribute">#[tracing::instrument(level = <span class="string">&quot;debug&quot;</span>, skip(<span class="self">self</span>))]
+    </span><span class="kw">async fn </span>main_loop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>update_trade_days_interval = tokio::time::interval_at(
+            Instant::now() + Duration::from_secs(<span class="number">60 </span>* <span class="number">60 </span>* <span class="number">24</span>),
+            Duration::from_secs(<span class="number">60 </span>* <span class="number">60 </span>* <span class="number">24</span>),
         );
 
-        <span class="kw">loop</span> {
-            <span class="macro">tokio::select!</span> {
-                <span class="ident">item</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">event_rx</span>.<span class="ident">recv</span>() =&gt; {
-                    <span class="kw">match</span> <span class="ident">item</span> {
-                        <span class="prelude-val">Some</span>(<span class="ident">event</span>) =&gt; <span class="self">self</span>.<span class="ident">handle_ws_event</span>(<span class="ident">event</span>).<span class="kw">await</span><span class="question-mark">?</span>,
-                        <span class="prelude-val">None</span> =&gt; <span class="macro">unreachable!</span>(),
+        <span class="kw">loop </span>{
+            <span class="macro">tokio::select! </span>{
+                item = <span class="self">self</span>.event_rx.recv() =&gt; {
+                    <span class="kw">match </span>item {
+                        <span class="prelude-val">Some</span>(event) =&gt; <span class="self">self</span>.handle_ws_event(event).<span class="kw">await</span><span class="question-mark">?</span>,
+                        <span class="prelude-val">None </span>=&gt; <span class="macro">unreachable!</span>(),
                     }
                 }
-                <span class="ident">item</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">command_rx</span>.<span class="ident">recv</span>() =&gt; {
-                    <span class="kw">match</span> <span class="ident">item</span> {
-                        <span class="prelude-val">Some</span>(<span class="ident">command</span>) =&gt; <span class="self">self</span>.<span class="ident">handle_command</span>(<span class="ident">command</span>).<span class="kw">await</span><span class="question-mark">?</span>,
-                        <span class="prelude-val">None</span> =&gt; {
-                            <span class="self">self</span>.<span class="ident">close</span> <span class="op">=</span> <span class="bool-val">true</span>;
-                            <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
+                item = <span class="self">self</span>.command_rx.recv() =&gt; {
+                    <span class="kw">match </span>item {
+                        <span class="prelude-val">Some</span>(command) =&gt; <span class="self">self</span>.handle_command(command).<span class="kw">await</span><span class="question-mark">?</span>,
+                        <span class="prelude-val">None </span>=&gt; {
+                            <span class="self">self</span>.close = <span class="bool-val">true</span>;
+                            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
                         }
                     }
                 }
-                <span class="kw">_</span> <span class="op">=</span> <span class="ident">update_trade_days_interval</span>.<span class="ident">tick</span>() =&gt; {
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">days</span>) <span class="op">=</span> <span class="ident">fetch_current_trade_days</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">ws_cli</span>).<span class="kw">await</span> {
-                        <span class="self">self</span>.<span class="ident">current_trade_days</span> <span class="op">=</span> <span class="ident">days</span>;
+                <span class="kw">_ </span>= update_trade_days_interval.tick() =&gt; {
+                    <span class="kw">if let </span><span class="prelude-val">Ok</span>(days) = fetch_current_trade_days(<span class="kw-2">&amp;</span><span class="self">self</span>.ws_cli).<span class="kw">await </span>{
+                        <span class="self">self</span>.current_trade_days = days;
                     }
                 }
             }
         }
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_command</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">command</span>: <span class="ident">Command</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="ident">command</span> {
-            <span class="ident">Command::Request</span> {
-                <span class="ident">command_code</span>,
-                <span class="ident">body</span>,
-                <span class="ident">reply_tx</span>,
-            } =&gt; <span class="self">self</span>.<span class="ident">handle_request</span>(<span class="ident">command_code</span>, <span class="ident">body</span>, <span class="ident">reply_tx</span>).<span class="kw">await</span>,
-            <span class="ident">Command::Subscribe</span> {
-                <span class="ident">symbols</span>,
-                <span class="ident">sub_types</span>,
-                <span class="ident">is_first_push</span>,
-                <span class="ident">reply_tx</span>,
+    <span class="kw">async fn </span>handle_command(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command: Command) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">match </span>command {
+            Command::Request {
+                command_code,
+                body,
+                reply_tx,
+            } =&gt; <span class="self">self</span>.handle_request(command_code, body, reply_tx).<span class="kw">await</span>,
+            Command::Subscribe {
+                symbols,
+                sub_types,
+                is_first_push,
+                reply_tx,
             } =&gt; {
-                <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>
-                    .<span class="ident">handle_subscribe</span>(<span class="ident">symbols</span>, <span class="ident">sub_types</span>, <span class="ident">is_first_push</span>)
+                <span class="kw">let </span>res = <span class="self">self
+                    </span>.handle_subscribe(symbols, sub_types, is_first_push)
                     .<span class="kw">await</span>;
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="ident">res</span>);
+                <span class="kw">let _ </span>= reply_tx.send(res);
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::Unsubscribe</span> {
-                <span class="ident">symbols</span>,
-                <span class="ident">sub_types</span>,
-                <span class="ident">reply_tx</span>,
+            Command::Unsubscribe {
+                symbols,
+                sub_types,
+                reply_tx,
             } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_unsubscribe</span>(<span class="ident">symbols</span>, <span class="ident">sub_types</span>).<span class="kw">await</span>);
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_unsubscribe(symbols, sub_types).<span class="kw">await</span>);
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::SubscribeCandlesticks</span> {
-                <span class="ident">symbol</span>,
-                <span class="ident">period</span>,
-                <span class="ident">reply_tx</span>,
+            Command::SubscribeCandlesticks {
+                symbol,
+                period,
+                reply_tx,
             } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_subscribe_candlesticks</span>(<span class="ident">symbol</span>, <span class="ident">period</span>).<span class="kw">await</span>);
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_subscribe_candlesticks(symbol, period).<span class="kw">await</span>);
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::UnsubscribeCandlesticks</span> {
-                <span class="ident">symbol</span>,
-                <span class="ident">period</span>,
-                <span class="ident">reply_tx</span>,
+            Command::UnsubscribeCandlesticks {
+                symbol,
+                period,
+                reply_tx,
             } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_unsubscribe_candlesticks</span>(<span class="ident">symbol</span>, <span class="ident">period</span>).<span class="kw">await</span>);
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_unsubscribe_candlesticks(symbol, period).<span class="kw">await</span>);
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::Subscriptions</span> { <span class="ident">reply_tx</span> } =&gt; {
-                <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">handle_subscriptions</span>().<span class="kw">await</span>;
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="ident">res</span>);
+            Command::Subscriptions { reply_tx } =&gt; {
+                <span class="kw">let </span>res = <span class="self">self</span>.handle_subscriptions().<span class="kw">await</span>;
+                <span class="kw">let _ </span>= reply_tx.send(res);
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::GetRealtimeQuote</span> { <span class="ident">symbols</span>, <span class="ident">reply_tx</span> } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_get_realtime_quote</span>(<span class="ident">symbols</span>));
+            Command::GetRealtimeQuote { symbols, reply_tx } =&gt; {
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_get_realtime_quote(symbols));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::GetRealtimeDepth</span> { <span class="ident">symbol</span>, <span class="ident">reply_tx</span> } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_get_realtime_depth</span>(<span class="ident">symbol</span>));
+            Command::GetRealtimeDepth { symbol, reply_tx } =&gt; {
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_get_realtime_depth(symbol));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::GetRealtimeTrade</span> {
-                <span class="ident">symbol</span>,
-                <span class="ident">count</span>,
-                <span class="ident">reply_tx</span>,
+            Command::GetRealtimeTrade {
+                symbol,
+                count,
+                reply_tx,
             } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_get_realtime_trades</span>(<span class="ident">symbol</span>, <span class="ident">count</span>));
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_get_realtime_trades(symbol, count));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::GetRealtimeBrokers</span> { <span class="ident">symbol</span>, <span class="ident">reply_tx</span> } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_get_realtime_brokers</span>(<span class="ident">symbol</span>));
+            Command::GetRealtimeBrokers { symbol, reply_tx } =&gt; {
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_get_realtime_brokers(symbol));
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="ident">Command::GetRealtimeCandlesticks</span> {
-                <span class="ident">symbol</span>,
-                <span class="ident">period</span>,
-                <span class="ident">count</span>,
-                <span class="ident">reply_tx</span>,
+            Command::GetRealtimeCandlesticks {
+                symbol,
+                period,
+                count,
+                reply_tx,
             } =&gt; {
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="self">self</span>.<span class="ident">handle_get_realtime_candlesticks</span>(<span class="ident">symbol</span>, <span class="ident">period</span>, <span class="ident">count</span>));
+                <span class="kw">let _ </span>= reply_tx.send(<span class="self">self</span>.handle_get_realtime_candlesticks(symbol, period, count));
                 <span class="prelude-val">Ok</span>(())
             }
         }
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_request</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="ident">command_code</span>: <span class="ident">u8</span>,
-        <span class="ident">body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-        <span class="ident">reply_tx</span>: <span class="ident">oneshot::Sender</span><span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">ws_cli</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">ws_cli</span>.<span class="ident">clone</span>();
-        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">ws_cli</span>.<span class="ident">request_raw</span>(<span class="ident">command_code</span>, <span class="prelude-val">None</span>, <span class="ident">body</span>).<span class="kw">await</span>;
-        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">reply_tx</span>.<span class="ident">send</span>(<span class="ident">res</span>.<span class="ident">map_err</span>(<span class="ident">Into::into</span>));
+    <span class="kw">async fn </span>handle_request(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        command_code: u8,
+        body: Vec&lt;u8&gt;,
+        reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span>ws_cli = <span class="self">self</span>.ws_cli.clone();
+        <span class="kw">let </span>res = ws_cli.request_raw(command_code, <span class="prelude-val">None</span>, body).<span class="kw">await</span>;
+        <span class="kw">let _ </span>= reply_tx.send(res.map_err(Into::into));
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_subscribe</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="ident">symbols</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>,
-        <span class="ident">is_first_push</span>: <span class="ident">bool</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">tracing::debug!</span>(<span class="ident">symbols</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">symbols</span>, <span class="ident">sub_types</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">sub_types</span>, <span class="string">&quot;subscribe&quot;</span>);
+    <span class="kw">async fn </span>handle_subscribe(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        symbols: Vec&lt;String&gt;,
+        sub_types: SubFlags,
+        is_first_push: bool,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="macro">tracing::debug!</span>(symbols = <span class="question-mark">?</span>symbols, sub_types = <span class="question-mark">?</span>sub_types, <span class="string">&quot;subscribe&quot;</span>);
 
-        <span class="comment">// send request</span>
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">SubscribeRequest</span> {
-            <span class="ident">symbol</span>: <span class="ident">symbols</span>.<span class="ident">clone</span>(),
-            <span class="ident">sub_type</span>: <span class="ident">sub_types</span>.<span class="ident">into</span>(),
-            <span class="ident">is_first_push</span>,
+        <span class="comment">// send request
+        </span><span class="kw">let </span>req = SubscribeRequest {
+            symbol: symbols.clone(),
+            sub_type: sub_types.into(),
+            is_first_push,
         };
-        <span class="self">self</span>.<span class="ident">ws_cli</span>.<span class="ident">request</span>(<span class="ident">cmd_code::SUBSCRIBE</span>, <span class="prelude-val">None</span>, <span class="ident">req</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.ws_cli.request(cmd_code::SUBSCRIBE, <span class="prelude-val">None</span>, req).<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="comment">// update subscriptions</span>
-        <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="ident">symbols</span> {
-            <span class="self">self</span>.<span class="ident">subscriptions</span>
-                .<span class="ident">entry</span>(<span class="ident">symbol</span>)
-                .<span class="ident">and_modify</span>(<span class="op">|</span><span class="ident">flags</span><span class="op">|</span> <span class="kw-2">*</span><span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">sub_types</span>)
-                .<span class="ident">or_insert</span>(<span class="ident">sub_types</span>);
+        <span class="comment">// update subscriptions
+        </span><span class="kw">for </span>symbol <span class="kw">in </span>symbols {
+            <span class="self">self</span>.subscriptions
+                .entry(symbol)
+                .and_modify(|flags| <span class="kw-2">*</span>flags |= sub_types)
+                .or_insert(sub_types);
         }
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_unsubscribe</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="ident">symbols</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="macro">tracing::debug!</span>(<span class="ident">symbols</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">symbols</span>, <span class="ident">sub_types</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">sub_types</span>, <span class="string">&quot;unsubscribe&quot;</span>);
+    <span class="kw">async fn </span>handle_unsubscribe(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        symbols: Vec&lt;String&gt;,
+        sub_types: SubFlags,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="macro">tracing::debug!</span>(symbols = <span class="question-mark">?</span>symbols, sub_types = <span class="question-mark">?</span>sub_types, <span class="string">&quot;unsubscribe&quot;</span>);
 
-        <span class="comment">// send requests</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">st_group</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">SubFlags</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
+        <span class="comment">// send requests
+        </span><span class="kw">let </span><span class="kw-2">mut </span>st_group: HashMap&lt;SubFlags, Vec&lt;<span class="kw-2">&amp;</span>str&gt;&gt; = HashMap::new();
 
-        <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">symbols</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">st</span> <span class="op">=</span> <span class="ident">sub_types</span>;
-            <span class="kw">if</span> <span class="self">self</span>
-                .<span class="ident">store</span>
-                .<span class="ident">securities</span>
-                .<span class="ident">get</span>(<span class="ident">symbol</span>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="op">!</span><span class="ident">data</span>.<span class="ident">candlesticks</span>.<span class="ident">is_empty</span>())
-                .<span class="ident">unwrap_or_default</span>()
+        <span class="kw">for </span>symbol <span class="kw">in </span><span class="kw-2">&amp;</span>symbols {
+            <span class="kw">let </span><span class="kw-2">mut </span>st = sub_types;
+            <span class="kw">if </span><span class="self">self
+                </span>.store
+                .securities
+                .get(symbol)
+                .map(|data| !data.candlesticks.is_empty())
+                .unwrap_or_default()
             {
-                <span class="ident">st</span>.<span class="ident">remove</span>(<span class="ident">SubFlags::TRADE</span>);
+                st.remove(SubFlags::TRADE);
             }
-            <span class="kw">if</span> <span class="op">!</span><span class="ident">st</span>.<span class="ident">is_empty</span>() {
-                <span class="ident">st_group</span>.<span class="ident">entry</span>(<span class="ident">st</span>).<span class="ident">or_default</span>().<span class="ident">push</span>(<span class="ident">symbol</span>.<span class="ident">as_ref</span>());
+            <span class="kw">if </span>!st.is_empty() {
+                st_group.entry(st).or_default().push(symbol.as_ref());
             }
         }
 
-        <span class="kw">let</span> <span class="ident">requests</span> <span class="op">=</span> <span class="ident">st_group</span>
-            .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">st</span>, <span class="ident">symbols</span>)<span class="op">|</span> <span class="ident">UnsubscribeRequest</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbols</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="ident">ToString::to_string</span>).<span class="ident">collect</span>(),
-                <span class="ident">sub_type</span>: (<span class="kw-2">*</span><span class="ident">st</span>).<span class="ident">into</span>(),
-                <span class="ident">unsub_all</span>: <span class="bool-val">false</span>,
+        <span class="kw">let </span>requests = st_group
+            .iter()
+            .map(|(st, symbols)| UnsubscribeRequest {
+                symbol: symbols.iter().map(ToString::to_string).collect(),
+                sub_type: (<span class="kw-2">*</span>st).into(),
+                unsub_all: <span class="bool-val">false</span>,
             })
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
+            .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
-        <span class="kw">for</span> <span class="ident">req</span> <span class="kw">in</span> <span class="ident">requests</span> {
-            <span class="self">self</span>.<span class="ident">ws_cli</span>
-                .<span class="ident">request</span>(<span class="ident">cmd_code::UNSUBSCRIBE</span>, <span class="prelude-val">None</span>, <span class="ident">req</span>)
+        <span class="kw">for </span>req <span class="kw">in </span>requests {
+            <span class="self">self</span>.ws_cli
+                .request(cmd_code::UNSUBSCRIBE, <span class="prelude-val">None</span>, req)
                 .<span class="kw">await</span><span class="question-mark">?</span>;
         }
 
-        <span class="comment">// update subscriptions</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">remove_symbols</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
-        <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">symbols</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">cur_flags</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">subscriptions</span>.<span class="ident">get_mut</span>(<span class="ident">symbol</span>) {
-                <span class="kw-2">*</span><span class="ident">cur_flags</span> <span class="op">&amp;=</span> <span class="op">!</span><span class="ident">sub_types</span>;
-                <span class="kw">if</span> <span class="ident">cur_flags</span>.<span class="ident">is_empty</span>() {
-                    <span class="ident">remove_symbols</span>.<span class="ident">push</span>(<span class="ident">symbol</span>);
+        <span class="comment">// update subscriptions
+        </span><span class="kw">let </span><span class="kw-2">mut </span>remove_symbols = Vec::new();
+        <span class="kw">for </span>symbol <span class="kw">in </span><span class="kw-2">&amp;</span>symbols {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(cur_flags) = <span class="self">self</span>.subscriptions.get_mut(symbol) {
+                <span class="kw-2">*</span>cur_flags &amp;= !sub_types;
+                <span class="kw">if </span>cur_flags.is_empty() {
+                    remove_symbols.push(symbol);
                 }
             }
         }
 
-        <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="ident">remove_symbols</span> {
-            <span class="self">self</span>.<span class="ident">subscriptions</span>.<span class="ident">remove</span>(<span class="ident">symbol</span>);
+        <span class="kw">for </span>symbol <span class="kw">in </span>remove_symbols {
+            <span class="self">self</span>.subscriptions.remove(symbol);
         }
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_subscribe_candlesticks</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>
-            .<span class="ident">store</span>
-            .<span class="ident">securities</span>
-            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="ident">data</span>.<span class="ident">candlesticks</span>.<span class="ident">contains_key</span>(<span class="kw-2">&amp;</span><span class="ident">period</span>))
-            .<span class="ident">unwrap_or_default</span>()
+    <span class="kw">async fn </span>handle_subscribe_candlesticks(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        symbol: String,
+        period: Period,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">if </span><span class="self">self
+            </span>.store
+            .securities
+            .get(<span class="kw-2">&amp;</span>symbol)
+            .map(|data| data.candlesticks.contains_key(<span class="kw-2">&amp;</span>period))
+            .unwrap_or_default()
         {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
 
-        <span class="kw">let</span> <span class="ident">security_data</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">store</span>.<span class="ident">securities</span>.<span class="ident">entry</span>(<span class="ident">symbol</span>.<span class="ident">clone</span>()).<span class="ident">or_default</span>();
-        <span class="kw">if</span> <span class="ident">security_data</span>.<span class="ident">board</span> <span class="op">!</span><span class="op">=</span> <span class="ident">SecurityBoard::Unknown</span> {
-            <span class="comment">// update board</span>
-            <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">SecurityStaticInfoResponse</span> <span class="op">=</span> <span class="self">self</span>
-                .<span class="ident">ws_cli</span>
-                .<span class="ident">request</span>(
-                    <span class="ident">cmd_code::GET_BASIC_INFO</span>,
+        <span class="kw">let </span>security_data = <span class="self">self</span>.store.securities.entry(symbol.clone()).or_default();
+        <span class="kw">if </span>security_data.board != SecurityBoard::Unknown {
+            <span class="comment">// update board
+            </span><span class="kw">let </span>resp: SecurityStaticInfoResponse = <span class="self">self
+                </span>.ws_cli
+                .request(
+                    cmd_code::GET_BASIC_INFO,
                     <span class="prelude-val">None</span>,
-                    <span class="ident">MultiSecurityRequest</span> {
-                        <span class="ident">symbol</span>: <span class="macro">vec!</span>[<span class="ident">symbol</span>.<span class="ident">clone</span>()],
+                    MultiSecurityRequest {
+                        symbol: <span class="macro">vec!</span>[symbol.clone()],
                     },
                 )
                 .<span class="kw">await</span><span class="question-mark">?</span>;
-            <span class="kw">if</span> <span class="ident">resp</span>.<span class="ident">secu_static_info</span>.<span class="ident">is_empty</span>() {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::InvalidSecuritySymbol</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">clone</span>(),
+            <span class="kw">if </span>resp.secu_static_info.is_empty() {
+                <span class="kw">return </span><span class="prelude-val">Err</span>(Error::InvalidSecuritySymbol {
+                    symbol: symbol.clone(),
                 });
             }
-            <span class="ident">security_data</span>.<span class="ident">board</span> <span class="op">=</span> <span class="ident">resp</span>.<span class="ident">secu_static_info</span>[<span class="number">0</span>].<span class="ident">board</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>();
+            security_data.board = resp.secu_static_info[<span class="number">0</span>].board.parse().unwrap_or_default();
         }
 
-        <span class="comment">// pull candlesticks</span>
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">SecurityCandlestickResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">ws_cli</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_SECURITY_CANDLESTICKS</span>,
+        <span class="comment">// pull candlesticks
+        </span><span class="kw">let </span>resp: SecurityCandlestickResponse = <span class="self">self
+            </span>.ws_cli
+            .request(
+                cmd_code::GET_SECURITY_CANDLESTICKS,
                 <span class="prelude-val">None</span>,
-                <span class="ident">SecurityCandlestickRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">clone</span>(),
-                    <span class="ident">period</span>: <span class="ident">period</span>.<span class="ident">into</span>(),
-                    <span class="ident">count</span>: <span class="number">1000</span>,
-                    <span class="ident">adjust_type</span>: <span class="ident">AdjustType::NoAdjust</span>.<span class="ident">into</span>(),
+                SecurityCandlestickRequest {
+                    symbol: symbol.clone(),
+                    period: period.into(),
+                    count: <span class="number">1000</span>,
+                    adjust_type: AdjustType::NoAdjust.into(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="kw-2">*</span><span class="ident">security_data</span>.<span class="ident">candlesticks</span>.<span class="ident">entry</span>(<span class="ident">period</span>).<span class="ident">or_default</span>() <span class="op">=</span> <span class="ident">resp</span>
-            .<span class="ident">candlesticks</span>
-            .<span class="ident">into_iter</span>()
-            .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+        <span class="kw-2">*</span>security_data.candlesticks.entry(period).or_default() = resp
+            .candlesticks
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
 
-        <span class="comment">// subscribe trades</span>
-        <span class="kw">if</span> <span class="self">self</span>
-            .<span class="ident">subscriptions</span>
-            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>)
-            .<span class="ident">copied</span>()
-            .<span class="ident">unwrap_or_else</span>(<span class="ident">SubFlags::empty</span>)
-            .<span class="ident">contains</span>(<span class="ident">SubFlags::TRADE</span>)
+        <span class="comment">// subscribe trades
+        </span><span class="kw">if </span><span class="self">self
+            </span>.subscriptions
+            .get(<span class="kw-2">&amp;</span>symbol)
+            .copied()
+            .unwrap_or_else(SubFlags::empty)
+            .contains(SubFlags::TRADE)
         {
-            <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
         }
 
-        <span class="kw">let</span> <span class="ident">req</span> <span class="op">=</span> <span class="ident">SubscribeRequest</span> {
-            <span class="ident">symbol</span>: <span class="macro">vec!</span>[<span class="ident">symbol</span>],
-            <span class="ident">sub_type</span>: <span class="ident">SubFlags::TRADE</span>.<span class="ident">into</span>(),
-            <span class="ident">is_first_push</span>: <span class="bool-val">false</span>,
+        <span class="kw">let </span>req = SubscribeRequest {
+            symbol: <span class="macro">vec!</span>[symbol],
+            sub_type: SubFlags::TRADE.into(),
+            is_first_push: <span class="bool-val">false</span>,
         };
-        <span class="self">self</span>.<span class="ident">ws_cli</span>.<span class="ident">request</span>(<span class="ident">cmd_code::SUBSCRIBE</span>, <span class="prelude-val">None</span>, <span class="ident">req</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.ws_cli.request(cmd_code::SUBSCRIBE, <span class="prelude-val">None</span>, req).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_unsubscribe_candlesticks</span>(
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">unsubscribe_trades</span> <span class="op">=</span> <span class="bool-val">false</span>;
+    <span class="kw">async fn </span>handle_unsubscribe_candlesticks(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        symbol: String,
+        period: Period,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>unsubscribe_trades = <span class="bool-val">false</span>;
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">periods</span>) <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">store</span>
-            .<span class="ident">securities</span>
-            .<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="kw-2">&amp;mut</span> <span class="ident">data</span>.<span class="ident">candlesticks</span>)
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(periods) = <span class="self">self
+            </span>.store
+            .securities
+            .get_mut(<span class="kw-2">&amp;</span>symbol)
+            .map(|data| <span class="kw-2">&amp;mut </span>data.candlesticks)
         {
-            <span class="kw">if</span> <span class="ident">periods</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">period</span>).<span class="ident">is_some</span>()
-                <span class="op">&amp;&amp;</span> <span class="ident">periods</span>.<span class="ident">is_empty</span>()
-                <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="self">self</span>
-                    .<span class="ident">subscriptions</span>
-                    .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>)
-                    .<span class="ident">copied</span>()
-                    .<span class="ident">unwrap_or_else</span>(<span class="ident">SubFlags::empty</span>)
-                    .<span class="ident">contains</span>(<span class="ident">SubFlags::TRADE</span>)
+            <span class="kw">if </span>periods.remove(<span class="kw-2">&amp;</span>period).is_some()
+                &amp;&amp; periods.is_empty()
+                &amp;&amp; !<span class="self">self
+                    </span>.subscriptions
+                    .get(<span class="kw-2">&amp;</span>symbol)
+                    .copied()
+                    .unwrap_or_else(SubFlags::empty)
+                    .contains(SubFlags::TRADE)
             {
-                <span class="ident">unsubscribe_trades</span> <span class="op">=</span> <span class="bool-val">true</span>;
+                unsubscribe_trades = <span class="bool-val">true</span>;
             }
         }
 
-        <span class="kw">if</span> <span class="ident">unsubscribe_trades</span> {
-            <span class="self">self</span>.<span class="ident">ws_cli</span>
-                .<span class="ident">request</span>(
-                    <span class="ident">cmd_code::UNSUBSCRIBE</span>,
+        <span class="kw">if </span>unsubscribe_trades {
+            <span class="self">self</span>.ws_cli
+                .request(
+                    cmd_code::UNSUBSCRIBE,
                     <span class="prelude-val">None</span>,
-                    <span class="ident">UnsubscribeRequest</span> {
-                        <span class="ident">symbol</span>: <span class="macro">vec!</span>[<span class="ident">symbol</span>],
-                        <span class="ident">sub_type</span>: <span class="ident">SubFlags::TRADE</span>.<span class="ident">into</span>(),
-                        <span class="ident">unsub_all</span>: <span class="bool-val">false</span>,
+                    UnsubscribeRequest {
+                        symbol: <span class="macro">vec!</span>[symbol],
+                        sub_type: SubFlags::TRADE.into(),
+                        unsub_all: <span class="bool-val">false</span>,
                     },
                 )
                 .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1487,58 +1487,58 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_subscriptions</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Subscription</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">subscriptions</span>
-            .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">symbol</span>, <span class="ident">sub_flags</span>)<span class="op">|</span> <span class="ident">Subscription</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">clone</span>(),
-                <span class="ident">sub_types</span>: <span class="kw-2">*</span><span class="ident">sub_flags</span>,
-                <span class="ident">candlesticks</span>: <span class="self">self</span>
-                    .<span class="ident">store</span>
-                    .<span class="ident">securities</span>
-                    .<span class="ident">get</span>(<span class="ident">symbol</span>)
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">data</span>.<span class="ident">candlesticks</span>)
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">periods</span><span class="op">|</span> <span class="ident">periods</span>.<span class="ident">keys</span>().<span class="ident">copied</span>().<span class="ident">collect</span>())
-                    .<span class="ident">unwrap_or_default</span>(),
+    <span class="kw">async fn </span>handle_subscriptions(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Vec&lt;Subscription&gt; {
+        <span class="self">self</span>.subscriptions
+            .iter()
+            .map(|(symbol, sub_flags)| Subscription {
+                symbol: symbol.clone(),
+                sub_types: <span class="kw-2">*</span>sub_flags,
+                candlesticks: <span class="self">self
+                    </span>.store
+                    .securities
+                    .get(symbol)
+                    .map(|data| <span class="kw-2">&amp;</span>data.candlesticks)
+                    .map(|periods| periods.keys().copied().collect())
+                    .unwrap_or_default(),
             })
-            .<span class="ident">collect</span>()
+            .collect()
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_ws_event</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">event</span>: <span class="ident">WsEvent</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="ident">event</span> {
-            <span class="ident">WsEvent::Error</span>(<span class="ident">err</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">err</span>.<span class="ident">into</span>()),
-            <span class="ident">WsEvent::Push</span> { <span class="ident">command_code</span>, <span class="ident">body</span> } =&gt; <span class="self">self</span>.<span class="ident">handle_push</span>(<span class="ident">command_code</span>, <span class="ident">body</span>).<span class="kw">await</span>,
+    <span class="kw">async fn </span>handle_ws_event(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: WsEvent) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">match </span>event {
+            WsEvent::Error(err) =&gt; <span class="prelude-val">Err</span>(err.into()),
+            WsEvent::Push { command_code, body } =&gt; <span class="self">self</span>.handle_push(command_code, body).<span class="kw">await</span>,
         }
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">resubscribe</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">subscriptions</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">SubFlags</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
+    <span class="kw">async fn </span>resubscribe(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>subscriptions: HashMap&lt;SubFlags, Vec&lt;String&gt;&gt; = HashMap::new();
 
-        <span class="kw">for</span> (<span class="ident">symbol</span>, <span class="ident">flags</span>) <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">subscriptions</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">flags</span> <span class="op">=</span> <span class="kw-2">*</span><span class="ident">flags</span>;
+        <span class="kw">for </span>(symbol, flags) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.subscriptions {
+            <span class="kw">let </span><span class="kw-2">mut </span>flags = <span class="kw-2">*</span>flags;
 
-            <span class="kw">if</span> <span class="self">self</span>
-                .<span class="ident">store</span>
-                .<span class="ident">securities</span>
-                .<span class="ident">get</span>(<span class="ident">symbol</span>)
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="op">!</span><span class="ident">data</span>.<span class="ident">candlesticks</span>.<span class="ident">is_empty</span>())
-                .<span class="ident">unwrap_or_default</span>()
+            <span class="kw">if </span><span class="self">self
+                </span>.store
+                .securities
+                .get(symbol)
+                .map(|data| !data.candlesticks.is_empty())
+                .unwrap_or_default()
             {
-                <span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">SubFlags::TRADE</span>;
+                flags |= SubFlags::TRADE;
             }
 
-            <span class="ident">subscriptions</span>.<span class="ident">entry</span>(<span class="ident">flags</span>).<span class="ident">or_default</span>().<span class="ident">push</span>(<span class="ident">symbol</span>.<span class="ident">clone</span>());
+            subscriptions.entry(flags).or_default().push(symbol.clone());
         }
 
-        <span class="kw">for</span> (<span class="ident">flags</span>, <span class="ident">symbols</span>) <span class="kw">in</span> <span class="ident">subscriptions</span> {
-            <span class="self">self</span>.<span class="ident">ws_cli</span>
-                .<span class="ident">request</span>(
-                    <span class="ident">cmd_code::SUBSCRIBE</span>,
+        <span class="kw">for </span>(flags, symbols) <span class="kw">in </span>subscriptions {
+            <span class="self">self</span>.ws_cli
+                .request(
+                    cmd_code::SUBSCRIBE,
                     <span class="prelude-val">None</span>,
-                    <span class="ident">SubscribeRequest</span> {
-                        <span class="ident">symbol</span>: <span class="ident">symbols</span>,
-                        <span class="ident">sub_type</span>: <span class="ident">flags</span>.<span class="ident">into</span>(),
-                        <span class="ident">is_first_push</span>: <span class="bool-val">false</span>,
+                    SubscribeRequest {
+                        symbol: symbols,
+                        sub_type: flags.into(),
+                        is_first_push: <span class="bool-val">false</span>,
                     },
                 )
                 .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -1547,86 +1547,86 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">handle_push</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">command_code</span>: <span class="ident">u8</span>, <span class="ident">body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="ident">PushEvent::parse</span>(<span class="ident">command_code</span>, <span class="kw-2">&amp;</span><span class="ident">body</span>) {
-            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">event</span>) =&gt; {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="ident">PushEventDetail::Trade</span>(<span class="ident">trades</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">event</span>.<span class="ident">detail</span> {
-                    <span class="comment">// merge candlesticks</span>
-                    <span class="kw">let</span> <span class="ident">market</span> <span class="op">=</span>
-                        <span class="ident">get_market_from_symbol</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>.<span class="ident">symbol</span>).<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">market</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">market</span> {
-                            <span class="string">&quot;HK&quot;</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">longbridge_candlesticks::Market::HK</span>),
-                            <span class="string">&quot;US&quot;</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">longbridge_candlesticks::Market::US</span>),
-                            <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
+    <span class="kw">async fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command_code: u8, body: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">match </span>PushEvent::parse(command_code, <span class="kw-2">&amp;</span>body) {
+            <span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>event) =&gt; {
+                <span class="kw">if let </span>PushEventDetail::Trade(trades) = <span class="kw-2">&amp;</span>event.detail {
+                    <span class="comment">// merge candlesticks
+                    </span><span class="kw">let </span>market =
+                        get_market_from_symbol(<span class="kw-2">&amp;</span>event.symbol).and_then(|market| <span class="kw">match </span>market {
+                            <span class="string">&quot;HK&quot; </span>=&gt; <span class="prelude-val">Some</span>(longbridge_candlesticks::Market::HK),
+                            <span class="string">&quot;US&quot; </span>=&gt; <span class="prelude-val">Some</span>(longbridge_candlesticks::Market::US),
+                            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
                         });
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">market</span>) <span class="op">=</span> <span class="ident">market</span> {
-                        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">merge_ty</span>, <span class="ident">periods</span>)) <span class="op">=</span> <span class="self">self</span>
-                            .<span class="ident">store</span>
-                            .<span class="ident">securities</span>
-                            .<span class="ident">get_mut</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>.<span class="ident">symbol</span>)
-                            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> (<span class="ident">get_merger_ty</span>(<span class="ident">data</span>.<span class="ident">board</span>), <span class="kw-2">&amp;mut</span> <span class="ident">data</span>.<span class="ident">candlesticks</span>))
+                    <span class="kw">if let </span><span class="prelude-val">Some</span>(market) = market {
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>((merge_ty, periods)) = <span class="self">self
+                            </span>.store
+                            .securities
+                            .get_mut(<span class="kw-2">&amp;</span>event.symbol)
+                            .map(|data| (get_merger_ty(data.board), <span class="kw-2">&amp;mut </span>data.candlesticks))
                         {
-                            <span class="kw">for</span> (<span class="ident">period</span>, <span class="ident">candlesticks</span>) <span class="kw">in</span> <span class="ident">periods</span> {
-                                <span class="kw">let</span> <span class="ident">prev</span> <span class="op">=</span>
-                                    <span class="ident">candlesticks</span>.<span class="ident">last</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">candlestick</span><span class="op">|</span> (<span class="kw-2">*</span><span class="ident">candlestick</span>).<span class="ident">into</span>());
-                                <span class="kw">let</span> <span class="ident">period2</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">period</span> {
-                                    <span class="ident">Period::UnknownPeriod</span> =&gt; <span class="macro">unreachable!</span>(),
-                                    <span class="ident">Period::OneMinute</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Min_1</span>,
-                                    <span class="ident">Period::FiveMinute</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Min_5</span>,
-                                    <span class="ident">Period::FifteenMinute</span> =&gt; {
-                                        <span class="ident">longbridge_candlesticks::Period::Min_15</span>
+                            <span class="kw">for </span>(period, candlesticks) <span class="kw">in </span>periods {
+                                <span class="kw">let </span>prev =
+                                    candlesticks.last().map(|candlestick| (<span class="kw-2">*</span>candlestick).into());
+                                <span class="kw">let </span>period2 = <span class="kw">match </span>period {
+                                    Period::UnknownPeriod =&gt; <span class="macro">unreachable!</span>(),
+                                    Period::OneMinute =&gt; longbridge_candlesticks::Period::Min_1,
+                                    Period::FiveMinute =&gt; longbridge_candlesticks::Period::Min_5,
+                                    Period::FifteenMinute =&gt; {
+                                        longbridge_candlesticks::Period::Min_15
                                     }
-                                    <span class="ident">Period::ThirtyMinute</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Min_30</span>,
-                                    <span class="ident">Period::SixtyMinute</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Min_60</span>,
-                                    <span class="ident">Period::Day</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Day</span>,
-                                    <span class="ident">Period::Week</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Week</span>,
-                                    <span class="ident">Period::Month</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Month</span>,
-                                    <span class="ident">Period::Year</span> =&gt; <span class="ident">longbridge_candlesticks::Period::Year</span>,
+                                    Period::ThirtyMinute =&gt; longbridge_candlesticks::Period::Min_30,
+                                    Period::SixtyMinute =&gt; longbridge_candlesticks::Period::Min_60,
+                                    Period::Day =&gt; longbridge_candlesticks::Period::Day,
+                                    Period::Week =&gt; longbridge_candlesticks::Period::Week,
+                                    Period::Month =&gt; longbridge_candlesticks::Period::Month,
+                                    Period::Year =&gt; longbridge_candlesticks::Period::Year,
                                 };
 
-                                <span class="kw">let</span> <span class="ident">merger</span> <span class="op">=</span> <span class="ident">longbridge_candlesticks::Merger::new</span>(
-                                    <span class="ident">market</span>,
-                                    <span class="ident">period2</span>,
-                                    <span class="self">self</span>.<span class="ident">current_trade_days</span>.<span class="ident">half_days</span>(<span class="ident">market</span>),
+                                <span class="kw">let </span>merger = longbridge_candlesticks::Merger::new(
+                                    market,
+                                    period2,
+                                    <span class="self">self</span>.current_trade_days.half_days(market),
                                 );
 
-                                <span class="kw">for</span> <span class="ident">trade</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">trades</span>.<span class="ident">trades</span> {
-                                    <span class="kw">if</span> <span class="ident">trade</span>.<span class="ident">trade_session</span> <span class="op">!</span><span class="op">=</span> <span class="ident">TradeSession::NormalTrade</span> {
+                                <span class="kw">for </span>trade <span class="kw">in </span><span class="kw-2">&amp;</span>trades.trades {
+                                    <span class="kw">if </span>trade.trade_session != TradeSession::NormalTrade {
                                         <span class="kw">continue</span>;
                                     }
 
-                                    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">merger</span>.<span class="ident">merge</span>(
-                                        <span class="ident">merge_ty</span>,
-                                        <span class="ident">prev</span>.<span class="ident">as_ref</span>(),
-                                        <span class="ident">longbridge_candlesticks::Trade</span> {
-                                            <span class="ident">time</span>: <span class="ident">trade</span>.<span class="ident">timestamp</span>,
-                                            <span class="ident">price</span>: <span class="ident">trade</span>.<span class="ident">price</span>,
-                                            <span class="ident">volume</span>: <span class="ident">trade</span>.<span class="ident">volume</span>,
-                                            <span class="ident">trade_type</span>: <span class="kw-2">&amp;</span><span class="ident">trade</span>.<span class="ident">trade_type</span>,
+                                    <span class="kw">let </span>res = merger.merge(
+                                        merge_ty,
+                                        prev.as_ref(),
+                                        longbridge_candlesticks::Trade {
+                                            time: trade.timestamp,
+                                            price: trade.price,
+                                            volume: trade.volume,
+                                            trade_type: <span class="kw-2">&amp;</span>trade.trade_type,
                                         },
                                     );
-                                    <span class="kw">let</span> <span class="ident">candlestick</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">res</span> {
-                                        <span class="ident">UpdateAction::UpdateLast</span>(<span class="ident">candlestick</span>) =&gt; {
-                                            <span class="kw">let</span> <span class="ident">candlestick</span> <span class="op">=</span> <span class="ident">candlestick</span>.<span class="ident">into</span>();
-                                            <span class="kw-2">*</span><span class="ident">candlesticks</span>.<span class="ident">last_mut</span>().<span class="ident">unwrap</span>() <span class="op">=</span> <span class="ident">candlestick</span>;
-                                            <span class="prelude-val">Some</span>(<span class="ident">candlestick</span>)
+                                    <span class="kw">let </span>candlestick = <span class="kw">match </span>res {
+                                        UpdateAction::UpdateLast(candlestick) =&gt; {
+                                            <span class="kw">let </span>candlestick = candlestick.into();
+                                            <span class="kw-2">*</span>candlesticks.last_mut().unwrap() = candlestick;
+                                            <span class="prelude-val">Some</span>(candlestick)
                                         }
-                                        <span class="ident">UpdateAction::AppendNew</span>(<span class="ident">candlestick</span>) =&gt; {
-                                            <span class="kw">let</span> <span class="ident">candlestick</span> <span class="op">=</span> <span class="ident">candlestick</span>.<span class="ident">into</span>();
-                                            <span class="ident">candlesticks</span>.<span class="ident">push</span>(<span class="ident">candlestick</span>);
-                                            <span class="kw">if</span> <span class="ident">candlesticks</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">MAX_CANDLESTICKS</span> <span class="op">*</span> <span class="number">2</span> {
-                                                <span class="ident">candlesticks</span>.<span class="ident">drain</span>(..<span class="ident">MAX_CANDLESTICKS</span>);
+                                        UpdateAction::AppendNew(candlestick) =&gt; {
+                                            <span class="kw">let </span>candlestick = candlestick.into();
+                                            candlesticks.push(candlestick);
+                                            <span class="kw">if </span>candlesticks.len() &gt; MAX_CANDLESTICKS * <span class="number">2 </span>{
+                                                candlesticks.drain(..MAX_CANDLESTICKS);
                                             }
-                                            <span class="prelude-val">Some</span>(<span class="ident">candlestick</span>)
+                                            <span class="prelude-val">Some</span>(candlestick)
                                         }
-                                        <span class="ident">UpdateAction::None</span> =&gt; <span class="prelude-val">None</span>,
+                                        UpdateAction::None =&gt; <span class="prelude-val">None</span>,
                                     };
-                                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">candlestick</span>) <span class="op">=</span> <span class="ident">candlestick</span> {
-                                        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">push_tx</span>.<span class="ident">send</span>(<span class="ident">PushEvent</span> {
-                                            <span class="ident">sequence</span>: <span class="number">0</span>,
-                                            <span class="ident">symbol</span>: <span class="ident">event</span>.<span class="ident">symbol</span>.<span class="ident">clone</span>(),
-                                            <span class="ident">detail</span>: <span class="ident">PushEventDetail::Candlestick</span>(<span class="ident">PushCandlestick</span> {
-                                                <span class="ident">period</span>: <span class="kw-2">*</span><span class="ident">period</span>,
-                                                <span class="ident">candlestick</span>,
+                                    <span class="kw">if let </span><span class="prelude-val">Some</span>(candlestick) = candlestick {
+                                        <span class="kw">let _ </span>= <span class="self">self</span>.push_tx.send(PushEvent {
+                                            sequence: <span class="number">0</span>,
+                                            symbol: event.symbol.clone(),
+                                            detail: PushEventDetail::Candlestick(PushCandlestick {
+                                                period: <span class="kw-2">*</span>period,
+                                                candlestick,
                                             }),
                                         });
                                     }
@@ -1635,140 +1635,140 @@
                         }
                     }
 
-                    <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>
-                        .<span class="ident">subscriptions</span>
-                        .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">event</span>.<span class="ident">symbol</span>)
-                        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">sub_flags</span><span class="op">|</span> <span class="ident">sub_flags</span>.<span class="ident">contains</span>(<span class="ident">SubFlags::TRADE</span>))
-                        .<span class="ident">unwrap_or_default</span>()
+                    <span class="kw">if </span>!<span class="self">self
+                        </span>.subscriptions
+                        .get(<span class="kw-2">&amp;</span>event.symbol)
+                        .map(|sub_flags| sub_flags.contains(SubFlags::TRADE))
+                        .unwrap_or_default()
                     {
-                        <span class="kw">return</span> <span class="prelude-val">Ok</span>(());
+                        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
                     }
                 }
 
-                <span class="self">self</span>.<span class="ident">store</span>.<span class="ident">handle_push</span>(<span class="kw-2">&amp;mut</span> <span class="ident">event</span>);
-                <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">push_tx</span>.<span class="ident">send</span>(<span class="ident">event</span>);
+                <span class="self">self</span>.store.handle_push(<span class="kw-2">&amp;mut </span>event);
+                <span class="kw">let _ </span>= <span class="self">self</span>.push_tx.send(event);
             }
-            <span class="prelude-val">Err</span>(<span class="ident">err</span>) =&gt; {
-                <span class="macro">tracing::error!</span>(<span class="ident">error</span> <span class="op">=</span> <span class="op">%</span><span class="ident">err</span>, <span class="string">&quot;failed to parse push message&quot;</span>);
+            <span class="prelude-val">Err</span>(err) =&gt; {
+                <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to parse push message&quot;</span>);
             }
         }
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn</span> <span class="ident">handle_get_realtime_quote</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RealtimeQuote</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
+    <span class="kw">fn </span>handle_get_realtime_quote(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: Vec&lt;String&gt;) -&gt; Vec&lt;RealtimeQuote&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>result = Vec::new();
 
-        <span class="kw">for</span> <span class="ident">symbol</span> <span class="kw">in</span> <span class="ident">symbols</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">store</span>.<span class="ident">securities</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>) {
-                <span class="ident">result</span>.<span class="ident">push</span>(<span class="ident">RealtimeQuote</span> {
-                    <span class="ident">symbol</span>,
-                    <span class="ident">last_done</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">last_done</span>,
-                    <span class="ident">open</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">open</span>,
-                    <span class="ident">high</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">high</span>,
-                    <span class="ident">low</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">low</span>,
-                    <span class="ident">timestamp</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">timestamp</span>,
-                    <span class="ident">volume</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">volume</span>,
-                    <span class="ident">turnover</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">turnover</span>,
-                    <span class="ident">trade_status</span>: <span class="ident">data</span>.<span class="ident">quote</span>.<span class="ident">trade_status</span>,
+        <span class="kw">for </span>symbol <span class="kw">in </span>symbols {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = <span class="self">self</span>.store.securities.get(<span class="kw-2">&amp;</span>symbol) {
+                result.push(RealtimeQuote {
+                    symbol,
+                    last_done: data.quote.last_done,
+                    open: data.quote.open,
+                    high: data.quote.high,
+                    low: data.quote.low,
+                    timestamp: data.quote.timestamp,
+                    volume: data.quote.volume,
+                    turnover: data.quote.turnover,
+                    trade_status: data.quote.trade_status,
                 });
             }
         }
 
-        <span class="ident">result</span>
+        result
     }
 
-    <span class="kw">fn</span> <span class="ident">handle_get_realtime_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="ident">String</span>) -&gt; <span class="ident">SecurityDepth</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">SecurityDepth::default</span>();
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">store</span>.<span class="ident">securities</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>) {
-            <span class="ident">result</span>.<span class="ident">asks</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">asks</span>.<span class="ident">clone</span>();
-            <span class="ident">result</span>.<span class="ident">bids</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">bids</span>.<span class="ident">clone</span>();
+    <span class="kw">fn </span>handle_get_realtime_depth(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: String) -&gt; SecurityDepth {
+        <span class="kw">let </span><span class="kw-2">mut </span>result = SecurityDepth::default();
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = <span class="self">self</span>.store.securities.get(<span class="kw-2">&amp;</span>symbol) {
+            result.asks = data.asks.clone();
+            result.bids = data.bids.clone();
         }
-        <span class="ident">result</span>
+        result
     }
 
-    <span class="kw">fn</span> <span class="ident">handle_get_realtime_trades</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="ident">String</span>, <span class="ident">count</span>: <span class="ident">usize</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
+    <span class="kw">fn </span>handle_get_realtime_trades(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: String, count: usize) -&gt; Vec&lt;Trade&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>res = Vec::new();
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">store</span>.<span class="ident">securities</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>) {
-            <span class="kw">let</span> <span class="ident">trades</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">data</span>.<span class="ident">trades</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="ident">count</span> {
-                <span class="kw-2">&amp;</span><span class="ident">data</span>.<span class="ident">trades</span>[<span class="ident">data</span>.<span class="ident">trades</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="ident">count</span>..]
-            } <span class="kw">else</span> {
-                <span class="kw-2">&amp;</span><span class="ident">data</span>.<span class="ident">trades</span>
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = <span class="self">self</span>.store.securities.get(<span class="kw-2">&amp;</span>symbol) {
+            <span class="kw">let </span>trades = <span class="kw">if </span>data.trades.len() &gt;= count {
+                <span class="kw-2">&amp;</span>data.trades[data.trades.len() - count..]
+            } <span class="kw">else </span>{
+                <span class="kw-2">&amp;</span>data.trades
             };
-            <span class="ident">res</span> <span class="op">=</span> <span class="ident">trades</span>.<span class="ident">to_vec</span>();
+            res = trades.to_vec();
         }
-        <span class="ident">res</span>
+        res
     }
 
-    <span class="kw">fn</span> <span class="ident">handle_get_realtime_brokers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="ident">String</span>) -&gt; <span class="ident">SecurityBrokers</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">SecurityBrokers::default</span>();
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">store</span>.<span class="ident">securities</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>) {
-            <span class="ident">result</span>.<span class="ident">ask_brokers</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">ask_brokers</span>.<span class="ident">clone</span>();
-            <span class="ident">result</span>.<span class="ident">bid_brokers</span> <span class="op">=</span> <span class="ident">data</span>.<span class="ident">bid_brokers</span>.<span class="ident">clone</span>();
+    <span class="kw">fn </span>handle_get_realtime_brokers(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: String) -&gt; SecurityBrokers {
+        <span class="kw">let </span><span class="kw-2">mut </span>result = SecurityBrokers::default();
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = <span class="self">self</span>.store.securities.get(<span class="kw-2">&amp;</span>symbol) {
+            result.ask_brokers = data.ask_brokers.clone();
+            result.bid_brokers = data.bid_brokers.clone();
         }
-        <span class="ident">result</span>
+        result
     }
 
-    <span class="kw">fn</span> <span class="ident">handle_get_realtime_candlesticks</span>(
+    <span class="kw">fn </span>handle_get_realtime_candlesticks(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-        <span class="ident">count</span>: <span class="ident">usize</span>,
-    ) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Candlestick</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">store</span>
-            .<span class="ident">securities</span>
-            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">symbol</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">data</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">data</span>.<span class="ident">candlesticks</span>)
-            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">periods</span><span class="op">|</span> <span class="ident">periods</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">period</span>))
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">candlesticks</span><span class="op">|</span> {
-                <span class="kw">let</span> <span class="ident">candlesticks</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">candlesticks</span>.<span class="ident">len</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="ident">count</span> {
-                    <span class="kw-2">&amp;</span><span class="ident">candlesticks</span>[<span class="ident">candlesticks</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="ident">count</span>..]
-                } <span class="kw">else</span> {
-                    <span class="ident">candlesticks</span>
+        symbol: String,
+        period: Period,
+        count: usize,
+    ) -&gt; Vec&lt;Candlestick&gt; {
+        <span class="self">self</span>.store
+            .securities
+            .get(<span class="kw-2">&amp;</span>symbol)
+            .map(|data| <span class="kw-2">&amp;</span>data.candlesticks)
+            .and_then(|periods| periods.get(<span class="kw-2">&amp;</span>period))
+            .map(|candlesticks| {
+                <span class="kw">let </span>candlesticks = <span class="kw">if </span>candlesticks.len() &gt;= count {
+                    <span class="kw-2">&amp;</span>candlesticks[candlesticks.len() - count..]
+                } <span class="kw">else </span>{
+                    candlesticks
                 };
-                <span class="ident">candlesticks</span>.<span class="ident">to_vec</span>()
+                candlesticks.to_vec()
             })
-            .<span class="ident">unwrap_or_default</span>()
+            .unwrap_or_default()
     }
 }
 
-<span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">fn</span> <span class="ident">get_merger_ty</span>(<span class="ident">board</span>: <span class="ident">SecurityBoard</span>) -&gt; <span class="ident">Type</span> {
-    <span class="kw">match</span> <span class="ident">board</span> {
-        <span class="ident">SecurityBoard::USOptionS</span> =&gt; <span class="ident">Type::USOQ</span>,
-        <span class="kw">_</span> =&gt; <span class="ident">Type::Normal</span>,
+<span class="attribute">#[inline]
+</span><span class="kw">fn </span>get_merger_ty(board: SecurityBoard) -&gt; Type {
+    <span class="kw">match </span>board {
+        SecurityBoard::USOptionS =&gt; Type::USOQ,
+        <span class="kw">_ </span>=&gt; Type::Normal,
     }
 }
 
-<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">fetch_current_trade_days</span>(<span class="ident">cli</span>: <span class="kw-2">&amp;</span><span class="ident">WsClient</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CurrentTradeDays</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">days</span> <span class="op">=</span> <span class="ident">CurrentTradeDays::default</span>();
-    <span class="kw">let</span> <span class="ident">begin_day</span> <span class="op">=</span> <span class="ident">OffsetDateTime::now_utc</span>().<span class="ident">date</span>() <span class="op">-</span> <span class="ident">time::Duration::days</span>(<span class="number">1</span>);
-    <span class="kw">let</span> <span class="ident">end_day</span> <span class="op">=</span> <span class="ident">begin_day</span> <span class="op">+</span> <span class="ident">time::Duration::days</span>(<span class="number">30</span>);
+<span class="kw">async fn </span>fetch_current_trade_days(cli: <span class="kw-2">&amp;</span>WsClient) -&gt; <span class="prelude-ty">Result</span>&lt;CurrentTradeDays&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>days = CurrentTradeDays::default();
+    <span class="kw">let </span>begin_day = OffsetDateTime::now_utc().date() - time::Duration::days(<span class="number">1</span>);
+    <span class="kw">let </span>end_day = begin_day + time::Duration::days(<span class="number">30</span>);
 
-    <span class="kw">for</span> <span class="ident">market</span> <span class="kw">in</span> [<span class="ident">Market::HK</span>, <span class="ident">Market::US</span>] {
-        <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="ident">cli</span>
-            .<span class="ident">request</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">MarketTradeDayResponse</span><span class="op">&gt;</span>(
-                <span class="ident">cmd_code::GET_TRADING_DAYS</span>,
+    <span class="kw">for </span>market <span class="kw">in </span>[Market::HK, Market::US] {
+        <span class="kw">let </span>resp = cli
+            .request::&lt;<span class="kw">_</span>, MarketTradeDayResponse&gt;(
+                cmd_code::GET_TRADING_DAYS,
                 <span class="prelude-val">None</span>,
-                <span class="ident">MarketTradeDayRequest</span> {
-                    <span class="ident">market</span>: <span class="ident">market</span>.<span class="ident">to_string</span>(),
-                    <span class="ident">beg_day</span>: <span class="ident">format_date</span>(<span class="ident">begin_day</span>),
-                    <span class="ident">end_day</span>: <span class="ident">format_date</span>(<span class="ident">end_day</span>),
+                MarketTradeDayRequest {
+                    market: market.to_string(),
+                    beg_day: format_date(begin_day),
+                    end_day: format_date(end_day),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="ident">days</span>.<span class="ident">half_days</span>.<span class="ident">insert</span>(
-            <span class="ident">market</span>,
-            <span class="ident">resp</span>.<span class="ident">half_trade_day</span>
-                .<span class="ident">iter</span>()
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
-                    <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;half_trade_day&quot;</span>, <span class="ident">err</span>))
+        days.half_days.insert(
+            market,
+            resp.half_trade_day
+                .iter()
+                .map(|value| {
+                    parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;half_trade_day&quot;</span>, err))
                 })
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">HashSet</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;HashSet&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
         );
     }
 
-    <span class="prelude-val">Ok</span>(<span class="ident">days</span>)
+    <span class="prelude-val">Ok</span>(days)
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

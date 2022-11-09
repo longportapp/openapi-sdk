@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/sub_flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sub_flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/sub_flags.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>sub_flags.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -60,67 +60,67 @@
 <span id="60">60</span>
 <span id="61">61</span>
 <span id="62">62</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">longbridge_proto::quote::SubType</span>;
+</pre><pre class="rust"><code><span class="kw">use </span>longbridge_proto::quote::SubType;
 
-<span class="macro">bitflags::bitflags!</span> {
-    <span class="doccomment">/// Subscription flags</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubFlags</span>: <span class="ident">u8</span> {
-        <span class="doccomment">/// Quote</span>
-        <span class="kw">const</span> <span class="ident">QUOTE</span> <span class="op">=</span> <span class="number">0x1</span>;
+<span class="macro">bitflags::bitflags! </span>{
+    <span class="doccomment">/// Subscription flags
+    </span><span class="kw">pub struct </span>SubFlags: u8 {
+        <span class="doccomment">/// Quote
+        </span><span class="kw">const </span>QUOTE = <span class="number">0x1</span>;
 
-        <span class="doccomment">/// Depth</span>
-        <span class="kw">const</span> <span class="ident">DEPTH</span> <span class="op">=</span> <span class="number">0x2</span>;
+        <span class="doccomment">/// Depth
+        </span><span class="kw">const </span>DEPTH = <span class="number">0x2</span>;
 
-        <span class="doccomment">/// Broker</span>
-        <span class="kw">const</span> <span class="ident">BROKER</span> <span class="op">=</span> <span class="number">0x4</span>;
+        <span class="doccomment">/// Broker
+        </span><span class="kw">const </span>BROKER = <span class="number">0x4</span>;
 
-        <span class="doccomment">/// Trade</span>
-        <span class="kw">const</span> <span class="ident">TRADE</span> <span class="op">=</span> <span class="number">0x8</span>;
+        <span class="doccomment">/// Trade
+        </span><span class="kw">const </span>TRADE = <span class="number">0x8</span>;
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SubFlags</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">flags</span>: <span class="ident">SubFlags</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sub_types</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
+<span class="kw">impl </span>From&lt;SubFlags&gt; <span class="kw">for </span>Vec&lt;i32&gt; {
+    <span class="kw">fn </span>from(flags: SubFlags) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>sub_types = Vec::new();
 
-        <span class="kw">if</span> <span class="ident">flags</span>.<span class="ident">contains</span>(<span class="ident">SubFlags::QUOTE</span>) {
-            <span class="ident">sub_types</span>.<span class="ident">push</span>(<span class="ident">SubType::Quote</span>.<span class="ident">into</span>());
+        <span class="kw">if </span>flags.contains(SubFlags::QUOTE) {
+            sub_types.push(SubType::Quote.into());
         }
 
-        <span class="kw">if</span> <span class="ident">flags</span>.<span class="ident">contains</span>(<span class="ident">SubFlags::DEPTH</span>) {
-            <span class="ident">sub_types</span>.<span class="ident">push</span>(<span class="ident">SubType::Depth</span>.<span class="ident">into</span>());
+        <span class="kw">if </span>flags.contains(SubFlags::DEPTH) {
+            sub_types.push(SubType::Depth.into());
         }
 
-        <span class="kw">if</span> <span class="ident">flags</span>.<span class="ident">contains</span>(<span class="ident">SubFlags::BROKER</span>) {
-            <span class="ident">sub_types</span>.<span class="ident">push</span>(<span class="ident">SubType::Brokers</span>.<span class="ident">into</span>());
+        <span class="kw">if </span>flags.contains(SubFlags::BROKER) {
+            sub_types.push(SubType::Brokers.into());
         }
 
-        <span class="kw">if</span> <span class="ident">flags</span>.<span class="ident">contains</span>(<span class="ident">SubFlags::TRADE</span>) {
-            <span class="ident">sub_types</span>.<span class="ident">push</span>(<span class="ident">SubType::Trade</span>.<span class="ident">into</span>());
+        <span class="kw">if </span>flags.contains(SubFlags::TRADE) {
+            sub_types.push(SubType::Trade.into());
         }
 
-        <span class="ident">sub_types</span>
+        sub_types
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SubFlags</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">sub_types</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">flags</span> <span class="op">=</span> <span class="ident">SubFlags::empty</span>();
+<span class="kw">impl </span>From&lt;Vec&lt;i32&gt;&gt; <span class="kw">for </span>SubFlags {
+    <span class="kw">fn </span>from(sub_types: Vec&lt;i32&gt;) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>flags = SubFlags::empty();
 
-        <span class="kw">for</span> <span class="ident">sub_type</span> <span class="kw">in</span> <span class="ident">sub_types</span> {
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">sub_type</span>) <span class="op">=</span> <span class="ident">SubType::from_i32</span>(<span class="ident">sub_type</span>) {
-                <span class="kw">match</span> <span class="ident">sub_type</span> {
-                    <span class="ident">SubType::Quote</span> =&gt; <span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">SubFlags::QUOTE</span>,
-                    <span class="ident">SubType::Depth</span> =&gt; <span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">SubFlags::DEPTH</span>,
-                    <span class="ident">SubType::Brokers</span> =&gt; <span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">SubFlags::BROKER</span>,
-                    <span class="ident">SubType::Trade</span> =&gt; <span class="ident">flags</span> <span class="op">|</span><span class="op">=</span> <span class="ident">SubFlags::TRADE</span>,
-                    <span class="kw">_</span> =&gt; {}
+        <span class="kw">for </span>sub_type <span class="kw">in </span>sub_types {
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(sub_type) = SubType::from_i32(sub_type) {
+                <span class="kw">match </span>sub_type {
+                    SubType::Quote =&gt; flags |= SubFlags::QUOTE,
+                    SubType::Depth =&gt; flags |= SubFlags::DEPTH,
+                    SubType::Brokers =&gt; flags |= SubFlags::BROKER,
+                    SubType::Trade =&gt; flags |= SubFlags::TRADE,
+                    <span class="kw">_ </span>=&gt; {}
                 }
             }
         }
 
-        <span class="ident">flags</span>
+        flags
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

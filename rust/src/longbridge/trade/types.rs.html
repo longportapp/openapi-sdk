@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -944,545 +944,545 @@
 <span id="944">944</span>
 <span id="945">945</span>
 <span id="946">946</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">num_enum</span>::{<span class="ident">FromPrimitive</span>, <span class="ident">IntoPrimitive</span>};
-<span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Deserializer</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>};
-<span class="kw">use</span> <span class="ident">strum_macros</span>::{<span class="ident">Display</span>, <span class="ident">EnumString</span>};
-<span class="kw">use</span> <span class="ident">time</span>::{<span class="ident">Date</span>, <span class="ident">OffsetDateTime</span>};
+</pre><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
+<span class="kw">use </span>rust_decimal::Decimal;
+<span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
+<span class="kw">use </span>strum_macros::{Display, EnumString};
+<span class="kw">use </span>time::{Date, OffsetDateTime};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">serde_utils</span>, <span class="ident">Market</span>};
+<span class="kw">use crate</span>::{serde_utils, Market};
 
-<span class="doccomment">/// Order type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OrderType</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Limit Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;LO&quot;</span>)]</span>
-    <span class="ident">LO</span>,
-    <span class="doccomment">/// Enhanced Limit Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ELO&quot;</span>)]</span>
-    <span class="ident">ELO</span>,
-    <span class="doccomment">/// Market Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;MO&quot;</span>)]</span>
-    <span class="ident">MO</span>,
-    <span class="doccomment">/// At-auction Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;AO&quot;</span>)]</span>
-    <span class="ident">AO</span>,
-    <span class="doccomment">/// At-auction Limit Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ALO&quot;</span>)]</span>
-    <span class="ident">ALO</span>,
-    <span class="doccomment">/// Odd Lots</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ODD&quot;</span>)]</span>
-    <span class="ident">ODD</span>,
-    <span class="doccomment">/// Limit If Touched</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;LIT&quot;</span>)]</span>
-    <span class="ident">LIT</span>,
-    <span class="doccomment">/// Market If Touched</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;MIT&quot;</span>)]</span>
-    <span class="ident">MIT</span>,
-    <span class="doccomment">/// Trailing Limit If Touched (Trailing Amount)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;TSLPAMT&quot;</span>)]</span>
-    <span class="ident">TSLPAMT</span>,
-    <span class="doccomment">/// Trailing Limit If Touched (Trailing Percent)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;TSLPPCT&quot;</span>)]</span>
-    <span class="ident">TSLPPCT</span>,
-    <span class="doccomment">/// Trailing Market If Touched (Trailing Amount)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;TSMAMT&quot;</span>)]</span>
-    <span class="ident">TSMAMT</span>,
-    <span class="doccomment">/// Trailing Market If Touched (Trailing Percent)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;TSMPCT&quot;</span>)]</span>
-    <span class="ident">TSMPCT</span>,
-    <span class="doccomment">/// Special Limit Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;SLO&quot;</span>)]</span>
-    <span class="ident">SLO</span>,
+<span class="doccomment">/// Order type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+#[allow(clippy::upper_case_acronyms)]
+</span><span class="kw">pub enum </span>OrderType {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Limit Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;LO&quot;</span>)]
+    </span>LO,
+    <span class="doccomment">/// Enhanced Limit Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ELO&quot;</span>)]
+    </span>ELO,
+    <span class="doccomment">/// Market Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;MO&quot;</span>)]
+    </span>MO,
+    <span class="doccomment">/// At-auction Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;AO&quot;</span>)]
+    </span>AO,
+    <span class="doccomment">/// At-auction Limit Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ALO&quot;</span>)]
+    </span>ALO,
+    <span class="doccomment">/// Odd Lots
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ODD&quot;</span>)]
+    </span>ODD,
+    <span class="doccomment">/// Limit If Touched
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;LIT&quot;</span>)]
+    </span>LIT,
+    <span class="doccomment">/// Market If Touched
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;MIT&quot;</span>)]
+    </span>MIT,
+    <span class="doccomment">/// Trailing Limit If Touched (Trailing Amount)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;TSLPAMT&quot;</span>)]
+    </span>TSLPAMT,
+    <span class="doccomment">/// Trailing Limit If Touched (Trailing Percent)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;TSLPPCT&quot;</span>)]
+    </span>TSLPPCT,
+    <span class="doccomment">/// Trailing Market If Touched (Trailing Amount)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;TSMAMT&quot;</span>)]
+    </span>TSMAMT,
+    <span class="doccomment">/// Trailing Market If Touched (Trailing Percent)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;TSMPCT&quot;</span>)]
+    </span>TSMPCT,
+    <span class="doccomment">/// Special Limit Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;SLO&quot;</span>)]
+    </span>SLO,
 }
 
-<span class="doccomment">/// Order status</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OrderStatus</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Not reported</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;NotReported&quot;</span>)]</span>
-    <span class="ident">NotReported</span>,
-    <span class="doccomment">/// Not reported (Replaced Order)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ReplacedNotReported&quot;</span>)]</span>
-    <span class="ident">ReplacedNotReported</span>,
-    <span class="doccomment">/// Not reported (Protected Order)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ProtectedNotReported&quot;</span>)]</span>
-    <span class="ident">ProtectedNotReported</span>,
-    <span class="doccomment">/// Not reported (Conditional Order)</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;VarietiesNotReported&quot;</span>)]</span>
-    <span class="ident">VarietiesNotReported</span>,
-    <span class="doccomment">/// Filled</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;FilledStatus&quot;</span>)]</span>
-    <span class="ident">Filled</span>,
-    <span class="doccomment">/// Wait To New</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;WaitToNew&quot;</span>)]</span>
-    <span class="ident">WaitToNew</span>,
-    <span class="doccomment">/// New</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;NewStatus&quot;</span>)]</span>
-    <span class="ident">New</span>,
-    <span class="doccomment">/// Wait To Replace</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;WaitToReplace&quot;</span>)]</span>
-    <span class="ident">WaitToReplace</span>,
-    <span class="doccomment">/// Pending Replace</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;PendingReplaceStatus&quot;</span>)]</span>
-    <span class="ident">PendingReplace</span>,
-    <span class="doccomment">/// Replaced</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ReplacedStatus&quot;</span>)]</span>
-    <span class="ident">Replaced</span>,
-    <span class="doccomment">/// Partial Filled</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;PartialFilledStatus&quot;</span>)]</span>
-    <span class="ident">PartialFilled</span>,
-    <span class="doccomment">/// Wait To Cancel</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;WaitToCancel&quot;</span>)]</span>
-    <span class="ident">WaitToCancel</span>,
-    <span class="doccomment">/// Pending Cancel</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;PendingCancelStatus&quot;</span>)]</span>
-    <span class="ident">PendingCancel</span>,
-    <span class="doccomment">/// Rejected</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;RejectedStatus&quot;</span>)]</span>
-    <span class="ident">Rejected</span>,
-    <span class="doccomment">/// Canceled</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;CanceledStatus&quot;</span>)]</span>
-    <span class="ident">Canceled</span>,
-    <span class="doccomment">/// Expired</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ExpiredStatus&quot;</span>)]</span>
-    <span class="ident">Expired</span>,
-    <span class="doccomment">/// Partial Withdrawal</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;PartialWithdrawal&quot;</span>)]</span>
-    <span class="ident">PartialWithdrawal</span>,
+<span class="doccomment">/// Order status
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>OrderStatus {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Not reported
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;NotReported&quot;</span>)]
+    </span>NotReported,
+    <span class="doccomment">/// Not reported (Replaced Order)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ReplacedNotReported&quot;</span>)]
+    </span>ReplacedNotReported,
+    <span class="doccomment">/// Not reported (Protected Order)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ProtectedNotReported&quot;</span>)]
+    </span>ProtectedNotReported,
+    <span class="doccomment">/// Not reported (Conditional Order)
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;VarietiesNotReported&quot;</span>)]
+    </span>VarietiesNotReported,
+    <span class="doccomment">/// Filled
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;FilledStatus&quot;</span>)]
+    </span>Filled,
+    <span class="doccomment">/// Wait To New
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;WaitToNew&quot;</span>)]
+    </span>WaitToNew,
+    <span class="doccomment">/// New
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;NewStatus&quot;</span>)]
+    </span>New,
+    <span class="doccomment">/// Wait To Replace
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;WaitToReplace&quot;</span>)]
+    </span>WaitToReplace,
+    <span class="doccomment">/// Pending Replace
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;PendingReplaceStatus&quot;</span>)]
+    </span>PendingReplace,
+    <span class="doccomment">/// Replaced
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ReplacedStatus&quot;</span>)]
+    </span>Replaced,
+    <span class="doccomment">/// Partial Filled
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;PartialFilledStatus&quot;</span>)]
+    </span>PartialFilled,
+    <span class="doccomment">/// Wait To Cancel
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;WaitToCancel&quot;</span>)]
+    </span>WaitToCancel,
+    <span class="doccomment">/// Pending Cancel
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;PendingCancelStatus&quot;</span>)]
+    </span>PendingCancel,
+    <span class="doccomment">/// Rejected
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;RejectedStatus&quot;</span>)]
+    </span>Rejected,
+    <span class="doccomment">/// Canceled
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;CanceledStatus&quot;</span>)]
+    </span>Canceled,
+    <span class="doccomment">/// Expired
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ExpiredStatus&quot;</span>)]
+    </span>Expired,
+    <span class="doccomment">/// Partial Withdrawal
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;PartialWithdrawal&quot;</span>)]
+    </span>PartialWithdrawal,
 }
 
-<span class="doccomment">/// Execution</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Execution</span> {
-    <span class="doccomment">/// Order ID</span>
-    <span class="kw">pub</span> <span class="ident">order_id</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Execution ID</span>
-    <span class="kw">pub</span> <span class="ident">trade_id</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Trade done time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trade_done_at</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Executed quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Executed price</span>
-    <span class="kw">pub</span> <span class="ident">price</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Execution
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>Execution {
+    <span class="doccomment">/// Order ID
+    </span><span class="kw">pub </span>order_id: String,
+    <span class="doccomment">/// Execution ID
+    </span><span class="kw">pub </span>trade_id: String,
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Trade done time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>trade_done_at: OffsetDateTime,
+    <span class="doccomment">/// Executed quantity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>quantity: i64,
+    <span class="doccomment">/// Executed price
+    </span><span class="kw">pub </span>price: Decimal,
 }
 
-<span class="doccomment">/// Order side</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OrderSide</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Buy</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;Buy&quot;</span>)]</span>
-    <span class="ident">Buy</span>,
-    <span class="doccomment">/// Sell</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;Sell&quot;</span>)]</span>
-    <span class="ident">Sell</span>,
+<span class="doccomment">/// Order side
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>OrderSide {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Buy
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;Buy&quot;</span>)]
+    </span>Buy,
+    <span class="doccomment">/// Sell
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;Sell&quot;</span>)]
+    </span>Sell,
 }
 
-<span class="doccomment">/// Order trigger price type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TriggerPriceType</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Limit If Touched</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;LIT&quot;</span>)]</span>
-    <span class="ident">LimitIfTouched</span>,
-    <span class="doccomment">/// Market If Touched</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;MIT&quot;</span>)]</span>
-    <span class="ident">MarketIfTouched</span>,
+<span class="doccomment">/// Order trigger price type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>TriggerPriceType {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Limit If Touched
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;LIT&quot;</span>)]
+    </span>LimitIfTouched,
+    <span class="doccomment">/// Market If Touched
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;MIT&quot;</span>)]
+    </span>MarketIfTouched,
 }
 
-<span class="doccomment">/// Order tag</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OrderTag</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Normal Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;Normal&quot;</span>)]</span>
-    <span class="ident">Normal</span>,
-    <span class="doccomment">/// Long term Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;GTC&quot;</span>)]</span>
-    <span class="ident">LongTerm</span>,
-    <span class="doccomment">/// Grey Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;Grey&quot;</span>)]</span>
-    <span class="ident">Grey</span>,
+<span class="doccomment">/// Order tag
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>OrderTag {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Normal Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;Normal&quot;</span>)]
+    </span>Normal,
+    <span class="doccomment">/// Long term Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;GTC&quot;</span>)]
+    </span>LongTerm,
+    <span class="doccomment">/// Grey Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;Grey&quot;</span>)]
+    </span>Grey,
 }
 
-<span class="doccomment">/// Time in force Type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TimeInForceType</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Day Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;Day&quot;</span>)]</span>
-    <span class="ident">Day</span>,
-    <span class="doccomment">/// Good Til Canceled Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;GTC&quot;</span>)]</span>
-    <span class="ident">GoodTilCanceled</span>,
-    <span class="doccomment">/// Good Til Date Order</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;GTD&quot;</span>)]</span>
-    <span class="ident">GoodTilDate</span>,
+<span class="doccomment">/// Time in force Type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>TimeInForceType {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Day Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;Day&quot;</span>)]
+    </span>Day,
+    <span class="doccomment">/// Good Til Canceled Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;GTC&quot;</span>)]
+    </span>GoodTilCanceled,
+    <span class="doccomment">/// Good Til Date Order
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;GTD&quot;</span>)]
+    </span>GoodTilDate,
 }
 
-<span class="doccomment">/// Trigger status</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TriggerStatus</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Deactive</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;DEACTIVE&quot;</span>)]</span>
-    <span class="ident">Deactive</span>,
-    <span class="doccomment">/// Active</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ACTIVE&quot;</span>)]</span>
-    <span class="ident">Active</span>,
-    <span class="doccomment">/// Released</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;RELEASED&quot;</span>)]</span>
-    <span class="ident">Released</span>,
+<span class="doccomment">/// Trigger status
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>TriggerStatus {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Deactive
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;DEACTIVE&quot;</span>)]
+    </span>Deactive,
+    <span class="doccomment">/// Active
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ACTIVE&quot;</span>)]
+    </span>Active,
+    <span class="doccomment">/// Released
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;RELEASED&quot;</span>)]
+    </span>Released,
 }
 
-<span class="doccomment">/// Enable or disable outside regular trading hours</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OutsideRTH</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Regular trading hour only</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;RTH_ONLY&quot;</span>)]</span>
-    <span class="ident">RTHOnly</span>,
-    <span class="doccomment">/// Any time</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;ANY_TIME&quot;</span>)]</span>
-    <span class="ident">AnyTime</span>,
+<span class="doccomment">/// Enable or disable outside regular trading hours
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>OutsideRTH {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Regular trading hour only
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;RTH_ONLY&quot;</span>)]
+    </span>RTHOnly,
+    <span class="doccomment">/// Any time
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;ANY_TIME&quot;</span>)]
+    </span>AnyTime,
 }
 
-<span class="doccomment">/// Order</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Order</span> {
-    <span class="doccomment">/// Order ID</span>
-    <span class="kw">pub</span> <span class="ident">order_id</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Order status</span>
-    <span class="kw">pub</span> <span class="ident">status</span>: <span class="ident">OrderStatus</span>,
-    <span class="doccomment">/// Stock name</span>
-    <span class="kw">pub</span> <span class="ident">stock_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Submitted quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Executed quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">executed_quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Submitted price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Executed price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">executed_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Submitted time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">submitted_at</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Order side</span>
-    <span class="kw">pub</span> <span class="ident">side</span>: <span class="ident">OrderSide</span>,
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Order type</span>
-    <span class="kw">pub</span> <span class="ident">order_type</span>: <span class="ident">OrderType</span>,
-    <span class="doccomment">/// Last done</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// `LIT` / `MIT` Order Trigger Price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trigger_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Rejected Message or remark</span>
-    <span class="kw">pub</span> <span class="ident">msg</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Order tag</span>
-    <span class="kw">pub</span> <span class="ident">tag</span>: <span class="ident">OrderTag</span>,
-    <span class="doccomment">/// Time in force type</span>
-    <span class="kw">pub</span> <span class="ident">time_in_force</span>: <span class="ident">TimeInForceType</span>,
-    <span class="doccomment">/// Long term order expire date</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::date_opt&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">expire_date</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Last updated time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">updated_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OffsetDateTime</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Conditional order trigger time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trigger_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OffsetDateTime</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// `TSMAMT` / `TSLPAMT` order trailing amount</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trailing_amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// `TSMPCT` / `TSLPPCT` order trailing percent</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trailing_percent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// `TSLPAMT` / `TSLPPCT` order limit offset amount</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">limit_offset</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Conditional order trigger status</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trigger_status</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TriggerStatus</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Enable or disable outside regular trading hours</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::outside_rth&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">outside_rth</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OutsideRTH</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Order
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>Order {
+    <span class="doccomment">/// Order ID
+    </span><span class="kw">pub </span>order_id: String,
+    <span class="doccomment">/// Order status
+    </span><span class="kw">pub </span>status: OrderStatus,
+    <span class="doccomment">/// Stock name
+    </span><span class="kw">pub </span>stock_name: String,
+    <span class="doccomment">/// Submitted quantity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>quantity: i64,
+    <span class="doccomment">/// Executed quantity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>executed_quantity: i64,
+    <span class="doccomment">/// Submitted price
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Executed price
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>executed_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Submitted time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>submitted_at: OffsetDateTime,
+    <span class="doccomment">/// Order side
+    </span><span class="kw">pub </span>side: OrderSide,
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Order type
+    </span><span class="kw">pub </span>order_type: OrderType,
+    <span class="doccomment">/// Last done
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>last_done: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// `LIT` / `MIT` Order Trigger Price
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>trigger_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Rejected Message or remark
+    </span><span class="kw">pub </span>msg: String,
+    <span class="doccomment">/// Order tag
+    </span><span class="kw">pub </span>tag: OrderTag,
+    <span class="doccomment">/// Time in force type
+    </span><span class="kw">pub </span>time_in_force: TimeInForceType,
+    <span class="doccomment">/// Long term order expire date
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::date_opt&quot;</span>)]
+    </span><span class="kw">pub </span>expire_date: <span class="prelude-ty">Option</span>&lt;Date&gt;,
+    <span class="doccomment">/// Last updated time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="kw">pub </span>updated_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
+    <span class="doccomment">/// Conditional order trigger time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="kw">pub </span>trigger_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
+    <span class="doccomment">/// `TSMAMT` / `TSLPAMT` order trailing amount
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>trailing_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// `TSMPCT` / `TSLPPCT` order trailing percent
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>trailing_percent: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// `TSLPAMT` / `TSLPPCT` order limit offset amount
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>limit_offset: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Conditional order trigger status
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]
+    </span><span class="kw">pub </span>trigger_status: <span class="prelude-ty">Option</span>&lt;TriggerStatus&gt;,
+    <span class="doccomment">/// Currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Enable or disable outside regular trading hours
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::outside_rth&quot;</span>)]
+    </span><span class="kw">pub </span>outside_rth: <span class="prelude-ty">Option</span>&lt;OutsideRTH&gt;,
 }
 
-<span class="doccomment">/// Cash info</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CashInfo</span> {
-    <span class="doccomment">/// Withdraw cash</span>
-    <span class="kw">pub</span> <span class="ident">withdraw_cash</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Available cash</span>
-    <span class="kw">pub</span> <span class="ident">available_cash</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Frozen cash</span>
-    <span class="kw">pub</span> <span class="ident">frozen_cash</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Cash to be settled</span>
-    <span class="kw">pub</span> <span class="ident">settling_cash</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Cash info
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>CashInfo {
+    <span class="doccomment">/// Withdraw cash
+    </span><span class="kw">pub </span>withdraw_cash: Decimal,
+    <span class="doccomment">/// Available cash
+    </span><span class="kw">pub </span>available_cash: Decimal,
+    <span class="doccomment">/// Frozen cash
+    </span><span class="kw">pub </span>frozen_cash: Decimal,
+    <span class="doccomment">/// Cash to be settled
+    </span><span class="kw">pub </span>settling_cash: Decimal,
+    <span class="doccomment">/// Currency
+    </span><span class="kw">pub </span>currency: String,
 }
 
-<span class="doccomment">/// Account balance</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AccountBalance</span> {
-    <span class="doccomment">/// Total cash</span>
-    <span class="kw">pub</span> <span class="ident">total_cash</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Maximum financing amount</span>
-    <span class="kw">pub</span> <span class="ident">max_finance_amount</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Remaining financing amount</span>
-    <span class="kw">pub</span> <span class="ident">remaining_finance_amount</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Risk control level</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::risk_level&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">risk_level</span>: <span class="ident">i32</span>,
-    <span class="doccomment">/// Margin call</span>
-    <span class="kw">pub</span> <span class="ident">margin_call</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Cash details</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">cash_infos</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CashInfo</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Net assets</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">net_assets</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Initial margin</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">init_margin</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Maintenance margin</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">maintenance_margin</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Account balance
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>AccountBalance {
+    <span class="doccomment">/// Total cash
+    </span><span class="kw">pub </span>total_cash: Decimal,
+    <span class="doccomment">/// Maximum financing amount
+    </span><span class="kw">pub </span>max_finance_amount: Decimal,
+    <span class="doccomment">/// Remaining financing amount
+    </span><span class="kw">pub </span>remaining_finance_amount: Decimal,
+    <span class="doccomment">/// Risk control level
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::risk_level&quot;</span>)]
+    </span><span class="kw">pub </span>risk_level: i32,
+    <span class="doccomment">/// Margin call
+    </span><span class="kw">pub </span>margin_call: Decimal,
+    <span class="doccomment">/// Currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Cash details
+    </span><span class="attribute">#[serde(default)]
+    </span><span class="kw">pub </span>cash_infos: Vec&lt;CashInfo&gt;,
+    <span class="doccomment">/// Net assets
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>net_assets: Decimal,
+    <span class="doccomment">/// Initial margin
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>init_margin: Decimal,
+    <span class="doccomment">/// Maintenance margin
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>maintenance_margin: Decimal,
 }
 
-<span class="doccomment">/// Balance type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">FromPrimitive</span>, <span class="ident">IntoPrimitive</span>)]</span>
-<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">i32</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">BalanceType</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">num_enum</span>(<span class="ident">default</span>)]</span>
-    <span class="ident">Unknown</span> <span class="op">=</span> <span class="number">0</span>,
-    <span class="doccomment">/// Cash</span>
-    <span class="ident">Cash</span> <span class="op">=</span> <span class="number">1</span>,
-    <span class="doccomment">/// Stock</span>
-    <span class="ident">Stock</span> <span class="op">=</span> <span class="number">2</span>,
-    <span class="doccomment">/// Fund</span>
-    <span class="ident">Fund</span> <span class="op">=</span> <span class="number">3</span>,
+<span class="doccomment">/// Balance type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, FromPrimitive, IntoPrimitive)]
+#[repr(i32)]
+</span><span class="kw">pub enum </span>BalanceType {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[num_enum(default)]
+    </span>Unknown = <span class="number">0</span>,
+    <span class="doccomment">/// Cash
+    </span>Cash = <span class="number">1</span>,
+    <span class="doccomment">/// Stock
+    </span>Stock = <span class="number">2</span>,
+    <span class="doccomment">/// Fund
+    </span>Fund = <span class="number">3</span>,
 }
 
-<span class="kw">impl</span> <span class="ident">Serialize</span> <span class="kw">for</span> <span class="ident">BalanceType</span> {
-    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Serializer</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S::Ok</span>, <span class="ident">S::Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">value</span>: <span class="ident">i32</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="self">self</span>).<span class="ident">into</span>();
-        <span class="ident">value</span>.<span class="ident">serialize</span>(<span class="ident">serializer</span>)
+<span class="kw">impl </span>Serialize <span class="kw">for </span>BalanceType {
+    <span class="kw">fn </span>serialize&lt;S: Serializer&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt; {
+        <span class="kw">let </span>value: i32 = (<span class="kw-2">*</span><span class="self">self</span>).into();
+        value.serialize(serializer)
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">BalanceType</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">i32::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">BalanceType::from</span>(<span class="ident">value</span>))
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>BalanceType {
+    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
+        <span class="kw">let </span>value = i32::deserialize(deserializer)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(BalanceType::from(value))
     }
 }
 
-<span class="doccomment">/// Cash flow direction</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">FromPrimitive</span>)]</span>
-<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">i32</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CashFlowDirection</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">num_enum</span>(<span class="ident">default</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Out</span>
-    <span class="ident">Out</span> <span class="op">=</span> <span class="number">1</span>,
-    <span class="doccomment">/// In</span>
-    <span class="ident">In</span> <span class="op">=</span> <span class="number">2</span>,
+<span class="doccomment">/// Cash flow direction
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, FromPrimitive)]
+#[repr(i32)]
+</span><span class="kw">pub enum </span>CashFlowDirection {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[num_enum(default)]
+    </span>Unknown,
+    <span class="doccomment">/// Out
+    </span>Out = <span class="number">1</span>,
+    <span class="doccomment">/// In
+    </span>In = <span class="number">2</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="ident">Deserialize</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CashFlowDirection</span> {
-    <span class="kw">fn</span> <span class="ident">deserialize</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">D::Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">value</span> <span class="op">=</span> <span class="ident">i32::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">CashFlowDirection::from</span>(<span class="ident">value</span>))
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>CashFlowDirection {
+    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
+        <span class="kw">let </span>value = i32::deserialize(deserializer)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(CashFlowDirection::from(value))
     }
 }
 
-<span class="doccomment">/// Cash flow</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CashFlow</span> {
-    <span class="doccomment">/// Cash flow name</span>
-    <span class="kw">pub</span> <span class="ident">transaction_flow_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Outflow direction</span>
-    <span class="kw">pub</span> <span class="ident">direction</span>: <span class="ident">CashFlowDirection</span>,
-    <span class="doccomment">/// Balance type</span>
-    <span class="kw">pub</span> <span class="ident">business_type</span>: <span class="ident">BalanceType</span>,
-    <span class="doccomment">/// Cash amount</span>
-    <span class="kw">pub</span> <span class="ident">balance</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Cash currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Business time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">business_time</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Associated Stock code information</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::symbol_opt&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Cash flow description</span>
-    <span class="kw">pub</span> <span class="ident">description</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Cash flow
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>CashFlow {
+    <span class="doccomment">/// Cash flow name
+    </span><span class="kw">pub </span>transaction_flow_name: String,
+    <span class="doccomment">/// Outflow direction
+    </span><span class="kw">pub </span>direction: CashFlowDirection,
+    <span class="doccomment">/// Balance type
+    </span><span class="kw">pub </span>business_type: BalanceType,
+    <span class="doccomment">/// Cash amount
+    </span><span class="kw">pub </span>balance: Decimal,
+    <span class="doccomment">/// Cash currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Business time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>business_time: OffsetDateTime,
+    <span class="doccomment">/// Associated Stock code information
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::symbol_opt&quot;</span>)]
+    </span><span class="kw">pub </span>symbol: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Cash flow description
+    </span><span class="kw">pub </span>description: String,
 }
 
-<span class="doccomment">/// Fund positions response</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FundPositionsResponse</span> {
-    <span class="doccomment">/// Channels</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;list&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">channels</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">FundPositionChannel</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Fund positions response
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>FundPositionsResponse {
+    <span class="doccomment">/// Channels
+    </span><span class="attribute">#[serde(rename = <span class="string">&quot;list&quot;</span>)]
+    </span><span class="kw">pub </span>channels: Vec&lt;FundPositionChannel&gt;,
 }
 
-<span class="doccomment">/// Fund position channel</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FundPositionChannel</span> {
-    <span class="doccomment">/// Account type</span>
-    <span class="kw">pub</span> <span class="ident">account_channel</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Fund position channel
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>FundPositionChannel {
+    <span class="doccomment">/// Account type
+    </span><span class="kw">pub </span>account_channel: String,
 
-    <span class="doccomment">/// Fund positions</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;fund_info&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">positions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">FundPosition</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Fund positions
+    </span><span class="attribute">#[serde(default, rename = <span class="string">&quot;fund_info&quot;</span>)]
+    </span><span class="kw">pub </span>positions: Vec&lt;FundPosition&gt;,
 }
 
-<span class="doccomment">/// Fund position</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">FundPosition</span> {
-    <span class="doccomment">/// Fund ISIN code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Current equity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">current_net_asset_value</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Current equity time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">net_asset_value_day</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Fund name</span>
-    <span class="kw">pub</span> <span class="ident">symbol_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Net cost</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">cost_net_asset_value</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Holding units</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">holding_units</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Fund position
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>FundPosition {
+    <span class="doccomment">/// Fund ISIN code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Current equity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>current_net_asset_value: Decimal,
+    <span class="doccomment">/// Current equity time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>net_asset_value_day: OffsetDateTime,
+    <span class="doccomment">/// Fund name
+    </span><span class="kw">pub </span>symbol_name: String,
+    <span class="doccomment">/// Currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Net cost
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>cost_net_asset_value: Decimal,
+    <span class="doccomment">/// Holding units
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>holding_units: Decimal,
 }
 
-<span class="doccomment">/// Stock positions response</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StockPositionsResponse</span> {
-    <span class="doccomment">/// Channels</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;list&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">channels</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StockPositionChannel</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Stock positions response
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>StockPositionsResponse {
+    <span class="doccomment">/// Channels
+    </span><span class="attribute">#[serde(rename = <span class="string">&quot;list&quot;</span>)]
+    </span><span class="kw">pub </span>channels: Vec&lt;StockPositionChannel&gt;,
 }
 
-<span class="doccomment">/// Stock position channel</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StockPositionChannel</span> {
-    <span class="doccomment">/// Account type</span>
-    <span class="kw">pub</span> <span class="ident">account_channel</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Stock position channel
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>StockPositionChannel {
+    <span class="doccomment">/// Account type
+    </span><span class="kw">pub </span>account_channel: String,
 
-    <span class="doccomment">/// Stock positions</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">default</span>, <span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;stock_info&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">positions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StockPosition</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Stock positions
+    </span><span class="attribute">#[serde(default, rename = <span class="string">&quot;stock_info&quot;</span>)]
+    </span><span class="kw">pub </span>positions: Vec&lt;StockPosition&gt;,
 }
 
-<span class="doccomment">/// Stock position</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StockPosition</span> {
-    <span class="doccomment">/// Stock code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Stock name</span>
-    <span class="kw">pub</span> <span class="ident">symbol_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// The number of holdings</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Available quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">available_quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Cost Price(According to the client&#39;s choice of average purchase or</span>
-    <span class="doccomment">/// diluted cost)</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">cost_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Market</span>
-    <span class="kw">pub</span> <span class="ident">market</span>: <span class="ident">Market</span>,
+<span class="doccomment">/// Stock position
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>StockPosition {
+    <span class="doccomment">/// Stock code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Stock name
+    </span><span class="kw">pub </span>symbol_name: String,
+    <span class="doccomment">/// The number of holdings
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>quantity: i64,
+    <span class="doccomment">/// Available quantity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>available_quantity: i64,
+    <span class="doccomment">/// Currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Cost Price(According to the client&#39;s choice of average purchase or
+    /// diluted cost)
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="kw">pub </span>cost_price: Decimal,
+    <span class="doccomment">/// Market
+    </span><span class="kw">pub </span>market: Market,
 }
 
-<span class="doccomment">/// Margin ratio</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MarginRatio</span> {
-    <span class="doccomment">/// Initial margin ratio</span>
-    <span class="kw">pub</span> <span class="ident">im_factor</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Maintain the initial margin ratio</span>
-    <span class="kw">pub</span> <span class="ident">mm_factor</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Forced close-out margin ratio</span>
-    <span class="kw">pub</span> <span class="ident">fm_factor</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Margin ratio
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>MarginRatio {
+    <span class="doccomment">/// Initial margin ratio
+    </span><span class="kw">pub </span>im_factor: Decimal,
+    <span class="doccomment">/// Maintain the initial margin ratio
+    </span><span class="kw">pub </span>mm_factor: Decimal,
+    <span class="doccomment">/// Forced close-out margin ratio
+    </span><span class="kw">pub </span>fm_factor: Decimal,
 }
 
 <span class="macro">impl_serde_for_enum_string!</span>(
-    <span class="ident">OrderType</span>,
-    <span class="ident">OrderStatus</span>,
-    <span class="ident">OrderSide</span>,
-    <span class="ident">TriggerPriceType</span>,
-    <span class="ident">OrderTag</span>,
-    <span class="ident">TimeInForceType</span>,
-    <span class="ident">TriggerStatus</span>,
-    <span class="ident">OutsideRTH</span>
+    OrderType,
+    OrderStatus,
+    OrderSide,
+    TriggerPriceType,
+    OrderTag,
+    TimeInForceType,
+    TriggerStatus,
+    OutsideRTH
 );
 <span class="macro">impl_default_for_enum_string!</span>(
-    <span class="ident">OrderType</span>,
-    <span class="ident">OrderStatus</span>,
-    <span class="ident">OrderSide</span>,
-    <span class="ident">TriggerPriceType</span>,
-    <span class="ident">OrderTag</span>,
-    <span class="ident">TimeInForceType</span>,
-    <span class="ident">TriggerStatus</span>,
-    <span class="ident">OutsideRTH</span>
+    OrderType,
+    OrderStatus,
+    OrderSide,
+    TriggerPriceType,
+    OrderTag,
+    TimeInForceType,
+    TriggerStatus,
+    OutsideRTH
 );
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
-<span class="kw">mod</span> <span class="ident">tests</span> {
-    <span class="kw">use</span> <span class="ident">time::macros::datetime</span>;
+<span class="attribute">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+    <span class="kw">use </span>time::macros::datetime;
 
-    <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">fund_position_response</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>fund_position_response() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;list&quot;: [{
                 &quot;account_channel&quot;: &quot;lb&quot;,
@@ -1499,26 +1499,26 @@
         }
         &quot;#</span>;
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">FundPositionsResponse</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">channels</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>resp: FundPositionsResponse = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.channels.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">channel</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">channels</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">channel</span>.<span class="ident">account_channel</span>, <span class="string">&quot;lb&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">channel</span>.<span class="ident">positions</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>channel = <span class="kw-2">&amp;</span>resp.channels[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(channel.account_channel, <span class="string">&quot;lb&quot;</span>);
+        <span class="macro">assert_eq!</span>(channel.positions.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">position</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">channel</span>.<span class="ident">positions</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol</span>, <span class="string">&quot;HK0000447943&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;高腾亚洲收益基金&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;USD&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">current_net_asset_value</span>, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_net_asset_value</span>, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">holding_units</span>, <span class="macro">decimal!</span>(<span class="number">5i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">net_asset_value_day</span>, <span class="macro">datetime!</span>(<span class="number">2022</span><span class="op">-</span><span class="number">4</span><span class="op">-</span><span class="number">14</span> <span class="number">0</span>:<span class="number">00</span> <span class="op">+</span><span class="number">8</span>));
+        <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;HK0000447943&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;高腾亚洲收益基金&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.current_net_asset_value, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
+        <span class="macro">assert_eq!</span>(position.cost_net_asset_value, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
+        <span class="macro">assert_eq!</span>(position.holding_units, <span class="macro">decimal!</span>(<span class="number">5i32</span>));
+        <span class="macro">assert_eq!</span>(position.net_asset_value_day, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">4</span>-<span class="number">14 0</span>:<span class="number">00 </span>+<span class="number">8</span>));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">stock_position_response</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>stock_position_response() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;list&quot;: [
               {
@@ -1548,43 +1548,43 @@
           }
         &quot;#</span>;
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">StockPositionsResponse</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">channels</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>resp: StockPositionsResponse = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.channels.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">channel</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">channels</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">channel</span>.<span class="ident">account_channel</span>, <span class="string">&quot;lb&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">channel</span>.<span class="ident">positions</span>.<span class="ident">len</span>(), <span class="number">2</span>);
+        <span class="kw">let </span>channel = <span class="kw-2">&amp;</span>resp.channels[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(channel.account_channel, <span class="string">&quot;lb&quot;</span>);
+        <span class="macro">assert_eq!</span>(channel.positions.len(), <span class="number">2</span>);
 
-        <span class="kw">let</span> <span class="ident">position</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">channel</span>.<span class="ident">positions</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol</span>, <span class="string">&quot;700.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;腾讯控股&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">quantity</span>, <span class="number">650</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quantity</span>, <span class="op">-</span><span class="number">450</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_price</span>, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">market</span>, <span class="ident">Market::HK</span>);
+        <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;700.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;腾讯控股&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.quantity, <span class="number">650</span>);
+        <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
+        <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
+        <span class="macro">assert_eq!</span>(position.market, Market::HK);
 
-        <span class="kw">let</span> <span class="ident">position</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">channel</span>.<span class="ident">positions</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol</span>, <span class="string">&quot;700.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;腾讯控股&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">quantity</span>, <span class="number">650</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quantity</span>, <span class="op">-</span><span class="number">450</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_price</span>, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">market</span>, <span class="ident">Market::HK</span>);
+        <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;700.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;腾讯控股&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.quantity, <span class="number">650</span>);
+        <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
+        <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
+        <span class="macro">assert_eq!</span>(position.market, Market::HK);
 
-        <span class="kw">let</span> <span class="ident">position</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">channel</span>.<span class="ident">positions</span>[<span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol</span>, <span class="string">&quot;9991.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">symbol_name</span>, <span class="string">&quot;宝尊电商-SW&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">currency</span>, <span class="string">&quot;HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">quantity</span>, <span class="number">200</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">available_quantity</span>, <span class="number">0</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">position</span>.<span class="ident">cost_price</span>, <span class="macro">decimal!</span>(<span class="number">32.25f32</span>));
+        <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">1</span>];
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;9991.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;宝尊电商-SW&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.quantity, <span class="number">200</span>);
+        <span class="macro">assert_eq!</span>(position.available_quantity, <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">32.25f32</span>));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">cash_flow</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>cash_flow() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;list&quot;: [
               {
@@ -1611,38 +1611,38 @@
           }
           &quot;#</span>;
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">list</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CashFlow</span><span class="op">&gt;</span>,
+        <span class="attribute">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            list: Vec&lt;CashFlow&gt;,
         }
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">Response</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">list</span>.<span class="ident">len</span>(), <span class="number">2</span>);
+        <span class="kw">let </span>resp: Response = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.list.len(), <span class="number">2</span>);
 
-        <span class="kw">let</span> <span class="ident">cashflow</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">list</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">transaction_flow_name</span>, <span class="string">&quot;BuyContract-Stocks&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">direction</span>, <span class="ident">CashFlowDirection::Out</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">balance</span>, <span class="macro">decimal!</span>(<span class="op">-</span><span class="number">248.60f32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">currency</span>, <span class="string">&quot;USD&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">business_type</span>, <span class="ident">BalanceType::Cash</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">business_time</span>, <span class="macro">datetime!</span>(<span class="number">2021</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">20</span> <span class="number">18</span>:<span class="number">52</span>:<span class="number">37</span> <span class="op">+</span><span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">symbol</span>.<span class="ident">as_deref</span>(), <span class="prelude-val">Some</span>(<span class="string">&quot;AAPL.US&quot;</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">description</span>, <span class="string">&quot;AAPL&quot;</span>);
+        <span class="kw">let </span>cashflow = <span class="kw-2">&amp;</span>resp.list[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(cashflow.transaction_flow_name, <span class="string">&quot;BuyContract-Stocks&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.direction, CashFlowDirection::Out);
+        <span class="macro">assert_eq!</span>(cashflow.balance, <span class="macro">decimal!</span>(-<span class="number">248.60f32</span>));
+        <span class="macro">assert_eq!</span>(cashflow.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.business_type, BalanceType::Cash);
+        <span class="macro">assert_eq!</span>(cashflow.business_time, <span class="macro">datetime!</span>(<span class="number">2021</span>-<span class="number">05</span>-<span class="number">20 18</span>:<span class="number">52</span>:<span class="number">37 </span>+<span class="number">8</span>));
+        <span class="macro">assert_eq!</span>(cashflow.symbol.as_deref(), <span class="prelude-val">Some</span>(<span class="string">&quot;AAPL.US&quot;</span>));
+        <span class="macro">assert_eq!</span>(cashflow.description, <span class="string">&quot;AAPL&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">cashflow</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">list</span>[<span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">transaction_flow_name</span>, <span class="string">&quot;BuyContract-Stocks&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">direction</span>, <span class="ident">CashFlowDirection::Out</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">balance</span>, <span class="macro">decimal!</span>(<span class="op">-</span><span class="number">125.16f32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">currency</span>, <span class="string">&quot;USD&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">business_type</span>, <span class="ident">BalanceType::Stock</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">business_time</span>, <span class="macro">datetime!</span>(<span class="number">2021</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">20</span> <span class="number">18</span>:<span class="number">00</span>:<span class="number">24</span> <span class="op">+</span><span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">symbol</span>.<span class="ident">as_deref</span>(), <span class="prelude-val">Some</span>(<span class="string">&quot;AAPL.US&quot;</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">cashflow</span>.<span class="ident">description</span>, <span class="string">&quot;AAPL&quot;</span>);
+        <span class="kw">let </span>cashflow = <span class="kw-2">&amp;</span>resp.list[<span class="number">1</span>];
+        <span class="macro">assert_eq!</span>(cashflow.transaction_flow_name, <span class="string">&quot;BuyContract-Stocks&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.direction, CashFlowDirection::Out);
+        <span class="macro">assert_eq!</span>(cashflow.balance, <span class="macro">decimal!</span>(-<span class="number">125.16f32</span>));
+        <span class="macro">assert_eq!</span>(cashflow.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.business_type, BalanceType::Stock);
+        <span class="macro">assert_eq!</span>(cashflow.business_time, <span class="macro">datetime!</span>(<span class="number">2021</span>-<span class="number">05</span>-<span class="number">20 18</span>:<span class="number">00</span>:<span class="number">24 </span>+<span class="number">8</span>));
+        <span class="macro">assert_eq!</span>(cashflow.symbol.as_deref(), <span class="prelude-val">Some</span>(<span class="string">&quot;AAPL.US&quot;</span>));
+        <span class="macro">assert_eq!</span>(cashflow.description, <span class="string">&quot;AAPL&quot;</span>);
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">account_balance</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>account_balance() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;list&quot;: [
               {
@@ -1675,45 +1675,45 @@
             ]
           }&quot;#</span>;
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">list</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountBalance</span><span class="op">&gt;</span>,
+        <span class="attribute">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            list: Vec&lt;AccountBalance&gt;,
         }
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">Response</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">list</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>resp: Response = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.list.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">balance</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">list</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">total_cash</span>, <span class="string">&quot;1759070010.72&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">max_finance_amount</span>, <span class="string">&quot;977582000&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">remaining_finance_amount</span>, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">risk_level</span>, <span class="number">1</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">margin_call</span>, <span class="string">&quot;2598051051.50&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">currency</span>, <span class="string">&quot;HKD&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">net_assets</span>, <span class="string">&quot;11111.12&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">init_margin</span>, <span class="string">&quot;2222.23&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">maintenance_margin</span>, <span class="string">&quot;3333.45&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
+        <span class="kw">let </span>balance = <span class="kw-2">&amp;</span>resp.list[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(balance.total_cash, <span class="string">&quot;1759070010.72&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.max_finance_amount, <span class="string">&quot;977582000&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.remaining_finance_amount, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
+        <span class="macro">assert_eq!</span>(balance.risk_level, <span class="number">1</span>);
+        <span class="macro">assert_eq!</span>(balance.margin_call, <span class="string">&quot;2598051051.50&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.currency, <span class="string">&quot;HKD&quot;</span>);
+        <span class="macro">assert_eq!</span>(balance.net_assets, <span class="string">&quot;11111.12&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.init_margin, <span class="string">&quot;2222.23&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.maintenance_margin, <span class="string">&quot;3333.45&quot;</span>.parse().unwrap());
 
-        <span class="macro">assert_eq!</span>(<span class="ident">balance</span>.<span class="ident">cash_infos</span>.<span class="ident">len</span>(), <span class="number">2</span>);
+        <span class="macro">assert_eq!</span>(balance.cash_infos.len(), <span class="number">2</span>);
 
-        <span class="kw">let</span> <span class="ident">cash_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">balance</span>.<span class="ident">cash_infos</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">withdraw_cash</span>, <span class="string">&quot;97592.30&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">available_cash</span>, <span class="string">&quot;195902464.37&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">frozen_cash</span>, <span class="string">&quot;11579339.13&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">settling_cash</span>, <span class="string">&quot;207288537.81&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">currency</span>, <span class="string">&quot;HKD&quot;</span>);
+        <span class="kw">let </span>cash_info = <span class="kw-2">&amp;</span>balance.cash_infos[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(cash_info.withdraw_cash, <span class="string">&quot;97592.30&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.available_cash, <span class="string">&quot;195902464.37&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.frozen_cash, <span class="string">&quot;11579339.13&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.settling_cash, <span class="string">&quot;207288537.81&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.currency, <span class="string">&quot;HKD&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">cash_info</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">balance</span>.<span class="ident">cash_infos</span>[<span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">withdraw_cash</span>, <span class="string">&quot;199893416.74&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">available_cash</span>, <span class="string">&quot;199893416.74&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">frozen_cash</span>, <span class="string">&quot;28723.76&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">settling_cash</span>, <span class="string">&quot;-276806.51&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">cash_info</span>.<span class="ident">currency</span>, <span class="string">&quot;USD&quot;</span>);
+        <span class="kw">let </span>cash_info = <span class="kw-2">&amp;</span>balance.cash_infos[<span class="number">1</span>];
+        <span class="macro">assert_eq!</span>(cash_info.withdraw_cash, <span class="string">&quot;199893416.74&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.available_cash, <span class="string">&quot;199893416.74&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.frozen_cash, <span class="string">&quot;28723.76&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.settling_cash, <span class="string">&quot;-276806.51&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.currency, <span class="string">&quot;USD&quot;</span>);
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">history_orders</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>history_orders() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;orders&quot;: [
               {
@@ -1747,45 +1747,45 @@
           }
         &quot;#</span>;
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">orders</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Order</span><span class="op">&gt;</span>,
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            orders: Vec&lt;Order&gt;,
         }
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">Response</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">orders</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>resp: Response = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.orders.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">order</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">orders</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">currency</span>, <span class="string">&quot;HKD&quot;</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">executed_price</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">executed_quantity</span>, <span class="number">0</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">expire_date</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">last_done</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">limit_offset</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">msg</span>, <span class="string">&quot;&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">order_id</span>, <span class="string">&quot;706388312699592704&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">order_type</span>, <span class="ident">OrderType::ELO</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">outside_rth</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">price</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;11.900&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>()));
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">quantity</span>, <span class="number">200</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">side</span>, <span class="ident">OrderSide::Buy</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">status</span>, <span class="ident">OrderStatus::Rejected</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">stock_name</span>, <span class="string">&quot;Bank of East Asia Ltd/The&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">submitted_at</span>, <span class="macro">datetime!</span>(<span class="number">2022</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">14</span>:<span class="number">57</span> <span class="op">+</span><span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">symbol</span>, <span class="string">&quot;23.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">tag</span>, <span class="ident">OrderTag::Normal</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">time_in_force</span>, <span class="ident">TimeInForceType::Day</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trailing_amount</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trailing_percent</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trigger_at</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trigger_price</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trigger_status</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">updated_at</span>, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">14</span>:<span class="number">58</span> <span class="op">+</span><span class="number">8</span>)));
+        <span class="kw">let </span>order = <span class="kw-2">&amp;</span>resp.orders[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(order.currency, <span class="string">&quot;HKD&quot;</span>);
+        <span class="macro">assert!</span>(order.executed_price.is_none());
+        <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="number">0</span>);
+        <span class="macro">assert!</span>(order.expire_date.is_none());
+        <span class="macro">assert!</span>(order.last_done.is_none());
+        <span class="macro">assert!</span>(order.limit_offset.is_none());
+        <span class="macro">assert_eq!</span>(order.msg, <span class="string">&quot;&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.order_id, <span class="string">&quot;706388312699592704&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.order_type, OrderType::ELO);
+        <span class="macro">assert!</span>(order.outside_rth.is_none());
+        <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">&quot;11.900&quot;</span>.parse().unwrap()));
+        <span class="macro">assert_eq!</span>(order.quantity, <span class="number">200</span>);
+        <span class="macro">assert_eq!</span>(order.side, OrderSide::Buy);
+        <span class="macro">assert_eq!</span>(order.status, OrderStatus::Rejected);
+        <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">&quot;Bank of East Asia Ltd/The&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.submitted_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">57 </span>+<span class="number">8</span>));
+        <span class="macro">assert_eq!</span>(order.symbol, <span class="string">&quot;23.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.tag, OrderTag::Normal);
+        <span class="macro">assert_eq!</span>(order.time_in_force, TimeInForceType::Day);
+        <span class="macro">assert!</span>(order.trailing_amount.is_none());
+        <span class="macro">assert!</span>(order.trailing_percent.is_none());
+        <span class="macro">assert!</span>(order.trigger_at.is_none());
+        <span class="macro">assert!</span>(order.trigger_price.is_none());
+        <span class="macro">assert!</span>(order.trigger_status.is_none());
+        <span class="macro">assert_eq!</span>(order.updated_at, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">58 </span>+<span class="number">8</span>)));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">today_orders</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>today_orders() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;orders&quot;: [
               {
@@ -1819,45 +1819,45 @@
           }
         &quot;#</span>;
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">orders</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Order</span><span class="op">&gt;</span>,
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            orders: Vec&lt;Order&gt;,
         }
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">Response</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">orders</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>resp: Response = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.orders.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">order</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">orders</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">currency</span>, <span class="string">&quot;HKD&quot;</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">executed_price</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">executed_quantity</span>, <span class="number">0</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">expire_date</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">last_done</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">limit_offset</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">msg</span>, <span class="string">&quot;&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">order_id</span>, <span class="string">&quot;706388312699592704&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">order_type</span>, <span class="ident">OrderType::ELO</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">outside_rth</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">price</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;11.900&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>()));
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">quantity</span>, <span class="number">200</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">side</span>, <span class="ident">OrderSide::Buy</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">status</span>, <span class="ident">OrderStatus::Rejected</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">stock_name</span>, <span class="string">&quot;Bank of East Asia Ltd/The&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">submitted_at</span>, <span class="macro">datetime!</span>(<span class="number">2022</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">14</span>:<span class="number">57</span> <span class="op">+</span><span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">symbol</span>, <span class="string">&quot;23.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">tag</span>, <span class="ident">OrderTag::Normal</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">time_in_force</span>, <span class="ident">TimeInForceType::Day</span>);
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trailing_amount</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trailing_percent</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trigger_at</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trigger_price</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert!</span>(<span class="ident">order</span>.<span class="ident">trigger_status</span>.<span class="ident">is_none</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">order</span>.<span class="ident">updated_at</span>, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">14</span>:<span class="number">58</span> <span class="op">+</span><span class="number">8</span>)));
+        <span class="kw">let </span>order = <span class="kw-2">&amp;</span>resp.orders[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(order.currency, <span class="string">&quot;HKD&quot;</span>);
+        <span class="macro">assert!</span>(order.executed_price.is_none());
+        <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="number">0</span>);
+        <span class="macro">assert!</span>(order.expire_date.is_none());
+        <span class="macro">assert!</span>(order.last_done.is_none());
+        <span class="macro">assert!</span>(order.limit_offset.is_none());
+        <span class="macro">assert_eq!</span>(order.msg, <span class="string">&quot;&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.order_id, <span class="string">&quot;706388312699592704&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.order_type, OrderType::ELO);
+        <span class="macro">assert!</span>(order.outside_rth.is_none());
+        <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">&quot;11.900&quot;</span>.parse().unwrap()));
+        <span class="macro">assert_eq!</span>(order.quantity, <span class="number">200</span>);
+        <span class="macro">assert_eq!</span>(order.side, OrderSide::Buy);
+        <span class="macro">assert_eq!</span>(order.status, OrderStatus::Rejected);
+        <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">&quot;Bank of East Asia Ltd/The&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.submitted_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">57 </span>+<span class="number">8</span>));
+        <span class="macro">assert_eq!</span>(order.symbol, <span class="string">&quot;23.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.tag, OrderTag::Normal);
+        <span class="macro">assert_eq!</span>(order.time_in_force, TimeInForceType::Day);
+        <span class="macro">assert!</span>(order.trailing_amount.is_none());
+        <span class="macro">assert!</span>(order.trailing_percent.is_none());
+        <span class="macro">assert!</span>(order.trigger_at.is_none());
+        <span class="macro">assert!</span>(order.trigger_price.is_none());
+        <span class="macro">assert!</span>(order.trigger_status.is_none());
+        <span class="macro">assert_eq!</span>(order.updated_at, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">58 </span>+<span class="number">8</span>)));
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">history_executions</span>() {
-        <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="string">r#&quot;
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>history_executions() {
+        <span class="kw">let </span>data = <span class="string">r#&quot;
         {
             &quot;has_more&quot;: false,
             &quot;trades&quot;: [
@@ -1873,22 +1873,22 @@
           }
         &quot;#</span>;
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">trades</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Execution</span><span class="op">&gt;</span>,
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            trades: Vec&lt;Execution&gt;,
         }
 
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">Response</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">data</span>).<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">resp</span>.<span class="ident">trades</span>.<span class="ident">len</span>(), <span class="number">1</span>);
+        <span class="kw">let </span>resp: Response = serde_json::from_str(data).unwrap();
+        <span class="macro">assert_eq!</span>(resp.trades.len(), <span class="number">1</span>);
 
-        <span class="kw">let</span> <span class="ident">execution</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">resp</span>.<span class="ident">trades</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="ident">execution</span>.<span class="ident">order_id</span>, <span class="string">&quot;693664675163312128&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">execution</span>.<span class="ident">price</span>, <span class="string">&quot;388&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
-        <span class="macro">assert_eq!</span>(<span class="ident">execution</span>.<span class="ident">quantity</span>, <span class="number">100</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">execution</span>.<span class="ident">symbol</span>, <span class="string">&quot;700.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(<span class="ident">execution</span>.<span class="ident">trade_done_at</span>, <span class="macro">datetime!</span>(<span class="number">2022</span><span class="op">-</span><span class="number">03</span><span class="op">-</span><span class="number">30</span> <span class="number">11</span>:<span class="number">35</span>:<span class="number">51</span> <span class="op">+</span><span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">execution</span>.<span class="ident">trade_id</span>, <span class="string">&quot;693664675163312128-1648611351433741210&quot;</span>);
+        <span class="kw">let </span>execution = <span class="kw-2">&amp;</span>resp.trades[<span class="number">0</span>];
+        <span class="macro">assert_eq!</span>(execution.order_id, <span class="string">&quot;693664675163312128&quot;</span>);
+        <span class="macro">assert_eq!</span>(execution.price, <span class="string">&quot;388&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(execution.quantity, <span class="number">100</span>);
+        <span class="macro">assert_eq!</span>(execution.symbol, <span class="string">&quot;700.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(execution.trade_done_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">03</span>-<span class="number">30 11</span>:<span class="number">35</span>:<span class="number">51 </span>+<span class="number">8</span>));
+        <span class="macro">assert_eq!</span>(execution.trade_id, <span class="string">&quot;693664675163312128-1648611351433741210&quot;</span>);
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -601,608 +601,608 @@
 <span id="601">601</span>
 <span id="602">602</span>
 <span id="603">603</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
+</pre><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
 
-<span class="kw">use</span> <span class="ident">longbridge_httpcli</span>::{<span class="ident">HttpClient</span>, <span class="ident">Method</span>};
-<span class="kw">use</span> <span class="ident">longbridge_wscli::WsClientError</span>;
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">tokio::sync</span>::{<span class="ident">mpsc</span>, <span class="ident">oneshot</span>};
+<span class="kw">use </span>longbridge_httpcli::{HttpClient, Method};
+<span class="kw">use </span>longbridge_wscli::WsClientError;
+<span class="kw">use </span>serde::{Deserialize, Serialize};
+<span class="kw">use </span>tokio::sync::{mpsc, oneshot};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">trade</span>::{
-        <span class="ident">core</span>::{<span class="ident">Command</span>, <span class="ident">Core</span>},
-        <span class="ident">AccountBalance</span>, <span class="ident">CashFlow</span>, <span class="ident">Execution</span>, <span class="ident">FundPositionsResponse</span>, <span class="ident">GetCashFlowOptions</span>,
-        <span class="ident">GetFundPositionsOptions</span>, <span class="ident">GetHistoryExecutionsOptions</span>, <span class="ident">GetHistoryOrdersOptions</span>,
-        <span class="ident">GetStockPositionsOptions</span>, <span class="ident">GetTodayExecutionsOptions</span>, <span class="ident">GetTodayOrdersOptions</span>, <span class="ident">MarginRatio</span>,
-        <span class="ident">Order</span>, <span class="ident">PushEvent</span>, <span class="ident">ReplaceOrderOptions</span>, <span class="ident">StockPositionsResponse</span>, <span class="ident">SubmitOrderOptions</span>,
-        <span class="ident">TopicType</span>,
+<span class="kw">use crate</span>::{
+    trade::{
+        core::{Command, Core},
+        AccountBalance, CashFlow, Execution, FundPositionsResponse, GetCashFlowOptions,
+        GetFundPositionsOptions, GetHistoryExecutionsOptions, GetHistoryOrdersOptions,
+        GetStockPositionsOptions, GetTodayExecutionsOptions, GetTodayOrdersOptions, MarginRatio,
+        Order, PushEvent, ReplaceOrderOptions, StockPositionsResponse, SubmitOrderOptions,
+        TopicType,
     },
-    <span class="ident">Config</span>, <span class="prelude-ty">Result</span>,
+    Config, <span class="prelude-ty">Result</span>,
 };
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">struct</span> <span class="ident">EmptyResponse</span> {}
+<span class="attribute">#[derive(Debug, Deserialize)]
+</span><span class="kw">struct </span>EmptyResponse {}
 
-<span class="doccomment">/// Response for submit order request</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubmitOrderResponse</span> {
-    <span class="doccomment">/// Order id</span>
-    <span class="kw">pub</span> <span class="ident">order_id</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Response for submit order request
+</span><span class="attribute">#[derive(Debug, Deserialize)]
+</span><span class="kw">pub struct </span>SubmitOrderResponse {
+    <span class="doccomment">/// Order id
+    </span><span class="kw">pub </span>order_id: String,
 }
 
-<span class="doccomment">/// Trade context</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TradeContext</span> {
-    <span class="ident">command_tx</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&gt;</span>,
-    <span class="ident">http_cli</span>: <span class="ident">HttpClient</span>,
+<span class="doccomment">/// Trade context
+</span><span class="attribute">#[derive(Clone)]
+</span><span class="kw">pub struct </span>TradeContext {
+    command_tx: mpsc::UnboundedSender&lt;Command&gt;,
+    http_cli: HttpClient,
 }
 
-<span class="kw">impl</span> <span class="ident">TradeContext</span> {
-    <span class="doccomment">/// Create a `TradeContext`</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">try_new</span>(
-        <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="self">Self</span>, <span class="ident">mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">http_cli</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">create_http_client</span>();
-        <span class="kw">let</span> (<span class="ident">command_tx</span>, <span class="ident">command_rx</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded_channel</span>();
-        <span class="kw">let</span> (<span class="ident">push_tx</span>, <span class="ident">push_rx</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded_channel</span>();
-        <span class="ident">tokio::spawn</span>(<span class="ident">Core::try_new</span>(<span class="ident">config</span>, <span class="ident">command_rx</span>, <span class="ident">push_tx</span>).<span class="kw">await</span><span class="question-mark">?</span>.<span class="ident">run</span>());
+<span class="kw">impl </span>TradeContext {
+    <span class="doccomment">/// Create a `TradeContext`
+    </span><span class="kw">pub async fn </span>try_new(
+        config: Arc&lt;Config&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, mpsc::UnboundedReceiver&lt;PushEvent&gt;)&gt; {
+        <span class="kw">let </span>http_cli = config.create_http_client();
+        <span class="kw">let </span>(command_tx, command_rx) = mpsc::unbounded_channel();
+        <span class="kw">let </span>(push_tx, push_rx) = mpsc::unbounded_channel();
+        tokio::spawn(Core::try_new(config, command_rx, push_tx).<span class="kw">await</span><span class="question-mark">?</span>.run());
         <span class="prelude-val">Ok</span>((
-            <span class="ident">TradeContext</span> {
-                <span class="ident">http_cli</span>,
-                <span class="ident">command_tx</span>,
+            TradeContext {
+                http_cli,
+                command_tx,
             },
-            <span class="ident">push_rx</span>,
+            push_rx,
         ))
     }
 
-    <span class="doccomment">/// Subscribe</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/trade-push#subscribe&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     decimal,</span>
-    <span class="doccomment">///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType, TradeContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, mut receiver) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = SubmitOrderOptions::new(</span>
-    <span class="doccomment">///     &quot;700.HK&quot;,</span>
-    <span class="doccomment">///     OrderType::LO,</span>
-    <span class="doccomment">///     OrderSide::Buy,</span>
-    <span class="doccomment">///     200,</span>
-    <span class="doccomment">///     TimeInForceType::Day,</span>
-    <span class="doccomment">/// )</span>
-    <span class="doccomment">/// .submitted_price(decimal!(50i32));</span>
-    <span class="doccomment">/// let resp = ctx.submit_order(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// while let Some(event) = receiver.recv().await {</span>
-    <span class="doccomment">///     println!(&quot;{:?}&quot;, event);</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">subscribe</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TopicType</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Subscribe
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/trade-push#subscribe&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     decimal,
+    ///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = SubmitOrderOptions::new(
+    ///     &quot;700.HK&quot;,
+    ///     OrderType::LO,
+    ///     OrderSide::Buy,
+    ///     200,
+    ///     TimeInForceType::Day,
+    /// )
+    /// .submitted_price(decimal!(50i32));
+    /// let resp = ctx.submit_order(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    ///
+    /// while let Some(event) = receiver.recv().await {
+    ///     println!(&quot;{:?}&quot;, event);
+    /// }
+    ///
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>subscribe&lt;I&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, topics: I) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = TopicType&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::Subscribe</span> {
-                <span class="ident">topics</span>: <span class="ident">topics</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>(),
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::Subscribe {
+                topics: topics.into_iter().collect(),
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
-    }
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
 
-    <span class="doccomment">/// Unsubscribe</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/trade-push#cancel-subscribe&gt;</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">unsubscribe</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">topics</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">TopicType</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Unsubscribe
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/trade-push#cancel-subscribe&gt;
+    </span><span class="kw">pub async fn </span>unsubscribe&lt;I&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, topics: I) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = TopicType&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::Unsubscribe</span> {
-                <span class="ident">topics</span>: <span class="ident">topics</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>(),
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::Unsubscribe {
+                topics: topics.into_iter().collect(),
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
-    }
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
 
-    <span class="doccomment">/// Get history executions</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/execution/history_executions&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     trade::{GetHistoryExecutionsOptions, TradeContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">/// use time::macros::datetime;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = GetHistoryExecutionsOptions::new()</span>
-    <span class="doccomment">///     .symbol(&quot;700.HK&quot;)</span>
-    <span class="doccomment">///     .start_at(datetime!(2022-05-09 0:00 UTC))</span>
-    <span class="doccomment">///     .end_at(datetime!(2022-05-12 0:00 UTC));</span>
-    <span class="doccomment">/// let resp = ctx.history_executions(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">history_executions</span>(
+    <span class="doccomment">/// Get history executions
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/execution/history_executions&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetHistoryExecutionsOptions, TradeContext},
+    ///     Config,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetHistoryExecutionsOptions::new()
+    ///     .symbol(&quot;700.HK&quot;)
+    ///     .start_at(datetime!(2022-05-09 0:00 UTC))
+    ///     .end_at(datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.history_executions(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>history_executions(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">options</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GetHistoryExecutionsOptions</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Execution</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">trades</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Execution</span><span class="op">&gt;</span>,
+        options: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetHistoryExecutionsOptions&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Execution&gt;&gt; {
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            trades: Vec&lt;Execution&gt;,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/trade/execution/history&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">options</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_default</span>())
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">trades</span>)
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/trade/execution/history&quot;</span>)
+            .query_params(options.into().unwrap_or_default())
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.trades)
     }
 
-    <span class="doccomment">/// Get today executions</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/execution/today_executions&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     trade::{GetTodayExecutionsOptions, TradeContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = GetTodayExecutionsOptions::new().symbol(&quot;700.HK&quot;);</span>
-    <span class="doccomment">/// let resp = ctx.today_executions(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">today_executions</span>(
+    <span class="doccomment">/// Get today executions
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/execution/today_executions&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetTodayExecutionsOptions, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetTodayExecutionsOptions::new().symbol(&quot;700.HK&quot;);
+    /// let resp = ctx.today_executions(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>today_executions(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">options</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GetTodayExecutionsOptions</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Execution</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">trades</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Execution</span><span class="op">&gt;</span>,
+        options: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetTodayExecutionsOptions&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Execution&gt;&gt; {
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            trades: Vec&lt;Execution&gt;,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/trade/execution/today&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">options</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_default</span>())
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">trades</span>)
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/trade/execution/today&quot;</span>)
+            .query_params(options.into().unwrap_or_default())
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.trades)
     }
 
-    <span class="doccomment">/// Get history orders</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/history_orders&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     trade::{GetHistoryOrdersOptions, OrderSide, OrderStatus, TradeContext},</span>
-    <span class="doccomment">///     Config, Market,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">/// use time::macros::datetime;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = GetHistoryOrdersOptions::new()</span>
-    <span class="doccomment">///     .symbol(&quot;700.HK&quot;)</span>
-    <span class="doccomment">///     .status([OrderStatus::Filled, OrderStatus::New])</span>
-    <span class="doccomment">///     .side(OrderSide::Buy)</span>
-    <span class="doccomment">///     .market(Market::HK)</span>
-    <span class="doccomment">///     .start_at(datetime!(2022-05-09 0:00 UTC))</span>
-    <span class="doccomment">///     .end_at(datetime!(2022-05-12 0:00 UTC));</span>
-    <span class="doccomment">/// let resp = ctx.history_orders(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">history_orders</span>(
+    <span class="doccomment">/// Get history orders
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/history_orders&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetHistoryOrdersOptions, OrderSide, OrderStatus, TradeContext},
+    ///     Config, Market,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetHistoryOrdersOptions::new()
+    ///     .symbol(&quot;700.HK&quot;)
+    ///     .status([OrderStatus::Filled, OrderStatus::New])
+    ///     .side(OrderSide::Buy)
+    ///     .market(Market::HK)
+    ///     .start_at(datetime!(2022-05-09 0:00 UTC))
+    ///     .end_at(datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.history_orders(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>history_orders(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">options</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GetHistoryOrdersOptions</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Order</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">orders</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Order</span><span class="op">&gt;</span>,
+        options: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetHistoryOrdersOptions&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Order&gt;&gt; {
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            orders: Vec&lt;Order&gt;,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/trade/order/history&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">options</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_default</span>())
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">orders</span>)
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/trade/order/history&quot;</span>)
+            .query_params(options.into().unwrap_or_default())
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.orders)
     }
 
-    <span class="doccomment">/// Get today orders</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/today_orders&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     trade::{GetTodayOrdersOptions, OrderSide, OrderStatus, TradeContext},</span>
-    <span class="doccomment">///     Config, Market,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = GetTodayOrdersOptions::new()</span>
-    <span class="doccomment">///     .symbol(&quot;700.HK&quot;)</span>
-    <span class="doccomment">///     .status([OrderStatus::Filled, OrderStatus::New])</span>
-    <span class="doccomment">///     .side(OrderSide::Buy)</span>
-    <span class="doccomment">///     .market(Market::HK);</span>
-    <span class="doccomment">/// let resp = ctx.today_orders(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">today_orders</span>(
+    <span class="doccomment">/// Get today orders
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/today_orders&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetTodayOrdersOptions, OrderSide, OrderStatus, TradeContext},
+    ///     Config, Market,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetTodayOrdersOptions::new()
+    ///     .symbol(&quot;700.HK&quot;)
+    ///     .status([OrderStatus::Filled, OrderStatus::New])
+    ///     .side(OrderSide::Buy)
+    ///     .market(Market::HK);
+    /// let resp = ctx.today_orders(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>today_orders(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">options</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GetTodayOrdersOptions</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Order</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">orders</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Order</span><span class="op">&gt;</span>,
+        options: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetTodayOrdersOptions&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Order&gt;&gt; {
+        <span class="attribute">#[derive(Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            orders: Vec&lt;Order&gt;,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/trade/order/today&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">options</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_default</span>())
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">orders</span>)
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/trade/order/today&quot;</span>)
+            .query_params(options.into().unwrap_or_default())
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.orders)
     }
 
-    <span class="doccomment">/// Replace order</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/replace&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     decimal,</span>
-    <span class="doccomment">///     trade::{ReplaceOrderOptions, TradeContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = ReplaceOrderOptions::new(&quot;709043056541253632&quot;, 100).price(decimal!(300i32));</span>
-    <span class="doccomment">/// let resp = ctx.replace_order(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">replace_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="ident">ReplaceOrderOptions</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::PUT</span>, <span class="string">&quot;/v1/trade/order&quot;</span>)
-            .<span class="ident">body</span>(<span class="ident">options</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">EmptyResponse</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span>
-            .<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>)
+    <span class="doccomment">/// Replace order
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/replace&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     decimal,
+    ///     trade::{ReplaceOrderOptions, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = ReplaceOrderOptions::new(&quot;709043056541253632&quot;, 100).price(decimal!(300i32));
+    /// let resp = ctx.replace_order(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>replace_order(<span class="kw-2">&amp;</span><span class="self">self</span>, options: ReplaceOrderOptions) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::PUT, <span class="string">&quot;/v1/trade/order&quot;</span>)
+            .body(options)
+            .response::&lt;EmptyResponse&gt;()
+            .send()
+            .<span class="kw">await
+            </span>.map(|<span class="kw">_</span>| ())<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Submit order</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/submit&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     decimal,</span>
-    <span class="doccomment">///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType, TradeContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = SubmitOrderOptions::new(</span>
-    <span class="doccomment">///     &quot;700.HK&quot;,</span>
-    <span class="doccomment">///     OrderType::LO,</span>
-    <span class="doccomment">///     OrderSide::Buy,</span>
-    <span class="doccomment">///     200,</span>
-    <span class="doccomment">///     TimeInForceType::Day,</span>
-    <span class="doccomment">/// )</span>
-    <span class="doccomment">/// .submitted_price(decimal!(50i32));</span>
-    <span class="doccomment">/// let resp = ctx.submit_order(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">submit_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="ident">SubmitOrderOptions</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SubmitOrderResponse</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::POST</span>, <span class="string">&quot;/v1/trade/order&quot;</span>)
-            .<span class="ident">body</span>(<span class="ident">options</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
+    <span class="doccomment">/// Submit order
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/submit&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     decimal,
+    ///     trade::{OrderSide, OrderType, SubmitOrderOptions, TimeInForceType, TradeContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = SubmitOrderOptions::new(
+    ///     &quot;700.HK&quot;,
+    ///     OrderType::LO,
+    ///     OrderSide::Buy,
+    ///     200,
+    ///     TimeInForceType::Day,
+    /// )
+    /// .submitted_price(decimal!(50i32));
+    /// let resp = ctx.submit_order(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>submit_order(<span class="kw-2">&amp;</span><span class="self">self</span>, options: SubmitOrderOptions) -&gt; <span class="prelude-ty">Result</span>&lt;SubmitOrderResponse&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::POST, <span class="string">&quot;/v1/trade/order&quot;</span>)
+            .body(options)
+            .response::&lt;<span class="kw">_</span>&gt;()
+            .send()
             .<span class="kw">await</span><span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Cancel order</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/withdraw&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{trade::TradeContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.cancel_order(&quot;709043056541253632&quot;).await?;</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cancel_order</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">order_id</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Request</span> {
-            <span class="ident">order_id</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// Cancel order
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/order/withdraw&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// ctx.cancel_order(&quot;709043056541253632&quot;).await?;
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>cancel_order(<span class="kw-2">&amp;</span><span class="self">self</span>, order_id: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="attribute">#[derive(Debug, Serialize)]
+        </span><span class="kw">struct </span>Request {
+            order_id: String,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::DELETE</span>, <span class="string">&quot;/v1/trade/order&quot;</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">EmptyResponse</span><span class="op">&gt;</span>()
-            .<span class="ident">query_params</span>(<span class="ident">Request</span> {
-                <span class="ident">order_id</span>: <span class="ident">order_id</span>.<span class="ident">into</span>(),
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::DELETE, <span class="string">&quot;/v1/trade/order&quot;</span>)
+            .response::&lt;EmptyResponse&gt;()
+            .query_params(Request {
+                order_id: order_id.into(),
             })
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span>
-            .<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> ())<span class="question-mark">?</span>)
+            .send()
+            .<span class="kw">await
+            </span>.map(|<span class="kw">_</span>| ())<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get account balance</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/account&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{trade::TradeContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.account_balance().await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">account_balance</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountBalance</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">list</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AccountBalance</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get account balance
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/account&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.account_balance().await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>account_balance(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;AccountBalance&gt;&gt; {
+        <span class="attribute">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            list: Vec&lt;AccountBalance&gt;,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/asset/account&quot;</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">list</span>)
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/asset/account&quot;</span>)
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.list)
     }
 
-    <span class="doccomment">/// Get cash flow</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/cashflow&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     trade::{GetCashFlowOptions, TradeContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">/// use time::macros::datetime;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let opts = GetCashFlowOptions::new(datetime!(2022-05-09 0:00 UTC), datetime!(2022-05-12 0:00 UTC));</span>
-    <span class="doccomment">/// let resp = ctx.cash_flow(opts).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">cash_flow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">options</span>: <span class="ident">GetCashFlowOptions</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CashFlow</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">list</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CashFlow</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get cash flow
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/cashflow&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     trade::{GetCashFlowOptions, TradeContext},
+    ///     Config,
+    /// };
+    /// use time::macros::datetime;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let opts = GetCashFlowOptions::new(datetime!(2022-05-09 0:00 UTC), datetime!(2022-05-12 0:00 UTC));
+    /// let resp = ctx.cash_flow(opts).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>cash_flow(<span class="kw-2">&amp;</span><span class="self">self</span>, options: GetCashFlowOptions) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;CashFlow&gt;&gt; {
+        <span class="attribute">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            list: Vec&lt;CashFlow&gt;,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/asset/cashflow&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">options</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">list</span>)
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/asset/cashflow&quot;</span>)
+            .query_params(options)
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.list)
     }
 
-    <span class="doccomment">/// Get fund positions</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/fund&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{trade::TradeContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.fund_positions(None).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">fund_positions</span>(
+    <span class="doccomment">/// Get fund positions
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/fund&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.fund_positions(None).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>fund_positions(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">opts</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GetFundPositionsOptions</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">FundPositionsResponse</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/asset/fund&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">opts</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_default</span>())
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">FundPositionsResponse</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
+        opts: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetFundPositionsOptions&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;FundPositionsResponse&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/asset/fund&quot;</span>)
+            .query_params(opts.into().unwrap_or_default())
+            .response::&lt;FundPositionsResponse&gt;()
+            .send()
             .<span class="kw">await</span><span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get stock positions</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/stock&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{trade::TradeContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.stock_positions(None).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">stock_positions</span>(
+    <span class="doccomment">/// Get stock positions
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/stock&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.stock_positions(None).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>stock_positions(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">opts</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GetStockPositionsOptions</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StockPositionsResponse</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/asset/stock&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">opts</span>.<span class="ident">into</span>().<span class="ident">unwrap_or_default</span>())
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">StockPositionsResponse</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
+        opts: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetStockPositionsOptions&gt;&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;StockPositionsResponse&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/asset/stock&quot;</span>)
+            .query_params(opts.into().unwrap_or_default())
+            .response::&lt;StockPositionsResponse&gt;()
+            .send()
             .<span class="kw">await</span><span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get margin ratio</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/margin_ratio&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{trade::TradeContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = TradeContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.margin_ratio(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">margin_ratio</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">MarginRatio</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Request</span> {
-            <span class="ident">symbol</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// Get margin ratio
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/trade/asset/margin_ratio&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{trade::TradeContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = TradeContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.margin_ratio(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>margin_ratio(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;MarginRatio&gt; {
+        <span class="attribute">#[derive(Debug, Serialize)]
+        </span><span class="kw">struct </span>Request {
+            symbol: String,
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/risk/margin-ratio&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">Request</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/risk/margin-ratio&quot;</span>)
+            .query_params(Request {
+                symbol: symbol.into(),
             })
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">MarginRatio</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
+            .response::&lt;MarginRatio&gt;()
+            .send()
             .<span class="kw">await</span><span class="question-mark">?</span>)
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

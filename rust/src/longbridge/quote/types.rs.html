@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1021,1028 +1021,1028 @@
 <span id="1021">1021</span>
 <span id="1022">1022</span>
 <span id="1023">1023</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>::{<span class="self">self</span>, <span class="ident">Period</span>, <span class="ident">TradeSession</span>, <span class="ident">TradeStatus</span>};
-<span class="kw">use</span> <span class="ident">num_enum</span>::{<span class="ident">FromPrimitive</span>, <span class="ident">IntoPrimitive</span>};
-<span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
-<span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
-<span class="kw">use</span> <span class="ident">strum_macros</span>::{<span class="ident">Display</span>, <span class="ident">EnumString</span>};
-<span class="kw">use</span> <span class="ident">time</span>::{<span class="ident">Date</span>, <span class="ident">OffsetDateTime</span>, <span class="ident">Time</span>};
+</pre><pre class="rust"><code><span class="kw">use </span>longbridge_proto::quote::{<span class="self">self</span>, Period, TradeSession, TradeStatus};
+<span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
+<span class="kw">use </span>rust_decimal::Decimal;
+<span class="kw">use </span>serde::Deserialize;
+<span class="kw">use </span>strum_macros::{Display, EnumString};
+<span class="kw">use </span>time::{Date, OffsetDateTime, Time};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">quote</span>::{<span class="ident">utils::parse_date</span>, <span class="ident">SubFlags</span>},
-    <span class="ident">serde_utils</span>, <span class="ident">Error</span>, <span class="ident">Market</span>, <span class="prelude-ty">Result</span>,
+<span class="kw">use crate</span>::{
+    quote::{utils::parse_date, SubFlags},
+    serde_utils, Error, Market, <span class="prelude-ty">Result</span>,
 };
 
-<span class="doccomment">/// Subscription</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Subscription</span> {
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Subscription flags</span>
-    <span class="kw">pub</span> <span class="ident">sub_types</span>: <span class="ident">SubFlags</span>,
-    <span class="doccomment">/// Candlesticks</span>
-    <span class="kw">pub</span> <span class="ident">candlesticks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Period</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Subscription
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>Subscription {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Subscription flags
+    </span><span class="kw">pub </span>sub_types: SubFlags,
+    <span class="doccomment">/// Candlesticks
+    </span><span class="kw">pub </span>candlesticks: Vec&lt;Period&gt;,
 }
 
-<span class="doccomment">/// Depth</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Depth</span> {
-    <span class="doccomment">/// Position</span>
-    <span class="kw">pub</span> <span class="ident">position</span>: <span class="ident">i32</span>,
-    <span class="doccomment">/// Price</span>
-    <span class="kw">pub</span> <span class="ident">price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Number of orders</span>
-    <span class="kw">pub</span> <span class="ident">order_num</span>: <span class="ident">i64</span>,
+<span class="doccomment">/// Depth
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>Depth {
+    <span class="doccomment">/// Position
+    </span><span class="kw">pub </span>position: i32,
+    <span class="doccomment">/// Price
+    </span><span class="kw">pub </span>price: Decimal,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Number of orders
+    </span><span class="kw">pub </span>order_num: i64,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::Depth</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Depth</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::Depth&gt; <span class="kw">for </span>Depth {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">depth</span>: <span class="ident">quote::Depth</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">position</span>: <span class="ident">depth</span>.<span class="ident">position</span>,
-            <span class="ident">price</span>: <span class="ident">depth</span>.<span class="ident">price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">volume</span>: <span class="ident">depth</span>.<span class="ident">volume</span>,
-            <span class="ident">order_num</span>: <span class="ident">depth</span>.<span class="ident">order_num</span>,
+    <span class="kw">fn </span>try_from(depth: quote::Depth) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            position: depth.position,
+            price: depth.price.parse().unwrap_or_default(),
+            volume: depth.volume,
+            order_num: depth.order_num,
         })
     }
 }
 
-<span class="doccomment">/// Brokers</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Brokers</span> {
-    <span class="doccomment">/// Position</span>
-    <span class="kw">pub</span> <span class="ident">position</span>: <span class="ident">i32</span>,
-    <span class="doccomment">/// Broker IDs</span>
-    <span class="kw">pub</span> <span class="ident">broker_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Brokers
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>Brokers {
+    <span class="doccomment">/// Position
+    </span><span class="kw">pub </span>position: i32,
+    <span class="doccomment">/// Broker IDs
+    </span><span class="kw">pub </span>broker_ids: Vec&lt;i32&gt;,
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">quote::Brokers</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Brokers</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">brokers</span>: <span class="ident">quote::Brokers</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">position</span>: <span class="ident">brokers</span>.<span class="ident">position</span>,
-            <span class="ident">broker_ids</span>: <span class="ident">brokers</span>.<span class="ident">broker_ids</span>,
+<span class="kw">impl </span>From&lt;quote::Brokers&gt; <span class="kw">for </span>Brokers {
+    <span class="kw">fn </span>from(brokers: quote::Brokers) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            position: brokers.position,
+            broker_ids: brokers.broker_ids,
         }
     }
 }
 
-<span class="doccomment">/// Trade direction</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">FromPrimitive</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
-<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">i32</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TradeDirection</span> {
-    <span class="doccomment">/// Neutral</span>
-    <span class="attribute">#[<span class="ident">num_enum</span>(<span class="ident">default</span>)]</span>
-    <span class="ident">Neutral</span> <span class="op">=</span> <span class="number">0</span>,
-    <span class="doccomment">/// Down</span>
-    <span class="ident">Down</span> <span class="op">=</span> <span class="number">1</span>,
-    <span class="doccomment">/// Up</span>
-    <span class="ident">Up</span> <span class="op">=</span> <span class="number">2</span>,
+<span class="doccomment">/// Trade direction
+</span><span class="attribute">#[derive(Debug, FromPrimitive, Copy, Clone, Hash, Eq, PartialEq)]
+#[repr(i32)]
+</span><span class="kw">pub enum </span>TradeDirection {
+    <span class="doccomment">/// Neutral
+    </span><span class="attribute">#[num_enum(default)]
+    </span>Neutral = <span class="number">0</span>,
+    <span class="doccomment">/// Down
+    </span>Down = <span class="number">1</span>,
+    <span class="doccomment">/// Up
+    </span>Up = <span class="number">2</span>,
 }
 
-<span class="doccomment">/// Trade</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Trade</span> {
-    <span class="doccomment">/// Price</span>
-    <span class="kw">pub</span> <span class="ident">price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Time of trading</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Trade type</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// HK</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// - `*` - Overseas trade</span>
-    <span class="doccomment">/// - `D` - Odd-lot trade</span>
-    <span class="doccomment">/// - `M` - Non-direct off-exchange trade</span>
-    <span class="doccomment">/// - `P` - Late trade (Off-exchange previous day)</span>
-    <span class="doccomment">/// - `U` - Auction trade</span>
-    <span class="doccomment">/// - `X` - Direct off-exchange trade</span>
-    <span class="doccomment">/// - `Y` - Automatch internalized</span>
-    <span class="doccomment">/// - `&lt;empty string&gt;` -  Automatch normal</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// US</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// - `&lt;empty string&gt;` - Regular sale</span>
-    <span class="doccomment">/// - `A` - Acquisition</span>
-    <span class="doccomment">/// - `B` - Bunched trade</span>
-    <span class="doccomment">/// - `D` - Distribution</span>
-    <span class="doccomment">/// - `F` - Intermarket sweep</span>
-    <span class="doccomment">/// - `G` - Bunched sold trades</span>
-    <span class="doccomment">/// - `H` - Price variation trade</span>
-    <span class="doccomment">/// - `I` - Odd lot trade</span>
-    <span class="doccomment">/// - `K` - Rule 155 trde(NYSE MKT)</span>
-    <span class="doccomment">/// - `M` - Market center close price</span>
-    <span class="doccomment">/// - `P` - Prior reference price</span>
-    <span class="doccomment">/// - `Q` - Market center open price</span>
-    <span class="doccomment">/// - `S` - Split trade</span>
-    <span class="doccomment">/// - `V` - Contingent trade</span>
-    <span class="doccomment">/// - `W` - Average price trade</span>
-    <span class="doccomment">/// - `X` - Cross trade</span>
-    <span class="doccomment">/// - `1` - Stopped stock(Regular trade)</span>
-    <span class="kw">pub</span> <span class="ident">trade_type</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Trade direction</span>
-    <span class="kw">pub</span> <span class="ident">direction</span>: <span class="ident">TradeDirection</span>,
-    <span class="doccomment">/// Trade session</span>
-    <span class="kw">pub</span> <span class="ident">trade_session</span>: <span class="ident">TradeSession</span>,
+<span class="doccomment">/// Trade
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>Trade {
+    <span class="doccomment">/// Price
+    </span><span class="kw">pub </span>price: Decimal,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Time of trading
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Trade type
+    ///
+    /// HK
+    ///
+    /// - `*` - Overseas trade
+    /// - `D` - Odd-lot trade
+    /// - `M` - Non-direct off-exchange trade
+    /// - `P` - Late trade (Off-exchange previous day)
+    /// - `U` - Auction trade
+    /// - `X` - Direct off-exchange trade
+    /// - `Y` - Automatch internalized
+    /// - `&lt;empty string&gt;` -  Automatch normal
+    ///
+    /// US
+    ///
+    /// - `&lt;empty string&gt;` - Regular sale
+    /// - `A` - Acquisition
+    /// - `B` - Bunched trade
+    /// - `D` - Distribution
+    /// - `F` - Intermarket sweep
+    /// - `G` - Bunched sold trades
+    /// - `H` - Price variation trade
+    /// - `I` - Odd lot trade
+    /// - `K` - Rule 155 trde(NYSE MKT)
+    /// - `M` - Market center close price
+    /// - `P` - Prior reference price
+    /// - `Q` - Market center open price
+    /// - `S` - Split trade
+    /// - `V` - Contingent trade
+    /// - `W` - Average price trade
+    /// - `X` - Cross trade
+    /// - `1` - Stopped stock(Regular trade)
+    </span><span class="kw">pub </span>trade_type: String,
+    <span class="doccomment">/// Trade direction
+    </span><span class="kw">pub </span>direction: TradeDirection,
+    <span class="doccomment">/// Trade session
+    </span><span class="kw">pub </span>trade_session: TradeSession,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::Trade</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Trade</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::Trade&gt; <span class="kw">for </span>Trade {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">trade</span>: <span class="ident">quote::Trade</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">price</span>: <span class="ident">trade</span>.<span class="ident">price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">volume</span>: <span class="ident">trade</span>.<span class="ident">volume</span>,
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">trade</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">trade_type</span>: <span class="ident">trade</span>.<span class="ident">trade_type</span>,
-            <span class="ident">direction</span>: <span class="ident">trade</span>.<span class="ident">direction</span>.<span class="ident">into</span>(),
-            <span class="ident">trade_session</span>: <span class="ident">TradeSession::from_i32</span>(<span class="ident">trade</span>.<span class="ident">trade_session</span>).<span class="ident">unwrap_or_default</span>(),
+    <span class="kw">fn </span>try_from(trade: quote::Trade) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            price: trade.price.parse().unwrap_or_default(),
+            volume: trade.volume,
+            timestamp: OffsetDateTime::from_unix_timestamp(trade.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            trade_type: trade.trade_type,
+            direction: trade.direction.into(),
+            trade_session: TradeSession::from_i32(trade.trade_session).unwrap_or_default(),
         })
     }
 }
 
-<span class="macro">bitflags::bitflags!</span> {
-    <span class="doccomment">/// Derivative type</span>
-    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DerivativeType</span>: <span class="ident">u8</span> {
-        <span class="doccomment">/// US stock options</span>
-        <span class="kw">const</span> <span class="ident">OPTION</span> <span class="op">=</span> <span class="number">0x1</span>;
+<span class="macro">bitflags::bitflags! </span>{
+    <span class="doccomment">/// Derivative type
+    </span><span class="kw">pub struct </span>DerivativeType: u8 {
+        <span class="doccomment">/// US stock options
+        </span><span class="kw">const </span>OPTION = <span class="number">0x1</span>;
 
-        <span class="doccomment">/// HK warrants</span>
-        <span class="kw">const</span> <span class="ident">WARRANT</span> <span class="op">=</span> <span class="number">0x2</span>;
+        <span class="doccomment">/// HK warrants
+        </span><span class="kw">const </span>WARRANT = <span class="number">0x2</span>;
     }
 }
 
-<span class="doccomment">/// Security board</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::upper_case_acronyms</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SecurityBoard</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// US Main Board</span>
-    <span class="ident">USMain</span>,
-    <span class="doccomment">/// US Pink Board</span>
-    <span class="ident">USPink</span>,
-    <span class="doccomment">/// Dow Jones Industrial Average</span>
-    <span class="ident">USDJI</span>,
-    <span class="doccomment">/// Nasdsaq Index</span>
-    <span class="ident">USNSDQ</span>,
-    <span class="doccomment">/// US Industry Board</span>
-    <span class="ident">USSector</span>,
-    <span class="doccomment">/// US Option</span>
-    <span class="ident">USOption</span>,
-    <span class="doccomment">/// US Sepecial Option</span>
-    <span class="ident">USOptionS</span>,
-    <span class="doccomment">/// Hong Kong Equity Securities</span>
-    <span class="ident">HKEquity</span>,
-    <span class="doccomment">/// HK PreIPO Security</span>
-    <span class="ident">HKPreIPO</span>,
-    <span class="doccomment">/// HK Warrant</span>
-    <span class="ident">HKWarrant</span>,
-    <span class="doccomment">/// Hang Seng Index</span>
-    <span class="ident">HKHS</span>,
-    <span class="doccomment">/// HK Industry Board</span>
-    <span class="ident">HKSector</span>,
-    <span class="doccomment">/// SH Main Board(Connect)</span>
-    <span class="ident">SHMainConnect</span>,
-    <span class="doccomment">/// SH Main Board(Non Connect)</span>
-    <span class="ident">SHMainNonConnect</span>,
-    <span class="doccomment">/// SH Science and Technology Innovation Board</span>
-    <span class="ident">SHSTAR</span>,
-    <span class="doccomment">/// CN Index</span>
-    <span class="ident">CNIX</span>,
-    <span class="doccomment">/// CN Industry Board</span>
-    <span class="ident">CNSector</span>,
-    <span class="doccomment">/// SZ Main Board(Connect)</span>
-    <span class="ident">SZMainConnect</span>,
-    <span class="doccomment">/// SZ Main Board(Non Connect)</span>
-    <span class="ident">SZMainNonConnect</span>,
-    <span class="doccomment">/// SZ Gem Board(Connect)</span>
-    <span class="ident">SZGEMConnect</span>,
-    <span class="doccomment">/// SZ Gem Board(Non Connect)</span>
-    <span class="ident">SZGEMNonConnect</span>,
-    <span class="doccomment">/// SG Main Board</span>
-    <span class="ident">SGMain</span>,
-    <span class="doccomment">/// Singapore Straits Index</span>
-    <span class="ident">STI</span>,
-    <span class="doccomment">/// SG Industry Board</span>
-    <span class="ident">SGSector</span>,
+<span class="doccomment">/// Security board
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+#[allow(clippy::upper_case_acronyms)]
+</span><span class="kw">pub enum </span>SecurityBoard {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// US Main Board
+    </span>USMain,
+    <span class="doccomment">/// US Pink Board
+    </span>USPink,
+    <span class="doccomment">/// Dow Jones Industrial Average
+    </span>USDJI,
+    <span class="doccomment">/// Nasdsaq Index
+    </span>USNSDQ,
+    <span class="doccomment">/// US Industry Board
+    </span>USSector,
+    <span class="doccomment">/// US Option
+    </span>USOption,
+    <span class="doccomment">/// US Sepecial Option
+    </span>USOptionS,
+    <span class="doccomment">/// Hong Kong Equity Securities
+    </span>HKEquity,
+    <span class="doccomment">/// HK PreIPO Security
+    </span>HKPreIPO,
+    <span class="doccomment">/// HK Warrant
+    </span>HKWarrant,
+    <span class="doccomment">/// Hang Seng Index
+    </span>HKHS,
+    <span class="doccomment">/// HK Industry Board
+    </span>HKSector,
+    <span class="doccomment">/// SH Main Board(Connect)
+    </span>SHMainConnect,
+    <span class="doccomment">/// SH Main Board(Non Connect)
+    </span>SHMainNonConnect,
+    <span class="doccomment">/// SH Science and Technology Innovation Board
+    </span>SHSTAR,
+    <span class="doccomment">/// CN Index
+    </span>CNIX,
+    <span class="doccomment">/// CN Industry Board
+    </span>CNSector,
+    <span class="doccomment">/// SZ Main Board(Connect)
+    </span>SZMainConnect,
+    <span class="doccomment">/// SZ Main Board(Non Connect)
+    </span>SZMainNonConnect,
+    <span class="doccomment">/// SZ Gem Board(Connect)
+    </span>SZGEMConnect,
+    <span class="doccomment">/// SZ Gem Board(Non Connect)
+    </span>SZGEMNonConnect,
+    <span class="doccomment">/// SG Main Board
+    </span>SGMain,
+    <span class="doccomment">/// Singapore Straits Index
+    </span>STI,
+    <span class="doccomment">/// SG Industry Board
+    </span>SGSector,
 }
 
-<span class="doccomment">/// The basic information of securities</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SecurityStaticInfo</span> {
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Security name (zh-CN)</span>
-    <span class="kw">pub</span> <span class="ident">name_cn</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Security name (en)</span>
-    <span class="kw">pub</span> <span class="ident">name_en</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Security name (zh-HK)</span>
-    <span class="kw">pub</span> <span class="ident">name_hk</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Exchange which the security belongs to</span>
-    <span class="kw">pub</span> <span class="ident">exchange</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Trading currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Lot size</span>
-    <span class="kw">pub</span> <span class="ident">lot_size</span>: <span class="ident">i32</span>,
-    <span class="doccomment">/// Total shares</span>
-    <span class="kw">pub</span> <span class="ident">total_shares</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Circulating shares</span>
-    <span class="kw">pub</span> <span class="ident">circulating_shares</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// HK shares (only HK stocks)</span>
-    <span class="kw">pub</span> <span class="ident">hk_shares</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Earnings per share</span>
-    <span class="kw">pub</span> <span class="ident">eps</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Earnings per share (TTM)</span>
-    <span class="kw">pub</span> <span class="ident">eps_ttm</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Net assets per share</span>
-    <span class="kw">pub</span> <span class="ident">bps</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Dividend yield</span>
-    <span class="kw">pub</span> <span class="ident">dividend_yield</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Types of supported derivatives</span>
-    <span class="kw">pub</span> <span class="ident">stock_derivatives</span>: <span class="ident">DerivativeType</span>,
-    <span class="doccomment">/// Board</span>
-    <span class="kw">pub</span> <span class="ident">board</span>: <span class="ident">SecurityBoard</span>,
+<span class="doccomment">/// The basic information of securities
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>SecurityStaticInfo {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Security name (zh-CN)
+    </span><span class="kw">pub </span>name_cn: String,
+    <span class="doccomment">/// Security name (en)
+    </span><span class="kw">pub </span>name_en: String,
+    <span class="doccomment">/// Security name (zh-HK)
+    </span><span class="kw">pub </span>name_hk: String,
+    <span class="doccomment">/// Exchange which the security belongs to
+    </span><span class="kw">pub </span>exchange: String,
+    <span class="doccomment">/// Trading currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Lot size
+    </span><span class="kw">pub </span>lot_size: i32,
+    <span class="doccomment">/// Total shares
+    </span><span class="kw">pub </span>total_shares: i64,
+    <span class="doccomment">/// Circulating shares
+    </span><span class="kw">pub </span>circulating_shares: i64,
+    <span class="doccomment">/// HK shares (only HK stocks)
+    </span><span class="kw">pub </span>hk_shares: i64,
+    <span class="doccomment">/// Earnings per share
+    </span><span class="kw">pub </span>eps: Decimal,
+    <span class="doccomment">/// Earnings per share (TTM)
+    </span><span class="kw">pub </span>eps_ttm: Decimal,
+    <span class="doccomment">/// Net assets per share
+    </span><span class="kw">pub </span>bps: Decimal,
+    <span class="doccomment">/// Dividend yield
+    </span><span class="kw">pub </span>dividend_yield: Decimal,
+    <span class="doccomment">/// Types of supported derivatives
+    </span><span class="kw">pub </span>stock_derivatives: DerivativeType,
+    <span class="doccomment">/// Board
+    </span><span class="kw">pub </span>board: SecurityBoard,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::StaticInfo</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SecurityStaticInfo</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::StaticInfo&gt; <span class="kw">for </span>SecurityStaticInfo {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">resp</span>: <span class="ident">quote::StaticInfo</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">SecurityStaticInfo</span> {
-            <span class="ident">symbol</span>: <span class="ident">resp</span>.<span class="ident">symbol</span>,
-            <span class="ident">name_cn</span>: <span class="ident">resp</span>.<span class="ident">name_cn</span>,
-            <span class="ident">name_en</span>: <span class="ident">resp</span>.<span class="ident">name_en</span>,
-            <span class="ident">name_hk</span>: <span class="ident">resp</span>.<span class="ident">name_hk</span>,
-            <span class="ident">exchange</span>: <span class="ident">resp</span>.<span class="ident">exchange</span>,
-            <span class="ident">currency</span>: <span class="ident">resp</span>.<span class="ident">currency</span>,
-            <span class="ident">lot_size</span>: <span class="ident">resp</span>.<span class="ident">lot_size</span>,
-            <span class="ident">total_shares</span>: <span class="ident">resp</span>.<span class="ident">total_shares</span>,
-            <span class="ident">circulating_shares</span>: <span class="ident">resp</span>.<span class="ident">circulating_shares</span>,
-            <span class="ident">hk_shares</span>: <span class="ident">resp</span>.<span class="ident">hk_shares</span>,
-            <span class="ident">eps</span>: <span class="ident">resp</span>.<span class="ident">eps</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">eps_ttm</span>: <span class="ident">resp</span>.<span class="ident">eps_ttm</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">bps</span>: <span class="ident">resp</span>.<span class="ident">bps</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">dividend_yield</span>: <span class="ident">resp</span>.<span class="ident">dividend_yield</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">stock_derivatives</span>: <span class="ident">resp</span>.<span class="ident">stock_derivatives</span>.<span class="ident">into_iter</span>().<span class="ident">fold</span>(
-                <span class="ident">DerivativeType::empty</span>(),
-                <span class="op">|</span><span class="ident">acc</span>, <span class="ident">value</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">value</span> {
-                    <span class="number">1</span> =&gt; <span class="ident">acc</span> <span class="op">|</span> <span class="ident">DerivativeType::OPTION</span>,
-                    <span class="number">2</span> =&gt; <span class="ident">acc</span> <span class="op">|</span> <span class="ident">DerivativeType::WARRANT</span>,
-                    <span class="kw">_</span> =&gt; <span class="ident">acc</span>,
+    <span class="kw">fn </span>try_from(resp: quote::StaticInfo) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(SecurityStaticInfo {
+            symbol: resp.symbol,
+            name_cn: resp.name_cn,
+            name_en: resp.name_en,
+            name_hk: resp.name_hk,
+            exchange: resp.exchange,
+            currency: resp.currency,
+            lot_size: resp.lot_size,
+            total_shares: resp.total_shares,
+            circulating_shares: resp.circulating_shares,
+            hk_shares: resp.hk_shares,
+            eps: resp.eps.parse().unwrap_or_default(),
+            eps_ttm: resp.eps_ttm.parse().unwrap_or_default(),
+            bps: resp.bps.parse().unwrap_or_default(),
+            dividend_yield: resp.dividend_yield.parse().unwrap_or_default(),
+            stock_derivatives: resp.stock_derivatives.into_iter().fold(
+                DerivativeType::empty(),
+                |acc, value| <span class="kw">match </span>value {
+                    <span class="number">1 </span>=&gt; acc | DerivativeType::OPTION,
+                    <span class="number">2 </span>=&gt; acc | DerivativeType::WARRANT,
+                    <span class="kw">_ </span>=&gt; acc,
                 },
             ),
-            <span class="ident">board</span>: <span class="ident">resp</span>.<span class="ident">board</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or</span>(<span class="ident">SecurityBoard::Unknown</span>),
+            board: resp.board.parse().unwrap_or(SecurityBoard::Unknown),
         })
     }
 }
 
-<span class="doccomment">/// Real-time quote</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RealtimeQuote</span> {
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Latest price</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Open</span>
-    <span class="kw">pub</span> <span class="ident">open</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time of latest price</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Security trading status</span>
-    <span class="kw">pub</span> <span class="ident">trade_status</span>: <span class="ident">TradeStatus</span>,
+<span class="doccomment">/// Real-time quote
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>RealtimeQuote {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Latest price
+    </span><span class="kw">pub </span>last_done: Decimal,
+    <span class="doccomment">/// Open
+    </span><span class="kw">pub </span>open: Decimal,
+    <span class="doccomment">/// High
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Low
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// Time of latest price
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Security trading status
+    </span><span class="kw">pub </span>trade_status: TradeStatus,
 }
 
-<span class="doccomment">/// Quote of US pre/post market</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrePostQuote</span> {
-    <span class="doccomment">/// Latest price</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time of latest price</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Close of the last trade session</span>
-    <span class="kw">pub</span> <span class="ident">prev_close</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Quote of US pre/post market
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>PrePostQuote {
+    <span class="doccomment">/// Latest price
+    </span><span class="kw">pub </span>last_done: Decimal,
+    <span class="doccomment">/// Time of latest price
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// High
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Low
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// Close of the last trade session
+    </span><span class="kw">pub </span>prev_close: Decimal,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::PrePostQuote</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PrePostQuote</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::PrePostQuote&gt; <span class="kw">for </span>PrePostQuote {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">quote</span>: <span class="ident">quote::PrePostQuote</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">last_done</span>: <span class="ident">quote</span>.<span class="ident">last_done</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">quote</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">volume</span>: <span class="ident">quote</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">quote</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">high</span>: <span class="ident">quote</span>.<span class="ident">high</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">low</span>: <span class="ident">quote</span>.<span class="ident">low</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">prev_close</span>: <span class="ident">quote</span>.<span class="ident">prev_close</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
+    <span class="kw">fn </span>try_from(quote: quote::PrePostQuote) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            last_done: quote.last_done.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            volume: quote.volume,
+            turnover: quote.turnover.parse().unwrap_or_default(),
+            high: quote.high.parse().unwrap_or_default(),
+            low: quote.low.parse().unwrap_or_default(),
+            prev_close: quote.prev_close.parse().unwrap_or_default(),
         })
     }
 }
 
-<span class="doccomment">/// Quote of securitity</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SecurityQuote</span> {
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Latest price</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Yesterday&#39;s close</span>
-    <span class="kw">pub</span> <span class="ident">prev_close</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Open</span>
-    <span class="kw">pub</span> <span class="ident">open</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time of latest price</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Security trading status</span>
-    <span class="kw">pub</span> <span class="ident">trade_status</span>: <span class="ident">TradeStatus</span>,
-    <span class="doccomment">/// Quote of US pre market</span>
-    <span class="kw">pub</span> <span class="ident">pre_market_quote</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PrePostQuote</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Quote of US post market</span>
-    <span class="kw">pub</span> <span class="ident">post_market_quote</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PrePostQuote</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Quote of securitity
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>SecurityQuote {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Latest price
+    </span><span class="kw">pub </span>last_done: Decimal,
+    <span class="doccomment">/// Yesterday&#39;s close
+    </span><span class="kw">pub </span>prev_close: Decimal,
+    <span class="doccomment">/// Open
+    </span><span class="kw">pub </span>open: Decimal,
+    <span class="doccomment">/// High
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Low
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// Time of latest price
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Security trading status
+    </span><span class="kw">pub </span>trade_status: TradeStatus,
+    <span class="doccomment">/// Quote of US pre market
+    </span><span class="kw">pub </span>pre_market_quote: <span class="prelude-ty">Option</span>&lt;PrePostQuote&gt;,
+    <span class="doccomment">/// Quote of US post market
+    </span><span class="kw">pub </span>post_market_quote: <span class="prelude-ty">Option</span>&lt;PrePostQuote&gt;,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::SecurityQuote</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SecurityQuote</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::SecurityQuote&gt; <span class="kw">for </span>SecurityQuote {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">quote</span>: <span class="ident">quote::SecurityQuote</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">symbol</span>: <span class="ident">quote</span>.<span class="ident">symbol</span>,
-            <span class="ident">last_done</span>: <span class="ident">quote</span>.<span class="ident">last_done</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">prev_close</span>: <span class="ident">quote</span>.<span class="ident">prev_close</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">open</span>: <span class="ident">quote</span>.<span class="ident">open</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">high</span>: <span class="ident">quote</span>.<span class="ident">high</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">low</span>: <span class="ident">quote</span>.<span class="ident">low</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">quote</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">volume</span>: <span class="ident">quote</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">quote</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">trade_status</span>: <span class="ident">TradeStatus::from_i32</span>(<span class="ident">quote</span>.<span class="ident">trade_status</span>).<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">pre_market_quote</span>: <span class="ident">quote</span>.<span class="ident">pre_market_quote</span>.<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>).<span class="ident">transpose</span>()<span class="question-mark">?</span>,
-            <span class="ident">post_market_quote</span>: <span class="ident">quote</span>.<span class="ident">post_market_quote</span>.<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>).<span class="ident">transpose</span>()<span class="question-mark">?</span>,
+    <span class="kw">fn </span>try_from(quote: quote::SecurityQuote) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            symbol: quote.symbol,
+            last_done: quote.last_done.parse().unwrap_or_default(),
+            prev_close: quote.prev_close.parse().unwrap_or_default(),
+            open: quote.open.parse().unwrap_or_default(),
+            high: quote.high.parse().unwrap_or_default(),
+            low: quote.low.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            volume: quote.volume,
+            turnover: quote.turnover.parse().unwrap_or_default(),
+            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            pre_market_quote: quote.pre_market_quote.map(TryInto::try_into).transpose()<span class="question-mark">?</span>,
+            post_market_quote: quote.post_market_quote.map(TryInto::try_into).transpose()<span class="question-mark">?</span>,
         })
     }
 }
 
-<span class="doccomment">/// Option type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OptionType</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// American</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;A&quot;</span>)]</span>
-    <span class="ident">American</span>,
-    <span class="doccomment">/// Europe</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;U&quot;</span>)]</span>
-    <span class="ident">Europe</span>,
+<span class="doccomment">/// Option type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString)]
+</span><span class="kw">pub enum </span>OptionType {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// American
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;A&quot;</span>)]
+    </span>American,
+    <span class="doccomment">/// Europe
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;U&quot;</span>)]
+    </span>Europe,
 }
 
-<span class="doccomment">/// Option direction</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OptionDirection</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span>,
-    <span class="doccomment">/// Put</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;P&quot;</span>)]</span>
-    <span class="ident">Put</span>,
-    <span class="doccomment">/// Call</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;C&quot;</span>)]</span>
-    <span class="ident">Call</span>,
+<span class="doccomment">/// Option direction
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString)]
+</span><span class="kw">pub enum </span>OptionDirection {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown,
+    <span class="doccomment">/// Put
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;P&quot;</span>)]
+    </span>Put,
+    <span class="doccomment">/// Call
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;C&quot;</span>)]
+    </span>Call,
 }
 
-<span class="doccomment">/// Quote of option</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OptionQuote</span> {
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Latest price</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Yesterday&#39;s close</span>
-    <span class="kw">pub</span> <span class="ident">prev_close</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Open</span>
-    <span class="kw">pub</span> <span class="ident">open</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time of latest price</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Security trading status</span>
-    <span class="kw">pub</span> <span class="ident">trade_status</span>: <span class="ident">TradeStatus</span>,
-    <span class="doccomment">/// Implied volatility</span>
-    <span class="kw">pub</span> <span class="ident">implied_volatility</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Number of open positions</span>
-    <span class="kw">pub</span> <span class="ident">open_interest</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Exprity date</span>
-    <span class="kw">pub</span> <span class="ident">expiry_date</span>: <span class="ident">Date</span>,
-    <span class="doccomment">/// Strike price</span>
-    <span class="kw">pub</span> <span class="ident">strike_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Contract multiplier</span>
-    <span class="kw">pub</span> <span class="ident">contract_multiplier</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Option type</span>
-    <span class="kw">pub</span> <span class="ident">contract_type</span>: <span class="ident">OptionType</span>,
-    <span class="doccomment">/// Contract size</span>
-    <span class="kw">pub</span> <span class="ident">contract_size</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Option direction</span>
-    <span class="kw">pub</span> <span class="ident">direction</span>: <span class="ident">OptionDirection</span>,
-    <span class="doccomment">/// Underlying security historical volatility of the option</span>
-    <span class="kw">pub</span> <span class="ident">historical_volatility</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Underlying security symbol of the option</span>
-    <span class="kw">pub</span> <span class="ident">underlying_symbol</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Quote of option
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>OptionQuote {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Latest price
+    </span><span class="kw">pub </span>last_done: Decimal,
+    <span class="doccomment">/// Yesterday&#39;s close
+    </span><span class="kw">pub </span>prev_close: Decimal,
+    <span class="doccomment">/// Open
+    </span><span class="kw">pub </span>open: Decimal,
+    <span class="doccomment">/// High
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Low
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// Time of latest price
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Security trading status
+    </span><span class="kw">pub </span>trade_status: TradeStatus,
+    <span class="doccomment">/// Implied volatility
+    </span><span class="kw">pub </span>implied_volatility: Decimal,
+    <span class="doccomment">/// Number of open positions
+    </span><span class="kw">pub </span>open_interest: i64,
+    <span class="doccomment">/// Exprity date
+    </span><span class="kw">pub </span>expiry_date: Date,
+    <span class="doccomment">/// Strike price
+    </span><span class="kw">pub </span>strike_price: Decimal,
+    <span class="doccomment">/// Contract multiplier
+    </span><span class="kw">pub </span>contract_multiplier: Decimal,
+    <span class="doccomment">/// Option type
+    </span><span class="kw">pub </span>contract_type: OptionType,
+    <span class="doccomment">/// Contract size
+    </span><span class="kw">pub </span>contract_size: Decimal,
+    <span class="doccomment">/// Option direction
+    </span><span class="kw">pub </span>direction: OptionDirection,
+    <span class="doccomment">/// Underlying security historical volatility of the option
+    </span><span class="kw">pub </span>historical_volatility: Decimal,
+    <span class="doccomment">/// Underlying security symbol of the option
+    </span><span class="kw">pub </span>underlying_symbol: String,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::OptionQuote</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OptionQuote</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::OptionQuote&gt; <span class="kw">for </span>OptionQuote {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">quote</span>: <span class="ident">quote::OptionQuote</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">option_extend</span> <span class="op">=</span> <span class="ident">quote</span>.<span class="ident">option_extend</span>.<span class="ident">unwrap_or_default</span>();
+    <span class="kw">fn </span>try_from(quote: quote::OptionQuote) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="kw">let </span>option_extend = quote.option_extend.unwrap_or_default();
 
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">symbol</span>: <span class="ident">quote</span>.<span class="ident">symbol</span>,
-            <span class="ident">last_done</span>: <span class="ident">quote</span>.<span class="ident">last_done</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">prev_close</span>: <span class="ident">quote</span>.<span class="ident">prev_close</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">open</span>: <span class="ident">quote</span>.<span class="ident">open</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">high</span>: <span class="ident">quote</span>.<span class="ident">high</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">low</span>: <span class="ident">quote</span>.<span class="ident">low</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">quote</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">volume</span>: <span class="ident">quote</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">quote</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">trade_status</span>: <span class="ident">TradeStatus::from_i32</span>(<span class="ident">quote</span>.<span class="ident">trade_status</span>).<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">implied_volatility</span>: <span class="ident">option_extend</span>.<span class="ident">implied_volatility</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">open_interest</span>: <span class="ident">option_extend</span>.<span class="ident">open_interest</span>,
-            <span class="ident">expiry_date</span>: <span class="ident">parse_date</span>(<span class="kw-2">&amp;</span><span class="ident">option_extend</span>.<span class="ident">expiry_date</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;expiry_date&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">strike_price</span>: <span class="ident">option_extend</span>.<span class="ident">strike_price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">contract_multiplier</span>: <span class="ident">option_extend</span>
-                .<span class="ident">contract_multiplier</span>
-                .<span class="ident">parse</span>()
-                .<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">contract_type</span>: <span class="ident">option_extend</span>.<span class="ident">contract_type</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">contract_size</span>: <span class="ident">option_extend</span>.<span class="ident">contract_size</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">direction</span>: <span class="ident">option_extend</span>.<span class="ident">contract_type</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">historical_volatility</span>: <span class="ident">option_extend</span>
-                .<span class="ident">historical_volatility</span>
-                .<span class="ident">parse</span>()
-                .<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">underlying_symbol</span>: <span class="ident">option_extend</span>.<span class="ident">underlying_symbol</span>,
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            symbol: quote.symbol,
+            last_done: quote.last_done.parse().unwrap_or_default(),
+            prev_close: quote.prev_close.parse().unwrap_or_default(),
+            open: quote.open.parse().unwrap_or_default(),
+            high: quote.high.parse().unwrap_or_default(),
+            low: quote.low.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            volume: quote.volume,
+            turnover: quote.turnover.parse().unwrap_or_default(),
+            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            implied_volatility: option_extend.implied_volatility.parse().unwrap_or_default(),
+            open_interest: option_extend.open_interest,
+            expiry_date: parse_date(<span class="kw-2">&amp;</span>option_extend.expiry_date)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;expiry_date&quot;</span>, err))<span class="question-mark">?</span>,
+            strike_price: option_extend.strike_price.parse().unwrap_or_default(),
+            contract_multiplier: option_extend
+                .contract_multiplier
+                .parse()
+                .unwrap_or_default(),
+            contract_type: option_extend.contract_type.parse().unwrap_or_default(),
+            contract_size: option_extend.contract_size.parse().unwrap_or_default(),
+            direction: option_extend.contract_type.parse().unwrap_or_default(),
+            historical_volatility: option_extend
+                .historical_volatility
+                .parse()
+                .unwrap_or_default(),
+            underlying_symbol: option_extend.underlying_symbol,
         })
     }
 }
 
-<span class="doccomment">/// Warrant type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">IntoPrimitive</span>)]</span>
-<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">i32</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">WarrantType</span> {
-    <span class="doccomment">/// Unknown</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">disabled</span>)]</span>
-    <span class="ident">Unknown</span> <span class="op">=</span> <span class="op">-</span><span class="number">1</span>,
-    <span class="doccomment">/// Call</span>
-    <span class="ident">Call</span> <span class="op">=</span> <span class="number">0</span>,
-    <span class="doccomment">/// Put</span>
-    <span class="ident">Put</span> <span class="op">=</span> <span class="number">1</span>,
-    <span class="doccomment">/// Bull</span>
-    <span class="ident">Bull</span> <span class="op">=</span> <span class="number">2</span>,
-    <span class="doccomment">/// Bear</span>
-    <span class="ident">Bear</span> <span class="op">=</span> <span class="number">3</span>,
-    <span class="doccomment">/// Inline</span>
-    <span class="ident">Inline</span> <span class="op">=</span> <span class="number">4</span>,
+<span class="doccomment">/// Warrant type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, IntoPrimitive)]
+#[repr(i32)]
+</span><span class="kw">pub enum </span>WarrantType {
+    <span class="doccomment">/// Unknown
+    </span><span class="attribute">#[strum(disabled)]
+    </span>Unknown = -<span class="number">1</span>,
+    <span class="doccomment">/// Call
+    </span>Call = <span class="number">0</span>,
+    <span class="doccomment">/// Put
+    </span>Put = <span class="number">1</span>,
+    <span class="doccomment">/// Bull
+    </span>Bull = <span class="number">2</span>,
+    <span class="doccomment">/// Bear
+    </span>Bear = <span class="number">3</span>,
+    <span class="doccomment">/// Inline
+    </span>Inline = <span class="number">4</span>,
 }
 
-<span class="doccomment">/// Quote of warrant</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WarrantQuote</span> {
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Latest price</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Yesterday&#39;s close</span>
-    <span class="kw">pub</span> <span class="ident">prev_close</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Open</span>
-    <span class="kw">pub</span> <span class="ident">open</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time of latest price</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Security trading status</span>
-    <span class="kw">pub</span> <span class="ident">trade_status</span>: <span class="ident">TradeStatus</span>,
-    <span class="doccomment">/// Implied volatility</span>
-    <span class="kw">pub</span> <span class="ident">implied_volatility</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Exprity date</span>
-    <span class="kw">pub</span> <span class="ident">expiry_date</span>: <span class="ident">Date</span>,
-    <span class="doccomment">/// Last tradalbe date</span>
-    <span class="kw">pub</span> <span class="ident">last_trade_date</span>: <span class="ident">Date</span>,
-    <span class="doccomment">/// Outstanding ratio</span>
-    <span class="kw">pub</span> <span class="ident">outstanding_ratio</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Outstanding quantity</span>
-    <span class="kw">pub</span> <span class="ident">outstanding_quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Conversion ratio</span>
-    <span class="kw">pub</span> <span class="ident">conversion_ratio</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Warrant type</span>
-    <span class="kw">pub</span> <span class="ident">category</span>: <span class="ident">WarrantType</span>,
-    <span class="doccomment">/// Strike price</span>
-    <span class="kw">pub</span> <span class="ident">strike_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Upper bound price</span>
-    <span class="kw">pub</span> <span class="ident">upper_strike_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Lower bound price</span>
-    <span class="kw">pub</span> <span class="ident">lower_strike_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Call price</span>
-    <span class="kw">pub</span> <span class="ident">call_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Underlying security symbol of the warrant</span>
-    <span class="kw">pub</span> <span class="ident">underlying_symbol</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Quote of warrant
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>WarrantQuote {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Latest price
+    </span><span class="kw">pub </span>last_done: Decimal,
+    <span class="doccomment">/// Yesterday&#39;s close
+    </span><span class="kw">pub </span>prev_close: Decimal,
+    <span class="doccomment">/// Open
+    </span><span class="kw">pub </span>open: Decimal,
+    <span class="doccomment">/// High
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Low
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// Time of latest price
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Security trading status
+    </span><span class="kw">pub </span>trade_status: TradeStatus,
+    <span class="doccomment">/// Implied volatility
+    </span><span class="kw">pub </span>implied_volatility: Decimal,
+    <span class="doccomment">/// Exprity date
+    </span><span class="kw">pub </span>expiry_date: Date,
+    <span class="doccomment">/// Last tradalbe date
+    </span><span class="kw">pub </span>last_trade_date: Date,
+    <span class="doccomment">/// Outstanding ratio
+    </span><span class="kw">pub </span>outstanding_ratio: Decimal,
+    <span class="doccomment">/// Outstanding quantity
+    </span><span class="kw">pub </span>outstanding_quantity: i64,
+    <span class="doccomment">/// Conversion ratio
+    </span><span class="kw">pub </span>conversion_ratio: Decimal,
+    <span class="doccomment">/// Warrant type
+    </span><span class="kw">pub </span>category: WarrantType,
+    <span class="doccomment">/// Strike price
+    </span><span class="kw">pub </span>strike_price: Decimal,
+    <span class="doccomment">/// Upper bound price
+    </span><span class="kw">pub </span>upper_strike_price: Decimal,
+    <span class="doccomment">/// Lower bound price
+    </span><span class="kw">pub </span>lower_strike_price: Decimal,
+    <span class="doccomment">/// Call price
+    </span><span class="kw">pub </span>call_price: Decimal,
+    <span class="doccomment">/// Underlying security symbol of the warrant
+    </span><span class="kw">pub </span>underlying_symbol: String,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::WarrantQuote</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">WarrantQuote</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::WarrantQuote&gt; <span class="kw">for </span>WarrantQuote {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">quote</span>: <span class="ident">quote::WarrantQuote</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">warrant_extend</span> <span class="op">=</span> <span class="ident">quote</span>.<span class="ident">warrant_extend</span>.<span class="ident">unwrap_or_default</span>();
+    <span class="kw">fn </span>try_from(quote: quote::WarrantQuote) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="kw">let </span>warrant_extend = quote.warrant_extend.unwrap_or_default();
 
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">symbol</span>: <span class="ident">quote</span>.<span class="ident">symbol</span>,
-            <span class="ident">last_done</span>: <span class="ident">quote</span>.<span class="ident">last_done</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">prev_close</span>: <span class="ident">quote</span>.<span class="ident">prev_close</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">open</span>: <span class="ident">quote</span>.<span class="ident">open</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">high</span>: <span class="ident">quote</span>.<span class="ident">high</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">low</span>: <span class="ident">quote</span>.<span class="ident">low</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">quote</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">volume</span>: <span class="ident">quote</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">quote</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">trade_status</span>: <span class="ident">TradeStatus::from_i32</span>(<span class="ident">quote</span>.<span class="ident">trade_status</span>).<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">implied_volatility</span>: <span class="ident">warrant_extend</span>
-                .<span class="ident">implied_volatility</span>
-                .<span class="ident">parse</span>()
-                .<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">expiry_date</span>: <span class="ident">parse_date</span>(<span class="kw-2">&amp;</span><span class="ident">warrant_extend</span>.<span class="ident">expiry_date</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;expiry_date&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">last_trade_date</span>: <span class="ident">parse_date</span>(<span class="kw-2">&amp;</span><span class="ident">warrant_extend</span>.<span class="ident">last_trade_date</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;last_trade_date&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">outstanding_ratio</span>: <span class="ident">warrant_extend</span>.<span class="ident">outstanding_ratio</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">outstanding_quantity</span>: <span class="ident">warrant_extend</span>.<span class="ident">outstanding_qty</span>,
-            <span class="ident">conversion_ratio</span>: <span class="ident">warrant_extend</span>.<span class="ident">conversion_ratio</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">category</span>: <span class="ident">warrant_extend</span>.<span class="ident">category</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">strike_price</span>: <span class="ident">warrant_extend</span>.<span class="ident">strike_price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">upper_strike_price</span>: <span class="ident">warrant_extend</span>
-                .<span class="ident">upper_strike_price</span>
-                .<span class="ident">parse</span>()
-                .<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">lower_strike_price</span>: <span class="ident">warrant_extend</span>
-                .<span class="ident">lower_strike_price</span>
-                .<span class="ident">parse</span>()
-                .<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">call_price</span>: <span class="ident">warrant_extend</span>.<span class="ident">call_price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">underlying_symbol</span>: <span class="ident">warrant_extend</span>.<span class="ident">underlying_symbol</span>,
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            symbol: quote.symbol,
+            last_done: quote.last_done.parse().unwrap_or_default(),
+            prev_close: quote.prev_close.parse().unwrap_or_default(),
+            open: quote.open.parse().unwrap_or_default(),
+            high: quote.high.parse().unwrap_or_default(),
+            low: quote.low.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            volume: quote.volume,
+            turnover: quote.turnover.parse().unwrap_or_default(),
+            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            implied_volatility: warrant_extend
+                .implied_volatility
+                .parse()
+                .unwrap_or_default(),
+            expiry_date: parse_date(<span class="kw-2">&amp;</span>warrant_extend.expiry_date)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;expiry_date&quot;</span>, err))<span class="question-mark">?</span>,
+            last_trade_date: parse_date(<span class="kw-2">&amp;</span>warrant_extend.last_trade_date)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;last_trade_date&quot;</span>, err))<span class="question-mark">?</span>,
+            outstanding_ratio: warrant_extend.outstanding_ratio.parse().unwrap_or_default(),
+            outstanding_quantity: warrant_extend.outstanding_qty,
+            conversion_ratio: warrant_extend.conversion_ratio.parse().unwrap_or_default(),
+            category: warrant_extend.category.parse().unwrap_or_default(),
+            strike_price: warrant_extend.strike_price.parse().unwrap_or_default(),
+            upper_strike_price: warrant_extend
+                .upper_strike_price
+                .parse()
+                .unwrap_or_default(),
+            lower_strike_price: warrant_extend
+                .lower_strike_price
+                .parse()
+                .unwrap_or_default(),
+            call_price: warrant_extend.call_price.parse().unwrap_or_default(),
+            underlying_symbol: warrant_extend.underlying_symbol,
         })
     }
 }
 
-<span class="doccomment">/// Security depth</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SecurityDepth</span> {
-    <span class="doccomment">/// Ask depth</span>
-    <span class="kw">pub</span> <span class="ident">asks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Depth</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Bid depth</span>
-    <span class="kw">pub</span> <span class="ident">bids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Depth</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Security depth
+</span><span class="attribute">#[derive(Debug, Clone, Default)]
+</span><span class="kw">pub struct </span>SecurityDepth {
+    <span class="doccomment">/// Ask depth
+    </span><span class="kw">pub </span>asks: Vec&lt;Depth&gt;,
+    <span class="doccomment">/// Bid depth
+    </span><span class="kw">pub </span>bids: Vec&lt;Depth&gt;,
 }
 
-<span class="doccomment">/// Security brokers</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SecurityBrokers</span> {
-    <span class="doccomment">/// Ask brokers</span>
-    <span class="kw">pub</span> <span class="ident">ask_brokers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Brokers</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Bid brokers</span>
-    <span class="kw">pub</span> <span class="ident">bid_brokers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Brokers</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Security brokers
+</span><span class="attribute">#[derive(Debug, Clone, Default)]
+</span><span class="kw">pub struct </span>SecurityBrokers {
+    <span class="doccomment">/// Ask brokers
+    </span><span class="kw">pub </span>ask_brokers: Vec&lt;Brokers&gt;,
+    <span class="doccomment">/// Bid brokers
+    </span><span class="kw">pub </span>bid_brokers: Vec&lt;Brokers&gt;,
 }
 
-<span class="doccomment">/// Participant info</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ParticipantInfo</span> {
-    <span class="doccomment">/// Broker IDs</span>
-    <span class="kw">pub</span> <span class="ident">broker_ids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Participant name (zh-CN)</span>
-    <span class="kw">pub</span> <span class="ident">name_cn</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Participant name (en)</span>
-    <span class="kw">pub</span> <span class="ident">name_en</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Participant name (zh-HK)</span>
-    <span class="kw">pub</span> <span class="ident">name_hk</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Participant info
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>ParticipantInfo {
+    <span class="doccomment">/// Broker IDs
+    </span><span class="kw">pub </span>broker_ids: Vec&lt;i32&gt;,
+    <span class="doccomment">/// Participant name (zh-CN)
+    </span><span class="kw">pub </span>name_cn: String,
+    <span class="doccomment">/// Participant name (en)
+    </span><span class="kw">pub </span>name_en: String,
+    <span class="doccomment">/// Participant name (zh-HK)
+    </span><span class="kw">pub </span>name_hk: String,
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">quote::ParticipantInfo</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ParticipantInfo</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">info</span>: <span class="ident">quote::ParticipantInfo</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">broker_ids</span>: <span class="ident">info</span>.<span class="ident">broker_ids</span>,
-            <span class="ident">name_cn</span>: <span class="ident">info</span>.<span class="ident">participant_name_cn</span>,
-            <span class="ident">name_en</span>: <span class="ident">info</span>.<span class="ident">participant_name_en</span>,
-            <span class="ident">name_hk</span>: <span class="ident">info</span>.<span class="ident">participant_name_hk</span>,
+<span class="kw">impl </span>From&lt;quote::ParticipantInfo&gt; <span class="kw">for </span>ParticipantInfo {
+    <span class="kw">fn </span>from(info: quote::ParticipantInfo) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            broker_ids: info.broker_ids,
+            name_cn: info.participant_name_cn,
+            name_en: info.participant_name_en,
+            name_hk: info.participant_name_hk,
         }
     }
 }
 
-<span class="doccomment">/// Intraday line</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IntradayLine</span> {
-    <span class="doccomment">/// Close price of the minute</span>
-    <span class="kw">pub</span> <span class="ident">price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Start time of the minute</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Average price</span>
-    <span class="kw">pub</span> <span class="ident">avg_price</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Intraday line
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>IntradayLine {
+    <span class="doccomment">/// Close price of the minute
+    </span><span class="kw">pub </span>price: Decimal,
+    <span class="doccomment">/// Start time of the minute
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Average price
+    </span><span class="kw">pub </span>avg_price: Decimal,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::Line</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IntradayLine</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::Line&gt; <span class="kw">for </span>IntradayLine {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::Line</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">price</span>: <span class="ident">value</span>.<span class="ident">price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">value</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">volume</span>: <span class="ident">value</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">value</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">avg_price</span>: <span class="ident">value</span>.<span class="ident">avg_price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
+    <span class="kw">fn </span>try_from(value: quote::Line) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            price: value.price.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            volume: value.volume,
+            turnover: value.turnover.parse().unwrap_or_default(),
+            avg_price: value.avg_price.parse().unwrap_or_default(),
         })
     }
 }
 
-<span class="doccomment">/// Candlestick</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Candlestick</span> {
-    <span class="doccomment">/// Close price</span>
-    <span class="kw">pub</span> <span class="ident">close</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Open price</span>
-    <span class="kw">pub</span> <span class="ident">open</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low price</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High price</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Timestamp</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
+<span class="doccomment">/// Candlestick
+</span><span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="kw">pub struct </span>Candlestick {
+    <span class="doccomment">/// Close price
+    </span><span class="kw">pub </span>close: Decimal,
+    <span class="doccomment">/// Open price
+    </span><span class="kw">pub </span>open: Decimal,
+    <span class="doccomment">/// Low price
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// High price
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Timestamp
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::Candlestick</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Candlestick</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::Candlestick&gt; <span class="kw">for </span>Candlestick {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::Candlestick</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">close</span>: <span class="ident">value</span>.<span class="ident">close</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">open</span>: <span class="ident">value</span>.<span class="ident">open</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">low</span>: <span class="ident">value</span>.<span class="ident">low</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">high</span>: <span class="ident">value</span>.<span class="ident">high</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">volume</span>: <span class="ident">value</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">value</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">value</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
+    <span class="kw">fn </span>try_from(value: quote::Candlestick) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            close: value.close.parse().unwrap_or_default(),
+            open: value.open.parse().unwrap_or_default(),
+            low: value.low.parse().unwrap_or_default(),
+            high: value.high.parse().unwrap_or_default(),
+            volume: value.volume,
+            turnover: value.turnover.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
         })
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">longbridge_candlesticks::Candlestick</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Candlestick</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">candlestick</span>: <span class="ident">longbridge_candlesticks::Candlestick</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">close</span>: <span class="ident">candlestick</span>.<span class="ident">close</span>,
-            <span class="ident">open</span>: <span class="ident">candlestick</span>.<span class="ident">open</span>,
-            <span class="ident">low</span>: <span class="ident">candlestick</span>.<span class="ident">low</span>,
-            <span class="ident">high</span>: <span class="ident">candlestick</span>.<span class="ident">high</span>,
-            <span class="ident">volume</span>: <span class="ident">candlestick</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">candlestick</span>.<span class="ident">turnover</span>,
-            <span class="ident">timestamp</span>: <span class="ident">candlestick</span>.<span class="ident">time</span>,
+<span class="kw">impl </span>From&lt;longbridge_candlesticks::Candlestick&gt; <span class="kw">for </span>Candlestick {
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>from(candlestick: longbridge_candlesticks::Candlestick) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            close: candlestick.close,
+            open: candlestick.open,
+            low: candlestick.low,
+            high: candlestick.high,
+            volume: candlestick.volume,
+            turnover: candlestick.turnover,
+            timestamp: candlestick.time,
         }
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Candlestick</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">longbridge_candlesticks::Candlestick</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">candlestick</span>: <span class="ident">Candlestick</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">time</span>: <span class="ident">candlestick</span>.<span class="ident">timestamp</span>,
-            <span class="ident">open</span>: <span class="ident">candlestick</span>.<span class="ident">open</span>,
-            <span class="ident">high</span>: <span class="ident">candlestick</span>.<span class="ident">high</span>,
-            <span class="ident">low</span>: <span class="ident">candlestick</span>.<span class="ident">low</span>,
-            <span class="ident">close</span>: <span class="ident">candlestick</span>.<span class="ident">close</span>,
-            <span class="ident">volume</span>: <span class="ident">candlestick</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">candlestick</span>.<span class="ident">turnover</span>,
+<span class="kw">impl </span>From&lt;Candlestick&gt; <span class="kw">for </span>longbridge_candlesticks::Candlestick {
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>from(candlestick: Candlestick) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            time: candlestick.timestamp,
+            open: candlestick.open,
+            high: candlestick.high,
+            low: candlestick.low,
+            close: candlestick.close,
+            volume: candlestick.volume,
+            turnover: candlestick.turnover,
         }
     }
 }
 
-<span class="doccomment">/// Strike price info</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StrikePriceInfo</span> {
-    <span class="doccomment">/// Strike price</span>
-    <span class="kw">pub</span> <span class="ident">price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Security code of call option</span>
-    <span class="kw">pub</span> <span class="ident">call_symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Security code of put option</span>
-    <span class="kw">pub</span> <span class="ident">put_symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Is standard</span>
-    <span class="kw">pub</span> <span class="ident">standard</span>: <span class="ident">bool</span>,
+<span class="doccomment">/// Strike price info
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>StrikePriceInfo {
+    <span class="doccomment">/// Strike price
+    </span><span class="kw">pub </span>price: Decimal,
+    <span class="doccomment">/// Security code of call option
+    </span><span class="kw">pub </span>call_symbol: String,
+    <span class="doccomment">/// Security code of put option
+    </span><span class="kw">pub </span>put_symbol: String,
+    <span class="doccomment">/// Is standard
+    </span><span class="kw">pub </span>standard: bool,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::StrikePriceInfo</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">StrikePriceInfo</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::StrikePriceInfo&gt; <span class="kw">for </span>StrikePriceInfo {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::StrikePriceInfo</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">price</span>: <span class="ident">value</span>.<span class="ident">price</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">call_symbol</span>: <span class="ident">value</span>.<span class="ident">call_symbol</span>,
-            <span class="ident">put_symbol</span>: <span class="ident">value</span>.<span class="ident">put_symbol</span>,
-            <span class="ident">standard</span>: <span class="ident">value</span>.<span class="ident">standard</span>,
+    <span class="kw">fn </span>try_from(value: quote::StrikePriceInfo) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            price: value.price.parse().unwrap_or_default(),
+            call_symbol: value.call_symbol,
+            put_symbol: value.put_symbol,
+            standard: value.standard,
         })
     }
 }
 
-<span class="doccomment">/// Issuer info</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">IssuerInfo</span> {
-    <span class="doccomment">/// Issuer ID</span>
-    <span class="kw">pub</span> <span class="ident">issuer_id</span>: <span class="ident">i32</span>,
-    <span class="doccomment">/// Issuer name (zh-CN)</span>
-    <span class="kw">pub</span> <span class="ident">name_cn</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Issuer name (en)</span>
-    <span class="kw">pub</span> <span class="ident">name_en</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Issuer name (zh-HK)</span>
-    <span class="kw">pub</span> <span class="ident">name_hk</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Issuer info
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>IssuerInfo {
+    <span class="doccomment">/// Issuer ID
+    </span><span class="kw">pub </span>issuer_id: i32,
+    <span class="doccomment">/// Issuer name (zh-CN)
+    </span><span class="kw">pub </span>name_cn: String,
+    <span class="doccomment">/// Issuer name (en)
+    </span><span class="kw">pub </span>name_en: String,
+    <span class="doccomment">/// Issuer name (zh-HK)
+    </span><span class="kw">pub </span>name_hk: String,
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">quote::IssuerInfo</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">IssuerInfo</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">info</span>: <span class="ident">quote::IssuerInfo</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">issuer_id</span>: <span class="ident">info</span>.<span class="ident">id</span>,
-            <span class="ident">name_cn</span>: <span class="ident">info</span>.<span class="ident">name_cn</span>,
-            <span class="ident">name_en</span>: <span class="ident">info</span>.<span class="ident">name_en</span>,
-            <span class="ident">name_hk</span>: <span class="ident">info</span>.<span class="ident">name_hk</span>,
+<span class="kw">impl </span>From&lt;quote::IssuerInfo&gt; <span class="kw">for </span>IssuerInfo {
+    <span class="kw">fn </span>from(info: quote::IssuerInfo) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            issuer_id: info.id,
+            name_cn: info.name_cn,
+            name_en: info.name_en,
+            name_hk: info.name_hk,
         }
     }
 }
 
-<span class="comment">// /// Sort type</span>
-<span class="comment">// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]</span>
-<span class="comment">// #[repr(i32)]</span>
-<span class="comment">// pub enum SortType {</span>
-<span class="comment">//     /// Ascending</span>
-<span class="comment">//     Ascending = 0,</span>
-<span class="comment">//     /// Descending</span>
-<span class="comment">//     Descending = 1,</span>
-<span class="comment">// }</span>
+<span class="comment">// /// Sort type
+// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+// #[repr(i32)]
+// pub enum SortType {
+//     /// Ascending
+//     Ascending = 0,
+//     /// Descending
+//     Descending = 1,
+// }
 
-<span class="comment">// /// Filter warrant expiry date type</span>
-<span class="comment">// #[allow(non_camel_case_types)]</span>
-<span class="comment">// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]</span>
-<span class="comment">// #[repr(i32)]</span>
-<span class="comment">// pub enum FilterWarrantExpiryDate {</span>
-<span class="comment">//     /// Less than 3 months</span>
-<span class="comment">//     LT_3 = 1,</span>
-<span class="comment">//     /// 3 - 6 months</span>
-<span class="comment">//     Between_3_6 = 2,</span>
-<span class="comment">//     /// 6 - 12 months</span>
-<span class="comment">//     Between_6_12 = 3,</span>
-<span class="comment">//     /// Greater than 12 months</span>
-<span class="comment">//     GT_12 = 4,</span>
-<span class="comment">// }</span>
+// /// Filter warrant expiry date type
+// #[allow(non_camel_case_types)]
+// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+// #[repr(i32)]
+// pub enum FilterWarrantExpiryDate {
+//     /// Less than 3 months
+//     LT_3 = 1,
+//     /// 3 - 6 months
+//     Between_3_6 = 2,
+//     /// 6 - 12 months
+//     Between_6_12 = 3,
+//     /// Greater than 12 months
+//     GT_12 = 4,
+// }
 
-<span class="comment">// /// Filter warrant status type</span>
-<span class="comment">// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]</span>
-<span class="comment">// #[repr(i32)]</span>
-<span class="comment">// pub enum FilterWarrantStatus {</span>
-<span class="comment">//     /// Suspend</span>
-<span class="comment">//     Suspend = 2,</span>
-<span class="comment">//     /// Prepare List</span>
-<span class="comment">//     PrepareList = 3,</span>
-<span class="comment">//     /// Normal</span>
-<span class="comment">//     Normal = 4,</span>
-<span class="comment">// }</span>
+// /// Filter warrant status type
+// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+// #[repr(i32)]
+// pub enum FilterWarrantStatus {
+//     /// Suspend
+//     Suspend = 2,
+//     /// Prepare List
+//     PrepareList = 3,
+//     /// Normal
+//     Normal = 4,
+// }
 
-<span class="comment">// /// Language type</span>
-<span class="comment">// #[allow(non_camel_case_types)]</span>
-<span class="comment">// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]</span>
-<span class="comment">// #[repr(i32)]</span>
-<span class="comment">// pub enum Language {</span>
-<span class="comment">//     /// zh-CN</span>
-<span class="comment">//     ZH_CN = 0,</span>
-<span class="comment">//     /// en</span>
-<span class="comment">//     EN = 1,</span>
-<span class="comment">//     /// zh-HK</span>
-<span class="comment">//     ZH_HK = 2,</span>
-<span class="comment">// }</span>
+// /// Language type
+// #[allow(non_camel_case_types)]
+// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+// #[repr(i32)]
+// pub enum Language {
+//     /// zh-CN
+//     ZH_CN = 0,
+//     /// en
+//     EN = 1,
+//     /// zh-HK
+//     ZH_HK = 2,
+// }
 
-<span class="doccomment">/// The information of trading session</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TradingSessionInfo</span> {
-    <span class="doccomment">/// Being trading time</span>
-    <span class="kw">pub</span> <span class="ident">begin_time</span>: <span class="ident">Time</span>,
-    <span class="doccomment">/// End trading time</span>
-    <span class="kw">pub</span> <span class="ident">end_time</span>: <span class="ident">Time</span>,
-    <span class="doccomment">/// Trading session</span>
-    <span class="kw">pub</span> <span class="ident">trade_session</span>: <span class="ident">TradeSession</span>,
+</span><span class="doccomment">/// The information of trading session
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>TradingSessionInfo {
+    <span class="doccomment">/// Being trading time
+    </span><span class="kw">pub </span>begin_time: Time,
+    <span class="doccomment">/// End trading time
+    </span><span class="kw">pub </span>end_time: Time,
+    <span class="doccomment">/// Trading session
+    </span><span class="kw">pub </span>trade_session: TradeSession,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::TradePeriod</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TradingSessionInfo</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::TradePeriod&gt; <span class="kw">for </span>TradingSessionInfo {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::TradePeriod</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">inline</span>]</span>
-        <span class="kw">fn</span> <span class="ident">parse_time</span>(<span class="ident">value</span>: <span class="ident">i32</span>) -&gt; <span class="ident">::std::result::Result</span><span class="op">&lt;</span><span class="ident">Time</span>, <span class="ident">time::error::ComponentRange</span><span class="op">&gt;</span> {
-            <span class="ident">Time::from_hms</span>(((<span class="ident">value</span> <span class="op">/</span> <span class="number">100</span>) <span class="op">%</span> <span class="number">100</span>) <span class="kw">as</span> <span class="ident">u8</span>, (<span class="ident">value</span> <span class="op">%</span> <span class="number">100</span>) <span class="kw">as</span> <span class="ident">u8</span>, <span class="number">0</span>)
+    <span class="kw">fn </span>try_from(value: quote::TradePeriod) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="attribute">#[inline]
+        </span><span class="kw">fn </span>parse_time(value: i32) -&gt; ::std::result::Result&lt;Time, time::error::ComponentRange&gt; {
+            Time::from_hms(((value / <span class="number">100</span>) % <span class="number">100</span>) <span class="kw">as </span>u8, (value % <span class="number">100</span>) <span class="kw">as </span>u8, <span class="number">0</span>)
         }
 
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">begin_time</span>: <span class="ident">parse_time</span>(<span class="ident">value</span>.<span class="ident">beg_time</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;beg_time&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">end_time</span>: <span class="ident">parse_time</span>(<span class="ident">value</span>.<span class="ident">end_time</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;end_time&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">trade_session</span>: <span class="ident">TradeSession::from_i32</span>(<span class="ident">value</span>.<span class="ident">trade_session</span>).<span class="ident">unwrap_or_default</span>(),
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            begin_time: parse_time(value.beg_time)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;beg_time&quot;</span>, err))<span class="question-mark">?</span>,
+            end_time: parse_time(value.end_time)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;end_time&quot;</span>, err))<span class="question-mark">?</span>,
+            trade_session: TradeSession::from_i32(value.trade_session).unwrap_or_default(),
         })
     }
 }
 
-<span class="doccomment">/// Market trading session</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MarketTradingSession</span> {
-    <span class="doccomment">/// Market</span>
-    <span class="kw">pub</span> <span class="ident">market</span>: <span class="ident">Market</span>,
-    <span class="doccomment">/// Trading session</span>
-    <span class="kw">pub</span> <span class="ident">trade_sessions</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TradingSessionInfo</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Market trading session
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>MarketTradingSession {
+    <span class="doccomment">/// Market
+    </span><span class="kw">pub </span>market: Market,
+    <span class="doccomment">/// Trading session
+    </span><span class="kw">pub </span>trade_sessions: Vec&lt;TradingSessionInfo&gt;,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::MarketTradePeriod</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MarketTradingSession</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::MarketTradePeriod&gt; <span class="kw">for </span>MarketTradingSession {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::MarketTradePeriod</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">market</span>: <span class="ident">value</span>.<span class="ident">market</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">trade_sessions</span>: <span class="ident">value</span>
-                .<span class="ident">trade_session</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
+    <span class="kw">fn </span>try_from(value: quote::MarketTradePeriod) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            market: value.market.parse().unwrap_or_default(),
+            trade_sessions: value
+                .trade_session
+                .into_iter()
+                .map(TryInto::try_into)
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
         })
     }
 }
 
-<span class="doccomment">/// Market trading days</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">MarketTradingDays</span> {
-    <span class="doccomment">/// Trading days</span>
-    <span class="kw">pub</span> <span class="ident">trading_days</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Half trading days</span>
-    <span class="kw">pub</span> <span class="ident">half_trading_days</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Market trading days
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>MarketTradingDays {
+    <span class="doccomment">/// Trading days
+    </span><span class="kw">pub </span>trading_days: Vec&lt;Date&gt;,
+    <span class="doccomment">/// Half trading days
+    </span><span class="kw">pub </span>half_trading_days: Vec&lt;Date&gt;,
 }
 
-<span class="doccomment">/// Capital flow line</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CapitalFlowLine</span> {
-    <span class="doccomment">/// Inflow capital data</span>
-    <span class="kw">pub</span> <span class="ident">inflow</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
+<span class="doccomment">/// Capital flow line
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>CapitalFlowLine {
+    <span class="doccomment">/// Inflow capital data
+    </span><span class="kw">pub </span>inflow: Decimal,
+    <span class="doccomment">/// Time
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::capital_flow_intraday_response::CapitalFlowLine</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CapitalFlowLine</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::capital_flow_intraday_response::CapitalFlowLine&gt; <span class="kw">for </span>CapitalFlowLine {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::capital_flow_intraday_response::CapitalFlowLine</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">inflow</span>: <span class="ident">value</span>.<span class="ident">inflow</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">value</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
+    <span class="kw">fn </span>try_from(value: quote::capital_flow_intraday_response::CapitalFlowLine) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            inflow: value.inflow.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
         })
     }
 }
 
-<span class="doccomment">/// Capital distribution</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Default</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CapitalDistribution</span> {
-    <span class="doccomment">/// Large order</span>
-    <span class="kw">pub</span> <span class="ident">large</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Medium order</span>
-    <span class="kw">pub</span> <span class="ident">medium</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Small order</span>
-    <span class="kw">pub</span> <span class="ident">small</span>: <span class="ident">Decimal</span>,
+<span class="doccomment">/// Capital distribution
+</span><span class="attribute">#[derive(Debug, Clone, Default)]
+</span><span class="kw">pub struct </span>CapitalDistribution {
+    <span class="doccomment">/// Large order
+    </span><span class="kw">pub </span>large: Decimal,
+    <span class="doccomment">/// Medium order
+    </span><span class="kw">pub </span>medium: Decimal,
+    <span class="doccomment">/// Small order
+    </span><span class="kw">pub </span>small: Decimal,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::capital_distribution_response::CapitalDistribution</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CapitalDistribution</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::capital_distribution_response::CapitalDistribution&gt; <span class="kw">for </span>CapitalDistribution {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::capital_distribution_response::CapitalDistribution</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">large</span>: <span class="ident">value</span>.<span class="ident">large</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">medium</span>: <span class="ident">value</span>.<span class="ident">medium</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">small</span>: <span class="ident">value</span>.<span class="ident">small</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
+    <span class="kw">fn </span>try_from(value: quote::capital_distribution_response::CapitalDistribution) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            large: value.large.parse().unwrap_or_default(),
+            medium: value.medium.parse().unwrap_or_default(),
+            small: value.small.parse().unwrap_or_default(),
         })
     }
 }
 
-<span class="doccomment">/// Capital distribution response</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CapitalDistributionResponse</span> {
-    <span class="doccomment">/// Time</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Inflow capital data</span>
-    <span class="kw">pub</span> <span class="ident">capital_in</span>: <span class="ident">CapitalDistribution</span>,
-    <span class="doccomment">/// Outflow capital data</span>
-    <span class="kw">pub</span> <span class="ident">capital_out</span>: <span class="ident">CapitalDistribution</span>,
+<span class="doccomment">/// Capital distribution response
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>CapitalDistributionResponse {
+    <span class="doccomment">/// Time
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Inflow capital data
+    </span><span class="kw">pub </span>capital_in: CapitalDistribution,
+    <span class="doccomment">/// Outflow capital data
+    </span><span class="kw">pub </span>capital_out: CapitalDistribution,
 }
 
-<span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">quote::CapitalDistributionResponse</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CapitalDistributionResponse</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+<span class="kw">impl </span>TryFrom&lt;quote::CapitalDistributionResponse&gt; <span class="kw">for </span>CapitalDistributionResponse {
+    <span class="kw">type </span>Error = Error;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">quote::CapitalDistributionResponse</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">value</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">capital_in</span>: <span class="ident">value</span>
-                .<span class="ident">capital_in</span>
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">transpose</span>()<span class="question-mark">?</span>
-                .<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">capital_out</span>: <span class="ident">value</span>
-                .<span class="ident">capital_out</span>
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">transpose</span>()<span class="question-mark">?</span>
-                .<span class="ident">unwrap_or_default</span>(),
+    <span class="kw">fn </span>try_from(value: quote::CapitalDistributionResponse) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+            timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            capital_in: value
+                .capital_in
+                .map(TryInto::try_into)
+                .transpose()<span class="question-mark">?
+                </span>.unwrap_or_default(),
+            capital_out: value
+                .capital_out
+                .map(TryInto::try_into)
+                .transpose()<span class="question-mark">?
+                </span>.unwrap_or_default(),
         })
     }
 }
 
-<span class="doccomment">/// Watch list security</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WatchListSecurity</span> {
-    <span class="doccomment">/// Security symbol</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Market</span>
-    <span class="kw">pub</span> <span class="ident">market</span>: <span class="ident">Market</span>,
-    <span class="doccomment">/// Security name</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Watched price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">watched_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Watched time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">watched_at</span>: <span class="ident">OffsetDateTime</span>,
+<span class="doccomment">/// Watch list security
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>WatchListSecurity {
+    <span class="doccomment">/// Security symbol
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Market
+    </span><span class="kw">pub </span>market: Market,
+    <span class="doccomment">/// Security name
+    </span><span class="kw">pub </span>name: String,
+    <span class="doccomment">/// Watched price
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>watched_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Watched time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>watched_at: OffsetDateTime,
 }
 
-<span class="doccomment">/// Watch list group</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WatchListGroup</span> {
-    <span class="doccomment">/// Group id</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Group name</span>
-    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Securities</span>
-    <span class="kw">pub</span> <span class="ident">securities</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WatchListSecurity</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Watch list group
+</span><span class="attribute">#[derive(Debug, Clone, Deserialize)]
+</span><span class="kw">pub struct </span>WatchListGroup {
+    <span class="doccomment">/// Group id
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>id: i64,
+    <span class="doccomment">/// Group name
+    </span><span class="kw">pub </span>name: String,
+    <span class="doccomment">/// Securities
+    </span><span class="kw">pub </span>securities: Vec&lt;WatchListSecurity&gt;,
 }
 
-<span class="macro">impl_default_for_enum_string!</span>(<span class="ident">OptionType</span>, <span class="ident">OptionDirection</span>, <span class="ident">WarrantType</span>, <span class="ident">SecurityBoard</span>);
+<span class="macro">impl_default_for_enum_string!</span>(OptionType, OptionDirection, WarrantType, SecurityBoard);
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/push_types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>push_types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/push_types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>push_types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -106,113 +106,113 @@
 <span id="106">106</span>
 <span id="107">107</span>
 <span id="108">108</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::str::FromStr</span>;
+</pre><pre class="rust"><code><span class="kw">use </span>std::str::FromStr;
 
-<span class="kw">use</span> <span class="ident">longbridge_proto::trade::Notification</span>;
-<span class="kw">use</span> <span class="ident">prost::Message</span>;
-<span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
-<span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
-<span class="kw">use</span> <span class="ident">strum_macros</span>::{<span class="ident">Display</span>, <span class="ident">EnumString</span>};
-<span class="kw">use</span> <span class="ident">time::OffsetDateTime</span>;
+<span class="kw">use </span>longbridge_proto::trade::Notification;
+<span class="kw">use </span>prost::Message;
+<span class="kw">use </span>rust_decimal::Decimal;
+<span class="kw">use </span>serde::Deserialize;
+<span class="kw">use </span>strum_macros::{Display, EnumString};
+<span class="kw">use </span>time::OffsetDateTime;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">serde_utils</span>,
-    <span class="ident">trade</span>::{<span class="ident">cmd_code</span>, <span class="ident">OrderSide</span>, <span class="ident">OrderStatus</span>, <span class="ident">OrderTag</span>, <span class="ident">OrderType</span>, <span class="ident">TriggerStatus</span>},
-    <span class="ident">Error</span>, <span class="prelude-ty">Result</span>,
+<span class="kw">use crate</span>::{
+    serde_utils,
+    trade::{cmd_code, OrderSide, OrderStatus, OrderTag, OrderType, TriggerStatus},
+    Error, <span class="prelude-ty">Result</span>,
 };
 
-<span class="doccomment">/// Topic type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Hash</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">EnumString</span>, <span class="ident">Display</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TopicType</span> {
-    <span class="doccomment">/// Private notification for trade</span>
-    <span class="attribute">#[<span class="ident">strum</span>(<span class="ident">serialize</span> <span class="op">=</span> <span class="string">&quot;private&quot;</span>)]</span>
-    <span class="ident">Private</span>,
+<span class="doccomment">/// Topic type
+</span><span class="attribute">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>TopicType {
+    <span class="doccomment">/// Private notification for trade
+    </span><span class="attribute">#[strum(serialize = <span class="string">&quot;private&quot;</span>)]
+    </span>Private,
 }
 
-<span class="doccomment">/// Order changed message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushOrderChanged</span> {
-    <span class="doccomment">/// Order side</span>
-    <span class="kw">pub</span> <span class="ident">side</span>: <span class="ident">OrderSide</span>,
-    <span class="doccomment">/// Stock name</span>
-    <span class="kw">pub</span> <span class="ident">stock_name</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Submitted quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">submitted_quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Order symbol</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Order type</span>
-    <span class="kw">pub</span> <span class="ident">order_type</span>: <span class="ident">OrderType</span>,
-    <span class="doccomment">/// Submitted price</span>
-    <span class="kw">pub</span> <span class="ident">submitted_price</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Executed quantity</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::int64_str&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">executed_quantity</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Executed price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">executed_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Order ID</span>
-    <span class="kw">pub</span> <span class="ident">order_id</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Currency</span>
-    <span class="kw">pub</span> <span class="ident">currency</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Order status</span>
-    <span class="kw">pub</span> <span class="ident">status</span>: <span class="ident">OrderStatus</span>,
-    <span class="doccomment">/// Submitted time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">submitted_at</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Last updated time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">updated_at</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Order trigger price</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trigger_price</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Rejected message or remark</span>
-    <span class="kw">pub</span> <span class="ident">msg</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Order tag</span>
-    <span class="kw">pub</span> <span class="ident">tag</span>: <span class="ident">OrderTag</span>,
-    <span class="doccomment">/// Conditional order trigger status</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trigger_status</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TriggerStatus</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Conditional order trigger time</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trigger_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OffsetDateTime</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Trailing amount</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trailing_amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Trailing percent</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">trailing_percent</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Limit offset amount</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">with</span> <span class="op">=</span> <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="ident">limit_offset</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Decimal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Account no</span>
-    <span class="kw">pub</span> <span class="ident">account_no</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Order changed message
+</span><span class="attribute">#[derive(Debug, Deserialize)]
+</span><span class="kw">pub struct </span>PushOrderChanged {
+    <span class="doccomment">/// Order side
+    </span><span class="kw">pub </span>side: OrderSide,
+    <span class="doccomment">/// Stock name
+    </span><span class="kw">pub </span>stock_name: String,
+    <span class="doccomment">/// Submitted quantity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>submitted_quantity: i64,
+    <span class="doccomment">/// Order symbol
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Order type
+    </span><span class="kw">pub </span>order_type: OrderType,
+    <span class="doccomment">/// Submitted price
+    </span><span class="kw">pub </span>submitted_price: Decimal,
+    <span class="doccomment">/// Executed quantity
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="kw">pub </span>executed_quantity: i64,
+    <span class="doccomment">/// Executed price
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>executed_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Order ID
+    </span><span class="kw">pub </span>order_id: String,
+    <span class="doccomment">/// Currency
+    </span><span class="kw">pub </span>currency: String,
+    <span class="doccomment">/// Order status
+    </span><span class="kw">pub </span>status: OrderStatus,
+    <span class="doccomment">/// Submitted time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>submitted_at: OffsetDateTime,
+    <span class="doccomment">/// Last updated time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="kw">pub </span>updated_at: OffsetDateTime,
+    <span class="doccomment">/// Order trigger price
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>trigger_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Rejected message or remark
+    </span><span class="kw">pub </span>msg: String,
+    <span class="doccomment">/// Order tag
+    </span><span class="kw">pub </span>tag: OrderTag,
+    <span class="doccomment">/// Conditional order trigger status
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]
+    </span><span class="kw">pub </span>trigger_status: <span class="prelude-ty">Option</span>&lt;TriggerStatus&gt;,
+    <span class="doccomment">/// Conditional order trigger time
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="kw">pub </span>trigger_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
+    <span class="doccomment">/// Trailing amount
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>trailing_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Trailing percent
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>trailing_percent: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Limit offset amount
+    </span><span class="attribute">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="kw">pub </span>limit_offset: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    <span class="doccomment">/// Account no
+    </span><span class="kw">pub </span>account_no: String,
 }
 
-<span class="doccomment">/// Push event</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-<span class="attribute">#[<span class="ident">serde</span>(<span class="ident">tag</span> <span class="op">=</span> <span class="string">&quot;event&quot;</span>, <span class="ident">content</span> <span class="op">=</span> <span class="string">&quot;data&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PushEvent</span> {
-    <span class="doccomment">/// Order changed</span>
-    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;order_changed_lb&quot;</span>)]</span>
-    <span class="ident">OrderChanged</span>(<span class="ident">PushOrderChanged</span>),
+<span class="doccomment">/// Push event
+</span><span class="attribute">#[derive(Debug, Deserialize)]
+#[serde(tag = <span class="string">&quot;event&quot;</span>, content = <span class="string">&quot;data&quot;</span>)]
+</span><span class="kw">pub enum </span>PushEvent {
+    <span class="doccomment">/// Order changed
+    </span><span class="attribute">#[serde(rename = <span class="string">&quot;order_changed_lb&quot;</span>)]
+    </span>OrderChanged(PushOrderChanged),
 }
 
-<span class="kw">impl</span> <span class="ident">PushEvent</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">command_code</span>: <span class="ident">u8</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">command_code</span> <span class="op">==</span> <span class="ident">cmd_code::PUSH_NOTIFICATION</span> {
-            <span class="kw">let</span> <span class="ident">notification</span> <span class="op">=</span> <span class="ident">Notification::decode</span>(<span class="ident">data</span>)<span class="question-mark">?</span>;
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">TopicType::Private</span>) <span class="op">=</span> <span class="ident">TopicType::from_str</span>(<span class="kw-2">&amp;</span><span class="ident">notification</span>.<span class="ident">topic</span>) {
-                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">serde_json::from_slice</span>::<span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span>(
-                    <span class="kw-2">&amp;</span><span class="ident">notification</span>.<span class="ident">data</span>,
+<span class="kw">impl </span>PushEvent {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse(command_code: u8, data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;PushEvent&gt;&gt; {
+        <span class="kw">if </span>command_code == cmd_code::PUSH_NOTIFICATION {
+            <span class="kw">let </span>notification = Notification::decode(data)<span class="question-mark">?</span>;
+            <span class="kw">if let </span><span class="prelude-val">Ok</span>(TopicType::Private) = TopicType::from_str(<span class="kw-2">&amp;</span>notification.topic) {
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(serde_json::from_slice::&lt;PushEvent&gt;(
+                    <span class="kw-2">&amp;</span>notification.data,
                 )<span class="question-mark">?</span>))
-            } <span class="kw">else</span> {
+            } <span class="kw">else </span>{
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
             }
-        } <span class="kw">else</span> {
-            <span class="prelude-val">Err</span>(<span class="ident">Error::UnknownCommand</span>(<span class="ident">command_code</span>))
+        } <span class="kw">else </span>{
+            <span class="prelude-val">Err</span>(Error::UnknownCommand(command_code))
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

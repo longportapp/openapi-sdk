@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/config.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>config.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../longbridge/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/config.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>config.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../longbridge/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -225,232 +225,232 @@
 <span id="225">225</span>
 <span id="226">226</span>
 <span id="227">227</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">http::Method</span>;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use</span> <span class="ident">http</span>::{<span class="ident">header</span>, <span class="ident">HeaderValue</span>, <span class="ident">Request</span>};
-<span class="kw">use</span> <span class="ident">longbridge_httpcli</span>::{<span class="ident">HttpClient</span>, <span class="ident">HttpClientConfig</span>};
-<span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
-<span class="kw">use</span> <span class="ident">time::OffsetDateTime</span>;
-<span class="kw">use</span> <span class="ident">tokio_tungstenite::tungstenite::client::IntoClientRequest</span>;
+</pre><pre class="rust"><code><span class="kw">use </span>http::Method;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>http::{header, HeaderValue, Request};
+<span class="kw">use </span>longbridge_httpcli::{HttpClient, HttpClientConfig};
+<span class="kw">use </span>serde::{Deserialize, Serialize};
+<span class="kw">use </span>time::OffsetDateTime;
+<span class="kw">use </span>tokio_tungstenite::tungstenite::client::IntoClientRequest;
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error::Result</span>;
+<span class="kw">use </span><span class="kw">crate</span>::error::Result;
 
-<span class="kw">const</span> <span class="ident">QUOTE_WS_URL</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;wss://openapi-quote.longbridgeapp.com/v2&quot;</span>;
-<span class="kw">const</span> <span class="ident">TRADE_WS_URL</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;wss://openapi-trade.longbridgeapp.com/v2&quot;</span>;
+<span class="kw">const </span>QUOTE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wss://openapi-quote.longbridgeapp.com/v2&quot;</span>;
+<span class="kw">const </span>TRADE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wss://openapi-trade.longbridgeapp.com/v2&quot;</span>;
 
-<span class="doccomment">/// Language identifier</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_camel_case_types</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Language</span> {
-    <span class="doccomment">/// zh-CN</span>
-    <span class="ident">ZH_CN</span>,
-    <span class="doccomment">/// zh-HK</span>
-    <span class="ident">ZH_HK</span>,
-    <span class="doccomment">/// en</span>
-    <span class="ident">EN</span>,
+<span class="doccomment">/// Language identifier
+</span><span class="attribute">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[allow(non_camel_case_types)]
+</span><span class="kw">pub enum </span>Language {
+    <span class="doccomment">/// zh-CN
+    </span>ZH_CN,
+    <span class="doccomment">/// zh-HK
+    </span>ZH_HK,
+    <span class="doccomment">/// en
+    </span>EN,
 }
 
-<span class="kw">impl</span> <span class="ident">Language</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">Language::ZH_CN</span> =&gt; <span class="string">&quot;zh-CN&quot;</span>,
-            <span class="ident">Language::ZH_HK</span> =&gt; <span class="string">&quot;zh-HK&quot;</span>,
-            <span class="ident">Language::EN</span> =&gt; <span class="string">&quot;en&quot;</span>,
+<span class="kw">impl </span>Language {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>as_str(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
+        <span class="kw">match </span><span class="self">self </span>{
+            Language::ZH_CN =&gt; <span class="string">&quot;zh-CN&quot;</span>,
+            Language::ZH_HK =&gt; <span class="string">&quot;zh-HK&quot;</span>,
+            Language::EN =&gt; <span class="string">&quot;en&quot;</span>,
         }
     }
 }
 
-<span class="doccomment">/// Configuration options for Longbridge sdk</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Config</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">http_cli_config</span>: <span class="ident">HttpClientConfig</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">quote_ws_url</span>: <span class="ident">String</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">trade_ws_url</span>: <span class="ident">String</span>,
-    <span class="ident">language</span>: <span class="ident">Language</span>,
+<span class="doccomment">/// Configuration options for Longbridge sdk
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>Config {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) http_cli_config: HttpClientConfig,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) quote_ws_url: String,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) trade_ws_url: String,
+    language: Language,
 }
 
-<span class="kw">impl</span> <span class="ident">Config</span> {
-    <span class="doccomment">/// Create a new `Config`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">app_key</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">app_secret</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">access_token</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">http_cli_config</span>: <span class="ident">HttpClientConfig::new</span>(<span class="ident">app_key</span>, <span class="ident">app_secret</span>, <span class="ident">access_token</span>),
-            <span class="ident">quote_ws_url</span>: <span class="ident">QUOTE_WS_URL</span>.<span class="ident">to_string</span>(),
-            <span class="ident">trade_ws_url</span>: <span class="ident">TRADE_WS_URL</span>.<span class="ident">to_string</span>(),
-            <span class="ident">language</span>: <span class="ident">Language::EN</span>,
+<span class="kw">impl </span>Config {
+    <span class="doccomment">/// Create a new `Config`
+    </span><span class="kw">pub fn </span>new(
+        app_key: <span class="kw">impl </span>Into&lt;String&gt;,
+        app_secret: <span class="kw">impl </span>Into&lt;String&gt;,
+        access_token: <span class="kw">impl </span>Into&lt;String&gt;,
+    ) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            http_cli_config: HttpClientConfig::new(app_key, app_secret, access_token),
+            quote_ws_url: QUOTE_WS_URL.to_string(),
+            trade_ws_url: TRADE_WS_URL.to_string(),
+            language: Language::EN,
         }
     }
 
-    <span class="doccomment">/// Create a new `Config` from the given environment variables</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// It first gets the environment variables from the `.env` file in the</span>
-    <span class="doccomment">/// current directory.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Variables</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// - `LONGBRIDGE_APP_KEY` - App key</span>
-    <span class="doccomment">/// - `LONGBRIDGE_APP_SECRET` - App secret</span>
-    <span class="doccomment">/// - `LONGBRIDGE_ACCESS_TOKEN` - Access token</span>
-    <span class="doccomment">/// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url (Default: `https://openapi.longbridgeapp.com`)</span>
-    <span class="doccomment">/// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url (Default:</span>
-    <span class="doccomment">///   `wss://openapi-quote.longbridgeapp.com/v2`)</span>
-    <span class="doccomment">/// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url (Default:</span>
-    <span class="doccomment">///   `wss://openapi-trade.longbridgeapp.com/v2`)</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_env</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">dotenv::dotenv</span>();
+    <span class="doccomment">/// Create a new `Config` from the given environment variables
+    ///
+    /// It first gets the environment variables from the `.env` file in the
+    /// current directory.
+    ///
+    /// # Variables
+    ///
+    /// - `LONGBRIDGE_APP_KEY` - App key
+    /// - `LONGBRIDGE_APP_SECRET` - App secret
+    /// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+    /// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url (Default: `https://openapi.longbridgeapp.com`)
+    /// - `LONGBRIDGE_QUOTE_WS_URL` - Quote websocket endpoint url (Default:
+    ///   `wss://openapi-quote.longbridgeapp.com/v2`)
+    /// - `LONGBRIDGE_TRADE_WS_URL` - Trade websocket endpoint url (Default:
+    ///   `wss://openapi-trade.longbridgeapp.com/v2`)
+    </span><span class="kw">pub fn </span>from_env() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
+        <span class="kw">let _ </span>= dotenv::dotenv();
 
-        <span class="kw">let</span> <span class="ident">http_cli_config</span> <span class="op">=</span> <span class="ident">HttpClientConfig::from_env</span>()<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">config</span> <span class="op">=</span> <span class="ident">Config</span> {
-            <span class="ident">http_cli_config</span>,
-            <span class="ident">quote_ws_url</span>: <span class="ident">QUOTE_WS_URL</span>.<span class="ident">to_string</span>(),
-            <span class="ident">trade_ws_url</span>: <span class="ident">TRADE_WS_URL</span>.<span class="ident">to_string</span>(),
-            <span class="ident">language</span>: <span class="ident">Language::EN</span>,
+        <span class="kw">let </span>http_cli_config = HttpClientConfig::from_env()<span class="question-mark">?</span>;
+        <span class="kw">let </span><span class="kw-2">mut </span>config = Config {
+            http_cli_config,
+            quote_ws_url: QUOTE_WS_URL.to_string(),
+            trade_ws_url: TRADE_WS_URL.to_string(),
+            language: Language::EN,
         };
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">http_url</span>) <span class="op">=</span> <span class="ident">std::env::var</span>(<span class="string">&quot;LONGBRIDGE_HTTP_URL&quot;</span>) {
-            <span class="ident">config</span>.<span class="ident">http_cli_config</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">http_cli_config</span>.<span class="ident">http_url</span>(<span class="ident">http_url</span>);
+        <span class="kw">if let </span><span class="prelude-val">Ok</span>(http_url) = std::env::var(<span class="string">&quot;LONGBRIDGE_HTTP_URL&quot;</span>) {
+            config.http_cli_config = config.http_cli_config.http_url(http_url);
         }
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">quote_ws_url</span>) <span class="op">=</span> <span class="ident">std::env::var</span>(<span class="string">&quot;LONGBRIDGE_QUOTE_WS_URL&quot;</span>) {
-            <span class="ident">config</span>.<span class="ident">quote_ws_url</span> <span class="op">=</span> <span class="ident">quote_ws_url</span>;
+        <span class="kw">if let </span><span class="prelude-val">Ok</span>(quote_ws_url) = std::env::var(<span class="string">&quot;LONGBRIDGE_QUOTE_WS_URL&quot;</span>) {
+            config.quote_ws_url = quote_ws_url;
         }
 
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">trade_ws_url</span>) <span class="op">=</span> <span class="ident">std::env::var</span>(<span class="string">&quot;LONGBRIDGE_TRADE_WS_URL&quot;</span>) {
-            <span class="ident">config</span>.<span class="ident">trade_ws_url</span> <span class="op">=</span> <span class="ident">trade_ws_url</span>;
+        <span class="kw">if let </span><span class="prelude-val">Ok</span>(trade_ws_url) = std::env::var(<span class="string">&quot;LONGBRIDGE_TRADE_WS_URL&quot;</span>) {
+            config.trade_ws_url = trade_ws_url;
         }
 
-        <span class="prelude-val">Ok</span>(<span class="ident">config</span>)
+        <span class="prelude-val">Ok</span>(config)
     }
 
-    <span class="doccomment">/// Specifies the url of the OpenAPI server.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Default: `https://openapi.longbridgeapp.com`</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// NOTE: Usually you don&#39;t need to change it.</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">http_url</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">self</span>.<span class="ident">http_cli_config</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">http_cli_config</span>.<span class="ident">http_url</span>(<span class="ident">url</span>);
-        <span class="self">self</span>
+    <span class="doccomment">/// Specifies the url of the OpenAPI server.
+    ///
+    /// Default: `https://openapi.longbridgeapp.com`
+    ///
+    /// NOTE: Usually you don&#39;t need to change it.
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>http_url(<span class="kw-2">mut </span><span class="self">self</span>, url: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.http_cli_config = <span class="self">self</span>.http_cli_config.http_url(url);
+        <span class="self">self
+    </span>}
+
+    <span class="doccomment">/// Specifies the url of the OpenAPI quote websocket server.
+    ///
+    /// Default: `wss://openapi-quote.longbridgeapp.com`
+    ///
+    /// NOTE: Usually you don&#39;t need to change it.
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>quote_ws_url(<span class="self">self</span>, url: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            quote_ws_url: url.into(),
+            ..<span class="self">self
+        </span>}
     }
 
-    <span class="doccomment">/// Specifies the url of the OpenAPI quote websocket server.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Default: `wss://openapi-quote.longbridgeapp.com`</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// NOTE: Usually you don&#39;t need to change it.</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">quote_ws_url</span>(<span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">quote_ws_url</span>: <span class="ident">url</span>.<span class="ident">into</span>(),
-            ..<span class="self">self</span>
-        }
+    <span class="doccomment">/// Specifies the url of the OpenAPI trade websocket server.
+    ///
+    /// Default: `wss://openapi-trade.longbridgeapp.com/v2`
+    ///
+    /// NOTE: Usually you don&#39;t need to change it.
+    </span><span class="attribute">#[must_use]
+    </span><span class="kw">pub fn </span>trade_ws_url(<span class="self">self</span>, url: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            trade_ws_url: url.into(),
+            ..<span class="self">self
+        </span>}
     }
 
-    <span class="doccomment">/// Specifies the url of the OpenAPI trade websocket server.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Default: `wss://openapi-trade.longbridgeapp.com/v2`</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// NOTE: Usually you don&#39;t need to change it.</span>
-    <span class="attribute">#[<span class="ident">must_use</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">trade_ws_url</span>(<span class="self">self</span>, <span class="ident">url</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">trade_ws_url</span>: <span class="ident">url</span>.<span class="ident">into</span>(),
-            ..<span class="self">self</span>
-        }
+    <span class="doccomment">/// Specifies the language
+    ///
+    /// Default: `Language::EN`
+    </span><span class="kw">pub fn </span>language(<span class="self">self</span>, language: Language) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ language, ..<span class="self">self </span>}
     }
 
-    <span class="doccomment">/// Specifies the language</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Default: `Language::EN`</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">language</span>(<span class="self">self</span>, <span class="ident">language</span>: <span class="ident">Language</span>) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> { <span class="ident">language</span>, ..<span class="self">self</span> }
+    <span class="attribute">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_http_client(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; HttpClient {
+        HttpClient::new(<span class="self">self</span>.http_cli_config.clone())
+            .header(header::ACCEPT_LANGUAGE, <span class="self">self</span>.language.as_str())
     }
 
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">create_http_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">HttpClient</span> {
-        <span class="ident">HttpClient::new</span>(<span class="self">self</span>.<span class="ident">http_cli_config</span>.<span class="ident">clone</span>())
-            .<span class="ident">header</span>(<span class="ident">header::ACCEPT_LANGUAGE</span>, <span class="self">self</span>.<span class="ident">language</span>.<span class="ident">as_str</span>())
-    }
-
-    <span class="kw">fn</span> <span class="ident">create_ws_request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">tokio_tungstenite::tungstenite::Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">url</span>.<span class="ident">into_client_request</span>()<span class="question-mark">?</span>;
-        <span class="ident">request</span>.<span class="ident">headers_mut</span>().<span class="ident">append</span>(
-            <span class="ident">header::ACCEPT_LANGUAGE</span>,
-            <span class="ident">HeaderValue::from_str</span>(<span class="self">self</span>.<span class="ident">language</span>.<span class="ident">as_str</span>()).<span class="ident">unwrap</span>(),
+    <span class="kw">fn </span>create_ws_request(<span class="kw-2">&amp;</span><span class="self">self</span>, url: <span class="kw-2">&amp;</span>str) -&gt; tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>request = url.into_client_request()<span class="question-mark">?</span>;
+        request.headers_mut().append(
+            header::ACCEPT_LANGUAGE,
+            HeaderValue::from_str(<span class="self">self</span>.language.as_str()).unwrap(),
         );
-        <span class="prelude-val">Ok</span>(<span class="ident">request</span>)
+        <span class="prelude-val">Ok</span>(request)
     }
 
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">create_quote_ws_request</span>(
+    <span class="attribute">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_quote_ws_request(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; <span class="ident">tokio_tungstenite::tungstenite::Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">create_ws_request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">quote_ws_url</span>)
+    ) -&gt; tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt; {
+        <span class="self">self</span>.create_ws_request(<span class="kw-2">&amp;</span><span class="self">self</span>.quote_ws_url)
     }
 
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">create_trade_ws_request</span>(
+    <span class="attribute">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_trade_ws_request(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; <span class="ident">tokio_tungstenite::tungstenite::Result</span><span class="op">&lt;</span><span class="ident">Request</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">create_ws_request</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">trade_ws_url</span>)
+    ) -&gt; tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt; {
+        <span class="self">self</span>.create_ws_request(<span class="kw-2">&amp;</span><span class="self">self</span>.trade_ws_url)
     }
 
-    <span class="doccomment">/// Gets a new `access_token`</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `expired_at` - The expiration time of the access token, defaults to `90`</span>
-    <span class="doccomment">/// days.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/refresh-token-api&gt;</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">refresh_access_token</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">expired_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OffsetDateTime</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Request</span> {
-            <span class="ident">expired_at</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// Gets a new `access_token`
+    ///
+    /// `expired_at` - The expiration time of the access token, defaults to `90`
+    /// days.
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/refresh-token-api&gt;
+    </span><span class="kw">pub async fn </span>refresh_access_token(<span class="kw-2">&amp;</span><span class="self">self</span>, expired_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+        <span class="attribute">#[derive(Debug, Serialize)]
+        </span><span class="kw">struct </span>Request {
+            expired_at: String,
         }
 
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">token</span>: <span class="ident">String</span>,
+        <span class="attribute">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            token: String,
         }
 
-        <span class="kw">let</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">Request</span> {
-            <span class="ident">expired_at</span>: <span class="ident">expired_at</span>
-                .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">OffsetDateTime::now_utc</span>() <span class="op">+</span> <span class="ident">time::Duration::days</span>(<span class="number">90</span>))
-                .<span class="ident">format</span>(<span class="kw-2">&amp;</span><span class="ident">time::format_description::well_known::Rfc3339</span>)
-                .<span class="ident">unwrap</span>(),
+        <span class="kw">let </span>request = Request {
+            expired_at: expired_at
+                .unwrap_or_else(|| OffsetDateTime::now_utc() + time::Duration::days(<span class="number">90</span>))
+                .format(<span class="kw-2">&amp;</span>time::format_description::well_known::Rfc3339)
+                .unwrap(),
         };
 
-        <span class="kw">let</span> <span class="ident">new_token</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">create_http_client</span>()
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/token/refresh&quot;</span>)
-            .<span class="ident">query_params</span>(<span class="ident">request</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
-            .<span class="kw">await</span><span class="question-mark">?</span>
-            .<span class="ident">token</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">new_token</span>)
+        <span class="kw">let </span>new_token = <span class="self">self
+            </span>.create_http_client()
+            .request(Method::GET, <span class="string">&quot;/v1/token/refresh&quot;</span>)
+            .query_params(request)
+            .response::&lt;Response&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.token;
+        <span class="prelude-val">Ok</span>(new_token)
     }
 
-    <span class="doccomment">/// Gets a new `access_token`, and also replaces the `access_token` in</span>
-    <span class="doccomment">/// `Config`.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// `expired_at` - The expiration time of the access token, defaults to `90`</span>
-    <span class="doccomment">/// days.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/refresh-token-api&gt;</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;blocking&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;blocking&quot;</span>)))]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">refresh_access_token_blocking</span>(
+    <span class="doccomment">/// Gets a new `access_token`, and also replaces the `access_token` in
+    /// `Config`.
+    ///
+    /// `expired_at` - The expiration time of the access token, defaults to `90`
+    /// days.
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/refresh-token-api&gt;
+    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">&quot;blocking&quot;</span>)))]
+    </span><span class="kw">pub fn </span>refresh_access_token_blocking(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">expired_at</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OffsetDateTime</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="ident">tokio::runtime::Builder::new_current_thread</span>()
-            .<span class="ident">enable_all</span>()
-            .<span class="ident">build</span>()
-            .<span class="ident">expect</span>(<span class="string">&quot;create tokio runtime&quot;</span>)
-            .<span class="ident">block_on</span>(<span class="self">self</span>.<span class="ident">refresh_access_token</span>(<span class="ident">expired_at</span>))
+        expired_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;String&gt; {
+        tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .expect(<span class="string">&quot;create tokio runtime&quot;</span>)
+            .block_on(<span class="self">self</span>.refresh_access_token(expired_at))
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

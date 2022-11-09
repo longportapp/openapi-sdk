@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/error.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>error.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../longbridge/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/error.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>error.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../normalize.css"><link rel="stylesheet" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../ayu.css" disabled><link rel="stylesheet" href="../../dark.css" disabled><link rel="stylesheet" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../longbridge/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -133,140 +133,140 @@
 <span id="133">133</span>
 <span id="134">134</span>
 <span id="135">135</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::fmt::Display</span>;
+</pre><pre class="rust"><code><span class="kw">use </span>std::fmt::Display;
 
-<span class="kw">use</span> <span class="ident">longbridge_httpcli::HttpClientError</span>;
-<span class="kw">use</span> <span class="ident">longbridge_wscli::WsClientError</span>;
+<span class="kw">use </span>longbridge_httpcli::HttpClientError;
+<span class="kw">use </span>longbridge_wscli::WsClientError;
 
-<span class="doccomment">/// Longbridge OpenAPI SDK error type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">thiserror::Error</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Error</span> {
-    <span class="doccomment">/// Decode Protobuf error</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
-    <span class="ident">DecodeProtobuf</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">prost::DecodeError</span>),
+<span class="doccomment">/// Longbridge OpenAPI SDK error type
+</span><span class="attribute">#[derive(Debug, thiserror::Error)]
+</span><span class="kw">pub enum </span>Error {
+    <span class="doccomment">/// Decode Protobuf error
+    </span><span class="attribute">#[error(transparent)]
+    </span>DecodeProtobuf(<span class="attribute">#[from] </span>prost::DecodeError),
 
-    <span class="doccomment">/// Decode JSON error</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
-    <span class="ident">DecodeJSON</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">serde_json::Error</span>),
+    <span class="doccomment">/// Decode JSON error
+    </span><span class="attribute">#[error(transparent)]
+    </span>DecodeJSON(<span class="attribute">#[from] </span>serde_json::Error),
 
-    <span class="doccomment">/// Parse field</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;parse field: {name}: {error}&quot;</span>)]</span>
-    <span class="ident">ParseField</span> {
-        <span class="doccomment">/// Field name</span>
-        <span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>,
+    <span class="doccomment">/// Parse field
+    </span><span class="attribute">#[error(<span class="string">&quot;parse field: {name}: {error}&quot;</span>)]
+    </span>ParseField {
+        <span class="doccomment">/// Field name
+        </span>name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
 
-        <span class="doccomment">/// Error detail</span>
-        <span class="ident">error</span>: <span class="ident">String</span>,
+        <span class="doccomment">/// Error detail
+        </span>error: String,
     },
 
-    <span class="doccomment">/// Unknown command</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;unknown command: {0}&quot;</span>)]</span>
-    <span class="ident">UnknownCommand</span>(
-        <span class="doccomment">/// Command code</span>
-        <span class="ident">u8</span>,
+    <span class="doccomment">/// Unknown command
+    </span><span class="attribute">#[error(<span class="string">&quot;unknown command: {0}&quot;</span>)]
+    </span>UnknownCommand(
+        <span class="doccomment">/// Command code
+        </span>u8,
     ),
 
-    <span class="doccomment">/// Invalid security symbol</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;invalid security symbol: {symbol}&quot;</span>)]</span>
-    <span class="ident">InvalidSecuritySymbol</span> {
-        <span class="doccomment">/// Security symbol</span>
-        <span class="ident">symbol</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// Invalid security symbol
+    </span><span class="attribute">#[error(<span class="string">&quot;invalid security symbol: {symbol}&quot;</span>)]
+    </span>InvalidSecuritySymbol {
+        <span class="doccomment">/// Security symbol
+        </span>symbol: String,
     },
 
-    <span class="doccomment">/// HTTP client error</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
-    <span class="ident">HttpClient</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">HttpClientError</span>),
+    <span class="doccomment">/// HTTP client error
+    </span><span class="attribute">#[error(transparent)]
+    </span>HttpClient(<span class="attribute">#[from] </span>HttpClientError),
 
-    <span class="doccomment">/// Websocket client error</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
-    <span class="ident">WsClient</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">WsClientError</span>),
+    <span class="doccomment">/// Websocket client error
+    </span><span class="attribute">#[error(transparent)]
+    </span>WsClient(<span class="attribute">#[from] </span>WsClientError),
 
-    <span class="doccomment">/// Blocking error</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;blocking&quot;</span>)]</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
-    <span class="ident">Blocking</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident"><span class="kw">crate</span>::blocking::BlockingError</span>),
+    <span class="doccomment">/// Blocking error
+    </span><span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+    #[error(transparent)]
+    </span>Blocking(<span class="attribute">#[from] </span><span class="kw">crate</span>::blocking::BlockingError),
 }
 
-<span class="kw">impl</span> <span class="ident">Error</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">parse_field_error</span>(<span class="ident">name</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>, <span class="ident">error</span>: <span class="kw">impl</span> <span class="ident">Display</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident"><span class="self">Self</span>::ParseField</span> {
-            <span class="ident">name</span>,
-            <span class="ident">error</span>: <span class="ident">error</span>.<span class="ident">to_string</span>(),
+<span class="kw">impl </span>Error {
+    <span class="attribute">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse_field_error(name: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str, error: <span class="kw">impl </span>Display) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::ParseField {
+            name,
+            error: error.to_string(),
         }
     }
 
-    <span class="doccomment">/// Consumes this error and returns a simple error</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_simple_error</span>(<span class="self">self</span>) -&gt; <span class="ident">SimpleError</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">Error::HttpClient</span>(<span class="ident">HttpClientError::OpenApi</span> { <span class="ident">code</span>, <span class="ident">message</span> }) =&gt; {
-                <span class="ident">SimpleError::Response</span> {
-                    <span class="ident">code</span>: <span class="ident">code</span> <span class="kw">as</span> <span class="ident">i64</span>,
-                    <span class="ident">message</span>,
+    <span class="doccomment">/// Consumes this error and returns a simple error
+    </span><span class="kw">pub fn </span>into_simple_error(<span class="self">self</span>) -&gt; SimpleError {
+        <span class="kw">match </span><span class="self">self </span>{
+            Error::HttpClient(HttpClientError::OpenApi { code, message }) =&gt; {
+                SimpleError::Response {
+                    code: code <span class="kw">as </span>i64,
+                    message,
                 }
             }
-            <span class="ident">Error::WsClient</span>(<span class="ident">WsClientError::ResponseError</span> {
-                <span class="ident">detail</span>: <span class="prelude-val">Some</span>(<span class="ident">detail</span>),
+            Error::WsClient(WsClientError::ResponseError {
+                detail: <span class="prelude-val">Some</span>(detail),
                 ..
-            }) =&gt; <span class="ident">SimpleError::Response</span> {
-                <span class="ident">code</span>: <span class="ident">detail</span>.<span class="ident">code</span> <span class="kw">as</span> <span class="ident">i64</span>,
-                <span class="ident">message</span>: <span class="ident">detail</span>.<span class="ident">msg</span>,
+            }) =&gt; SimpleError::Response {
+                code: detail.code <span class="kw">as </span>i64,
+                message: detail.msg,
             },
-            <span class="ident">Error::DecodeProtobuf</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">Error::DecodeJSON</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">Error::InvalidSecuritySymbol</span> { .. }
-            <span class="op">|</span> <span class="ident">Error::ParseField</span> { .. }
-            <span class="op">|</span> <span class="ident">Error::UnknownCommand</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">Error::HttpClient</span>(<span class="kw">_</span>)
-            <span class="op">|</span> <span class="ident">Error::WsClient</span>(<span class="kw">_</span>) =&gt; <span class="ident">SimpleError::Other</span>(<span class="self">self</span>.<span class="ident">to_string</span>()),
-            <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;blocking&quot;</span>)]</span>
-            <span class="ident">Error::Blocking</span>(<span class="kw">_</span>) =&gt; <span class="ident">SimpleError::Other</span>(<span class="self">self</span>.<span class="ident">to_string</span>()),
+            Error::DecodeProtobuf(<span class="kw">_</span>)
+            | Error::DecodeJSON(<span class="kw">_</span>)
+            | Error::InvalidSecuritySymbol { .. }
+            | Error::ParseField { .. }
+            | Error::UnknownCommand(<span class="kw">_</span>)
+            | Error::HttpClient(<span class="kw">_</span>)
+            | Error::WsClient(<span class="kw">_</span>) =&gt; SimpleError::Other(<span class="self">self</span>.to_string()),
+            <span class="attribute">#[cfg(feature = <span class="string">&quot;blocking&quot;</span>)]
+            </span>Error::Blocking(<span class="kw">_</span>) =&gt; SimpleError::Other(<span class="self">self</span>.to_string()),
         }
     }
 }
 
-<span class="doccomment">/// Longbridge OpenAPI SDK result type</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">::std::result::Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">Error</span><span class="op">&gt;</span>;
+<span class="doccomment">/// Longbridge OpenAPI SDK result type
+</span><span class="kw">pub type </span><span class="prelude-ty">Result</span>&lt;T&gt; = ::std::result::Result&lt;T, Error&gt;;
 
-<span class="doccomment">/// Simple error type</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">thiserror::Error</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SimpleError</span> {
-    <span class="doccomment">/// Response error</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;response error: code={code} message={message}&quot;</span>)]</span>
-    <span class="ident">Response</span> {
-        <span class="doccomment">/// Error code</span>
-        <span class="ident">code</span>: <span class="ident">i64</span>,
-        <span class="doccomment">/// Error message</span>
-        <span class="ident">message</span>: <span class="ident">String</span>,
+<span class="doccomment">/// Simple error type
+</span><span class="attribute">#[derive(Debug, thiserror::Error)]
+</span><span class="kw">pub enum </span>SimpleError {
+    <span class="doccomment">/// Response error
+    </span><span class="attribute">#[error(<span class="string">&quot;response error: code={code} message={message}&quot;</span>)]
+    </span>Response {
+        <span class="doccomment">/// Error code
+        </span>code: i64,
+        <span class="doccomment">/// Error message
+        </span>message: String,
     },
-    <span class="doccomment">/// Other error</span>
-    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;other error: {0}&quot;</span>)]</span>
-    <span class="ident">Other</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// Other error
+    </span><span class="attribute">#[error(<span class="string">&quot;other error: {0}&quot;</span>)]
+    </span>Other(String),
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SimpleError</span> {
-    <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">Error</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">err</span>.<span class="ident">into_simple_error</span>()
+<span class="kw">impl </span>From&lt;Error&gt; <span class="kw">for </span>SimpleError {
+    <span class="attribute">#[inline]
+    </span><span class="kw">fn </span>from(err: Error) -&gt; <span class="self">Self </span>{
+        err.into_simple_error()
     }
 }
 
-<span class="kw">impl</span> <span class="ident">SimpleError</span> {
-    <span class="doccomment">/// Returns the error code</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">code</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">SimpleError::Response</span> { <span class="ident">code</span>, .. } =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">*</span><span class="ident">code</span>),
-            <span class="ident">SimpleError::Other</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+<span class="kw">impl </span>SimpleError {
+    <span class="doccomment">/// Returns the error code
+    </span><span class="kw">pub fn </span>code(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i64&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            SimpleError::Response { code, .. } =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">*</span>code),
+            SimpleError::Other(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         }
     }
 
-    <span class="doccomment">/// Returns the error message</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
-        <span class="kw">match</span> <span class="self">self</span> {
-            <span class="ident">SimpleError::Response</span> { <span class="ident">message</span>, .. } =&gt; <span class="ident">message</span>.<span class="ident">as_str</span>(),
-            <span class="ident">SimpleError::Other</span>(<span class="ident">message</span>) =&gt; <span class="ident">message</span>.<span class="ident">as_str</span>(),
+    <span class="doccomment">/// Returns the error message
+    </span><span class="kw">pub fn </span>message(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
+        <span class="kw">match </span><span class="self">self </span>{
+            SimpleError::Response { message, .. } =&gt; message.as_str(),
+            SimpleError::Other(message) =&gt; message.as_str(),
         }
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

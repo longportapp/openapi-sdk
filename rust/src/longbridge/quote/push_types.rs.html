@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/push_types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>push_types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/push_types.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>push_types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -193,200 +193,200 @@
 <span id="193">193</span>
 <span id="194">194</span>
 <span id="195">195</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>::{<span class="self">self</span>, <span class="ident">Period</span>, <span class="ident">TradeSession</span>, <span class="ident">TradeStatus</span>};
-<span class="kw">use</span> <span class="ident">prost::Message</span>;
-<span class="kw">use</span> <span class="ident">rust_decimal::Decimal</span>;
-<span class="kw">use</span> <span class="ident">time::OffsetDateTime</span>;
+</pre><pre class="rust"><code><span class="kw">use </span>longbridge_proto::quote::{<span class="self">self</span>, Period, TradeSession, TradeStatus};
+<span class="kw">use </span>prost::Message;
+<span class="kw">use </span>rust_decimal::Decimal;
+<span class="kw">use </span>time::OffsetDateTime;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">quote</span>::{<span class="ident">cmd_code</span>, <span class="ident">Brokers</span>, <span class="ident">Candlestick</span>, <span class="ident">Depth</span>, <span class="ident">Trade</span>},
-    <span class="ident">Error</span>, <span class="prelude-ty">Result</span>,
+<span class="kw">use crate</span>::{
+    quote::{cmd_code, Brokers, Candlestick, Depth, Trade},
+    Error, <span class="prelude-ty">Result</span>,
 };
 
-<span class="doccomment">/// Quote message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushQuote</span> {
-    <span class="doccomment">/// Latest price</span>
-    <span class="kw">pub</span> <span class="ident">last_done</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Open</span>
-    <span class="kw">pub</span> <span class="ident">open</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// High</span>
-    <span class="kw">pub</span> <span class="ident">high</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Low</span>
-    <span class="kw">pub</span> <span class="ident">low</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Time of latest price</span>
-    <span class="kw">pub</span> <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime</span>,
-    <span class="doccomment">/// Volume</span>
-    <span class="kw">pub</span> <span class="ident">volume</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Turnover</span>
-    <span class="kw">pub</span> <span class="ident">turnover</span>: <span class="ident">Decimal</span>,
-    <span class="doccomment">/// Security trading status</span>
-    <span class="kw">pub</span> <span class="ident">trade_status</span>: <span class="ident">TradeStatus</span>,
-    <span class="doccomment">/// Trade session</span>
-    <span class="kw">pub</span> <span class="ident">trade_session</span>: <span class="ident">TradeSession</span>,
+<span class="doccomment">/// Quote message
+</span><span class="attribute">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>PushQuote {
+    <span class="doccomment">/// Latest price
+    </span><span class="kw">pub </span>last_done: Decimal,
+    <span class="doccomment">/// Open
+    </span><span class="kw">pub </span>open: Decimal,
+    <span class="doccomment">/// High
+    </span><span class="kw">pub </span>high: Decimal,
+    <span class="doccomment">/// Low
+    </span><span class="kw">pub </span>low: Decimal,
+    <span class="doccomment">/// Time of latest price
+    </span><span class="kw">pub </span>timestamp: OffsetDateTime,
+    <span class="doccomment">/// Volume
+    </span><span class="kw">pub </span>volume: i64,
+    <span class="doccomment">/// Turnover
+    </span><span class="kw">pub </span>turnover: Decimal,
+    <span class="doccomment">/// Security trading status
+    </span><span class="kw">pub </span>trade_status: TradeStatus,
+    <span class="doccomment">/// Trade session
+    </span><span class="kw">pub </span>trade_session: TradeSession,
 }
 
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PushQuote</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">last_done</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">open</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">high</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">low</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="number">0</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">volume</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">turnover</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">trade_status</span>: <span class="ident">Default::default</span>(),
-            <span class="ident">trade_session</span>: <span class="ident">Default::default</span>(),
+<span class="kw">impl </span>Default <span class="kw">for </span>PushQuote {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            last_done: Default::default(),
+            open: Default::default(),
+            high: Default::default(),
+            low: Default::default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(<span class="number">0</span>).unwrap(),
+            volume: Default::default(),
+            turnover: Default::default(),
+            trade_status: Default::default(),
+            trade_session: Default::default(),
         }
     }
 }
 
-<span class="doccomment">/// Depth message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushDepth</span> {
-    <span class="doccomment">/// Ask depth</span>
-    <span class="kw">pub</span> <span class="ident">asks</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Depth</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Bid depth</span>
-    <span class="kw">pub</span> <span class="ident">bids</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Depth</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Depth message
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>PushDepth {
+    <span class="doccomment">/// Ask depth
+    </span><span class="kw">pub </span>asks: Vec&lt;Depth&gt;,
+    <span class="doccomment">/// Bid depth
+    </span><span class="kw">pub </span>bids: Vec&lt;Depth&gt;,
 }
 
-<span class="doccomment">/// Brokers message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushBrokers</span> {
-    <span class="doccomment">/// Ask brokers</span>
-    <span class="kw">pub</span> <span class="ident">ask_brokers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Brokers</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Bid brokers</span>
-    <span class="kw">pub</span> <span class="ident">bid_brokers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Brokers</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Brokers message
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>PushBrokers {
+    <span class="doccomment">/// Ask brokers
+    </span><span class="kw">pub </span>ask_brokers: Vec&lt;Brokers&gt;,
+    <span class="doccomment">/// Bid brokers
+    </span><span class="kw">pub </span>bid_brokers: Vec&lt;Brokers&gt;,
 }
 
-<span class="doccomment">/// Trades message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushTrades</span> {
-    <span class="doccomment">/// Trades data</span>
-    <span class="kw">pub</span> <span class="ident">trades</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Trades message
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>PushTrades {
+    <span class="doccomment">/// Trades data
+    </span><span class="kw">pub </span>trades: Vec&lt;Trade&gt;,
 }
 
-<span class="doccomment">/// Candlestick updated message</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushCandlestick</span> {
-    <span class="doccomment">/// Period type</span>
-    <span class="kw">pub</span> <span class="ident">period</span>: <span class="ident">Period</span>,
-    <span class="doccomment">/// Candlestick</span>
-    <span class="kw">pub</span> <span class="ident">candlestick</span>: <span class="ident">Candlestick</span>,
+<span class="doccomment">/// Candlestick updated message
+</span><span class="attribute">#[derive(Debug, Copy, Clone)]
+</span><span class="kw">pub struct </span>PushCandlestick {
+    <span class="doccomment">/// Period type
+    </span><span class="kw">pub </span>period: Period,
+    <span class="doccomment">/// Candlestick
+    </span><span class="kw">pub </span>candlestick: Candlestick,
 }
 
-<span class="doccomment">/// Push event detail</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PushEventDetail</span> {
-    <span class="doccomment">/// Quote</span>
-    <span class="ident">Quote</span>(<span class="ident">PushQuote</span>),
-    <span class="doccomment">/// Depth</span>
-    <span class="ident">Depth</span>(<span class="ident">PushDepth</span>),
-    <span class="doccomment">/// Brokers</span>
-    <span class="ident">Brokers</span>(<span class="ident">PushBrokers</span>),
-    <span class="doccomment">/// Trade</span>
-    <span class="ident">Trade</span>(<span class="ident">PushTrades</span>),
-    <span class="doccomment">/// Candlestick</span>
-    <span class="ident">Candlestick</span>(<span class="ident">PushCandlestick</span>),
+<span class="doccomment">/// Push event detail
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub enum </span>PushEventDetail {
+    <span class="doccomment">/// Quote
+    </span>Quote(PushQuote),
+    <span class="doccomment">/// Depth
+    </span>Depth(PushDepth),
+    <span class="doccomment">/// Brokers
+    </span>Brokers(PushBrokers),
+    <span class="doccomment">/// Trade
+    </span>Trade(PushTrades),
+    <span class="doccomment">/// Candlestick
+    </span>Candlestick(PushCandlestick),
 }
 
-<span class="doccomment">/// Push event</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushEvent</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">sequence</span>: <span class="ident">i64</span>,
-    <span class="doccomment">/// Security code</span>
-    <span class="kw">pub</span> <span class="ident">symbol</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Event detail</span>
-    <span class="kw">pub</span> <span class="ident">detail</span>: <span class="ident">PushEventDetail</span>,
+<span class="doccomment">/// Push event
+</span><span class="attribute">#[derive(Debug)]
+</span><span class="kw">pub struct </span>PushEvent {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) sequence: i64,
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Event detail
+    </span><span class="kw">pub </span>detail: PushEventDetail,
 }
 
-<span class="kw">impl</span> <span class="ident">PushEvent</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">command_code</span>: <span class="ident">u8</span>, <span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="ident">command_code</span> {
-            <span class="ident">cmd_code::PUSH_REALTIME_QUOTE</span> =&gt; <span class="ident">parse_push_quote</span>(<span class="ident">data</span>),
-            <span class="ident">cmd_code::PUSH_REALTIME_DEPTH</span> =&gt; <span class="ident">parse_push_depth</span>(<span class="ident">data</span>),
-            <span class="ident">cmd_code::PUSH_REALTIME_BROKERS</span> =&gt; <span class="ident">parse_push_brokers</span>(<span class="ident">data</span>),
-            <span class="ident">cmd_code::PUSH_REALTIME_TRADES</span> =&gt; <span class="ident">parse_push_trade</span>(<span class="ident">data</span>),
-            <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">Error::UnknownCommand</span>(<span class="ident">command_code</span>)),
+<span class="kw">impl </span>PushEvent {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse(command_code: u8, data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+        <span class="kw">match </span>command_code {
+            cmd_code::PUSH_REALTIME_QUOTE =&gt; parse_push_quote(data),
+            cmd_code::PUSH_REALTIME_DEPTH =&gt; parse_push_depth(data),
+            cmd_code::PUSH_REALTIME_BROKERS =&gt; parse_push_brokers(data),
+            cmd_code::PUSH_REALTIME_TRADES =&gt; parse_push_trade(data),
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(Error::UnknownCommand(command_code)),
         }
     }
 }
 
-<span class="kw">fn</span> <span class="ident">parse_push_quote</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">push_quote</span> <span class="op">=</span> <span class="ident">quote::PushQuote::decode</span>(<span class="ident">data</span>)<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">PushEvent</span> {
-        <span class="ident">symbol</span>: <span class="ident">push_quote</span>.<span class="ident">symbol</span>,
-        <span class="ident">sequence</span>: <span class="ident">push_quote</span>.<span class="ident">sequence</span>,
-        <span class="ident">detail</span>: <span class="ident">PushEventDetail::Quote</span>(<span class="ident">PushQuote</span> {
-            <span class="ident">last_done</span>: <span class="ident">push_quote</span>.<span class="ident">last_done</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">open</span>: <span class="ident">push_quote</span>.<span class="ident">open</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">high</span>: <span class="ident">push_quote</span>.<span class="ident">high</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">low</span>: <span class="ident">push_quote</span>.<span class="ident">low</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">timestamp</span>: <span class="ident">OffsetDateTime::from_unix_timestamp</span>(<span class="ident">push_quote</span>.<span class="ident">timestamp</span>)
-                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;timestamp&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>,
-            <span class="ident">volume</span>: <span class="ident">push_quote</span>.<span class="ident">volume</span>,
-            <span class="ident">turnover</span>: <span class="ident">push_quote</span>.<span class="ident">turnover</span>.<span class="ident">parse</span>().<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">trade_status</span>: <span class="ident">TradeStatus::from_i32</span>(<span class="ident">push_quote</span>.<span class="ident">trade_status</span>).<span class="ident">unwrap_or_default</span>(),
-            <span class="ident">trade_session</span>: <span class="ident">TradeSession::from_i32</span>(<span class="ident">push_quote</span>.<span class="ident">trade_session</span>).<span class="ident">unwrap_or_default</span>(),
+<span class="kw">fn </span>parse_push_quote(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+    <span class="kw">let </span>push_quote = quote::PushQuote::decode(data)<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(PushEvent {
+        symbol: push_quote.symbol,
+        sequence: push_quote.sequence,
+        detail: PushEventDetail::Quote(PushQuote {
+            last_done: push_quote.last_done.parse().unwrap_or_default(),
+            open: push_quote.open.parse().unwrap_or_default(),
+            high: push_quote.high.parse().unwrap_or_default(),
+            low: push_quote.low.parse().unwrap_or_default(),
+            timestamp: OffsetDateTime::from_unix_timestamp(push_quote.timestamp)
+                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+            volume: push_quote.volume,
+            turnover: push_quote.turnover.parse().unwrap_or_default(),
+            trade_status: TradeStatus::from_i32(push_quote.trade_status).unwrap_or_default(),
+            trade_session: TradeSession::from_i32(push_quote.trade_session).unwrap_or_default(),
         }),
     })
 }
 
-<span class="kw">fn</span> <span class="ident">parse_push_depth</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">push_depth</span> <span class="op">=</span> <span class="ident">quote::PushDepth::decode</span>(<span class="ident">data</span>)<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">PushEvent</span> {
-        <span class="ident">symbol</span>: <span class="ident">push_depth</span>.<span class="ident">symbol</span>,
-        <span class="ident">sequence</span>: <span class="ident">push_depth</span>.<span class="ident">sequence</span>,
-        <span class="ident">detail</span>: <span class="ident">PushEventDetail::Depth</span>(<span class="ident">PushDepth</span> {
-            <span class="ident">asks</span>: <span class="ident">push_depth</span>
-                .<span class="ident">ask</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
-            <span class="ident">bids</span>: <span class="ident">push_depth</span>
-                .<span class="ident">bid</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
+<span class="kw">fn </span>parse_push_depth(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+    <span class="kw">let </span>push_depth = quote::PushDepth::decode(data)<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(PushEvent {
+        symbol: push_depth.symbol,
+        sequence: push_depth.sequence,
+        detail: PushEventDetail::Depth(PushDepth {
+            asks: push_depth
+                .ask
+                .into_iter()
+                .map(TryInto::try_into)
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
+            bids: push_depth
+                .bid
+                .into_iter()
+                .map(TryInto::try_into)
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
         }),
     })
 }
 
-<span class="kw">fn</span> <span class="ident">parse_push_brokers</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">push_brokers</span> <span class="op">=</span> <span class="ident">quote::PushBrokers::decode</span>(<span class="ident">data</span>)<span class="question-mark">?</span>;
+<span class="kw">fn </span>parse_push_brokers(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+    <span class="kw">let </span>push_brokers = quote::PushBrokers::decode(data)<span class="question-mark">?</span>;
 
-    <span class="prelude-val">Ok</span>(<span class="ident">PushEvent</span> {
-        <span class="ident">symbol</span>: <span class="ident">push_brokers</span>.<span class="ident">symbol</span>,
-        <span class="ident">sequence</span>: <span class="ident">push_brokers</span>.<span class="ident">sequence</span>,
-        <span class="ident">detail</span>: <span class="ident">PushEventDetail::Brokers</span>(<span class="ident">PushBrokers</span> {
-            <span class="ident">ask_brokers</span>: <span class="ident">push_brokers</span>
-                .<span class="ident">ask_brokers</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">Into::into</span>)
-                .<span class="ident">collect</span>(),
-            <span class="ident">bid_brokers</span>: <span class="ident">push_brokers</span>
-                .<span class="ident">bid_brokers</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">Into::into</span>)
-                .<span class="ident">collect</span>(),
+    <span class="prelude-val">Ok</span>(PushEvent {
+        symbol: push_brokers.symbol,
+        sequence: push_brokers.sequence,
+        detail: PushEventDetail::Brokers(PushBrokers {
+            ask_brokers: push_brokers
+                .ask_brokers
+                .into_iter()
+                .map(Into::into)
+                .collect(),
+            bid_brokers: push_brokers
+                .bid_brokers
+                .into_iter()
+                .map(Into::into)
+                .collect(),
         }),
     })
 }
 
-<span class="kw">fn</span> <span class="ident">parse_push_trade</span>(<span class="ident">data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">push_trades</span> <span class="op">=</span> <span class="ident">quote::PushTrade::decode</span>(<span class="ident">data</span>)<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(<span class="ident">PushEvent</span> {
-        <span class="ident">symbol</span>: <span class="ident">push_trades</span>.<span class="ident">symbol</span>,
-        <span class="ident">sequence</span>: <span class="ident">push_trades</span>.<span class="ident">sequence</span>,
-        <span class="ident">detail</span>: <span class="ident">PushEventDetail::Trade</span>(<span class="ident">PushTrades</span> {
-            <span class="ident">trades</span>: <span class="ident">push_trades</span>
-                .<span class="ident">trade</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
+<span class="kw">fn </span>parse_push_trade(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+    <span class="kw">let </span>push_trades = quote::PushTrade::decode(data)<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(PushEvent {
+        symbol: push_trades.symbol,
+        sequence: push_trades.sequence,
+        detail: PushEventDetail::Trade(PushTrades {
+            trades: push_trades
+                .trade
+                .into_iter()
+                .map(TryInto::try_into)
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
         }),
     })
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>

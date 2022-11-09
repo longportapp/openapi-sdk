@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/context.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../longbridge/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../longbridge/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
 <span id="4">4</span>
@@ -1204,1211 +1204,1237 @@
 <span id="1204">1204</span>
 <span id="1205">1205</span>
 <span id="1206">1206</span>
-</pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">sync::Arc</span>, <span class="ident">time::Duration</span>};
+<span id="1207">1207</span>
+<span id="1208">1208</span>
+<span id="1209">1209</span>
+<span id="1210">1210</span>
+<span id="1211">1211</span>
+<span id="1212">1212</span>
+<span id="1213">1213</span>
+<span id="1214">1214</span>
+<span id="1215">1215</span>
+<span id="1216">1216</span>
+<span id="1217">1217</span>
+<span id="1218">1218</span>
+<span id="1219">1219</span>
+</pre><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
-<span class="kw">use</span> <span class="ident">longbridge_httpcli</span>::{<span class="ident">HttpClient</span>, <span class="ident">Method</span>};
-<span class="kw">use</span> <span class="ident">longbridge_proto::quote</span>;
-<span class="kw">use</span> <span class="ident">longbridge_wscli::WsClientError</span>;
-<span class="kw">use</span> <span class="ident">serde::Deserialize</span>;
-<span class="kw">use</span> <span class="ident">time::Date</span>;
-<span class="kw">use</span> <span class="ident">tokio::sync</span>::{<span class="ident">mpsc</span>, <span class="ident">oneshot</span>};
+<span class="kw">use </span>longbridge_httpcli::{HttpClient, Method};
+<span class="kw">use </span>longbridge_proto::quote;
+<span class="kw">use </span>longbridge_wscli::WsClientError;
+<span class="kw">use </span>serde::Deserialize;
+<span class="kw">use </span>time::Date;
+<span class="kw">use </span>tokio::sync::{mpsc, oneshot};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">quote</span>::{
-        <span class="ident">cache</span>::{<span class="ident">Cache</span>, <span class="ident">CacheWithKey</span>},
-        <span class="ident">cmd_code</span>,
-        <span class="ident">core</span>::{<span class="ident">Command</span>, <span class="ident">Core</span>},
-        <span class="ident">sub_flags::SubFlags</span>,
-        <span class="ident">utils</span>::{<span class="ident">format_date</span>, <span class="ident">parse_date</span>},
-        <span class="ident">AdjustType</span>, <span class="ident">Candlestick</span>, <span class="ident">CapitalDistributionResponse</span>, <span class="ident">CapitalFlowLine</span>, <span class="ident">IntradayLine</span>,
-        <span class="ident">IssuerInfo</span>, <span class="ident">MarketTradingDays</span>, <span class="ident">MarketTradingSession</span>, <span class="ident">OptionQuote</span>, <span class="ident">ParticipantInfo</span>, <span class="ident">Period</span>,
-        <span class="ident">PushEvent</span>, <span class="ident">RealtimeQuote</span>, <span class="ident">SecurityBrokers</span>, <span class="ident">SecurityDepth</span>, <span class="ident">SecurityQuote</span>,
-        <span class="ident">SecurityStaticInfo</span>, <span class="ident">StrikePriceInfo</span>, <span class="ident">Subscription</span>, <span class="ident">Trade</span>, <span class="ident">WarrantQuote</span>, <span class="ident">WatchListGroup</span>,
+<span class="kw">use crate</span>::{
+    quote::{
+        cache::{Cache, CacheWithKey},
+        cmd_code,
+        core::{Command, Core},
+        sub_flags::SubFlags,
+        utils::{format_date, parse_date},
+        AdjustType, Candlestick, CapitalDistributionResponse, CapitalFlowLine, IntradayLine,
+        IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
+        PushEvent, RealtimeQuote, SecurityBrokers, SecurityDepth, SecurityQuote,
+        SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantQuote, WatchListGroup,
     },
-    <span class="ident">Config</span>, <span class="ident">Error</span>, <span class="ident">Market</span>, <span class="prelude-ty">Result</span>,
+    Config, Error, Market, <span class="prelude-ty">Result</span>,
 };
 
-<span class="kw">const</span> <span class="ident">PARTICIPANT_INFO_CACHE_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">30</span> <span class="op">*</span> <span class="number">60</span>);
-<span class="kw">const</span> <span class="ident">ISSUER_INFO_CACHE_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">30</span> <span class="op">*</span> <span class="number">60</span>);
-<span class="kw">const</span> <span class="ident">OPTION_CHAIN_EXPIRY_DATE_LIST_CACHE_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">30</span> <span class="op">*</span> <span class="number">60</span>);
-<span class="kw">const</span> <span class="ident">OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">30</span> <span class="op">*</span> <span class="number">60</span>);
-<span class="kw">const</span> <span class="ident">TRADING_SESSION_CACHE_TIMEOUT</span>: <span class="ident">Duration</span> <span class="op">=</span> <span class="ident">Duration::from_secs</span>(<span class="number">60</span> <span class="op">*</span> <span class="number">60</span> <span class="op">*</span> <span class="number">2</span>);
+<span class="kw">const </span>PARTICIPANT_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">30 </span>* <span class="number">60</span>);
+<span class="kw">const </span>ISSUER_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">30 </span>* <span class="number">60</span>);
+<span class="kw">const </span>OPTION_CHAIN_EXPIRY_DATE_LIST_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">30 </span>* <span class="number">60</span>);
+<span class="kw">const </span>OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">30 </span>* <span class="number">60</span>);
+<span class="kw">const </span>TRADING_SESSION_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">60 </span>* <span class="number">60 </span>* <span class="number">2</span>);
 
-<span class="doccomment">/// Quote context</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">QuoteContext</span> {
-    <span class="ident">http_cli</span>: <span class="ident">HttpClient</span>,
-    <span class="ident">command_tx</span>: <span class="ident">mpsc::UnboundedSender</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&gt;</span>,
-    <span class="ident">cache_participants</span>: <span class="ident">Cache</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParticipantInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">cache_issuers</span>: <span class="ident">Cache</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IssuerInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">cache_option_chain_expiry_date_list</span>: <span class="ident">CacheWithKey</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">cache_option_chain_strike_info</span>: <span class="ident">CacheWithKey</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">Date</span>), <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StrikePriceInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">cache_trading_session</span>: <span class="ident">Cache</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MarketTradingSession</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+<span class="doccomment">/// Quote context
+</span><span class="attribute">#[derive(Clone)]
+</span><span class="kw">pub struct </span>QuoteContext {
+    http_cli: HttpClient,
+    command_tx: mpsc::UnboundedSender&lt;Command&gt;,
+    cache_participants: Cache&lt;Vec&lt;ParticipantInfo&gt;&gt;,
+    cache_issuers: Cache&lt;Vec&lt;IssuerInfo&gt;&gt;,
+    cache_option_chain_expiry_date_list: CacheWithKey&lt;String, Vec&lt;Date&gt;&gt;,
+    cache_option_chain_strike_info: CacheWithKey&lt;(String, Date), Vec&lt;StrikePriceInfo&gt;&gt;,
+    cache_trading_session: Cache&lt;Vec&lt;MarketTradingSession&gt;&gt;,
 }
 
-<span class="kw">impl</span> <span class="ident">QuoteContext</span> {
-    <span class="doccomment">/// Create a `QuoteContext`</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">try_new</span>(
-        <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="self">Self</span>, <span class="ident">mpsc::UnboundedReceiver</span><span class="op">&lt;</span><span class="ident">PushEvent</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">http_cli</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">create_http_client</span>();
-        <span class="kw">let</span> (<span class="ident">command_tx</span>, <span class="ident">command_rx</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded_channel</span>();
-        <span class="kw">let</span> (<span class="ident">push_tx</span>, <span class="ident">push_rx</span>) <span class="op">=</span> <span class="ident">mpsc::unbounded_channel</span>();
-        <span class="ident">tokio::spawn</span>(<span class="ident">Core::try_new</span>(<span class="ident">config</span>, <span class="ident">command_rx</span>, <span class="ident">push_tx</span>).<span class="kw">await</span><span class="question-mark">?</span>.<span class="ident">run</span>());
+<span class="kw">impl </span>QuoteContext {
+    <span class="doccomment">/// Create a `QuoteContext`
+    </span><span class="kw">pub async fn </span>try_new(
+        config: Arc&lt;Config&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, mpsc::UnboundedReceiver&lt;PushEvent&gt;)&gt; {
+        <span class="kw">let </span>http_cli = config.create_http_client();
+        <span class="kw">let </span>(command_tx, command_rx) = mpsc::unbounded_channel();
+        <span class="kw">let </span>(push_tx, push_rx) = mpsc::unbounded_channel();
+        tokio::spawn(Core::try_new(config, command_rx, push_tx).<span class="kw">await</span><span class="question-mark">?</span>.run());
         <span class="prelude-val">Ok</span>((
-            <span class="ident">QuoteContext</span> {
-                <span class="ident">http_cli</span>,
-                <span class="ident">command_tx</span>,
-                <span class="ident">cache_participants</span>: <span class="ident">Cache::new</span>(<span class="ident">PARTICIPANT_INFO_CACHE_TIMEOUT</span>),
-                <span class="ident">cache_issuers</span>: <span class="ident">Cache::new</span>(<span class="ident">ISSUER_INFO_CACHE_TIMEOUT</span>),
-                <span class="ident">cache_option_chain_expiry_date_list</span>: <span class="ident">CacheWithKey::new</span>(
-                    <span class="ident">OPTION_CHAIN_EXPIRY_DATE_LIST_CACHE_TIMEOUT</span>,
+            QuoteContext {
+                http_cli,
+                command_tx,
+                cache_participants: Cache::new(PARTICIPANT_INFO_CACHE_TIMEOUT),
+                cache_issuers: Cache::new(ISSUER_INFO_CACHE_TIMEOUT),
+                cache_option_chain_expiry_date_list: CacheWithKey::new(
+                    OPTION_CHAIN_EXPIRY_DATE_LIST_CACHE_TIMEOUT,
                 ),
-                <span class="ident">cache_option_chain_strike_info</span>: <span class="ident">CacheWithKey::new</span>(
-                    <span class="ident">OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT</span>,
+                cache_option_chain_strike_info: CacheWithKey::new(
+                    OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT,
                 ),
-                <span class="ident">cache_trading_session</span>: <span class="ident">Cache::new</span>(<span class="ident">TRADING_SESSION_CACHE_TIMEOUT</span>),
+                cache_trading_session: Cache::new(TRADING_SESSION_CACHE_TIMEOUT),
             },
-            <span class="ident">push_rx</span>,
+            push_rx,
         ))
     }
 
-    <span class="doccomment">/// Send a raw request</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">request_raw</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">command_code</span>: <span class="ident">u8</span>, <span class="ident">body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::Request</span> {
-                <span class="ident">command_code</span>,
-                <span class="ident">body</span>,
-                <span class="ident">reply_tx</span>,
+    <span class="doccomment">/// Send a raw request
+    </span><span class="kw">async fn </span>request_raw(<span class="kw-2">&amp;</span><span class="self">self</span>, command_code: u8, body: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt; {
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::Request {
+                command_code,
+                body,
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
-    }
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
 
-    <span class="doccomment">/// Send a request `T` to get a response `R`</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">request</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">command_code</span>: <span class="ident">u8</span>, <span class="ident">req</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">prost::Message</span>,
-        <span class="ident">R</span>: <span class="ident">prost::Message</span> <span class="op">+</span> <span class="ident">Default</span>,
+    <span class="doccomment">/// Send a request `T` to get a response `R`
+    </span><span class="kw">async fn </span>request&lt;T, R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, command_code: u8, req: T) -&gt; <span class="prelude-ty">Result</span>&lt;R&gt;
+    <span class="kw">where
+        </span>T: prost::Message,
+        R: prost::Message + Default,
     {
-        <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">request_raw</span>(<span class="ident">command_code</span>, <span class="ident">req</span>.<span class="ident">encode_to_vec</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">R::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">resp</span>)<span class="question-mark">?</span>)
+        <span class="kw">let </span>resp = <span class="self">self</span>.request_raw(command_code, req.encode_to_vec()).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(R::decode(<span class="kw-2">&amp;*</span>resp)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Send a request to get a response `R`</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">request_without_body</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">command_code</span>: <span class="ident">u8</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">R</span>: <span class="ident">prost::Message</span> <span class="op">+</span> <span class="ident">Default</span>,
+    <span class="doccomment">/// Send a request to get a response `R`
+    </span><span class="kw">async fn </span>request_without_body&lt;R&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, command_code: u8) -&gt; <span class="prelude-ty">Result</span>&lt;R&gt;
+    <span class="kw">where
+        </span>R: prost::Message + Default,
     {
-        <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">request_raw</span>(<span class="ident">command_code</span>, <span class="macro">vec!</span>[]).<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">R::decode</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">resp</span>)<span class="question-mark">?</span>)
+        <span class="kw">let </span>resp = <span class="self">self</span>.request_raw(command_code, <span class="macro">vec!</span>[]).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(R::decode(<span class="kw-2">&amp;*</span>resp)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Subscribe</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/subscribe/subscribe&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// while let Some(msg) = receiver.recv().await {</span>
-    <span class="doccomment">///     println!(&quot;{:?}&quot;, msg);</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">subscribe</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(
+    <span class="doccomment">/// Subscribe
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/subscribe/subscribe&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)
+    ///     .await?;
+    /// while let Some(msg) = receiver.recv().await {
+    ///     println!(&quot;{:?}&quot;, msg);
+    /// }
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>subscribe&lt;I, T&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbols</span>: <span class="ident">I</span>,
-        <span class="ident">sub_types</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">SubFlags</span><span class="op">&gt;</span>,
-        <span class="ident">is_first_push</span>: <span class="ident">bool</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+        symbols: I,
+        sub_types: <span class="kw">impl </span>Into&lt;SubFlags&gt;,
+        is_first_push: bool,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: AsRef&lt;str&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::Subscribe</span> {
-                <span class="ident">symbols</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
-                <span class="ident">sub_types</span>: <span class="ident">sub_types</span>.<span class="ident">into</span>(),
-                <span class="ident">is_first_push</span>,
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::Subscribe {
+                symbols: symbols
+                    .into_iter()
+                    .map(|symbol| normalize_symbol(symbol.as_ref()).to_string())
+                    .collect(),
+                sub_types: sub_types.into(),
+                is_first_push,
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
-    }
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
 
-    <span class="doccomment">/// Unsubscribe</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/subscribe/unsubscribe&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// ctx.unsubscribe([&quot;AAPL.US&quot;], SubFlags::QUOTE).await?;</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">unsubscribe</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>, <span class="ident">sub_types</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">SubFlags</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Unsubscribe
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/subscribe/unsubscribe&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)
+    ///     .await?;
+    /// ctx.unsubscribe([&quot;AAPL.US&quot;], SubFlags::QUOTE).await?;
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>unsubscribe&lt;I, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: I, sub_types: <span class="kw">impl </span>Into&lt;SubFlags&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: AsRef&lt;str&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::Unsubscribe</span> {
-                <span class="ident">symbols</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
-                <span class="ident">sub_types</span>: <span class="ident">sub_types</span>.<span class="ident">into</span>(),
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::Unsubscribe {
+                symbols: symbols
+                    .into_iter()
+                    .map(|symbol| normalize_symbol(symbol.as_ref()).to_string())
+                    .collect(),
+                sub_types: sub_types.into(),
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
-    }
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
 
-    <span class="doccomment">/// Subscribe security candlesticks</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{Period, QuoteContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// while let Some(msg) = receiver.recv().await {</span>
-    <span class="doccomment">///     println!(&quot;{:?}&quot;, msg);</span>
-    <span class="doccomment">/// }</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">subscribe_candlesticks</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="ident">T</span>, <span class="ident">period</span>: <span class="ident">Period</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Subscribe security candlesticks
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{Period, QuoteContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute)
+    ///     .await?;
+    /// while let Some(msg) = receiver.recv().await {
+    ///     println!(&quot;{:?}&quot;, msg);
+    /// }
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>subscribe_candlesticks&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: T, period: Period) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
+    <span class="kw">where
+        </span>T: AsRef&lt;str&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::SubscribeCandlesticks</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                <span class="ident">period</span>,
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::SubscribeCandlesticks {
+                symbol: normalize_symbol(symbol.as_ref()).into(),
+                period,
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
-    }
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
 
-    <span class="doccomment">/// Unsubscribe security candlesticks</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">unsubscribe_candlesticks</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="ident">T</span>, <span class="ident">period</span>: <span class="ident">Period</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Unsubscribe security candlesticks
+    </span><span class="kw">pub async fn </span>unsubscribe_candlesticks&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: T, period: Period) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt;
+    <span class="kw">where
+        </span>T: AsRef&lt;str&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::UnsubscribeCandlesticks</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                <span class="ident">period</span>,
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::UnsubscribeCandlesticks {
+                symbol: normalize_symbol(symbol.as_ref()).into(),
+                period,
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?
+    </span>}
+
+    <span class="doccomment">/// Get subscription information
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)
+    ///     .await?;
+    /// let resp = ctx.subscriptions().await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>subscriptions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Subscription&gt;&gt; {
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::Subscriptions { reply_tx })
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get subscription information</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// let resp = ctx.subscriptions().await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">subscriptions</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Subscription</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::Subscriptions</span> { <span class="ident">reply_tx</span> })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>)
-    }
-
-    <span class="doccomment">/// Get basic information of securities</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/static&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx</span>
-    <span class="doccomment">///     .static_info([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">static_info</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SecurityStaticInfo</span><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get basic information of securities
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/static&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .static_info([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])
+    ///     .await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>static_info&lt;I, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: I) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SecurityStaticInfo&gt;&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: Into&lt;String&gt;,
     {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityStaticInfoResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_BASIC_INFO</span>,
-                <span class="ident">quote::MultiSecurityRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
+        <span class="kw">let </span>resp: quote::SecurityStaticInfoResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_BASIC_INFO,
+                quote::MultiSecurityRequest {
+                    symbol: symbols.into_iter().map(Into::into).collect(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="ident">resp</span>.<span class="ident">secu_static_info</span>
-            .<span class="ident">into_iter</span>()
-            .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-            .<span class="ident">collect</span>()
+        resp.secu_static_info
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
     }
 
-    <span class="doccomment">/// Get quote of securities</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/quote&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx</span>
-    <span class="doccomment">///     .quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SecurityQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get quote of securities
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/quote&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])
+    ///     .await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>quote&lt;I, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: I) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SecurityQuote&gt;&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: Into&lt;String&gt;,
     {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityQuoteResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_REALTIME_QUOTE</span>,
-                <span class="ident">quote::MultiSecurityRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
+        <span class="kw">let </span>resp: quote::SecurityQuoteResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_REALTIME_QUOTE,
+                quote::MultiSecurityRequest {
+                    symbol: symbols.into_iter().map(Into::into).collect(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="ident">resp</span>.<span class="ident">secu_quote</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>).<span class="ident">collect</span>()
+        resp.secu_quote.into_iter().map(TryInto::try_into).collect()
     }
 
-    <span class="doccomment">/// Get quote of option securities</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/option-quote&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.option_quote([&quot;AAPL230317P160000.US&quot;]).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">option_quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OptionQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get quote of option securities
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/option-quote&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.option_quote([&quot;AAPL230317P160000.US&quot;]).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>option_quote&lt;I, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: I) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;OptionQuote&gt;&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: Into&lt;String&gt;,
     {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::OptionQuoteResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_REALTIME_OPTION_QUOTE</span>,
-                <span class="ident">quote::MultiSecurityRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
+        <span class="kw">let </span>resp: quote::OptionQuoteResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_REALTIME_OPTION_QUOTE,
+                quote::MultiSecurityRequest {
+                    symbol: symbols.into_iter().map(Into::into).collect(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="ident">resp</span>.<span class="ident">secu_quote</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>).<span class="ident">collect</span>()
+        resp.secu_quote.into_iter().map(TryInto::try_into).collect()
     }
 
-    <span class="doccomment">/// Get quote of warrant securities</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/warrant-quote&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.warrant_quote([&quot;21125.HK&quot;]).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">warrant_quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WarrantQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get quote of warrant securities
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/warrant-quote&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.warrant_quote([&quot;21125.HK&quot;]).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>warrant_quote&lt;I, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: I) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;WarrantQuote&gt;&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: Into&lt;String&gt;,
     {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::WarrantQuoteResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_REALTIME_WARRANT_QUOTE</span>,
-                <span class="ident">quote::MultiSecurityRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
+        <span class="kw">let </span>resp: quote::WarrantQuoteResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_REALTIME_WARRANT_QUOTE,
+                quote::MultiSecurityRequest {
+                    symbol: symbols.into_iter().map(Into::into).collect(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="ident">resp</span>.<span class="ident">secu_quote</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>).<span class="ident">collect</span>()
+        resp.secu_quote.into_iter().map(TryInto::try_into).collect()
     }
 
-    <span class="doccomment">/// Get security depth</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/depth&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.depth(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityDepth</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityDepthResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_SECURITY_DEPTH</span>,
-                <span class="ident">quote::SecurityRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
+    <span class="doccomment">/// Get security depth
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/depth&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.depth(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>depth(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;SecurityDepth&gt; {
+        <span class="kw">let </span>resp: quote::SecurityDepthResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_SECURITY_DEPTH,
+                quote::SecurityRequest {
+                    symbol: symbol.into(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">SecurityDepth</span> {
-            <span class="ident">asks</span>: <span class="ident">resp</span>
-                .<span class="ident">ask</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
-            <span class="ident">bids</span>: <span class="ident">resp</span>
-                .<span class="ident">bid</span>
-                .<span class="ident">into_iter</span>()
-                .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>,
+        <span class="prelude-val">Ok</span>(SecurityDepth {
+            asks: resp
+                .ask
+                .into_iter()
+                .map(TryInto::try_into)
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
+            bids: resp
+                .bid
+                .into_iter()
+                .map(TryInto::try_into)
+                .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
         })
     }
 
-    <span class="doccomment">/// Get security brokers</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/brokers&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.brokers(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">brokers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityBrokers</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityBrokersResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_SECURITY_BROKERS</span>,
-                <span class="ident">quote::SecurityRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
+    <span class="doccomment">/// Get security brokers
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/brokers&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.brokers(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>brokers(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;SecurityBrokers&gt; {
+        <span class="kw">let </span>resp: quote::SecurityBrokersResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_SECURITY_BROKERS,
+                quote::SecurityRequest {
+                    symbol: symbol.into(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">SecurityBrokers</span> {
-            <span class="ident">ask_brokers</span>: <span class="ident">resp</span>.<span class="ident">ask_brokers</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
-            <span class="ident">bid_brokers</span>: <span class="ident">resp</span>.<span class="ident">bid_brokers</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
+        <span class="prelude-val">Ok</span>(SecurityBrokers {
+            ask_brokers: resp.ask_brokers.into_iter().map(Into::into).collect(),
+            bid_brokers: resp.bid_brokers.into_iter().map(Into::into).collect(),
         })
     }
 
-    <span class="doccomment">/// Get participants</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/broker-ids&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.participants().await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">participants</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ParticipantInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">cache_participants</span>
-            .<span class="ident">get_or_update</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">async</span> {
-                <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>
-                    .<span class="ident">request_without_body</span>::<span class="op">&lt;</span><span class="ident">quote::ParticipantBrokerIdsResponse</span><span class="op">&gt;</span>(
-                        <span class="ident">cmd_code::GET_BROKER_IDS</span>,
+    <span class="doccomment">/// Get participants
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/broker-ids&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.participants().await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>participants(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;ParticipantInfo&gt;&gt; {
+        <span class="self">self</span>.cache_participants
+            .get_or_update(|| <span class="kw">async </span>{
+                <span class="kw">let </span>resp = <span class="self">self
+                    </span>.request_without_body::&lt;quote::ParticipantBrokerIdsResponse&gt;(
+                        cmd_code::GET_BROKER_IDS,
                     )
                     .<span class="kw">await</span><span class="question-mark">?</span>;
 
-                <span class="prelude-val">Ok</span>(<span class="ident">resp</span>
-                    .<span class="ident">participant_broker_numbers</span>
-                    .<span class="ident">into_iter</span>()
-                    .<span class="ident">map</span>(<span class="ident">Into::into</span>)
-                    .<span class="ident">collect</span>())
+                <span class="prelude-val">Ok</span>(resp
+                    .participant_broker_numbers
+                    .into_iter()
+                    .map(Into::into)
+                    .collect())
             })
-            .<span class="kw">await</span>
-    }
+            .<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Get security trades</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/trade&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.trades(&quot;700.HK&quot;, 10).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trades</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">count</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityTradeResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_SECURITY_TRADES</span>,
-                <span class="ident">quote::SecurityTradeRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                    <span class="ident">count</span>: <span class="ident">count</span> <span class="kw">as</span> <span class="ident">i32</span>,
+    <span class="doccomment">/// Get security trades
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/trade&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.trades(&quot;700.HK&quot;, 10).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>trades(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;, count: usize) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Trade&gt;&gt; {
+        <span class="kw">let </span>resp: quote::SecurityTradeResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_SECURITY_TRADES,
+                quote::SecurityTradeRequest {
+                    symbol: symbol.into(),
+                    count: count <span class="kw">as </span>i32,
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">trades</span> <span class="op">=</span> <span class="ident">resp</span>
-            .<span class="ident">trades</span>
-            .<span class="ident">into_iter</span>()
-            .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">trades</span>)
+        <span class="kw">let </span>trades = resp
+            .trades
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(trades)
     }
 
-    <span class="doccomment">/// Get security intraday lines</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/intraday&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.intraday(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">intraday</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IntradayLine</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityIntradayResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_SECURITY_INTRADAY</span>,
-                <span class="ident">quote::SecurityIntradayRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
+    <span class="doccomment">/// Get security intraday lines
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/intraday&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.intraday(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>intraday(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;IntradayLine&gt;&gt; {
+        <span class="kw">let </span>resp: quote::SecurityIntradayResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_SECURITY_INTRADAY,
+                quote::SecurityIntradayRequest {
+                    symbol: symbol.into(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">lines</span> <span class="op">=</span> <span class="ident">resp</span>
-            .<span class="ident">lines</span>
-            .<span class="ident">into_iter</span>()
-            .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">lines</span>)
+        <span class="kw">let </span>lines = resp
+            .lines
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(lines)
     }
 
-    <span class="doccomment">/// Get security candlesticks</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/candlestick&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{AdjustType, Period, QuoteContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx</span>
-    <span class="doccomment">///     .candlesticks(&quot;700.HK&quot;, Period::Day, 10, AdjustType::NoAdjust)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">candlesticks</span>(
+    <span class="doccomment">/// Get security candlesticks
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/candlestick&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{
+    ///     quote::{AdjustType, Period, QuoteContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .candlesticks(&quot;700.HK&quot;, Period::Day, 10, AdjustType::NoAdjust)
+    ///     .await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>candlesticks(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-        <span class="ident">count</span>: <span class="ident">usize</span>,
-        <span class="ident">adjust_type</span>: <span class="ident">AdjustType</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Candlestick</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::SecurityCandlestickResponse</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>(
-                <span class="ident">cmd_code::GET_SECURITY_CANDLESTICKS</span>,
-                <span class="ident">quote::SecurityCandlestickRequest</span> {
-                    <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                    <span class="ident">period</span>: <span class="ident">period</span>.<span class="ident">into</span>(),
-                    <span class="ident">count</span>: <span class="ident">count</span> <span class="kw">as</span> <span class="ident">i32</span>,
-                    <span class="ident">adjust_type</span>: <span class="ident">adjust_type</span>.<span class="ident">into</span>(),
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+        period: Period,
+        count: usize,
+        adjust_type: AdjustType,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Candlestick&gt;&gt; {
+        <span class="kw">let </span>resp: quote::SecurityCandlestickResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_SECURITY_CANDLESTICKS,
+                quote::SecurityCandlestickRequest {
+                    symbol: symbol.into(),
+                    period: period.into(),
+                    count: count <span class="kw">as </span>i32,
+                    adjust_type: adjust_type.into(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">candlesticks</span> <span class="op">=</span> <span class="ident">resp</span>
-            .<span class="ident">candlesticks</span>
-            .<span class="ident">into_iter</span>()
-            .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">candlesticks</span>)
+        <span class="kw">let </span>candlesticks = resp
+            .candlesticks
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(candlesticks)
     }
 
-    <span class="doccomment">/// Get option chain expiry date list</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/optionchain-date&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.option_chain_expiry_date_list(&quot;AAPL.US&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">option_chain_expiry_date_list</span>(
+    <span class="doccomment">/// Get option chain expiry date list
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/optionchain-date&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.option_chain_expiry_date_list(&quot;AAPL.US&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>option_chain_expiry_date_list(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Date</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">cache_option_chain_expiry_date_list</span>
-            .<span class="ident">get_or_update</span>(<span class="ident">symbol</span>.<span class="ident">into</span>(), <span class="op">|</span><span class="ident">symbol</span><span class="op">|</span> <span class="kw">async</span> {
-                <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::OptionChainDateListResponse</span> <span class="op">=</span> <span class="self">self</span>
-                    .<span class="ident">request</span>(
-                        <span class="ident">cmd_code::GET_OPTION_CHAIN_EXPIRY_DATE_LIST</span>,
-                        <span class="ident">quote::SecurityRequest</span> { <span class="ident">symbol</span> },
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Date&gt;&gt; {
+        <span class="self">self</span>.cache_option_chain_expiry_date_list
+            .get_or_update(symbol.into(), |symbol| <span class="kw">async </span>{
+                <span class="kw">let </span>resp: quote::OptionChainDateListResponse = <span class="self">self
+                    </span>.request(
+                        cmd_code::GET_OPTION_CHAIN_EXPIRY_DATE_LIST,
+                        quote::SecurityRequest { symbol },
                     )
                     .<span class="kw">await</span><span class="question-mark">?</span>;
-                <span class="ident">resp</span>.<span class="ident">expiry_date</span>
-                    .<span class="ident">iter</span>()
-                    .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
-                        <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;date&quot;</span>, <span class="ident">err</span>))
+                resp.expiry_date
+                    .iter()
+                    .map(|value| {
+                        parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;date&quot;</span>, err))
                     })
-                    .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+                    .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()
             })
-            .<span class="kw">await</span>
-    }
+            .<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Get option chain info by date</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/optionchain-date-strike&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">/// use time::macros::date;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx</span>
-    <span class="doccomment">///     .option_chain_info_by_date(&quot;AAPL.US&quot;, date!(2023 - 01 - 20))</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">option_chain_info_by_date</span>(
+    <span class="doccomment">/// Get option chain info by date
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/optionchain-date-strike&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    /// use time::macros::date;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .option_chain_info_by_date(&quot;AAPL.US&quot;, date!(2023 - 01 - 20))
+    ///     .await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>option_chain_info_by_date(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">expiry_date</span>: <span class="ident">Date</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StrikePriceInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">cache_option_chain_strike_info</span>
-            .<span class="ident">get_or_update</span>(
-                (<span class="ident">symbol</span>.<span class="ident">into</span>(), <span class="ident">expiry_date</span>),
-                <span class="op">|</span>(<span class="ident">symbol</span>, <span class="ident">expiry_date</span>)<span class="op">|</span> <span class="kw">async</span> <span class="kw">move</span> {
-                    <span class="kw">let</span> <span class="ident">resp</span>: <span class="ident">quote::OptionChainDateStrikeInfoResponse</span> <span class="op">=</span> <span class="self">self</span>
-                        .<span class="ident">request</span>(
-                            <span class="ident">cmd_code::GET_OPTION_CHAIN_INFO_BY_DATE</span>,
-                            <span class="ident">quote::OptionChainDateStrikeInfoRequest</span> {
-                                <span class="ident">symbol</span>,
-                                <span class="ident">expiry_date</span>: <span class="ident">format_date</span>(<span class="ident">expiry_date</span>),
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+        expiry_date: Date,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;StrikePriceInfo&gt;&gt; {
+        <span class="self">self</span>.cache_option_chain_strike_info
+            .get_or_update(
+                (symbol.into(), expiry_date),
+                |(symbol, expiry_date)| <span class="kw">async move </span>{
+                    <span class="kw">let </span>resp: quote::OptionChainDateStrikeInfoResponse = <span class="self">self
+                        </span>.request(
+                            cmd_code::GET_OPTION_CHAIN_INFO_BY_DATE,
+                            quote::OptionChainDateStrikeInfoRequest {
+                                symbol,
+                                expiry_date: format_date(expiry_date),
                             },
                         )
                         .<span class="kw">await</span><span class="question-mark">?</span>;
-                    <span class="ident">resp</span>.<span class="ident">strike_price_info</span>
-                        .<span class="ident">into_iter</span>()
-                        .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                        .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+                    resp.strike_price_info
+                        .into_iter()
+                        .map(TryInto::try_into)
+                        .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()
                 },
             )
-            .<span class="kw">await</span>
-    }
+            .<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Get warrant issuers</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/issuer&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.warrant_issuers().await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">warrant_issuers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">IssuerInfo</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">cache_issuers</span>
-            .<span class="ident">get_or_update</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">async</span> {
-                <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>
-                    .<span class="ident">request_without_body</span>::<span class="op">&lt;</span><span class="ident">quote::IssuerInfoResponse</span><span class="op">&gt;</span>(
-                        <span class="ident">cmd_code::GET_WARRANT_ISSUER_IDS</span>,
+    <span class="doccomment">/// Get warrant issuers
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/issuer&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.warrant_issuers().await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>warrant_issuers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;IssuerInfo&gt;&gt; {
+        <span class="self">self</span>.cache_issuers
+            .get_or_update(|| <span class="kw">async </span>{
+                <span class="kw">let </span>resp = <span class="self">self
+                    </span>.request_without_body::&lt;quote::IssuerInfoResponse&gt;(
+                        cmd_code::GET_WARRANT_ISSUER_IDS,
                     )
                     .<span class="kw">await</span><span class="question-mark">?</span>;
-                <span class="prelude-val">Ok</span>(<span class="ident">resp</span>.<span class="ident">issuer_info</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>())
+                <span class="prelude-val">Ok</span>(resp.issuer_info.into_iter().map(Into::into).collect())
             })
-            .<span class="kw">await</span>
-    }
+            .<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Get trading session of the day</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/trade-session&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.trading_session().await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trading_session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">MarketTradingSession</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">cache_trading_session</span>
-            .<span class="ident">get_or_update</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">async</span> {
-                <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>
-                    .<span class="ident">request_without_body</span>::<span class="op">&lt;</span><span class="ident">quote::MarketTradePeriodResponse</span><span class="op">&gt;</span>(
-                        <span class="ident">cmd_code::GET_TRADING_SESSION</span>,
+    <span class="doccomment">/// Get trading session of the day
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/trade-session&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.trading_session().await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>trading_session(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;MarketTradingSession&gt;&gt; {
+        <span class="self">self</span>.cache_trading_session
+            .get_or_update(|| <span class="kw">async </span>{
+                <span class="kw">let </span>resp = <span class="self">self
+                    </span>.request_without_body::&lt;quote::MarketTradePeriodResponse&gt;(
+                        cmd_code::GET_TRADING_SESSION,
                     )
                     .<span class="kw">await</span><span class="question-mark">?</span>;
-                <span class="ident">resp</span>.<span class="ident">market_trade_session</span>
-                    .<span class="ident">into_iter</span>()
-                    .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-                    .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()
+                resp.market_trade_session
+                    .into_iter()
+                    .map(TryInto::try_into)
+                    .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()
             })
-            .<span class="kw">await</span>
-    }
+            .<span class="kw">await
+    </span>}
 
-    <span class="doccomment">/// Get market trading days</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// The interval must be less than one month, and only the most recent year</span>
-    <span class="doccomment">/// is supported.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/trade-day&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config, Market};</span>
-    <span class="doccomment">/// use time::macros::date;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx</span>
-    <span class="doccomment">///     .trading_days(Market::HK, date!(2022 - 01 - 20), date!(2022 - 02 - 20))</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">trading_days</span>(
+    <span class="doccomment">/// Get market trading days
+    ///
+    /// The interval must be less than one month, and only the most recent year
+    /// is supported.
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/trade-day&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config, Market};
+    /// use time::macros::date;
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx
+    ///     .trading_days(Market::HK, date!(2022 - 01 - 20), date!(2022 - 02 - 20))
+    ///     .await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>trading_days(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">market</span>: <span class="ident">Market</span>,
-        <span class="ident">begin</span>: <span class="ident">Date</span>,
-        <span class="ident">end</span>: <span class="ident">Date</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">MarketTradingDays</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">request</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">quote::MarketTradeDayResponse</span><span class="op">&gt;</span>(
-                <span class="ident">cmd_code::GET_TRADING_DAYS</span>,
-                <span class="ident">quote::MarketTradeDayRequest</span> {
-                    <span class="ident">market</span>: <span class="ident">market</span>.<span class="ident">to_string</span>(),
-                    <span class="ident">beg_day</span>: <span class="ident">format_date</span>(<span class="ident">begin</span>),
-                    <span class="ident">end_day</span>: <span class="ident">format_date</span>(<span class="ident">end</span>),
+        market: Market,
+        begin: Date,
+        end: Date,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;MarketTradingDays&gt; {
+        <span class="kw">let </span>resp = <span class="self">self
+            </span>.request::&lt;<span class="kw">_</span>, quote::MarketTradeDayResponse&gt;(
+                cmd_code::GET_TRADING_DAYS,
+                quote::MarketTradeDayRequest {
+                    market: market.to_string(),
+                    beg_day: format_date(begin),
+                    end_day: format_date(end),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">trading_days</span> <span class="op">=</span> <span class="ident">resp</span>
-            .<span class="ident">trade_day</span>
-            .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
-                <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;trade_day&quot;</span>, <span class="ident">err</span>))
+        <span class="kw">let </span>trading_days = resp
+            .trade_day
+            .iter()
+            .map(|value| {
+                parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;trade_day&quot;</span>, err))
             })
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">half_trading_days</span> <span class="op">=</span> <span class="ident">resp</span>
-            .<span class="ident">half_trade_day</span>
-            .<span class="ident">iter</span>()
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">value</span><span class="op">|</span> {
-                <span class="ident">parse_date</span>(<span class="ident">value</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="ident">Error::parse_field_error</span>(<span class="string">&quot;half_trade_day&quot;</span>, <span class="ident">err</span>))
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
+        <span class="kw">let </span>half_trading_days = resp
+            .half_trade_day
+            .iter()
+            .map(|value| {
+                parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;half_trade_day&quot;</span>, err))
             })
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">MarketTradingDays</span> {
-            <span class="ident">trading_days</span>,
-            <span class="ident">half_trading_days</span>,
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(MarketTradingDays {
+            trading_days,
+            half_trading_days,
         })
     }
 
-    <span class="doccomment">/// Get capital flow intraday</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/capital-flow-intraday&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.capital_flow(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">capital_flow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">CapitalFlowLine</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">quote::CapitalFlowIntradayResponse</span><span class="op">&gt;</span>(
-            <span class="ident">cmd_code::GET_CAPITAL_FLOW_INTRADAY</span>,
-            <span class="ident">quote::CapitalFlowIntradayRequest</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
+    <span class="doccomment">/// Get capital flow intraday
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/capital-flow-intraday&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.capital_flow(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    </span><span class="kw">pub async fn </span>capital_flow(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;CapitalFlowLine&gt;&gt; {
+        <span class="self">self</span>.request::&lt;<span class="kw">_</span>, quote::CapitalFlowIntradayResponse&gt;(
+            cmd_code::GET_CAPITAL_FLOW_INTRADAY,
+            quote::CapitalFlowIntradayRequest {
+                symbol: symbol.into(),
             },
         )
-        .<span class="kw">await</span><span class="question-mark">?</span>
-        .<span class="ident">capital_flow_lines</span>
-        .<span class="ident">into_iter</span>()
-        .<span class="ident">map</span>(<span class="ident">TryInto::try_into</span>)
-        .<span class="ident">collect</span>()
+        .<span class="kw">await</span><span class="question-mark">?
+        </span>.capital_flow_lines
+        .into_iter()
+        .map(TryInto::try_into)
+        .collect()
     }
 
-    <span class="doccomment">/// Get capital distribution</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/capital-distribution&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.capital_distribution(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">capital_distribution</span>(
+    <span class="doccomment">/// Get capital distribution
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/pull/capital-distribution&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.capital_distribution(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    </span><span class="kw">pub async fn </span>capital_distribution(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CapitalDistributionResponse</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">request</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">quote::CapitalDistributionResponse</span><span class="op">&gt;</span>(
-            <span class="ident">cmd_code::GET_SECURITY_CAPITAL_DISTRIBUTION</span>,
-            <span class="ident">quote::SecurityRequest</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;CapitalDistributionResponse&gt; {
+        <span class="self">self</span>.request::&lt;<span class="kw">_</span>, quote::CapitalDistributionResponse&gt;(
+            cmd_code::GET_SECURITY_CAPITAL_DISTRIBUTION,
+            quote::SecurityRequest {
+                symbol: symbol.into(),
             },
         )
-        .<span class="kw">await</span><span class="question-mark">?</span>
-        .<span class="ident">try_into</span>()
+        .<span class="kw">await</span><span class="question-mark">?
+        </span>.try_into()
     }
 
-    <span class="doccomment">/// Get watch list</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/individual/watchlist_groups&gt;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::sync::Arc;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{quote::QuoteContext, Config};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.watch_list().await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">watch_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WatchListGroup</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Deserialize</span>)]</span>
-        <span class="kw">struct</span> <span class="ident">Response</span> {
-            <span class="ident">groups</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WatchListGroup</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get watch list
+    ///
+    /// Reference: &lt;https://open.longbridgeapp.com/en/docs/quote/individual/watchlist_groups&gt;
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::sync::Arc;
+    ///
+    /// use longbridge::{quote::QuoteContext, Config};
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// let resp = ctx.watch_list().await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>watch_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;WatchListGroup&gt;&gt; {
+        <span class="attribute">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Response {
+            groups: Vec&lt;WatchListGroup&gt;,
         }
 
-        <span class="kw">let</span> <span class="ident">resp</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">http_cli</span>
-            .<span class="ident">request</span>(<span class="ident">Method::GET</span>, <span class="string">&quot;/v1/watchlist/groups&quot;</span>)
-            .<span class="ident">response</span>::<span class="op">&lt;</span><span class="ident">Response</span><span class="op">&gt;</span>()
-            .<span class="ident">send</span>()
+        <span class="kw">let </span>resp = <span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">&quot;/v1/watchlist/groups&quot;</span>)
+            .response::&lt;Response&gt;()
+            .send()
             .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">resp</span>.<span class="ident">groups</span>)
+        <span class="prelude-val">Ok</span>(resp.groups)
     }
 
-    <span class="doccomment">/// Get real-time quotes</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Get real-time quotes of the subscribed symbols, it always returns the</span>
-    <span class="doccomment">/// data in the local storage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::{sync::Arc, time::Duration};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, true)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;]).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_quote</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbols</span>: <span class="ident">I</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RealtimeQuote</span><span class="op">&gt;</span><span class="op">&gt;</span>
-    <span class="kw">where</span>
-        <span class="ident">I</span>: <span class="ident">IntoIterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
-        <span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// Get real-time quotes
+    ///
+    /// Get real-time quotes of the subscribed symbols, it always returns the
+    /// data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;]).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>realtime_quote&lt;I, T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, symbols: I) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;RealtimeQuote&gt;&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: Into&lt;String&gt;,
     {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::GetRealtimeQuote</span> {
-                <span class="ident">symbols</span>: <span class="ident">symbols</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="ident">Into::into</span>).<span class="ident">collect</span>(),
-                <span class="ident">reply_tx</span>,
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::GetRealtimeQuote {
+                symbols: symbols.into_iter().map(Into::into).collect(),
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>)
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get real-time depth</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Get real-time depth of the subscribed symbols, it always returns the</span>
-    <span class="doccomment">/// data in the local storage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::{sync::Arc, time::Duration};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::DEPTH, true)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_depth(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_depth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityDepth</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::GetRealtimeDepth</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                <span class="ident">reply_tx</span>,
+    <span class="doccomment">/// Get real-time depth
+    ///
+    /// Get real-time depth of the subscribed symbols, it always returns the
+    /// data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::DEPTH, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_depth(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>realtime_depth(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;SecurityDepth&gt; {
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::GetRealtimeDepth {
+                symbol: symbol.into(),
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>)
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get real-time trades</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Get real-time trades of the subscribed symbols, it always returns the</span>
-    <span class="doccomment">/// data in the local storage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::{sync::Arc, time::Duration};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::TRADE, false)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_trades(&quot;700.HK&quot;, 10).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_trades</span>(
+    <span class="doccomment">/// Get real-time trades
+    ///
+    /// Get real-time trades of the subscribed symbols, it always returns the
+    /// data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::TRADE, false)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_trades(&quot;700.HK&quot;, 10).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>realtime_trades(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">count</span>: <span class="ident">usize</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Trade</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::GetRealtimeTrade</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                <span class="ident">count</span>,
-                <span class="ident">reply_tx</span>,
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+        count: usize,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Trade&gt;&gt; {
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::GetRealtimeTrade {
+                symbol: symbol.into(),
+                count,
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>)
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get real-time broker queue</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Get real-time broker queue of the subscribed symbols, it always returns</span>
-    <span class="doccomment">/// the data in the local storage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::{sync::Arc, time::Duration};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{QuoteContext, SubFlags},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::BROKER, true)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx.realtime_brokers(&quot;700.HK&quot;).await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_brokers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SecurityBrokers</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::GetRealtimeBrokers</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                <span class="ident">reply_tx</span>,
+    <span class="doccomment">/// Get real-time broker queue
+    ///
+    ///
+    /// Get real-time broker queue of the subscribed symbols, it always returns
+    /// the data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{QuoteContext, SubFlags},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::BROKER, true)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx.realtime_brokers(&quot;700.HK&quot;).await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>realtime_brokers(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;SecurityBrokers&gt; {
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::GetRealtimeBrokers {
+                symbol: symbol.into(),
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>)
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
     }
 
-    <span class="doccomment">/// Get real-time candlesticks</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Get real-time candlesticks of the subscribed symbols, it always returns</span>
-    <span class="doccomment">/// the data in the local storage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # Examples</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ```no_run</span>
-    <span class="doccomment">/// use std::{sync::Arc, time::Duration};</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// use longbridge::{</span>
-    <span class="doccomment">///     quote::{Period, QuoteContext},</span>
-    <span class="doccomment">///     Config,</span>
-    <span class="doccomment">/// };</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// # tokio::runtime::Runtime::new().unwrap().block_on(async {</span>
-    <span class="doccomment">/// let config = Arc::new(Config::from_env()?);</span>
-    <span class="doccomment">/// let (ctx, _) = QuoteContext::try_new(config).await?;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ctx.subscribe_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// tokio::time::sleep(Duration::from_secs(5)).await;</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// let resp = ctx</span>
-    <span class="doccomment">///     .realtime_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute, 10)</span>
-    <span class="doccomment">///     .await?;</span>
-    <span class="doccomment">/// println!(&quot;{:?}&quot;, resp);</span>
-    <span class="doccomment">/// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())</span>
-    <span class="doccomment">/// # });</span>
-    <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">realtime_candlesticks</span>(
+    <span class="doccomment">/// Get real-time candlesticks
+    ///
+    /// Get real-time candlesticks of the subscribed symbols, it always returns
+    /// the data in the local storage.
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use std::{sync::Arc, time::Duration};
+    ///
+    /// use longbridge::{
+    ///     quote::{Period, QuoteContext},
+    ///     Config,
+    /// };
+    ///
+    /// # tokio::runtime::Runtime::new().unwrap().block_on(async {
+    /// let config = Arc::new(Config::from_env()?);
+    /// let (ctx, _) = QuoteContext::try_new(config).await?;
+    ///
+    /// ctx.subscribe_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute)
+    ///     .await?;
+    /// tokio::time::sleep(Duration::from_secs(5)).await;
+    ///
+    /// let resp = ctx
+    ///     .realtime_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute, 10)
+    ///     .await?;
+    /// println!(&quot;{:?}&quot;, resp);
+    /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
+    /// # });
+    /// ```
+    </span><span class="kw">pub async fn </span>realtime_candlesticks(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">symbol</span>: <span class="kw">impl</span> <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-        <span class="ident">period</span>: <span class="ident">Period</span>,
-        <span class="ident">count</span>: <span class="ident">usize</span>,
-    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Candlestick</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> (<span class="ident">reply_tx</span>, <span class="ident">reply_rx</span>) <span class="op">=</span> <span class="ident">oneshot::channel</span>();
-        <span class="self">self</span>.<span class="ident">command_tx</span>
-            .<span class="ident">send</span>(<span class="ident">Command::GetRealtimeCandlesticks</span> {
-                <span class="ident">symbol</span>: <span class="ident">symbol</span>.<span class="ident">into</span>(),
-                <span class="ident">period</span>,
-                <span class="ident">count</span>,
-                <span class="ident">reply_tx</span>,
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+        period: Period,
+        count: usize,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Candlestick&gt;&gt; {
+        <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
+        <span class="self">self</span>.command_tx
+            .send(Command::GetRealtimeCandlesticks {
+                symbol: symbol.into(),
+                period,
+                count,
+                reply_tx,
             })
-            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">reply_rx</span>.<span class="kw">await</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">WsClientError::ClientClosed</span>)<span class="question-mark">?</span>)
+            .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
+    }
+}
+
+<span class="kw">fn </span>normalize_symbol(symbol: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;</span>str {
+    <span class="kw">match </span>symbol.split_once(<span class="string">&#39;.&#39;</span>) {
+        <span class="prelude-val">Some</span>((<span class="kw">_</span>, market)) <span class="kw">if </span>market.eq_ignore_ascii_case(<span class="string">&quot;HK&quot;</span>) =&gt; symbol.trim_start_matches(<span class="string">&#39;0&#39;</span>),
+        <span class="kw">_ </span>=&gt; symbol,
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="longbridge" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.65.0 (897e37553 2022-11-02)" ></div></body></html>
