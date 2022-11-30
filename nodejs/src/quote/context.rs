@@ -161,7 +161,7 @@ impl QuoteContext {
     /// back to this function.
     #[napi(ts_args_type = "callback: (err: null | Error, event: PushTradesEvent) => void")]
     pub fn set_on_trades(&self, callback: JsFunction) -> Result<()> {
-        self.callbacks.lock().brokers =
+        self.callbacks.lock().trades =
             Some(callback.create_threadsafe_function(32, |ctx| Ok(vec![ctx.value]))?);
         Ok(())
     }
@@ -170,7 +170,7 @@ impl QuoteContext {
     /// call back to this function.
     #[napi(ts_args_type = "callback: (err: null | Error, event: PushCandlestickEvent) => void")]
     pub fn set_on_candlestick(&self, callback: JsFunction) -> Result<()> {
-        self.callbacks.lock().brokers =
+        self.callbacks.lock().candlestick =
             Some(callback.create_threadsafe_function(32, |ctx| Ok(vec![ctx.value]))?);
         Ok(())
     }
