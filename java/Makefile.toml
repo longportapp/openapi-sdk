@@ -27,6 +27,9 @@ args = [
   "javasrc/src/main/java",
   "-d",
   "classes",
+  "javasrc/src/main/java/com/longbridge/*.java",
+  "javasrc/src/main/java/com/longbridge/quote/*.java",
+  "javasrc/src/main/java/com/longbridge/trade/*.java",
   "test/Main.java",
 ]
 
