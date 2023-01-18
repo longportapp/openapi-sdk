@@ -10,9 +10,10 @@ var searchData=
   ['bps_26',['bps',['../structlongbridge_1_1quote_1_1_security_static_info.html#afef7d3974918c401152d8443d89ddc77',1,'longbridge::quote::SecurityStaticInfo']]],
   ['broker_27',['BROKER',['../classlongbridge_1_1quote_1_1_sub_flags.html#a50e96fd6c5dcb4204143132f61d461f0',1,'longbridge::quote::SubFlags']]],
   ['broker_5fids_28',['broker_ids',['../structlongbridge_1_1quote_1_1_brokers.html#a576783d7c0e1fb6dde583b10e36aeb77',1,'longbridge::quote::Brokers::broker_ids()'],['../structlongbridge_1_1quote_1_1_participant_info.html#a66cb5e2b6856517690e8ca05f6131ea3',1,'longbridge::quote::ParticipantInfo::broker_ids()']]],
-  ['brokers_29',['Brokers',['../structlongbridge_1_1quote_1_1_brokers.html',1,'longbridge::quote::Brokers'],['../classlongbridge_1_1quote_1_1_quote_context.html#af818331256982c8132844bc0f38183fb',1,'longbridge::quote::QuoteContext::brokers()']]],
-  ['bull_30',['Bull',['../namespacelongbridge_1_1quote.html#ab6ace2b26e98aa0ca802d19e3bbb69cca92c21511d7b383b2f8ba5b00c3c9a473',1,'longbridge::quote']]],
-  ['business_5ftime_31',['business_time',['../structlongbridge_1_1trade_1_1_cash_flow.html#a4c5f999283447d8ac462b06f516ec6e1',1,'longbridge::trade::CashFlow']]],
-  ['business_5ftype_32',['business_type',['../structlongbridge_1_1trade_1_1_cash_flow.html#acb7371c87c6f46d369616b36c636b980',1,'longbridge::trade::CashFlow::business_type()'],['../structlongbridge_1_1trade_1_1_get_cash_flow_options.html#ab164a0821d0783a7839d9a92e9d61039',1,'longbridge::trade::GetCashFlowOptions::business_type()']]],
-  ['buy_33',['Buy',['../namespacelongbridge_1_1trade.html#aaa325af9ebe5749a44c828da0f7546cda831a28f1e8df07c553fcd59546465d13',1,'longbridge::trade']]]
+  ['brokers_29',['brokers',['../classlongbridge_1_1quote_1_1_quote_context.html#af818331256982c8132844bc0f38183fb',1,'longbridge::quote::QuoteContext']]],
+  ['brokers_30',['Brokers',['../structlongbridge_1_1quote_1_1_brokers.html',1,'longbridge::quote']]],
+  ['bull_31',['Bull',['../namespacelongbridge_1_1quote.html#ab6ace2b26e98aa0ca802d19e3bbb69cca92c21511d7b383b2f8ba5b00c3c9a473',1,'longbridge::quote']]],
+  ['business_5ftime_32',['business_time',['../structlongbridge_1_1trade_1_1_cash_flow.html#a4c5f999283447d8ac462b06f516ec6e1',1,'longbridge::trade::CashFlow']]],
+  ['business_5ftype_33',['business_type',['../structlongbridge_1_1trade_1_1_cash_flow.html#acb7371c87c6f46d369616b36c636b980',1,'longbridge::trade::CashFlow::business_type()'],['../structlongbridge_1_1trade_1_1_get_cash_flow_options.html#ab164a0821d0783a7839d9a92e9d61039',1,'longbridge::trade::GetCashFlowOptions::business_type()']]],
+  ['buy_34',['Buy',['../namespacelongbridge_1_1trade.html#aaa325af9ebe5749a44c828da0f7546cda831a28f1e8df07c553fcd59546465d13',1,'longbridge::trade']]]
 ];

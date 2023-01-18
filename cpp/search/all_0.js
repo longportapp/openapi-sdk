@@ -15,7 +15,7 @@ var searchData=
   ['asks_12',['asks',['../structlongbridge_1_1quote_1_1_push_depth.html#a1e65ecc11ad932ffb9541fec50252516',1,'longbridge::quote::PushDepth::asks()'],['../structlongbridge_1_1quote_1_1_security_depth.html#a45f9100615871452e640357408ce7069',1,'longbridge::quote::SecurityDepth::asks()']]],
   ['async_5fresult_2ehpp_13',['async_result.hpp',['../async__result_8hpp.html',1,'']]],
   ['asynccallback_14',['AsyncCallback',['../namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc',1,'longbridge']]],
-  ['asyncresult_15',['AsyncResult',['../structlongbridge_1_1_async_result.html',1,'longbridge::AsyncResult&lt; Ctx, T &gt;'],['../structlongbridge_1_1_async_result.html#a51419ec234349a9374f687e77300c2e6',1,'longbridge::AsyncResult::AsyncResult()']]],
+  ['asyncresult_15',['AsyncResult',['../structlongbridge_1_1_async_result.html#a51419ec234349a9374f687e77300c2e6',1,'longbridge::AsyncResult::AsyncResult()'],['../structlongbridge_1_1_async_result.html',1,'longbridge::AsyncResult&lt; Ctx, T &gt;']]],
   ['available_5fcash_16',['available_cash',['../structlongbridge_1_1trade_1_1_cash_info.html#aa743d8d477b1557de526b243dfa736be',1,'longbridge::trade::CashInfo']]],
   ['available_5fquantity_17',['available_quantity',['../structlongbridge_1_1trade_1_1_stock_position.html#ad541e0be622cda4e488832916f287a9a',1,'longbridge::trade::StockPosition']]],
   ['avg_5fprice_18',['avg_price',['../structlongbridge_1_1quote_1_1_intraday_line.html#a00e9ca470c598d8c1fa6244de354ca94',1,'longbridge::quote::IntradayLine']]]
