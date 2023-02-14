@@ -83,7 +83,7 @@ impl Time {
     #[napi(getter)]
     #[inline]
     pub fn monute(&self) -> u8 {
-        self.0.minute() as u8
+        self.0.minute()
     }
 
     #[napi(getter)]

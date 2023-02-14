@@ -69,11 +69,11 @@ impl Decimal {
         match value {
             Either::A(value) => {
                 Ok(Self(value.parse().map_err(|err| {
-                    Error::from_reason(format!("invalid decimal: {}", err))
+                    Error::from_reason(format!("invalid decimal: {err}"))
                 })?))
             }
             Either::B(value) => Ok(Self(rust_decimal::Decimal::from_f64(value).ok_or_else(
-                || Error::from_reason(format!("can not create decimal from number: {}", value)),
+                || Error::from_reason(format!("can not create decimal from number: {value}")),
             )?)),
         }
     }

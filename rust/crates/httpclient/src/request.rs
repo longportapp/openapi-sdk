@@ -116,7 +116,7 @@ where
         let mut request_builder = http_cli
             .request(
                 self.method.clone(),
-                &format!("{}{}", config.http_url, self.path),
+                format!("{}{}", config.http_url, self.path),
             )
             .headers(default_headers.clone())
             .header("User-Agent", USER_AGENT)

@@ -84,7 +84,7 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_newTradeContext(
                 async move {
                     while let Some(event) = receiver.recv().await {
                         let callbacks = callbacks.lock();
-                        let _ = send_push_event(&jvm, &*callbacks, event);
+                        let _ = send_push_event(&jvm, &callbacks, event);
                     }
                 }
             });

@@ -45,7 +45,7 @@ where
     .map(|_| ())
 }
 
-pub(crate) fn execute<'a, T, F>(env: &JNIEnv<'a>, callback: JObject, fut: F) -> Result<()>
+pub(crate) fn execute<T, F>(env: &JNIEnv<'_>, callback: JObject, fut: F) -> Result<()>
 where
     T: IntoJValue,
     F: Future<Output = ::std::result::Result<T, JniError>> + Send + 'static,

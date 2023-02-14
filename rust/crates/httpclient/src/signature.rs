@@ -35,10 +35,7 @@ pub(crate) fn signature(params: SignatureParams<'_>) -> String {
     let path = url.path();
     let query = url.query().unwrap_or_default();
 
-    let mut str_to_sign = format!(
-        "{}|{}|{}|{}|{}|",
-        method, path, query, signed_values, signed_headers
-    );
+    let mut str_to_sign = format!("{method}|{path}|{query}|{signed_values}|{signed_headers}|",);
 
     if let Some(body) = params.request.body().and_then(|b| b.as_bytes()) {
         str_to_sign.push_str(&sha1(body));
@@ -47,10 +44,7 @@ pub(crate) fn signature(params: SignatureParams<'_>) -> String {
     let str_to_sign = format!("HMAC-SHA256|{}", sha1(str_to_sign.as_bytes()));
     let signature = hmac_sha256(&str_to_sign, params.app_secret);
 
-    format!(
-        "HMAC-SHA256 SignedHeaders={}, Signature={}",
-        signed_headers, signature
-    )
+    format!("HMAC-SHA256 SignedHeaders={signed_headers}, Signature={signature}")
 }
 
 fn sha1(data: &[u8]) -> String {

@@ -93,14 +93,14 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
         fields
     };
 
-    let signature = format!("L{};", classname);
+    let signature = format!("L{classname};");
     let mut set_fields = Vec::new();
 
     for (field, args) in &fields {
         let ident = match field.get_ident() {
             Some(ident) => ident,
             None => {
-                return Error::new_spanned(&field, "invalid field")
+                return Error::new_spanned(field, "invalid field")
                     .to_compile_error()
                     .into()
             }

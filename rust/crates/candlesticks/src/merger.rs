@@ -110,8 +110,8 @@ where
                 );
                 for (start, end) in trade_sessions {
                     let s = time.replace_time(*start);
-                    if time < s + Duration::minutes(n as i64) {
-                        time = s + Duration::minutes(n as i64);
+                    if time < s + Duration::minutes(n) {
+                        time = s + Duration::minutes(n);
                         break;
                     } else if time <= time.replace_time(*end) {
                         break;
