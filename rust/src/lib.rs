@@ -20,6 +20,7 @@ pub mod trade;
 
 pub use config::{Config, Language};
 pub use error::{Error, Result, SimpleError};
+pub use longbridge_httpcli as httpclient;
 pub use quote::QuoteContext;
 pub use rust_decimal::Decimal;
 pub use trade::TradeContext;

@@ -1,0 +1,133 @@
+use std::ffi::{c_char, c_void, CStr, CString};
+
+use longbridge::{
+    httpclient::{HttpClient, HttpClientConfig, HttpClientError},
+    Error,
+};
+
+use crate::{
+    async_call::{execute_async, CAsyncCallback},
+    error::{set_error, CError},
+};
+
+/// A HTTP client for Longbridge OpenApi
+pub struct CHttpClient(HttpClient);
+
+/// Create a HTTP client
+#[no_mangle]
+pub unsafe extern "C" fn lb_http_client_new(
+    http_url: *const c_char,
+    app_key: *const c_char,
+    app_secret: *const c_char,
+    access_token: *const c_char,
+) -> *mut CHttpClient {
+    let http_url = CStr::from_ptr(http_url).to_str().expect("invalid http url");
+    let app_key = CStr::from_ptr(app_key).to_str().expect("invalid app key");
+    let app_secret = CStr::from_ptr(app_secret)
+        .to_str()
+        .expect("invalid app secret");
+    let access_token = CStr::from_ptr(access_token)
+        .to_str()
+        .expect("invalid access token");
+
+    Box::leak(Box::new(CHttpClient(HttpClient::new(
+        HttpClientConfig::new(app_key, app_secret, access_token).http_url(http_url),
+    ))))
+}
+
+/// Free the http client
+#[no_mangle]
+pub unsafe extern "C" fn lb_http_client_free(http_client: *mut CHttpClient) {
+    let _ = Box::from_raw(http_client);
+}
+
+/// Create a new `HttpClient` from the given environment variables
+///
+/// It first gets the environment variables from the `.env` file in the
+/// current directory.
+///
+/// # Variables
+///
+/// - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
+/// - `LONGBRIDGE_APP_KEY` - App key
+/// - `LONGBRIDGE_APP_SECRET` - App secret
+/// - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+#[no_mangle]
+pub unsafe extern "C" fn lb_http_client_from_env(error: *mut *mut CError) -> *mut CHttpClient {
+    match HttpClient::from_env() {
+        Ok(http_client) => {
+            set_error(error, None);
+            Box::into_raw(Box::new(CHttpClient(http_client)))
+        }
+        Err(err) => {
+            set_error(error, Some(Error::HttpClient(err)));
+            std::ptr::null_mut()
+        }
+    }
+}
+
+pub struct CHttpResult {
+    response_body: CString,
+}
+
+/// Performs a HTTP request
+#[no_mangle]
+pub unsafe extern "C" fn lb_http_client_request(
+    http_client: *mut CHttpClient,
+    method: *const c_char,
+    path: *const c_char,
+    request_body: *const c_char,
+    callback: CAsyncCallback,
+    userdata: *mut c_void,
+) {
+    let http_client = &mut (*http_client).0;
+    let method = CStr::from_ptr(method)
+        .to_str()
+        .expect("invalid method")
+        .to_string();
+    let path = CStr::from_ptr(path)
+        .to_str()
+        .expect("invalid path")
+        .to_string();
+    let request_body = if !request_body.is_null() {
+        Some(
+            CStr::from_ptr(request_body)
+                .to_str()
+                .expect("invalid request body")
+                .to_string(),
+        )
+    } else {
+        None
+    };
+
+    execute_async::<c_void, _, _>(callback, std::ptr::null(), userdata, async move {
+        let r = http_client.request(
+            method
+                .to_uppercase()
+                .parse()
+                .map_err(|_| Error::HttpClient(HttpClientError::InvalidRequestMethod))?,
+            path,
+        );
+
+        let response_body = match request_body {
+            Some(request_body) => r.body(request_body).response::<String>().send().await,
+            None => r.response::<String>().send().await,
+        }?;
+        Ok(Box::into_raw(Box::new(CHttpResult {
+            response_body: CString::from_vec_unchecked(response_body.into_bytes()),
+        })))
+    });
+}
+
+/// Free the HTTP result
+#[no_mangle]
+pub unsafe extern "C" fn lb_http_result_free(http_result: *mut CHttpResult) {
+    let _ = Box::from_raw(http_result);
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn lb_http_result_response_body(
+    http_result: *const CHttpResult,
+) -> *const c_char {
+    (*http_result).response_body.as_ptr() as *const _
+}

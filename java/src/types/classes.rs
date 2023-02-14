@@ -1,3 +1,5 @@
+use std::borrow::Borrow;
+
 use longbridge_java_macros::impl_java_class;
 
 impl_java_class!(

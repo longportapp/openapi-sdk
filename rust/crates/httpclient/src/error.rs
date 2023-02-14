@@ -5,6 +5,10 @@ use crate::qs::QsError;
 /// Http client error type
 #[derive(Debug, thiserror::Error)]
 pub enum HttpClientError {
+    /// Invalid request method
+    #[error("invalid request method")]
+    InvalidRequestMethod,
+
     /// Invalid api key
     #[error("invalid api key")]
     InvalidApiKey,
@@ -39,11 +43,11 @@ pub enum HttpClientError {
 
     /// Deserialize response body
     #[error("deserialize response body error: {0}")]
-    DeserializeResponseBody(serde_json::Error),
+    DeserializeResponseBody(String),
 
     /// Serialize request body
     #[error("serialize request body error: {0}")]
-    SerializeRequestBody(serde_json::Error),
+    SerializeRequestBody(String),
 
     /// Serialize query string error
     #[error("serialize query string error: {0}")]

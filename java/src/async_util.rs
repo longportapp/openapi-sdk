@@ -17,30 +17,30 @@ static RUNTIME: Lazy<Runtime> = Lazy::new(|| {
 
 use crate::{error::JniError, types::IntoJValue};
 
-fn async_complete<'a, T, V>(env: &JNIEnv<'a>, callback: T, value: V) -> Result<()>
+fn async_complete<'a, T, V>(env: &mut JNIEnv<'a>, callback: T, value: V) -> Result<()>
 where
-    T: Into<JObject<'a>>,
-    V: Into<JObject<'a>>,
+    T: AsRef<JObject<'a>>,
+    V: AsRef<JObject<'a>>,
 {
     env.call_method(
         callback,
         "callback",
         "(Ljava/lang/Object;Ljava/lang/Object;)V",
-        &[JValue::from(JObject::null()), JValue::from(value)],
+        &[JValue::from(&JObject::null()), JValue::from(value.as_ref())],
     )
     .map(|_| ())
 }
 
-fn async_error<'a, T, V>(env: &JNIEnv<'a>, callback: T, err: V) -> Result<()>
+fn async_error<'a, T, V>(env: &mut JNIEnv<'a>, callback: T, err: V) -> Result<()>
 where
-    T: Into<JObject<'a>>,
-    V: Into<JObject<'a>>,
+    T: AsRef<JObject<'a>>,
+    V: AsRef<JObject<'a>>,
 {
     env.call_method(
         callback,
         "callback",
         "(Ljava/lang/Object;Ljava/lang/Object;)V",
-        &[JValue::from(err), JValue::from(JObject::null())],
+        &[JValue::from(err.as_ref()), JValue::from(&JObject::null())],
     )
     .map(|_| ())
 }
@@ -56,17 +56,15 @@ where
     let _guard = RUNTIME.enter();
     tokio::spawn(async move {
         let res = fut.await;
-        let env = jvm.attach_current_thread().unwrap();
+        let mut env = jvm.attach_current_thread().unwrap();
         match res {
             Ok(value) => {
-                let _ = async_complete(
-                    &env,
-                    &callback,
-                    value.into_jvalue(&env).unwrap().l().unwrap(),
-                );
+                let value = value.into_jvalue(&mut env).unwrap().l().unwrap();
+                let _ = async_complete(&mut env, &*callback, value);
             }
             Err(err) => {
-                let _ = async_error(&env, &callback, err.into_error_object(&env));
+                let err = err.into_error_object(&mut env);
+                let _ = async_error(&mut env, &*callback, err);
             }
         }
     });

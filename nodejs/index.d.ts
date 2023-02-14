@@ -643,6 +643,25 @@ export class Decimal {
   /** The Probability density function for a Normal distribution. */
   normPdf(): this
 }
+export class HttpClient {
+  constructor(httpUrl: string, appKey: string, appSecret: string, accessToken: string)
+  /**
+   * Create a new `HttpClient` from the given environment variables
+   *
+   * It first gets the environment variables from the `.env` file in the
+   * current directory.
+   *
+   * # Variables
+   *
+   * - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
+   * - `LONGBRIDGE_APP_KEY` - App key
+   * - `LONGBRIDGE_APP_SECRET` - App secret
+   * - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+   */
+  static fromEnv(): HttpClient
+  /** Performs a HTTP request */
+  request(method: string, path: string, body?: any | undefined | null): Promise<any>
+}
 /** Quote context */
 export class QuoteContext {
   static new(config: Config): Promise<QuoteContext>

@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use jni::{
     errors::Result,
     objects::{JObject, JThrowable, JValue},
@@ -12,25 +14,31 @@ pub(crate) enum JniError {
     Jni(#[from] jni::errors::Error),
     #[error(transparent)]
     OpenApi(#[from] longbridge::Error),
+    #[error("{0}")]
+    Other(String),
 }
 
 impl JniError {
-    fn into_jni_error_object<'a>(env: &'a JNIEnv, err: jni::errors::Error) -> Result<JObject<'a>> {
+    fn into_runtime_error_object<'a>(
+        env: &mut JNIEnv<'a>,
+        err: impl Display,
+    ) -> Result<JObject<'a>> {
         let jmsg: JObject = env.new_string(err.to_string())?.into();
         env.new_object(
             "java/lang/RuntimeException",
             "(Ljava/lang/String;)V",
-            &[JValue::from(jmsg)],
+            &[JValue::from(&jmsg)],
         )
     }
 
-    fn throw_jni_error(env: &JNIEnv, err: jni::errors::Error) -> Result<()> {
-        env.throw(JThrowable::from(Self::into_jni_error_object(env, err)?))?;
+    fn throw_runtime_error(env: &mut JNIEnv, err: impl Display) -> Result<()> {
+        let err = JThrowable::from(Self::into_runtime_error_object(env, err)?);
+        env.throw(err)?;
         Ok(())
     }
 
     fn into_openapi_error_object<'a>(
-        env: &'a JNIEnv,
+        env: &mut JNIEnv<'a>,
         err: longbridge::Error,
     ) -> Result<JObject<'a>> {
         let exception_cls = OPENAPI_EXCEPTION_CLASS.get().unwrap();
@@ -47,27 +55,30 @@ impl JniError {
         env.new_object(
             exception_cls,
             "(Ljava/lang/Long;Ljava/lang/String;)V",
-            &[JValue::from(code), JValue::from(message)],
+            &[JValue::from(&code), JValue::from(&message)],
         )
     }
 
-    fn throw_openapi_error(env: &JNIEnv, err: longbridge::Error) -> Result<()> {
-        env.throw(JThrowable::from(Self::into_openapi_error_object(env, err)?))?;
+    fn throw_openapi_error(env: &mut JNIEnv, err: longbridge::Error) -> Result<()> {
+        let err = JThrowable::from(Self::into_openapi_error_object(env, err)?);
+        env.throw(err)?;
         Ok(())
     }
 
-    pub(crate) fn into_error_object<'a>(self, env: &'a JNIEnv) -> JObject<'a> {
+    pub(crate) fn into_error_object<'a>(self, env: &mut JNIEnv<'a>) -> JObject<'a> {
         match self {
-            JniError::Jni(err) => Self::into_jni_error_object(env, err),
+            JniError::Jni(err) => Self::into_runtime_error_object(env, err),
             JniError::OpenApi(err) => Self::into_openapi_error_object(env, err),
+            JniError::Other(err) => Self::into_runtime_error_object(env, err),
         }
         .expect("to error object")
     }
 
-    fn throw(self, env: &JNIEnv) {
+    fn throw(self, env: &mut JNIEnv) {
         let res = match self {
-            JniError::Jni(err) => Self::throw_jni_error(env, err),
+            JniError::Jni(err) => Self::throw_runtime_error(env, err),
             JniError::OpenApi(err) => Self::throw_openapi_error(env, err),
+            JniError::Other(err) => Self::throw_runtime_error(env, err),
         };
         if let Err(err) = res {
             env.fatal_error(err.to_string());
@@ -75,11 +86,11 @@ impl JniError {
     }
 }
 
-pub(crate) fn jni_result<F, T>(env: &JNIEnv, err_value: T, f: F) -> T
+pub(crate) fn jni_result<'a, F, T>(env: &'a mut JNIEnv, err_value: T, f: F) -> T
 where
-    F: FnOnce() -> std::result::Result<T, JniError>,
+    F: FnOnce(&mut JNIEnv) -> std::result::Result<T, JniError> + 'a,
 {
-    match f() {
+    match f(env) {
         Ok(value) => value,
         Err(err) => {
             err.throw(env);

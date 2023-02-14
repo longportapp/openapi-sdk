@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use jni::{errors::Result, objects::JValue, JNIEnv};
+use jni::{errors::Result, objects::JValueOwned, JNIEnv};
 
 use crate::types::{FromJValue, IntoJValue, JSignature};
 
@@ -12,15 +12,15 @@ impl JSignature for i32 {
 
 impl FromJValue for i32 {
     #[inline]
-    fn from_jvalue(_env: &JNIEnv, value: JValue) -> Result<Self> {
+    fn from_jvalue(_env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         value.i()
     }
 }
 
 impl IntoJValue for i32 {
     #[inline]
-    fn into_jvalue<'a>(self, _env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        Ok(JValue::from(self))
+    fn into_jvalue<'a>(self, _env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        Ok(JValueOwned::from(self))
     }
 }
 
@@ -32,15 +32,15 @@ impl JSignature for i64 {
 
 impl FromJValue for i64 {
     #[inline]
-    fn from_jvalue(_env: &JNIEnv, value: JValue) -> Result<Self> {
+    fn from_jvalue(_env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         value.j()
     }
 }
 
 impl IntoJValue for i64 {
     #[inline]
-    fn into_jvalue<'a>(self, _env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        Ok(JValue::from(self))
+    fn into_jvalue<'a>(self, _env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        Ok(JValueOwned::from(self))
     }
 }
 
@@ -52,14 +52,14 @@ impl JSignature for bool {
 
 impl FromJValue for bool {
     #[inline]
-    fn from_jvalue(_env: &JNIEnv, value: JValue) -> Result<Self> {
+    fn from_jvalue(_env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         value.z()
     }
 }
 
 impl IntoJValue for bool {
     #[inline]
-    fn into_jvalue<'a>(self, _env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        Ok(JValue::from(self))
+    fn into_jvalue<'a>(self, _env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        Ok(JValueOwned::from(self))
     }
 }

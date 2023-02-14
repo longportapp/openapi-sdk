@@ -10,7 +10,7 @@ use crate::{async_util, error::jni_result, types::FromJValue};
 
 #[no_mangle]
 pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
-    env: JNIEnv,
+    mut env: JNIEnv,
     _class: JClass,
     app_key: JString,
     app_secret: JString,
@@ -20,14 +20,14 @@ pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
     trade_ws_url: JString,
     language: JObject,
 ) -> jlong {
-    jni_result(&env, 0, || {
-        let app_key = String::from_jvalue(&env, app_key.into())?;
-        let app_secret = String::from_jvalue(&env, app_secret.into())?;
-        let access_token = String::from_jvalue(&env, access_token.into())?;
-        let http_url = <Option<String>>::from_jvalue(&env, http_url.into())?;
-        let quote_ws_url = <Option<String>>::from_jvalue(&env, quote_ws_url.into())?;
-        let trade_ws_url = <Option<String>>::from_jvalue(&env, trade_ws_url.into())?;
-        let language = <Option<Language>>::from_jvalue(&env, language.into())?;
+    jni_result(&mut env, 0, |env| {
+        let app_key = String::from_jvalue(env, app_key.into())?;
+        let app_secret = String::from_jvalue(env, app_secret.into())?;
+        let access_token = String::from_jvalue(env, access_token.into())?;
+        let http_url = <Option<String>>::from_jvalue(env, http_url.into())?;
+        let quote_ws_url = <Option<String>>::from_jvalue(env, quote_ws_url.into())?;
+        let trade_ws_url = <Option<String>>::from_jvalue(env, trade_ws_url.into())?;
+        let language = <Option<Language>>::from_jvalue(env, language.into())?;
 
         let mut config = Config::new(app_key, app_secret, access_token);
 
@@ -50,10 +50,10 @@ pub extern "system" fn Java_com_longbridge_SdkNative_newConfig(
 
 #[no_mangle]
 pub extern "system" fn Java_com_longbridge_SdkNative_newConfigFromEnv(
-    env: JNIEnv,
+    mut env: JNIEnv,
     _class: JClass,
 ) -> jlong {
-    jni_result(&env, 0, || {
+    jni_result(&mut env, 0, |_env| {
         let config = Config::from_env()?;
         Ok(Box::into_raw(Box::new(config)) as jlong)
     })
@@ -70,16 +70,16 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_freeConfig(
 
 #[no_mangle]
 pub unsafe extern "system" fn Java_com_longbridge_SdkNative_configRefreshAccessToken(
-    env: JNIEnv,
+    mut env: JNIEnv,
     _class: JClass,
     config: jlong,
     expired_at: JObject,
     callback: JObject,
 ) {
-    jni_result(&env, (), || {
+    jni_result(&mut env, (), |env| {
         let config = &*(config as *const Config);
-        let expired_at: Option<OffsetDateTime> = FromJValue::from_jvalue(&env, expired_at.into())?;
-        async_util::execute(&env, callback, async move {
+        let expired_at: Option<OffsetDateTime> = FromJValue::from_jvalue(env, expired_at.into())?;
+        async_util::execute(env, callback, async move {
             let token = config.refresh_access_token(expired_at).await?;
             Ok(token)
         })?;

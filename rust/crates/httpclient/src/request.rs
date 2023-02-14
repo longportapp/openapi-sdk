@@ -1,4 +1,4 @@
-use std::{marker::PhantomData, time::Duration};
+use std::{convert::Infallible, error::Error, marker::PhantomData, time::Duration};
 
 use reqwest::{header::HeaderValue, Method, StatusCode};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
@@ -15,11 +15,92 @@ const RETRY_COUNT: usize = 5;
 const RETRY_INITIAL_DELAY: Duration = Duration::from_millis(100);
 const RETRY_FACTOR: f32 = 2.0;
 
+/// A JSON payload
+pub struct Json<T>(pub T);
+
+/// Represents a type that can parse from payload
+pub trait FromPayload: Sized + Send + Sync + 'static {
+    /// A error type
+    type Err: Error;
+
+    /// Parse the payload to this object
+    fn parse_from_bytes(data: &[u8]) -> Result<Self, Self::Err>;
+}
+
+/// Represents a type that can convert to payload
+pub trait ToPayload: Sized + Send + Sync + 'static {
+    /// A error type
+    type Err: Error;
+
+    /// Convert this object to the payload
+    fn to_bytes(&self) -> Result<Vec<u8>, Self::Err>;
+}
+
+impl<T> FromPayload for Json<T>
+where
+    T: DeserializeOwned + Send + Sync + 'static,
+{
+    type Err = serde_json::Error;
+
+    #[inline]
+    fn parse_from_bytes(data: &[u8]) -> Result<Self, Self::Err> {
+        Ok(Json(serde_json::from_slice(data)?))
+    }
+}
+
+impl<T> ToPayload for Json<T>
+where
+    T: Serialize + Send + Sync + 'static,
+{
+    type Err = serde_json::Error;
+
+    #[inline]
+    fn to_bytes(&self) -> Result<Vec<u8>, Self::Err> {
+        serde_json::to_vec(&self.0)
+    }
+}
+
+impl FromPayload for String {
+    type Err = std::string::FromUtf8Error;
+
+    #[inline]
+    fn parse_from_bytes(data: &[u8]) -> Result<Self, Self::Err> {
+        String::from_utf8(data.to_vec())
+    }
+}
+
+impl ToPayload for String {
+    type Err = std::string::FromUtf8Error;
+
+    #[inline]
+    fn to_bytes(&self) -> Result<Vec<u8>, Self::Err> {
+        Ok(self.clone().into_bytes())
+    }
+}
+
+impl FromPayload for () {
+    type Err = Infallible;
+
+    #[inline]
+    fn parse_from_bytes(_data: &[u8]) -> Result<Self, Self::Err> {
+        Ok(())
+    }
+}
+
+impl ToPayload for () {
+    type Err = Infallible;
+
+    #[inline]
+    fn to_bytes(&self) -> Result<Vec<u8>, Self::Err> {
+        Ok(vec![])
+    }
+}
+
 #[derive(Deserialize)]
-struct OpenApiResponse<T> {
+struct OpenApiResponse {
     code: i32,
     message: String,
-    data: Option<T>,
+    data: Option<Box<serde_json::value::RawValue>>,
 }
 
 /// A request builder
@@ -50,7 +131,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
     #[must_use]
     pub fn body<T2>(self, body: T2) -> RequestBuilder<T2, Q, R>
     where
-        T2: Serialize + Send + Sync + 'static,
+        T2: ToPayload,
     {
         RequestBuilder {
             client: self.client,
@@ -82,7 +163,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
     #[must_use]
     pub fn response<R2>(self) -> RequestBuilder<T, Q, R2>
     where
-        R2: DeserializeOwned + Send + 'static,
+        R2: FromPayload,
     {
         RequestBuilder {
             client: self.client,
@@ -97,9 +178,9 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
 
 impl<T, Q, R> RequestBuilder<T, Q, R>
 where
-    T: Serialize + Send + 'static,
+    T: ToPayload,
     Q: Serialize + Send + 'static,
-    R: DeserializeOwned + Send + 'static,
+    R: FromPayload,
 {
     async fn do_send(&self) -> HttpClientResult<R> {
         let HttpClient {
@@ -127,8 +208,10 @@ where
 
         // set the request body
         if let Some(body) = &self.body {
-            request_builder = request_builder
-                .body(serde_json::to_string(body).map_err(HttpClientError::SerializeRequestBody)?);
+            let body = body
+                .to_bytes()
+                .map_err(|err| HttpClientError::SerializeRequestBody(err.to_string()))?;
+            request_builder = request_builder.body(body);
         }
 
         let mut request = request_builder.build().expect("invalid request");
@@ -166,17 +249,20 @@ where
 
         tracing::debug!(body = text.as_str(), "http response");
 
-        match serde_json::from_str::<OpenApiResponse<R>>(&text) {
+        let resp = match serde_json::from_str::<OpenApiResponse>(&text) {
             Ok(resp) if resp.code == 0 => resp.data.ok_or(HttpClientError::UnexpectedResponse),
             Ok(resp) => Err(HttpClientError::OpenApi {
                 code: resp.code,
                 message: resp.message,
             }),
             Err(err) if status == StatusCode::OK => {
-                Err(HttpClientError::DeserializeResponseBody(err))
+                Err(HttpClientError::DeserializeResponseBody(err.to_string()))
             }
             Err(_) => Err(HttpClientError::BadStatus(status)),
-        }
+        }?;
+
+        R::parse_from_bytes(resp.get().as_bytes())
+            .map_err(|err| HttpClientError::DeserializeResponseBody(err.to_string()))
     }
 
     /// Send request and get the response

@@ -13,7 +13,7 @@ use std::borrow::Cow;
 
 use jni::{
     errors::Result,
-    objects::{GlobalRef, JObject, JValue},
+    objects::{GlobalRef, JObject, JValueOwned},
     strings::JNIString,
     JNIEnv,
 };
@@ -21,22 +21,22 @@ use jni::{
 pub(crate) use self::{object_array::ObjectArray, primary_array::PrimaryArray};
 
 pub(crate) trait ClassLoader {
-    fn init(env: &JNIEnv);
+    fn init(env: &mut JNIEnv);
     fn class_ref() -> GlobalRef;
 }
 
 pub(crate) trait FromJValue: Sized {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self>;
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self>;
 }
 
 pub(crate) trait IntoJValue {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>>;
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>>;
 }
 
 impl IntoJValue for () {
     #[inline]
-    fn into_jvalue<'a>(self, _env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        Ok(JValue::from(JObject::null()))
+    fn into_jvalue<'a>(self, _env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        Ok(JValueOwned::from(JObject::null()))
     }
 }
 
@@ -45,21 +45,23 @@ pub(crate) trait JSignature {
 }
 
 #[inline]
-pub(crate) fn set_field<'a, O, N, T>(env: &JNIEnv<'a>, obj: O, name: N, value: T) -> Result<()>
+pub(crate) fn set_field<'a, O, N, T>(env: &mut JNIEnv<'a>, obj: O, name: N, value: T) -> Result<()>
 where
-    O: Into<JObject<'a>>,
+    O: AsRef<JObject<'a>>,
     N: Into<JNIString>,
     T: IntoJValue + JSignature,
 {
-    env.set_field(obj, name, T::signature(), value.into_jvalue(env)?)
+    let value = value.into_jvalue(env)?;
+    env.set_field(obj, name, T::signature(), value.borrow())
 }
 
 #[inline]
-pub(crate) fn get_field<'a, O, N, T>(env: &JNIEnv<'a>, obj: O, name: N) -> Result<T>
+pub(crate) fn get_field<'a, O, N, T>(env: &mut JNIEnv<'_>, obj: O, name: N) -> Result<T>
 where
-    O: Into<JObject<'a>>,
+    O: AsRef<JObject<'a>>,
     N: Into<JNIString>,
     T: FromJValue + JSignature,
 {
-    T::from_jvalue(env, env.get_field(obj, name, T::signature())?)
+    let value = env.get_field(obj, name, T::signature())?;
+    T::from_jvalue(env, value)
 }

@@ -5,4 +5,5 @@ members = [
     "submit_order",
     "today_orders",
     "subscribe_candlesticks",
+    "http_client",
 ]

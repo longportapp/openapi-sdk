@@ -109,19 +109,19 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
 
         if args.derivative_types {
             set_fields.push(quote! {
-                crate::types::set_field(env, obj, #java_field, crate::types::enum_types::DerivativeTypes::from(#ident))?;
+                crate::types::set_field(env, &obj, #java_field, crate::types::enum_types::DerivativeTypes::from(#ident))?;
             });
         } else if args.objarray {
             set_fields.push(quote! {
-                crate::types::set_field(env, obj, #java_field, crate::types::ObjectArray(#ident))?;
+                crate::types::set_field(env, &obj, #java_field, crate::types::ObjectArray(#ident))?;
             });
         } else if args.priarray {
             set_fields.push(quote! {
-                crate::types::set_field(env, obj, #java_field, crate::types::PrimaryArray(#ident))?;
+                crate::types::set_field(env, &obj, #java_field, crate::types::PrimaryArray(#ident))?;
             });
         } else {
             set_fields.push(quote! {
-                crate::types::set_field(env, obj, #java_field, #ident)?;
+                crate::types::set_field(env, &obj, #java_field, #ident)?;
             });
         }
     }
@@ -136,10 +136,9 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
         #def_class_ref
 
         impl crate::types::ClassLoader for #type_path {
-            fn init(env: &jni::JNIEnv) {
-                use jni::descriptors::Desc;
-                let cls: jni::objects::JClass = #classname.lookup(env).expect(#classname);
-                let _ = #class_ref_name.set(env.new_global_ref(cls).unwrap());
+            fn init(env: &mut jni::JNIEnv) {
+                let cls = jni::descriptors::Desc::<jni::objects::JClass>::lookup(#classname, env).expect(#classname);
+                let _ = #class_ref_name.set(env.new_global_ref(&*cls).unwrap());
             }
 
             fn class_ref() -> jni::objects::GlobalRef {
@@ -155,10 +154,10 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
         }
 
         impl crate::types::IntoJValue for #type_path {
-            fn into_jvalue<'a>(self, env: &jni::JNIEnv<'a>) -> jni::errors::Result<jni::objects::JValue<'a>> {
+            fn into_jvalue<'a>(self, env: &mut jni::JNIEnv<'a>) -> jni::errors::Result<jni::objects::JValueOwned<'a>> {
                 let #type_path { #(#field_names),* } = self;
                 let cls = <Self as crate::types::ClassLoader>::class_ref();
-                let obj = env.new_object(&cls, "()V", &[])?;
+                let obj = env.new_object(cls.borrow(), "()V", &[])?;
                 #(#set_fields)*
                 Ok(obj.into())
             }
@@ -246,7 +245,7 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
 
         from_jsvalue.push(quote! {
             let r = env.get_static_field(&cls, stringify!(#java_path), concat!("L", #classname, ";"))?.l()?;
-            if env.is_same_object(value, r)? {
+            if env.is_same_object(&value, r)? {
                 return Ok(#remote_path);
             }
         });
@@ -265,10 +264,9 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
         #def_class_ref
 
         impl crate::types::ClassLoader for #type_path {
-            fn init(env: &jni::JNIEnv) {
-                use jni::descriptors::Desc;
-                let cls: jni::objects::JClass = #classname.lookup(env).expect(#classname);
-                let _ = #class_ref_name.set(env.new_global_ref(cls).unwrap());
+            fn init(env: &mut jni::JNIEnv) {
+                let cls = jni::descriptors::Desc::<jni::objects::JClass>::lookup(#classname, env).expect(#classname);
+                let _ = #class_ref_name.set(env.new_global_ref(&*cls).unwrap());
             }
 
             fn class_ref() -> jni::objects::GlobalRef {
@@ -285,8 +283,8 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
 
         impl crate::types::FromJValue for #type_path {
             fn from_jvalue(
-                env: &jni::JNIEnv,
-                value: jni::objects::JValue,
+                env: &mut jni::JNIEnv,
+                value: jni::objects::JValueOwned,
             ) -> jni::errors::Result<Self> {
                 use #type_path::*;
                 let cls = <Self as crate::types::ClassLoader>::class_ref();
@@ -299,8 +297,8 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
         impl crate::types::IntoJValue for #type_path {
             fn into_jvalue<'a>(
                 self,
-                env: &jni::JNIEnv<'a>,
-            ) -> jni::errors::Result<jni::objects::JValue<'a>> {
+                env: &mut jni::JNIEnv<'a>,
+            ) -> jni::errors::Result<jni::objects::JValueOwned<'a>> {
                 use #type_path::*;
 
                 let cls = <Self as crate::types::ClassLoader>::class_ref();

@@ -39,6 +39,8 @@ impl HttpClientConfig {
     /// - LONGBRIDGE_ACCESS_TOKEN
     /// - LONGBRIDGE_HTTP_URL
     pub fn from_env() -> Result<Self, HttpClientError> {
+        let _ = dotenv::dotenv();
+
         let app_key =
             std::env::var("LONGBRIDGE_APP_KEY").map_err(|_| HttpClientError::MissingEnvVar {
                 name: "LONGBRIDGE_APP_KEY",

@@ -1,6 +1,6 @@
 use jni::{
     errors::Result,
-    objects::{JString, JValue},
+    objects::{JString, JValueOwned},
     JNIEnv,
 };
 
@@ -10,7 +10,7 @@ use crate::{
 };
 
 impl ClassLoader for String {
-    fn init(_env: &JNIEnv) {}
+    fn init(_env: &mut JNIEnv) {}
 
     fn class_ref() -> jni::objects::GlobalRef {
         STRING_CLASS.get().cloned().unwrap()
@@ -24,9 +24,10 @@ impl JSignature for String {
 }
 
 impl FromJValue for String {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self> {
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         let obj = value.l()?;
-        let str = env.get_string(JString::from(obj))?;
+        let s = JString::from(obj);
+        let str = env.get_string(&s)?;
         Ok(str
             .to_str()
             .map(ToString::to_string)
@@ -35,7 +36,7 @@ impl FromJValue for String {
 }
 
 impl IntoJValue for String {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        env.new_string(self).map(JValue::from)
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        env.new_string(self).map(JValueOwned::from)
     }
 }

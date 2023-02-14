@@ -17,6 +17,38 @@ JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_init
 
 /*
  * Class:     com_longbridge_SdkNative
+ * Method:    newHttpClient
+ * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)J
+ */
+JNIEXPORT jlong JNICALL Java_com_longbridge_SdkNative_newHttpClient
+  (JNIEnv *, jclass, jstring, jstring, jstring, jstring);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    newHttpClientFromEnv
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_longbridge_SdkNative_newHttpClientFromEnv
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    freeHttpClient
+ * Signature: (J)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_freeHttpClient
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    httpClientRequest
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_longbridge_SdkNative_httpClientRequest
+  (JNIEnv *, jclass, jlong, jstring, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
  * Method:    newConfig
  * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/longbridge/Language;)J
  */

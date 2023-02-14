@@ -1,6 +1,6 @@
 use http::Method;
 pub(crate) use http::{header, HeaderValue, Request};
-use longbridge_httpcli::{HttpClient, HttpClientConfig};
+use longbridge_httpcli::{HttpClient, HttpClientConfig, Json};
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
@@ -198,9 +198,10 @@ impl Config {
             .create_http_client()
             .request(Method::GET, "/v1/token/refresh")
             .query_params(request)
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .token;
         Ok(new_token)
     }

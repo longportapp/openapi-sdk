@@ -1,6 +1,6 @@
 from datetime import datetime, date, time
 from decimal import Decimal
-from typing import Callable, List, Optional, Type, Protocol
+from typing import Any, Callable, List, Mapping, Optional, Type, Protocol
 
 
 class OpenApiException(Exception):
@@ -19,6 +19,56 @@ class OpenApiException(Exception):
     """
 
     def __init__(self, code: int, message: str) -> None:
+        ...
+
+
+class HttpClient:
+    """
+    A HTTP client for longbridge open api
+
+    Args:
+        http_url: HTTP API url
+        app_key: App Key
+        app_secret: App Secret
+        access_token: Access Token
+    """
+
+    def __init__(self, http_url: str, app_key: str,
+                 app_secret: str, access_token: str) -> None: ...
+
+    @classmethod
+    def from_env(cls: Type) -> Config:
+        """
+        Create a new `HttpClient` from the given environment variables
+
+        It first gets the environment variables from the `.env` file in the current directory.
+
+        # Variables
+
+        - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
+        - `LONGBRIDGE_APP_KEY` - App key
+        - `LONGBRIDGE_APP_SECRET` - App secret
+        - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+        """
+
+    def request(self, method: str, path: str, body: Optional[Any]) -> Any:
+        """
+        Performs a HTTP reqest
+
+        Examples:
+            ::
+
+                from longbridge.openapi import HttpClient
+
+                client = HttpClient(http_url, app_key, app_secret, access_token);
+
+                # get
+                resp = client.request("get", "/foo/bar");
+                print(resp)
+
+                # post
+                client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });
+        """
         ...
 
 

@@ -700,6 +700,13 @@ typedef struct lb_decimal_t lb_decimal_t;
 typedef struct lb_error_t lb_error_t;
 
 /**
+ * A HTTP client for Longbridge OpenApi
+ */
+typedef struct lb_http_client_t lb_http_client_t;
+
+typedef struct lb_http_result_t lb_http_result_t;
+
+/**
  * Quote context
  */
 typedef struct lb_quote_context_t lb_quote_context_t;
@@ -2505,6 +2512,51 @@ void lb_error_free(struct lb_error_t *error);
 const char *lb_error_message(const struct lb_error_t *error);
 
 int64_t lb_error_code(const struct lb_error_t *error);
+
+/**
+ * Create a HTTP client
+ */
+struct lb_http_client_t *lb_http_client_new(const char *http_url,
+                                            const char *app_key,
+                                            const char *app_secret,
+                                            const char *access_token);
+
+/**
+ * Free the http client
+ */
+void lb_http_client_free(struct lb_http_client_t *http_client);
+
+/**
+ * Create a new `HttpClient` from the given environment variables
+ *
+ * It first gets the environment variables from the `.env` file in the
+ * current directory.
+ *
+ * # Variables
+ *
+ * - `LONGBRIDGE_HTTP_URL` - HTTP endpoint url
+ * - `LONGBRIDGE_APP_KEY` - App key
+ * - `LONGBRIDGE_APP_SECRET` - App secret
+ * - `LONGBRIDGE_ACCESS_TOKEN` - Access token
+ */
+struct lb_http_client_t *lb_http_client_from_env(struct lb_error_t **error);
+
+/**
+ * Performs a HTTP request
+ */
+void lb_http_client_request(struct lb_http_client_t *http_client,
+                            const char *method,
+                            const char *path,
+                            const char *request_body,
+                            lb_async_callback_t callback,
+                            void *userdata);
+
+/**
+ * Free the HTTP result
+ */
+void lb_http_result_free(struct lb_http_result_t *http_result);
+
+const char *lb_http_result_response_body(const struct lb_http_result_t *http_result);
 
 void lb_quote_context_new(const struct lb_config_t *config,
                           lb_async_callback_t callback,

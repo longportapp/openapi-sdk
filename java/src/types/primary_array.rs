@@ -2,7 +2,8 @@ use std::borrow::Cow;
 
 use jni::{
     errors::Result,
-    objects::{JValue, ReleaseMode},
+    objects::{JValueOwned, ReleaseMode},
+    sys::{jboolean, jint, jlong},
     JNIEnv,
 };
 
@@ -17,50 +18,52 @@ impl<T: JSignature> JSignature for PrimaryArray<T> {
 }
 
 impl FromJValue for PrimaryArray<i32> {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self> {
-        let array = env.get_int_array_elements(value.l()?.into_inner(), ReleaseMode::CopyBack)?;
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         unsafe {
+            let value = value.l()?.into();
+            let array = env.get_array_elements::<jint>(&value, ReleaseMode::CopyBack)?;
             Ok(PrimaryArray(
-                std::slice::from_raw_parts(array.as_ptr(), array.size()? as usize).to_vec(),
+                std::slice::from_raw_parts(array.as_ptr(), array.len()).to_vec(),
             ))
         }
     }
 }
 
 impl IntoJValue for PrimaryArray<i32> {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
         let array = env.new_int_array(self.0.len() as i32)?;
-        env.set_int_array_region(array, 0, &self.0)?;
+        env.set_int_array_region(&array, 0, &self.0)?;
         Ok(array.into())
     }
 }
 
 impl FromJValue for PrimaryArray<i64> {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self> {
-        let array = env.get_long_array_elements(value.l()?.into_inner(), ReleaseMode::CopyBack)?;
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         unsafe {
+            let value = value.l()?.into();
+            let array = env.get_array_elements::<jlong>(&value, ReleaseMode::CopyBack)?;
             Ok(PrimaryArray(
-                std::slice::from_raw_parts(array.as_ptr(), array.size()? as usize).to_vec(),
+                std::slice::from_raw_parts(array.as_ptr(), array.len()).to_vec(),
             ))
         }
     }
 }
 
 impl IntoJValue for PrimaryArray<i64> {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
         let array = env.new_long_array(self.0.len() as i32)?;
-        env.set_long_array_region(array, 0, &self.0)?;
+        env.set_long_array_region(&array, 0, &self.0)?;
         Ok(array.into())
     }
 }
 
 impl FromJValue for PrimaryArray<bool> {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self> {
-        let array =
-            env.get_boolean_array_elements(value.l()?.into_inner(), ReleaseMode::CopyBack)?;
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         unsafe {
+            let value = value.l()?.into();
+            let array = env.get_array_elements::<jboolean>(&value, ReleaseMode::CopyBack)?;
             Ok(PrimaryArray(
-                std::slice::from_raw_parts(array.as_ptr(), array.size()? as usize)
+                std::slice::from_raw_parts(array.as_ptr(), array.len())
                     .iter()
                     .copied()
                     .map(|value| value > 0)
@@ -71,14 +74,14 @@ impl FromJValue for PrimaryArray<bool> {
 }
 
 impl IntoJValue for PrimaryArray<bool> {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
         let array = env.new_boolean_array(self.0.len() as i32)?;
         let buf = self
             .0
             .into_iter()
             .map(|value| if value { 1u8 } else { 0 })
             .collect::<Vec<_>>();
-        env.set_boolean_array_region(array, 0, &buf)?;
+        env.set_boolean_array_region(&array, 0, &buf)?;
         Ok(array.into())
     }
 }

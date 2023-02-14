@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use jni::{errors::Result, objects::JValue, JNIEnv};
+use jni::{errors::Result, objects::JValueOwned, JNIEnv};
 use longbridge::quote::SubFlags;
 
 use crate::types::{IntoJValue, JSignature};
@@ -12,7 +12,7 @@ impl JSignature for SubFlags {
 }
 
 impl IntoJValue for SubFlags {
-    fn into_jvalue<'a>(self, _env: &JNIEnv<'a>) -> Result<JValue<'a>> {
-        Ok(JValue::from(self.bits() as i32))
+    fn into_jvalue<'a>(self, _env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        Ok(JValueOwned::from(self.bits() as i32))
     }
 }

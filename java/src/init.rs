@@ -20,14 +20,14 @@ pub(crate) static TRADE_CONTEXT_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static DERIVATIVE_TYPE_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static OPENAPI_EXCEPTION_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 
-fn init_timezone_id(env: &JNIEnv) {
+fn init_timezone_id(env: &mut JNIEnv) {
     let utc = env.new_string("UTC").unwrap();
     let zone_id = env
         .call_static_method(
             "java/time/ZoneId",
             "of",
             "(Ljava/lang/String;)Ljava/time/ZoneId;",
-            &[JValue::from(utc)],
+            &[JValue::from(&utc)],
         )
         .expect("create zone id");
     let _ = TIME_ZONE_ID.set(env.new_global_ref(zone_id.l().unwrap()).unwrap());
@@ -36,10 +36,8 @@ fn init_timezone_id(env: &JNIEnv) {
 macro_rules! init_class {
     ($env:expr, $(($id:ident, $ty:literal)),*) => {
         $(
-        let _ = $id.set(
-            $env.new_global_ref::<JClass>($ty.lookup(&$env).expect($ty))
-                .unwrap(),
-        );
+        let cls = Desc::<JClass>::lookup($ty, &mut $env).expect($ty);
+        let _ = $id.set($env.new_global_ref::<&JClass>(&*cls).unwrap());
         )*
     };
 }
@@ -47,13 +45,16 @@ macro_rules! init_class {
 macro_rules! init_class_by_classloader {
     ($env:expr, $($id:ty),*) => {
         $(
-            <$id>::init(&$env);
+            <$id>::init(&mut $env);
         )*
     }
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_longbridge_SdkNative_init(env: JNIEnv, _class: JClass) {
+pub extern "system" fn Java_com_longbridge_SdkNative_init<'a>(
+    mut env: JNIEnv<'a>,
+    _class: JClass<'a>,
+) {
     init_class!(
         env,
         (LONG_CLASS, "java/lang/Long"),
@@ -69,7 +70,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_init(env: JNIEnv, _class: J
         (TRADE_CONTEXT_CLASS, "com/longbridge/trade/TradeContext")
     );
 
-    init_timezone_id(&env);
+    init_timezone_id(&mut env);
 
     // enum types
     init_class_by_classloader!(

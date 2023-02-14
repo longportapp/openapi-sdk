@@ -6,7 +6,7 @@ use reqwest::{
 };
 use serde::Deserialize;
 
-use crate::{HttpClientConfig, HttpClientResult, RequestBuilder};
+use crate::{HttpClientConfig, HttpClientError, HttpClientResult, Json, RequestBuilder};
 
 /// Longbridge HTTP client
 #[derive(Clone)]
@@ -24,6 +24,18 @@ impl HttpClient {
             config: Arc::new(config),
             default_headers: HeaderMap::new(),
         }
+    }
+
+    /// Create a new `HttpClient` from the given environment variables
+    ///
+    /// # Variables
+    ///
+    /// - LONGBRIDGE_APP_KEY
+    /// - LONGBRIDGE_APP_SECRET
+    /// - LONGBRIDGE_ACCESS_TOKEN
+    /// - LONGBRIDGE_HTTP_URL
+    pub fn from_env() -> Result<Self, HttpClientError> {
+        Ok(Self::new(HttpClientConfig::from_env()?))
     }
 
     /// Set the default header
@@ -57,9 +69,10 @@ impl HttpClient {
 
         Ok(self
             .request(Method::GET, "/v1/socket/token")
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .otp)
     }
 
@@ -74,9 +87,10 @@ impl HttpClient {
 
         Ok(self
             .request(Method::GET, "/v2/socket/token")
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .otp)
     }
 }

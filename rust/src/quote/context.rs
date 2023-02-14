@@ -1,6 +1,6 @@
 use std::{sync::Arc, time::Duration};
 
-use longbridge_httpcli::{HttpClient, Method};
+use longbridge_httpcli::{HttpClient, Json, Method};
 use longbridge_proto::quote;
 use longbridge_wscli::WsClientError;
 use serde::Deserialize;
@@ -990,10 +990,10 @@ impl QuoteContext {
         let resp = self
             .http_cli
             .request(Method::GET, "/v1/watchlist/groups")
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?;
-        Ok(resp.groups)
+        Ok(resp.0.groups)
     }
 
     /// Get real-time quotes

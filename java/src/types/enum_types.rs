@@ -2,7 +2,7 @@ use std::borrow::Cow;
 
 use jni::{
     errors::Result,
-    objects::{JObject, JValue},
+    objects::{JObject, JValueOwned},
     JNIEnv,
 };
 use longbridge_java_macros::impl_java_enum;
@@ -82,7 +82,7 @@ impl JSignature for DerivativeTypes {
 }
 
 impl IntoJValue for DerivativeTypes {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
         let cls = DERIVATIVE_TYPE_CLASS.get().unwrap();
         let array = env.new_object_array(self.0.len() as i32, cls, JObject::null())?;
         for (i, obj) in self.0.into_iter().enumerate() {
@@ -98,7 +98,7 @@ impl IntoJValue for DerivativeTypes {
                     concat!("L", "com/longbridge/quote/DerivativeType", ";"),
                 )?,
             };
-            env.set_object_array_element(array, i as i32, value.l()?)?;
+            env.set_object_array_element(&array, i as i32, value.l()?)?;
         }
         Ok(array.into())
     }

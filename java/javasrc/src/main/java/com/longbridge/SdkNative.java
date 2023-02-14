@@ -14,6 +14,14 @@ import com.longbridge.trade.*;
 public class SdkNative {
         static native void init();
 
+        public static native long newHttpClient(String httpUrl, String appKey, String appSecret, String accessToken);
+
+        public static native long newHttpClientFromEnv();
+
+        public static native void freeHttpClient(long httpClient);
+
+        public static native String httpClientRequest(long httpClient, String request, AsyncCallback callback);
+
         public static native long newConfig(String appKey, String appSecret, String accessToken, String httpUrl,
                         String quoteWsUrl, String tradeWsUrl, Language language);
 

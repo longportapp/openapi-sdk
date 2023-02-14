@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use jni::{errors::Result, objects::JValue, JNIEnv};
+use jni::{errors::Result, objects::JValueOwned, JNIEnv};
 use longbridge::Decimal;
 
 use crate::{
@@ -9,7 +9,7 @@ use crate::{
 };
 
 impl ClassLoader for Decimal {
-    fn init(_env: &JNIEnv) {}
+    fn init(_env: &mut JNIEnv) {}
 
     fn class_ref() -> jni::objects::GlobalRef {
         DECIMAL_CLASS.get().cloned().unwrap()
@@ -23,7 +23,7 @@ impl JSignature for Decimal {
 }
 
 impl FromJValue for Decimal {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self> {
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         let obj = value.l()?;
         let value = env.call_method(obj, "toString", "()Ljava/lang/String;", &[])?;
         let value = String::from_jvalue(env, value)?;
@@ -32,13 +32,13 @@ impl FromJValue for Decimal {
 }
 
 impl IntoJValue for Decimal {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
         let str = env.new_string(self.to_string())?;
         let obj = env.new_object(
             DECIMAL_CLASS.get().unwrap(),
             "(Ljava/lang/String;)V",
-            &[JValue::from(str)],
+            &[JValueOwned::from(str).borrow()],
         )?;
-        Ok(JValue::from(obj))
+        Ok(JValueOwned::from(obj))
     }
 }

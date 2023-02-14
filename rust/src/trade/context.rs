@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use longbridge_httpcli::{HttpClient, Method};
+use longbridge_httpcli::{HttpClient, Json, Method};
 use longbridge_wscli::WsClientError;
 use serde::{Deserialize, Serialize};
 use tokio::sync::{mpsc, oneshot};
@@ -161,9 +161,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/trade/execution/history")
             .query_params(options.into().unwrap_or_default())
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .trades)
     }
 
@@ -204,9 +205,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/trade/execution/today")
             .query_params(options.into().unwrap_or_default())
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .trades)
     }
 
@@ -254,9 +256,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/trade/order/history")
             .query_params(options.into().unwrap_or_default())
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .orders)
     }
 
@@ -301,9 +304,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/trade/order/today")
             .query_params(options.into().unwrap_or_default())
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .orders)
     }
 
@@ -336,8 +340,8 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::PUT, "/v1/trade/order")
-            .body(options)
-            .response::<EmptyResponse>()
+            .body(Json(options))
+            .response::<Json<EmptyResponse>>()
             .send()
             .await
             .map(|_| ())?)
@@ -379,10 +383,11 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::POST, "/v1/trade/order")
-            .body(options)
-            .response::<_>()
+            .body(Json(options))
+            .response::<Json<_>>()
             .send()
-            .await?)
+            .await?
+            .0)
     }
 
     /// Cancel order
@@ -413,7 +418,7 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::DELETE, "/v1/trade/order")
-            .response::<EmptyResponse>()
+            .response::<Json<EmptyResponse>>()
             .query_params(Request {
                 order_id: order_id.into(),
             })
@@ -451,9 +456,10 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/asset/account")
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .list)
     }
 
@@ -492,9 +498,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/asset/cashflow")
             .query_params(options)
-            .response::<Response>()
+            .response::<Json<Response>>()
             .send()
             .await?
+            .0
             .list)
     }
 
@@ -526,9 +533,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/asset/fund")
             .query_params(opts.into().unwrap_or_default())
-            .response::<FundPositionsResponse>()
+            .response::<Json<FundPositionsResponse>>()
             .send()
-            .await?)
+            .await?
+            .0)
     }
 
     /// Get stock positions
@@ -559,9 +567,10 @@ impl TradeContext {
             .http_cli
             .request(Method::GET, "/v1/asset/stock")
             .query_params(opts.into().unwrap_or_default())
-            .response::<StockPositionsResponse>()
+            .response::<Json<StockPositionsResponse>>()
             .send()
-            .await?)
+            .await?
+            .0)
     }
 
     /// Get margin ratio
@@ -596,8 +605,9 @@ impl TradeContext {
             .query_params(Request {
                 symbol: symbol.into(),
             })
-            .response::<MarginRatio>()
+            .response::<Json<MarginRatio>>()
             .send()
-            .await?)
+            .await?
+            .0)
     }
 }

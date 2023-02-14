@@ -3,6 +3,7 @@
 mod async_util;
 mod config;
 mod error;
+mod http_client;
 mod init;
 mod quote_context;
 mod trade_context;

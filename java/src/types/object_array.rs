@@ -2,7 +2,7 @@ use std::borrow::Cow;
 
 use jni::{
     errors::Result,
-    objects::{JObject, JValue},
+    objects::{JObject, JObjectArray, JValueOwned},
     JNIEnv,
 };
 
@@ -17,19 +17,19 @@ impl<T: JSignature> JSignature for ObjectArray<T> {
 }
 
 impl<T: FromJValue> FromJValue for ObjectArray<T> {
-    fn from_jvalue(env: &JNIEnv, value: JValue) -> Result<Self> {
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
         let obj = value.l()?;
         if obj.is_null() {
             return Ok(ObjectArray(Vec::new()));
         }
 
-        let array = obj.into_inner();
-        let len = env.get_array_length(array)?;
+        let array: JObjectArray = obj.into();
+        let len = env.get_array_length(&array)?;
         let mut res = Vec::with_capacity(len as usize);
 
         for i in 0..len {
-            let obj = env.get_object_array_element(array, i)?;
-            let value = T::from_jvalue(env, JValue::from(obj))?;
+            let obj = env.get_object_array_element(&array, i)?;
+            let value = T::from_jvalue(env, JValueOwned::from(obj))?;
             res.push(value);
         }
 
@@ -38,10 +38,11 @@ impl<T: FromJValue> FromJValue for ObjectArray<T> {
 }
 
 impl<T: IntoJValue + ClassLoader> IntoJValue for ObjectArray<T> {
-    fn into_jvalue<'a>(self, env: &JNIEnv<'a>) -> Result<JValue<'a>> {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
         let array = env.new_object_array(self.0.len() as i32, &T::class_ref(), JObject::null())?;
         for (i, obj) in self.0.into_iter().enumerate() {
-            env.set_object_array_element(array, i as i32, obj.into_jvalue(env)?.l()?)?;
+            let value = obj.into_jvalue(env)?.l()?;
+            env.set_object_array_element(&array, i as i32, value)?;
         }
         Ok(array.into())
     }
