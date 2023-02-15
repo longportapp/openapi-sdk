@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['intradayline_513',['IntradayLine',['../structlongbridge_1_1quote_1_1_intraday_line.html',1,'longbridge::quote']]],
-  ['issuerinfo_514',['IssuerInfo',['../structlongbridge_1_1quote_1_1_issuer_info.html',1,'longbridge::quote']]]
+  ['httpclient_519',['HttpClient',['../classlongbridge_1_1_http_client.html',1,'longbridge']]],
+  ['httpresult_520',['HttpResult',['../structlongbridge_1_1_http_result.html',1,'longbridge']]]
 ];

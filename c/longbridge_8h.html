@@ -262,6 +262,10 @@ Typedefs</h2></td></tr>
 <tr class="separator:a050557cb28af08567f39a2dac995788c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74753f2e9628eafaece25e4f8e6ea2cc"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="longbridge_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a></td></tr>
 <tr class="separator:a74753f2e9628eafaece25e4f8e6ea2cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59a1c6059784e3e3a881c4322045b9b1"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a></td></tr>
+<tr class="separator:a59a1c6059784e3e3a881c4322045b9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0daa947c6ed297c92cf030851c321fd"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a></td></tr>
+<tr class="separator:ac0daa947c6ed297c92cf030851c321fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fc8527444c5b89959fe12f79a292603"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a></td></tr>
 <tr class="separator:a2fc8527444c5b89959fe12f79a292603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a926cfa821c03fd099c981194095a6104"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a></td></tr>
@@ -621,6 +625,18 @@ Functions</h2></td></tr>
 <tr class="separator:adb7a20a00c4213eb95c4bb62e2aa401e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77614c86f046365f4f5376ee3f77b74a"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a77614c86f046365f4f5376ee3f77b74a">lb_error_code</a> (const struct <a class="el" href="longbridge_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a> *error)</td></tr>
 <tr class="separator:a77614c86f046365f4f5376ee3f77b74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71940b8330005924860a54eceae07645"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a71940b8330005924860a54eceae07645">lb_http_client_new</a> (const char *http_url, const char *app_key, const char *app_secret, const char *access_token)</td></tr>
+<tr class="separator:a71940b8330005924860a54eceae07645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4a06245a9a102610bbcf6b19adc6fb9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ac4a06245a9a102610bbcf6b19adc6fb9">lb_http_client_free</a> (struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> *http_client)</td></tr>
+<tr class="separator:ac4a06245a9a102610bbcf6b19adc6fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1704a29580e88396605abb7d1958c8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a7a1704a29580e88396605abb7d1958c8">lb_http_client_from_env</a> (struct <a class="el" href="longbridge_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a> **error)</td></tr>
+<tr class="separator:a7a1704a29580e88396605abb7d1958c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad0b7976d65359d60f6ea6355ac51599"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#aad0b7976d65359d60f6ea6355ac51599">lb_http_client_request</a> (struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> *http_client, const char *method, const char *path, const char *request_body, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
+<tr class="separator:aad0b7976d65359d60f6ea6355ac51599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a192d8970cc8bdd7baf81300a466a1141"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a192d8970cc8bdd7baf81300a466a1141">lb_http_result_free</a> (struct <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a> *http_result)</td></tr>
+<tr class="separator:a192d8970cc8bdd7baf81300a466a1141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab80a0156f2c5e332ad64161b8229e101"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ab80a0156f2c5e332ad64161b8229e101">lb_http_result_response_body</a> (const struct <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a> *http_result)</td></tr>
+<tr class="separator:ab80a0156f2c5e332ad64161b8229e101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0d3c6e1b8d39cd7c6f4642e8645d7b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ac0d3c6e1b8d39cd7c6f4642e8645d7b9">lb_quote_context_new</a> (const struct <a class="el" href="longbridge_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *config, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
 <tr class="separator:ac0d3c6e1b8d39cd7c6f4642e8645d7b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ecc88dd36dc460b196c9cb0cc913b60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a6ecc88dd36dc460b196c9cb0cc913b60">lb_quote_context_retain</a> (const struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a> *ctx)</td></tr>
@@ -1405,6 +1421,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Options for get today orders request </p>
+
+</div>
+</div>
+<a id="a59a1c6059784e3e3a881c4322045b9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59a1c6059784e3e3a881c4322045b9b1">&#9670;&nbsp;</a></span>lb_http_client_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A HTTP client for Longbridge OpenApi </p>
+
+</div>
+</div>
+<a id="ac0daa947c6ed297c92cf030851c321fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0daa947c6ed297c92cf030851c321fd">&#9670;&nbsp;</a></span>lb_http_result_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a> <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -4037,6 +4082,184 @@ Variables</h1>
           <td>(</td>
           <td class="paramtype">const struct <a class="el" href="longbridge_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a> *&#160;</td>
           <td class="paramname"><em>error</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac4a06245a9a102610bbcf6b19adc6fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4a06245a9a102610bbcf6b19adc6fb9">&#9670;&nbsp;</a></span>lb_http_client_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_http_client_free </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> *&#160;</td>
+          <td class="paramname"><em>http_client</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Free the http client </p>
+
+</div>
+</div>
+<a id="a7a1704a29580e88396605abb7d1958c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1704a29580e88396605abb7d1958c8">&#9670;&nbsp;</a></span>lb_http_client_from_env()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a>* lb_http_client_from_env </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="longbridge_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a> **&#160;</td>
+          <td class="paramname"><em>error</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Create a new <code>HttpClient</code> from the given environment variables</p>
+<p>It first gets the environment variables from the <code>.env</code> file in the current directory.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Variables</h1>
+<ul>
+<li><code>LONGBRIDGE_HTTP_URL</code> - HTTP endpoint url</li>
+<li><code>LONGBRIDGE_APP_KEY</code> - App key</li>
+<li><code>LONGBRIDGE_APP_SECRET</code> - App secret</li>
+<li><code>LONGBRIDGE_ACCESS_TOKEN</code> - Access token </li>
+</ul>
+
+</div>
+</div>
+<a id="a71940b8330005924860a54eceae07645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71940b8330005924860a54eceae07645">&#9670;&nbsp;</a></span>lb_http_client_new()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a>* lb_http_client_new </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>http_url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>app_key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>app_secret</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>access_token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Create a HTTP client </p>
+
+</div>
+</div>
+<a id="aad0b7976d65359d60f6ea6355ac51599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad0b7976d65359d60f6ea6355ac51599">&#9670;&nbsp;</a></span>lb_http_client_request()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_http_client_request </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="longbridge_8h.html#a59a1c6059784e3e3a881c4322045b9b1">lb_http_client_t</a> *&#160;</td>
+          <td class="paramname"><em>http_client</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>method</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>request_body</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>userdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Performs a HTTP request </p>
+
+</div>
+</div>
+<a id="a192d8970cc8bdd7baf81300a466a1141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a192d8970cc8bdd7baf81300a466a1141">&#9670;&nbsp;</a></span>lb_http_result_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_http_result_free </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a> *&#160;</td>
+          <td class="paramname"><em>http_result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Free the HTTP result </p>
+
+</div>
+</div>
+<a id="ab80a0156f2c5e332ad64161b8229e101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab80a0156f2c5e332ad64161b8229e101">&#9670;&nbsp;</a></span>lb_http_result_response_body()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* lb_http_result_response_body </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="longbridge_8h.html#ac0daa947c6ed297c92cf030851c321fd">lb_http_result_t</a> *&#160;</td>
+          <td class="paramname"><em>http_result</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

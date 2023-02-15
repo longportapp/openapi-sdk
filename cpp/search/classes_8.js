@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['marginratio_515',['MarginRatio',['../structlongbridge_1_1trade_1_1_margin_ratio.html',1,'longbridge::trade']]],
-  ['markettradingdays_516',['MarketTradingDays',['../structlongbridge_1_1quote_1_1_market_trading_days.html',1,'longbridge::quote']]],
-  ['markettradingsession_517',['MarketTradingSession',['../structlongbridge_1_1quote_1_1_market_trading_session.html',1,'longbridge::quote']]]
+  ['intradayline_521',['IntradayLine',['../structlongbridge_1_1quote_1_1_intraday_line.html',1,'longbridge::quote']]],
+  ['issuerinfo_522',['IssuerInfo',['../structlongbridge_1_1quote_1_1_issuer_info.html',1,'longbridge::quote']]]
 ];
