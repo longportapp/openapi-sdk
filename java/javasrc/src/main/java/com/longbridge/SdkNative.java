@@ -20,7 +20,7 @@ public class SdkNative {
 
         public static native void freeHttpClient(long httpClient);
 
-        public static native String httpClientRequest(long httpClient, String request, AsyncCallback callback);
+        public static native void httpClientRequest(long httpClient, String request, AsyncCallback callback);
 
         public static native long newConfig(String appKey, String appSecret, String accessToken, String httpUrl,
                         String quoteWsUrl, String tradeWsUrl, Language language);
