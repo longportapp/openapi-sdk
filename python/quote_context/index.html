@@ -477,10 +477,7 @@ ctx = QuoteContext(config)
 ctx.set_on_quote(on_quote)
 
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
-sleep(30)
-
-
-</code></pre>
+sleep(30)</code></pre>
 
   </div>
 
@@ -542,10 +539,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
-ctx.unsubscribe(["AAPL.US"], [SubType.Quote])
-
-
-</code></pre>
+ctx.unsubscribe(["AAPL.US"], [SubType.Quote])</code></pre>
 
   </div>
 
@@ -610,10 +604,7 @@ def on_candlestick(symbol: str, event: PushCandlestick):
     print(symbol, event)
 
 ctx.subscribe_candlesticks("700.HK", Period.Min_1)
-sleep(30)
-
-
-</code></pre>
+sleep(30)</code></pre>
 
   </div>
 
@@ -695,10 +686,7 @@ ctx = QuoteContext(config)
 
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
 resp = ctx.subscriptions()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -769,10 +757,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.static_info(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -843,10 +828,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -917,10 +899,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.option_quote(["AAPL230317P160000.US"])
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -991,10 +970,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.warrant_quote(["21125.HK"])
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1065,10 +1041,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.depth("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1139,10 +1112,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.brokers("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1189,10 +1159,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.participants()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1273,10 +1240,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.trades("700.HK", 10)
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1347,10 +1311,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.intraday("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1451,10 +1412,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.candlesticks("700.HK", Period.Day, 10, AdjustType.NoAdjust)
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1525,10 +1483,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.option_chain_expiry_date_list("AAPL.US")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1610,10 +1565,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.option_chain_info_by_date("AAPL.US", date(2023, 1, 20))
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1660,10 +1612,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.warrant_issuers()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1710,10 +1659,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.trading_session()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1806,10 +1752,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.trading_days(Market.HK, date(2022, 1, 1), date(2022, 2, 1))
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1880,10 +1823,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.capital_flow("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1954,10 +1894,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.capital_distribution("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -2004,10 +1941,7 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.watch_list()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -2082,10 +2016,7 @@ ctx = QuoteContext(config)
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
 sleep(5)
 resp = ctx.realtime_quote(["700.HK", "AAPL.US"])
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -2160,10 +2091,7 @@ ctx = QuoteContext(config)
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Depth], is_first_push = True)
 sleep(5)
 resp = ctx.realtime_depth("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -2238,10 +2166,7 @@ ctx = QuoteContext(config)
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Brokers], is_first_push = True)
 sleep(5)
 resp = ctx.realtime_brokers("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -2326,10 +2251,7 @@ ctx = QuoteContext(config)
 ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Trade], is_first_push = False)
 sleep(5)
 resp = ctx.realtime_trades("700.HK", 10)
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -2424,10 +2346,7 @@ ctx = QuoteContext(config)
 ctx.subscribe_candlesticks("AAPL.US", Period.Min_1)
 sleep(5)
 resp = ctx.realtime_candlesticks("AAPL.US", Period.Min_1, 10)
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 

@@ -322,10 +322,7 @@ resp = ctx.submit_order(
     remark="Hello from Python SDK",
 )
 print(resp)
-sleep(5)  # waiting for push event
-
-
-</code></pre>
+sleep(5)  # waiting for push event</code></pre>
 
   </div>
 
@@ -464,10 +461,7 @@ resp = ctx.history_executions(
     start_at = datetime(2022, 5, 9),
     end_at = datetime(2022, 5, 12),
 )
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -548,10 +542,7 @@ config = Config.from_env()
 ctx = TradeContext(config)
 
 resp = ctx.today_executions(symbol = "700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -680,10 +671,7 @@ resp = ctx.history_orders(
     start_at = datetime(2022, 5, 9),
     end_at = datetime(2022, 5, 12),
 )
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -799,10 +787,7 @@ resp = ctx.today_orders(
     side = OrderSide.Buy,
     market = Market.HK,
 )
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -919,10 +904,7 @@ ctx.replace_order(
     order_id = "709043056541253632",
     quantity = 100,
     price = Decimal("100"),
-)
-
-
-</code></pre>
+)</code></pre>
 
   </div>
 
@@ -1122,10 +1104,7 @@ resp = ctx.submit_order(
     time_in_force = TimeInForceType.Day,
     remark = "Hello from Python SDK",
 )
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1177,10 +1156,7 @@ print(resp)
 config = Config.from_env()
 ctx = TradeContext(config)
 
-ctx.cancel_order("709043056541253632")
-
-
-</code></pre>
+ctx.cancel_order("709043056541253632")</code></pre>
 
   </div>
 
@@ -1227,10 +1203,7 @@ config = Config.from_env()
 ctx = TradeContext(config)
 
 resp = ctx.account_balance()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1355,10 +1328,7 @@ resp = ctx.cash_flow(
     start_at = datetime(2022, 5, 9),
     end_at = datetime(2022, 5, 12),
 )
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1429,10 +1399,7 @@ config = Config.from_env()
 ctx = TradeContext(config)
 
 resp = ctx.fund_positions()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1503,10 +1470,7 @@ config = Config.from_env()
 ctx = TradeContext(config)
 
 resp = ctx.stock_positions()
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
@@ -1577,10 +1541,7 @@ config = Config.from_env()
 ctx = TradeContext(config)
 
 resp = ctx.margin_ratio("700.HK")
-print(resp)
-
-
-</code></pre>
+print(resp)</code></pre>
 
   </div>
 
