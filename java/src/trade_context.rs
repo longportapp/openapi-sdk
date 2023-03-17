@@ -466,8 +466,13 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_tradeContextCashFlow
         let end_at: OffsetDateTime = get_field(env, &opts, "endAt")?;
         let mut new_opts = GetCashFlowOptions::new(start_at, end_at);
         let business_type: Option<BalanceType> = get_field(env, &opts, "businessType")?;
+        let symbol: Option<String> = get_field(env, &opts, "symbol")?;
+
         if let Some(business_type) = business_type {
             new_opts = new_opts.business_type(business_type);
+        }
+        if let Some(symbol) = symbol {
+            new_opts = new_opts.symbol(symbol);
         }
         let page: i32 = get_field(env, &opts, "page")?;
         if page > 0 {
