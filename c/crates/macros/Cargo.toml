@@ -1,6 +1,6 @@
 [package]
 name = "longbridge-c-macros"
-version = "0.2.47"
+version = "0.2.48"
 edition = "2021"
 
 [lib]
