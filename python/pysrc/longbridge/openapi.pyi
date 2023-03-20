@@ -2871,6 +2871,11 @@ class Order:
     Enable or disable outside regular trading hours
     """
 
+    remark: str
+    """
+    Remark
+    """
+
 
 class SubmitOrderResponse:
     """

@@ -400,6 +400,7 @@ impl_java_class!(
         trigger_status,
         currency,
         outside_rth,
+        remark
     ]
 );
 

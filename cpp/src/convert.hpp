@@ -1151,6 +1151,7 @@ convert(const lb_order_t* order)
     order->currency,
     order->outside_rth ? std::optional{ convert(*order->outside_rth) }
                        : std::nullopt,
+    order->remark
   };
 }
 

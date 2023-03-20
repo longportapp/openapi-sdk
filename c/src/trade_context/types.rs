@@ -366,6 +366,8 @@ pub struct COrder {
     pub currency: *const c_char,
     /// Enable or disable outside regular trading hours (maybe null)
     pub outside_rth: *const COutsideRTH,
+    /// Remark
+    pub remark: *const c_char,
 }
 
 #[derive(Debug)]
@@ -395,6 +397,7 @@ pub(crate) struct COrderOwned {
     trigger_status: Option<CTriggerStatus>,
     currency: CString,
     outside_rth: Option<COutsideRTH>,
+    remark: CString,
 }
 
 impl From<Order> for COrderOwned {
@@ -425,6 +428,7 @@ impl From<Order> for COrderOwned {
             trigger_status,
             currency,
             outside_rth,
+            remark,
         } = order;
         COrderOwned {
             order_id: order_id.into(),
@@ -452,6 +456,7 @@ impl From<Order> for COrderOwned {
             trigger_status: trigger_status.map(Into::into),
             currency: currency.into(),
             outside_rth: outside_rth.map(Into::into),
+            remark: remark.into(),
         }
     }
 }
@@ -486,6 +491,7 @@ impl ToFFI for COrderOwned {
             trigger_status,
             currency,
             outside_rth,
+            remark,
         } = self;
         COrder {
             order_id: order_id.to_ffi_type(),
@@ -549,6 +555,7 @@ impl ToFFI for COrderOwned {
                 .as_ref()
                 .map(|value| value as *const COutsideRTH)
                 .unwrap_or(std::ptr::null()),
+            remark: remark.to_ffi_type(),
         }
     }
 }

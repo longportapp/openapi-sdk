@@ -2135,6 +2135,10 @@ typedef struct lb_order_t {
    * Enable or disable outside regular trading hours (maybe null)
    */
   const enum lb_outside_rth_t *outside_rth;
+  /**
+   * Remark
+   */
+  const char *remark;
 } lb_order_t;
 
 /**

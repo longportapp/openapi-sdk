@@ -248,6 +248,8 @@ pub struct Order {
     /// Enable or disable outside regular trading hours
     #[js(opt)]
     outside_rth: Option<OutsideRTH>,
+    /// Remark
+    remark: String,
 }
 
 /// Order changed message

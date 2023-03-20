@@ -293,6 +293,8 @@ pub struct Order {
     /// Enable or disable outside regular trading hours
     #[serde(with = "serde_utils::outside_rth")]
     pub outside_rth: Option<OutsideRTH>,
+    /// Remark
+    pub remark: String,
 }
 
 /// Cash info

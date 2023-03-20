@@ -993,6 +993,8 @@ struct Order
   std::string currency;
   /// Enable or disable outside regular trading hours
   std::optional<OutsideRTH> outside_rth;
+  /// Remark
+  std::string remark;
 };
 
 /// Order changed message

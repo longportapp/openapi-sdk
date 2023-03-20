@@ -249,6 +249,8 @@ pub(crate) struct Order {
     /// Enable or disable outside regular trading hours
     #[py(opt)]
     outside_rth: Option<OutsideRTH>,
+    /// Remark
+    remark: String,
 }
 
 /// Order changed message

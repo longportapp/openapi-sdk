@@ -30,6 +30,7 @@ public class Order {
     private TriggerStatus triggerStatus;
     private String currency;
     private OutsideRTH outsideRth;
+    private String remark;
 
     public String getOrderId() {
         return orderId;
@@ -131,6 +132,10 @@ public class Order {
         return outsideRth;
     }
 
+    public String remark() {
+        return remark;
+    }
+
     @Override
     public String toString() {
         return "Order [currency=" + currency + ", executedPrice=" + executedPrice + ", executedQuantity="
@@ -140,6 +145,6 @@ public class Order {
                 + ", stockName=" + stockName + ", submittedAt=" + submittedAt + ", symbol=" + symbol + ", tag=" + tag
                 + ", timeInForce=" + timeInForce + ", trailingAmount=" + trailingAmount + ", trailingPercent="
                 + trailingPercent + ", triggerAt=" + triggerAt + ", triggerPrice=" + triggerPrice + ", triggerStatus="
-                + triggerStatus + ", updatedAt=" + updatedAt + "]";
+                + triggerStatus + ", updatedAt=" + updatedAt + ", remark=" + remark + "]";
     }
 }
