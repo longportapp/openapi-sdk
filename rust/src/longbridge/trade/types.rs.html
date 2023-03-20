@@ -944,6 +944,12 @@
 <a href="#944" id="944">944</a>
 <a href="#945" id="945">945</a>
 <a href="#946" id="946">946</a>
+<a href="#947" id="947">947</a>
+<a href="#948" id="948">948</a>
+<a href="#949" id="949">949</a>
+<a href="#950" id="950">950</a>
+<a href="#951" id="951">951</a>
+<a href="#952" id="952">952</a>
 </pre><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -1239,6 +1245,8 @@
     <span class="doccomment">/// Enable or disable outside regular trading hours
     </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::outside_rth&quot;</span>)]
     </span><span class="kw">pub </span>outside_rth: <span class="prelude-ty">Option</span>&lt;OutsideRTH&gt;,
+    <span class="doccomment">/// Remark
+    </span><span class="kw">pub </span>remark: String,
 }
 
 <span class="doccomment">/// Cash info
@@ -1741,7 +1749,8 @@
                 &quot;trigger_at&quot;: &quot;0&quot;,
                 &quot;trigger_price&quot;: &quot;&quot;,
                 &quot;trigger_status&quot;: &quot;NOT_USED&quot;,
-                &quot;updated_at&quot;: &quot;1651644898&quot;
+                &quot;updated_at&quot;: &quot;1651644898&quot;,
+                &quot;remark&quot;: &quot;abc&quot;
               }
             ]
           }
@@ -1781,6 +1790,7 @@
         <span class="macro">assert!</span>(order.trigger_price.is_none());
         <span class="macro">assert!</span>(order.trigger_status.is_none());
         <span class="macro">assert_eq!</span>(order.updated_at, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">58 </span>+<span class="number">8</span>)));
+        <span class="macro">assert_eq!</span>(order.remark, <span class="string">&quot;abc&quot;</span>);
     }
 
     <span class="attr">#[test]
@@ -1813,7 +1823,8 @@
                 &quot;trigger_at&quot;: &quot;0&quot;,
                 &quot;trigger_price&quot;: &quot;&quot;,
                 &quot;trigger_status&quot;: &quot;NOT_USED&quot;,
-                &quot;updated_at&quot;: &quot;1651644898&quot;
+                &quot;updated_at&quot;: &quot;1651644898&quot;,
+                &quot;remark&quot;: &quot;abc&quot;
               }
             ]
           }
@@ -1853,6 +1864,7 @@
         <span class="macro">assert!</span>(order.trigger_price.is_none());
         <span class="macro">assert!</span>(order.trigger_status.is_none());
         <span class="macro">assert_eq!</span>(order.updated_at, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">58 </span>+<span class="number">8</span>)));
+        <span class="macro">assert_eq!</span>(order.remark, <span class="string">&quot;abc&quot;</span>);
     }
 
     <span class="attr">#[test]
