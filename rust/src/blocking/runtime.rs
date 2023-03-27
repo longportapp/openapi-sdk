@@ -25,9 +25,20 @@ where
         CreateCtx: FnOnce() -> CreateCtxFut + Send + 'static,
         CreateCtxFut: Future<Output = Result<(Ctx, mpsc::UnboundedReceiver<PushType>)>>,
         PushCallback: FnMut(PushType) + Send + 'static,
+        PushType: Send + 'static,
     {
         let (init_tx, init_rx) = flume::unbounded();
         let (task_tx, task_rx) = flume::unbounded::<ExecFn<Ctx>>();
+
+        // create push thread
+        let (push_tx, push_rx) = std::sync::mpsc::channel::<PushType>();
+        thread::Builder::new()
+            .spawn(move || {
+                while let Ok(event) = push_rx.recv() {
+                    push_callback(event);
+                }
+            })
+            .expect("spawn thread");
 
         // create a thread to execute the future
         thread::Builder::new()
@@ -65,7 +76,7 @@ where
                             }
                             item = event_rx.recv() => {
                                 match item {
-                                    Some(event) => push_callback(event),
+                                    Some(event) => _ = push_tx.send(event),
                                     None => break,
                                 }
                             }
