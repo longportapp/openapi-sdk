@@ -17,7 +17,10 @@
 <a href="#17" id="17">17</a>
 <a href="#18" id="18">18</a>
 <a href="#19" id="19">19</a>
-</pre><pre class="rust"><code><span class="kw">mod </span>get_cash_flow;
+<a href="#20" id="20">20</a>
+<a href="#21" id="21">21</a>
+</pre><pre class="rust"><code><span class="kw">mod </span>estimate_max_purchase_quantity;
+<span class="kw">mod </span>get_cash_flow;
 <span class="kw">mod </span>get_fund_positions;
 <span class="kw">mod </span>get_history_executions;
 <span class="kw">mod </span>get_history_orders;
@@ -27,6 +30,7 @@
 <span class="kw">mod </span>replace_order;
 <span class="kw">mod </span>submit_order;
 
+<span class="kw">pub use </span>estimate_max_purchase_quantity::EstimateMaxPurchaseQuantityOptions;
 <span class="kw">pub use </span>get_cash_flow::GetCashFlowOptions;
 <span class="kw">pub use </span>get_fund_positions::GetFundPositionsOptions;
 <span class="kw">pub use </span>get_history_executions::GetHistoryExecutionsOptions;

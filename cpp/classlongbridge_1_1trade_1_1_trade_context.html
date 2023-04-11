@@ -139,6 +139,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a63733868dd08101f12e379ac7c63501e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html#a63733868dd08101f12e379ac7c63501e">margin_ratio</a> (const std::string &amp;symbol, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html">TradeContext</a>, <a class="el" href="structlongbridge_1_1trade_1_1_margin_ratio.html">MarginRatio</a> &gt; callback) const</td></tr>
 <tr class="memdesc:a63733868dd08101f12e379ac7c63501e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get margin ratio.  <a href="classlongbridge_1_1trade_1_1_trade_context.html#a63733868dd08101f12e379ac7c63501e">More...</a><br /></td></tr>
 <tr class="separator:a63733868dd08101f12e379ac7c63501e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedb3d207a04d2a4bcde41e351b5c4f60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html#aedb3d207a04d2a4bcde41e351b5c4f60">order_detail</a> (const std::string &amp;order_id, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html">TradeContext</a>, <a class="el" href="structlongbridge_1_1trade_1_1_order_detail.html">OrderDetail</a> &gt; callback) const</td></tr>
+<tr class="memdesc:aedb3d207a04d2a4bcde41e351b5c4f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get order detail.  <a href="classlongbridge_1_1trade_1_1_trade_context.html#aedb3d207a04d2a4bcde41e351b5c4f60">More...</a><br /></td></tr>
+<tr class="separator:aedb3d207a04d2a4bcde41e351b5c4f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08212a313a00792c42d2e47956ef3070"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html#a08212a313a00792c42d2e47956ef3070">estimate_max_purchase_quantity</a> (const <a class="el" href="structlongbridge_1_1trade_1_1_estimate_max_purchase_quantity_options.html">EstimateMaxPurchaseQuantityOptions</a> &amp;opts, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html">TradeContext</a>, <a class="el" href="structlongbridge_1_1trade_1_1_estimate_max_purchase_quantity_response.html">EstimateMaxPurchaseQuantityResponse</a> &gt; callback) const</td></tr>
+<tr class="separator:a08212a313a00792c42d2e47956ef3070"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -353,6 +358,35 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a08212a313a00792c42d2e47956ef3070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08212a313a00792c42d2e47956ef3070">&#9670;&nbsp;</a></span>estimate_max_purchase_quantity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longbridge::trade::TradeContext::estimate_max_purchase_quantity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlongbridge_1_1trade_1_1_estimate_max_purchase_quantity_options.html">EstimateMaxPurchaseQuantityOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>opts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html">TradeContext</a>, <a class="el" href="structlongbridge_1_1trade_1_1_estimate_max_purchase_quantity_response.html">EstimateMaxPurchaseQuantityResponse</a> &gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Estimating the maximum purchase quantity for Hong Kong and US stocks, warrants, and options </p>
+
+</div>
+</div>
 <a id="ac2135e51ac5d72f3b302e41b6f41d116"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac2135e51ac5d72f3b302e41b6f41d116">&#9670;&nbsp;</a></span>fund_positions()</h2>
 
@@ -488,6 +522,36 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aedb3d207a04d2a4bcde41e351b5c4f60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb3d207a04d2a4bcde41e351b5c4f60">&#9670;&nbsp;</a></span>order_detail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longbridge::trade::TradeContext::order_detail </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>order_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1trade_1_1_trade_context.html">TradeContext</a>, <a class="el" href="structlongbridge_1_1trade_1_1_order_detail.html">OrderDetail</a> &gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get order detail. </p>
 
 </div>
 </div>

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['marketcn_993',['MarketCN',['../longbridge_8h.html#a314b7af320779ef1151f6cceba24aad3a271c68892160ae3e035d88ab15c5149a',1,'longbridge.h']]],
-  ['markethk_994',['MarketHK',['../longbridge_8h.html#a314b7af320779ef1151f6cceba24aad3a2eee2d56f04d14beed0a81d42edf701f',1,'longbridge.h']]],
-  ['marketsg_995',['MarketSG',['../longbridge_8h.html#a314b7af320779ef1151f6cceba24aad3a51550bc2fc27282a9947526ae60432f6',1,'longbridge.h']]],
-  ['marketunknown_996',['MarketUnknown',['../longbridge_8h.html#a314b7af320779ef1151f6cceba24aad3a3b82ceb85730bbc01f13f536a5f611c6',1,'longbridge.h']]],
-  ['marketus_997',['MarketUS',['../longbridge_8h.html#a314b7af320779ef1151f6cceba24aad3a521c2056e7a70d71b67d33adefce7399',1,'longbridge.h']]]
+  ['language_5fen_1094',['Language_EN',['../longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1fae9c695c416f014fbd506e8bc75412f59',1,'longbridge.h']]],
+  ['language_5fzh_5fcn_1095',['Language_ZH_CN',['../longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1faa474147a7830e4ac380329decce70e8a',1,'longbridge.h']]],
+  ['language_5fzh_5fhk_1096',['Language_ZH_HK',['../longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1fa5d29f72c612e972f4575de179a4a6858',1,'longbridge.h']]]
 ];

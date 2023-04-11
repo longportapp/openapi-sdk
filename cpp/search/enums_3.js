@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['language_870',['Language',['../namespacelongbridge.html#ad0f389971f48611d4522ea9082bd5859',1,'longbridge']]]
+  ['deductionstatus_938',['DeductionStatus',['../namespacelongbridge_1_1trade.html#a7b9f2eee1c984825ea306e02e4e841cf',1,'longbridge::trade']]]
 ];

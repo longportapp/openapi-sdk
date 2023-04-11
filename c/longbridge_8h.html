@@ -126,6 +126,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__get__stock__positions__options__t.html">lb_get_stock_positions_options_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__estimate__max__purchase__quantity__options__t.html">lb_estimate_max_purchase_quantity_options_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__subscription__t.html">lb_subscription_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__security__static__info__t.html">lb_security_static_info_t</a></td></tr>
@@ -196,6 +198,18 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__margin__ratio__t.html">lb_margin_ratio_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__order__history__detail__t.html">lb_order_history_detail_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__order__charge__fee__t.html">lb_order_charge_fee_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__order__charge__item__t.html">lb_order_charge_item_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__order__charge__detail__t.html">lb_order_charge_detail_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__order__detail__t.html">lb_order_detail_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__estimate__max__purchase__quantity__response__t.html">lb_estimate_max_purchase_quantity_response_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -220,6 +234,12 @@ Typedefs</h2></td></tr>
 <tr class="separator:a09bd1bd7c7f80a0f4c1766754ea179cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a3354ded5305c67d9cf131ae3229228"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48f">lb_cash_flow_direction_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a5a3354ded5305c67d9cf131ae3229228">lb_cash_flow_direction_t</a></td></tr>
 <tr class="separator:a5a3354ded5305c67d9cf131ae3229228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee7097e34d4e5f7cf1f12b69d01b0fa"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3">lb_charge_category_code_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a5ee7097e34d4e5f7cf1f12b69d01b0fa">lb_charge_category_code_t</a></td></tr>
+<tr class="separator:a5ee7097e34d4e5f7cf1f12b69d01b0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9163515c513d33a606638faaeb5030a0"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914">lb_commission_free_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a9163515c513d33a606638faaeb5030a0">lb_commission_free_status_t</a></td></tr>
+<tr class="separator:a9163515c513d33a606638faaeb5030a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6765e79ac3d277e54c7dbaa137db8e4"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32d">lb_deduction_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ab6765e79ac3d277e54c7dbaa137db8e4">lb_deduction_status_t</a></td></tr>
+<tr class="separator:ab6765e79ac3d277e54c7dbaa137db8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a981f073772d050b09a0fcfca085c98c5"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a981f073772d050b09a0fcfca085c98c5">lb_language_t</a></td></tr>
 <tr class="separator:a981f073772d050b09a0fcfca085c98c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa76ca6d0e1dce4e376781bd528a30822"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#a314b7af320779ef1151f6cceba24aad3">lb_market_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#aa76ca6d0e1dce4e376781bd528a30822">lb_market_t</a></td></tr>
@@ -328,6 +348,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:a3dabeb1bfff5b2d49b092ffafb76c96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a843b7fd5d2cf036e4dcb461eb1924887"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__get__stock__positions__options__t.html">lb_get_stock_positions_options_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a843b7fd5d2cf036e4dcb461eb1924887">lb_get_stock_positions_options_t</a></td></tr>
 <tr class="separator:a843b7fd5d2cf036e4dcb461eb1924887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f52ec835a8bd0a0066e1cdae27dbd5"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__estimate__max__purchase__quantity__options__t.html">lb_estimate_max_purchase_quantity_options_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a09f52ec835a8bd0a0066e1cdae27dbd5">lb_estimate_max_purchase_quantity_options_t</a></td></tr>
+<tr class="separator:a09f52ec835a8bd0a0066e1cdae27dbd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02e27b461958b6af48e69c44e3c4b5c7"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__subscription__t.html">lb_subscription_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a02e27b461958b6af48e69c44e3c4b5c7">lb_subscription_t</a></td></tr>
 <tr class="separator:a02e27b461958b6af48e69c44e3c4b5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16dc7737ec5da4ef3a971f3975a032ee"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__security__static__info__t.html">lb_security_static_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a16dc7737ec5da4ef3a971f3975a032ee">lb_security_static_info_t</a></td></tr>
@@ -398,6 +420,18 @@ Typedefs</h2></td></tr>
 <tr class="separator:ad9027117f310dacd22ce6622468ea6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6d255d00f90a1b952d0e9dfddb906dc"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__margin__ratio__t.html">lb_margin_ratio_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#aa6d255d00f90a1b952d0e9dfddb906dc">lb_margin_ratio_t</a></td></tr>
 <tr class="separator:aa6d255d00f90a1b952d0e9dfddb906dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30354628499e5c945b920019190870b6"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__order__history__detail__t.html">lb_order_history_detail_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a30354628499e5c945b920019190870b6">lb_order_history_detail_t</a></td></tr>
+<tr class="separator:a30354628499e5c945b920019190870b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd5036f90d7e1904ba39f01af0ccf45a"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__order__charge__fee__t.html">lb_order_charge_fee_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#afd5036f90d7e1904ba39f01af0ccf45a">lb_order_charge_fee_t</a></td></tr>
+<tr class="separator:afd5036f90d7e1904ba39f01af0ccf45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb218b33053f8ed0d5e8044251ba8dc6"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__order__charge__item__t.html">lb_order_charge_item_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#adb218b33053f8ed0d5e8044251ba8dc6">lb_order_charge_item_t</a></td></tr>
+<tr class="separator:adb218b33053f8ed0d5e8044251ba8dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f510a09a56f7f802608aaf22b8f8a0"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__order__charge__detail__t.html">lb_order_charge_detail_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ad4f510a09a56f7f802608aaf22b8f8a0">lb_order_charge_detail_t</a></td></tr>
+<tr class="separator:ad4f510a09a56f7f802608aaf22b8f8a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcbb879a1beab651f19fdd29f12ad82d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__order__detail__t.html">lb_order_detail_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#adcbb879a1beab651f19fdd29f12ad82d">lb_order_detail_t</a></td></tr>
+<tr class="separator:adcbb879a1beab651f19fdd29f12ad82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515d60cd962b35395b72eb286ab61beb"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__estimate__max__purchase__quantity__response__t.html">lb_estimate_max_purchase_quantity_response_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a515d60cd962b35395b72eb286ab61beb">lb_estimate_max_purchase_quantity_response_t</a></td></tr>
+<tr class="separator:a515d60cd962b35395b72eb286ab61beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -416,6 +450,31 @@ Enumerations</h2></td></tr>
 , <a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48fabccc5a9a82b454fd82eec1f68a30862c">CashFlowDirectionIn</a>
  }</td></tr>
 <tr class="separator:a0f4f0fe7bb210016ee744bc3d1a8f48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf0f0dc318ec3683ff56d117ee49bcc3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3">lb_charge_category_code_t</a> { <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3a7548d8d316c13fb02d2afbbdd091ad29">ChargeCategoryCodeUnknown</a>
+, <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3a4e437f856d2b39f0d6bfd86bade0fae2">ChargeCategoryCodeBroker</a>
+, <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3a04c9367ea51a4711a0b8c5263c177965">ChargeCategoryCodeThird</a>
+ }</td></tr>
+<tr class="separator:aaf0f0dc318ec3683ff56d117ee49bcc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b3d869ce8654fce40a5309096c7914"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914">lb_commission_free_status_t</a> { <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914a4c6b308bbd152d11a2dfed33fa80928c">CommissionFreeStatusUnknown</a>
+, <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914aa7d220f17631d4e05b3832ff700b35a1">CommissionFreeStatusNone</a>
+, <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914a1d83384d9d46866529121e9f9217bb0c">CommissionFreeStatusCalculated</a>
+, <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914a5a582b11fd0cc58da2f0fba9eece7f2d">CommissionFreeStatusPending</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914a7cad7e1ac8fb608ac1da15b87f31c8a5">CommissionFreeStatusReady</a>
+<br />
+ }</td></tr>
+<tr class="separator:ab9b3d869ce8654fce40a5309096c7914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20d1ba69477473c4756e801c567ee32d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32d">lb_deduction_status_t</a> { <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32daf943cd05962a87e36ceed5909fff620a">DeductionStatusUnknown</a>
+, <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32da9650abc2e2f9faa5440cf264259fc141">DeductionStatusNone</a>
+, <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32da3cef047c9387f7ad37bbc722ea5e987c">DeductionStatusNoData</a>
+, <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32daa449fc6ac9e0568a0ac40e9089629aae">DeductionStatusPending</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32da6dd36da579baa3498f51ee460bc3b2f4">DeductionStatusDone</a>
+<br />
+ }</td></tr>
+<tr class="separator:a20d1ba69477473c4756e801c567ee32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad746ba63a793b4e10cc564f6ae7aad1f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a> { <a class="el" href="longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1faa474147a7830e4ac380329decce70e8a">Language_ZH_CN</a>
 , <a class="el" href="longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1fa5d29f72c612e972f4575de179a4a6858">Language_ZH_HK</a>
 , <a class="el" href="longbridge_8h.html#ad746ba63a793b4e10cc564f6ae7aad1fae9c695c416f014fbd506e8bc75412f59">Language_EN</a>
@@ -761,6 +820,10 @@ Functions</h2></td></tr>
 <tr class="separator:ac9f1313bf61f128a202f8dba06224edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf571d68273f6945e9fb1346303bdd5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#acf571d68273f6945e9fb1346303bdd5a">lb_trade_context_margin_ratio</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const char *symbol, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
 <tr class="separator:acf571d68273f6945e9fb1346303bdd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81d749816b158fef10336cb50c8f6c99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a81d749816b158fef10336cb50c8f6c99">lb_trade_context_order_detail</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const char *order_id, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
+<tr class="separator:a81d749816b158fef10336cb50c8f6c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a398a792c7c1ed955df87fa662aba374a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a398a792c7c1ed955df87fa662aba374a">lb_trade_context_estimate_max_purchase_quantity</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const struct <a class="el" href="structlb__estimate__max__purchase__quantity__options__t.html">lb_estimate_max_purchase_quantity_options_t</a> *opts, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
+<tr class="separator:a398a792c7c1ed955df87fa662aba374a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8093d68bce0cd6f7ff707c63242de024"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longbridge_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a8093d68bce0cd6f7ff707c63242de024">lb_decimal_new</a> (int64_t num, uint32_t scale)</td></tr>
 <tr class="separator:a8093d68bce0cd6f7ff707c63242de024"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58da8c9eb728b42e6fd819f54f4e4246"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longbridge_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a58da8c9eb728b42e6fd819f54f4e4246">lb_decimal_clone</a> (const struct <a class="el" href="longbridge_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *value)</td></tr>
@@ -1159,6 +1222,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a5ee7097e34d4e5f7cf1f12b69d01b0fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee7097e34d4e5f7cf1f12b69d01b0fa">&#9670;&nbsp;</a></span>lb_charge_category_code_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3">lb_charge_category_code_t</a> <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3">lb_charge_category_code_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Charge category code </p>
+
+</div>
+</div>
+<a id="a9163515c513d33a606638faaeb5030a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9163515c513d33a606638faaeb5030a0">&#9670;&nbsp;</a></span>lb_commission_free_status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914">lb_commission_free_status_t</a> <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914">lb_commission_free_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Commission-free Status </p>
+
+</div>
+</div>
 <a id="a1dcafee980a8ac92f4de67fdb7541d55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1dcafee980a8ac92f4de67fdb7541d55">&#9670;&nbsp;</a></span>lb_config_t</h2>
 
@@ -1202,6 +1295,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab6765e79ac3d277e54c7dbaa137db8e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6765e79ac3d277e54c7dbaa137db8e4">&#9670;&nbsp;</a></span>lb_deduction_status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32d">lb_deduction_status_t</a> <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32d">lb_deduction_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deduction status </p>
+
+</div>
+</div>
 <a id="a772cd0af7437e846fe07a2e9bada68dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a772cd0af7437e846fe07a2e9bada68dc">&#9670;&nbsp;</a></span>lb_depth_callback_t</h2>
 
@@ -1242,6 +1350,36 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09f52ec835a8bd0a0066e1cdae27dbd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f52ec835a8bd0a0066e1cdae27dbd5">&#9670;&nbsp;</a></span>lb_estimate_max_purchase_quantity_options_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__estimate__max__purchase__quantity__options__t.html">lb_estimate_max_purchase_quantity_options_t</a> <a class="el" href="structlb__estimate__max__purchase__quantity__options__t.html">lb_estimate_max_purchase_quantity_options_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Options for estimate maximum purchase quantity </p>
+
+</div>
+</div>
+<a id="a515d60cd962b35395b72eb286ab61beb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515d60cd962b35395b72eb286ab61beb">&#9670;&nbsp;</a></span>lb_estimate_max_purchase_quantity_response_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__estimate__max__purchase__quantity__response__t.html">lb_estimate_max_purchase_quantity_response_t</a> <a class="el" href="structlb__estimate__max__purchase__quantity__response__t.html">lb_estimate_max_purchase_quantity_response_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Options for estimate maximum purchase quantity </p>
 
 </div>
 </div>
@@ -1614,6 +1752,81 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4f510a09a56f7f802608aaf22b8f8a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f510a09a56f7f802608aaf22b8f8a0">&#9670;&nbsp;</a></span>lb_order_charge_detail_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__order__charge__detail__t.html">lb_order_charge_detail_t</a> <a class="el" href="structlb__order__charge__detail__t.html">lb_order_charge_detail_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Order charge detail </p>
+
+</div>
+</div>
+<a id="afd5036f90d7e1904ba39f01af0ccf45a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd5036f90d7e1904ba39f01af0ccf45a">&#9670;&nbsp;</a></span>lb_order_charge_fee_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__order__charge__fee__t.html">lb_order_charge_fee_t</a> <a class="el" href="structlb__order__charge__fee__t.html">lb_order_charge_fee_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Order charge fee </p>
+
+</div>
+</div>
+<a id="adb218b33053f8ed0d5e8044251ba8dc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb218b33053f8ed0d5e8044251ba8dc6">&#9670;&nbsp;</a></span>lb_order_charge_item_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__order__charge__item__t.html">lb_order_charge_item_t</a> <a class="el" href="structlb__order__charge__item__t.html">lb_order_charge_item_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Order charge item </p>
+
+</div>
+</div>
+<a id="adcbb879a1beab651f19fdd29f12ad82d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcbb879a1beab651f19fdd29f12ad82d">&#9670;&nbsp;</a></span>lb_order_detail_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__order__detail__t.html">lb_order_detail_t</a> <a class="el" href="structlb__order__detail__t.html">lb_order_detail_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Order detail </p>
+
+</div>
+</div>
+<a id="a30354628499e5c945b920019190870b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30354628499e5c945b920019190870b6">&#9670;&nbsp;</a></span>lb_order_history_detail_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__order__history__detail__t.html">lb_order_history_detail_t</a> <a class="el" href="structlb__order__history__detail__t.html">lb_order_history_detail_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Order detail </p>
 
 </div>
 </div>
@@ -2368,6 +2581,83 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a0f4f0fe7bb210016ee744bc3d1a8f48fa30b58a5b36e6220daa2b688b24312ceb"></a>CashFlowDirectionOut&#160;</td><td class="fielddoc"><p>Out </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a0f4f0fe7bb210016ee744bc3d1a8f48fabccc5a9a82b454fd82eec1f68a30862c"></a>CashFlowDirectionIn&#160;</td><td class="fielddoc"><p>In </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="aaf0f0dc318ec3683ff56d117ee49bcc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf0f0dc318ec3683ff56d117ee49bcc3">&#9670;&nbsp;</a></span>lb_charge_category_code_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3">lb_charge_category_code_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Charge category code </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaf0f0dc318ec3683ff56d117ee49bcc3a7548d8d316c13fb02d2afbbdd091ad29"></a>ChargeCategoryCodeUnknown&#160;</td><td class="fielddoc"><p>Unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf0f0dc318ec3683ff56d117ee49bcc3a4e437f856d2b39f0d6bfd86bade0fae2"></a>ChargeCategoryCodeBroker&#160;</td><td class="fielddoc"><p>Broker </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf0f0dc318ec3683ff56d117ee49bcc3a04c9367ea51a4711a0b8c5263c177965"></a>ChargeCategoryCodeThird&#160;</td><td class="fielddoc"><p>Third </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ab9b3d869ce8654fce40a5309096c7914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b3d869ce8654fce40a5309096c7914">&#9670;&nbsp;</a></span>lb_commission_free_status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="longbridge_8h.html#ab9b3d869ce8654fce40a5309096c7914">lb_commission_free_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Commission-free Status </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab9b3d869ce8654fce40a5309096c7914a4c6b308bbd152d11a2dfed33fa80928c"></a>CommissionFreeStatusUnknown&#160;</td><td class="fielddoc"><p>Unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab9b3d869ce8654fce40a5309096c7914aa7d220f17631d4e05b3832ff700b35a1"></a>CommissionFreeStatusNone&#160;</td><td class="fielddoc"><p>None </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab9b3d869ce8654fce40a5309096c7914a1d83384d9d46866529121e9f9217bb0c"></a>CommissionFreeStatusCalculated&#160;</td><td class="fielddoc"><p>Commission-free amount to be calculated </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab9b3d869ce8654fce40a5309096c7914a5a582b11fd0cc58da2f0fba9eece7f2d"></a>CommissionFreeStatusPending&#160;</td><td class="fielddoc"><p>Pending commission-free </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab9b3d869ce8654fce40a5309096c7914a7cad7e1ac8fb608ac1da15b87f31c8a5"></a>CommissionFreeStatusReady&#160;</td><td class="fielddoc"><p>Commission-free applied </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a20d1ba69477473c4756e801c567ee32d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20d1ba69477473c4756e801c567ee32d">&#9670;&nbsp;</a></span>lb_deduction_status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="longbridge_8h.html#a20d1ba69477473c4756e801c567ee32d">lb_deduction_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deduction status </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a20d1ba69477473c4756e801c567ee32daf943cd05962a87e36ceed5909fff620a"></a>DeductionStatusUnknown&#160;</td><td class="fielddoc"><p>Unknown </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a20d1ba69477473c4756e801c567ee32da9650abc2e2f9faa5440cf264259fc141"></a>DeductionStatusNone&#160;</td><td class="fielddoc"><p>Pending Settlement </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a20d1ba69477473c4756e801c567ee32da3cef047c9387f7ad37bbc722ea5e987c"></a>DeductionStatusNoData&#160;</td><td class="fielddoc"><p>Commission-free amount to be calculated </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a20d1ba69477473c4756e801c567ee32daa449fc6ac9e0568a0ac40e9089629aae"></a>DeductionStatusPending&#160;</td><td class="fielddoc"><p>Pending commission-free </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a20d1ba69477473c4756e801c567ee32da6dd36da579baa3498f51ee460bc3b2f4"></a>DeductionStatusDone&#160;</td><td class="fielddoc"><p>Commission-free applied </p>
 </td></tr>
 </table>
 
@@ -6011,6 +6301,47 @@ Variables</h1>
 
 </div>
 </div>
+<a id="a398a792c7c1ed955df87fa662aba374a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a398a792c7c1ed955df87fa662aba374a">&#9670;&nbsp;</a></span>lb_trade_context_estimate_max_purchase_quantity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_trade_context_estimate_max_purchase_quantity </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct <a class="el" href="structlb__estimate__max__purchase__quantity__options__t.html">lb_estimate_max_purchase_quantity_options_t</a> *&#160;</td>
+          <td class="paramname"><em>opts</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>userdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get order detail </p>
+
+</div>
+</div>
 <a id="ad271a48221873db215d7b475429539e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad271a48221873db215d7b475429539e8">&#9670;&nbsp;</a></span>lb_trade_context_fund_positions()</h2>
 
@@ -6224,6 +6555,47 @@ Variables</h1>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a81d749816b158fef10336cb50c8f6c99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81d749816b158fef10336cb50c8f6c99">&#9670;&nbsp;</a></span>lb_trade_context_order_detail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_trade_context_order_detail </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>order_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>userdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get order detail </p>
 
 </div>
 </div>
