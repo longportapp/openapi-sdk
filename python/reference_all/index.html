@@ -18106,7 +18106,7 @@ print(resp)</code></pre>
 
 
 </h3>
-<pre class="highlight"><code class="language-python">estimate_max_purchase_quantity(symbol: str, order_type: Type[OrderType], side: Type[OrderSide], price: Optional[Decimal], currency: Optional[str], order_id: Optional[str]) -&gt; EstimateMaxPurchaseQuantityResponse</code></pre>
+<pre class="highlight"><code class="language-python">estimate_max_purchase_quantity(symbol: str, order_type: Type[OrderType], side: Type[OrderSide], price: Optional[Decimal] = None, currency: Optional[str] = None, order_id: Optional[str] = None) -&gt; EstimateMaxPurchaseQuantityResponse</code></pre>
 
   <div class="doc doc-contents ">
   
@@ -18160,7 +18160,7 @@ print(resp)</code></pre>
           </td>
           <td><p>Estimated order price,</p></td>
           <td>
-              <em>required</em>
+                <code>None</code>
           </td>
         </tr>
         <tr>
@@ -18170,7 +18170,7 @@ print(resp)</code></pre>
           </td>
           <td><p>Settlement currency</p></td>
           <td>
-              <em>required</em>
+                <code>None</code>
           </td>
         </tr>
         <tr>
@@ -18180,7 +18180,7 @@ print(resp)</code></pre>
           </td>
           <td><p>Order ID, required when estimating the maximum purchase quantity for a modified order</p></td>
           <td>
-              <em>required</em>
+                <code>None</code>
           </td>
         </tr>
     </tbody>
