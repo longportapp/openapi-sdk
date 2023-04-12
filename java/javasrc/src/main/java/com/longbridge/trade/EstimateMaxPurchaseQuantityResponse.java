@@ -11,4 +11,9 @@ public class EstimateMaxPurchaseQuantityResponse {
     public long getMarginMaxQty() {
         return marginMaxQty;
     }
+
+    @Override
+    public String toString() {
+        return "EstimateMaxPurchaseQuantityResponse [cashMaxQty=" + cashMaxQty + ", marginMaxQty=" + marginMaxQty + "]";
+    }
 }

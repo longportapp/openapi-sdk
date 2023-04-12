@@ -33,13 +33,14 @@ public class OrderDetail {
     private OutsideRTH outsideRth;
     private String remark;
     private CommissionFreeStatus freeStatus;
+    private BigDecimal freeAmount;
     private String freeCurrency;
     private DeductionStatus deductionsStatus;
     private BigDecimal deductionsAmount;
     private String deductionsCurrency;
     private DeductionStatus platformDeductedStatus;
-    private DeductionStatus platformDeductionsStatus;
-    private BigDecimal platformDeductionsAmount;
+    private BigDecimal platformDeductedAmount;
+    private String platformDeductedCurrency;
     private OrderHistoryDetail[] history;
     private OrderChargeDetail chargeDetail;
 
@@ -143,16 +144,16 @@ public class OrderDetail {
         return outsideRth;
     }
 
-    public String remark() {
-        return remark;
-    }
-
     public String getRemark() {
         return remark;
     }
 
     public CommissionFreeStatus getFreeStatus() {
         return freeStatus;
+    }
+
+    public BigDecimal getFreeAmount() {
+        return freeAmount;
     }
 
     public String getFreeCurrency() {
@@ -175,12 +176,12 @@ public class OrderDetail {
         return platformDeductedStatus;
     }
 
-    public DeductionStatus getPlatformDeductionsStatus() {
-        return platformDeductionsStatus;
+    public BigDecimal getPlatformDeductedAmount() {
+        return platformDeductedAmount;
     }
 
-    public BigDecimal getPlatformDeductionsAmount() {
-        return platformDeductionsAmount;
+    public String getPlatformDeductedCurrency() {
+        return platformDeductedCurrency;
     }
 
     public OrderHistoryDetail[] getHistory() {
@@ -201,11 +202,12 @@ public class OrderDetail {
                 + updatedAt + ", triggerAt=" + triggerAt + ", trailingAmount=" + trailingAmount + ", trailingPercent="
                 + trailingPercent + ", limitOffset=" + limitOffset + ", triggerStatus=" + triggerStatus + ", currency="
                 + currency + ", outsideRth=" + outsideRth + ", remark=" + remark + ", freeStatus=" + freeStatus
-                + ", freeCurrency=" + freeCurrency + ", deductionsStatus=" + deductionsStatus + ", deductionsAmount="
-                + deductionsAmount + ", deductionsCurrency=" + deductionsCurrency + ", platformDeductedStatus="
-                + platformDeductedStatus + ", platformDeductionsStatus=" + platformDeductionsStatus
-                + ", platformDeductionsAmount=" + platformDeductionsAmount + ", history=" + Arrays.toString(history)
-                + ", chargeDetail=" + chargeDetail + "]";
+                + ", freeAmount=" + freeAmount + ", freeCurrency=" + freeCurrency + ", deductionsStatus="
+                + deductionsStatus + ", deductionsAmount=" + deductionsAmount + ", deductionsCurrency="
+                + deductionsCurrency + ", platformDeductedStatus=" + platformDeductedStatus
+                + ", platformDeductedAmount=" + platformDeductedAmount + ", platformDeductedCurrency="
+                + platformDeductedCurrency + ", history=" + Arrays.toString(history) + ", chargeDetail=" + chargeDetail
+                + "]";
     }
 
 }
