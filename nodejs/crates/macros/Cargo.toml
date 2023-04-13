@@ -1,6 +1,6 @@
 [package]
 name = "longbridge-nodejs-macros"
-version = "0.2.56"
+version = "0.2.57"
 edition = "2021"
 
 [lib]
