@@ -584,7 +584,11 @@
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>HTTP API url</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>HTTP API url</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -594,7 +598,11 @@
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>App Key</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>App Key</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -604,7 +612,11 @@
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>App Secret</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>App Secret</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -614,7 +626,11 @@
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Access Token</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Access Token</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -666,7 +682,7 @@
   </span>
 
 </h3>
-<pre class="highlight"><code class="language-python">from_env() -&gt; Config</code></pre>
+<pre class="highlight"><code class="language-python">from_env() -&gt; HttpClient</code></pre>
 
   <div class="doc doc-contents ">
   
@@ -693,7 +709,7 @@
 
 
 </h3>
-<pre class="highlight"><code class="language-python">request(method: str, path: str, body: Optional[Any]) -&gt; Any</code></pre>
+<pre class="highlight"><code class="language-python">request(method: str, path: str, headers: Optional[dict[str, str]] = None, body: Optional[Any] = None) -&gt; Any</code></pre>
 
   <div class="doc doc-contents ">
   
@@ -756,7 +772,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>App Key</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>App Key</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -766,7 +786,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>App Secret</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>App Secret</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -776,7 +800,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Access Token</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Access Token</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -786,7 +814,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>HTTP API url</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>HTTP API url</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;https://openapi.longbridgeapp.com&#39;</code>
           </td>
@@ -796,7 +828,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Websocket url for quote API</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Websocket url for quote API</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;wss://openapi-quote.longbridgeapp.com/v2&#39;</code>
           </td>
@@ -806,7 +842,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Websocket url for trade API</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Websocket url for trade API</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;wss://openapi-trade.longbridgeapp.com/v2&#39;</code>
           </td>
@@ -816,7 +856,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Language" href="#longbridge.openapi.Language">Language</a>]</code>
           </td>
-          <td><p>Language identifier</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Language identifier</p>
+            </div>
+          </td>
           <td>
                 <code>Language.EN</code>
           </td>
@@ -8199,7 +8243,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.Config" href="#longbridge.openapi.Config">Config</a></code>
           </td>
-          <td><p>Configuration object</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Configuration object</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8364,7 +8412,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8374,7 +8426,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.SubType" href="#longbridge.openapi.SubType">SubType</a>]]</code>
           </td>
-          <td><p>Subscribe types</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Subscribe types</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8384,7 +8440,11 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
           </td>
-          <td><p>Whether to perform a data push immediately after subscribing. (trade not supported)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to perform a data push immediately after subscribing. (trade not supported)</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -8442,7 +8502,11 @@ sleep(30)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8452,7 +8516,11 @@ sleep(30)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.SubType" href="#longbridge.openapi.SubType">SubType</a>]]</code>
           </td>
-          <td><p>Subscribe types</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Subscribe types</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8504,7 +8572,11 @@ ctx.unsubscribe(["AAPL.US"], [SubType.Quote])</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8514,7 +8586,11 @@ ctx.unsubscribe(["AAPL.US"], [SubType.Quote])</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Period" href="#longbridge.openapi.Period">Period</a>]</code>
           </td>
-          <td><p>Period type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Period type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8569,7 +8645,11 @@ sleep(30)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8579,7 +8659,11 @@ sleep(30)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Period" href="#longbridge.openapi.Period">Period</a>]</code>
           </td>
-          <td><p>Period type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Period type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8651,7 +8735,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8672,7 +8760,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityStaticInfo" href="#longbridge.openapi.SecurityStaticInfo">SecurityStaticInfo</a>]</code>
           </td>
-          <td><p>Security info list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security info list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -8722,7 +8814,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8743,7 +8839,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityQuote" href="#longbridge.openapi.SecurityQuote">SecurityQuote</a>]</code>
           </td>
-          <td><p>Security quote list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security quote list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -8793,7 +8893,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8814,7 +8918,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OptionQuote" href="#longbridge.openapi.OptionQuote">OptionQuote</a>]</code>
           </td>
-          <td><p>Option quote list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Option quote list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -8864,7 +8972,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8885,7 +8997,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.WarrantQuote" href="#longbridge.openapi.WarrantQuote">WarrantQuote</a>]</code>
           </td>
-          <td><p>Warrant quote list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Warrant quote list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -8935,7 +9051,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -8956,7 +9076,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityDepth" href="#longbridge.openapi.SecurityDepth">SecurityDepth</a></code>
           </td>
-          <td><p>Security depth</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security depth</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9006,7 +9130,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9027,7 +9155,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityBrokers" href="#longbridge.openapi.SecurityBrokers">SecurityBrokers</a></code>
           </td>
-          <td><p>Security brokers</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security brokers</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9074,7 +9206,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.ParticipantInfo" href="#longbridge.openapi.ParticipantInfo">ParticipantInfo</a>]</code>
           </td>
-          <td><p>Participants</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Participants</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9124,7 +9260,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9134,7 +9274,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
-          <td><p>Count of trades (Maximum is <code>1000</code>)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Count of trades (Maximum is <code>1000</code>)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9155,7 +9299,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Trade" href="#longbridge.openapi.Trade">Trade</a>]</code>
           </td>
-          <td><p>Trades</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trades</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9205,7 +9353,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9226,7 +9378,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.IntradayLine" href="#longbridge.openapi.IntradayLine">IntradayLine</a>]</code>
           </td>
-          <td><p>Intraday lines</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Intraday lines</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9276,7 +9432,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9286,7 +9446,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Period" href="#longbridge.openapi.Period">Period</a>]</code>
           </td>
-          <td><p>Candlestick period</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Candlestick period</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9296,7 +9460,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
-          <td><p>Count of cancdlestick (Maximum is <code>1000</code>)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Count of cancdlestick (Maximum is <code>1000</code>)</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9306,7 +9474,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.AdjustType" href="#longbridge.openapi.AdjustType">AdjustType</a>]</code>
           </td>
-          <td><p>Adjustment type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Adjustment type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9327,7 +9499,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Candlestick" href="#longbridge.openapi.Candlestick">Candlestick</a>]</code>
           </td>
-          <td><p>Candlesticks</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Candlesticks</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9377,7 +9553,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9398,7 +9578,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a>]</code>
           </td>
-          <td><p>Option chain expiry date list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Option chain expiry date list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9448,7 +9632,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9458,7 +9646,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a></code>
           </td>
-          <td><p>Expiry date</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Expiry date</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9479,7 +9671,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.StrikePriceInfo" href="#longbridge.openapi.StrikePriceInfo">StrikePriceInfo</a>]</code>
           </td>
-          <td><p>Option chain info</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Option chain info</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9527,7 +9723,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.IssuerInfo" href="#longbridge.openapi.IssuerInfo">IssuerInfo</a>]</code>
           </td>
-          <td><p>Warrant issuers</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Warrant issuers</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9574,7 +9774,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.MarketTradingSession" href="#longbridge.openapi.MarketTradingSession">MarketTradingSession</a>]</code>
           </td>
-          <td><p>Trading session of the day</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trading session of the day</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9625,7 +9829,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Market" href="#longbridge.openapi.Market">Market</a>]</code>
           </td>
-          <td><p>Market</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Market</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9635,7 +9843,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a></code>
           </td>
-          <td><p>Begin date</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Begin date</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9645,7 +9857,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a></code>
           </td>
-          <td><p>End date</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>End date</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9666,7 +9882,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.MarketTradingDays" href="#longbridge.openapi.MarketTradingDays">MarketTradingDays</a></code>
           </td>
-          <td><p>Trading days</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trading days</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9717,7 +9937,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9738,7 +9962,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.CapitalFlowLine" href="#longbridge.openapi.CapitalFlowLine">CapitalFlowLine</a>]</code>
           </td>
-          <td><p>Capital flow list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Capital flow list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9788,7 +10016,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9809,7 +10041,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.CapitalDistributionResponse" href="#longbridge.openapi.CapitalDistributionResponse">CapitalDistributionResponse</a></code>
           </td>
-          <td><p>Capital distribution</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Capital distribution</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9856,7 +10092,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.WatchListGroup" href="#longbridge.openapi.WatchListGroup">WatchListGroup</a>]</code>
           </td>
-          <td><p>Watch list groups</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Watch list groups</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9907,7 +10147,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Security codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -9928,7 +10172,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.RealtimeQuote" href="#longbridge.openapi.RealtimeQuote">RealtimeQuote</a>]</code>
           </td>
-          <td><p>Quote list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Quote list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -9982,7 +10230,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10003,7 +10255,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityDepth" href="#longbridge.openapi.SecurityDepth">SecurityDepth</a></code>
           </td>
-          <td><p>Security depth</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security depth</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -10057,7 +10313,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10078,7 +10338,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityBrokers" href="#longbridge.openapi.SecurityBrokers">SecurityBrokers</a></code>
           </td>
-          <td><p>Security brokers</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security brokers</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -10132,7 +10396,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10142,7 +10410,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
-          <td><p>Count of trades</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Count of trades</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10163,7 +10435,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Trade" href="#longbridge.openapi.Trade">Trade</a>]</code>
           </td>
-          <td><p>Security trades</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security trades</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -10217,7 +10493,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10227,7 +10507,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Period" href="#longbridge.openapi.Period">Period</a>]</code>
           </td>
-          <td><p>Period type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Period type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10237,7 +10521,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
-          <td><p>Count of candlesticks</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Count of candlesticks</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -10258,7 +10546,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Candlestick" href="#longbridge.openapi.Candlestick">Candlestick</a>]</code>
           </td>
-          <td><p>Security candlesticks</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security candlesticks</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -16866,7 +17158,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.Config" href="#longbridge.openapi.Config">Config</a></code>
           </td>
-          <td><p>Configuration object</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Configuration object</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -16955,7 +17251,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.TopicType" href="#longbridge.openapi.TopicType">TopicType</a>]]</code>
           </td>
-          <td><p>Topic list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Topic list</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17026,7 +17326,11 @@ sleep(5)  # waiting for push event</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Topic list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Topic list</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17069,7 +17373,11 @@ sleep(5)  # waiting for push event</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Filter by security code, example: <code>700.HK</code>, <code>AAPL.US</code></p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by security code, example: <code>700.HK</code>, <code>AAPL.US</code></p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17079,7 +17387,11 @@ sleep(5)  # waiting for push event</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a>]</code>
           </td>
-          <td><p>Start time</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Start time</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17089,7 +17401,11 @@ sleep(5)  # waiting for push event</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a>]</code>
           </td>
-          <td><p>End time</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>End time</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17110,7 +17426,11 @@ sleep(5)  # waiting for push event</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Execution" href="#longbridge.openapi.Execution">Execution</a>]</code>
           </td>
-          <td><p>Execution list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Execution list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -17165,7 +17485,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Filter by security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by security code</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17175,7 +17499,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Filter by Order ID</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by Order ID</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17196,7 +17524,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Execution" href="#longbridge.openapi.Execution">Execution</a>]</code>
           </td>
-          <td><p>Execution list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Execution list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -17246,7 +17578,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Filter by security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by security code</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17256,7 +17592,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderStatus" href="#longbridge.openapi.OrderStatus">OrderStatus</a>]]]</code>
           </td>
-          <td><p>Filter by order status</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by order status</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17266,7 +17606,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderSide" href="#longbridge.openapi.OrderSide">OrderSide</a>]]</code>
           </td>
-          <td><p>Filter by order side</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by order side</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17276,7 +17620,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Market" href="#longbridge.openapi.Market">Market</a>]]</code>
           </td>
-          <td><p>Filter by market type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by market type</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17286,7 +17634,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a>]</code>
           </td>
-          <td><p>Start time</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Start time</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17296,7 +17648,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a>]</code>
           </td>
-          <td><p>End time</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>End time</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17317,7 +17673,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Order" href="#longbridge.openapi.Order">Order</a>]</code>
           </td>
-          <td><p>Order list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -17375,7 +17735,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Filter by security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by security code</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17385,7 +17749,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderStatus" href="#longbridge.openapi.OrderStatus">OrderStatus</a>]]]</code>
           </td>
-          <td><p>Filter by order status</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by order status</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17395,7 +17763,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderSide" href="#longbridge.openapi.OrderSide">OrderSide</a>]]</code>
           </td>
-          <td><p>Filter by order side</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by order side</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17405,7 +17777,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Market" href="#longbridge.openapi.Market">Market</a>]]</code>
           </td>
-          <td><p>Filter by market type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by market type</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17415,7 +17791,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Filter by order id</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by order id</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17436,7 +17816,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Order" href="#longbridge.openapi.Order">Order</a>]</code>
           </td>
-          <td><p>Order list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -17491,7 +17875,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
-          <td><p>Replaced quantity</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Replaced quantity</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17501,7 +17889,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Replaced price</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Replaced price</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17511,7 +17903,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Trigger price (<code>LIT</code> / <code>MIT</code> Order Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trigger price (<code>LIT</code> / <code>MIT</code> Order Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17521,7 +17917,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Limit offset amount (<code>TSLPAMT</code> / <code>TSLPPCT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Limit offset amount (<code>TSLPAMT</code> / <code>TSLPPCT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17531,7 +17931,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Trailing amount (<code>TSLPAMT</code> / <code>TSMAMT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trailing amount (<code>TSLPAMT</code> / <code>TSMAMT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17541,7 +17945,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Trailing percent (<code>TSLPPCT</code> / <code>TSMAPCT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trailing percent (<code>TSLPPCT</code> / <code>TSMAPCT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17551,7 +17959,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Remark (Maximum 64 characters)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Remark (Maximum 64 characters)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17608,7 +18020,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security code</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17618,7 +18034,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderType" href="#longbridge.openapi.OrderType">OrderType</a>]</code>
           </td>
-          <td><p>Order type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17628,7 +18048,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderSide" href="#longbridge.openapi.OrderSide">OrderSide</a>]</code>
           </td>
-          <td><p>Order Side</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order Side</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17638,7 +18062,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
           </td>
-          <td><p>Submitted quantity</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Submitted quantity</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17648,7 +18076,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.TimeInForceType" href="#longbridge.openapi.TimeInForceType">TimeInForceType</a>]</code>
           </td>
-          <td><p>Time in force type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Time in force type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17658,7 +18090,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Submitted price</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Submitted price</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17668,7 +18104,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Trigger price (<code>LIT</code> / <code>MIT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trigger price (<code>LIT</code> / <code>MIT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17678,7 +18118,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Limit offset amount (<code>TSLPAMT</code> / <code>TSLPPCT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Limit offset amount (<code>TSLPAMT</code> / <code>TSLPPCT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17688,7 +18132,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Trailing amount (<code>TSLPAMT</code> / <code>TSMAMT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trailing amount (<code>TSLPAMT</code> / <code>TSMAMT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17698,7 +18146,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Trailing percent (<code>TSLPPCT</code> / <code>TSMAPCT</code> Required)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Trailing percent (<code>TSLPPCT</code> / <code>TSMAPCT</code> Required)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17708,7 +18160,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="datetime.date" href="https://docs.python.org/3/library/datetime.html#datetime.date">date</a>]</code>
           </td>
-          <td><p>Long term order expire date (Required when <code>time_in_force</code> is <code>GoodTilDate</code>)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Long term order expire date (Required when <code>time_in_force</code> is <code>GoodTilDate</code>)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17718,7 +18174,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OutsideRTH" href="#longbridge.openapi.OutsideRTH">OutsideRTH</a>]]</code>
           </td>
-          <td><p>Enable or disable outside regular trading hours</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Enable or disable outside regular trading hours</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17728,7 +18188,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Remark (Maximum 64 characters)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Remark (Maximum 64 characters)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17749,7 +18213,11 @@ ctx.replace_order(
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SubmitOrderResponse" href="#longbridge.openapi.SubmitOrderResponse">SubmitOrderResponse</a></code>
           </td>
-          <td><p>Response</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Response</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -17808,7 +18276,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Order ID</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order ID</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17857,7 +18329,11 @@ ctx.cancel_order("709043056541253632")</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.AccountBalance" href="#longbridge.openapi.AccountBalance">AccountBalance</a>]</code>
           </td>
-          <td><p>Account list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Account list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -17907,7 +18383,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="datetime.datetime" href="https://docs.python.org/3/library/datetime.html#datetime.datetime">datetime</a></code>
           </td>
-          <td><p>Start time</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Start time</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17917,7 +18397,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="datetime.datetime" href="https://docs.python.org/3/library/datetime.html#datetime.datetime">datetime</a></code>
           </td>
-          <td><p>End time</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>End time</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -17927,7 +18411,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.BalanceType" href="#longbridge.openapi.BalanceType">BalanceType</a>]]</code>
           </td>
-          <td><p>Balance type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Balance type</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17937,7 +18425,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Target security code</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Target security code</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17947,7 +18439,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
           </td>
-          <td><p>Start page (Default: 1)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Start page (Default: 1)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17957,7 +18453,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>
           </td>
-          <td><p>Page size (Default: 50)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Page size (Default: 50)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -17978,7 +18478,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.CashFlow" href="#longbridge.openapi.CashFlow">CashFlow</a>]</code>
           </td>
-          <td><p>Cash flow list</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Cash flow list</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -18032,7 +18536,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
           </td>
-          <td><p>Filter by fund codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by fund codes</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -18053,7 +18561,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.FundPositionsResponse" href="#longbridge.openapi.FundPositionsResponse">FundPositionsResponse</a></code>
           </td>
-          <td><p>Fund positions</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Fund positions</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -18103,7 +18615,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
           </td>
-          <td><p>Filter by stock codes</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Filter by stock codes</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -18124,7 +18640,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.StockPositionsResponse" href="#longbridge.openapi.StockPositionsResponse">StockPositionsResponse</a></code>
           </td>
-          <td><p>Stock positions</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Stock positions</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -18174,7 +18694,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security symbol</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security symbol</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -18195,7 +18719,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.MarginRatio" href="#longbridge.openapi.MarginRatio">MarginRatio</a></code>
           </td>
-          <td><p>Margin ratio</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Margin ratio</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -18245,7 +18773,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#id">id</a></code>
           </td>
-          <td><p>Order id</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order id</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -18266,7 +18798,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.OrderDetail" href="#longbridge.openapi.OrderDetail">OrderDetail</a></code>
           </td>
-          <td><p>Order detail</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order detail</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
@@ -18316,7 +18852,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
           </td>
-          <td><p>Security symbol</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security symbol</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -18326,7 +18866,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderType" href="#longbridge.openapi.OrderType">OrderType</a>]</code>
           </td>
-          <td><p>Order type</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order type</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -18336,7 +18880,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.OrderSide" href="#longbridge.openapi.OrderSide">OrderSide</a>]</code>
           </td>
-          <td><p>Order side</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order side</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -18346,7 +18894,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a>]</code>
           </td>
-          <td><p>Estimated order price,</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Estimated order price,</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -18356,7 +18908,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Settlement currency</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Settlement currency</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -18366,7 +18922,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
           </td>
-          <td><p>Order ID, required when estimating the maximum purchase quantity for a modified order</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Order ID, required when estimating the maximum purchase quantity for a modified order</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -18387,7 +18947,11 @@ print(resp)</code></pre>
           <td>
                 <code><a class="autorefs autorefs-internal" title="longbridge.openapi.EstimateMaxPurchaseQuantityResponse" href="#longbridge.openapi.EstimateMaxPurchaseQuantityResponse">EstimateMaxPurchaseQuantityResponse</a></code>
           </td>
-          <td><p>Response</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Response</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>

@@ -17,7 +17,7 @@ var searchData=
   ['replaced_378',['Replaced',['../namespacelongbridge_1_1trade.html#ae4ff3c9b718ed9ccb4e2267843a7425cab3f23170be598de0771ac94684114f94',1,'longbridge::trade']]],
   ['replacednotreported_379',['ReplacedNotReported',['../namespacelongbridge_1_1trade.html#ae4ff3c9b718ed9ccb4e2267843a7425ca2d30729863d234072a453ca88f52e887',1,'longbridge::trade']]],
   ['replaceorderoptions_380',['ReplaceOrderOptions',['../structlongbridge_1_1trade_1_1_replace_order_options.html',1,'longbridge::trade']]],
-  ['request_381',['request',['../classlongbridge_1_1_http_client.html#a33a00e85123e7ef372066667ab10fc76',1,'longbridge::HttpClient']]],
+  ['request_381',['request',['../classlongbridge_1_1_http_client.html#a56e22d88a793c3e76f41cda15b7a3553',1,'longbridge::HttpClient']]],
   ['response_5fbody_382',['response_body',['../structlongbridge_1_1_http_result.html#afdbf55adc2aab79bfcc28563f20ff40e',1,'longbridge::HttpResult']]],
   ['risk_5flevel_383',['risk_level',['../structlongbridge_1_1trade_1_1_account_balance.html#aee9f0a416d3357155c844c222a74c51e',1,'longbridge::trade::AccountBalance']]],
   ['round_384',['round',['../classlongbridge_1_1_decimal.html#a4498676bdb83d406bf945fe82235351e',1,'longbridge::Decimal']]],

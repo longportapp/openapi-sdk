@@ -87,8 +87,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae662819d2a7e3b7f4cdd542130e83ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28aadd266355b3d34cfd3382e5b73b7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlongbridge_1_1_status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1_http_client.html#a28aadd266355b3d34cfd3382e5b73b7f">from_env</a> ()</td></tr>
 <tr class="separator:a28aadd266355b3d34cfd3382e5b73b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33a00e85123e7ef372066667ab10fc76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1_http_client.html#a33a00e85123e7ef372066667ab10fc76">request</a> (const std::string &amp;method, const std::string &amp;path, const std::optional&lt; std::string &gt; &amp;body, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; void *, <a class="el" href="structlongbridge_1_1_http_result.html">HttpResult</a> &gt; callback)</td></tr>
-<tr class="separator:a33a00e85123e7ef372066667ab10fc76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e22d88a793c3e76f41cda15b7a3553"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1_http_client.html#a56e22d88a793c3e76f41cda15b7a3553">request</a> (const std::string &amp;method, const std::string &amp;path, const std::optional&lt; std::map&lt; std::string, std::string &gt;&gt; &amp;headers, const std::optional&lt; std::string &gt; &amp;body, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; void *, <a class="el" href="structlongbridge_1_1_http_result.html">HttpResult</a> &gt; callback)</td></tr>
+<tr class="separator:a56e22d88a793c3e76f41cda15b7a3553"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac8018bc18a53858db8e23228fabe291c"></a>
@@ -219,8 +219,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a33a00e85123e7ef372066667ab10fc76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33a00e85123e7ef372066667ab10fc76">&#9670;&nbsp;</a></span>request()</h2>
+<a id="a56e22d88a793c3e76f41cda15b7a3553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e22d88a793c3e76f41cda15b7a3553">&#9670;&nbsp;</a></span>request()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,6 +236,12 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; std::map&lt; std::string, std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>headers</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
