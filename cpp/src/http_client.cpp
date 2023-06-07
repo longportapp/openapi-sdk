@@ -1,5 +1,7 @@
-#include "http_client.hpp"
+#include <vector>
+
 #include "callback.hpp"
+#include "http_client.hpp"
 #include "longbridge.h"
 
 namespace longbridge {
@@ -47,7 +49,7 @@ HttpClient::request(
   const std::optional<std::string>& body,
   AsyncCallback<void*, HttpResult> callback)
 {
-  std::vector<lb_http_header_t> c_headers = {};
+  std::vector<lb_http_header_t> c_headers;
   if (headers) {
     for (auto it = headers->begin(); it != headers->end(); it++) {
       c_headers.push_back(

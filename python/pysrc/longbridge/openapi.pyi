@@ -37,7 +37,7 @@ class HttpClient:
                  app_secret: str, access_token: str) -> None: ...
 
     @classmethod
-    def from_env(cls: Type) -> Config:
+    def from_env(cls: Type) -> HttpClient:
         """
         Create a new `HttpClient` from the given environment variables
 
@@ -51,7 +51,7 @@ class HttpClient:
         - `LONGBRIDGE_ACCESS_TOKEN` - Access token
         """
 
-    def request(self, method: str, path: str, headers: Optional[dict[str, str]], body: Optional[Any]) -> Any:
+    def request(self, method: str, path: str, headers: Optional[dict[str, str]] = None, body: Optional[Any] = None) -> Any:
         """
         Performs a HTTP reqest
 
