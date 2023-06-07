@@ -51,7 +51,7 @@ class HttpClient:
         - `LONGBRIDGE_ACCESS_TOKEN` - Access token
         """
 
-    def request(self, method: str, path: str, body: Optional[Any]) -> Any:
+    def request(self, method: str, path: str, headers: Optional[dict[str, str]], body: Optional[Any]) -> Any:
         """
         Performs a HTTP reqest
 

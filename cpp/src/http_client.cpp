@@ -40,15 +40,27 @@ HttpClient::from_env()
 }
 
 void
-HttpClient::request(const std::string& method,
-                    const std::string& path,
-                    const std::optional<std::string>& body,
-                    AsyncCallback<void*, HttpResult> callback)
+HttpClient::request(
+  const std::string& method,
+  const std::string& path,
+  const std::optional<std::map<std::string, std::string>>& headers,
+  const std::optional<std::string>& body,
+  AsyncCallback<void*, HttpResult> callback)
 {
+  std::vector<lb_http_header_t> c_headers = {};
+  if (headers) {
+    for (auto it = headers->begin(); it != headers->end(); it++) {
+      c_headers.push_back(
+        lb_http_header_t{ it->first.c_str(), it->second.c_str() });
+    }
+  }
+  c_headers.push_back(lb_http_header_t{ nullptr, nullptr });
+
   lb_http_client_request(
     http_client_,
     method.c_str(),
     path.c_str(),
+    c_headers.data(),
     body ? body->c_str() : nullptr,
     [](auto res) {
       auto callback_ptr =

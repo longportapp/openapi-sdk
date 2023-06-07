@@ -820,6 +820,14 @@ typedef struct lb_async_result_t {
 
 typedef void (*lb_async_callback_t)(const struct lb_async_result_t*);
 
+/**
+ * HTTP Header
+ */
+typedef struct lb_http_header_t {
+  const char *name;
+  const char *value;
+} lb_http_header_t;
+
 typedef void (*lb_free_userdata_func_t)(void*);
 
 /**
@@ -2914,6 +2922,7 @@ struct lb_http_client_t *lb_http_client_from_env(struct lb_error_t **error);
 void lb_http_client_request(struct lb_http_client_t *http_client,
                             const char *method,
                             const char *path,
+                            const struct lb_http_header_t *headers,
                             const char *request_body,
                             lb_async_callback_t callback,
                             void *userdata);

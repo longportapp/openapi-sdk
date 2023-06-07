@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use longbridge::httpclient::{
     HttpClient as LbHttpClient, HttpClientConfig, HttpClientError, Json, Method,
 };
@@ -30,7 +32,13 @@ impl HttpClient {
         })?))
     }
 
-    fn request(&self, method: String, path: String, body: Option<&PyAny>) -> PyResult<PyObject> {
+    fn request(
+        &self,
+        method: String,
+        path: String,
+        headers: Option<HashMap<String, String>>,
+        body: Option<&PyAny>,
+    ) -> PyResult<PyObject> {
         let body = body
             .map(pythonize::depythonize::<Value>)
             .transpose()
@@ -43,6 +51,10 @@ impl HttpClient {
             })?,
             path,
         );
+        let req = headers
+            .unwrap_or_default()
+            .into_iter()
+            .fold(req, |acc, (name, value)| acc.header(name, value));
 
         match body {
             Some(body) => {

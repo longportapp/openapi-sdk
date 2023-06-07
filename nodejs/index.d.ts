@@ -203,6 +203,15 @@ export const enum SecurityBoard {
   SGSector = 24
 }
 /** Options for get cash flow request */
+export interface EstimateMaxPurchaseQuantityOptions {
+  symbol: string
+  orderType: OrderType
+  side: OrderSide
+  price?: Decimal
+  currency?: string
+  orderId?: string
+}
+/** Options for get cash flow request */
 export interface GetCashFlowOptions {
   /** Start time */
   startAt: Date
@@ -402,7 +411,19 @@ export const enum OrderTag {
   /** Long term Order */
   LongTerm = 2,
   /** Grey Order */
-  Grey = 3
+  Grey = 3,
+  /** Force Selling */
+  MarginCall = 4,
+  /** OTC */
+  Offline = 5,
+  /** Option Exercise Long */
+  Creditor = 6,
+  /** Option Exercise Short */
+  Debtor = 7,
+  /** Wavier Of Option Exercise */
+  NonExercise = 8,
+  /** Trade Allocation */
+  AllocatedSub = 9
 }
 /** Time in force type */
 export const enum TimeInForceType {
@@ -434,6 +455,41 @@ export const enum OutsideRTH {
   RTHOnly = 1,
   /** Any time */
   AnyTime = 2
+}
+/** Commission-free Status */
+export const enum CommissionFreeStatus {
+  /** Unknown */
+  Unknown = 0,
+  /** None */
+  None = 1,
+  /** Commission-free amount to be calculated */
+  Calculated = 2,
+  /** Pending commission-free */
+  Pending = 3,
+  /** Commission-free applied */
+  Ready = 4
+}
+/** Deduction status */
+export const enum DeductionStatus {
+  /** Unknown */
+  Unknown = 0,
+  /** Pending Settlement */
+  None = 1,
+  /** Settled with no data */
+  NoData = 2,
+  /** Settled and pending distribution */
+  Pending = 3,
+  /** Settled and distributed */
+  Done = 4
+}
+/** Charge category code */
+export const enum ChargeCategoryCode {
+  /** Unknown */
+  Unknown = 0,
+  /** Broker */
+  Broker = 1,
+  /** Third */
+  Third = 2
 }
 export const enum BalanceType {
   /** Unknown */
@@ -660,7 +716,7 @@ export class HttpClient {
    */
   static fromEnv(): HttpClient
   /** Performs a HTTP request */
-  request(method: string, path: string, body?: any | undefined | null): Promise<any>
+  request(method: string, path: string, headers?: Record<string, string> | undefined | null, body?: any | undefined | null): Promise<any>
 }
 /** Quote context */
 export class QuoteContext {
@@ -1701,7 +1757,7 @@ export class TradeContext {
    *
    * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => {
+   *   .then((ctx) => {`
    *     ctx.setOnQuote((_, event) => console.log(event.toString()));
    *     ctx.subscribe([TopicType.Private]);
    *     return ctx.submitOrder({
@@ -1986,6 +2042,41 @@ export class TradeContext {
    * ```
    */
   marginRatio(symbol: string): Promise<MarginRatio>
+  /**
+   * Get order detail
+   *
+   * #### Example
+   *
+   * ```javascript
+   * const { Config, TradeContext } = require("longbridge")
+   *
+   * let config = Config.fromEnv()
+   * TradeContext.new(config)
+   *   .then((ctx) => ctx.orderDetail("701276261045858304"))
+   *   .then((resp) => console.log(resp))
+   * ```
+   */
+  orderDetail(orderId: string): Promise<OrderDetail>
+  /**
+   * Estimating the maximum purchase quantity for Hong Kong and US stocks,
+   * warrants, and options
+   *
+   * #### Example
+   *
+   * ```javascript
+   * const { Config, TradeContext, OrderType, OrderSide } = require("longbridge")
+   *
+   * let config = Config.fromEnv()
+   * TradeContext.new(config)
+   *   .then((ctx) => ctx.estimate_max_purchase_quantity({
+   *     symbol: "700.HK",
+   *     orderType: OrderType.LO,
+   *     side: OrderSide.Buy,
+   *   }))
+   *   .then((resp) => console.log(resp))
+   * ```
+   */
+  estimateMaxPurchaseQuantity(opts: EstimateMaxPurchaseQuantityOptions): Promise<EstimateMaxPurchaseQuantityResponse>
 }
 /** Trade */
 export class Execution {
@@ -2056,6 +2147,138 @@ export class Order {
   get currency(): string
   /** Enable or disable outside regular trading hours */
   get outsideRth(): OutsideRTH | null
+  /** Remark */
+  get remark(): string
+}
+/** Order history detail */
+export class OrderHistoryDetail {
+  toString(): string
+  /**
+   * Executed price for executed orders, submitted price for expired,
+   * canceled, rejected orders, etc.
+   */
+  get price(): Decimal
+  /**
+   * Executed quantity for executed orders, remaining quantity for expired,
+   * canceled, rejected orders, etc.
+   */
+  get quantity(): number
+  /** Order status */
+  get status(): OrderStatus
+  /** Execution or error message */
+  get msg(): string
+  /** Occurrence time */
+  get time(): Date
+}
+/** Order charge fee */
+export class OrderChargeFee {
+  toString(): string
+  /** Charge code */
+  get code(): string
+  /** Charge name */
+  get name(): string
+  /** Charge amount */
+  get amount(): Decimal
+  /** Charge currency */
+  get currency(): string
+}
+/** Order charge item */
+export class OrderChargeItem {
+  toString(): string
+  /** Charge category code */
+  get code(): ChargeCategoryCode
+  /** Charge category name */
+  get name(): string
+  /** Charge details */
+  get fees(): Array<OrderChargeFee>
+}
+/** Order charge detail */
+export class OrderChargeDetail {
+  toString(): string
+  /** Total charges amount */
+  get totalAmount(): Decimal
+  /** Settlement currency */
+  get currency(): string
+  /** Order charge items */
+  get items(): Array<OrderChargeItem>
+}
+/** Order detail */
+export class OrderDetail {
+  toString(): string
+  /** Order ID */
+  get orderId(): string
+  /** Order status */
+  get status(): OrderStatus
+  /** Stock name */
+  get stockName(): string
+  /** Submitted quantity */
+  get quantity(): number
+  /** Executed quantity */
+  get executedQuantity(): number
+  /** Submitted price */
+  get price(): Decimal | null
+  /** Executed price */
+  get executedPrice(): Decimal | null
+  /** Submitted time */
+  get submittedAt(): Date
+  /** Order side */
+  get side(): OrderSide
+  /** Security code */
+  get symbol(): string
+  /** Order type */
+  get orderType(): OrderType
+  /** Last done */
+  get lastDone(): Decimal | null
+  /** `LIT` / `MIT` Order Trigger Price */
+  get triggerPrice(): Decimal | null
+  /** Rejected Message or remark */
+  get msg(): string
+  /** Order tag */
+  get tag(): OrderTag
+  /** Time in force type */
+  get timeInForce(): TimeInForceType
+  /** Long term order expire date */
+  get expireDate(): NaiveDate | null
+  /** Last updated time */
+  get updatedAt(): Date | null
+  /** Conditional order trigger time */
+  get triggerAt(): Date | null
+  /** `TSMAMT` / `TSLPAMT` order trailing amount */
+  get trailingAmount(): Decimal | null
+  /** `TSMPCT` / `TSLPPCT` order trailing percent */
+  get trailingPercent(): Decimal | null
+  /** `TSLPAMT` / `TSLPPCT` order limit offset amount */
+  get limitOffset(): Decimal | null
+  /** Conditional order trigger status */
+  get triggerStatus(): TriggerStatus | null
+  /** Currency */
+  get currency(): string
+  /** Enable or disable outside regular trading hours */
+  get outsideRth(): OutsideRTH | null
+  /** Remark */
+  get remark(): string
+  /** Commission-free Status */
+  get freeStatus(): CommissionFreeStatus
+  /** Commission-free amount */
+  get freeAmount(): Decimal | null
+  /** Commission-free currency */
+  get freeCurrency(): string | null
+  /** Deduction status */
+  get deductionsStatus(): DeductionStatus
+  /** Deduction amount */
+  get deductionsAmount(): Decimal | null
+  /** Deduction currency */
+  get deductionsCurrency(): string | null
+  /** Platform fee deduction status */
+  get platformDeductedStatus(): DeductionStatus
+  /** Platform deduction amount */
+  get platformDeductedAmount(): Decimal | null
+  /** Platform deduction currency */
+  get platformDeductedCurrency(): string | null
+  /** Order history details */
+  get history(): Array<OrderHistoryDetail>
+  /** Order charges */
+  get chargeDetail(): OrderChargeDetail
 }
 /** Order changed message */
 export class PushOrderChanged {
@@ -2104,6 +2327,10 @@ export class PushOrderChanged {
   get limitOffset(): Decimal | null
   /** Account no */
   get accountNo(): string
+  /** Last share */
+  get lastShare(): Decimal | null
+  /** Last price */
+  get lastPrice(): Decimal | null
 }
 /** Response for submit order request */
 export class SubmitOrderResponse {
@@ -2245,4 +2472,12 @@ export class MarginRatio {
   get mmFactor(): Decimal
   /** Forced close-out margin ratio */
   get fmFactor(): Decimal
+}
+/** Response for estimate maximum purchase quantity */
+export class EstimateMaxPurchaseQuantityResponse {
+  toString(): string
+  /** Cash available quantity */
+  get cashMaxQty(): number
+  /** Margin available quantity */
+  get marginMaxQty(): number
 }

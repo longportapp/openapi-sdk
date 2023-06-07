@@ -1,4 +1,7 @@
-use std::ffi::{c_char, c_void, CStr, CString};
+use std::{
+    collections::HashMap,
+    ffi::{c_char, c_void, CStr, CString},
+};
 
 use longbridge::{
     httpclient::{HttpClient, HttpClientConfig, HttpClientError},
@@ -70,12 +73,20 @@ pub struct CHttpResult {
     response_body: CString,
 }
 
+/// HTTP Header
+#[repr(C)]
+pub struct CHeader {
+    pub name: *const c_char,
+    pub value: *const c_char,
+}
+
 /// Performs a HTTP request
 #[no_mangle]
 pub unsafe extern "C" fn lb_http_client_request(
     http_client: *mut CHttpClient,
     method: *const c_char,
     path: *const c_char,
+    headers: *const CHeader,
     request_body: *const c_char,
     callback: CAsyncCallback,
     userdata: *mut c_void,
@@ -99,6 +110,20 @@ pub unsafe extern "C" fn lb_http_client_request(
     } else {
         None
     };
+    let mut r_headers = HashMap::new();
+    if !headers.is_null() {
+        while !(*headers).name.is_null() {
+            let name = CStr::from_ptr((*headers).name)
+                .to_str()
+                .expect("invalid header name")
+                .to_string();
+            let value = CStr::from_ptr((*headers).value)
+                .to_str()
+                .expect("invalid header name")
+                .to_string();
+            r_headers.insert(name, value);
+        }
+    }
 
     execute_async::<c_void, _, _>(callback, std::ptr::null(), userdata, async move {
         let r = http_client.request(
@@ -108,6 +133,9 @@ pub unsafe extern "C" fn lb_http_client_request(
                 .map_err(|_| Error::HttpClient(HttpClientError::InvalidRequestMethod))?,
             path,
         );
+        let r = r_headers
+            .into_iter()
+            .fold(r, |acc, (name, value)| acc.header(name, value));
 
         let response_body = match request_body {
             Some(request_body) => r.body(request_body).response::<String>().send().await,

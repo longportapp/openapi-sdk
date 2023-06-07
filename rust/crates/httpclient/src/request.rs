@@ -1,6 +1,9 @@
 use std::{convert::Infallible, error::Error, marker::PhantomData, time::Duration};
 
-use reqwest::{header::HeaderValue, Method, StatusCode};
+use reqwest::{
+    header::{HeaderMap, HeaderName, HeaderValue},
+    Method, StatusCode,
+};
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 
 use crate::{
@@ -108,6 +111,7 @@ pub struct RequestBuilder<T, Q, R> {
     client: HttpClient,
     method: Method,
     path: String,
+    headers: HeaderMap,
     body: Option<T>,
     query_params: Option<Q>,
     mark_resp: PhantomData<R>,
@@ -119,6 +123,7 @@ impl RequestBuilder<(), (), ()> {
             client,
             method,
             path: path.into(),
+            headers: Default::default(),
             body: None,
             query_params: None,
             mark_resp: PhantomData,
@@ -137,10 +142,26 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
             client: self.client,
             method: self.method,
             path: self.path,
+            headers: self.headers,
             body: Some(body),
             query_params: self.query_params,
             mark_resp: self.mark_resp,
         }
+    }
+
+    /// Set the header
+    #[must_use]
+    pub fn header<K, V>(mut self, key: K, value: V) -> Self
+    where
+        K: TryInto<HeaderName>,
+        V: TryInto<HeaderValue>,
+    {
+        let key = key.try_into();
+        let value = value.try_into();
+        if let (Ok(key), Ok(value)) = (key, value) {
+            self.headers.append(key, value);
+        }
+        self
     }
 
     /// Set the query string
@@ -153,6 +174,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
             client: self.client,
             method: self.method,
             path: self.path,
+            headers: self.headers,
             body: self.body,
             query_params: Some(params),
             mark_resp: self.mark_resp,
@@ -169,6 +191,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
             client: self.client,
             method: self.method,
             path: self.path,
+            headers: self.headers,
             body: self.body,
             query_params: self.query_params,
             mark_resp: PhantomData,
@@ -188,7 +211,12 @@ where
             config,
             default_headers,
         } = &self.client;
-        let now = Timestamp::now();
+        let timestamp = self
+            .headers
+            .get("X-Timestamp")
+            .and_then(|value| value.to_str().ok())
+            .and_then(|value| value.parse().ok())
+            .unwrap_or_else(Timestamp::now);
         let app_key_value =
             HeaderValue::from_str(&config.app_key).map_err(|_| HttpClientError::InvalidApiKey)?;
         let access_token_value = HeaderValue::from_str(&config.access_token)
@@ -200,10 +228,11 @@ where
                 format!("{}{}", config.http_url, self.path),
             )
             .headers(default_headers.clone())
+            .headers(self.headers.clone())
             .header("User-Agent", USER_AGENT)
             .header("X-Api-Key", app_key_value)
             .header("Authorization", access_token_value)
-            .header("X-Timestamp", now.to_string())
+            .header("X-Timestamp", timestamp.to_string())
             .header("Content-Type", "application/json; charset=utf-8");
 
         // set the request body
@@ -228,7 +257,7 @@ where
             app_key: &config.app_key,
             access_token: Some(&config.access_token),
             app_secret: &config.app_secret,
-            timestamp: now,
+            timestamp,
         });
         request.headers_mut().insert(
             "X-Api-Signature",

@@ -5,6 +5,7 @@ cpp_compat = true
 
 [export.rename]
 "CHttpClient" = "lb_http_client_t"
+"CHeader" = "lb_http_header_t"
 "CHttpResult" = "lb_http_result_t"
 "CLanguage" = "lb_language_t"
 "CMarket" = "lb_market_t"

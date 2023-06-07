@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use longbridge::httpclient::{HttpClient as LbHttpClient, HttpClientConfig, Json, Method};
 use napi::{Error, Result};
 use serde_json::Value;
@@ -43,6 +45,7 @@ impl HttpClient {
         &self,
         method: String,
         path: String,
+        headers: Option<HashMap<String, String>>,
         body: Option<Value>,
     ) -> Result<Value> {
         let req = self.0.request(
@@ -52,6 +55,10 @@ impl HttpClient {
                 .map_err(|err| Error::from_reason(err.to_string()))?,
             path,
         );
+        let req = headers
+            .unwrap_or_default()
+            .into_iter()
+            .fold(req, |acc, (name, value)| acc.header(name, value));
 
         match body {
             Some(body) => {
