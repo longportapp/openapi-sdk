@@ -110,6 +110,8 @@
 <a href="#110" id="110">110</a>
 <a href="#111" id="111">111</a>
 <a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::str::FromStr;
 
 <span class="kw">use </span>longbridge_proto::trade::Notification;
@@ -192,8 +194,10 @@
     <span class="doccomment">/// Account no
     </span><span class="kw">pub </span>account_no: String,
     <span class="doccomment">/// Last share
+    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
     </span><span class="kw">pub </span>last_share: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Last price
+    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
     </span><span class="kw">pub </span>last_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
 }
 
