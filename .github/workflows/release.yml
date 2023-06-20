@@ -357,7 +357,6 @@ jobs:
             lib_suffix: ".so"
             target: x86_64-unknown-linux-gnu
           - host: ubuntu-latest
-            container: centos:7
             lib_prefix: "lib"
             lib_suffix: ".so"
             target: aarch64-unknown-linux-gnu
