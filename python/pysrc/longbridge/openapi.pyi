@@ -1447,7 +1447,7 @@ class MarketTradingSession:
     Market
     """
 
-    trade_session: List[TradingSessionInfo]
+    trade_sessions: List[TradingSessionInfo]
     """
     Trading session
     """
