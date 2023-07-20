@@ -14,6 +14,8 @@ bitflags::bitflags! {
 pub enum Market {
     HK,
     US,
+    SH,
+    SZ,
 }
 
 impl Market {
@@ -24,6 +26,7 @@ impl Market {
         match self {
             Market::HK => db::asia::HONG_KONG,
             Market::US => db::america::NEW_YORK,
+            Market::SH | Market::SZ => db::asia::SHANGHAI,
         }
     }
 
@@ -61,6 +64,7 @@ impl Market {
                 "1" => UpdateFields::all(),
                 _ => UpdateFields::empty(),
             },
+            Market::SH | Market::SZ => UpdateFields::all(),
         }
     }
 
@@ -73,6 +77,10 @@ impl Market {
             ],
             (Market::US, Type::USOQ) => &[(time!(9:30:00), time!(16:15:00))],
             (Market::US, _) => &[(time!(9:30:00), time!(16:00:00))],
+            (Market::SH | Market::SZ, _) => &[
+                (time!(9:30:00), time!(11:30:00)),
+                (time!(13:00:00), time!(15:00:00)),
+            ],
         }
     }
 
@@ -82,6 +90,17 @@ impl Market {
             (Market::HK, _) => &[(time!(9:30:00), time!(12:00:00))],
             (Market::US, Type::USOQ) => &[(time!(9:30:00), time!(13:00:00))],
             (Market::US, _) => &[(time!(9:30:00), time!(13:00:00))],
+            (Market::SH | Market::SZ, _) => unreachable!("does not supported"),
+        }
+    }
+
+    #[inline]
+    pub(crate) fn num_shares(&self, volume: i64) -> i64 {
+        match self {
+            Market::HK => volume,
+            Market::US => volume,
+            Market::SH => volume * 100,
+            Market::SZ => volume * 100,
         }
     }
 }

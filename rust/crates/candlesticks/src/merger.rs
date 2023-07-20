@@ -170,9 +170,9 @@ where
 
                 if update_fields.contains(UpdateFields::VOLUME) {
                     candlestick.volume += trade.volume;
-                    if let Some(volume) = Decimal::from_i64(trade.volume) {
-                        candlestick.turnover += trade.price * volume;
-                    }
+                    candlestick.turnover += trade.price
+                        * Decimal::from_i64(self.market.num_shares(trade.volume))
+                            .unwrap_or_default();
                 }
 
                 UpdateAction::UpdateLast(candlestick)
@@ -180,20 +180,18 @@ where
             Some(prev) if time < prev.time => UpdateAction::None,
             _ => {
                 if update_fields.contains(UpdateFields::PRICE) {
-                    Decimal::from_i64(trade.volume)
-                        .map(|volume| {
-                            let new_candlestick = Candlestick {
-                                time: time.to_timezone(time_tz::timezones::db::UTC),
-                                open: trade.price,
-                                high: trade.price,
-                                low: trade.price,
-                                close: trade.price,
-                                volume: trade.volume,
-                                turnover: trade.price * volume,
-                            };
-                            UpdateAction::AppendNew(new_candlestick)
-                        })
-                        .unwrap_or(UpdateAction::None)
+                    let new_candlestick = Candlestick {
+                        time: time.to_timezone(time_tz::timezones::db::UTC),
+                        open: trade.price,
+                        high: trade.price,
+                        low: trade.price,
+                        close: trade.price,
+                        volume: trade.volume,
+                        turnover: trade.price
+                            * Decimal::from_i64(self.market.num_shares(trade.volume))
+                                .unwrap_or_default(),
+                    };
+                    UpdateAction::AppendNew(new_candlestick)
                 } else {
                     UpdateAction::None
                 }

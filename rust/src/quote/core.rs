@@ -97,9 +97,11 @@ struct CurrentTradeDays {
 impl CurrentTradeDays {
     #[inline]
     fn half_days(&self, market: longbridge_candlesticks::Market) -> HalfDays {
+        use longbridge_candlesticks::Market::*;
         match market {
-            longbridge_candlesticks::Market::HK => HalfDays(self.half_days.get(&Market::HK)),
-            longbridge_candlesticks::Market::US => HalfDays(self.half_days.get(&Market::US)),
+            HK => HalfDays(self.half_days.get(&Market::HK)),
+            US => HalfDays(self.half_days.get(&Market::US)),
+            SH | SZ => HalfDays(None),
         }
     }
 }
@@ -670,6 +672,8 @@ impl Core {
                         get_market_from_symbol(&event.symbol).and_then(|market| match market {
                             "HK" => Some(longbridge_candlesticks::Market::HK),
                             "US" => Some(longbridge_candlesticks::Market::US),
+                            "SH" => Some(longbridge_candlesticks::Market::SH),
+                            "SZ" => Some(longbridge_candlesticks::Market::SZ),
                             _ => None,
                         });
                     if let Some(market) = market {
