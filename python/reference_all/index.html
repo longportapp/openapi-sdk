@@ -12,13 +12,10 @@
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
         <link href="../assets/_mkdocstrings.css" rel="stylesheet">
-
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body>
@@ -5314,6 +5311,28 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
   <div class="doc doc-contents ">
   
+      <p>Ask depth</p>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="longbridge.openapi.SecurityDepth.bids" class="doc doc-heading">
+          <span class="doc doc-object-name doc-attribute-name">bids</span>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+<pre class="highlight"><code class="language-python">bids: List[Depth]</code></pre>
+
+  <div class="doc doc-contents ">
+  
       <p>Bid depth</p>
   </div>
 
@@ -7041,8 +7060,8 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.TradingSessionInfo.trade_sessions" class="doc doc-heading">
-          <span class="doc doc-object-name doc-attribute-name">trade_sessions</span>
+<h3 id="longbridge.openapi.TradingSessionInfo.trade_session" class="doc doc-heading">
+          <span class="doc doc-object-name doc-attribute-name">trade_session</span>
 
   
   <span class="doc doc-labels">
@@ -7050,7 +7069,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
   </span>
 
 </h3>
-<pre class="highlight"><code class="language-python">trade_sessions: Type[TradeSession]</code></pre>
+<pre class="highlight"><code class="language-python">trade_session: Type[TradeSession]</code></pre>
 
   <div class="doc doc-contents ">
   
@@ -19058,12 +19077,14 @@ print(resp)</code></pre>
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <script>
             var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
