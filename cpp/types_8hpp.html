@@ -169,11 +169,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_capital_distribution_response.html">longbridge::quote::CapitalDistributionResponse</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Capital distribution response.  <a href="structlongbridge_1_1quote_1_1_capital_distribution_response.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_watch_list_security.html">longbridge::quote::WatchListSecurity</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watch list security.  <a href="structlongbridge_1_1quote_1_1_watch_list_security.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_watchlist_security.html">longbridge::quote::WatchlistSecurity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watchlist security.  <a href="structlongbridge_1_1quote_1_1_watchlist_security.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_watch_list_group.html">longbridge::quote::WatchListGroup</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watch list group.  <a href="structlongbridge_1_1quote_1_1_watch_list_group.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_watchlist_group.html">longbridge::quote::WatchlistGroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watchlist group.  <a href="structlongbridge_1_1quote_1_1_watchlist_group.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_create_watchlist_group.html">longbridge::quote::CreateWatchlistGroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An request for create watchlist group.  <a href="structlongbridge_1_1quote_1_1_create_watchlist_group.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_update_watchlist_group.html">longbridge::quote::UpdateWatchlistGroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An request for update watchlist group.  <a href="structlongbridge_1_1quote_1_1_update_watchlist_group.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_realtime_quote.html">longbridge::quote::RealtimeQuote</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real-time quote.  <a href="structlongbridge_1_1quote_1_1_realtime_quote.html#details">More...</a><br /></td></tr>
@@ -409,6 +415,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a7ecee45d12af625ff6ec41c1a8e759af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjust type.  <a href="namespacelongbridge_1_1quote.html#a7ecee45d12af625ff6ec41c1a8e759af">More...</a><br /></td></tr>
 <tr class="separator:a7ecee45d12af625ff6ec41c1a8e759af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f64e755c9abd9e9e331284632f95493"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493">longbridge::quote::SecuritiesUpdateMode</a> { <a class="el" href="namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493aec211f7c20af43e742bf2570c3cb84f9">longbridge::quote::Add</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493a1063e38cb53d94d386f21227fcd84717">longbridge::quote::Remove</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493a0ebe6df8a3ac338e0512acc741823fdb">longbridge::quote::Replace</a>
+ }</td></tr>
+<tr class="memdesc:a0f64e755c9abd9e9e331284632f95493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Securities update mode.  <a href="namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493">More...</a><br /></td></tr>
+<tr class="separator:a0f64e755c9abd9e9e331284632f95493"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78fbadafa5d0bf766e95a71373900331"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelongbridge_1_1trade.html#a78fbadafa5d0bf766e95a71373900331">longbridge::trade::TopicType</a> { <a class="el" href="namespacelongbridge_1_1trade.html#a78fbadafa5d0bf766e95a71373900331a47f9082fc380ca62d531096aa1d110f1">longbridge::trade::Private</a>
  }</td></tr>
 <tr class="memdesc:a78fbadafa5d0bf766e95a71373900331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Topic type.  <a href="namespacelongbridge_1_1trade.html#a78fbadafa5d0bf766e95a71373900331">More...</a><br /></td></tr>

@@ -133,6 +133,12 @@
 <a href="#133" id="133">133</a>
 <a href="#134" id="134">134</a>
 <a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Display;
 
 <span class="kw">use </span>longbridge_httpcli::HttpClientError;
@@ -199,18 +205,22 @@
     <span class="doccomment">/// Consumes this error and returns a simple error
     </span><span class="kw">pub fn </span>into_simple_error(<span class="self">self</span>) -&gt; SimpleError {
         <span class="kw">match </span><span class="self">self </span>{
-            Error::HttpClient(HttpClientError::OpenApi { code, message }) =&gt; {
-                SimpleError::Response {
-                    code: code <span class="kw">as </span>i64,
-                    message,
-                }
-            }
+            Error::HttpClient(HttpClientError::OpenApi {
+                code,
+                message,
+                trace_id,
+            }) =&gt; SimpleError::Response {
+                code: code <span class="kw">as </span>i64,
+                message,
+                trace_id,
+            },
             Error::WsClient(WsClientError::ResponseError {
                 detail: <span class="prelude-val">Some</span>(detail),
                 ..
             }) =&gt; SimpleError::Response {
                 code: detail.code <span class="kw">as </span>i64,
                 message: detail.msg,
+                trace_id: String::new(),
             },
             Error::DecodeProtobuf(<span class="kw">_</span>)
             | Error::DecodeJSON(<span class="kw">_</span>)
@@ -238,6 +248,8 @@
         </span>code: i64,
         <span class="doccomment">/// Error message
         </span>message: String,
+        <span class="doccomment">/// Trace id
+        </span>trace_id: String,
     },
     <span class="doccomment">/// Other error
     </span><span class="attr">#[error(<span class="string">&quot;other error: {0}&quot;</span>)]

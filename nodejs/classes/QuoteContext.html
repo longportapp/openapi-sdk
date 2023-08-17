@@ -63,6 +63,10 @@
 <a href="QuoteContext.html#capitalFlow" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>capital<wbr/>Flow</span></a>
 <a href="QuoteContext.html#capitalDistribution" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>capital<wbr/>Distribution</span></a>
 <a href="QuoteContext.html#watchList" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>watch<wbr/>List</span></a>
+<a href="QuoteContext.html#watchlist-2" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>watchlist</span></a>
+<a href="QuoteContext.html#createWatchlistGroup" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>create<wbr/>Watchlist<wbr/>Group</span></a>
+<a href="QuoteContext.html#deleteWatchlistGroup" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>delete<wbr/>Watchlist<wbr/>Group</span></a>
+<a href="QuoteContext.html#updateWatchlistGroup" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Watchlist<wbr/>Group</span></a>
 <a href="QuoteContext.html#realtimeQuote" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>realtime<wbr/>Quote</span></a>
 <a href="QuoteContext.html#realtimeDepth" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>realtime<wbr/>Depth</span></a>
 <a href="QuoteContext.html#realtimeBrokers" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>realtime<wbr/>Brokers</span></a>
@@ -585,13 +589,71 @@ call back to this function.</p>
 <section class="tsd-panel tsd-member"><a id="watchList" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>watch<wbr/>List</span><a href="#watchList" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="watchList.watchList-1"><span class="tsd-kind-call-signature">watch<wbr/>List</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="WatchListGroup.html" class="tsd-signature-type tsd-kind-class">WatchListGroup</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#watchList.watchList-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="watchList.watchList-1"><span class="tsd-kind-call-signature">watch<wbr/>List</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="WatchlistGroup.html" class="tsd-signature-type tsd-kind-class">WatchlistGroup</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#watchList.watchList-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Get watch list</p>
+<div class="tsd-comment tsd-typography"><p>Get watchlist</p>
+<p>Deprecated: use <code>watchlist</code> instead</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="WatchlistGroup.html" class="tsd-signature-type tsd-kind-class">WatchlistGroup</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="watchlist-2" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>watchlist</span><a href="#watchlist-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="watchlist-2.watchlist-3"><span class="tsd-kind-call-signature">watchlist</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="WatchlistGroup.html" class="tsd-signature-type tsd-kind-class">WatchlistGroup</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#watchlist-2.watchlist-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get watchlist</p>
 <a id="md:example" class="tsd-anchor"></a><h4><a href="#md:example">Example</a></h4><pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-1"> { </span><span class="hl-5">Config</span><span class="hl-1">, </span><span class="hl-5">QuoteContext</span><span class="hl-1"> } = </span><span class="hl-0">require</span><span class="hl-1">(</span><span class="hl-2">&quot;longbridge&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-3">let</span><span class="hl-1"> </span><span class="hl-4">config</span><span class="hl-1"> = </span><span class="hl-4">Config</span><span class="hl-1">.</span><span class="hl-0">fromEnv</span><span class="hl-1">()</span><br/><span class="hl-4">QuoteContext</span><span class="hl-1">.</span><span class="hl-0">new</span><span class="hl-1">(</span><span class="hl-4">config</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-0">then</span><span class="hl-1">((</span><span class="hl-4">ctx</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><span class="hl-4">ctx</span><span class="hl-1">.</span><span class="hl-0">watchList</span><span class="hl-1">())</span><br/><span class="hl-1">  .</span><span class="hl-0">then</span><span class="hl-1">((</span><span class="hl-4">resp</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">resp</span><span class="hl-1">.</span><span class="hl-0">toString</span><span class="hl-1">()))</span>
 </code><button>Copy</button></pre>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="WatchListGroup.html" class="tsd-signature-type tsd-kind-class">WatchListGroup</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="WatchlistGroup.html" class="tsd-signature-type tsd-kind-class">WatchlistGroup</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="createWatchlistGroup" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>create<wbr/>Watchlist<wbr/>Group</span><a href="#createWatchlistGroup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="createWatchlistGroup.createWatchlistGroup-1"><span class="tsd-kind-call-signature">create<wbr/>Watchlist<wbr/>Group</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">req</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><a href="#createWatchlistGroup.createWatchlistGroup-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Create watchlist group</p>
+<a id="md:example" class="tsd-anchor"></a><h4><a href="#md:example">Example</a></h4><pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-1"> { </span><span class="hl-5">Config</span><span class="hl-1">, </span><span class="hl-5">QuoteContext</span><span class="hl-1"> } = </span><span class="hl-0">require</span><span class="hl-1">(</span><span class="hl-2">&quot;longbridge&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-3">let</span><span class="hl-1"> </span><span class="hl-4">config</span><span class="hl-1"> = </span><span class="hl-4">Config</span><span class="hl-1">.</span><span class="hl-0">fromEnv</span><span class="hl-1">();</span><br/><span class="hl-4">QuoteContext</span><span class="hl-1">.</span><span class="hl-0">new</span><span class="hl-1">(</span><span class="hl-4">config</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-0">then</span><span class="hl-1">((</span><span class="hl-4">ctx</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">ctx</span><span class="hl-1">.</span><span class="hl-0">createWatchlistGroup</span><span class="hl-1">({</span><br/><span class="hl-1">      </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;Watchlist1&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-4">securities:</span><span class="hl-1"> [</span><span class="hl-2">&quot;700.HK&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;BABA.US&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">    })</span><br/><span class="hl-1">  .</span><span class="hl-0">then</span><span class="hl-1">((</span><span class="hl-4">group_id</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">group_id</span><span class="hl-1">));</span><br/><span class="hl-1">});</span>
+</code><button>Copy</button></pre>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">req</span>: <a href="../interfaces/CreateWatchlistGroup.html" class="tsd-signature-type tsd-kind-interface">CreateWatchlistGroup</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="deleteWatchlistGroup" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>delete<wbr/>Watchlist<wbr/>Group</span><a href="#deleteWatchlistGroup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="deleteWatchlistGroup.deleteWatchlistGroup-1"><span class="tsd-kind-call-signature">delete<wbr/>Watchlist<wbr/>Group</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">req</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#deleteWatchlistGroup.deleteWatchlistGroup-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Delete watchlist group</p>
+<a id="md:example" class="tsd-anchor"></a><h4><a href="#md:example">Example</a></h4><pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-1"> { </span><span class="hl-5">Config</span><span class="hl-1">, </span><span class="hl-5">QuoteContext</span><span class="hl-1"> } = </span><span class="hl-0">require</span><span class="hl-1">(</span><span class="hl-2">&quot;longbridge&quot;</span><span class="hl-1">)</span><br/><span class="hl-3">let</span><span class="hl-1"> </span><span class="hl-4">config</span><span class="hl-1"> = </span><span class="hl-4">Config</span><span class="hl-1">.</span><span class="hl-0">fromEnv</span><span class="hl-1">();</span><br/><span class="hl-4">QuoteContext</span><span class="hl-1">.</span><span class="hl-0">new</span><span class="hl-1">(</span><span class="hl-4">config</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-0">then</span><span class="hl-1">(</span><span class="hl-4">ctx</span><span class="hl-1"> </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><span class="hl-4">ctx</span><span class="hl-1">.</span><span class="hl-0">deleteWatchlistGroup</span><span class="hl-1">({ </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-7">10086</span><span class="hl-1"> });</span>
+</code><button>Copy</button></pre>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">req</span>: <a href="../interfaces/DeleteWatchlistGroup.html" class="tsd-signature-type tsd-kind-interface">DeleteWatchlistGroup</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="updateWatchlistGroup" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>update<wbr/>Watchlist<wbr/>Group</span><a href="#updateWatchlistGroup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="updateWatchlistGroup.updateWatchlistGroup-1"><span class="tsd-kind-call-signature">update<wbr/>Watchlist<wbr/>Group</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">req</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#updateWatchlistGroup.updateWatchlistGroup-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Update watchlist group</p>
+<a id="md:example" class="tsd-anchor"></a><h4><a href="#md:example">Example</a></h4><pre><code class="language-javascript"><span class="hl-3">const</span><span class="hl-1"> { </span><span class="hl-5">Config</span><span class="hl-1">, </span><span class="hl-5">QuoteContext</span><span class="hl-1"> } = </span><span class="hl-0">require</span><span class="hl-1">(</span><span class="hl-2">&quot;longbridge&quot;</span><span class="hl-1">)</span><br/><span class="hl-3">let</span><span class="hl-1"> </span><span class="hl-4">config</span><span class="hl-1"> = </span><span class="hl-4">Config</span><span class="hl-1">.</span><span class="hl-0">fromEnv</span><span class="hl-1">();</span><br/><span class="hl-4">QuoteContext</span><span class="hl-1">.</span><span class="hl-0">new</span><span class="hl-1">(</span><span class="hl-4">config</span><span class="hl-1">)</span><br/><span class="hl-1">  .</span><span class="hl-0">then</span><span class="hl-1">(</span><span class="hl-4">ctx</span><span class="hl-1"> </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><span class="hl-4">ctx</span><span class="hl-1">.</span><span class="hl-0">updateWatchlistGroup</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-7">10086</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;Watchlist2&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">securities:</span><span class="hl-1"> [</span><span class="hl-2">&quot;700.HK&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;BABA.US&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  });</span>
+</code><button>Copy</button></pre>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">req</span>: <a href="../interfaces/UpdateWatchlistGroup.html" class="tsd-signature-type tsd-kind-interface">UpdateWatchlistGroup</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="realtimeQuote" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>realtime<wbr/>Quote</span><a href="#realtimeQuote" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
@@ -788,6 +850,19 @@ call back to this function.</p>
 <ul>
 <li><a href="#md:example"><span>Example</span></a></li></ul></li>
 <li><a href="#watchList" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>watch<wbr/>List</span></a></li>
+<li><a href="#watchlist-2" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>watchlist</span></a></li>
+<li>
+<ul>
+<li><a href="#md:example"><span>Example</span></a></li></ul></li>
+<li><a href="#createWatchlistGroup" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>create<wbr/>Watchlist<wbr/>Group</span></a></li>
+<li>
+<ul>
+<li><a href="#md:example"><span>Example</span></a></li></ul></li>
+<li><a href="#deleteWatchlistGroup" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>delete<wbr/>Watchlist<wbr/>Group</span></a></li>
+<li>
+<ul>
+<li><a href="#md:example"><span>Example</span></a></li></ul></li>
+<li><a href="#updateWatchlistGroup" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Watchlist<wbr/>Group</span></a></li>
 <li>
 <ul>
 <li><a href="#md:example"><span>Example</span></a></li></ul></li>
@@ -815,6 +890,9 @@ call back to this function.</p>
 <nav class="tsd-navigation"><a href="../modules.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>Longbridge <wbr/>OpenAPI SDK</span></a>
 <ul class="tsd-small-nested-navigation">
 <li><a href="../interfaces/ConfigParams.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-256"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)"></path></g></svg><span>Config<wbr/>Params</span></a></li>
+<li><a href="../interfaces/CreateWatchlistGroup.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Create<wbr/>Watchlist<wbr/>Group</span></a></li>
+<li><a href="../interfaces/DeleteWatchlistGroup.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Delete<wbr/>Watchlist<wbr/>Group</span></a></li>
+<li><a href="../interfaces/UpdateWatchlistGroup.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Watchlist<wbr/>Group</span></a></li>
 <li><a href="../enums/DerivativeType.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-8"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-enum)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.45 16V7.24H14.49V8.224H10.518V10.936H14.07V11.908H10.518V15.016H14.49V16H9.45Z" fill="var(--color-text)"></path></g></svg><span>Derivative<wbr/>Type</span></a></li>
 <li><a href="../enums/TradeStatus.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Trade<wbr/>Status</span></a></li>
 <li><a href="../enums/TradeSession.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Trade<wbr/>Session</span></a></li>
@@ -826,6 +904,7 @@ call back to this function.</p>
 <li><a href="../enums/Period.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Period</span></a></li>
 <li><a href="../enums/AdjustType.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Adjust<wbr/>Type</span></a></li>
 <li><a href="../enums/SecurityBoard.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Security<wbr/>Board</span></a></li>
+<li><a href="../enums/SecuritiesUpdateMode.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Securities<wbr/>Update<wbr/>Mode</span></a></li>
 <li><a href="../interfaces/EstimateMaxPurchaseQuantityOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Estimate<wbr/>Max<wbr/>Purchase<wbr/>Quantity<wbr/>Options</span></a></li>
 <li><a href="../interfaces/GetCashFlowOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Get<wbr/>Cash<wbr/>Flow<wbr/>Options</span></a></li>
 <li><a href="../interfaces/GetHistoryExecutionsOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Get<wbr/>History<wbr/>Executions<wbr/>Options</span></a></li>
@@ -886,8 +965,8 @@ call back to this function.</p>
 <li><a href="CapitalFlowLine.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Capital<wbr/>Flow<wbr/>Line</span></a></li>
 <li><a href="CapitalDistribution.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Capital<wbr/>Distribution</span></a></li>
 <li><a href="CapitalDistributionResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Capital<wbr/>Distribution<wbr/>Response</span></a></li>
-<li><a href="WatchListGroup.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Watch<wbr/>List<wbr/>Group</span></a></li>
-<li><a href="WatchListSecurity.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Watch<wbr/>List<wbr/>Security</span></a></li>
+<li><a href="WatchlistGroup.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Watchlist<wbr/>Group</span></a></li>
+<li><a href="WatchlistSecurity.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Watchlist<wbr/>Security</span></a></li>
 <li><a href="NaiveDate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Naive<wbr/>Date</span></a></li>
 <li><a href="Time.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Time</span></a></li>
 <li><a href="TradeContext.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Trade<wbr/>Context</span></a></li>

@@ -265,11 +265,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.WatchListSecurity" class="nav-link">WatchListSecurity</a>
+            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.WatchlistSecurity" class="nav-link">WatchlistSecurity</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.WatchListGroup" class="nav-link">WatchListGroup</a>
+            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.WatchlistGroup" class="nav-link">WatchlistGroup</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.SecuritiesUpdateMode" class="nav-link">SecuritiesUpdateMode</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -722,7 +726,8 @@
     <p>::</p>
 <pre class="highlight"><code>from longbridge.openapi import HttpClient
 
-client = HttpClient(http_url, app_key, app_secret, access_token);
+client = HttpClient(http_url, app_key,
+                    app_secret, access_token);
 
 # get
 resp = client.request("get", "/foo/bar");
@@ -7535,8 +7540,8 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h2 id="longbridge.openapi.WatchListSecurity" class="doc doc-heading">
-          <span class="doc doc-object-name doc-class-name">WatchListSecurity</span>
+<h2 id="longbridge.openapi.WatchlistSecurity" class="doc doc-heading">
+          <span class="doc doc-object-name doc-class-name">WatchlistSecurity</span>
 
 
 </h2>
@@ -7545,7 +7550,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
   <div class="doc doc-contents ">
 
   
-      <p>Watch list security</p>
+      <p>Watchlist security</p>
 
 
   
@@ -7562,7 +7567,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListSecurity.symbol" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistSecurity.symbol" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">symbol</span>
 
   
@@ -7584,7 +7589,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListSecurity.market" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistSecurity.market" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">market</span>
 
   
@@ -7606,7 +7611,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListSecurity.name" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistSecurity.name" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">name</span>
 
   
@@ -7628,7 +7633,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListSecurity.watched_price" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistSecurity.watched_price" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">watched_price</span>
 
   
@@ -7650,7 +7655,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListSecurity.watched_at" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistSecurity.watched_at" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">watched_at</span>
 
   
@@ -7682,8 +7687,8 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h2 id="longbridge.openapi.WatchListGroup" class="doc doc-heading">
-          <span class="doc doc-object-name doc-class-name">WatchListGroup</span>
+<h2 id="longbridge.openapi.WatchlistGroup" class="doc doc-heading">
+          <span class="doc doc-object-name doc-class-name">WatchlistGroup</span>
 
 
 </h2>
@@ -7707,7 +7712,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListGroup.id" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistGroup.id" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">id</span>
 
   
@@ -7729,7 +7734,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListGroup.name" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistGroup.name" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">name</span>
 
   
@@ -7751,7 +7756,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 
-<h3 id="longbridge.openapi.WatchListGroup.securities" class="doc doc-heading">
+<h3 id="longbridge.openapi.WatchlistGroup.securities" class="doc doc-heading">
           <span class="doc doc-object-name doc-attribute-name">securities</span>
 
   
@@ -7760,7 +7765,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
   </span>
 
 </h3>
-<pre class="highlight"><code class="language-python">securities: List[WatchListSecurity]</code></pre>
+<pre class="highlight"><code class="language-python">securities: List[WatchlistSecurity]</code></pre>
 
   <div class="doc doc-contents ">
   
@@ -7769,6 +7774,112 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 </div>
 
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="longbridge.openapi.SecuritiesUpdateMode" class="doc doc-heading">
+          <span class="doc doc-object-name doc-class-name">SecuritiesUpdateMode</span>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+
+  
+      <p>Securities update mode</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="longbridge.openapi.SecuritiesUpdateMode.Add" class="doc doc-heading">
+          <span class="doc doc-object-name doc-class-name">Add</span>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecuritiesUpdateMode" href="#longbridge.openapi.SecuritiesUpdateMode">SecuritiesUpdateMode</a></code></p>
+
+  
+      <p>Add securities</p>
+
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="longbridge.openapi.SecuritiesUpdateMode.Remove" class="doc doc-heading">
+          <span class="doc doc-object-name doc-class-name">Remove</span>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecuritiesUpdateMode" href="#longbridge.openapi.SecuritiesUpdateMode">SecuritiesUpdateMode</a></code></p>
+
+  
+      <p>Remove securities</p>
+
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="longbridge.openapi.SecuritiesUpdateMode.Replace" class="doc doc-heading">
+          <span class="doc doc-object-name doc-class-name">Replace</span>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="longbridge.openapi.SecuritiesUpdateMode" href="#longbridge.openapi.SecuritiesUpdateMode">SecuritiesUpdateMode</a></code></p>
+
+  
+      <p>Replace securities</p>
+
+
+  </div>
+
+</div>
 
 
 
@@ -8382,7 +8493,8 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 ctx.set_on_quote(on_quote)
 
-ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Quote], is_first_push = True)
 sleep(30)</code></pre>
 
   </div>
@@ -8717,7 +8829,8 @@ print(resp)</code></pre>
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-resp = ctx.static_info(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+resp = ctx.static_info(
+    ["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
 print(resp)</code></pre>
 
   </div>
@@ -9517,7 +9630,8 @@ print(resp)</code></pre>
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-resp = ctx.candlesticks("700.HK", Period.Day, 10, AdjustType.NoAdjust)
+resp = ctx.candlesticks(
+    "700.HK", Period.Day, 10, AdjustType.NoAdjust)
 print(resp)</code></pre>
 
   </div>
@@ -9704,7 +9818,8 @@ from longbridge.openapi import QuoteContext, Config
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-resp = ctx.option_chain_info_by_date("AAPL.US", date(2023, 1, 20))
+resp = ctx.option_chain_info_by_date(
+    "AAPL.US", date(2023, 1, 20))
 print(resp)</code></pre>
 
   </div>
@@ -9932,7 +10047,8 @@ from longbridge.openapi import QuoteContext, Config, Market
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-resp = ctx.trading_days(Market.HK, date(2022, 1, 1), date(2022, 2, 1))
+resp = ctx.trading_days(
+    Market.HK, date(2022, 1, 1), date(2022, 2, 1))
 print(resp)</code></pre>
 
   </div>
@@ -10121,7 +10237,28 @@ print(resp)</code></pre>
 
 
 </h3>
-<pre class="highlight"><code class="language-python">watch_list() -&gt; List[WatchListGroup]</code></pre>
+<pre class="highlight"><code class="language-python">watch_list() -&gt; List[WatchlistGroup]</code></pre>
+
+  <div class="doc doc-contents ">
+  
+      <p>Get watch list</p>
+<p>Deprecated: use instead <code>watchlist</code></p>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="longbridge.openapi.QuoteContext.watchlist" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">watchlist</span>
+
+
+</h3>
+<pre class="highlight"><code class="language-python">watchlist() -&gt; List[WatchlistGroup]</code></pre>
 
   <div class="doc doc-contents ">
   
@@ -10140,7 +10277,7 @@ print(resp)</code></pre>
     <tbody>
         <tr>
           <td>
-                <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.WatchListGroup" href="#longbridge.openapi.WatchListGroup">WatchListGroup</a>]</code>
+                <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.WatchlistGroup" href="#longbridge.openapi.WatchlistGroup">WatchlistGroup</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -10160,8 +10297,269 @@ print(resp)</code></pre>
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-resp = ctx.watch_list()
+resp = ctx.watchlist()
 print(resp)</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="longbridge.openapi.QuoteContext.create_watchlist_group" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">create_watchlist_group</span>
+
+
+</h3>
+<pre class="highlight"><code class="language-python">create_watchlist_group(name: str, securities: Optional[List[str]] = None) -&gt; int</code></pre>
+
+  <div class="doc doc-contents ">
+  
+      <p>Create watchlist group</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group name</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>securities</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Securities</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridge.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+group_id = ctx.create_watchlist_group(name = "Watchlist1", securities = ["700.HK", "AAPL.US"])
+print(group_id)</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="longbridge.openapi.QuoteContext.delete_watchlist_group" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">delete_watchlist_group</span>
+
+
+</h3>
+<pre class="highlight"><code class="language-python">delete_watchlist_group(id: int, purge: bool = False)</code></pre>
+
+  <div class="doc doc-contents ">
+  
+      <p>Delete watchlist group</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>purge</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Move securities in this group to the default group</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridge.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+ctx.delete_watchlist_group(10086)</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="longbridge.openapi.QuoteContext.update_watchlist_group" class="doc doc-heading">
+          <span class="doc doc-object-name doc-function-name">update_watchlist_group</span>
+
+
+</h3>
+<pre class="highlight"><code class="language-python">update_watchlist_group(id: int, name: Optional[str] = None, securities: Optional[List[str]] = None, mode: Optional[Type[SecuritiesUpdateMode]] = None)</code></pre>
+
+  <div class="doc doc-contents ">
+  
+      <p>Update watchlist group</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>id</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group ID</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Group name</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>securities</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Securities</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridge.openapi import QuoteContext, Config, SecuritiesUpdateMode
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+ctx.update_watchlist_group(10086, name = "Watchlist2", securities = ["700.HK", "AAPL.US"], SecuritiesUpdateMode.Replace)</code></pre>
 
   </div>
 
@@ -10248,7 +10646,8 @@ from longbridge.openapi import QuoteContext, Config, SubType
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote], is_first_push = True)
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Quote], is_first_push = True)
 sleep(5)
 resp = ctx.realtime_quote(["700.HK", "AAPL.US"])
 print(resp)</code></pre>
@@ -10338,7 +10737,8 @@ from longbridge.openapi import QuoteContext, Config, SubType
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Depth], is_first_push = True)
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Depth], is_first_push = True)
 sleep(5)
 resp = ctx.realtime_depth("700.HK")
 print(resp)</code></pre>
@@ -10428,7 +10828,8 @@ from longbridge.openapi import QuoteContext, Config, SubType
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Brokers], is_first_push = True)
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Brokers], is_first_push = True)
 sleep(5)
 resp = ctx.realtime_brokers("700.HK")
 print(resp)</code></pre>
@@ -10532,7 +10933,8 @@ from longbridge.openapi import QuoteContext, Config, SubType
 config = Config.from_env()
 ctx = QuoteContext(config)
 
-ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Trade], is_first_push = False)
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Trade], is_first_push = False)
 sleep(5)
 resp = ctx.realtime_trades("700.HK", 10)
 print(resp)</code></pre>
