@@ -206,7 +206,7 @@ var searchData=
   ['lb_5ftime_5fin_5fforce_5ftype_5ft_304',['lb_time_in_force_type_t',['../longbridge_8h.html#ab56344e0ca75939f500cd17f4b1f484a',1,'lb_time_in_force_type_t():&#160;longbridge.h'],['../longbridge_8h.html#a68a096b29d23f6d7753fe34676d07159',1,'lb_time_in_force_type_t():&#160;longbridge.h']]],
   ['lb_5ftime_5ft_305',['lb_time_t',['../structlb__time__t.html',1,'lb_time_t'],['../longbridge_8h.html#a10a784be362681f9fdea3a02553e00aa',1,'lb_time_t():&#160;longbridge.h']]],
   ['lb_5ftopic_5ftype_5ft_306',['lb_topic_type_t',['../longbridge_8h.html#ac347ce21fccc91798b2cca75563e6350',1,'lb_topic_type_t():&#160;longbridge.h'],['../longbridge_8h.html#a439de1ffd584f3f9ee1eb49668e94c67',1,'lb_topic_type_t():&#160;longbridge.h']]],
-  ['lb_5ftrade_5fcontext_5faccount_5fbalance_307',['lb_trade_context_account_balance',['../longbridge_8h.html#a80cdfb1a49c5bf69452321cd4642763b',1,'longbridge.h']]],
+  ['lb_5ftrade_5fcontext_5faccount_5fbalance_307',['lb_trade_context_account_balance',['../longbridge_8h.html#a93385ca27a1d4e01d75cd901fb8dff40',1,'longbridge.h']]],
   ['lb_5ftrade_5fcontext_5fcancel_5forder_308',['lb_trade_context_cancel_order',['../longbridge_8h.html#a88eb35005d01a1801f509734df4dae98',1,'longbridge.h']]],
   ['lb_5ftrade_5fcontext_5fcash_5fflow_309',['lb_trade_context_cash_flow',['../longbridge_8h.html#a82eafe70cfd9edb33abb767701fffeb7',1,'longbridge.h']]],
   ['lb_5ftrade_5fcontext_5festimate_5fmax_5fpurchase_5fquantity_310',['lb_trade_context_estimate_max_purchase_quantity',['../longbridge_8h.html#a398a792c7c1ed955df87fa662aba374a',1,'longbridge.h']]],

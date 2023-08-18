@@ -851,8 +851,8 @@ Functions</h2></td></tr>
 <tr class="separator:a35ea682a98979f1886c3f1d57ae920de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88eb35005d01a1801f509734df4dae98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a88eb35005d01a1801f509734df4dae98">lb_trade_context_cancel_order</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const char *order_id, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
 <tr class="separator:a88eb35005d01a1801f509734df4dae98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80cdfb1a49c5bf69452321cd4642763b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a80cdfb1a49c5bf69452321cd4642763b">lb_trade_context_account_balance</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
-<tr class="separator:a80cdfb1a49c5bf69452321cd4642763b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93385ca27a1d4e01d75cd901fb8dff40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a93385ca27a1d4e01d75cd901fb8dff40">lb_trade_context_account_balance</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const char *currency, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
+<tr class="separator:a93385ca27a1d4e01d75cd901fb8dff40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82eafe70cfd9edb33abb767701fffeb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a82eafe70cfd9edb33abb767701fffeb7">lb_trade_context_cash_flow</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const struct <a class="el" href="structlb__get__cash__flow__options__t.html">lb_get_cash_flow_options_t</a> *opts, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
 <tr class="separator:a82eafe70cfd9edb33abb767701fffeb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad271a48221873db215d7b475429539e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#ad271a48221873db215d7b475429539e8">lb_trade_context_fund_positions</a> (const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *ctx, const struct <a class="el" href="structlb__get__fund__positions__options__t.html">lb_get_fund_positions_options_t</a> *opts, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
@@ -6515,8 +6515,8 @@ Variables</h1>
 
 </div>
 </div>
-<a id="a80cdfb1a49c5bf69452321cd4642763b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80cdfb1a49c5bf69452321cd4642763b">&#9670;&nbsp;</a></span>lb_trade_context_account_balance()</h2>
+<a id="a93385ca27a1d4e01d75cd901fb8dff40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93385ca27a1d4e01d75cd901fb8dff40">&#9670;&nbsp;</a></span>lb_trade_context_account_balance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6526,6 +6526,12 @@ Variables</h1>
           <td>(</td>
           <td class="paramtype">const struct <a class="el" href="longbridge_8h.html#a926cfa821c03fd099c981194095a6104">lb_trade_context_t</a> *&#160;</td>
           <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>currency</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

@@ -99,7 +99,7 @@ var searchData=
   ['lb_5fquote_5fcontext_5fwarrant_5fquote_755',['lb_quote_context_warrant_quote',['../longbridge_8h.html#ae415855f868f332bc8bf93abf9fd654d',1,'longbridge.h']]],
   ['lb_5fquote_5fcontext_5fwatch_5flist_756',['lb_quote_context_watch_list',['../longbridge_8h.html#a0a534f4d3b7da6fb474fdde120ae37d2',1,'longbridge.h']]],
   ['lb_5fquote_5fcontext_5fwatchlist_757',['lb_quote_context_watchlist',['../longbridge_8h.html#a4156debe59176790a7f2c4ef4032d1bb',1,'longbridge.h']]],
-  ['lb_5ftrade_5fcontext_5faccount_5fbalance_758',['lb_trade_context_account_balance',['../longbridge_8h.html#a80cdfb1a49c5bf69452321cd4642763b',1,'longbridge.h']]],
+  ['lb_5ftrade_5fcontext_5faccount_5fbalance_758',['lb_trade_context_account_balance',['../longbridge_8h.html#a93385ca27a1d4e01d75cd901fb8dff40',1,'longbridge.h']]],
   ['lb_5ftrade_5fcontext_5fcancel_5forder_759',['lb_trade_context_cancel_order',['../longbridge_8h.html#a88eb35005d01a1801f509734df4dae98',1,'longbridge.h']]],
   ['lb_5ftrade_5fcontext_5fcash_5fflow_760',['lb_trade_context_cash_flow',['../longbridge_8h.html#a82eafe70cfd9edb33abb767701fffeb7',1,'longbridge.h']]],
   ['lb_5ftrade_5fcontext_5festimate_5fmax_5fpurchase_5fquantity_761',['lb_trade_context_estimate_max_purchase_quantity',['../longbridge_8h.html#a398a792c7c1ed955df87fa662aba374a',1,'longbridge.h']]],
