@@ -8,7 +8,7 @@ def on_quote(symbol: str, event: PushQuote):
 
 config = Config.from_env()
 ctx = QuoteContext(config)
-candlesticks = ctx.candlesticks(
-    "SPY.US", Period.Min_5, 1000, adjust_type=AdjustType.NoAdjust)
-for candlestick in candlesticks:
-    print(candlestick)
+ctx.set_on_quote(on_quote)
+ctx.subscribe(
+    ["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"], [SubType.Quote], is_first_push=True)
+sleep(10)
