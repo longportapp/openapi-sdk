@@ -93,11 +93,7 @@
             
             <li class="nav-item" data-level="1"><a href="#config" class="nav-link">Config</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.Config" class="nav-link">longbridge.openapi.Config</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.Config.__init__" class="nav-link">__init__()</a>
+            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.Config" class="nav-link">Config</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -120,6 +116,7 @@
 
 
 <div class="doc doc-object doc-class">
+
 
 
 <a id="longbridge.openapi.Config"></a>
@@ -236,7 +233,7 @@
             </div>
           </td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="longbridge.openapi.Language" href="../reference_all/#longbridge.openapi.Language">Language</a>.<a class="autorefs autorefs-internal" title="longbridge.openapi.Language.EN" href="../reference_all/#longbridge.openapi.Language.EN">EN</a></code>
+                <code><a class="autorefs autorefs-internal" title="longbridge.openapi.Language.EN" href="../reference_all/#longbridge.openapi.Language.EN">EN</a></code>
           </td>
         </tr>
     </tbody>
@@ -260,34 +257,16 @@
 
 
 
-<h2 id="longbridge.openapi.Config.__init__" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">__init__</span>
-
-
-</h2>
-<pre class="highlight"><code class="language-python">__init__(app_key: str, app_secret: str, access_token: str, http_url: str = 'https://openapi.longbridgeapp.com', quote_ws_url: str = 'wss://openapi-quote.longbridgeapp.com/v2', trade_ws_url: str = 'wss://openapi-trade.longbridgeapp.com/v2', language: Type[Language] = Language.EN) -&gt; None</code></pre>
-
-  <div class="doc doc-contents ">
-
-  </div>
-
-</div>
-
-
-<div class="doc doc-object doc-function">
-
-
 
 <h2 id="longbridge.openapi.Config.from_env" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">from_env</span>
-
+          <code class="highlight language-python">from_env()</code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
   </span>
 
 </h2>
-<pre class="highlight"><code class="language-python">from_env() -&gt; Config</code></pre>
+
 
   <div class="doc doc-contents ">
   
@@ -312,12 +291,12 @@
 
 
 
-<h2 id="longbridge.openapi.Config.refresh_access_token" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">refresh_access_token</span>
 
+<h2 id="longbridge.openapi.Config.refresh_access_token" class="doc doc-heading">
+          <code class="highlight language-python">refresh_access_token(expired_at=None)</code>
 
 </h2>
-<pre class="highlight"><code class="language-python">refresh_access_token(expired_at: Optional[datetime] = None) -&gt; str</code></pre>
+
 
   <div class="doc doc-contents ">
   
