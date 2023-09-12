@@ -14,8 +14,9 @@ use crate::{
             ReplaceOrderOptions, SubmitOrderOptions,
         },
         types::{
-            AccountBalance, CashFlow, Execution, FundPositionsResponse, MarginRatio, Order,
-            OrderDetail, PushOrderChanged, StockPositionsResponse, SubmitOrderResponse, TopicType,
+            AccountBalance, CashFlow, EstimateMaxPurchaseQuantityResponse, Execution,
+            FundPositionsResponse, MarginRatio, Order, OrderDetail, PushOrderChanged,
+            StockPositionsResponse, SubmitOrderResponse, TopicType,
         },
     },
     utils::JsCallback,
@@ -538,7 +539,7 @@ impl TradeContext {
     ///
     /// let config = Config.fromEnv()
     /// TradeContext.new(config)
-    ///   .then((ctx) => ctx.estimate_max_purchase_quantity({
+    ///   .then((ctx) => ctx.estimateMaxPurchaseQuantity({
     ///     symbol: "700.HK",
     ///     orderType: OrderType.LO,
     ///     side: OrderSide.Buy,
@@ -555,12 +556,14 @@ impl TradeContext {
         let ctx = self.ctx.clone();
         env.execute_tokio_future(
             async move {
-                ctx.estimate_max_purchase_quantity(opts)
+                let res = ctx
+                    .estimate_max_purchase_quantity(opts)
                     .await
                     .map_err(ErrorNewType)
-                    .map_err(napi::Error::from)
+                    .map_err(napi::Error::from)?;
+                res.try_into()
             },
-            |_, _| Ok(()),
+            |_, res: EstimateMaxPurchaseQuantityResponse| Ok(res),
         )
     }
 }
