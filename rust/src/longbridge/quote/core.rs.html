@@ -888,6 +888,8 @@
 <a href="#888" id="888">888</a>
 <a href="#889" id="889">889</a>
 <a href="#890" id="890">890</a>
+<a href="#891" id="891">891</a>
+<a href="#892" id="892">892</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1574,8 +1576,6 @@
                             .map(|data| (get_merger_ty(data.board), <span class="kw-2">&amp;mut </span>data.candlesticks))
                         {
                             <span class="kw">for </span>(period, candlesticks) <span class="kw">in </span>periods {
-                                <span class="kw">let </span>prev =
-                                    candlesticks.last().map(|candlestick| (<span class="kw-2">*</span>candlestick).into());
                                 <span class="kw">let </span>period2 = <span class="kw">match </span>period {
                                     Period::UnknownPeriod =&gt; <span class="macro">unreachable!</span>(),
                                     Period::OneMinute =&gt; longbridge_candlesticks::Period::Min_1,
@@ -1601,6 +1601,10 @@
                                     <span class="kw">if </span>trade.trade_session != TradeSession::NormalTrade {
                                         <span class="kw">continue</span>;
                                     }
+
+                                    <span class="kw">let </span>prev = candlesticks
+                                        .last()
+                                        .map(|candlestick| (<span class="kw-2">*</span>candlestick).into());
 
                                     <span class="kw">let </span>res = merger.merge(
                                         merge_ty,
