@@ -52,7 +52,7 @@ impl NaiveDate {
     }
 }
 
-/// Naive date type
+/// Time type
 #[derive(Debug, Copy, Clone)]
 #[napi_derive::napi]
 pub struct Time(pub(crate) time::Time);
@@ -93,6 +93,49 @@ impl Time {
         self.0
             .format(time::macros::format_description!(
                 "[hour]:[minute]:[second]"
+            ))
+            .unwrap()
+    }
+}
+
+/// Naive datetime type
+#[derive(Debug, Copy, Clone)]
+#[napi_derive::napi]
+pub struct NaiveDatetime(pub(crate) time::PrimitiveDateTime);
+
+impl From<time::PrimitiveDateTime> for NaiveDatetime {
+    #[inline]
+    fn from(datetime: time::PrimitiveDateTime) -> Self {
+        Self(datetime)
+    }
+}
+
+#[napi_derive::napi]
+impl NaiveDatetime {
+    #[napi(constructor)]
+    pub fn new(date: &NaiveDate, time: &Time) -> Self {
+        Self(time::PrimitiveDateTime::new(date.0, time.0))
+    }
+
+    #[napi(getter)]
+    #[inline]
+    pub fn date(&self) -> NaiveDate {
+        self.0.date().into()
+    }
+
+    #[napi(getter)]
+    #[inline]
+    pub fn time(&self) -> Time {
+        self.0.time().into()
+    }
+
+    #[napi]
+    #[inline]
+    #[allow(clippy::wrong_self_convention, clippy::inherent_to_string)]
+    pub fn to_string(&self) -> String {
+        self.0
+            .format(time::macros::format_description!(
+                "[year]-[month]-[day] [hour]:[minute]:[second]"
             ))
             .unwrap()
     }

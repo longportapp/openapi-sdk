@@ -1,4 +1,4 @@
-use time::{Date, Month, Time};
+use time::{Date, Month, PrimitiveDateTime, Time};
 
 use crate::types::ToFFI;
 
@@ -58,7 +58,44 @@ impl From<Time> for CTime {
     }
 }
 
+impl From<CTime> for Time {
+    fn from(time: CTime) -> Self {
+        Time::from_hms(time.hour, time.minute, time.second).expect("invalid time")
+    }
+}
+
 impl ToFFI for CTime {
+    type FFIType = Self;
+
+    #[inline]
+    fn to_ffi_type(&self) -> Self::FFIType {
+        *self
+    }
+}
+
+#[derive(Debug, Copy, Clone)]
+#[repr(C)]
+pub struct CDateTime {
+    pub date: CDate,
+    pub time: CTime,
+}
+
+impl From<PrimitiveDateTime> for CDateTime {
+    fn from(datetime: PrimitiveDateTime) -> Self {
+        Self {
+            date: datetime.date().into(),
+            time: datetime.time().into(),
+        }
+    }
+}
+
+impl From<CDateTime> for PrimitiveDateTime {
+    fn from(datetime: CDateTime) -> Self {
+        PrimitiveDateTime::new(datetime.date.into(), datetime.time.into())
+    }
+}
+
+impl ToFFI for CDateTime {
     type FFIType = Self;
 
     #[inline]

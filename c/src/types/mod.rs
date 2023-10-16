@@ -11,7 +11,7 @@ use std::{ffi::CStr, os::raw::c_char};
 
 pub(crate) use array::CVec;
 pub(crate) use cow::CCow;
-pub(crate) use datetime::{CDate, CTime};
+pub(crate) use datetime::{CDate, CDateTime, CTime};
 pub(crate) use decimal::CDecimal;
 pub(crate) use language::CLanguage;
 pub(crate) use market::CMarket;

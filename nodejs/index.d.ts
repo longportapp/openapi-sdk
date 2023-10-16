@@ -1019,6 +1019,10 @@ export class QuoteContext {
    * ```
    */
   candlesticks(symbol: string, period: Period, count: number, adjustType: AdjustType): Promise<Array<Candlestick>>
+  /** Get security history candlesticks by offset */
+  historyCandlesticksByOffset(symbol: string, period: Period, adjustType: AdjustType, forward: boolean, datetime: NaiveDatetime, count: number): Promise<Array<Candlestick>>
+  /** Get security history candlesticks by date */
+  historyCandlesticksByDate(symbol: string, period: Period, adjustType: AdjustType, start?: NaiveDate | undefined | null, end?: NaiveDate | undefined | null): Promise<Array<Candlestick>>
   /**
    * Get option chain expiry date list
    *
@@ -1813,12 +1817,19 @@ export class NaiveDate {
   get day(): number
   toString(): string
 }
-/** Naive date type */
+/** Time type */
 export class Time {
   constructor(hour: number, minute: number, second: number)
   get hour(): number
   get monute(): number
   get toString(): string
+}
+/** Naive datetime type */
+export class NaiveDatetime {
+  constructor(date: NaiveDate, time: Time)
+  get date(): NaiveDate
+  get time(): Time
+  toString(): string
 }
 /** Trade context */
 export class TradeContext {
@@ -2061,7 +2072,7 @@ export class TradeContext {
    *   });
    * ```
    */
-  accountBalance(): Promise<Array<AccountBalance>>
+  accountBalance(currency?: string | undefined | null): Promise<Array<AccountBalance>>
   /**
    * Get cash flow
    *
@@ -2157,7 +2168,7 @@ export class TradeContext {
    *
    * let config = Config.fromEnv()
    * TradeContext.new(config)
-   *   .then((ctx) => ctx.estimate_max_purchase_quantity({
+   *   .then((ctx) => ctx.estimateMaxPurchaseQuantity({
    *     symbol: "700.HK",
    *     orderType: OrderType.LO,
    *     side: OrderSide.Buy,

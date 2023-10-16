@@ -14,7 +14,7 @@ use longbridge::{
     Config, Market, QuoteContext,
 };
 use parking_lot::Mutex;
-use time::Date;
+use time::{Date, PrimitiveDateTime};
 
 use crate::{
     async_util,
@@ -546,6 +546,75 @@ pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextCandlest
                 context
                     .ctx
                     .candlesticks(symbol, period, count.max(0) as usize, adjust_type)
+                    .await?,
+            ))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextHistoryCandlesticksByOffset(
+    mut env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    period: JObject,
+    adjust_type: JObject,
+    forward: bool,
+    datetime: JObject,
+    count: i32,
+    callback: JObject,
+) {
+    jni_result(&mut env, (), |env| {
+        let context = &*(context as *const ContextObj);
+        let symbol: String = FromJValue::from_jvalue(env, symbol.into())?;
+        let period: Period = FromJValue::from_jvalue(env, period.into())?;
+        let adjust_type: AdjustType = FromJValue::from_jvalue(env, adjust_type.into())?;
+        let datetime: PrimitiveDateTime = FromJValue::from_jvalue(env, datetime.into())?;
+        async_util::execute(env, callback, async move {
+            Ok(ObjectArray(
+                context
+                    .ctx
+                    .history_candlesticks_by_offset(
+                        symbol,
+                        period,
+                        adjust_type,
+                        forward,
+                        datetime,
+                        count as usize,
+                    )
+                    .await?,
+            ))
+        })?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_com_longbridge_SdkNative_quoteContextHistoryCandlesticksByDate(
+    mut env: JNIEnv,
+    _class: JClass,
+    context: i64,
+    symbol: JString,
+    period: JObject,
+    adjust_type: JObject,
+    start: JObject,
+    end: JObject,
+    callback: JObject,
+) {
+    jni_result(&mut env, (), |env| {
+        let context = &*(context as *const ContextObj);
+        let symbol: String = FromJValue::from_jvalue(env, symbol.into())?;
+        let period: Period = FromJValue::from_jvalue(env, period.into())?;
+        let adjust_type: AdjustType = FromJValue::from_jvalue(env, adjust_type.into())?;
+        let start: Option<Date> = FromJValue::from_jvalue(env, start.into())?;
+        let end: Option<Date> = FromJValue::from_jvalue(env, end.into())?;
+        async_util::execute(env, callback, async move {
+            Ok(ObjectArray(
+                context
+                    .ctx
+                    .history_candlesticks_by_date(symbol, period, adjust_type, start, end)
                     .await?,
             ))
         })?;

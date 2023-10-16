@@ -407,6 +407,12 @@ convert(const Date* date)
   };
 }
 
+inline lb_time_t
+convert(const Time* time)
+{
+  return lb_time_t{ time->hour, time->minute, time->second };
+}
+
 inline Time
 convert(const lb_time_t* time)
 {
@@ -414,6 +420,15 @@ convert(const lb_time_t* time)
     time->hour,
     time->minute,
     time->second,
+  };
+}
+
+inline lb_datetime_t
+convert(const DateTime* datetime)
+{
+  return lb_datetime_t{
+    convert(&datetime->date),
+    convert(&datetime->time),
   };
 }
 

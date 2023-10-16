@@ -128,6 +128,25 @@ public:
     AdjustType adjust_type,
     AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
 
+  /// Get security history candlesticks by offset
+  void history_candlesticks_by_offset(
+    const std::string& symbol,
+    Period period,
+    AdjustType adjust_type,
+    bool forward,
+    DateTime datetime,
+    uintptr_t count,
+    AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
+
+  /// Get security history candlesticks by date
+  void history_candlesticks_by_date(
+    const std::string& symbol,
+    Period period,
+    AdjustType adjust_type,
+    std::optional<Date> start,
+    std::optional<Date> end,
+    AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
+
   /// Get option chain expiry date list
   void option_chain_expiry_date_list(
     const std::string& symbol,

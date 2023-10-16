@@ -44,6 +44,7 @@ cpp_compat = true
 "COptionQuote" = "lb_option_quote_t"
 "CDate" = "lb_date_t"
 "CTime" = "lb_time_t"
+"CDateTime" = "lb_datetime_t"
 "CWarrantQuote" = "lb_warrant_quote_t"
 "CSecurityDepth" = "lb_security_depth_t"
 "CSecurityBrokers" = "lb_security_brokers_t"

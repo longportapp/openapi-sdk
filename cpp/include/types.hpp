@@ -20,6 +20,12 @@ struct Time
   uint8_t second;
 };
 
+struct DateTime
+{
+  Date date;
+  Time time;
+};
+
 /// Language identifer
 enum class Language
 {

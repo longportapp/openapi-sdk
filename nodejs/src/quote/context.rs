@@ -20,7 +20,7 @@ use crate::{
             WarrantQuote, WatchlistGroup,
         },
     },
-    time::NaiveDate,
+    time::{NaiveDate, NaiveDatetime},
     types::Market,
     utils::JsCallback,
 };
@@ -535,6 +535,58 @@ impl QuoteContext {
                 period.into(),
                 count.max(0) as usize,
                 adjust_type.into(),
+            )
+            .await
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
+    /// Get security history candlesticks by offset
+    #[napi]
+    pub async fn history_candlesticks_by_offset(
+        &self,
+        symbol: String,
+        period: Period,
+        adjust_type: AdjustType,
+        forward: bool,
+        datetime: &NaiveDatetime,
+        count: i32,
+    ) -> Result<Vec<Candlestick>> {
+        self.ctx
+            .history_candlesticks_by_offset(
+                symbol,
+                period.into(),
+                adjust_type.into(),
+                forward,
+                datetime.0,
+                count as usize,
+            )
+            .await
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
+    /// Get security history candlesticks by date
+    #[napi]
+    pub async fn history_candlesticks_by_date(
+        &self,
+        symbol: String,
+        period: Period,
+        adjust_type: AdjustType,
+        start: Option<&NaiveDate>,
+        end: Option<&NaiveDate>,
+    ) -> Result<Vec<Candlestick>> {
+        self.ctx
+            .history_candlesticks_by_date(
+                symbol,
+                period.into(),
+                adjust_type.into(),
+                start.map(|date| date.0),
+                end.map(|date| date.0),
             )
             .await
             .map_err(ErrorNewType)?

@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use time::Date;
+use time::{Date, PrimitiveDateTime};
 
 use crate::{
     blocking::runtime::BlockingRuntime,
@@ -429,6 +429,37 @@ impl QuoteContextSync {
     ) -> Result<Vec<Candlestick>> {
         self.rt.call(move |ctx| async move {
             ctx.candlesticks(symbol, period, count, adjust_type).await
+        })
+    }
+
+    /// Get security history candlesticks by offset
+    pub fn history_candlesticks_by_offset(
+        &self,
+        symbol: impl Into<String> + Send + 'static,
+        period: Period,
+        adjust_type: AdjustType,
+        forward: bool,
+        time: PrimitiveDateTime,
+        count: usize,
+    ) -> Result<Vec<Candlestick>> {
+        self.rt.call(move |ctx| async move {
+            ctx.history_candlesticks_by_offset(symbol, period, adjust_type, forward, time, count)
+                .await
+        })
+    }
+
+    /// Get security history candlesticks by date
+    pub fn history_candlesticks_by_date(
+        &self,
+        symbol: impl Into<String> + Send + 'static,
+        period: Period,
+        adjust_type: AdjustType,
+        start: Option<Date>,
+        end: Option<Date>,
+    ) -> Result<Vec<Candlestick>> {
+        self.rt.call(move |ctx| async move {
+            ctx.history_candlesticks_by_date(symbol, period, adjust_type, start, end)
+                .await
         })
     }
 

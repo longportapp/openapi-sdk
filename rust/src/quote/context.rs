@@ -4,7 +4,7 @@ use longbridge_httpcli::{HttpClient, Json, Method};
 use longbridge_proto::quote;
 use longbridge_wscli::WsClientError;
 use serde::{Deserialize, Serialize};
-use time::Date;
+use time::{Date, PrimitiveDateTime};
 use tokio::sync::{mpsc, oneshot};
 
 use crate::{
@@ -663,6 +663,105 @@ impl QuoteContext {
                     period: period.into(),
                     count: count as i32,
                     adjust_type: adjust_type.into(),
+                },
+            )
+            .await?;
+        let candlesticks = resp
+            .candlesticks
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::<Result<Vec<_>>>()?;
+        Ok(candlesticks)
+    }
+
+    /// Get security history candlesticks by offset
+    pub async fn history_candlesticks_by_offset(
+        &self,
+        symbol: impl Into<String>,
+        period: Period,
+        adjust_type: AdjustType,
+        forward: bool,
+        time: PrimitiveDateTime,
+        count: usize,
+    ) -> Result<Vec<Candlestick>> {
+        let resp: quote::SecurityCandlestickResponse = self
+            .request(
+                cmd_code::GET_SECURITY_HISTORY_CANDLESTICKS,
+                quote::SecurityHistoryCandlestickRequest {
+                    symbol: symbol.into(),
+                    period: period.into(),
+                    adjust_type: adjust_type.into(),
+                    query_type: quote::HistoryCandlestickQueryType::QueryByOffset.into(),
+                    offset_request: Some(
+                        quote::security_history_candlestick_request::OffsetQuery {
+                            direction: if forward {
+                                quote::Direction::Forward
+                            } else {
+                                quote::Direction::Backward
+                            }
+                            .into(),
+                            date: format!(
+                                "{:04}{:02}{:02}",
+                                time.year(),
+                                time.month() as u8,
+                                time.day()
+                            ),
+                            minute: format!("{:02}{:02}", time.hour(), time.minute()),
+                            count: count as i32,
+                        },
+                    ),
+                    date_request: None,
+                },
+            )
+            .await?;
+        let candlesticks = resp
+            .candlesticks
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::<Result<Vec<_>>>()?;
+        Ok(candlesticks)
+    }
+
+    /// Get security history candlesticks by date
+    pub async fn history_candlesticks_by_date(
+        &self,
+        symbol: impl Into<String>,
+        period: Period,
+        adjust_type: AdjustType,
+        start: Option<Date>,
+        end: Option<Date>,
+    ) -> Result<Vec<Candlestick>> {
+        let resp: quote::SecurityCandlestickResponse = self
+            .request(
+                cmd_code::GET_SECURITY_HISTORY_CANDLESTICKS,
+                quote::SecurityHistoryCandlestickRequest {
+                    symbol: symbol.into(),
+                    period: period.into(),
+                    adjust_type: adjust_type.into(),
+                    query_type: quote::HistoryCandlestickQueryType::QueryByDate.into(),
+                    offset_request: None,
+                    date_request: Some(quote::security_history_candlestick_request::DateQuery {
+                        start_date: start
+                            .map(|date| {
+                                format!(
+                                    "{:04}{:02}{:02}",
+                                    date.year(),
+                                    date.month() as u8,
+                                    date.day()
+                                )
+                            })
+                            .unwrap_or_default(),
+                        end_date: end
+                            .map(|date| {
+                                format!(
+                                    "{:04}{:02}{:02}",
+                                    date.year(),
+                                    date.month() as u8,
+                                    date.day()
+                                )
+                            })
+                            .unwrap_or_default(),
+                    }),
                 },
             )
             .await?;

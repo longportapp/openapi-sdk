@@ -5,14 +5,14 @@ use jni::{
     objects::{JValue, JValueOwned},
     JNIEnv,
 };
-use time::{Date, Month, OffsetDateTime, Time};
+use time::{Date, Month, OffsetDateTime, PrimitiveDateTime, Time};
 
 use crate::{
     init::{
-        TIME_INSTANT_CLASS, TIME_LOCALDATE_CLASS, TIME_LOCALTIME_CLASS, TIME_OFFSETDATETIME_CLASS,
-        TIME_ZONE_ID,
+        TIME_INSTANT_CLASS, TIME_LOCALDATETIME_CLASS, TIME_LOCALDATE_CLASS, TIME_LOCALTIME_CLASS,
+        TIME_OFFSETDATETIME_CLASS, TIME_ZONE_ID,
     },
-    types::{ClassLoader, FromJValue, IntoJValue, JSignature},
+    types::{get_field, ClassLoader, FromJValue, IntoJValue, JSignature},
 };
 
 impl ClassLoader for OffsetDateTime {
@@ -136,5 +136,41 @@ impl IntoJValue for Time {
                 JValue::from(self.second() as i32),
             ],
         )
+    }
+}
+
+impl ClassLoader for PrimitiveDateTime {
+    fn init(_env: &mut JNIEnv) {}
+
+    fn class_ref() -> jni::objects::GlobalRef {
+        TIME_LOCALTIME_CLASS.get().cloned().unwrap()
+    }
+}
+
+impl JSignature for PrimitiveDateTime {
+    fn signature() -> Cow<'static, str> {
+        "Ljava/time/LocalDateTime;".into()
+    }
+}
+
+impl FromJValue for PrimitiveDateTime {
+    fn from_jvalue(env: &mut JNIEnv, value: JValueOwned) -> Result<Self> {
+        let obj = value.l()?;
+        let date: Date = get_field(env, &obj, "date")?;
+        let time: Time = get_field(env, &obj, "time")?;
+        Ok(PrimitiveDateTime::new(date, time))
+    }
+}
+
+impl IntoJValue for PrimitiveDateTime {
+    fn into_jvalue<'a>(self, env: &mut JNIEnv<'a>) -> Result<JValueOwned<'a>> {
+        let date = self.date().into_jvalue(env)?;
+        let time = self.time().into_jvalue(env)?;
+        let obj = env.new_object(
+            TIME_LOCALDATETIME_CLASS.get().unwrap(),
+            "(Ljava/time/LocalDate;Ljava/time/LocalTime;)V",
+            &[date.borrow(), time.borrow()],
+        )?;
+        Ok(JValueOwned::from(obj))
     }
 }

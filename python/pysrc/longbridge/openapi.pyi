@@ -2009,6 +2009,16 @@ class QuoteContext:
                 print(resp)
         """
 
+    def history_candlesticks(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], forward: bool, time: datetime, count: int) -> List[Candlestick]:
+        """
+        Get security history candlesticks by offset
+        """
+
+    def history_candlesticks_by_date(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], start: Optional[date], end: Optional[date]) -> List[Candlestick]:
+        """
+        Get security history candlesticks by date
+        """
+
     def option_chain_expiry_date_list(self, symbol: str) -> List[date]:
         """
         Get option chain expiry date list

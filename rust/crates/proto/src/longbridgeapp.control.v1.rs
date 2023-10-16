@@ -44,6 +44,10 @@ pub struct AuthResponse {
     pub session_id: ::prost::alloc::string::String,
     #[prost(int64, tag="2")]
     pub expires: i64,
+    #[prost(uint32, tag="3")]
+    pub limit: u32,
+    #[prost(uint32, tag="4")]
+    pub online: u32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReconnectRequest {
@@ -56,6 +60,10 @@ pub struct ReconnectResponse {
     pub session_id: ::prost::alloc::string::String,
     #[prost(int64, tag="2")]
     pub expires: i64,
+    #[prost(uint32, tag="3")]
+    pub limit: u32,
+    #[prost(uint32, tag="4")]
+    pub online: u32,
 }
 /// control command, see document: <https://open.longbridgeapp.com/docs/socket/control-command>
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

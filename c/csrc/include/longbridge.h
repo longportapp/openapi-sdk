@@ -1153,6 +1153,17 @@ typedef struct lb_date_t {
   uint8_t day;
 } lb_date_t;
 
+typedef struct lb_time_t {
+  uint8_t hour;
+  uint8_t minute;
+  uint8_t second;
+} lb_time_t;
+
+typedef struct lb_datetime_t {
+  struct lb_date_t date;
+  struct lb_time_t time;
+} lb_datetime_t;
+
 /**
  * An request to create a watchlist group
  */
@@ -2054,12 +2065,6 @@ typedef struct lb_issuer_info_t {
    */
   const char *name_hk;
 } lb_issuer_info_t;
-
-typedef struct lb_time_t {
-  uint8_t hour;
-  uint8_t minute;
-  uint8_t second;
-} lb_time_t;
 
 /**
  * The information of trading session
@@ -3213,6 +3218,31 @@ void lb_quote_context_candlesticks(const struct lb_quote_context_t *ctx,
                                    enum lb_adjust_type_t adjust_type,
                                    lb_async_callback_t callback,
                                    void *userdata);
+
+/**
+ * Get security history candlesticks by offset
+ */
+void lb_quote_context_history_candlesticks_by_offset(const struct lb_quote_context_t *ctx,
+                                                     const char *symbol,
+                                                     enum lb_period_t period,
+                                                     enum lb_adjust_type_t adjust_type,
+                                                     bool forward,
+                                                     struct lb_datetime_t time,
+                                                     uintptr_t count,
+                                                     lb_async_callback_t callback,
+                                                     void *userdata);
+
+/**
+ * Get security history candlesticks by date
+ */
+void lb_quote_context_history_candlesticks_by_date(const struct lb_quote_context_t *ctx,
+                                                   const char *symbol,
+                                                   enum lb_period_t period,
+                                                   enum lb_adjust_type_t adjust_type,
+                                                   const struct lb_date_t *start,
+                                                   const struct lb_date_t *end,
+                                                   lb_async_callback_t callback,
+                                                   void *userdata);
 
 /**
  * Get option chain expiry date list

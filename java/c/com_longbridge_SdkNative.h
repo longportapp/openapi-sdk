@@ -257,6 +257,22 @@ JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextCandlesticks
 
 /*
  * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextHistoryCandlesticksByOffset
+ * Signature: (JLjava/lang/String;Lcom/longbridge/quote/Period;Lcom/longbridge/quote/AdjustType;ZLjava/time/LocalDateTime;ILcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextHistoryCandlesticksByOffset
+  (JNIEnv *, jclass, jlong, jstring, jobject, jobject, jboolean, jobject, jint, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
+ * Method:    quoteContextHistoryCandlesticksByDate
+ * Signature: (JLjava/lang/String;Lcom/longbridge/quote/Period;Lcom/longbridge/quote/AdjustType;Ljava/time/LocalDate;Ljava/time/LocalDate;Lcom/longbridge/AsyncCallback;)V
+ */
+JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_quoteContextHistoryCandlesticksByDate
+  (JNIEnv *, jclass, jlong, jstring, jobject, jobject, jobject, jobject, jobject);
+
+/*
+ * Class:     com_longbridge_SdkNative
  * Method:    quoteContextOptionChainExpiryDateList
  * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
  */
@@ -482,10 +498,10 @@ JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_tradeContextCancelOrder
 /*
  * Class:     com_longbridge_SdkNative
  * Method:    tradeContextAccountBalance
- * Signature: (JLcom/longbridge/AsyncCallback;)V
+ * Signature: (JLjava/lang/String;Lcom/longbridge/AsyncCallback;)V
  */
 JNIEXPORT void JNICALL Java_com_longbridge_SdkNative_tradeContextAccountBalance
-  (JNIEnv *, jclass, jlong, jobject);
+  (JNIEnv *, jclass, jlong, jstring, jobject);
 
 /*
  * Class:     com_longbridge_SdkNative

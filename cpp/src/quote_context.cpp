@@ -626,6 +626,104 @@ QuoteContext::candlesticks(
 }
 
 void
+QuoteContext::history_candlesticks_by_offset(
+  const std::string& symbol,
+  Period period,
+  AdjustType adjust_type,
+  bool forward,
+  DateTime datetime,
+  uintptr_t count,
+  AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const
+{
+  lb_quote_context_history_candlesticks_by_offset(
+    ctx_,
+    symbol.c_str(),
+    convert(period),
+    convert(adjust_type),
+    forward,
+    convert(&datetime),
+    count,
+    [](auto res) {
+      auto callback_ptr =
+        callback::get_async_callback<QuoteContext, std::vector<Candlestick>>(
+          res->userdata);
+      QuoteContext ctx((const lb_quote_context_t*)res->ctx);
+      Status status(res->error);
+
+      if (status) {
+        auto rows = (const lb_candlestick_t*)res->data;
+        std::vector<Candlestick> rows2;
+        std::transform(rows,
+                       rows + res->length,
+                       std::back_inserter(rows2),
+                       [](auto row) { return convert(&row); });
+
+        (*callback_ptr)(AsyncResult<QuoteContext, std::vector<Candlestick>>(
+          ctx, std::move(status), &rows2));
+      } else {
+        (*callback_ptr)(AsyncResult<QuoteContext, std::vector<Candlestick>>(
+          ctx, std::move(status), nullptr));
+      }
+    },
+    new AsyncCallback<QuoteContext, std::vector<Candlestick>>(callback));
+}
+
+void
+QuoteContext::history_candlesticks_by_date(
+  const std::string& symbol,
+  Period period,
+  AdjustType adjust_type,
+  std::optional<Date> start,
+  std::optional<Date> end,
+  AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const
+{
+  lb_date_t cstart, cend;
+  const lb_date_t* cstart_ptr = nullptr;
+  const lb_date_t* cend_ptr = nullptr;
+
+  if (start) {
+    cstart = convert(&*start);
+    cstart_ptr = &cstart;
+  }
+
+  if (end) {
+    cend = convert(&*end);
+    cend_ptr = &cend;
+  }
+
+  lb_quote_context_history_candlesticks_by_date(
+    ctx_,
+    symbol.c_str(),
+    convert(period),
+    convert(adjust_type),
+    cstart_ptr,
+    cend_ptr,
+    [](auto res) {
+      auto callback_ptr =
+        callback::get_async_callback<QuoteContext, std::vector<Candlestick>>(
+          res->userdata);
+      QuoteContext ctx((const lb_quote_context_t*)res->ctx);
+      Status status(res->error);
+
+      if (status) {
+        auto rows = (const lb_candlestick_t*)res->data;
+        std::vector<Candlestick> rows2;
+        std::transform(rows,
+                       rows + res->length,
+                       std::back_inserter(rows2),
+                       [](auto row) { return convert(&row); });
+
+        (*callback_ptr)(AsyncResult<QuoteContext, std::vector<Candlestick>>(
+          ctx, std::move(status), &rows2));
+      } else {
+        (*callback_ptr)(AsyncResult<QuoteContext, std::vector<Candlestick>>(
+          ctx, std::move(status), nullptr));
+      }
+    },
+    new AsyncCallback<QuoteContext, std::vector<Candlestick>>(callback));
+}
+
+void
 QuoteContext::option_chain_expiry_date_list(
   const std::string& symbol,
   AsyncCallback<QuoteContext, std::vector<Date>> callback) const

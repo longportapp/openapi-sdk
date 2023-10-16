@@ -27,7 +27,7 @@ use crate::{
             LB_WATCHLIST_GROUP_NAME, LB_WATCHLIST_GROUP_SECURITIES,
         },
     },
-    types::{cstr_array_to_rust, cstr_to_rust, CCow, CDate, CMarket, CVec, ToFFI},
+    types::{cstr_array_to_rust, cstr_to_rust, CCow, CDate, CDateTime, CMarket, CVec, ToFFI},
 };
 
 pub type COnQuoteCallback = extern "C" fn(*const CQuoteContext, *const CPushQuote, *mut c_void);
@@ -578,6 +578,70 @@ pub unsafe extern "C" fn lb_quote_context_candlesticks(
     execute_async(callback, ctx, userdata, async move {
         let rows: CVec<CCandlestickOwned> = ctx_inner
             .candlesticks(symbol, period.into(), count, adjust_type.into())
+            .await?
+            .into();
+        Ok(rows)
+    });
+}
+
+/// Get security history candlesticks by offset
+#[no_mangle]
+pub unsafe extern "C" fn lb_quote_context_history_candlesticks_by_offset(
+    ctx: *const CQuoteContext,
+    symbol: *const c_char,
+    period: CPeriod,
+    adjust_type: CAdjustType,
+    forward: bool,
+    time: CDateTime,
+    count: usize,
+    callback: CAsyncCallback,
+    userdata: *mut c_void,
+) {
+    let ctx_inner = (*ctx).ctx.clone();
+    let symbol = cstr_to_rust(symbol);
+    execute_async(callback, ctx, userdata, async move {
+        let rows: CVec<CCandlestickOwned> = ctx_inner
+            .history_candlesticks_by_offset(
+                symbol,
+                period.into(),
+                adjust_type.into(),
+                forward,
+                time.into(),
+                count,
+            )
+            .await?
+            .into();
+        Ok(rows)
+    });
+}
+
+/// Get security history candlesticks by date
+#[no_mangle]
+pub unsafe extern "C" fn lb_quote_context_history_candlesticks_by_date(
+    ctx: *const CQuoteContext,
+    symbol: *const c_char,
+    period: CPeriod,
+    adjust_type: CAdjustType,
+    start: *const CDate,
+    end: *const CDate,
+    callback: CAsyncCallback,
+    userdata: *mut c_void,
+) {
+    let ctx_inner = (*ctx).ctx.clone();
+    let symbol = cstr_to_rust(symbol);
+    let start = if start.is_null() {
+        None
+    } else {
+        Some((*start).into())
+    };
+    let end = if end.is_null() {
+        None
+    } else {
+        Some((*end).into())
+    };
+    execute_async(callback, ctx, userdata, async move {
+        let rows: CVec<CCandlestickOwned> = ctx_inner
+            .history_candlesticks_by_date(symbol, period.into(), adjust_type.into(), start, end)
             .await?
             .into();
         Ok(rows)

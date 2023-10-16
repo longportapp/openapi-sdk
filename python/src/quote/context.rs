@@ -6,6 +6,7 @@ use longbridge::{
 };
 use parking_lot::Mutex;
 use pyo3::prelude::*;
+use time::PrimitiveDateTime;
 
 use crate::{
     config::Config,
@@ -20,7 +21,7 @@ use crate::{
             Trade, WarrantQuote, WatchlistGroup,
         },
     },
-    time::PyDateWrapper,
+    time::{PyDateWrapper, PyOffsetDateTimeWrapper},
     types::Market,
 };
 
@@ -242,6 +243,54 @@ impl QuoteContext {
     ) -> PyResult<Vec<Candlestick>> {
         self.ctx
             .candlesticks(symbol, period.into(), count, adjust_type.into())
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
+    /// Get security history candlesticks by offset
+    fn history_candlesticks_by_offset(
+        &self,
+        symbol: String,
+        period: Period,
+        adjust_type: AdjustType,
+        forward: bool,
+        time: PyOffsetDateTimeWrapper,
+        count: usize,
+    ) -> PyResult<Vec<Candlestick>> {
+        self.ctx
+            .history_candlesticks_by_offset(
+                symbol,
+                period.into(),
+                adjust_type.into(),
+                forward,
+                PrimitiveDateTime::new(time.0.date(), time.0.time()),
+                count,
+            )
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
+    /// Get security history candlesticks by offset
+    fn history_candlesticks_by_date(
+        &self,
+        symbol: String,
+        period: Period,
+        adjust_type: AdjustType,
+        start: Option<PyDateWrapper>,
+        end: Option<PyDateWrapper>,
+    ) -> PyResult<Vec<Candlestick>> {
+        self.ctx
+            .history_candlesticks_by_date(
+                symbol,
+                period.into(),
+                adjust_type.into(),
+                start.map(|d| d.0),
+                end.map(|d| d.0),
+            )
             .map_err(ErrorNewType)?
             .into_iter()
             .map(TryInto::try_into)

@@ -14,6 +14,7 @@ pub(crate) static TIME_INSTANT_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TIME_OFFSETDATETIME_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TIME_LOCALDATE_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TIME_LOCALTIME_CLASS: OnceCell<GlobalRef> = OnceCell::new();
+pub(crate) static TIME_LOCALDATETIME_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TIME_ZONE_ID: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static QUOTE_CONTEXT_CLASS: OnceCell<GlobalRef> = OnceCell::new();
 pub(crate) static TRADE_CONTEXT_CLASS: OnceCell<GlobalRef> = OnceCell::new();
@@ -64,6 +65,7 @@ pub extern "system" fn Java_com_longbridge_SdkNative_init<'a>(
         (TIME_OFFSETDATETIME_CLASS, "java/time/OffsetDateTime"),
         (TIME_LOCALDATE_CLASS, "java/time/LocalDate"),
         (TIME_LOCALTIME_CLASS, "java/time/LocalTime"),
+        (TIME_LOCALDATETIME_CLASS, "java/time/LocalDateTime"),
         (DERIVATIVE_TYPE_CLASS, "com/longbridge/quote/DerivativeType"),
         (OPENAPI_EXCEPTION_CLASS, "com/longbridge/OpenApiException"),
         (QUOTE_CONTEXT_CLASS, "com/longbridge/quote/QuoteContext"),

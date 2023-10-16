@@ -757,6 +757,42 @@ pub struct SecurityCalcQuoteResponse {
     #[prost(message, repeated, tag="1")]
     pub security_calc_index: ::prost::alloc::vec::Vec<SecurityCalcIndex>,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SecurityHistoryCandlestickRequest {
+    #[prost(string, tag="1")]
+    pub symbol: ::prost::alloc::string::String,
+    #[prost(enumeration="Period", tag="2")]
+    pub period: i32,
+    #[prost(enumeration="AdjustType", tag="3")]
+    pub adjust_type: i32,
+    #[prost(enumeration="HistoryCandlestickQueryType", tag="4")]
+    pub query_type: i32,
+    #[prost(message, optional, tag="5")]
+    pub offset_request: ::core::option::Option<security_history_candlestick_request::OffsetQuery>,
+    #[prost(message, optional, tag="6")]
+    pub date_request: ::core::option::Option<security_history_candlestick_request::DateQuery>,
+}
+/// Nested message and enum types in `SecurityHistoryCandlestickRequest`.
+pub mod security_history_candlestick_request {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct OffsetQuery {
+        #[prost(enumeration="super::Direction", tag="1")]
+        pub direction: i32,
+        #[prost(string, tag="2")]
+        pub date: ::prost::alloc::string::String,
+        #[prost(string, tag="3")]
+        pub minute: ::prost::alloc::string::String,
+        #[prost(int32, tag="4")]
+        pub count: i32,
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct DateQuery {
+        #[prost(string, tag="1")]
+        pub start_date: ::prost::alloc::string::String,
+        #[prost(string, tag="2")]
+        pub end_date: ::prost::alloc::string::String,
+    }
+}
 /// 协议指令定义
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -812,6 +848,8 @@ pub enum Command {
     QueryCapitalFlowDistribution = 25,
     ///查询标的指标数据
     QuerySecurityCalcIndex = 26,
+    ///查询标的历史 k 线
+    QueryHistoryCandlestick = 27,
     ///推送行情
     PushQuoteData = 101,
     ///推送盘口
@@ -916,4 +954,19 @@ pub enum CalcIndex {
     CalcindexTheta = 38,
     CalcindexVega = 39,
     CalcindexRho = 40,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum HistoryCandlestickQueryType {
+    UnknownQueryType = 0,
+    QueryByOffset = 1,
+    QueryByDate = 2,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Direction {
+    /// 老数据, 从最新的数据往历史数据翻页
+    Backward = 0,
+    /// 新数据, 从当前数据往最新数据翻页
+    Forward = 1,
 }
