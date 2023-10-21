@@ -150,6 +150,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f56334bc40e7d740485d14d59f380ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#a1f56334bc40e7d740485d14d59f380ca">candlesticks</a> (const std::string &amp;symbol, <a class="el" href="namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4">Period</a> period, uintptr_t count, <a class="el" href="namespacelongbridge_1_1quote.html#a7ecee45d12af625ff6ec41c1a8e759af">AdjustType</a> adjust_type, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_candlestick.html">Candlestick</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:a1f56334bc40e7d740485d14d59f380ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get security candlesticks.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#a1f56334bc40e7d740485d14d59f380ca">More...</a><br /></td></tr>
 <tr class="separator:a1f56334bc40e7d740485d14d59f380ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6527069a97b861cf078ad0926cb32e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#aa6527069a97b861cf078ad0926cb32e1">history_candlesticks_by_offset</a> (const std::string &amp;symbol, <a class="el" href="namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4">Period</a> period, <a class="el" href="namespacelongbridge_1_1quote.html#a7ecee45d12af625ff6ec41c1a8e759af">AdjustType</a> adjust_type, bool forward, <a class="el" href="structlongbridge_1_1_date_time.html">DateTime</a> datetime, uintptr_t count, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_candlestick.html">Candlestick</a> &gt;&gt; callback) const</td></tr>
+<tr class="memdesc:aa6527069a97b861cf078ad0926cb32e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get security history candlesticks by offset.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#aa6527069a97b861cf078ad0926cb32e1">More...</a><br /></td></tr>
+<tr class="separator:aa6527069a97b861cf078ad0926cb32e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaf71fd39d1f5139199e379c966aa737"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#aeaf71fd39d1f5139199e379c966aa737">history_candlesticks_by_date</a> (const std::string &amp;symbol, <a class="el" href="namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4">Period</a> period, <a class="el" href="namespacelongbridge_1_1quote.html#a7ecee45d12af625ff6ec41c1a8e759af">AdjustType</a> adjust_type, std::optional&lt; <a class="el" href="structlongbridge_1_1_date.html">Date</a> &gt; start, std::optional&lt; <a class="el" href="structlongbridge_1_1_date.html">Date</a> &gt; end, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_candlestick.html">Candlestick</a> &gt;&gt; callback) const</td></tr>
+<tr class="memdesc:aeaf71fd39d1f5139199e379c966aa737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get security history candlesticks by date.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#aeaf71fd39d1f5139199e379c966aa737">More...</a><br /></td></tr>
+<tr class="separator:aeaf71fd39d1f5139199e379c966aa737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39c967d93c9435deea550956bc668bdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#a39c967d93c9435deea550956bc668bdb">option_chain_expiry_date_list</a> (const std::string &amp;symbol, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1_date.html">Date</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:a39c967d93c9435deea550956bc668bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get option chain expiry date list.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#a39c967d93c9435deea550956bc668bdb">More...</a><br /></td></tr>
 <tr class="separator:a39c967d93c9435deea550956bc668bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -560,6 +566,120 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get security depth. </p>
+
+</div>
+</div>
+<a id="aeaf71fd39d1f5139199e379c966aa737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaf71fd39d1f5139199e379c966aa737">&#9670;&nbsp;</a></span>history_candlesticks_by_date()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longbridge::quote::QuoteContext::history_candlesticks_by_date </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>symbol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4">Period</a>&#160;</td>
+          <td class="paramname"><em>period</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge_1_1quote.html#a7ecee45d12af625ff6ec41c1a8e759af">AdjustType</a>&#160;</td>
+          <td class="paramname"><em>adjust_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structlongbridge_1_1_date.html">Date</a> &gt;&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structlongbridge_1_1_date.html">Date</a> &gt;&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_candlestick.html">Candlestick</a> &gt;&gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get security history candlesticks by date. </p>
+
+</div>
+</div>
+<a id="aa6527069a97b861cf078ad0926cb32e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6527069a97b861cf078ad0926cb32e1">&#9670;&nbsp;</a></span>history_candlesticks_by_offset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longbridge::quote::QuoteContext::history_candlesticks_by_offset </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>symbol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4">Period</a>&#160;</td>
+          <td class="paramname"><em>period</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge_1_1quote.html#a7ecee45d12af625ff6ec41c1a8e759af">AdjustType</a>&#160;</td>
+          <td class="paramname"><em>adjust_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forward</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structlongbridge_1_1_date_time.html">DateTime</a>&#160;</td>
+          <td class="paramname"><em>datetime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uintptr_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_candlestick.html">Candlestick</a> &gt;&gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get security history candlesticks by offset. </p>
 
 </div>
 </div>
