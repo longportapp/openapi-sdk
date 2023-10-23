@@ -2009,7 +2009,7 @@ class QuoteContext:
                 print(resp)
         """
 
-    def history_candlesticks(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], forward: bool, time: datetime, count: int) -> List[Candlestick]:
+    def history_candlesticks_by_offset(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], forward: bool, time: datetime, count: int) -> List[Candlestick]:
         """
         Get security history candlesticks by offset
         """
