@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['id_855',['id',['../structlongbridge_1_1quote_1_1_watchlist_group.html#a07a4a266201781f83a56ab1ee5030d69',1,'longbridge::quote::WatchlistGroup::id()'],['../structlongbridge_1_1quote_1_1_update_watchlist_group.html#a080bc1f3c5c7bbc3c00efc6d682fccb4',1,'longbridge::quote::UpdateWatchlistGroup::id()']]],
-  ['im_5ffactor_856',['im_factor',['../structlongbridge_1_1trade_1_1_margin_ratio.html#a1dde7e7186b13f4a1e8d8164722bbf5c',1,'longbridge::trade::MarginRatio']]],
-  ['implied_5fvolatility_857',['implied_volatility',['../structlongbridge_1_1quote_1_1_option_quote.html#aa5fa1d904770c9852dfbb776b3fe11c8',1,'longbridge::quote::OptionQuote::implied_volatility()'],['../structlongbridge_1_1quote_1_1_warrant_quote.html#ab0c12f450ff0e89b575dbfc38af9efce',1,'longbridge::quote::WarrantQuote::implied_volatility()']]],
-  ['inflow_858',['inflow',['../structlongbridge_1_1quote_1_1_capital_flow_line.html#a3482f04aaf63c7ad139a71acede5c688',1,'longbridge::quote::CapitalFlowLine']]],
-  ['init_5fmargin_859',['init_margin',['../structlongbridge_1_1trade_1_1_account_balance.html#a8e81ea8702b35a118d085b663e4db910',1,'longbridge::trade::AccountBalance']]],
-  ['issuer_5fid_860',['issuer_id',['../structlongbridge_1_1quote_1_1_issuer_info.html#a20c17b4ed877aa3830a97dbaa09dc87c',1,'longbridge::quote::IssuerInfo']]],
-  ['items_861',['items',['../structlongbridge_1_1trade_1_1_order_charge_detail.html#aa45a735f1c21fc97c72d23358ddd9007',1,'longbridge::trade::OrderChargeDetail']]]
+  ['half_5ftrading_5fdays_932',['half_trading_days',['../structlongbridge_1_1quote_1_1_market_trading_days.html#a804728c2b431134492746f9042f2ea63',1,'longbridge::quote::MarketTradingDays']]],
+  ['half_5fyear_5fchange_5frate_933',['half_year_change_rate',['../structlongbridge_1_1quote_1_1_security_calc_index.html#a499d6a6726b1ef7a9965d898a12df9f5',1,'longbridge::quote::SecurityCalcIndex']]],
+  ['high_934',['high',['../structlongbridge_1_1quote_1_1_push_quote.html#a007c7d68e0b71a6239d313bc03319a88',1,'longbridge::quote::PushQuote::high()'],['../structlongbridge_1_1quote_1_1_pre_post_quote.html#a86d3ac8e189bedff5f87a817d31d195b',1,'longbridge::quote::PrePostQuote::high()'],['../structlongbridge_1_1quote_1_1_security_quote.html#a673e01ee9c9c68cb0b09663ed360d0c0',1,'longbridge::quote::SecurityQuote::high()'],['../structlongbridge_1_1quote_1_1_option_quote.html#a96cc2868e11b85e58025608d3b2c18a0',1,'longbridge::quote::OptionQuote::high()'],['../structlongbridge_1_1quote_1_1_candlestick.html#ab7141b415c9f5d970cb0b606d478a36f',1,'longbridge::quote::Candlestick::high()'],['../structlongbridge_1_1quote_1_1_warrant_quote.html#a82a459ef6f1c2b77ae0b938d0206ad4f',1,'longbridge::quote::WarrantQuote::high()'],['../structlongbridge_1_1quote_1_1_realtime_quote.html#a2370c0b18f9f62f067b49605172a9cad',1,'longbridge::quote::RealtimeQuote::high()']]],
+  ['historical_5fvolatility_935',['historical_volatility',['../structlongbridge_1_1quote_1_1_option_quote.html#a933ff2a9590e2d4cdb3e3e06e933a235',1,'longbridge::quote::OptionQuote']]],
+  ['history_936',['history',['../structlongbridge_1_1trade_1_1_order_detail.html#ad6b926bb229d91f7ca45ce6b54ac2d13',1,'longbridge::trade::OrderDetail']]],
+  ['hk_5fshares_937',['hk_shares',['../structlongbridge_1_1quote_1_1_security_static_info.html#a082e6c1f32ebad6eb6543a1a00314eba',1,'longbridge::quote::SecurityStaticInfo']]],
+  ['holding_5funits_938',['holding_units',['../structlongbridge_1_1trade_1_1_fund_position.html#a50e2326bcb30ea00ed3c5dd271b1377a',1,'longbridge::trade::FundPosition']]],
+  ['hour_939',['hour',['../structlongbridge_1_1_time.html#af2b67f01228da0ca2d49ede2018de2df',1,'longbridge::Time']]]
 ];

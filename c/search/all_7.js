@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['id_95',['id',['../structlb__update__watchlist__group__t.html#ab1aed7fa271dc86295d16cc730100306',1,'lb_update_watchlist_group_t::id()'],['../structlb__watchlist__group__t.html#ab1aed7fa271dc86295d16cc730100306',1,'lb_watchlist_group_t::id()']]],
-  ['im_5ffactor_96',['im_factor',['../structlb__margin__ratio__t.html#a60ace04cacbf3b58666ca8400f85b221',1,'lb_margin_ratio_t']]],
-  ['implied_5fvolatility_97',['implied_volatility',['../structlb__option__quote__t.html#a87eaa71ad63774cbf702d2ba0bce9690',1,'lb_option_quote_t::implied_volatility()'],['../structlb__warrant__quote__t.html#a87eaa71ad63774cbf702d2ba0bce9690',1,'lb_warrant_quote_t::implied_volatility()']]],
-  ['inflow_98',['inflow',['../structlb__capital__flow__line__t.html#a4b72f5bbea11d8529ec5e8420a7df391',1,'lb_capital_flow_line_t']]],
-  ['init_5fmargin_99',['init_margin',['../structlb__account__balance__t.html#ab49f375cca2b002cbe93caf2b10e6bed',1,'lb_account_balance_t']]],
-  ['issuer_5fid_100',['issuer_id',['../structlb__issuer__info__t.html#a071c3acfc18c85b13f6245d3b524fcd3',1,'lb_issuer_info_t']]],
-  ['items_101',['items',['../structlb__order__charge__detail__t.html#ac3083b62f3ca6285542e76913ee07df3',1,'lb_order_charge_detail_t']]]
+  ['half_5ftrading_5fdays_139',['half_trading_days',['../structlb__market__trading__days__t.html#a2fa3188731e990c630ca72d0cbca394c',1,'lb_market_trading_days_t']]],
+  ['half_5fyear_5fchange_5frate_140',['half_year_change_rate',['../structlb__security__calc__index__t.html#a93d05cf6817b86a2f022fc80d7860338',1,'lb_security_calc_index_t']]],
+  ['high_141',['high',['../structlb__push__quote__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_push_quote_t::high()'],['../structlb__candlestick__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_candlestick_t::high()'],['../structlb__prepost__quote__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_prepost_quote_t::high()'],['../structlb__security__quote__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_security_quote_t::high()'],['../structlb__option__quote__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_option_quote_t::high()'],['../structlb__warrant__quote__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_warrant_quote_t::high()'],['../structlb__realtime__quote__t.html#a65f1b1cd760008d4b4cdb5cefd0d0888',1,'lb_realtime_quote_t::high()']]],
+  ['historical_5fvolatility_142',['historical_volatility',['../structlb__option__quote__t.html#a7842d6a2bc2c4d2d6fac07e65723e986',1,'lb_option_quote_t']]],
+  ['history_143',['history',['../structlb__order__detail__t.html#a8a216560b51b91dcb7b7520b167d649d',1,'lb_order_detail_t']]],
+  ['hk_5fshares_144',['hk_shares',['../structlb__security__static__info__t.html#aa12cb00e3d275cff32bf8492d1d8cfe6',1,'lb_security_static_info_t']]],
+  ['holding_5funits_145',['holding_units',['../structlb__fund__position__t.html#af994cb396c0aaf7c843d5509c604eab2',1,'lb_fund_position_t']]],
+  ['hour_146',['hour',['../structlb__time__t.html#ae5af4ff48939d13d480f87e56a9385d6',1,'lb_time_t']]]
 ];

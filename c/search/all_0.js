@@ -5,9 +5,10 @@ var searchData=
   ['adjusttypeforward_2',['AdjustTypeForward',['../longbridge_8h.html#ac7dfa4da1bb548d6575c619f3f22515fa56ffbdbf49c35dc37c367183b427797e',1,'longbridge.h']]],
   ['adjusttypenoadjust_3',['AdjustTypeNoAdjust',['../longbridge_8h.html#ac7dfa4da1bb548d6575c619f3f22515fa2431e5109013a7697b3e8fb30950d916',1,'longbridge.h']]],
   ['amount_4',['amount',['../structlb__order__charge__fee__t.html#ad38292d4bbc8f84f741959ed33f0c879',1,'lb_order_charge_fee_t']]],
-  ['ask_5fbrokers_5',['ask_brokers',['../structlb__push__brokers__t.html#a6352db33357cab012166f960453660a0',1,'lb_push_brokers_t::ask_brokers()'],['../structlb__security__brokers__t.html#a6352db33357cab012166f960453660a0',1,'lb_security_brokers_t::ask_brokers()']]],
-  ['asks_6',['asks',['../structlb__push__depth__t.html#a21507152bb0d75d3fa087dc5858fd14e',1,'lb_push_depth_t::asks()'],['../structlb__security__depth__t.html#a21507152bb0d75d3fa087dc5858fd14e',1,'lb_security_depth_t::asks()']]],
-  ['available_5fcash_7',['available_cash',['../structlb__cash__info__t.html#a0a1e7ebc8ba990379fe702214f4091c5',1,'lb_cash_info_t']]],
-  ['available_5fquantity_8',['available_quantity',['../structlb__stock__position__t.html#a855d08782f0b7dd9928ecb0d607d0286',1,'lb_stock_position_t']]],
-  ['avg_5fprice_9',['avg_price',['../structlb__intraday__line__t.html#a2b4df9e8ae56b0c2b2a4bd4136a12807',1,'lb_intraday_line_t']]]
+  ['amplitude_5',['amplitude',['../structlb__security__calc__index__t.html#a3ed3658d58afb2c54b53ba532fede767',1,'lb_security_calc_index_t']]],
+  ['ask_5fbrokers_6',['ask_brokers',['../structlb__push__brokers__t.html#a6352db33357cab012166f960453660a0',1,'lb_push_brokers_t::ask_brokers()'],['../structlb__security__brokers__t.html#a6352db33357cab012166f960453660a0',1,'lb_security_brokers_t::ask_brokers()']]],
+  ['asks_7',['asks',['../structlb__push__depth__t.html#a21507152bb0d75d3fa087dc5858fd14e',1,'lb_push_depth_t::asks()'],['../structlb__security__depth__t.html#a21507152bb0d75d3fa087dc5858fd14e',1,'lb_security_depth_t::asks()']]],
+  ['available_5fcash_8',['available_cash',['../structlb__cash__info__t.html#a0a1e7ebc8ba990379fe702214f4091c5',1,'lb_cash_info_t']]],
+  ['available_5fquantity_9',['available_quantity',['../structlb__stock__position__t.html#a855d08782f0b7dd9928ecb0d607d0286',1,'lb_stock_position_t']]],
+  ['avg_5fprice_10',['avg_price',['../structlb__intraday__line__t.html#a2b4df9e8ae56b0c2b2a4bd4136a12807',1,'lb_intraday_line_t']]]
 ];

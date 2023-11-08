@@ -218,6 +218,8 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__estimate__max__purchase__quantity__response__t.html">lb_estimate_max_purchase_quantity_response_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlb__security__calc__index__t.html">lb_security_calc_index_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -244,6 +246,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:ab1fad74a4512950f2ed902ea3b46dc97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09bd1bd7c7f80a0f4c1766754ea179cd"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#ac0ec531aeaece7112d0f70761dfd7d10">lb_balance_type_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a09bd1bd7c7f80a0f4c1766754ea179cd">lb_balance_type_t</a></td></tr>
 <tr class="separator:a09bd1bd7c7f80a0f4c1766754ea179cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93c315ba2b49f48ee79ff43a1348b7aa"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a93c315ba2b49f48ee79ff43a1348b7aa">lb_calc_index_t</a></td></tr>
+<tr class="separator:a93c315ba2b49f48ee79ff43a1348b7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a3354ded5305c67d9cf131ae3229228"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48f">lb_cash_flow_direction_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a5a3354ded5305c67d9cf131ae3229228">lb_cash_flow_direction_t</a></td></tr>
 <tr class="separator:a5a3354ded5305c67d9cf131ae3229228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ee7097e34d4e5f7cf1f12b69d01b0fa"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="longbridge_8h.html#aaf0f0dc318ec3683ff56d117ee49bcc3">lb_charge_category_code_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a5ee7097e34d4e5f7cf1f12b69d01b0fa">lb_charge_category_code_t</a></td></tr>
@@ -454,6 +458,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:adcbb879a1beab651f19fdd29f12ad82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a515d60cd962b35395b72eb286ab61beb"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__estimate__max__purchase__quantity__response__t.html">lb_estimate_max_purchase_quantity_response_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a515d60cd962b35395b72eb286ab61beb">lb_estimate_max_purchase_quantity_response_t</a></td></tr>
 <tr class="separator:a515d60cd962b35395b72eb286ab61beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8e6ab7235b6dd7312188517bf7d717"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlb__security__calc__index__t.html">lb_security_calc_index_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#acc8e6ab7235b6dd7312188517bf7d717">lb_security_calc_index_t</a></td></tr>
+<tr class="separator:acc8e6ab7235b6dd7312188517bf7d717"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -467,6 +473,59 @@ Enumerations</h2></td></tr>
 , <a class="el" href="longbridge_8h.html#ac0ec531aeaece7112d0f70761dfd7d10afc55415409b79138d06adaded57e475d">BalanceTypeFund</a>
  }</td></tr>
 <tr class="separator:ac0ec531aeaece7112d0f70761dfd7d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aea2a6f96dbc554fe0db2b6200c2f2d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a> { <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2daac84820991925938c17044eb30b2755c">CalcIndexLastDone</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da2bb559b81a6b5320147e17312e88d8b4">CalcIndexChangeValue</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da0dc3a93a386b1fb4da4bfd0d6ac9bffb">CalcIndexChangeRate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da2eef8d453988ef71ba1897e936db61d3">CalcIndexVolume</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dacdc4da87ee4409f1a5076df23d623cbf">CalcIndexTurnover</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da3d8360fba174a74653270184435999b6">CalcIndexYtdChangeRate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da2ed7b134f7f5abae12cdb7e1b79d4822">CalcIndexTurnoverRate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dae6924e48f6c057b0fa9dbc82bd588a3e">CalcIndexTotalMarketValue</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da1f816834a2d1f436a7f71c83d86cd49e">CalcIndexCapitalFlow</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da93488815bb05005ddac80ae4db1c54ea">CalcIndexAmplitude</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da5e3c3089be4507b348242eb369d96c3c">CalcIndexVolumeRatio</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da6acbd9c4349f2deace370dbc3638c499">CalcIndexPeTtmRatio</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da4d15ffd32e5acf168829636c50cdf325">CalcIndexPbRatio</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da05cab613855d136c8280287bae557864">CalcIndexDividendRatioTtm</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da852fc83b81378efe6bd9be9e10ad803b">CalcIndexFiveDayChangeRate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dac26f0efbcd026a17a191df25aeeec060">CalcIndexTenDayChangeRate</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dae5bdc85ae911b72c27ec134247792e70">CalcIndexHalfYearChangeRate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da42606c752f39629a2fc1708c3fdb1ad6">CalcIndexFiveMinutesChangeRate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da67a6e0eff752e7cc03f035aad4bff9a2">CalcIndexExpiryDate</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2daea2a763ad2125e1b49d2cab76f7c695f">CalcIndexStrikePrice</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da4a28a44bdd90d3c9711ef8022e180f5f">CalcIndexUpperStrikePrice</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dabc838bccca2d719e16029aceb1393986">CalcIndexLowerStrikePrice</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da00ff82305ad257f76376e850f2324129">CalcIndexOutstandingQty</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da15a7fd6fac5f91ba189325854708dd06">CalcIndexOutstandingRatio</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da8cc268a6d02fa835959b3225c9b4b731">CalcIndexPremium</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da94b4fe5f379525801a4e178e7a20899a">CalcIndexItmOtm</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dafdcd8ed528887e9ba1e0b9eb9a6cde2c">CalcIndexImpliedVolatility</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da4fb70fc5c7befd7114818f9cc1bc88cd">CalcIndexWarrantDelta</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da00f6d8f6b9578fe1934e05da862ef0dd">CalcIndexCallPrice</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da23f8282d153392fa6c75312e338ba44d">CalcIndexToCallPrice</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2dae026d4ddf5f5a5527cfa81d25afa6993">CalcIndexEffectiveLeverage</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da15b352f1105a04285b7392d17f719c82">CalcIndexLeverageRatio</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da6adf556b294ebf9fac5c932210366486">CalcIndexConversionRatio</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da57317aa95d496689e22bf7bbdaca08ef">CalcIndexBalancePoint</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da5370cb0b81ba4c75591c9e6477be9f34">CalcIndexOpenInterest</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da2332c68ea16984c6e25314295016a2df">CalcIndexDelta</a>
+, <br />
+&#160;&#160;<a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da80195b2d8444fd64327d2431e8e70002">CalcIndexGamma</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da274416c3ada9974ed0470a6d3e544509">CalcIndexTheta</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da883577af8f92253c3c8a3d31f2349b81">CalcIndexVega</a>
+, <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2da99ea9a94c52b21cdcdd014e5e80bdc72">CalcIndexRho</a>
+<br />
+ }</td></tr>
+<tr class="separator:a4aea2a6f96dbc554fe0db2b6200c2f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f4f0fe7bb210016ee744bc3d1a8f48f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48f">lb_cash_flow_direction_t</a> { <a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48fa46a5bd98ad42777c7e548eb496f81fe3">CashFlowDirectionUnknown</a>
 , <a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48fa30b58a5b36e6220daa2b688b24312ceb">CashFlowDirectionOut</a>
 , <a class="el" href="longbridge_8h.html#a0f4f0fe7bb210016ee744bc3d1a8f48fabccc5a9a82b454fd82eec1f68a30862c">CashFlowDirectionIn</a>
@@ -805,6 +864,8 @@ Functions</h2></td></tr>
 <tr class="separator:aab0738229513101d8d466bdeadfc0a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2396fd995c3f18260b89f9ef46ae2ab8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a2396fd995c3f18260b89f9ef46ae2ab8">lb_quote_context_capital_distribution</a> (const struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a> *ctx, const char *symbol, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
 <tr class="separator:a2396fd995c3f18260b89f9ef46ae2ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29384b6f58e05f0bd9c4889277e094d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a29384b6f58e05f0bd9c4889277e094d1">lb_quote_context_calc_indexes</a> (const struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a> *ctx, const char *const *symbols, uintptr_t num_symbols, const enum <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a> *indexes, uintptr_t num_indexes, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
+<tr class="separator:a29384b6f58e05f0bd9c4889277e094d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a534f4d3b7da6fb474fdde120ae37d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a0a534f4d3b7da6fb474fdde120ae37d2">lb_quote_context_watch_list</a> (const struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a> *ctx, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
 <tr class="separator:a0a534f4d3b7da6fb474fdde120ae37d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4156debe59176790a7f2c4ef4032d1bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longbridge_8h.html#a4156debe59176790a7f2c4ef4032d1bb">lb_quote_context_watchlist</a> (const struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a> *ctx, <a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
@@ -1179,6 +1240,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Brokers </p>
+
+</div>
+</div>
+<a id="a93c315ba2b49f48ee79ff43a1348b7aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c315ba2b49f48ee79ff43a1348b7aa">&#9670;&nbsp;</a></span>lb_calc_index_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a> <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calc index </p>
 
 </div>
 </div>
@@ -2282,6 +2358,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acc8e6ab7235b6dd7312188517bf7d717"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc8e6ab7235b6dd7312188517bf7d717">&#9670;&nbsp;</a></span>lb_security_calc_index_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlb__security__calc__index__t.html">lb_security_calc_index_t</a> <a class="el" href="structlb__security__calc__index__t.html">lb_security_calc_index_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Security calc index response </p>
+
+</div>
+</div>
 <a id="ad41ef177d6b6d5ac575b9c1cb9b7f646"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad41ef177d6b6d5ac575b9c1cb9b7f646">&#9670;&nbsp;</a></span>lb_security_depth_t</h2>
 
@@ -2711,6 +2802,103 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ac0ec531aeaece7112d0f70761dfd7d10ad371abf75f381d861e12f1c4d3cb9e6e"></a>BalanceTypeStock&#160;</td><td class="fielddoc"><p>Stock </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac0ec531aeaece7112d0f70761dfd7d10afc55415409b79138d06adaded57e475d"></a>BalanceTypeFund&#160;</td><td class="fielddoc"><p>Fund </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a4aea2a6f96dbc554fe0db2b6200c2f2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aea2a6f96dbc554fe0db2b6200c2f2d">&#9670;&nbsp;</a></span>lb_calc_index_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calc index </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2daac84820991925938c17044eb30b2755c"></a>CalcIndexLastDone&#160;</td><td class="fielddoc"><p>Latest price </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da2bb559b81a6b5320147e17312e88d8b4"></a>CalcIndexChangeValue&#160;</td><td class="fielddoc"><p>Change value </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da0dc3a93a386b1fb4da4bfd0d6ac9bffb"></a>CalcIndexChangeRate&#160;</td><td class="fielddoc"><p>Change rate </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da2eef8d453988ef71ba1897e936db61d3"></a>CalcIndexVolume&#160;</td><td class="fielddoc"><p>Volume </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dacdc4da87ee4409f1a5076df23d623cbf"></a>CalcIndexTurnover&#160;</td><td class="fielddoc"><p>Turnover </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da3d8360fba174a74653270184435999b6"></a>CalcIndexYtdChangeRate&#160;</td><td class="fielddoc"><p>Year-to-date change ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da2ed7b134f7f5abae12cdb7e1b79d4822"></a>CalcIndexTurnoverRate&#160;</td><td class="fielddoc"><p>Turnover rate </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dae6924e48f6c057b0fa9dbc82bd588a3e"></a>CalcIndexTotalMarketValue&#160;</td><td class="fielddoc"><p>Total market value </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da1f816834a2d1f436a7f71c83d86cd49e"></a>CalcIndexCapitalFlow&#160;</td><td class="fielddoc"><p>Capital flow </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da93488815bb05005ddac80ae4db1c54ea"></a>CalcIndexAmplitude&#160;</td><td class="fielddoc"><p>Amplitude </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da5e3c3089be4507b348242eb369d96c3c"></a>CalcIndexVolumeRatio&#160;</td><td class="fielddoc"><p>Volume ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da6acbd9c4349f2deace370dbc3638c499"></a>CalcIndexPeTtmRatio&#160;</td><td class="fielddoc"><p>PE (TTM) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da4d15ffd32e5acf168829636c50cdf325"></a>CalcIndexPbRatio&#160;</td><td class="fielddoc"><p>PB </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da05cab613855d136c8280287bae557864"></a>CalcIndexDividendRatioTtm&#160;</td><td class="fielddoc"><p>Dividend ratio (TTM) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da852fc83b81378efe6bd9be9e10ad803b"></a>CalcIndexFiveDayChangeRate&#160;</td><td class="fielddoc"><p>Five days change ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dac26f0efbcd026a17a191df25aeeec060"></a>CalcIndexTenDayChangeRate&#160;</td><td class="fielddoc"><p>Ten days change ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dae5bdc85ae911b72c27ec134247792e70"></a>CalcIndexHalfYearChangeRate&#160;</td><td class="fielddoc"><p>Half year change ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da42606c752f39629a2fc1708c3fdb1ad6"></a>CalcIndexFiveMinutesChangeRate&#160;</td><td class="fielddoc"><p>Five minutes change ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da67a6e0eff752e7cc03f035aad4bff9a2"></a>CalcIndexExpiryDate&#160;</td><td class="fielddoc"><p>Expiry date </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2daea2a763ad2125e1b49d2cab76f7c695f"></a>CalcIndexStrikePrice&#160;</td><td class="fielddoc"><p>Strike price </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da4a28a44bdd90d3c9711ef8022e180f5f"></a>CalcIndexUpperStrikePrice&#160;</td><td class="fielddoc"><p>Upper bound price </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dabc838bccca2d719e16029aceb1393986"></a>CalcIndexLowerStrikePrice&#160;</td><td class="fielddoc"><p>Lower bound price </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da00ff82305ad257f76376e850f2324129"></a>CalcIndexOutstandingQty&#160;</td><td class="fielddoc"><p>Outstanding quantity </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da15a7fd6fac5f91ba189325854708dd06"></a>CalcIndexOutstandingRatio&#160;</td><td class="fielddoc"><p>Outstanding ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da8cc268a6d02fa835959b3225c9b4b731"></a>CalcIndexPremium&#160;</td><td class="fielddoc"><p>Premium </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da94b4fe5f379525801a4e178e7a20899a"></a>CalcIndexItmOtm&#160;</td><td class="fielddoc"><p>In/out of the bound </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dafdcd8ed528887e9ba1e0b9eb9a6cde2c"></a>CalcIndexImpliedVolatility&#160;</td><td class="fielddoc"><p>Implied volatility </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da4fb70fc5c7befd7114818f9cc1bc88cd"></a>CalcIndexWarrantDelta&#160;</td><td class="fielddoc"><p>Warrant delta </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da00f6d8f6b9578fe1934e05da862ef0dd"></a>CalcIndexCallPrice&#160;</td><td class="fielddoc"><p>Call price </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da23f8282d153392fa6c75312e338ba44d"></a>CalcIndexToCallPrice&#160;</td><td class="fielddoc"><p>Price interval from the call price </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2dae026d4ddf5f5a5527cfa81d25afa6993"></a>CalcIndexEffectiveLeverage&#160;</td><td class="fielddoc"><p>Effective leverage </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da15b352f1105a04285b7392d17f719c82"></a>CalcIndexLeverageRatio&#160;</td><td class="fielddoc"><p>Leverage ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da6adf556b294ebf9fac5c932210366486"></a>CalcIndexConversionRatio&#160;</td><td class="fielddoc"><p>Conversion ratio </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da57317aa95d496689e22bf7bbdaca08ef"></a>CalcIndexBalancePoint&#160;</td><td class="fielddoc"><p>Breakeven point </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da5370cb0b81ba4c75591c9e6477be9f34"></a>CalcIndexOpenInterest&#160;</td><td class="fielddoc"><p>Open interest </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da2332c68ea16984c6e25314295016a2df"></a>CalcIndexDelta&#160;</td><td class="fielddoc"><p>Delta </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da80195b2d8444fd64327d2431e8e70002"></a>CalcIndexGamma&#160;</td><td class="fielddoc"><p>Gamma </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da274416c3ada9974ed0470a6d3e544509"></a>CalcIndexTheta&#160;</td><td class="fielddoc"><p>Theta </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da883577af8f92253c3c8a3d31f2349b81"></a>CalcIndexVega&#160;</td><td class="fielddoc"><p>Vega </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4aea2a6f96dbc554fe0db2b6200c2f2da99ea9a94c52b21cdcdd014e5e80bdc72"></a>CalcIndexRho&#160;</td><td class="fielddoc"><p>Rho </p>
 </td></tr>
 </table>
 
@@ -4789,6 +4977,65 @@ Variables</h1>
       </table>
 </div><div class="memdoc">
 <p>Get security brokers </p>
+
+</div>
+</div>
+<a id="a29384b6f58e05f0bd9c4889277e094d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29384b6f58e05f0bd9c4889277e094d1">&#9670;&nbsp;</a></span>lb_quote_context_calc_indexes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_quote_context_calc_indexes </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="longbridge_8h.html#a2fc8527444c5b89959fe12f79a292603">lb_quote_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *const *&#160;</td>
+          <td class="paramname"><em>symbols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uintptr_t&#160;</td>
+          <td class="paramname"><em>num_symbols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const enum <a class="el" href="longbridge_8h.html#a4aea2a6f96dbc554fe0db2b6200c2f2d">lb_calc_index_t</a> *&#160;</td>
+          <td class="paramname"><em>indexes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uintptr_t&#160;</td>
+          <td class="paramname"><em>num_indexes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="longbridge_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>userdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get calc indexes </p>
 
 </div>
 </div>

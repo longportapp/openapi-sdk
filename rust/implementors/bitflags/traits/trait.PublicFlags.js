@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"longbridge":[["impl PublicFlags for <a class=\"struct\" href=\"longbridge/quote/struct.DerivativeType.html\" title=\"struct longbridge::quote::DerivativeType\">DerivativeType</a>"],["impl PublicFlags for <a class=\"struct\" href=\"longbridge/quote/struct.SubFlags.html\" title=\"struct longbridge::quote::SubFlags\">SubFlags</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

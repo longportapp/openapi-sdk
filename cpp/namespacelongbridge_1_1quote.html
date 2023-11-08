@@ -177,6 +177,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_realtime_quote.html">RealtimeQuote</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real-time quote.  <a href="structlongbridge_1_1quote_1_1_realtime_quote.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlongbridge_1_1quote_1_1_security_calc_index.html">SecurityCalcIndex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Security calc index response.  <a href="structlongbridge_1_1quote_1_1_security_calc_index.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -298,6 +301,60 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a0f64e755c9abd9e9e331284632f95493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Securities update mode.  <a href="namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493">More...</a><br /></td></tr>
 <tr class="separator:a0f64e755c9abd9e9e331284632f95493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad39c9a73ead7e383f2835b40fe921011"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011">CalcIndex</a> { <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a7940fbc8e91b81ef7f1e52cb054c93ae">LastDone</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011aae42fde12212fc8abbf59ba8e664873b">ChangeValue</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ae261c5eca16542d7207b48ee9b6feeb2">ChangeRate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011abd7a9717d29c5ddcab1bc175eda1e298">Volume</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011af0da7d56118485f19220a9d4997b51b8">Turnover</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a6f3601e08bc5e8390f2abd4db47ae922">YtdChangeRate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ac2e459221965c51fbe8ede5acd43e2a3">TurnoverRate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011aa0621778fd755a0f5d8306b6d2e9d465">TotalMarketValue</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a6e4bfc97060a609933bc517352972e41">CapitalFlow</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011af4d00f19181bdfc0474954a43262febf">Amplitude</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ae68a2031d2f63bb393f2a335671e07f4">VolumeRatio</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a88e3dd3b8e59e0c0e8b77d723c0abb5e">PeTtmRatio</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ad6c99e8e9a9b35ff2db3668eb4f7719e">PbRatio</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a5dbe3e16acc88a2c5ce1cf0163cf9af2">DividendRatioTtm</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a77ec2c180e65ad25dafeba526460afd1">FiveDayChangeRate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a093b586f5f75ad868b2c9cfe61b61ff2">TenDayChangeRate</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011abc37ea7a1627fcc9e50a1e109c8266e5">HalfYearChangeRate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ae115fe678545b805612588d58ed62feb">FiveMinutesChangeRate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a1b29ba78a2df965545c5a563b6e997ae">ExpiryDate</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a90929997ac23edda68b5dad815b6ee7c">StrikePrice</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ae15c1b0e463418bccffc7b756e2960bd">UpperStrikePrice</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a3432899b63c5505b5155e68e268c855a">LowerStrikePrice</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a08248a7064d0dbcc13e34087fe48ac19">OutstandingQty</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011adc4d115301602dfff1f47945ba57eb73">OutstandingRatio</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a8d5e7e72f12067991186cdf3cb7d5d9d">Premium</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a6a4dafb20b562b54c1f2a648e3c31384">ItmOtm</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011acc2202b178672b123c82115acd5ca8be">ImpliedVolatility</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a5bf66b3fed4ba1ae21fdcb48b1121384">WarrantDelta</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a11465beebf1165a2e815e50705e48a02">CallPrice</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a9c7d965950f5139ec76d37b834730243">ToCallPrice</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a48b260bf81eafbed90e7cc4c190f08ce">EffectiveLeverage</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a1c20c7c3ce560b95c494475aede2675f">LeverageRatio</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a4f89ea7da5e66746aeb9447fdc6b8c92">ConversionRatio</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a931112ddccf3eb468263cae3c2f2cc49">BalancePoint</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ae7e246aa3fb87bf22f1f1611959cf10f">OpenInterest</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011adb1f4ab5845def61a83d5df13e0c2397">Delta</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ad9cdb0f6e0d556347c10a8695545a4b5">Gamma</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011ad21c855a168b8f09d1ebb1bc596be927">Theta</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011abb8efcd4ab24730b7cd34e88ac390878">Vega</a>
+, <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a7216bcf464203aec4864fbeea158a0db">Rho</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ad39c9a73ead7e383f2835b40fe921011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calc index.  <a href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011">More...</a><br /></td></tr>
+<tr class="separator:ad39c9a73ead7e383f2835b40fe921011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a7ecee45d12af625ff6ec41c1a8e759af"></a>
@@ -324,6 +381,112 @@ Enumerations</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7ecee45d12af625ff6ec41c1a8e759afac61578ae887384360fe17231281cafbf"></a>NoAdjust&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a7ecee45d12af625ff6ec41c1a8e759afa02883ff44d579e6b0b56562de2fa49a7"></a>ForwardAdjust&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ad39c9a73ead7e383f2835b40fe921011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad39c9a73ead7e383f2835b40fe921011">&#9670;&nbsp;</a></span>CalcIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011">longbridge::quote::CalcIndex</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calc index. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a7940fbc8e91b81ef7f1e52cb054c93ae"></a>LastDone&#160;</td><td class="fielddoc"><p>Latest price. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011aae42fde12212fc8abbf59ba8e664873b"></a>ChangeValue&#160;</td><td class="fielddoc"><p>Change value. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ae261c5eca16542d7207b48ee9b6feeb2"></a>ChangeRate&#160;</td><td class="fielddoc"><p>Change rate. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011abd7a9717d29c5ddcab1bc175eda1e298"></a>Volume&#160;</td><td class="fielddoc"><p>Volume. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011af0da7d56118485f19220a9d4997b51b8"></a>Turnover&#160;</td><td class="fielddoc"><p>Turnover. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a6f3601e08bc5e8390f2abd4db47ae922"></a>YtdChangeRate&#160;</td><td class="fielddoc"><p>Year-to-date change ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ac2e459221965c51fbe8ede5acd43e2a3"></a>TurnoverRate&#160;</td><td class="fielddoc"><p>Turnover rate. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011aa0621778fd755a0f5d8306b6d2e9d465"></a>TotalMarketValue&#160;</td><td class="fielddoc"><p>Total market value. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a6e4bfc97060a609933bc517352972e41"></a>CapitalFlow&#160;</td><td class="fielddoc"><p>Capital flow. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011af4d00f19181bdfc0474954a43262febf"></a>Amplitude&#160;</td><td class="fielddoc"><p>Amplitude. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ae68a2031d2f63bb393f2a335671e07f4"></a>VolumeRatio&#160;</td><td class="fielddoc"><p>Volume ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a88e3dd3b8e59e0c0e8b77d723c0abb5e"></a>PeTtmRatio&#160;</td><td class="fielddoc"><p>PE (TTM) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ad6c99e8e9a9b35ff2db3668eb4f7719e"></a>PbRatio&#160;</td><td class="fielddoc"><p>PB. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a5dbe3e16acc88a2c5ce1cf0163cf9af2"></a>DividendRatioTtm&#160;</td><td class="fielddoc"><p>Dividend ratio (TTM) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a77ec2c180e65ad25dafeba526460afd1"></a>FiveDayChangeRate&#160;</td><td class="fielddoc"><p>Five days change ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a093b586f5f75ad868b2c9cfe61b61ff2"></a>TenDayChangeRate&#160;</td><td class="fielddoc"><p>Ten days change ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011abc37ea7a1627fcc9e50a1e109c8266e5"></a>HalfYearChangeRate&#160;</td><td class="fielddoc"><p>Half year change ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ae115fe678545b805612588d58ed62feb"></a>FiveMinutesChangeRate&#160;</td><td class="fielddoc"><p>Five minutes change ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a1b29ba78a2df965545c5a563b6e997ae"></a>ExpiryDate&#160;</td><td class="fielddoc"><p>Expiry date. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a90929997ac23edda68b5dad815b6ee7c"></a>StrikePrice&#160;</td><td class="fielddoc"><p>Strike price. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ae15c1b0e463418bccffc7b756e2960bd"></a>UpperStrikePrice&#160;</td><td class="fielddoc"><p>Upper bound price. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a3432899b63c5505b5155e68e268c855a"></a>LowerStrikePrice&#160;</td><td class="fielddoc"><p>Lower bound price. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a08248a7064d0dbcc13e34087fe48ac19"></a>OutstandingQty&#160;</td><td class="fielddoc"><p>Outstanding quantity. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011adc4d115301602dfff1f47945ba57eb73"></a>OutstandingRatio&#160;</td><td class="fielddoc"><p>Outstanding ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a8d5e7e72f12067991186cdf3cb7d5d9d"></a>Premium&#160;</td><td class="fielddoc"><p>Premium. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a6a4dafb20b562b54c1f2a648e3c31384"></a>ItmOtm&#160;</td><td class="fielddoc"><p>In/out of the bound. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011acc2202b178672b123c82115acd5ca8be"></a>ImpliedVolatility&#160;</td><td class="fielddoc"><p>Implied volatility. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a5bf66b3fed4ba1ae21fdcb48b1121384"></a>WarrantDelta&#160;</td><td class="fielddoc"><p>Warrant delta. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a11465beebf1165a2e815e50705e48a02"></a>CallPrice&#160;</td><td class="fielddoc"><p>Call price. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a9c7d965950f5139ec76d37b834730243"></a>ToCallPrice&#160;</td><td class="fielddoc"><p>Price interval from the call price. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a48b260bf81eafbed90e7cc4c190f08ce"></a>EffectiveLeverage&#160;</td><td class="fielddoc"><p>Effective leverage. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a1c20c7c3ce560b95c494475aede2675f"></a>LeverageRatio&#160;</td><td class="fielddoc"><p>Leverage ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a4f89ea7da5e66746aeb9447fdc6b8c92"></a>ConversionRatio&#160;</td><td class="fielddoc"><p>Conversion ratio. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a931112ddccf3eb468263cae3c2f2cc49"></a>BalancePoint&#160;</td><td class="fielddoc"><p>Breakeven point. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ae7e246aa3fb87bf22f1f1611959cf10f"></a>OpenInterest&#160;</td><td class="fielddoc"><p>Open interest. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011adb1f4ab5845def61a83d5df13e0c2397"></a>Delta&#160;</td><td class="fielddoc"><p>Delta. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ad9cdb0f6e0d556347c10a8695545a4b5"></a>Gamma&#160;</td><td class="fielddoc"><p>Gamma. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011ad21c855a168b8f09d1ebb1bc596be927"></a>Theta&#160;</td><td class="fielddoc"><p>Theta. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011abb8efcd4ab24730b7cd34e88ac390878"></a>Vega&#160;</td><td class="fielddoc"><p>Vega. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad39c9a73ead7e383f2835b40fe921011a7216bcf464203aec4864fbeea158a0db"></a>Rho&#160;</td><td class="fielddoc"><p>Rho. </p>
+</td></tr>
 </table>
 
 </div>

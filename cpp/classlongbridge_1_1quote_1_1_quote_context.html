@@ -176,6 +176,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6a8ba241ac3c8249a2a5d0c58c10a786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#a6a8ba241ac3c8249a2a5d0c58c10a786">capital_distribution</a> (const std::string &amp;symbol, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, <a class="el" href="structlongbridge_1_1quote_1_1_capital_distribution_response.html">CapitalDistributionResponse</a> &gt; callback) const</td></tr>
 <tr class="memdesc:a6a8ba241ac3c8249a2a5d0c58c10a786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get capital distribution.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#a6a8ba241ac3c8249a2a5d0c58c10a786">More...</a><br /></td></tr>
 <tr class="separator:a6a8ba241ac3c8249a2a5d0c58c10a786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32d25607adb4304ffa334dc3467b0d0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#a32d25607adb4304ffa334dc3467b0d0d">calc_indexes</a> (const std::vector&lt; std::string &gt; &amp;symbols, const std::vector&lt; <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011">CalcIndex</a> &gt; &amp;indexes, <a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_security_calc_index.html">SecurityCalcIndex</a> &gt;&gt; callback) const</td></tr>
+<tr class="memdesc:a32d25607adb4304ffa334dc3467b0d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get calc indexes.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#a32d25607adb4304ffa334dc3467b0d0d">More...</a><br /></td></tr>
+<tr class="separator:a32d25607adb4304ffa334dc3467b0d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8d23e3d2ee00925aa802063d9c5943c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html#ad8d23e3d2ee00925aa802063d9c5943c">watch_list</a> (<a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_watchlist_group.html">WatchlistGroup</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:ad8d23e3d2ee00925aa802063d9c5943c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get watchlist.  <a href="classlongbridge_1_1quote_1_1_quote_context.html#ad8d23e3d2ee00925aa802063d9c5943c">More...</a><br /></td></tr>
 <tr class="separator:ad8d23e3d2ee00925aa802063d9c5943c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -326,6 +329,42 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get security brokers. </p>
+
+</div>
+</div>
+<a id="a32d25607adb4304ffa334dc3467b0d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32d25607adb4304ffa334dc3467b0d0d">&#9670;&nbsp;</a></span>calc_indexes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longbridge::quote::QuoteContext::calc_indexes </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>symbols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011">CalcIndex</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>indexes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongbridge.html#ac08a510ffe531a5eb0ea8dc2238c55dc">AsyncCallback</a>&lt; <a class="el" href="classlongbridge_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongbridge_1_1quote_1_1_security_calc_index.html">SecurityCalcIndex</a> &gt;&gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get calc indexes. </p>
 
 </div>
 </div>

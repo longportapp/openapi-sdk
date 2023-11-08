@@ -101,6 +101,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.QuoteContext.calc_indexes" class="nav-link">calc_indexes()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#longbridge.openapi.QuoteContext.candlesticks" class="nav-link">candlesticks()</a>
               <ul class="nav flex-column">
               </ul>
@@ -396,6 +400,106 @@ config = Config.from_env()
 ctx = QuoteContext(config)
 
 resp = ctx.brokers("700.HK")
+print(resp)</code></pre>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="longbridge.openapi.QuoteContext.calc_indexes" class="doc doc-heading">
+          <code class="highlight language-python">calc_indexes(symbols, indexes)</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get calc indexes</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>symbols</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Security codes</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>indexes</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.CalcIndex" href="../reference_all/#longbridge.openapi.CalcIndex">CalcIndex</a>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Calc indexes</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.SecurityCalcIndex" href="../reference_all/#longbridge.openapi.SecurityCalcIndex">SecurityCalcIndex</a>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Calc indexes of the symbols</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+<p><strong>Examples:</strong></p>
+    <p>::</p>
+<pre class="highlight"><code>from longbridge.openapi import QuoteContext, Config, CalcIndex
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.calc_indexes(["700.HK", "APPL.US"], [CalcIndex.LastDone, CalcIndex.ChangeRate])
 print(resp)</code></pre>
 
   </div>

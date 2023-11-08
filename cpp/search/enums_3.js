@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['deductionstatus_975',['DeductionStatus',['../namespacelongbridge_1_1trade.html#a7b9f2eee1c984825ea306e02e4e841cf',1,'longbridge::trade']]]
+  ['deductionstatus_1077',['DeductionStatus',['../namespacelongbridge_1_1trade.html#a7b9f2eee1c984825ea306e02e4e841cf',1,'longbridge::trade']]]
 ];

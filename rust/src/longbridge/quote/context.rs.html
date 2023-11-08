@@ -1461,6 +1461,39 @@
 <a href="#1461" id="1461">1461</a>
 <a href="#1462" id="1462">1462</a>
 <a href="#1463" id="1463">1463</a>
+<a href="#1464" id="1464">1464</a>
+<a href="#1465" id="1465">1465</a>
+<a href="#1466" id="1466">1466</a>
+<a href="#1467" id="1467">1467</a>
+<a href="#1468" id="1468">1468</a>
+<a href="#1469" id="1469">1469</a>
+<a href="#1470" id="1470">1470</a>
+<a href="#1471" id="1471">1471</a>
+<a href="#1472" id="1472">1472</a>
+<a href="#1473" id="1473">1473</a>
+<a href="#1474" id="1474">1474</a>
+<a href="#1475" id="1475">1475</a>
+<a href="#1476" id="1476">1476</a>
+<a href="#1477" id="1477">1477</a>
+<a href="#1478" id="1478">1478</a>
+<a href="#1479" id="1479">1479</a>
+<a href="#1480" id="1480">1480</a>
+<a href="#1481" id="1481">1481</a>
+<a href="#1482" id="1482">1482</a>
+<a href="#1483" id="1483">1483</a>
+<a href="#1484" id="1484">1484</a>
+<a href="#1485" id="1485">1485</a>
+<a href="#1486" id="1486">1486</a>
+<a href="#1487" id="1487">1487</a>
+<a href="#1488" id="1488">1488</a>
+<a href="#1489" id="1489">1489</a>
+<a href="#1490" id="1490">1490</a>
+<a href="#1491" id="1491">1491</a>
+<a href="#1492" id="1492">1492</a>
+<a href="#1493" id="1493">1493</a>
+<a href="#1494" id="1494">1494</a>
+<a href="#1495" id="1495">1495</a>
+<a href="#1496" id="1496">1496</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longbridge_httpcli::{HttpClient, Json, Method};
@@ -1478,11 +1511,12 @@
         sub_flags::SubFlags,
         types::SecuritiesUpdateMode,
         utils::{format_date, parse_date},
-        AdjustType, Candlestick, CapitalDistributionResponse, CapitalFlowLine, IntradayLine,
-        IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
-        PushEvent, RealtimeQuote, RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup,
-        SecurityBrokers, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-        Subscription, Trade, WarrantQuote, WatchlistGroup,
+        AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
+        IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
+        ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
+        RequestUpdateWatchlistGroup, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
+        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantQuote,
+        WatchlistGroup,
     },
     serde_utils, Config, Error, Market, <span class="prelude-ty">Result</span>,
 };
@@ -2523,6 +2557,38 @@
         )
         .<span class="kw">await</span><span class="question-mark">?
         </span>.try_into()
+    }
+
+    <span class="doccomment">/// Get calc indexes
+    </span><span class="kw">pub async fn </span>calc_indexes&lt;I, T, J&gt;(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        symbols: I,
+        indexes: J,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;SecurityCalcIndex&gt;&gt;
+    <span class="kw">where
+        </span>I: IntoIterator&lt;Item = T&gt;,
+        T: Into&lt;String&gt;,
+        J: IntoIterator&lt;Item = CalcIndex&gt;,
+    {
+        <span class="kw">let </span>indexes = indexes.into_iter().collect::&lt;Vec&lt;CalcIndex&gt;&gt;();
+        <span class="kw">let </span>resp: quote::SecurityCalcQuoteResponse = <span class="self">self
+            </span>.request(
+                cmd_code::GET_CALC_INDEXES,
+                quote::SecurityCalcQuoteRequest {
+                    symbols: symbols.into_iter().map(Into::into).collect(),
+                    calc_index: indexes
+                        .iter()
+                        .map(|i| quote::CalcIndex::from(<span class="kw-2">*</span>i).into())
+                        .collect(),
+                },
+            )
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(resp
+            .security_calc_index
+            .into_iter()
+            .map(|resp| SecurityCalcIndex::from_proto(resp, <span class="kw-2">&amp;</span>indexes))
+            .collect())
     }
 
     <span class="doccomment">/// Get watchlist

@@ -60,10 +60,12 @@
 <a href="#60" id="60">60</a>
 <a href="#61" id="61">61</a>
 <a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>longbridge_proto::quote::SubType;
 
 <span class="macro">bitflags::bitflags! </span>{
     <span class="doccomment">/// Subscription flags
+    </span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
     </span><span class="kw">pub struct </span>SubFlags: u8 {
         <span class="doccomment">/// Quote
         </span><span class="kw">const </span>QUOTE = <span class="number">0x1</span>;
