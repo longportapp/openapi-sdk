@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['account_5fchannel_859',['account_channel',['../structlongbridge_1_1trade_1_1_fund_position_channel.html#a38d7d51aba104586b926e2f8dcfcdaa8',1,'longbridge::trade::FundPositionChannel::account_channel()'],['../structlongbridge_1_1trade_1_1_stock_position_channel.html#a242198394bb5174b2aa95e4e0472b113',1,'longbridge::trade::StockPositionChannel::account_channel()']]],
-  ['account_5fno_860',['account_no',['../structlongbridge_1_1trade_1_1_push_order_changed.html#af241e9843ef872d711d1ef5edcb9427e',1,'longbridge::trade::PushOrderChanged']]],
-  ['amount_861',['amount',['../structlongbridge_1_1trade_1_1_order_charge_fee.html#a1929a1359d15e965db3bbeba56bab118',1,'longbridge::trade::OrderChargeFee']]],
-  ['amplitude_862',['amplitude',['../structlongbridge_1_1quote_1_1_security_calc_index.html#a9954e9a23b22943986ef74a2ff01aea3',1,'longbridge::quote::SecurityCalcIndex']]],
-  ['ask_5fbrokers_863',['ask_brokers',['../structlongbridge_1_1quote_1_1_push_brokers.html#a9ef0b4175461d46b966098c3511dc39a',1,'longbridge::quote::PushBrokers::ask_brokers()'],['../structlongbridge_1_1quote_1_1_security_brokers.html#a5f2b12170cb93ee2b9128bea4c17e9b5',1,'longbridge::quote::SecurityBrokers::ask_brokers()']]],
-  ['asks_864',['asks',['../structlongbridge_1_1quote_1_1_push_depth.html#a1e65ecc11ad932ffb9541fec50252516',1,'longbridge::quote::PushDepth::asks()'],['../structlongbridge_1_1quote_1_1_security_depth.html#a45f9100615871452e640357408ce7069',1,'longbridge::quote::SecurityDepth::asks()']]],
-  ['available_5fcash_865',['available_cash',['../structlongbridge_1_1trade_1_1_cash_info.html#aa743d8d477b1557de526b243dfa736be',1,'longbridge::trade::CashInfo']]],
-  ['available_5fquantity_866',['available_quantity',['../structlongbridge_1_1trade_1_1_stock_position.html#ad541e0be622cda4e488832916f287a9a',1,'longbridge::trade::StockPosition']]],
-  ['avg_5fprice_867',['avg_price',['../structlongbridge_1_1quote_1_1_intraday_line.html#a00e9ca470c598d8c1fa6244de354ca94',1,'longbridge::quote::IntradayLine']]]
+  ['account_5fchannel_859',['account_channel',['../structlongport_1_1trade_1_1_fund_position_channel.html#a6214d9d4ca6c98cac80ef623198f6360',1,'longport::trade::FundPositionChannel::account_channel()'],['../structlongport_1_1trade_1_1_stock_position_channel.html#a132c36b2db1aed6c7ffbbbab038c6ae7',1,'longport::trade::StockPositionChannel::account_channel()']]],
+  ['account_5fno_860',['account_no',['../structlongport_1_1trade_1_1_push_order_changed.html#aa57df54025b2873d728fe3e99d639524',1,'longport::trade::PushOrderChanged']]],
+  ['amount_861',['amount',['../structlongport_1_1trade_1_1_order_charge_fee.html#aaf6b1bdd0366f68ce45541338b5c9e9a',1,'longport::trade::OrderChargeFee']]],
+  ['amplitude_862',['amplitude',['../structlongport_1_1quote_1_1_security_calc_index.html#a515e5c4a010b4d2058a6398eff125ec0',1,'longport::quote::SecurityCalcIndex']]],
+  ['ask_5fbrokers_863',['ask_brokers',['../structlongport_1_1quote_1_1_push_brokers.html#a08cfcff267248f6036068222d62ffd3d',1,'longport::quote::PushBrokers::ask_brokers()'],['../structlongport_1_1quote_1_1_security_brokers.html#a6afbec8c978c77c90f635e9b98ff3e87',1,'longport::quote::SecurityBrokers::ask_brokers()']]],
+  ['asks_864',['asks',['../structlongport_1_1quote_1_1_push_depth.html#a2b1e682857589766d14cd6dbb67fef0c',1,'longport::quote::PushDepth::asks()'],['../structlongport_1_1quote_1_1_security_depth.html#ab55d20c73e22e66d0ebe0eb079c24bc0',1,'longport::quote::SecurityDepth::asks()']]],
+  ['available_5fcash_865',['available_cash',['../structlongport_1_1trade_1_1_cash_info.html#a462ffeb320e867fed65e351bd00c74bc',1,'longport::trade::CashInfo']]],
+  ['available_5fquantity_866',['available_quantity',['../structlongport_1_1trade_1_1_stock_position.html#a91a72473e8b9d57a77bb1b3f0f5863ea',1,'longport::trade::StockPosition']]],
+  ['avg_5fprice_867',['avg_price',['../structlongport_1_1quote_1_1_intraday_line.html#a174010ef9117a66422989c310c6a0be7',1,'longport::quote::IntradayLine']]]
 ];

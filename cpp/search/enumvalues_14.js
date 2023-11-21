@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['year_1262',['Year',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4a537c66b24ef5c83b7382cdc3f34885f2',1,'longbridge::quote']]],
-  ['ytdchangerate_1263',['YtdChangeRate',['../namespacelongbridge_1_1quote.html#ad39c9a73ead7e383f2835b40fe921011a6f3601e08bc5e8390f2abd4db47ae922',1,'longbridge::quote']]]
+  ['year_1262',['Year',['../namespacelongport_1_1quote.html#a60167d694ea9a5fec686d08fa21dae17a537c66b24ef5c83b7382cdc3f34885f2',1,'longport::quote']]],
+  ['ytdchangerate_1263',['YtdChangeRate',['../namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbea6f3601e08bc5e8390f2abd4db47ae922',1,'longport::quote']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['broker_722',['BROKER',['../classlongbridge_1_1quote_1_1_sub_flags.html#a50e96fd6c5dcb4204143132f61d461f0',1,'longbridge::quote::SubFlags']]],
-  ['brokers_723',['brokers',['../classlongbridge_1_1quote_1_1_quote_context.html#af818331256982c8132844bc0f38183fb',1,'longbridge::quote::QuoteContext']]]
+  ['broker_722',['BROKER',['../classlongport_1_1quote_1_1_sub_flags.html#a547b72f68e9a181ed5235b0b20a4daab',1,'longport::quote::SubFlags']]],
+  ['brokers_723',['brokers',['../classlongport_1_1quote_1_1_quote_context.html#adfb99274081c05e90d85e6a2041cb0d5',1,'longport::quote::QuoteContext']]]
 ];

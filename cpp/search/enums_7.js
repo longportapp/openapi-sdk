@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['period_1087',['Period',['../namespacelongbridge_1_1quote.html#a2bb54e3a1823a0571a6cacbdbf231fc4',1,'longbridge::quote']]]
+  ['period_1087',['Period',['../namespacelongport_1_1quote.html#a60167d694ea9a5fec686d08fa21dae17',1,'longport::quote']]]
 ];

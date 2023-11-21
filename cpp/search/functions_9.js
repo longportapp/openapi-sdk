@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ln_764',['ln',['../classlongbridge_1_1_decimal.html#a42324f5e7cb4a0022983c3609c7ada46',1,'longbridge::Decimal']]],
-  ['log10_765',['log10',['../classlongbridge_1_1_decimal.html#adf577d04088b31faa8f21cfb2ebaa2fe',1,'longbridge::Decimal']]]
+  ['ln_764',['ln',['../classlongport_1_1_decimal.html#a59e7469f7dfe70af973ebe9f95bfa95d',1,'longport::Decimal']]],
+  ['log10_765',['log10',['../classlongport_1_1_decimal.html#a76c14efd34e5a2ae85a92e6a277b7bc1',1,'longport::Decimal']]]
 ];

@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['id_940',['id',['../structlongbridge_1_1quote_1_1_watchlist_group.html#a07a4a266201781f83a56ab1ee5030d69',1,'longbridge::quote::WatchlistGroup::id()'],['../structlongbridge_1_1quote_1_1_update_watchlist_group.html#a080bc1f3c5c7bbc3c00efc6d682fccb4',1,'longbridge::quote::UpdateWatchlistGroup::id()']]],
-  ['im_5ffactor_941',['im_factor',['../structlongbridge_1_1trade_1_1_margin_ratio.html#a1dde7e7186b13f4a1e8d8164722bbf5c',1,'longbridge::trade::MarginRatio']]],
-  ['implied_5fvolatility_942',['implied_volatility',['../structlongbridge_1_1quote_1_1_option_quote.html#aa5fa1d904770c9852dfbb776b3fe11c8',1,'longbridge::quote::OptionQuote::implied_volatility()'],['../structlongbridge_1_1quote_1_1_warrant_quote.html#ab0c12f450ff0e89b575dbfc38af9efce',1,'longbridge::quote::WarrantQuote::implied_volatility()'],['../structlongbridge_1_1quote_1_1_security_calc_index.html#a438f319b328e9d4903e2cf933ae3ba05',1,'longbridge::quote::SecurityCalcIndex::implied_volatility()']]],
-  ['inflow_943',['inflow',['../structlongbridge_1_1quote_1_1_capital_flow_line.html#a3482f04aaf63c7ad139a71acede5c688',1,'longbridge::quote::CapitalFlowLine']]],
-  ['init_5fmargin_944',['init_margin',['../structlongbridge_1_1trade_1_1_account_balance.html#a8e81ea8702b35a118d085b663e4db910',1,'longbridge::trade::AccountBalance']]],
-  ['issuer_5fid_945',['issuer_id',['../structlongbridge_1_1quote_1_1_issuer_info.html#a20c17b4ed877aa3830a97dbaa09dc87c',1,'longbridge::quote::IssuerInfo']]],
-  ['items_946',['items',['../structlongbridge_1_1trade_1_1_order_charge_detail.html#aa45a735f1c21fc97c72d23358ddd9007',1,'longbridge::trade::OrderChargeDetail']]],
-  ['itm_5fotm_947',['itm_otm',['../structlongbridge_1_1quote_1_1_security_calc_index.html#a74b78f43a5b9fabbf83bb37d90278b80',1,'longbridge::quote::SecurityCalcIndex']]]
+  ['id_940',['id',['../structlongport_1_1quote_1_1_watchlist_group.html#aaa07712a179ed2bd1fd8868f0a4dc16a',1,'longport::quote::WatchlistGroup::id()'],['../structlongport_1_1quote_1_1_update_watchlist_group.html#af29cd212b6eb78051612d5746af968cc',1,'longport::quote::UpdateWatchlistGroup::id()']]],
+  ['im_5ffactor_941',['im_factor',['../structlongport_1_1trade_1_1_margin_ratio.html#ac0737c45ac6cbc1ca8ba05de7ead9d38',1,'longport::trade::MarginRatio']]],
+  ['implied_5fvolatility_942',['implied_volatility',['../structlongport_1_1quote_1_1_option_quote.html#a54896ce140c1b41a51871d0d7cbedfe6',1,'longport::quote::OptionQuote::implied_volatility()'],['../structlongport_1_1quote_1_1_warrant_quote.html#a56d56dd9927b8b529fcf473a18f09c92',1,'longport::quote::WarrantQuote::implied_volatility()'],['../structlongport_1_1quote_1_1_security_calc_index.html#a0715116a71001a336701eeae3577cce7',1,'longport::quote::SecurityCalcIndex::implied_volatility()']]],
+  ['inflow_943',['inflow',['../structlongport_1_1quote_1_1_capital_flow_line.html#a743877530aae45b4864ea09594aa723b',1,'longport::quote::CapitalFlowLine']]],
+  ['init_5fmargin_944',['init_margin',['../structlongport_1_1trade_1_1_account_balance.html#a6465fe9c692a6e3f69d22684fe2520bc',1,'longport::trade::AccountBalance']]],
+  ['issuer_5fid_945',['issuer_id',['../structlongport_1_1quote_1_1_issuer_info.html#a80dfce2e228d18a3c60caa8b193b1109',1,'longport::quote::IssuerInfo']]],
+  ['items_946',['items',['../structlongport_1_1trade_1_1_order_charge_detail.html#af470737d821dbeb720cede374943a48e',1,'longport::trade::OrderChargeDetail']]],
+  ['itm_5fotm_947',['itm_otm',['../structlongport_1_1quote_1_1_security_calc_index.html#a9a9ebf342d830e335f83d74f9c176470',1,'longport::quote::SecurityCalcIndex']]]
 ];

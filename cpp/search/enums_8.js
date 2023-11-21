@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['securitiesupdatemode_1088',['SecuritiesUpdateMode',['../namespacelongbridge_1_1quote.html#a0f64e755c9abd9e9e331284632f95493',1,'longbridge::quote']]],
-  ['securityboard_1089',['SecurityBoard',['../namespacelongbridge_1_1quote.html#a40e91c0c824de0ea4d827f1843457423',1,'longbridge::quote']]]
+  ['securitiesupdatemode_1088',['SecuritiesUpdateMode',['../namespacelongport_1_1quote.html#a50a6cc3db5fdf7bc0fb5dcf07d3b1a1a',1,'longport::quote']]],
+  ['securityboard_1089',['SecurityBoard',['../namespacelongport_1_1quote.html#a84897730f6f4409836383f61865e073a',1,'longport::quote']]]
 ];

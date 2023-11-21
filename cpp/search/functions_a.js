@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['margin_5fratio_766',['margin_ratio',['../classlongbridge_1_1trade_1_1_trade_context.html#a63733868dd08101f12e379ac7c63501e',1,'longbridge::trade::TradeContext']]],
-  ['max_767',['max',['../classlongbridge_1_1_decimal.html#a9841db703e5f072a2c69fc5b1e6d0002',1,'longbridge::Decimal']]],
-  ['message_768',['message',['../classlongbridge_1_1_status.html#ad4aec38354c6c7eb45f5301e13740eea',1,'longbridge::Status']]],
-  ['min_769',['min',['../classlongbridge_1_1_decimal.html#ad94bc1d71cdd367fffb3cfc6ac839f49',1,'longbridge::Decimal']]]
+  ['margin_5fratio_766',['margin_ratio',['../classlongport_1_1trade_1_1_trade_context.html#a1a4e37575828400b4cfdc782d237775f',1,'longport::trade::TradeContext']]],
+  ['max_767',['max',['../classlongport_1_1_decimal.html#ab5cc7c0cab58777e1e0c69e31574de4a',1,'longport::Decimal']]],
+  ['message_768',['message',['../classlongport_1_1_status.html#af4287ee50080c74f0776b93352f0585a',1,'longport::Status']]],
+  ['min_769',['min',['../classlongport_1_1_decimal.html#a528b12ea778e9acd96800310a570b3e7',1,'longport::Decimal']]]
 ];

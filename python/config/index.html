@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Config - Longbridge OpenAPI SDK</title>
+        <title>Config - LongPort OpenAPI SDK</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -21,7 +21,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">Longbridge OpenAPI SDK</a>
+                <a class="navbar-brand" href="..">LongPort OpenAPI SDK</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -93,15 +93,15 @@
             
             <li class="nav-item" data-level="1"><a href="#config" class="nav-link">Config</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.Config" class="nav-link">Config</a>
+            <li class="nav-item" data-level="2"><a href="#longport.openapi.Config" class="nav-link">Config</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.Config.from_env" class="nav-link">from_env()</a>
+            <li class="nav-item" data-level="2"><a href="#longport.openapi.Config.from_env" class="nav-link">from_env()</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#longbridge.openapi.Config.refresh_access_token" class="nav-link">refresh_access_token()</a>
+            <li class="nav-item" data-level="2"><a href="#longport.openapi.Config.refresh_access_token" class="nav-link">refresh_access_token()</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -119,11 +119,11 @@
 
 
 
-<a id="longbridge.openapi.Config"></a>
+<a id="longport.openapi.Config"></a>
   <div class="doc doc-contents first">
 
   
-      <p>Configuration options for Longbridge sdk</p>
+      <p>Configuration options for LongPort sdk</p>
 
 
 
@@ -191,7 +191,7 @@
             </div>
           </td>
           <td>
-                <code>&#39;https://openapi.longbridgeapp.com&#39;</code>
+                <code>&#39;https://openapi.longportapp.com&#39;</code>
           </td>
         </tr>
         <tr>
@@ -205,7 +205,7 @@
             </div>
           </td>
           <td>
-                <code>&#39;wss://openapi-quote.longbridgeapp.com/v2&#39;</code>
+                <code>&#39;wss://openapi-quote.longportapp.com/v2&#39;</code>
           </td>
         </tr>
         <tr>
@@ -219,13 +219,13 @@
             </div>
           </td>
           <td>
-                <code>&#39;wss://openapi-trade.longbridgeapp.com/v2&#39;</code>
+                <code>&#39;wss://openapi-trade.longportapp.com/v2&#39;</code>
           </td>
         </tr>
         <tr>
           <td><code>language</code></td>
           <td>
-                <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longbridge.openapi.Language" href="../reference_all/#longbridge.openapi.Language">Language</a>]</code>
+                <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longport.openapi.Language" href="../reference_all/#longport.openapi.Language">Language</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -233,7 +233,7 @@
             </div>
           </td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="longbridge.openapi.Language.EN" href="../reference_all/#longbridge.openapi.Language.EN">EN</a></code>
+                <code><a class="autorefs autorefs-internal" title="longport.openapi.Language.EN" href="../reference_all/#longport.openapi.Language.EN">EN</a></code>
           </td>
         </tr>
     </tbody>
@@ -258,7 +258,7 @@
 
 
 
-<h2 id="longbridge.openapi.Config.from_env" class="doc doc-heading">
+<h2 id="longport.openapi.Config.from_env" class="doc doc-heading">
           <code class="highlight language-python">from_env()</code>
   
   <span class="doc doc-labels">
@@ -272,14 +272,14 @@
   
       <p>Create a new <code>Config</code> from the given environment variables</p>
 <p>It first gets the environment variables from the <code>.env</code> file in the current directory.</p>
-<h3 id="longbridge.openapi.Config.from_env--variables">Variables</h3>
+<h3 id="longport.openapi.Config.from_env--variables">Variables</h3>
 <ul>
-<li><code>LONGBRIDGE_APP_KEY</code> - App key</li>
-<li><code>LONGBRIDGE_APP_SECRET</code> - App secret</li>
-<li><code>LONGBRIDGE_ACCESS_TOKEN</code> - Access token</li>
-<li><code>LONGBRIDGE_HTTP_URL</code> - HTTP endpoint url</li>
-<li><code>LONGBRIDGE_QUOTE_WS_URL</code> - Quote websocket endpoint url</li>
-<li><code>LONGBRIDGE_TRADE_WS_URL</code> - Trade websocket endpoint url</li>
+<li><code>LONGPORT_APP_KEY</code> - App key</li>
+<li><code>LONGPORT_APP_SECRET</code> - App secret</li>
+<li><code>LONGPORT_ACCESS_TOKEN</code> - Access token</li>
+<li><code>LONGPORT_HTTP_URL</code> - HTTP endpoint url</li>
+<li><code>LONGPORT_QUOTE_WS_URL</code> - Quote websocket endpoint url</li>
+<li><code>LONGPORT_TRADE_WS_URL</code> - Trade websocket endpoint url</li>
 </ul>
 
   </div>
@@ -292,7 +292,7 @@
 
 
 
-<h2 id="longbridge.openapi.Config.refresh_access_token" class="doc doc-heading">
+<h2 id="longport.openapi.Config.refresh_access_token" class="doc doc-heading">
           <code class="highlight language-python">refresh_access_token(expired_at=None)</code>
 
 </h2>

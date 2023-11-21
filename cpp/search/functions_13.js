@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['warrant_5fissuers_849',['warrant_issuers',['../classlongbridge_1_1quote_1_1_quote_context.html#a90965318b95a15869f50760339b8a71c',1,'longbridge::quote::QuoteContext']]],
-  ['warrant_5fquote_850',['warrant_quote',['../classlongbridge_1_1quote_1_1_quote_context.html#ae3d3015bf14448e54f5da33030baf350',1,'longbridge::quote::QuoteContext']]],
-  ['watch_5flist_851',['watch_list',['../classlongbridge_1_1quote_1_1_quote_context.html#ad8d23e3d2ee00925aa802063d9c5943c',1,'longbridge::quote::QuoteContext']]],
-  ['watchlist_852',['watchlist',['../classlongbridge_1_1quote_1_1_quote_context.html#a6e12e64f96ac4ab514df3127fe404d41',1,'longbridge::quote::QuoteContext']]]
+  ['warrant_5fissuers_849',['warrant_issuers',['../classlongport_1_1quote_1_1_quote_context.html#afbe16589f9ec238e971b28accbcbb880',1,'longport::quote::QuoteContext']]],
+  ['warrant_5fquote_850',['warrant_quote',['../classlongport_1_1quote_1_1_quote_context.html#ae92955368d26a4ea18bae23e35604039',1,'longport::quote::QuoteContext']]],
+  ['watch_5flist_851',['watch_list',['../classlongport_1_1quote_1_1_quote_context.html#adc536f6e7b78560fb2262aecd811bded',1,'longport::quote::QuoteContext']]],
+  ['watchlist_852',['watchlist',['../classlongport_1_1quote_1_1_quote_context.html#a3b01947ccd7ed19cadf09ea1f9689bb5',1,'longport::quote::QuoteContext']]]
 ];
