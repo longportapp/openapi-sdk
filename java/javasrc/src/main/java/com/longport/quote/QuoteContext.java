@@ -1,6 +1,7 @@
 package com.longport.quote;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 import com.longport.*;
@@ -735,6 +736,35 @@ public class QuoteContext implements AutoCloseable {
     public CompletableFuture<CapitalFlowLine[]> getCapitalFlow(String symbol) throws OpenApiException {
         return AsyncCallback.executeTask((callback) -> {
             SdkNative.quoteContextCapitalFlow(this.raw, symbol, callback);
+        });
+    }
+
+    /**
+     * Get history candlesticks by offset
+     * 
+     * @return A Future representing the result of the operation
+     * @throws OpenApiException If an error occurs
+     */
+    public CompletableFuture<Candlestick[]> getHistoryCandlesticksByOffset(String symbol, Period period,
+            AdjustType adjustType, boolean forward, LocalDateTime datetime, int count)
+            throws OpenApiException {
+        return AsyncCallback.executeTask((callback) -> {
+            SdkNative.quoteContextHistoryCandlesticksByOffset(this.raw, symbol, period, adjustType, forward, datetime,
+                    count, callback);
+        });
+    }
+
+    /**
+     * Get history candlesticks by date
+     * 
+     * @return A Future representing the result of the operation
+     * @throws OpenApiException If an error occurs
+     */
+    public CompletableFuture<Candlestick[]> getHistoryCandlesticksByDate(String symbol, Period period,
+            AdjustType adjustType, LocalDate start, LocalDate end)
+            throws OpenApiException {
+        return AsyncCallback.executeTask((callback) -> {
+            SdkNative.quoteContextHistoryCandlesticksByDate(this.raw, symbol, period, adjustType, start, end, callback);
         });
     }
 
