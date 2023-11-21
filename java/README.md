@@ -13,7 +13,7 @@ Add `io.github.longportapp:openapi-sdk` to `pom.xml`
     <dependency>
         <groupId>io.github.longportapp</groupId>
         <artifactId>openapi-sdk</artifactId>
-        <version>1.0.0</version>
+        <version>LATEST</version>
     </dependency>
 </dependencies>
 ```
