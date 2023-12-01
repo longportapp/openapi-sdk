@@ -226,9 +226,18 @@
 <a href="#226" id="226">226</a>
 <a href="#227" id="227">227</a>
 <a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>http::Method;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>http::{header, HeaderValue, Request};
-<span class="kw">use </span>longport_httpcli::{HttpClient, HttpClientConfig, Json};
+<span class="kw">use </span>longport_httpcli::{is_cn, HttpClient, HttpClientConfig, Json};
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>time::OffsetDateTime;
 <span class="kw">use </span>tokio_tungstenite::tungstenite::client::IntoClientRequest;
@@ -237,6 +246,8 @@
 
 <span class="kw">const </span>QUOTE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wss://openapi-quote.longportapp.com/v2&quot;</span>;
 <span class="kw">const </span>TRADE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wss://openapi-trade.longportapp.com/v2&quot;</span>;
+<span class="kw">const </span>CN_QUOTE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wss://openapi-quote.longportapp.cn/v2&quot;</span>;
+<span class="kw">const </span>CN_TRADE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">&quot;wss://openapi-trade.longportapp.cn/v2&quot;</span>;
 
 <span class="doccomment">/// Language identifier
 </span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -303,26 +314,33 @@
         <span class="kw">let _ </span>= dotenv::dotenv();
 
         <span class="kw">let </span>http_cli_config = HttpClientConfig::from_env()<span class="question-mark">?</span>;
-        <span class="kw">let </span><span class="kw-2">mut </span>config = Config {
-            http_cli_config,
-            quote_ws_url: QUOTE_WS_URL.to_string(),
-            trade_ws_url: TRADE_WS_URL.to_string(),
-            language: Language::EN,
-        };
-
-        <span class="kw">if let </span><span class="prelude-val">Ok</span>(quote_ws_url) = std::env::var(<span class="string">&quot;LONGBRIDGE_QUOTE_WS_URL&quot;</span>)
+        <span class="kw">let </span>quote_ws_url = std::env::var(<span class="string">&quot;LONGBRIDGE_QUOTE_WS_URL&quot;</span>)
             .or_else(|<span class="kw">_</span>| std::env::var(<span class="string">&quot;LONGPORT_QUOTE_WS_URL&quot;</span>))
-        {
-            config.quote_ws_url = quote_ws_url;
-        }
-
-        <span class="kw">if let </span><span class="prelude-val">Ok</span>(trade_ws_url) = std::env::var(<span class="string">&quot;LONGBRIDGE_TRADE_WS_URL&quot;</span>)
+            .unwrap_or_else(|<span class="kw">_</span>| {
+                <span class="kw">if </span>is_cn() {
+                    CN_QUOTE_WS_URL
+                } <span class="kw">else </span>{
+                    QUOTE_WS_URL
+                }
+                .to_string()
+            });
+        <span class="kw">let </span>trade_ws_url = std::env::var(<span class="string">&quot;LONGBRIDGE_TRADE_WS_URL&quot;</span>)
             .or_else(|<span class="kw">_</span>| std::env::var(<span class="string">&quot;LONGPORT_TRADE_WS_URL&quot;</span>))
-        {
-            config.trade_ws_url = trade_ws_url;
-        }
+            .unwrap_or_else(|<span class="kw">_</span>| {
+                <span class="kw">if </span>is_cn() {
+                    CN_TRADE_WS_URL
+                } <span class="kw">else </span>{
+                    TRADE_WS_URL
+                }
+                .to_string()
+            });
 
-        <span class="prelude-val">Ok</span>(config)
+        <span class="prelude-val">Ok</span>(Config {
+            http_cli_config,
+            quote_ws_url,
+            trade_ws_url,
+            language: Language::EN,
+        })
     }
 
     <span class="doccomment">/// Specifies the url of the OpenAPI server.
