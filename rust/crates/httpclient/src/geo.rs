@@ -16,35 +16,41 @@ fn region() -> Option<String> {
     }
 
     // check network connectivity
-    let rt = tokio::runtime::Builder::new_current_thread()
-        .enable_all()
-        .build()
-        .unwrap();
-    rt.block_on(async {
-        if let Some(last_ping) = LAST_PING.get() {
-            if last_ping.elapsed() < Duration::from_secs(60) {
-                return Some(LAST_PING_REGION.with_borrow(Clone::clone));
-            }
+    // make sure block_on doesn't block the outer tokio runtime
+    let handler = std::thread::spawn(|| {
+        let rt = tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()
+            .unwrap();
+        rt.block_on(ping())
+    });
+    handler.join().unwrap()
+}
+
+async fn ping() -> Option<String> {
+    if let Some(last_ping) = LAST_PING.get() {
+        if last_ping.elapsed() < Duration::from_secs(60) {
+            return Some(LAST_PING_REGION.with_borrow(Clone::clone));
         }
-        let Ok(resp) = reqwest::Client::new()
-            .get("https://api.lbkrs.com/_ping")
-            .timeout(Duration::from_secs(1))
-            .send()
-            .await
-        else {
-            return None;
-        };
-        let Some(region) = resp
-            .headers()
-            .get("X-Ip-Region")
-            .and_then(|v| v.to_str().ok())
-        else {
-            return None;
-        };
-        LAST_PING.set(Some(Instant::now()));
-        LAST_PING_REGION.replace(region.to_string());
-        Some(region.to_string())
-    })
+    }
+    let Ok(resp) = reqwest::Client::new()
+        .get("https://api.lbkrs.com/_ping")
+        .timeout(Duration::from_secs(1))
+        .send()
+        .await
+    else {
+        return None;
+    };
+    let Some(region) = resp
+        .headers()
+        .get("X-Ip-Region")
+        .and_then(|v| v.to_str().ok())
+    else {
+        return None;
+    };
+    LAST_PING.set(Some(Instant::now()));
+    LAST_PING_REGION.replace(region.to_string());
+    Some(region.to_string())
 }
 
 /// do the best to guess whether the access point is in China Mainland or not
