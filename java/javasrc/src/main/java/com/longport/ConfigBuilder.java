@@ -34,7 +34,7 @@ public class ConfigBuilder {
      *                `https://openapi.longportapp.com`)
      * @return this object
      */
-    public ConfigBuilder HttpUrl(String httpUrl) {
+    public ConfigBuilder httpUrl(String httpUrl) {
         this.httpUrl = httpUrl;
         return this;
     }

@@ -11,6 +11,7 @@ use longport::{
     },
     QuoteContext,
 };
+use once_cell::sync::OnceCell;
 use parking_lot::Mutex;
 
 use crate::{
@@ -66,7 +67,7 @@ unsafe impl Send for CQuoteContextState {}
 /// Quote context
 pub struct CQuoteContext {
     ctx: QuoteContext,
-    quote_level: Option<CString>,
+    quote_level: OnceCell<CString>,
     state: Mutex<CQuoteContextState>,
 }
 
@@ -101,7 +102,7 @@ pub unsafe extern "C" fn lb_quote_context_new(
             });
             let arc_ctx = Arc::new(CQuoteContext {
                 ctx,
-                quote_level: None,
+                quote_level: OnceCell::new(),
                 state,
             });
             let weak_ctx = Arc::downgrade(&arc_ctx);
@@ -246,16 +247,11 @@ pub unsafe extern "C" fn lb_quote_context_member_id(ctx: *const CQuoteContext) -
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn lb_quote_context_quote_level(ctx: *mut CQuoteContext) -> *const c_char {
-    match &(*ctx).quote_level {
-        Some(quote_level) => quote_level.as_ptr() as *const _,
-        None => {
-            let s = CString::new((*ctx).ctx.quote_level()).unwrap();
-            let p = s.as_ptr();
-            (*ctx).quote_level = Some(s);
-            p as *const _
-        }
-    }
+pub unsafe extern "C" fn lb_quote_context_quote_level(ctx: *const CQuoteContext) -> *const c_char {
+    let quote_level = (*ctx)
+        .quote_level
+        .get_or_init(|| CString::new((*ctx).ctx.quote_level()).unwrap());
+    quote_level.as_ptr() as *const _
 }
 
 /// Set quote callback, after receiving the quote data push, it will call back

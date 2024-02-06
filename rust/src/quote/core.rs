@@ -152,7 +152,7 @@ impl Core {
             url = config.quote_ws_url.as_str(),
             "connecting to quote server",
         );
-        let ws_cli = WsClient::open(
+        let mut ws_cli = WsClient::open(
             config
                 .create_quote_ws_request()
                 .map_err(WsClientError::from)?,
@@ -193,7 +193,7 @@ impl Core {
                 )
             })
             .collect();
-        ws_cli.set_rate_limit(rate_limit.clone()).await?;
+        ws_cli.set_rate_limit(rate_limit.clone());
 
         let current_trade_days = fetch_current_trade_days(&ws_cli).await?;
 

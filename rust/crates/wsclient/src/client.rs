@@ -1,6 +1,7 @@
 use std::{
     collections::HashMap,
     str::FromStr,
+    sync::Arc,
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
@@ -60,9 +61,6 @@ pub enum Platform {
 }
 
 enum Command {
-    SetRateLimit {
-        rate_limit: Vec<(u8, RateLimit)>,
-    },
     Request {
         command_code: u8,
         timeout_millis: u16,
@@ -90,7 +88,7 @@ impl From<RateLimit> for RateLimiter {
             .interval(config.interval)
             .refill(config.refill)
             .max(config.max)
-            .initial(config.initial)
+            .initial(0)
             .build()
     }
 }
@@ -102,7 +100,6 @@ struct Context<'a> {
     stream: SplitStream<WebSocketStream<MaybeTlsStream<TcpStream>>>,
     command_rx: &'a mut mpsc::UnboundedReceiver<Command>,
     event_sender: &'a mut mpsc::UnboundedSender<WsEvent>,
-    rate_limiter: HashMap<u8, RateLimiter>,
 }
 
 impl<'a> Context<'a> {
@@ -110,7 +107,6 @@ impl<'a> Context<'a> {
         conn: WebSocketStream<MaybeTlsStream<TcpStream>>,
         command_rx: &'a mut mpsc::UnboundedReceiver<Command>,
         event_sender: &'a mut mpsc::UnboundedSender<WsEvent>,
-        rate_limit: Vec<(u8, RateLimit)>,
     ) -> Self {
         let (sink, stream) = conn.split();
         Context {
@@ -120,10 +116,6 @@ impl<'a> Context<'a> {
             stream,
             command_rx,
             event_sender,
-            rate_limiter: rate_limit
-                .into_iter()
-                .map(|(cmd_code, rate_limit)| (cmd_code, rate_limit.into()))
-                .collect(),
         }
     }
 
@@ -171,23 +163,12 @@ impl<'a> Context<'a> {
 
     async fn handle_command(&mut self, command: Command) -> WsClientResult<()> {
         match command {
-            Command::SetRateLimit { rate_limit } => {
-                self.rate_limiter = rate_limit
-                    .into_iter()
-                    .map(|(cmd_code, rate_limit)| (cmd_code, rate_limit.into()))
-                    .collect();
-                Ok(())
-            }
             Command::Request {
                 command_code,
                 timeout_millis: timeout,
                 body,
                 reply_tx,
             } => {
-                if let Some(rate_limiter) = self.rate_limiter.get_mut(&command_code) {
-                    rate_limiter.acquire_one().await;
-                }
-
                 let request_id = self.get_request_id();
                 let msg = Message::Binary(
                     Packet::Request {
@@ -276,6 +257,7 @@ impl WsSession {
 #[derive(Clone)]
 pub struct WsClient {
     command_tx: mpsc::UnboundedSender<Command>,
+    rate_limit: Arc<HashMap<u8, RateLimiter>>,
 }
 
 impl WsClient {
@@ -290,15 +272,26 @@ impl WsClient {
     ) -> WsClientResult<Self> {
         let (command_tx, command_rx) = mpsc::unbounded_channel();
         let conn = do_connect(request, version, codec, platform).await?;
-        tokio::spawn(client_loop(conn, command_rx, event_sender, rate_limit));
-        Ok(Self { command_tx })
+        tokio::spawn(client_loop(conn, command_rx, event_sender));
+        Ok(Self {
+            command_tx,
+            rate_limit: Arc::new(
+                rate_limit
+                    .into_iter()
+                    .map(|(cmd, rate_limit)| (cmd, rate_limit.into()))
+                    .collect(),
+            ),
+        })
     }
 
     /// Set the rate limit
-    pub async fn set_rate_limit(&self, rate_limit: Vec<(u8, RateLimit)>) -> WsClientResult<()> {
-        self.command_tx
-            .send(Command::SetRateLimit { rate_limit })
-            .map_err(|_| WsClientError::ClientClosed)
+    pub fn set_rate_limit(&mut self, rate_limit: Vec<(u8, RateLimit)>) {
+        self.rate_limit = Arc::new(
+            rate_limit
+                .into_iter()
+                .map(|(cmd, rate_limit)| (cmd, rate_limit.into()))
+                .collect(),
+        );
     }
 
     /// Send an authentication request to get a [`WsSession`]
@@ -355,6 +348,10 @@ impl WsClient {
         timeout: Option<Duration>,
         body: Vec<u8>,
     ) -> WsClientResult<Vec<u8>> {
+        if let Some(rate_limit) = self.rate_limit.get(&command_code) {
+            rate_limit.acquire_one().await;
+        }
+
         let (reply_tx, reply_rx) = oneshot::channel();
         self.command_tx
             .send(Command::Request {
@@ -425,9 +422,8 @@ async fn client_loop(
     conn: WebSocketStream<MaybeTlsStream<TcpStream>>,
     mut command_tx: mpsc::UnboundedReceiver<Command>,
     mut event_sender: mpsc::UnboundedSender<WsEvent>,
-    rate_limit: Vec<(u8, RateLimit)>,
 ) {
-    let mut ctx = Context::new(conn, &mut command_tx, &mut event_sender, rate_limit);
+    let mut ctx = Context::new(conn, &mut command_tx, &mut event_sender);
 
     let res = ctx.process_loop().await;
     match res {
