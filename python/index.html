@@ -153,7 +153,7 @@ from longport.openapi import Config, QuoteContext, SubType, PushQuote
 config = Config.from_env()
 
 # A callback to receive quote data
-def on_quote(self, symbol: str, event: PushQuote):
+def on_quote(symbol: str, event: PushQuote):
     print(symbol, event)
 
 # Create a context for quote APIs
@@ -267,5 +267,5 @@ print(resp)</code></pre>
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2023-12-14 03:22:42.260984+00:00
+Build Date UTC : 2024-02-20 06:44:34.765392+00:00
 -->

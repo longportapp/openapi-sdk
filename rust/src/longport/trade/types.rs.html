@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/types.rs`."><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../longport/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/trade/types.rs`."><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1260,43 +1261,43 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Limit Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;LO&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"LO"</span>)]
     </span>LO,
     <span class="doccomment">/// Enhanced Limit Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ELO&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ELO"</span>)]
     </span>ELO,
     <span class="doccomment">/// Market Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;MO&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"MO"</span>)]
     </span>MO,
     <span class="doccomment">/// At-auction Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;AO&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"AO"</span>)]
     </span>AO,
     <span class="doccomment">/// At-auction Limit Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ALO&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ALO"</span>)]
     </span>ALO,
     <span class="doccomment">/// Odd Lots
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ODD&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ODD"</span>)]
     </span>ODD,
     <span class="doccomment">/// Limit If Touched
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;LIT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"LIT"</span>)]
     </span>LIT,
     <span class="doccomment">/// Market If Touched
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;MIT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"MIT"</span>)]
     </span>MIT,
     <span class="doccomment">/// Trailing Limit If Touched (Trailing Amount)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;TSLPAMT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"TSLPAMT"</span>)]
     </span>TSLPAMT,
     <span class="doccomment">/// Trailing Limit If Touched (Trailing Percent)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;TSLPPCT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"TSLPPCT"</span>)]
     </span>TSLPPCT,
     <span class="doccomment">/// Trailing Market If Touched (Trailing Amount)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;TSMAMT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"TSMAMT"</span>)]
     </span>TSMAMT,
     <span class="doccomment">/// Trailing Market If Touched (Trailing Percent)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;TSMPCT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"TSMPCT"</span>)]
     </span>TSMPCT,
     <span class="doccomment">/// Special Limit Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;SLO&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"SLO"</span>)]
     </span>SLO,
 }
 
@@ -1307,55 +1308,55 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Not reported
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;NotReported&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"NotReported"</span>)]
     </span>NotReported,
     <span class="doccomment">/// Not reported (Replaced Order)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ReplacedNotReported&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ReplacedNotReported"</span>)]
     </span>ReplacedNotReported,
     <span class="doccomment">/// Not reported (Protected Order)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ProtectedNotReported&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ProtectedNotReported"</span>)]
     </span>ProtectedNotReported,
     <span class="doccomment">/// Not reported (Conditional Order)
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;VarietiesNotReported&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"VarietiesNotReported"</span>)]
     </span>VarietiesNotReported,
     <span class="doccomment">/// Filled
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;FilledStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"FilledStatus"</span>)]
     </span>Filled,
     <span class="doccomment">/// Wait To New
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;WaitToNew&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"WaitToNew"</span>)]
     </span>WaitToNew,
     <span class="doccomment">/// New
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;NewStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"NewStatus"</span>)]
     </span>New,
     <span class="doccomment">/// Wait To Replace
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;WaitToReplace&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"WaitToReplace"</span>)]
     </span>WaitToReplace,
     <span class="doccomment">/// Pending Replace
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;PendingReplaceStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"PendingReplaceStatus"</span>)]
     </span>PendingReplace,
     <span class="doccomment">/// Replaced
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ReplacedStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ReplacedStatus"</span>)]
     </span>Replaced,
     <span class="doccomment">/// Partial Filled
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;PartialFilledStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"PartialFilledStatus"</span>)]
     </span>PartialFilled,
     <span class="doccomment">/// Wait To Cancel
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;WaitToCancel&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"WaitToCancel"</span>)]
     </span>WaitToCancel,
     <span class="doccomment">/// Pending Cancel
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;PendingCancelStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"PendingCancelStatus"</span>)]
     </span>PendingCancel,
     <span class="doccomment">/// Rejected
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;RejectedStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"RejectedStatus"</span>)]
     </span>Rejected,
     <span class="doccomment">/// Canceled
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;CanceledStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"CanceledStatus"</span>)]
     </span>Canceled,
     <span class="doccomment">/// Expired
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ExpiredStatus&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ExpiredStatus"</span>)]
     </span>Expired,
     <span class="doccomment">/// Partial Withdrawal
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;PartialWithdrawal&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"PartialWithdrawal"</span>)]
     </span>PartialWithdrawal,
 }
 
@@ -1369,10 +1370,10 @@
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Trade done time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>trade_done_at: OffsetDateTime,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>quantity: i64,
     <span class="doccomment">/// Executed price
     </span><span class="kw">pub </span>price: Decimal,
@@ -1385,10 +1386,10 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Buy
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;Buy&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"Buy"</span>)]
     </span>Buy,
     <span class="doccomment">/// Sell
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;Sell&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"Sell"</span>)]
     </span>Sell,
 }
 
@@ -1399,10 +1400,10 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Limit If Touched
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;LIT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"LIT"</span>)]
     </span>LimitIfTouched,
     <span class="doccomment">/// Market If Touched
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;MIT&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"MIT"</span>)]
     </span>MarketIfTouched,
 }
 
@@ -1413,13 +1414,13 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Normal Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;Normal&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"Normal"</span>)]
     </span>Normal,
     <span class="doccomment">/// Long term Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;GTC&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"GTC"</span>)]
     </span>LongTerm,
     <span class="doccomment">/// Grey Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;Grey&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"Grey"</span>)]
     </span>Grey,
     <span class="doccomment">/// Force Selling
     </span>MarginCall,
@@ -1442,13 +1443,13 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Day Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;Day&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"Day"</span>)]
     </span>Day,
     <span class="doccomment">/// Good Til Canceled Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;GTC&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"GTC"</span>)]
     </span>GoodTilCanceled,
     <span class="doccomment">/// Good Til Date Order
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;GTD&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"GTD"</span>)]
     </span>GoodTilDate,
 }
 
@@ -1459,13 +1460,13 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Deactive
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;DEACTIVE&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"DEACTIVE"</span>)]
     </span>Deactive,
     <span class="doccomment">/// Active
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ACTIVE&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ACTIVE"</span>)]
     </span>Active,
     <span class="doccomment">/// Released
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;RELEASED&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"RELEASED"</span>)]
     </span>Released,
 }
 
@@ -1476,10 +1477,10 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Regular trading hour only
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;RTH_ONLY&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"RTH_ONLY"</span>)]
     </span>RTHOnly,
     <span class="doccomment">/// Any time
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;ANY_TIME&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"ANY_TIME"</span>)]
     </span>AnyTime,
 }
 
@@ -1493,19 +1494,19 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>stock_name: String,
     <span class="doccomment">/// Submitted quantity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>quantity: i64,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>executed_quantity: i64,
     <span class="doccomment">/// Submitted price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Executed price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_0_is_none"</span>)]
     </span><span class="kw">pub </span>executed_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Submitted time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>submitted_at: OffsetDateTime,
     <span class="doccomment">/// Order side
     </span><span class="kw">pub </span>side: OrderSide,
@@ -1514,10 +1515,10 @@
     <span class="doccomment">/// Order type
     </span><span class="kw">pub </span>order_type: OrderType,
     <span class="doccomment">/// Last done
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>last_done: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// `LIT` / `MIT` Order Trigger Price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>trigger_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Rejected Message or remark
     </span><span class="kw">pub </span>msg: String,
@@ -1526,30 +1527,30 @@
     <span class="doccomment">/// Time in force type
     </span><span class="kw">pub </span>time_in_force: TimeInForceType,
     <span class="doccomment">/// Long term order expire date
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::date_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::date_opt"</span>)]
     </span><span class="kw">pub </span>expire_date: <span class="prelude-ty">Option</span>&lt;Date&gt;,
     <span class="doccomment">/// Last updated time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp_opt"</span>)]
     </span><span class="kw">pub </span>updated_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
     <span class="doccomment">/// Conditional order trigger time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp_opt"</span>)]
     </span><span class="kw">pub </span>trigger_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
     <span class="doccomment">/// `TSMAMT` / `TSLPAMT` order trailing amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>trailing_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// `TSMPCT` / `TSLPPCT` order trailing percent
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>trailing_percent: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// `TSLPAMT` / `TSLPPCT` order limit offset amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>limit_offset: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Conditional order trigger status
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::trigger_status"</span>)]
     </span><span class="kw">pub </span>trigger_status: <span class="prelude-ty">Option</span>&lt;TriggerStatus&gt;,
     <span class="doccomment">/// Currency
     </span><span class="kw">pub </span>currency: String,
     <span class="doccomment">/// Enable or disable outside regular trading hours
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::outside_rth&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::outside_rth"</span>)]
     </span><span class="kw">pub </span>outside_rth: <span class="prelude-ty">Option</span>&lt;OutsideRTH&gt;,
     <span class="doccomment">/// Remark
     </span><span class="kw">pub </span>remark: String,
@@ -1580,13 +1581,13 @@
     <span class="doccomment">/// Pending Settlement
     </span><span class="prelude-val">None</span>,
     <span class="doccomment">/// Settled with no data
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;NO_DATA&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"NO_DATA"</span>)]
     </span>NoData,
     <span class="doccomment">/// Settled and pending distribution
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;PENDING&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"PENDING"</span>)]
     </span>Pending,
     <span class="doccomment">/// Settled and distributed
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;DONE&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"DONE"</span>)]
     </span>Done,
 }
 
@@ -1597,10 +1598,10 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Broker
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;BROKER_FEES&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"BROKER_FEES"</span>)]
     </span>Broker,
     <span class="doccomment">/// Third
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;THIRD_FEES&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"THIRD_FEES"</span>)]
     </span>Third,
 }
 
@@ -1609,18 +1610,18 @@
 </span><span class="kw">pub struct </span>OrderHistoryDetail {
     <span class="doccomment">/// Executed price for executed orders, submitted price for expired,
     /// canceled, rejected orders, etc.
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>price: Decimal,
     <span class="doccomment">/// Executed quantity for executed orders, remaining quantity for expired,
     /// canceled, rejected orders, etc.
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>quantity: i64,
     <span class="doccomment">/// Order status
     </span><span class="kw">pub </span>status: OrderStatus,
     <span class="doccomment">/// Execution or error message
     </span><span class="kw">pub </span>msg: String,
     <span class="doccomment">/// Occurrence time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>time: OffsetDateTime,
 }
 
@@ -1632,7 +1633,7 @@
     <span class="doccomment">/// Charge name
     </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// Charge amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>amount: Decimal,
     <span class="doccomment">/// Charge currency
     </span><span class="kw">pub </span>currency: String,
@@ -1670,19 +1671,19 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>stock_name: String,
     <span class="doccomment">/// Submitted quantity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>quantity: i64,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>executed_quantity: i64,
     <span class="doccomment">/// Submitted price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Executed price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_0_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_0_is_none"</span>)]
     </span><span class="kw">pub </span>executed_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Submitted time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>submitted_at: OffsetDateTime,
     <span class="doccomment">/// Order side
     </span><span class="kw">pub </span>side: OrderSide,
@@ -1691,10 +1692,10 @@
     <span class="doccomment">/// Order type
     </span><span class="kw">pub </span>order_type: OrderType,
     <span class="doccomment">/// Last done
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>last_done: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// `LIT` / `MIT` Order Trigger Price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>trigger_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Rejected Message or remark
     </span><span class="kw">pub </span>msg: String,
@@ -1703,56 +1704,56 @@
     <span class="doccomment">/// Time in force type
     </span><span class="kw">pub </span>time_in_force: TimeInForceType,
     <span class="doccomment">/// Long term order expire date
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::date_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::date_opt"</span>)]
     </span><span class="kw">pub </span>expire_date: <span class="prelude-ty">Option</span>&lt;Date&gt;,
     <span class="doccomment">/// Last updated time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp_opt"</span>)]
     </span><span class="kw">pub </span>updated_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
     <span class="doccomment">/// Conditional order trigger time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp_opt"</span>)]
     </span><span class="kw">pub </span>trigger_at: <span class="prelude-ty">Option</span>&lt;OffsetDateTime&gt;,
     <span class="doccomment">/// `TSMAMT` / `TSLPAMT` order trailing amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>trailing_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// `TSMPCT` / `TSLPPCT` order trailing percent
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>trailing_percent: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// `TSLPAMT` / `TSLPPCT` order limit offset amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>limit_offset: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Conditional order trigger status
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::trigger_status&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::trigger_status"</span>)]
     </span><span class="kw">pub </span>trigger_status: <span class="prelude-ty">Option</span>&lt;TriggerStatus&gt;,
     <span class="doccomment">/// Currency
     </span><span class="kw">pub </span>currency: String,
     <span class="doccomment">/// Enable or disable outside regular trading hours
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::outside_rth&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::outside_rth"</span>)]
     </span><span class="kw">pub </span>outside_rth: <span class="prelude-ty">Option</span>&lt;OutsideRTH&gt;,
     <span class="doccomment">/// Remark
     </span><span class="kw">pub </span>remark: String,
     <span class="doccomment">/// Commission-free Status
     </span><span class="kw">pub </span>free_status: CommissionFreeStatus,
     <span class="doccomment">/// Commission-free amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>free_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Commission-free currency
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::symbol_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::symbol_opt"</span>)]
     </span><span class="kw">pub </span>free_currency: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Deduction status
     </span><span class="kw">pub </span>deductions_status: DeductionStatus,
     <span class="doccomment">/// Deduction amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>deductions_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Deduction currency
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::symbol_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::symbol_opt"</span>)]
     </span><span class="kw">pub </span>deductions_currency: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Platform fee deduction status
     </span><span class="kw">pub </span>platform_deducted_status: DeductionStatus,
     <span class="doccomment">/// Platform deduction amount
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>platform_deducted_amount: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Platform deduction currency
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::symbol_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::symbol_opt"</span>)]
     </span><span class="kw">pub </span>platform_deducted_currency: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Order history details
     </span><span class="kw">pub </span>history: Vec&lt;OrderHistoryDetail&gt;,
@@ -1785,7 +1786,7 @@
     <span class="doccomment">/// Remaining financing amount
     </span><span class="kw">pub </span>remaining_finance_amount: Decimal,
     <span class="doccomment">/// Risk control level
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::risk_level&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::risk_level"</span>)]
     </span><span class="kw">pub </span>risk_level: i32,
     <span class="doccomment">/// Margin call
     </span><span class="kw">pub </span>margin_call: Decimal,
@@ -1795,13 +1796,13 @@
     </span><span class="attr">#[serde(default)]
     </span><span class="kw">pub </span>cash_infos: Vec&lt;CashInfo&gt;,
     <span class="doccomment">/// Net assets
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>net_assets: Decimal,
     <span class="doccomment">/// Initial margin
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>init_margin: Decimal,
     <span class="doccomment">/// Maintenance margin
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>maintenance_margin: Decimal,
 }
 
@@ -1827,8 +1828,8 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>BalanceType {
-    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'de</span>&gt; Deserialize&lt;<span class="lifetime">'de</span>&gt; <span class="kw">for </span>BalanceType {
+    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">'de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
         <span class="kw">let </span>value = i32::deserialize(deserializer)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(BalanceType::from(value))
     }
@@ -1847,8 +1848,8 @@
     </span>In = <span class="number">2</span>,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;de</span>&gt; Deserialize&lt;<span class="lifetime">&#39;de</span>&gt; <span class="kw">for </span>CashFlowDirection {
-    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">&#39;de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'de</span>&gt; Deserialize&lt;<span class="lifetime">'de</span>&gt; <span class="kw">for </span>CashFlowDirection {
+    <span class="kw">fn </span>deserialize&lt;D: Deserializer&lt;<span class="lifetime">'de</span>&gt;&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt; {
         <span class="kw">let </span>value = i32::deserialize(deserializer)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(CashFlowDirection::from(value))
     }
@@ -1868,10 +1869,10 @@
     <span class="doccomment">/// Cash currency
     </span><span class="kw">pub </span>currency: String,
     <span class="doccomment">/// Business time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>business_time: OffsetDateTime,
     <span class="doccomment">/// Associated Stock code information
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::symbol_opt&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::symbol_opt"</span>)]
     </span><span class="kw">pub </span>symbol: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="doccomment">/// Cash flow description
     </span><span class="kw">pub </span>description: String,
@@ -1881,7 +1882,7 @@
 </span><span class="attr">#[derive(Debug, Clone, Deserialize)]
 </span><span class="kw">pub struct </span>FundPositionsResponse {
     <span class="doccomment">/// Channels
-    </span><span class="attr">#[serde(rename = <span class="string">&quot;list&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">"list"</span>)]
     </span><span class="kw">pub </span>channels: Vec&lt;FundPositionChannel&gt;,
 }
 
@@ -1892,7 +1893,7 @@
     </span><span class="kw">pub </span>account_channel: String,
 
     <span class="doccomment">/// Fund positions
-    </span><span class="attr">#[serde(default, rename = <span class="string">&quot;fund_info&quot;</span>)]
+    </span><span class="attr">#[serde(default, rename = <span class="string">"fund_info"</span>)]
     </span><span class="kw">pub </span>positions: Vec&lt;FundPosition&gt;,
 }
 
@@ -1902,20 +1903,20 @@
     <span class="doccomment">/// Fund ISIN code
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Current equity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>current_net_asset_value: Decimal,
     <span class="doccomment">/// Current equity time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>net_asset_value_day: OffsetDateTime,
     <span class="doccomment">/// Fund name
     </span><span class="kw">pub </span>symbol_name: String,
     <span class="doccomment">/// Currency
     </span><span class="kw">pub </span>currency: String,
     <span class="doccomment">/// Net cost
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>cost_net_asset_value: Decimal,
     <span class="doccomment">/// Holding units
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>holding_units: Decimal,
 }
 
@@ -1923,7 +1924,7 @@
 </span><span class="attr">#[derive(Debug, Clone, Deserialize)]
 </span><span class="kw">pub struct </span>StockPositionsResponse {
     <span class="doccomment">/// Channels
-    </span><span class="attr">#[serde(rename = <span class="string">&quot;list&quot;</span>)]
+    </span><span class="attr">#[serde(rename = <span class="string">"list"</span>)]
     </span><span class="kw">pub </span>channels: Vec&lt;StockPositionChannel&gt;,
 }
 
@@ -1934,7 +1935,7 @@
     </span><span class="kw">pub </span>account_channel: String,
 
     <span class="doccomment">/// Stock positions
-    </span><span class="attr">#[serde(default, rename = <span class="string">&quot;stock_info&quot;</span>)]
+    </span><span class="attr">#[serde(default, rename = <span class="string">"stock_info"</span>)]
     </span><span class="kw">pub </span>positions: Vec&lt;StockPosition&gt;,
 }
 
@@ -1946,16 +1947,16 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>symbol_name: String,
     <span class="doccomment">/// The number of holdings
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>quantity: i64,
     <span class="doccomment">/// Available quantity
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>available_quantity: i64,
     <span class="doccomment">/// Currency
     </span><span class="kw">pub </span>currency: String,
-    <span class="doccomment">/// Cost Price(According to the client&#39;s choice of average purchase or
+    <span class="doccomment">/// Cost Price(According to the client's choice of average purchase or
     /// diluted cost)
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_empty_is_0&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>cost_price: Decimal,
     <span class="doccomment">/// Market
     </span><span class="kw">pub </span>market: Market,
@@ -2007,34 +2008,34 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>fund_position_response() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;list&quot;: [{
-                &quot;account_channel&quot;: &quot;lb&quot;,
-                &quot;fund_info&quot;: [{
-                    &quot;symbol&quot;: &quot;HK0000447943&quot;,
-                    &quot;symbol_name&quot;: &quot;高腾亚洲收益基金&quot;,
-                    &quot;currency&quot;: &quot;USD&quot;,
-                    &quot;holding_units&quot;: &quot;5.000&quot;,
-                    &quot;current_net_asset_value&quot;: &quot;0&quot;,
-                    &quot;cost_net_asset_value&quot;: &quot;0.00&quot;,
-                    &quot;net_asset_value_day&quot;: &quot;1649865600&quot;
+            "list": [{
+                "account_channel": "lb",
+                "fund_info": [{
+                    "symbol": "HK0000447943",
+                    "symbol_name": "高腾亚洲收益基金",
+                    "currency": "USD",
+                    "holding_units": "5.000",
+                    "current_net_asset_value": "0",
+                    "cost_net_asset_value": "0.00",
+                    "net_asset_value_day": "1649865600"
                 }]
             }]
         }
-        &quot;#</span>;
+        "#</span>;
 
         <span class="kw">let </span>resp: FundPositionsResponse = serde_json::from_str(data).unwrap();
         <span class="macro">assert_eq!</span>(resp.channels.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>channel = <span class="kw-2">&amp;</span>resp.channels[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(channel.account_channel, <span class="string">&quot;lb&quot;</span>);
+        <span class="macro">assert_eq!</span>(channel.account_channel, <span class="string">"lb"</span>);
         <span class="macro">assert_eq!</span>(channel.positions.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;HK0000447943&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;高腾亚洲收益基金&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"HK0000447943"</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"高腾亚洲收益基金"</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">"USD"</span>);
         <span class="macro">assert_eq!</span>(position.current_net_asset_value, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
         <span class="macro">assert_eq!</span>(position.cost_net_asset_value, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
         <span class="macro">assert_eq!</span>(position.holding_units, <span class="macro">decimal!</span>(<span class="number">5i32</span>));
@@ -2043,65 +2044,65 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>stock_position_response() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;list&quot;: [
+            "list": [
               {
-                &quot;account_channel&quot;: &quot;lb&quot;,
-                &quot;stock_info&quot;: [
+                "account_channel": "lb",
+                "stock_info": [
                   {
-                    &quot;symbol&quot;: &quot;700.HK&quot;,
-                    &quot;symbol_name&quot;: &quot;腾讯控股&quot;,
-                    &quot;currency&quot;: &quot;HK&quot;,
-                    &quot;quantity&quot;: &quot;650&quot;,
-                    &quot;available_quantity&quot;: &quot;-450&quot;,
-                    &quot;cost_price&quot;: &quot;457.53&quot;,
-                    &quot;market&quot;: &quot;HK&quot;
+                    "symbol": "700.HK",
+                    "symbol_name": "腾讯控股",
+                    "currency": "HK",
+                    "quantity": "650",
+                    "available_quantity": "-450",
+                    "cost_price": "457.53",
+                    "market": "HK"
                   },
                   {
-                    &quot;symbol&quot;: &quot;9991.HK&quot;,
-                    &quot;symbol_name&quot;: &quot;宝尊电商-SW&quot;,
-                    &quot;currency&quot;: &quot;HK&quot;,
-                    &quot;quantity&quot;: &quot;200&quot;,
-                    &quot;available_quantity&quot;: &quot;0&quot;,
-                    &quot;cost_price&quot;: &quot;32.25&quot;,
-                    &quot;market&quot;: &quot;HK&quot;
+                    "symbol": "9991.HK",
+                    "symbol_name": "宝尊电商-SW",
+                    "currency": "HK",
+                    "quantity": "200",
+                    "available_quantity": "0",
+                    "cost_price": "32.25",
+                    "market": "HK"
                   }
                 ]
               }
             ]
           }
-        &quot;#</span>;
+        "#</span>;
 
         <span class="kw">let </span>resp: StockPositionsResponse = serde_json::from_str(data).unwrap();
         <span class="macro">assert_eq!</span>(resp.channels.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>channel = <span class="kw-2">&amp;</span>resp.channels[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(channel.account_channel, <span class="string">&quot;lb&quot;</span>);
+        <span class="macro">assert_eq!</span>(channel.account_channel, <span class="string">"lb"</span>);
         <span class="macro">assert_eq!</span>(channel.positions.len(), <span class="number">2</span>);
 
         <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;700.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;腾讯控股&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"700.HK"</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"腾讯控股"</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">"HK"</span>);
         <span class="macro">assert_eq!</span>(position.quantity, <span class="number">650</span>);
         <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
         <span class="macro">assert_eq!</span>(position.market, Market::HK);
 
         <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;700.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;腾讯控股&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"700.HK"</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"腾讯控股"</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">"HK"</span>);
         <span class="macro">assert_eq!</span>(position.quantity, <span class="number">650</span>);
         <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
         <span class="macro">assert_eq!</span>(position.market, Market::HK);
 
         <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">&quot;9991.HK&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">&quot;宝尊电商-SW&quot;</span>);
-        <span class="macro">assert_eq!</span>(position.currency, <span class="string">&quot;HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"9991.HK"</span>);
+        <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"宝尊电商-SW"</span>);
+        <span class="macro">assert_eq!</span>(position.currency, <span class="string">"HK"</span>);
         <span class="macro">assert_eq!</span>(position.quantity, <span class="number">200</span>);
         <span class="macro">assert_eq!</span>(position.available_quantity, <span class="number">0</span>);
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">32.25f32</span>));
@@ -2109,32 +2110,32 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>cash_flow() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;list&quot;: [
+            "list": [
               {
-                &quot;transaction_flow_name&quot;: &quot;BuyContract-Stocks&quot;,
-                &quot;direction&quot;: 1,
-                &quot;balance&quot;: &quot;-248.60&quot;,
-                &quot;currency&quot;: &quot;USD&quot;,
-                &quot;business_type&quot;: 1,
-                &quot;business_time&quot;: &quot;1621507957&quot;,
-                &quot;symbol&quot;: &quot;AAPL.US&quot;,
-                &quot;description&quot;: &quot;AAPL&quot;
+                "transaction_flow_name": "BuyContract-Stocks",
+                "direction": 1,
+                "balance": "-248.60",
+                "currency": "USD",
+                "business_type": 1,
+                "business_time": "1621507957",
+                "symbol": "AAPL.US",
+                "description": "AAPL"
               },
               {
-                &quot;transaction_flow_name&quot;: &quot;BuyContract-Stocks&quot;,
-                &quot;direction&quot;: 1,
-                &quot;balance&quot;: &quot;-125.16&quot;,
-                &quot;currency&quot;: &quot;USD&quot;,
-                &quot;business_type&quot;: 2,
-                &quot;business_time&quot;: &quot;1621504824&quot;,
-                &quot;symbol&quot;: &quot;AAPL.US&quot;,
-                &quot;description&quot;: &quot;AAPL&quot;
+                "transaction_flow_name": "BuyContract-Stocks",
+                "direction": 1,
+                "balance": "-125.16",
+                "currency": "USD",
+                "business_type": 2,
+                "business_time": "1621504824",
+                "symbol": "AAPL.US",
+                "description": "AAPL"
               }
             ]
           }
-          &quot;#</span>;
+          "#</span>;
 
         <span class="attr">#[derive(Debug, Deserialize)]
         </span><span class="kw">struct </span>Response {
@@ -2145,60 +2146,60 @@
         <span class="macro">assert_eq!</span>(resp.list.len(), <span class="number">2</span>);
 
         <span class="kw">let </span>cashflow = <span class="kw-2">&amp;</span>resp.list[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(cashflow.transaction_flow_name, <span class="string">&quot;BuyContract-Stocks&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.transaction_flow_name, <span class="string">"BuyContract-Stocks"</span>);
         <span class="macro">assert_eq!</span>(cashflow.direction, CashFlowDirection::Out);
         <span class="macro">assert_eq!</span>(cashflow.balance, <span class="macro">decimal!</span>(-<span class="number">248.60f32</span>));
-        <span class="macro">assert_eq!</span>(cashflow.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.currency, <span class="string">"USD"</span>);
         <span class="macro">assert_eq!</span>(cashflow.business_type, BalanceType::Cash);
         <span class="macro">assert_eq!</span>(cashflow.business_time, <span class="macro">datetime!</span>(<span class="number">2021</span>-<span class="number">05</span>-<span class="number">20 18</span>:<span class="number">52</span>:<span class="number">37 </span>+<span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(cashflow.symbol.as_deref(), <span class="prelude-val">Some</span>(<span class="string">&quot;AAPL.US&quot;</span>));
-        <span class="macro">assert_eq!</span>(cashflow.description, <span class="string">&quot;AAPL&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.symbol.as_deref(), <span class="prelude-val">Some</span>(<span class="string">"AAPL.US"</span>));
+        <span class="macro">assert_eq!</span>(cashflow.description, <span class="string">"AAPL"</span>);
 
         <span class="kw">let </span>cashflow = <span class="kw-2">&amp;</span>resp.list[<span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(cashflow.transaction_flow_name, <span class="string">&quot;BuyContract-Stocks&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.transaction_flow_name, <span class="string">"BuyContract-Stocks"</span>);
         <span class="macro">assert_eq!</span>(cashflow.direction, CashFlowDirection::Out);
         <span class="macro">assert_eq!</span>(cashflow.balance, <span class="macro">decimal!</span>(-<span class="number">125.16f32</span>));
-        <span class="macro">assert_eq!</span>(cashflow.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.currency, <span class="string">"USD"</span>);
         <span class="macro">assert_eq!</span>(cashflow.business_type, BalanceType::Stock);
         <span class="macro">assert_eq!</span>(cashflow.business_time, <span class="macro">datetime!</span>(<span class="number">2021</span>-<span class="number">05</span>-<span class="number">20 18</span>:<span class="number">00</span>:<span class="number">24 </span>+<span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(cashflow.symbol.as_deref(), <span class="prelude-val">Some</span>(<span class="string">&quot;AAPL.US&quot;</span>));
-        <span class="macro">assert_eq!</span>(cashflow.description, <span class="string">&quot;AAPL&quot;</span>);
+        <span class="macro">assert_eq!</span>(cashflow.symbol.as_deref(), <span class="prelude-val">Some</span>(<span class="string">"AAPL.US"</span>));
+        <span class="macro">assert_eq!</span>(cashflow.description, <span class="string">"AAPL"</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>account_balance() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;list&quot;: [
+            "list": [
               {
-                &quot;total_cash&quot;: &quot;1759070010.72&quot;,
-                &quot;max_finance_amount&quot;: &quot;977582000&quot;,
-                &quot;remaining_finance_amount&quot;: &quot;0&quot;,
-                &quot;risk_level&quot;: &quot;1&quot;,
-                &quot;margin_call&quot;: &quot;2598051051.50&quot;,
-                &quot;currency&quot;: &quot;HKD&quot;,
-                &quot;cash_infos&quot;: [
+                "total_cash": "1759070010.72",
+                "max_finance_amount": "977582000",
+                "remaining_finance_amount": "0",
+                "risk_level": "1",
+                "margin_call": "2598051051.50",
+                "currency": "HKD",
+                "cash_infos": [
                   {
-                    &quot;withdraw_cash&quot;: &quot;97592.30&quot;,
-                    &quot;available_cash&quot;: &quot;195902464.37&quot;,
-                    &quot;frozen_cash&quot;: &quot;11579339.13&quot;,
-                    &quot;settling_cash&quot;: &quot;207288537.81&quot;,
-                    &quot;currency&quot;: &quot;HKD&quot;
+                    "withdraw_cash": "97592.30",
+                    "available_cash": "195902464.37",
+                    "frozen_cash": "11579339.13",
+                    "settling_cash": "207288537.81",
+                    "currency": "HKD"
                   },
                   {
-                    &quot;withdraw_cash&quot;: &quot;199893416.74&quot;,
-                    &quot;available_cash&quot;: &quot;199893416.74&quot;,
-                    &quot;frozen_cash&quot;: &quot;28723.76&quot;,
-                    &quot;settling_cash&quot;: &quot;-276806.51&quot;,
-                    &quot;currency&quot;: &quot;USD&quot;
+                    "withdraw_cash": "199893416.74",
+                    "available_cash": "199893416.74",
+                    "frozen_cash": "28723.76",
+                    "settling_cash": "-276806.51",
+                    "currency": "USD"
                   }
                 ],
-                &quot;net_assets&quot;: &quot;11111.12&quot;,
-                &quot;init_margin&quot;: &quot;2222.23&quot;,
-                &quot;maintenance_margin&quot;: &quot;3333.45&quot;
+                "net_assets": "11111.12",
+                "init_margin": "2222.23",
+                "maintenance_margin": "3333.45"
               }
             ]
-          }&quot;#</span>;
+          }"#</span>;
 
         <span class="attr">#[derive(Debug, Deserialize)]
         </span><span class="kw">struct </span>Response {
@@ -2209,69 +2210,69 @@
         <span class="macro">assert_eq!</span>(resp.list.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>balance = <span class="kw-2">&amp;</span>resp.list[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(balance.total_cash, <span class="string">&quot;1759070010.72&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(balance.max_finance_amount, <span class="string">&quot;977582000&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.total_cash, <span class="string">"1759070010.72"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.max_finance_amount, <span class="string">"977582000"</span>.parse().unwrap());
         <span class="macro">assert_eq!</span>(balance.remaining_finance_amount, <span class="macro">decimal!</span>(<span class="number">0i32</span>));
         <span class="macro">assert_eq!</span>(balance.risk_level, <span class="number">1</span>);
-        <span class="macro">assert_eq!</span>(balance.margin_call, <span class="string">&quot;2598051051.50&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(balance.currency, <span class="string">&quot;HKD&quot;</span>);
-        <span class="macro">assert_eq!</span>(balance.net_assets, <span class="string">&quot;11111.12&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(balance.init_margin, <span class="string">&quot;2222.23&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(balance.maintenance_margin, <span class="string">&quot;3333.45&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.margin_call, <span class="string">"2598051051.50"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.currency, <span class="string">"HKD"</span>);
+        <span class="macro">assert_eq!</span>(balance.net_assets, <span class="string">"11111.12"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.init_margin, <span class="string">"2222.23"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.maintenance_margin, <span class="string">"3333.45"</span>.parse().unwrap());
 
         <span class="macro">assert_eq!</span>(balance.cash_infos.len(), <span class="number">2</span>);
 
         <span class="kw">let </span>cash_info = <span class="kw-2">&amp;</span>balance.cash_infos[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(cash_info.withdraw_cash, <span class="string">&quot;97592.30&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.available_cash, <span class="string">&quot;195902464.37&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.frozen_cash, <span class="string">&quot;11579339.13&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.settling_cash, <span class="string">&quot;207288537.81&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.currency, <span class="string">&quot;HKD&quot;</span>);
+        <span class="macro">assert_eq!</span>(cash_info.withdraw_cash, <span class="string">"97592.30"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.available_cash, <span class="string">"195902464.37"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.frozen_cash, <span class="string">"11579339.13"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.settling_cash, <span class="string">"207288537.81"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.currency, <span class="string">"HKD"</span>);
 
         <span class="kw">let </span>cash_info = <span class="kw-2">&amp;</span>balance.cash_infos[<span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(cash_info.withdraw_cash, <span class="string">&quot;199893416.74&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.available_cash, <span class="string">&quot;199893416.74&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.frozen_cash, <span class="string">&quot;28723.76&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.settling_cash, <span class="string">&quot;-276806.51&quot;</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(cash_info.currency, <span class="string">&quot;USD&quot;</span>);
+        <span class="macro">assert_eq!</span>(cash_info.withdraw_cash, <span class="string">"199893416.74"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.available_cash, <span class="string">"199893416.74"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.frozen_cash, <span class="string">"28723.76"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.settling_cash, <span class="string">"-276806.51"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(cash_info.currency, <span class="string">"USD"</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>history_orders() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;orders&quot;: [
+            "orders": [
               {
-                &quot;currency&quot;: &quot;HKD&quot;,
-                &quot;executed_price&quot;: &quot;0.000&quot;,
-                &quot;executed_quantity&quot;: &quot;0&quot;,
-                &quot;expire_date&quot;: &quot;&quot;,
-                &quot;last_done&quot;: &quot;&quot;,
-                &quot;limit_offset&quot;: &quot;&quot;,
-                &quot;msg&quot;: &quot;&quot;,
-                &quot;order_id&quot;: &quot;706388312699592704&quot;,
-                &quot;order_type&quot;: &quot;ELO&quot;,
-                &quot;outside_rth&quot;: &quot;UnknownOutsideRth&quot;,
-                &quot;price&quot;: &quot;11.900&quot;,
-                &quot;quantity&quot;: &quot;200&quot;,
-                &quot;side&quot;: &quot;Buy&quot;,
-                &quot;status&quot;: &quot;RejectedStatus&quot;,
-                &quot;stock_name&quot;: &quot;Bank of East Asia Ltd/The&quot;,
-                &quot;submitted_at&quot;: &quot;1651644897&quot;,
-                &quot;symbol&quot;: &quot;23.HK&quot;,
-                &quot;tag&quot;: &quot;Normal&quot;,
-                &quot;time_in_force&quot;: &quot;Day&quot;,
-                &quot;trailing_amount&quot;: &quot;&quot;,
-                &quot;trailing_percent&quot;: &quot;&quot;,
-                &quot;trigger_at&quot;: &quot;0&quot;,
-                &quot;trigger_price&quot;: &quot;&quot;,
-                &quot;trigger_status&quot;: &quot;NOT_USED&quot;,
-                &quot;updated_at&quot;: &quot;1651644898&quot;,
-                &quot;remark&quot;: &quot;abc&quot;
+                "currency": "HKD",
+                "executed_price": "0.000",
+                "executed_quantity": "0",
+                "expire_date": "",
+                "last_done": "",
+                "limit_offset": "",
+                "msg": "",
+                "order_id": "706388312699592704",
+                "order_type": "ELO",
+                "outside_rth": "UnknownOutsideRth",
+                "price": "11.900",
+                "quantity": "200",
+                "side": "Buy",
+                "status": "RejectedStatus",
+                "stock_name": "Bank of East Asia Ltd/The",
+                "submitted_at": "1651644897",
+                "symbol": "23.HK",
+                "tag": "Normal",
+                "time_in_force": "Day",
+                "trailing_amount": "",
+                "trailing_percent": "",
+                "trigger_at": "0",
+                "trigger_price": "",
+                "trigger_status": "NOT_USED",
+                "updated_at": "1651644898",
+                "remark": "abc"
               }
             ]
           }
-        &quot;#</span>;
+        "#</span>;
 
         <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>Response {
@@ -2282,23 +2283,23 @@
         <span class="macro">assert_eq!</span>(resp.orders.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>order = <span class="kw-2">&amp;</span>resp.orders[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(order.currency, <span class="string">&quot;HKD&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.currency, <span class="string">"HKD"</span>);
         <span class="macro">assert!</span>(order.executed_price.is_none());
         <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="number">0</span>);
         <span class="macro">assert!</span>(order.expire_date.is_none());
         <span class="macro">assert!</span>(order.last_done.is_none());
         <span class="macro">assert!</span>(order.limit_offset.is_none());
-        <span class="macro">assert_eq!</span>(order.msg, <span class="string">&quot;&quot;</span>);
-        <span class="macro">assert_eq!</span>(order.order_id, <span class="string">&quot;706388312699592704&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.msg, <span class="string">""</span>);
+        <span class="macro">assert_eq!</span>(order.order_id, <span class="string">"706388312699592704"</span>);
         <span class="macro">assert_eq!</span>(order.order_type, OrderType::ELO);
         <span class="macro">assert!</span>(order.outside_rth.is_none());
-        <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">&quot;11.900&quot;</span>.parse().unwrap()));
+        <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">"11.900"</span>.parse().unwrap()));
         <span class="macro">assert_eq!</span>(order.quantity, <span class="number">200</span>);
         <span class="macro">assert_eq!</span>(order.side, OrderSide::Buy);
         <span class="macro">assert_eq!</span>(order.status, OrderStatus::Rejected);
-        <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">&quot;Bank of East Asia Ltd/The&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">"Bank of East Asia Ltd/The"</span>);
         <span class="macro">assert_eq!</span>(order.submitted_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">57 </span>+<span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(order.symbol, <span class="string">&quot;23.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.symbol, <span class="string">"23.HK"</span>);
         <span class="macro">assert_eq!</span>(order.tag, OrderTag::Normal);
         <span class="macro">assert_eq!</span>(order.time_in_force, TimeInForceType::Day);
         <span class="macro">assert!</span>(order.trailing_amount.is_none());
@@ -2307,45 +2308,45 @@
         <span class="macro">assert!</span>(order.trigger_price.is_none());
         <span class="macro">assert!</span>(order.trigger_status.is_none());
         <span class="macro">assert_eq!</span>(order.updated_at, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">58 </span>+<span class="number">8</span>)));
-        <span class="macro">assert_eq!</span>(order.remark, <span class="string">&quot;abc&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.remark, <span class="string">"abc"</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>today_orders() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;orders&quot;: [
+            "orders": [
               {
-                &quot;currency&quot;: &quot;HKD&quot;,
-                &quot;executed_price&quot;: &quot;0.000&quot;,
-                &quot;executed_quantity&quot;: &quot;0&quot;,
-                &quot;expire_date&quot;: &quot;&quot;,
-                &quot;last_done&quot;: &quot;&quot;,
-                &quot;limit_offset&quot;: &quot;&quot;,
-                &quot;msg&quot;: &quot;&quot;,
-                &quot;order_id&quot;: &quot;706388312699592704&quot;,
-                &quot;order_type&quot;: &quot;ELO&quot;,
-                &quot;outside_rth&quot;: &quot;UnknownOutsideRth&quot;,
-                &quot;price&quot;: &quot;11.900&quot;,
-                &quot;quantity&quot;: &quot;200&quot;,
-                &quot;side&quot;: &quot;Buy&quot;,
-                &quot;status&quot;: &quot;RejectedStatus&quot;,
-                &quot;stock_name&quot;: &quot;Bank of East Asia Ltd/The&quot;,
-                &quot;submitted_at&quot;: &quot;1651644897&quot;,
-                &quot;symbol&quot;: &quot;23.HK&quot;,
-                &quot;tag&quot;: &quot;Normal&quot;,
-                &quot;time_in_force&quot;: &quot;Day&quot;,
-                &quot;trailing_amount&quot;: &quot;&quot;,
-                &quot;trailing_percent&quot;: &quot;&quot;,
-                &quot;trigger_at&quot;: &quot;0&quot;,
-                &quot;trigger_price&quot;: &quot;&quot;,
-                &quot;trigger_status&quot;: &quot;NOT_USED&quot;,
-                &quot;updated_at&quot;: &quot;1651644898&quot;,
-                &quot;remark&quot;: &quot;abc&quot;
+                "currency": "HKD",
+                "executed_price": "0.000",
+                "executed_quantity": "0",
+                "expire_date": "",
+                "last_done": "",
+                "limit_offset": "",
+                "msg": "",
+                "order_id": "706388312699592704",
+                "order_type": "ELO",
+                "outside_rth": "UnknownOutsideRth",
+                "price": "11.900",
+                "quantity": "200",
+                "side": "Buy",
+                "status": "RejectedStatus",
+                "stock_name": "Bank of East Asia Ltd/The",
+                "submitted_at": "1651644897",
+                "symbol": "23.HK",
+                "tag": "Normal",
+                "time_in_force": "Day",
+                "trailing_amount": "",
+                "trailing_percent": "",
+                "trigger_at": "0",
+                "trigger_price": "",
+                "trigger_status": "NOT_USED",
+                "updated_at": "1651644898",
+                "remark": "abc"
               }
             ]
           }
-        &quot;#</span>;
+        "#</span>;
 
         <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>Response {
@@ -2356,23 +2357,23 @@
         <span class="macro">assert_eq!</span>(resp.orders.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>order = <span class="kw-2">&amp;</span>resp.orders[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(order.currency, <span class="string">&quot;HKD&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.currency, <span class="string">"HKD"</span>);
         <span class="macro">assert!</span>(order.executed_price.is_none());
         <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="number">0</span>);
         <span class="macro">assert!</span>(order.expire_date.is_none());
         <span class="macro">assert!</span>(order.last_done.is_none());
         <span class="macro">assert!</span>(order.limit_offset.is_none());
-        <span class="macro">assert_eq!</span>(order.msg, <span class="string">&quot;&quot;</span>);
-        <span class="macro">assert_eq!</span>(order.order_id, <span class="string">&quot;706388312699592704&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.msg, <span class="string">""</span>);
+        <span class="macro">assert_eq!</span>(order.order_id, <span class="string">"706388312699592704"</span>);
         <span class="macro">assert_eq!</span>(order.order_type, OrderType::ELO);
         <span class="macro">assert!</span>(order.outside_rth.is_none());
-        <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">&quot;11.900&quot;</span>.parse().unwrap()));
+        <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">"11.900"</span>.parse().unwrap()));
         <span class="macro">assert_eq!</span>(order.quantity, <span class="number">200</span>);
         <span class="macro">assert_eq!</span>(order.side, OrderSide::Buy);
         <span class="macro">assert_eq!</span>(order.status, OrderStatus::Rejected);
-        <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">&quot;Bank of East Asia Ltd/The&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">"Bank of East Asia Ltd/The"</span>);
         <span class="macro">assert_eq!</span>(order.submitted_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">57 </span>+<span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(order.symbol, <span class="string">&quot;23.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.symbol, <span class="string">"23.HK"</span>);
         <span class="macro">assert_eq!</span>(order.tag, OrderTag::Normal);
         <span class="macro">assert_eq!</span>(order.time_in_force, TimeInForceType::Day);
         <span class="macro">assert!</span>(order.trailing_amount.is_none());
@@ -2381,26 +2382,26 @@
         <span class="macro">assert!</span>(order.trigger_price.is_none());
         <span class="macro">assert!</span>(order.trigger_status.is_none());
         <span class="macro">assert_eq!</span>(order.updated_at, <span class="prelude-val">Some</span>(<span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">05</span>-<span class="number">04 14</span>:<span class="number">14</span>:<span class="number">58 </span>+<span class="number">8</span>)));
-        <span class="macro">assert_eq!</span>(order.remark, <span class="string">&quot;abc&quot;</span>);
+        <span class="macro">assert_eq!</span>(order.remark, <span class="string">"abc"</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>history_executions() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;has_more&quot;: false,
-            &quot;trades&quot;: [
+            "has_more": false,
+            "trades": [
               {
-                &quot;order_id&quot;: &quot;693664675163312128&quot;,
-                &quot;price&quot;: &quot;388&quot;,
-                &quot;quantity&quot;: &quot;100&quot;,
-                &quot;symbol&quot;: &quot;700.HK&quot;,
-                &quot;trade_done_at&quot;: &quot;1648611351&quot;,
-                &quot;trade_id&quot;: &quot;693664675163312128-1648611351433741210&quot;
+                "order_id": "693664675163312128",
+                "price": "388",
+                "quantity": "100",
+                "symbol": "700.HK",
+                "trade_done_at": "1648611351",
+                "trade_id": "693664675163312128-1648611351433741210"
               }
             ]
           }
-        &quot;#</span>;
+        "#</span>;
 
         <span class="attr">#[derive(Deserialize)]
         </span><span class="kw">struct </span>Response {
@@ -2411,81 +2412,81 @@
         <span class="macro">assert_eq!</span>(resp.trades.len(), <span class="number">1</span>);
 
         <span class="kw">let </span>execution = <span class="kw-2">&amp;</span>resp.trades[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(execution.order_id, <span class="string">&quot;693664675163312128&quot;</span>);
-        <span class="macro">assert_eq!</span>(execution.price, <span class="string">&quot;388&quot;</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(execution.order_id, <span class="string">"693664675163312128"</span>);
+        <span class="macro">assert_eq!</span>(execution.price, <span class="string">"388"</span>.parse().unwrap());
         <span class="macro">assert_eq!</span>(execution.quantity, <span class="number">100</span>);
-        <span class="macro">assert_eq!</span>(execution.symbol, <span class="string">&quot;700.HK&quot;</span>);
+        <span class="macro">assert_eq!</span>(execution.symbol, <span class="string">"700.HK"</span>);
         <span class="macro">assert_eq!</span>(execution.trade_done_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">03</span>-<span class="number">30 11</span>:<span class="number">35</span>:<span class="number">51 </span>+<span class="number">8</span>));
-        <span class="macro">assert_eq!</span>(execution.trade_id, <span class="string">&quot;693664675163312128-1648611351433741210&quot;</span>);
+        <span class="macro">assert_eq!</span>(execution.trade_id, <span class="string">"693664675163312128-1648611351433741210"</span>);
     }
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>order_detail() {
-        <span class="kw">let </span>data = <span class="string">r#&quot;
+        <span class="kw">let </span>data = <span class="string">r#"
         {
-            &quot;order_id&quot;: &quot;828940451093708800&quot;,
-            &quot;status&quot;: &quot;FilledStatus&quot;,
-            &quot;stock_name&quot;: &quot;Apple&quot;,
-            &quot;quantity&quot;: &quot;10&quot;,
-            &quot;executed_quantity&quot;: &quot;10&quot;,
-            &quot;price&quot;: &quot;200.000&quot;,
-            &quot;executed_price&quot;: &quot;164.660&quot;,
-            &quot;submitted_at&quot;: &quot;1680863604&quot;,
-            &quot;side&quot;: &quot;Buy&quot;,
-            &quot;symbol&quot;: &quot;AAPL.US&quot;,
-            &quot;order_type&quot;: &quot;LO&quot;,
-            &quot;last_done&quot;: &quot;164.660&quot;,
-            &quot;trigger_price&quot;: &quot;0.0000&quot;,
-            &quot;msg&quot;: &quot;&quot;,
-            &quot;tag&quot;: &quot;Normal&quot;,
-            &quot;time_in_force&quot;: &quot;Day&quot;,
-            &quot;expire_date&quot;: &quot;2023-04-10&quot;,
-            &quot;updated_at&quot;: &quot;1681113000&quot;,
-            &quot;trigger_at&quot;: &quot;0&quot;,
-            &quot;trailing_amount&quot;: &quot;&quot;,
-            &quot;trailing_percent&quot;: &quot;&quot;,
-            &quot;limit_offset&quot;: &quot;&quot;,
-            &quot;trigger_status&quot;: &quot;NOT_USED&quot;,
-            &quot;outside_rth&quot;: &quot;ANY_TIME&quot;,
-            &quot;currency&quot;: &quot;USD&quot;,
-            &quot;remark&quot;: &quot;1680863603.927165&quot;,
-            &quot;free_status&quot;: &quot;None&quot;,
-            &quot;free_amount&quot;: &quot;&quot;,
-            &quot;free_currency&quot;: &quot;&quot;,
-            &quot;deductions_status&quot;: &quot;NONE&quot;,
-            &quot;deductions_amount&quot;: &quot;&quot;,
-            &quot;deductions_currency&quot;: &quot;&quot;,
-            &quot;platform_deducted_status&quot;: &quot;NONE&quot;,
-            &quot;platform_deducted_amount&quot;: &quot;&quot;,
-            &quot;platform_deducted_currency&quot;: &quot;&quot;,
-            &quot;history&quot;: [{
-                &quot;price&quot;: &quot;164.6600&quot;,
-                &quot;quantity&quot;: &quot;10&quot;,
-                &quot;status&quot;: &quot;FilledStatus&quot;,
-                &quot;msg&quot;: &quot;Execution of 10&quot;,
-                &quot;time&quot;: &quot;1681113000&quot;
+            "order_id": "828940451093708800",
+            "status": "FilledStatus",
+            "stock_name": "Apple",
+            "quantity": "10",
+            "executed_quantity": "10",
+            "price": "200.000",
+            "executed_price": "164.660",
+            "submitted_at": "1680863604",
+            "side": "Buy",
+            "symbol": "AAPL.US",
+            "order_type": "LO",
+            "last_done": "164.660",
+            "trigger_price": "0.0000",
+            "msg": "",
+            "tag": "Normal",
+            "time_in_force": "Day",
+            "expire_date": "2023-04-10",
+            "updated_at": "1681113000",
+            "trigger_at": "0",
+            "trailing_amount": "",
+            "trailing_percent": "",
+            "limit_offset": "",
+            "trigger_status": "NOT_USED",
+            "outside_rth": "ANY_TIME",
+            "currency": "USD",
+            "remark": "1680863603.927165",
+            "free_status": "None",
+            "free_amount": "",
+            "free_currency": "",
+            "deductions_status": "NONE",
+            "deductions_amount": "",
+            "deductions_currency": "",
+            "platform_deducted_status": "NONE",
+            "platform_deducted_amount": "",
+            "platform_deducted_currency": "",
+            "history": [{
+                "price": "164.6600",
+                "quantity": "10",
+                "status": "FilledStatus",
+                "msg": "Execution of 10",
+                "time": "1681113000"
             }, {
-                &quot;price&quot;: &quot;200.0000&quot;,
-                &quot;quantity&quot;: &quot;10&quot;,
-                &quot;status&quot;: &quot;NewStatus&quot;,
-                &quot;msg&quot;: &quot;&quot;,
-                &quot;time&quot;: &quot;1681113000&quot;
+                "price": "200.0000",
+                "quantity": "10",
+                "status": "NewStatus",
+                "msg": "",
+                "time": "1681113000"
             }],
-            &quot;charge_detail&quot;: {
-                &quot;items&quot;: [{
-                    &quot;code&quot;: &quot;BROKER_FEES&quot;,
-                    &quot;name&quot;: &quot;Broker Fees&quot;,
-                    &quot;fees&quot;: []
+            "charge_detail": {
+                "items": [{
+                    "code": "BROKER_FEES",
+                    "name": "Broker Fees",
+                    "fees": []
                 }, {
-                    &quot;code&quot;: &quot;THIRD_FEES&quot;,
-                    &quot;name&quot;: &quot;Third-party Fees&quot;,
-                    &quot;fees&quot;: []
+                    "code": "THIRD_FEES",
+                    "name": "Third-party Fees",
+                    "fees": []
                 }],
-                &quot;total_amount&quot;: &quot;0&quot;,
-                &quot;currency&quot;: &quot;USD&quot;
+                "total_amount": "0",
+                "currency": "USD"
             }
         }
-        &quot;#</span>;
+        "#</span>;
 
         <span class="kw">_ </span>= serde_json::from_str::&lt;OrderDetail&gt;(data).unwrap();
     }

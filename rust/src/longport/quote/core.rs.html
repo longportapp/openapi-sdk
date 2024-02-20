@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/core.rs`."><title>core.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../longport/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/core.rs`."><title>core.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -888,6 +889,41 @@
 <a href="#888" id="888">888</a>
 <a href="#889" id="889">889</a>
 <a href="#890" id="890">890</a>
+<a href="#891" id="891">891</a>
+<a href="#892" id="892">892</a>
+<a href="#893" id="893">893</a>
+<a href="#894" id="894">894</a>
+<a href="#895" id="895">895</a>
+<a href="#896" id="896">896</a>
+<a href="#897" id="897">897</a>
+<a href="#898" id="898">898</a>
+<a href="#899" id="899">899</a>
+<a href="#900" id="900">900</a>
+<a href="#901" id="901">901</a>
+<a href="#902" id="902">902</a>
+<a href="#903" id="903">903</a>
+<a href="#904" id="904">904</a>
+<a href="#905" id="905">905</a>
+<a href="#906" id="906">906</a>
+<a href="#907" id="907">907</a>
+<a href="#908" id="908">908</a>
+<a href="#909" id="909">909</a>
+<a href="#910" id="910">910</a>
+<a href="#911" id="911">911</a>
+<a href="#912" id="912">912</a>
+<a href="#913" id="913">913</a>
+<a href="#914" id="914">914</a>
+<a href="#915" id="915">915</a>
+<a href="#916" id="916">916</a>
+<a href="#917" id="917">917</a>
+<a href="#918" id="918">918</a>
+<a href="#919" id="919">919</a>
+<a href="#920" id="920">920</a>
+<a href="#921" id="921">921</a>
+<a href="#922" id="922">922</a>
+<a href="#923" id="923">923</a>
+<a href="#924" id="924">924</a>
+<a href="#925" id="925">925</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -896,7 +932,7 @@
 <span class="kw">use </span>longport_candlesticks::{IsHalfTradeDay, Type, UpdateAction};
 <span class="kw">use </span>longport_httpcli::HttpClient;
 <span class="kw">use </span>longport_proto::quote::{
-    AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, MultiSecurityRequest, Period,
+    <span class="self">self</span>, AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, MultiSecurityRequest, Period,
     SecurityCandlestickRequest, SecurityCandlestickResponse, SecurityStaticInfoResponse,
     SubscribeRequest, TradeSession, UnsubscribeRequest,
 };
@@ -997,9 +1033,9 @@
 }
 
 <span class="attr">#[derive(Debug, Copy, Clone)]
-</span><span class="kw">struct </span>HalfDays&lt;<span class="lifetime">&#39;a</span>&gt;(<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>HashSet&lt;Date&gt;&gt;);
+</span><span class="kw">struct </span>HalfDays&lt;<span class="lifetime">'a</span>&gt;(<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>HashSet&lt;Date&gt;&gt;);
 
-<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; IsHalfTradeDay <span class="kw">for </span>HalfDays&lt;<span class="lifetime">&#39;a</span>&gt; {
+<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; IsHalfTradeDay <span class="kw">for </span>HalfDays&lt;<span class="lifetime">'a</span>&gt; {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>is_half(<span class="kw-2">&amp;</span><span class="self">self</span>, date: Date) -&gt; bool {
         <span class="kw">match </span><span class="self">self</span>.<span class="number">0 </span>{
@@ -1011,6 +1047,7 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Core {
     config: Arc&lt;Config&gt;,
+    rate_limit: Vec&lt;(u8, RateLimit)&gt;,
     command_rx: mpsc::UnboundedReceiver&lt;Command&gt;,
     push_tx: mpsc::UnboundedSender&lt;PushEvent&gt;,
     event_tx: mpsc::UnboundedSender&lt;WsEvent&gt;,
@@ -1022,15 +1059,8 @@
     subscriptions: HashMap&lt;String, SubFlags&gt;,
     current_trade_days: CurrentTradeDays,
     store: Store,
-}
-
-<span class="kw">const fn </span>rate_limit() -&gt; RateLimit {
-    RateLimit {
-        interval: Duration::from_millis(<span class="number">100</span>),
-        initial: <span class="number">5</span>,
-        max: <span class="number">5</span>,
-        refill: <span class="number">1</span>,
-    }
+    member_id: i64,
+    quote_level: String,
 }
 
 <span class="kw">impl </span>Core {
@@ -1046,9 +1076,9 @@
 
         <span class="macro">tracing::debug!</span>(
             url = config.quote_ws_url.as_str(),
-            <span class="string">&quot;connecting to quote server&quot;</span>,
+            <span class="string">"connecting to quote server"</span>,
         );
-        <span class="kw">let </span>ws_cli = WsClient::open(
+        <span class="kw">let </span><span class="kw-2">mut </span>ws_cli = WsClient::open(
             config
                 .create_quote_ws_request()
                 .map_err(WsClientError::from)<span class="question-mark">?</span>,
@@ -1056,17 +1086,46 @@
             CodecType::Protobuf,
             Platform::OpenAPI,
             event_tx.clone(),
-            <span class="prelude-val">Some</span>(rate_limit()),
+            <span class="macro">vec!</span>[],
         )
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="macro">tracing::debug!</span>(url = config.quote_ws_url.as_str(), <span class="string">&quot;quote server connected&quot;</span>);
+        <span class="macro">tracing::debug!</span>(url = config.quote_ws_url.as_str(), <span class="string">"quote server connected"</span>);
 
         <span class="kw">let </span>session = ws_cli.request_auth(otp).<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="comment">// fetch user profile
+        </span><span class="kw">let </span>resp = ws_cli
+            .request::&lt;<span class="kw">_</span>, quote::UserQuoteProfileResponse&gt;(
+                cmd_code::QUERY_USER_QUOTE_PROFILE,
+                <span class="prelude-val">None</span>,
+                quote::UserQuoteProfileRequest {},
+            )
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>member_id = resp.member_id;
+        <span class="kw">let </span>quote_level = resp.quote_level;
+        <span class="kw">let </span>rate_limit: Vec&lt;(u8, RateLimit)&gt; = resp
+            .rate_limit
+            .iter()
+            .map(|config| {
+                (
+                    config.command <span class="kw">as </span>u8,
+                    RateLimit {
+                        interval: Duration::from_secs(<span class="number">1</span>),
+                        initial: config.burst <span class="kw">as </span>usize,
+                        max: config.burst <span class="kw">as </span>usize,
+                        refill: config.limit <span class="kw">as </span>usize,
+                    },
+                )
+            })
+            .collect();
+        ws_cli.set_rate_limit(rate_limit.clone());
+
         <span class="kw">let </span>current_trade_days = fetch_current_trade_days(<span class="kw-2">&amp;</span>ws_cli).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             config,
+            rate_limit,
             command_rx,
             push_tx,
             event_tx,
@@ -1078,14 +1137,26 @@
             subscriptions: HashMap::new(),
             current_trade_days,
             store: Store::default(),
+            member_id,
+            quote_level,
         })
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>member_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
+        <span class="self">self</span>.member_id
+    }
+
+    <span class="attr">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>quote_level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.quote_level
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>run(<span class="kw-2">mut </span><span class="self">self</span>) {
         <span class="kw">while </span>!<span class="self">self</span>.close {
             <span class="kw">match </span><span class="self">self</span>.main_loop().<span class="kw">await </span>{
                 <span class="prelude-val">Ok</span>(()) =&gt; <span class="kw">return</span>,
-                <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;quote disconnected&quot;</span>),
+                <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">tracing::error!</span>(error = %err, <span class="string">"quote disconnected"</span>),
             }
 
             <span class="kw">loop </span>{
@@ -1094,7 +1165,7 @@
 
                 <span class="macro">tracing::debug!</span>(
                     url = <span class="self">self</span>.config.quote_ws_url.as_str(),
-                    <span class="string">&quot;connecting to quote server&quot;</span>,
+                    <span class="string">"connecting to quote server"</span>,
                 );
 
                 <span class="kw">match </span>WsClient::open(
@@ -1103,20 +1174,20 @@
                     CodecType::Protobuf,
                     Platform::OpenAPI,
                     <span class="self">self</span>.event_tx.clone(),
-                    <span class="prelude-val">Some</span>(rate_limit()),
+                    <span class="self">self</span>.rate_limit.clone(),
                 )
                 .<span class="kw">await
                 </span>{
                     <span class="prelude-val">Ok</span>(ws_cli) =&gt; <span class="self">self</span>.ws_cli = ws_cli,
                     <span class="prelude-val">Err</span>(err) =&gt; {
-                        <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to connect quote server&quot;</span>);
+                        <span class="macro">tracing::error!</span>(error = %err, <span class="string">"failed to connect quote server"</span>);
                         <span class="kw">continue</span>;
                     }
                 }
 
                 <span class="macro">tracing::debug!</span>(
                     url = <span class="self">self</span>.config.quote_ws_url.as_str(),
-                    <span class="string">&quot;quote server connected&quot;
+                    <span class="string">"quote server connected"
                 </span>);
 
                 <span class="comment">// request new session
@@ -1126,7 +1197,7 @@
                             <span class="prelude-val">Ok</span>(new_session) =&gt; <span class="self">self</span>.session = <span class="prelude-val">Some</span>(new_session),
                             <span class="prelude-val">Err</span>(err) =&gt; {
                                 <span class="self">self</span>.session = <span class="prelude-val">None</span>; <span class="comment">// invalid session
-                                </span><span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to request session id&quot;</span>);
+                                </span><span class="macro">tracing::error!</span>(error = %err, <span class="string">"failed to request session id"</span>);
                                 <span class="kw">continue</span>;
                             }
                         }
@@ -1135,7 +1206,7 @@
                         <span class="kw">let </span>otp = <span class="kw">match </span><span class="self">self</span>.http_cli.get_otp_v2().<span class="kw">await </span>{
                             <span class="prelude-val">Ok</span>(otp) =&gt; otp,
                             <span class="prelude-val">Err</span>(err) =&gt; {
-                                <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to request otp&quot;</span>);
+                                <span class="macro">tracing::error!</span>(error = %err, <span class="string">"failed to request otp"</span>);
                                 <span class="kw">continue</span>;
                             }
                         };
@@ -1143,7 +1214,7 @@
                         <span class="kw">match </span><span class="self">self</span>.ws_cli.request_auth(otp).<span class="kw">await </span>{
                             <span class="prelude-val">Ok</span>(new_session) =&gt; <span class="self">self</span>.session = <span class="prelude-val">Some</span>(new_session),
                             <span class="prelude-val">Err</span>(err) =&gt; {
-                                <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to request session id&quot;</span>);
+                                <span class="macro">tracing::error!</span>(error = %err, <span class="string">"failed to request session id"</span>);
                                 <span class="kw">continue</span>;
                             }
                         }
@@ -1154,7 +1225,7 @@
                 </span><span class="kw">match </span><span class="self">self</span>.resubscribe().<span class="kw">await </span>{
                     <span class="prelude-val">Ok</span>(()) =&gt; <span class="kw">break</span>,
                     <span class="prelude-val">Err</span>(err) =&gt; {
-                        <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to subscribe topics&quot;</span>);
+                        <span class="macro">tracing::error!</span>(error = %err, <span class="string">"failed to subscribe topics"</span>);
                         <span class="kw">continue</span>;
                     }
                 }
@@ -1162,7 +1233,7 @@
         }
     }
 
-    <span class="attr">#[tracing::instrument(level = <span class="string">&quot;debug&quot;</span>, skip(<span class="self">self</span>))]
+    <span class="attr">#[tracing::instrument(level = <span class="string">"debug"</span>, skip(<span class="self">self</span>))]
     </span><span class="kw">async fn </span>main_loop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>update_trade_days_interval = tokio::time::interval_at(
             Instant::now() + Duration::from_secs(<span class="number">60 </span>* <span class="number">60 </span>* <span class="number">24</span>),
@@ -1293,7 +1364,7 @@
         sub_types: SubFlags,
         is_first_push: bool,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="macro">tracing::debug!</span>(symbols = <span class="question-mark">?</span>symbols, sub_types = <span class="question-mark">?</span>sub_types, <span class="string">&quot;subscribe&quot;</span>);
+        <span class="macro">tracing::debug!</span>(symbols = <span class="question-mark">?</span>symbols, sub_types = <span class="question-mark">?</span>sub_types, <span class="string">"subscribe"</span>);
 
         <span class="comment">// send request
         </span><span class="kw">let </span>req = SubscribeRequest {
@@ -1319,7 +1390,7 @@
         symbols: Vec&lt;String&gt;,
         sub_types: SubFlags,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="macro">tracing::debug!</span>(symbols = <span class="question-mark">?</span>symbols, sub_types = <span class="question-mark">?</span>sub_types, <span class="string">&quot;unsubscribe&quot;</span>);
+        <span class="macro">tracing::debug!</span>(symbols = <span class="question-mark">?</span>symbols, sub_types = <span class="question-mark">?</span>sub_types, <span class="string">"unsubscribe"</span>);
 
         <span class="comment">// send requests
         </span><span class="kw">let </span><span class="kw-2">mut </span>st_group: HashMap&lt;SubFlags, Vec&lt;<span class="kw-2">&amp;</span>str&gt;&gt; = HashMap::new();
@@ -1560,10 +1631,10 @@
                     <span class="comment">// merge candlesticks
                     </span><span class="kw">let </span>market =
                         get_market_from_symbol(<span class="kw-2">&amp;</span>event.symbol).and_then(|market| <span class="kw">match </span>market {
-                            <span class="string">&quot;HK&quot; </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::HK),
-                            <span class="string">&quot;US&quot; </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::US),
-                            <span class="string">&quot;SH&quot; </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::SH),
-                            <span class="string">&quot;SZ&quot; </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::SZ),
+                            <span class="string">"HK" </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::HK),
+                            <span class="string">"US" </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::US),
+                            <span class="string">"SH" </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::SH),
+                            <span class="string">"SZ" </span>=&gt; <span class="prelude-val">Some</span>(longport_candlesticks::Market::SZ),
                             <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
                         });
                     <span class="kw">if let </span><span class="prelude-val">Some</span>(market) = market {
@@ -1657,7 +1728,7 @@
                 <span class="kw">let _ </span>= <span class="self">self</span>.push_tx.send(event);
             }
             <span class="prelude-val">Err</span>(err) =&gt; {
-                <span class="macro">tracing::error!</span>(error = %err, <span class="string">&quot;failed to parse push message&quot;</span>);
+                <span class="macro">tracing::error!</span>(error = %err, <span class="string">"failed to parse push message"</span>);
             }
         }
         <span class="prelude-val">Ok</span>(())
@@ -1770,7 +1841,7 @@
             resp.half_trade_day
                 .iter()
                 .map(|value| {
-                    parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;half_trade_day&quot;</span>, err))
+                    parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">"half_trade_day"</span>, err))
                 })
                 .collect::&lt;<span class="prelude-ty">Result</span>&lt;HashSet&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>,
         );

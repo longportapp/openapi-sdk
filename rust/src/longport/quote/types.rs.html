@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/types.rs`."><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../longport/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/types.rs`."><title>types.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1600,7 +1601,7 @@
             price: trade.price.parse().unwrap_or_default(),
             volume: trade.volume,
             timestamp: OffsetDateTime::from_unix_timestamp(trade.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             trade_type: trade.trade_type,
             direction: trade.direction.into(),
             trade_session: TradeSession::from_i32(trade.trade_session).unwrap_or_default(),
@@ -1795,7 +1796,7 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             last_done: quote.last_done.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
             high: quote.high.parse().unwrap_or_default(),
@@ -1812,7 +1813,7 @@
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Latest price
     </span><span class="kw">pub </span>last_done: Decimal,
-    <span class="doccomment">/// Yesterday&#39;s close
+    <span class="doccomment">/// Yesterday's close
     </span><span class="kw">pub </span>prev_close: Decimal,
     <span class="doccomment">/// Open
     </span><span class="kw">pub </span>open: Decimal,
@@ -1846,7 +1847,7 @@
             high: quote.high.parse().unwrap_or_default(),
             low: quote.low.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
             trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
@@ -1863,10 +1864,10 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// American
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;A&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"A"</span>)]
     </span>American,
     <span class="doccomment">/// Europe
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;U&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"U"</span>)]
     </span>Europe,
 }
 
@@ -1877,10 +1878,10 @@
     </span><span class="attr">#[strum(disabled)]
     </span>Unknown,
     <span class="doccomment">/// Put
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;P&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"P"</span>)]
     </span>Put,
     <span class="doccomment">/// Call
-    </span><span class="attr">#[strum(serialize = <span class="string">&quot;C&quot;</span>)]
+    </span><span class="attr">#[strum(serialize = <span class="string">"C"</span>)]
     </span>Call,
 }
 
@@ -1891,7 +1892,7 @@
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Latest price
     </span><span class="kw">pub </span>last_done: Decimal,
-    <span class="doccomment">/// Yesterday&#39;s close
+    <span class="doccomment">/// Yesterday's close
     </span><span class="kw">pub </span>prev_close: Decimal,
     <span class="doccomment">/// Open
     </span><span class="kw">pub </span>open: Decimal,
@@ -1943,14 +1944,14 @@
             high: quote.high.parse().unwrap_or_default(),
             low: quote.low.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
             trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
             implied_volatility: option_extend.implied_volatility.parse().unwrap_or_default(),
             open_interest: option_extend.open_interest,
             expiry_date: parse_date(<span class="kw-2">&amp;</span>option_extend.expiry_date)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;expiry_date&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"expiry_date"</span>, err))<span class="question-mark">?</span>,
             strike_price: option_extend.strike_price.parse().unwrap_or_default(),
             contract_multiplier: option_extend
                 .contract_multiplier
@@ -1994,7 +1995,7 @@
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Latest price
     </span><span class="kw">pub </span>last_done: Decimal,
-    <span class="doccomment">/// Yesterday&#39;s close
+    <span class="doccomment">/// Yesterday's close
     </span><span class="kw">pub </span>prev_close: Decimal,
     <span class="doccomment">/// Open
     </span><span class="kw">pub </span>open: Decimal,
@@ -2050,7 +2051,7 @@
             high: quote.high.parse().unwrap_or_default(),
             low: quote.low.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(quote.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
             trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
@@ -2059,9 +2060,9 @@
                 .parse()
                 .unwrap_or_default(),
             expiry_date: parse_date(<span class="kw-2">&amp;</span>warrant_extend.expiry_date)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;expiry_date&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"expiry_date"</span>, err))<span class="question-mark">?</span>,
             last_trade_date: parse_date(<span class="kw-2">&amp;</span>warrant_extend.last_trade_date)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;last_trade_date&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"last_trade_date"</span>, err))<span class="question-mark">?</span>,
             outstanding_ratio: warrant_extend.outstanding_ratio.parse().unwrap_or_default(),
             outstanding_quantity: warrant_extend.outstanding_qty,
             conversion_ratio: warrant_extend.conversion_ratio.parse().unwrap_or_default(),
@@ -2145,7 +2146,7 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             price: value.price.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: value.volume,
             turnover: value.turnover.parse().unwrap_or_default(),
             avg_price: value.avg_price.parse().unwrap_or_default(),
@@ -2184,7 +2185,7 @@
             volume: value.volume,
             turnover: value.turnover.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
         })
     }
 }
@@ -2341,9 +2342,9 @@
 
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             begin_time: parse_time(value.beg_time)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;beg_time&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"beg_time"</span>, err))<span class="question-mark">?</span>,
             end_time: parse_time(value.end_time)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;end_time&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"end_time"</span>, err))<span class="question-mark">?</span>,
             trade_session: TradeSession::from_i32(value.trade_session).unwrap_or_default(),
         })
     }
@@ -2398,7 +2399,7 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             inflow: value.inflow.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
         })
     }
 }
@@ -2443,7 +2444,7 @@
     <span class="kw">fn </span>try_from(value: quote::CapitalDistributionResponse) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">&quot;timestamp&quot;</span>, err))<span class="question-mark">?</span>,
+                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             capital_in: value
                 .capital_in
                 .map(TryInto::try_into)
@@ -2468,10 +2469,10 @@
     <span class="doccomment">/// Security name
     </span><span class="kw">pub </span>name: String,
     <span class="doccomment">/// Watched price
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::decimal_opt_empty_is_none&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>watched_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Watched time
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::timestamp&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>watched_at: OffsetDateTime,
 }
 
@@ -2479,7 +2480,7 @@
 </span><span class="attr">#[derive(Debug, Clone, Deserialize)]
 </span><span class="kw">pub struct </span>WatchlistGroup {
     <span class="doccomment">/// Group id
-    </span><span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
     </span><span class="kw">pub </span>id: i64,
     <span class="doccomment">/// Group name
     </span><span class="kw">pub </span>name: String,
@@ -2522,7 +2523,7 @@
 
 <span class="doccomment">/// Securities update mode
 </span><span class="attr">#[derive(Debug, Copy, Clone, Default, Serialize)]
-#[serde(rename_all = <span class="string">&quot;lowercase&quot;</span>)]
+#[serde(rename_all = <span class="string">"lowercase"</span>)]
 </span><span class="kw">pub enum </span>SecuritiesUpdateMode {
     <span class="doccomment">/// Add securities
     </span>Add,

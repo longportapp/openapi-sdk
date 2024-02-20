@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/context.rs`."><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fa3bb1812debf86c.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.74.1 (a28077b28 2023-12-04)" data-channel="1.74.1" data-search-js="search-8be46b629f5f14a8.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-c5bd66d33317d69f.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../longport/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/context.rs`."><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1494,6 +1495,25 @@
 <a href="#1494" id="1494">1494</a>
 <a href="#1495" id="1495">1495</a>
 <a href="#1496" id="1496">1496</a>
+<a href="#1497" id="1497">1497</a>
+<a href="#1498" id="1498">1498</a>
+<a href="#1499" id="1499">1499</a>
+<a href="#1500" id="1500">1500</a>
+<a href="#1501" id="1501">1501</a>
+<a href="#1502" id="1502">1502</a>
+<a href="#1503" id="1503">1503</a>
+<a href="#1504" id="1504">1504</a>
+<a href="#1505" id="1505">1505</a>
+<a href="#1506" id="1506">1506</a>
+<a href="#1507" id="1507">1507</a>
+<a href="#1508" id="1508">1508</a>
+<a href="#1509" id="1509">1509</a>
+<a href="#1510" id="1510">1510</a>
+<a href="#1511" id="1511">1511</a>
+<a href="#1512" id="1512">1512</a>
+<a href="#1513" id="1513">1513</a>
+<a href="#1514" id="1514">1514</a>
+<a href="#1515" id="1515">1515</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
@@ -1537,6 +1557,8 @@
     cache_option_chain_expiry_date_list: CacheWithKey&lt;String, Vec&lt;Date&gt;&gt;,
     cache_option_chain_strike_info: CacheWithKey&lt;(String, Date), Vec&lt;StrikePriceInfo&gt;&gt;,
     cache_trading_session: Cache&lt;Vec&lt;MarketTradingSession&gt;&gt;,
+    member_id: i64,
+    quote_level: String,
 }
 
 <span class="kw">impl </span>QuoteContext {
@@ -1547,7 +1569,10 @@
         <span class="kw">let </span>http_cli = config.create_http_client();
         <span class="kw">let </span>(command_tx, command_rx) = mpsc::unbounded_channel();
         <span class="kw">let </span>(push_tx, push_rx) = mpsc::unbounded_channel();
-        tokio::spawn(Core::try_new(config, command_rx, push_tx).<span class="kw">await</span><span class="question-mark">?</span>.run());
+        <span class="kw">let </span>core = Core::try_new(config, command_rx, push_tx).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>member_id = core.member_id();
+        <span class="kw">let </span>quote_level = core.quote_level().to_string();
+        tokio::spawn(core.run());
         <span class="prelude-val">Ok</span>((
             QuoteContext {
                 http_cli,
@@ -1561,9 +1586,23 @@
                     OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT,
                 ),
                 cache_trading_session: Cache::new(TRADING_SESSION_CACHE_TIMEOUT),
+                member_id,
+                quote_level,
             },
             push_rx,
         ))
+    }
+
+    <span class="doccomment">/// Returns the member ID
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>member_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
+        <span class="self">self</span>.member_id
+    }
+
+    <span class="doccomment">/// Returns the quote level
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>quote_level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.quote_level
     }
 
     <span class="doccomment">/// Send a raw request
@@ -1616,10 +1655,10 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
     ///     .await?;
     /// while let Some(msg) = receiver.recv().await {
-    ///     println!(&quot;{:?}&quot;, msg);
+    ///     println!("{:?}", msg);
     /// }
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
@@ -1667,9 +1706,9 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
     ///     .await?;
-    /// ctx.unsubscribe([&quot;AAPL.US&quot;], SubFlags::QUOTE).await?;
+    /// ctx.unsubscribe(["AAPL.US"], SubFlags::QUOTE).await?;
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1708,10 +1747,10 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute)
+    /// ctx.subscribe_candlesticks("AAPL.US", Period::OneMinute)
     ///     .await?;
     /// while let Some(msg) = receiver.recv().await {
-    ///     println!(&quot;{:?}&quot;, msg);
+    ///     println!("{:?}", msg);
     /// }
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
@@ -1763,10 +1802,10 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, false)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, false)
     ///     .await?;
     /// let resp = ctx.subscriptions().await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1794,9 +1833,9 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx
-    ///     .static_info([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])
+    ///     .static_info(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
     ///     .await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1835,9 +1874,9 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx
-    ///     .quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;, &quot;TSLA.US&quot;, &quot;NFLX.US&quot;])
+    ///     .quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
     ///     .await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1872,8 +1911,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.option_quote([&quot;AAPL230317P160000.US&quot;]).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.option_quote(["AAPL230317P160000.US"]).await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1908,8 +1947,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.warrant_quote([&quot;21125.HK&quot;]).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.warrant_quote(["21125.HK"]).await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1944,8 +1983,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.depth(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.depth("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -1987,8 +2026,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.brokers(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.brokers("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2023,7 +2062,7 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx.participants().await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2060,8 +2099,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.trades(&quot;700.HK&quot;, 10).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.trades("700.HK", 10).await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2098,8 +2137,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.intraday(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.intraday("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2139,9 +2178,9 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx
-    ///     .candlesticks(&quot;700.HK&quot;, Period::Day, 10, AdjustType::NoAdjust)
+    ///     .candlesticks("700.HK", Period::Day, 10, AdjustType::NoAdjust)
     ///     .await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2198,12 +2237,12 @@
                             }
                             .into(),
                             date: <span class="macro">format!</span>(
-                                <span class="string">&quot;{:04}{:02}{:02}&quot;</span>,
+                                <span class="string">"{:04}{:02}{:02}"</span>,
                                 time.year(),
                                 time.month() <span class="kw">as </span>u8,
                                 time.day()
                             ),
-                            minute: <span class="macro">format!</span>(<span class="string">&quot;{:02}{:02}&quot;</span>, time.hour(), time.minute()),
+                            minute: <span class="macro">format!</span>(<span class="string">"{:02}{:02}"</span>, time.hour(), time.minute()),
                             count: count <span class="kw">as </span>i32,
                         },
                     ),
@@ -2241,7 +2280,7 @@
                         start_date: start
                             .map(|date| {
                                 <span class="macro">format!</span>(
-                                    <span class="string">&quot;{:04}{:02}{:02}&quot;</span>,
+                                    <span class="string">"{:04}{:02}{:02}"</span>,
                                     date.year(),
                                     date.month() <span class="kw">as </span>u8,
                                     date.day()
@@ -2251,7 +2290,7 @@
                         end_date: end
                             .map(|date| {
                                 <span class="macro">format!</span>(
-                                    <span class="string">&quot;{:04}{:02}{:02}&quot;</span>,
+                                    <span class="string">"{:04}{:02}{:02}"</span>,
                                     date.year(),
                                     date.month() <span class="kw">as </span>u8,
                                     date.day()
@@ -2285,8 +2324,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.option_chain_expiry_date_list(&quot;AAPL.US&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.option_chain_expiry_date_list("AAPL.US").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2305,7 +2344,7 @@
                 resp.expiry_date
                     .iter()
                     .map(|value| {
-                        parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;date&quot;</span>, err))
+                        parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">"date"</span>, err))
                     })
                     .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()
             })
@@ -2329,9 +2368,9 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx
-    ///     .option_chain_info_by_date(&quot;AAPL.US&quot;, date!(2023 - 01 - 20))
+    ///     .option_chain_info_by_date("AAPL.US", date!(2023 - 01 - 20))
     ///     .await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2378,7 +2417,7 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx.warrant_issuers().await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2411,7 +2450,7 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx.trading_session().await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2453,7 +2492,7 @@
     /// let resp = ctx
     ///     .trading_days(Market::HK, date!(2022 - 01 - 20), date!(2022 - 02 - 20))
     ///     .await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2477,14 +2516,14 @@
             .trade_day
             .iter()
             .map(|value| {
-                parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;trade_day&quot;</span>, err))
+                parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">"trade_day"</span>, err))
             })
             .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
         <span class="kw">let </span>half_trading_days = resp
             .half_trade_day
             .iter()
             .map(|value| {
-                parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">&quot;half_trade_day&quot;</span>, err))
+                parse_date(value).map_err(|err| Error::parse_field_error(<span class="string">"half_trade_day"</span>, err))
             })
             .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(MarketTradingDays {
@@ -2508,8 +2547,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.capital_flow(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.capital_flow("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     </span><span class="kw">pub async fn </span>capital_flow(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;CapitalFlowLine&gt;&gt; {
@@ -2541,8 +2580,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let resp = ctx.capital_distribution(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.capital_distribution("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     </span><span class="kw">pub async fn </span>capital_distribution(
@@ -2592,7 +2631,7 @@
     }
 
     <span class="doccomment">/// Get watchlist
-    </span><span class="attr">#[deprecated(note = <span class="string">&quot;Use `watchlist` instead&quot;</span>)]
+    </span><span class="attr">#[deprecated(note = <span class="string">"Use `watchlist` instead"</span>)]
     </span><span class="kw">pub async fn </span>watch_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;WatchlistGroup&gt;&gt; {
         <span class="self">self</span>.watchlist().<span class="kw">await
     </span>}
@@ -2613,7 +2652,7 @@
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx.watchlist().await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2625,7 +2664,7 @@
 
         <span class="kw">let </span>resp = <span class="self">self
             </span>.http_cli
-            .request(Method::GET, <span class="string">&quot;/v1/watchlist/groups&quot;</span>)
+            .request(Method::GET, <span class="string">"/v1/watchlist/groups"</span>)
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
             .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -2650,9 +2689,9 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// let req = RequestCreateWatchlistGroup::new(&quot;Watchlist1&quot;).securities([&quot;700.HK&quot;, &quot;BABA.US&quot;]);
+    /// let req = RequestCreateWatchlistGroup::new("Watchlist1").securities(["700.HK", "BABA.US"]);
     /// let group_id = ctx.create_watchlist_group(req).await?;
-    /// println!(&quot;{}&quot;, group_id);
+    /// println!("{}", group_id);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2660,19 +2699,19 @@
         <span class="attr">#[derive(Debug, Serialize)]
         </span><span class="kw">struct </span>RequestCreate {
             name: String,
-            <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+            <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
             </span>securities: <span class="prelude-ty">Option</span>&lt;Vec&lt;String&gt;&gt;,
         }
 
         <span class="attr">#[derive(Debug, Deserialize)]
         </span><span class="kw">struct </span>Response {
-            <span class="attr">#[serde(with = <span class="string">&quot;serde_utils::int64_str&quot;</span>)]
+            <span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
             </span>id: i64,
         }
 
         <span class="kw">let </span>Json(Response { id }) = <span class="self">self
             </span>.http_cli
-            .request(Method::POST, <span class="string">&quot;/v1/watchlist/groups&quot;</span>)
+            .request(Method::POST, <span class="string">"/v1/watchlist/groups"</span>)
             .body(Json(RequestCreate {
                 name: req.name,
                 securities: req.securities,
@@ -2712,7 +2751,7 @@
 
         <span class="prelude-val">Ok</span>(<span class="self">self
             </span>.http_cli
-            .request(Method::DELETE, <span class="string">&quot;/v1/watchlist/groups&quot;</span>)
+            .request(Method::DELETE, <span class="string">"/v1/watchlist/groups"</span>)
             .query_params(Request { id, purge })
             .send()
             .<span class="kw">await</span><span class="question-mark">?</span>)
@@ -2737,8 +2776,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     /// let req = RequestUpdateWatchlistGroup::new(10086)
-    ///     .name(&quot;Watchlist2&quot;)
-    ///     .securities([&quot;700.HK&quot;, &quot;BABA.US&quot;]);
+    ///     .name("Watchlist2")
+    ///     .securities(["700.HK", "BABA.US"]);
     /// ctx.update_watchlist_group(req).await?;
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
@@ -2747,16 +2786,16 @@
         <span class="attr">#[derive(Debug, Serialize)]
         </span><span class="kw">struct </span>RequestUpdate {
             id: i64,
-            <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+            <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
             </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
-            <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+            <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
             </span>securities: <span class="prelude-ty">Option</span>&lt;Vec&lt;String&gt;&gt;,
-            <span class="attr">#[serde(skip_serializing_if = <span class="string">&quot;Option::is_none&quot;</span>)]
+            <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
             </span>mode: <span class="prelude-ty">Option</span>&lt;SecuritiesUpdateMode&gt;,
         }
 
         <span class="self">self</span>.http_cli
-            .request(Method::PUT, <span class="string">&quot;/v1/watchlist/groups&quot;</span>)
+            .request(Method::PUT, <span class="string">"/v1/watchlist/groups"</span>)
             .body(Json(RequestUpdate {
                 id: req.id,
                 name: req.name,
@@ -2788,12 +2827,12 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::QUOTE, true)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::QUOTE, true)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_quote([&quot;700.HK&quot;, &quot;AAPL.US&quot;]).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.realtime_quote(["700.HK", "AAPL.US"]).await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2831,12 +2870,12 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::DEPTH, true)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::DEPTH, true)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_depth(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.realtime_depth("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2870,12 +2909,12 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::TRADE, false)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::TRADE, false)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_trades(&quot;700.HK&quot;, 10).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.realtime_trades("700.HK", 10).await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2915,12 +2954,12 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe([&quot;700.HK&quot;, &quot;AAPL.US&quot;], SubFlags::BROKER, true)
+    /// ctx.subscribe(["700.HK", "AAPL.US"], SubFlags::BROKER, true)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
-    /// let resp = ctx.realtime_brokers(&quot;700.HK&quot;).await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// let resp = ctx.realtime_brokers("700.HK").await?;
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2954,14 +2993,14 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute)
+    /// ctx.subscribe_candlesticks("AAPL.US", Period::OneMinute)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///
     /// let resp = ctx
-    ///     .realtime_candlesticks(&quot;AAPL.US&quot;, Period::OneMinute, 10)
+    ///     .realtime_candlesticks("AAPL.US", Period::OneMinute, 10)
     ///     .await?;
-    /// println!(&quot;{:?}&quot;, resp);
+    /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
     /// # });
     /// ```
@@ -2985,8 +3024,8 @@
 }
 
 <span class="kw">fn </span>normalize_symbol(symbol: <span class="kw-2">&amp;</span>str) -&gt; <span class="kw-2">&amp;</span>str {
-    <span class="kw">match </span>symbol.split_once(<span class="string">&#39;.&#39;</span>) {
-        <span class="prelude-val">Some</span>((<span class="kw">_</span>, market)) <span class="kw">if </span>market.eq_ignore_ascii_case(<span class="string">&quot;HK&quot;</span>) =&gt; symbol.trim_start_matches(<span class="string">&#39;0&#39;</span>),
+    <span class="kw">match </span>symbol.split_once(<span class="string">'.'</span>) {
+        <span class="prelude-val">Some</span>((<span class="kw">_</span>, market)) <span class="kw">if </span>market.eq_ignore_ascii_case(<span class="string">"HK"</span>) =&gt; symbol.trim_start_matches(<span class="string">'0'</span>),
         <span class="kw">_ </span>=&gt; symbol,
     }
 }
