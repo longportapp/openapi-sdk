@@ -38,8 +38,8 @@ Config::Config(const std::string& app_key,
                           app_secret.c_str(),
                           access_token.c_str(),
                           http_url ? http_url->c_str() : nullptr,
-                          http_url ? quote_ws_url->c_str() : nullptr,
-                          http_url ? trade_ws_url->c_str() : nullptr,
+                          quote_ws_url ? quote_ws_url->c_str() : nullptr,
+                          trade_ws_url ? trade_ws_url->c_str() : nullptr,
                           language ? &c_language : nullptr);
 }
 
