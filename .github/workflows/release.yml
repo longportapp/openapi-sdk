@@ -556,10 +556,10 @@ jobs:
         if: ${{ matrix.settings.host == 'windows-latest' }}
         run: |
           md dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\C\Release\longport_c.dll dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\C\Release\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\debug\longport_c.lib
-          copy cmake.build\Release\longport_cpp.dll dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\cpp\Release\longport_cpp.lib dist\lib\${{ matrix.settings.platform }}\debug
+          copy cmake.build\C\Debug\longport_c.dll dist\lib\${{ matrix.settings.platform }}\debug
+          copy cmake.build\C\Debug\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\debug\longport_c.lib
+          copy cmake.build\Debug\longport_cpp.dll dist\lib\${{ matrix.settings.platform }}\debug
+          copy cmake.build\cpp\Debug\longport_cpp.lib dist\lib\${{ matrix.settings.platform }}\debug
 
       - name: Copy files
         if: ${{ matrix.settings.host != 'windows-latest' }}
