@@ -564,9 +564,9 @@ jobs:
       - name: Copy files
         if: ${{ matrix.settings.host != 'windows-latest' }}
         run: |
-          mkdir -p dist/lib/${{ matrix.settings.platform }}
-          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}\debug
-          cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}\debug
+          mkdir -p dist/lib/${{ matrix.settings.platform }}/debug
+          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
+          cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -645,9 +645,9 @@ jobs:
       - name: Copy files
         if: ${{ matrix.settings.host != 'windows-latest' }}
         run: |
-          mkdir -p dist/lib/${{ matrix.settings.platform }}\release
-          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}\release
-          cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}\release
+          mkdir -p dist/lib/${{ matrix.settings.platform }}/release
+          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
+          cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
