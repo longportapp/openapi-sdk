@@ -171,7 +171,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: -i ${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
+          args: -i python${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
       - name: Install built wheel
         if: matrix.target == 'x86_64'
         run: |
@@ -199,8 +199,8 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          manylinux: auto
-          args: -i ${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
+          manylinux: 2_28
+          args: -i python${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
       - uses: uraimo/run-on-arch-action@v2.2.0
         if: matrix.target != 'ppc64'
         name: Install built wheel
@@ -215,7 +215,7 @@ jobs:
             apt-get install -y --no-install-recommends python3 python3-venv software-properties-common
             add-apt-repository ppa:deadsnakes/ppa
             apt-get update
-            apt-get install -y curl python3.7-venv python3.8-venv python3.9-venv python3.10-venv python3.11-venv python3.12-venv
+            apt-get install -y curl python{{ matrix.python-version }}-venv
           run: |
             ls -lrth /artifacts
             PYTHON=python${{ matrix.python-version }}
@@ -231,6 +231,11 @@ jobs:
 
   publish-python-sdk:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/longport
+    permissions:
+      id-token: write
     needs:
       - build-python-sdk-macos
       - build-python-sdk-windows
@@ -240,16 +245,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: wheels
+          path: dist
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
       - name: Publish to PyPi
-        env:
-          TWINE_USERNAME: Sunli
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          pip install --upgrade twine
-          twine upload --skip-existing *
+        uses: pypa/gh-action-pypi-publish@release/v1
 
   build-nodejs-sdk:
     strategy:

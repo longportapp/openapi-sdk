@@ -85,7 +85,8 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: -i python --release --out dist --no-sdist -m python/Cargo.toml
+          manylinux: auto
+          args: -i python${{ matrix.python-version }} --release --out dist --no-sdist -m python/Cargo.toml
       - name: Install built wheel
         run: |
           pip install longport --no-index --find-links dist --force-reinstall
