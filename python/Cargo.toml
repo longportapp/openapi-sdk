@@ -29,6 +29,3 @@ tokio = { version = "1.25.0", features = ["rt-multi-thread"] }
 
 [build-dependencies]
 pyo3-build-config = "0.16.4"
-
-[package.metadata.maturin]
-python-source = "pysrc"

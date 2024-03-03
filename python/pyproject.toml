@@ -24,3 +24,6 @@ homepage = "https://open.longportapp.com/en/"
 documentation = "https://open.longportapp.com/en/docs"
 repository = "https://github.com/longportapp/openapi-sdk"
 changelog = "https://github.com/longportapp/openapi-sdk/blob/master/python/CHANGELOG.md"
+
+[tool.maturin]
+python-source = "pysrc"
