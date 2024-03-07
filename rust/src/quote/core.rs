@@ -471,18 +471,22 @@ impl Core {
 
         for symbol in &symbols {
             let mut st = sub_types;
+
             if let Some(candlesticks) = self
                 .store
                 .securities
                 .get(symbol)
                 .map(|data| &data.candlesticks)
             {
-                if candlesticks.contains_key(&Period::Day) {
-                    st.remove(SubFlags::QUOTE);
-                } else if !candlesticks.is_empty() {
-                    st.remove(SubFlags::TRADE);
+                for period in candlesticks.keys() {
+                    if period == &Period::Day {
+                        st.remove(SubFlags::QUOTE);
+                    } else {
+                        st.remove(SubFlags::TRADE);
+                    }
                 }
             }
+
             if !st.is_empty() {
                 st_group.entry(st).or_default().push(symbol.as_ref());
             }
@@ -622,31 +626,39 @@ impl Core {
             .get_mut(&symbol)
             .map(|data| &mut data.candlesticks)
         {
-            if periods.remove(&period).is_some()
-                && periods.is_empty()
-                && !self
+            if periods.remove(&period).is_some() {
+                if period == Period::Day {
+                    unsubscribe_quote = true;
+                } else {
+                    if periods.is_empty()
+                        || (periods.len() == 1 && periods.contains_key(&Period::Day))
+                    {
+                        unsubscribe_quote = true;
+                    }
+                }
+            }
+
+            if unsubscribe_quote {
+                if !self
                     .subscriptions
                     .get(&symbol)
                     .copied()
                     .unwrap_or_else(SubFlags::empty)
                     .contains(unsubscribe_sub_flags)
-            {
-                unsubscribe_quote = true;
+                {
+                    self.ws_cli
+                        .request(
+                            cmd_code::UNSUBSCRIBE,
+                            None,
+                            UnsubscribeRequest {
+                                symbol: vec![symbol],
+                                sub_type: unsubscribe_sub_flags.into(),
+                                unsub_all: false,
+                            },
+                        )
+                        .await?;
+                }
             }
-        }
-
-        if unsubscribe_quote {
-            self.ws_cli
-                .request(
-                    cmd_code::UNSUBSCRIBE,
-                    None,
-                    UnsubscribeRequest {
-                        symbol: vec![symbol],
-                        sub_type: unsubscribe_sub_flags.into(),
-                        unsub_all: false,
-                    },
-                )
-                .await?;
         }
 
         Ok(())
@@ -677,22 +689,26 @@ impl Core {
     }
 
     async fn resubscribe(&mut self) -> Result<()> {
-        let mut subscriptions: HashMap<SubFlags, Vec<String>> = HashMap::new();
+        let mut subscriptions: HashMap<SubFlags, HashSet<String>> = HashMap::new();
 
         for (symbol, flags) in &self.subscriptions {
-            let mut flags = *flags;
+            subscriptions
+                .entry(*flags)
+                .or_default()
+                .insert(symbol.clone());
+        }
 
-            if self
-                .store
-                .securities
-                .get(symbol)
-                .map(|data| !data.candlesticks.is_empty())
-                .unwrap_or_default()
-            {
-                flags |= SubFlags::TRADE;
+        for (symbol, data) in &self.store.securities {
+            for period in data.candlesticks.keys() {
+                subscriptions
+                    .entry(if *period == Period::Day {
+                        SubFlags::QUOTE
+                    } else {
+                        SubFlags::TRADE
+                    })
+                    .or_default()
+                    .insert(symbol.clone());
             }
-
-            subscriptions.entry(flags).or_default().push(symbol.clone());
         }
 
         for (flags, symbols) in subscriptions {
@@ -701,7 +717,7 @@ impl Core {
                     cmd_code::SUBSCRIBE,
                     None,
                     SubscribeRequest {
-                        symbol: symbols,
+                        symbol: symbols.into_iter().collect(),
                         sub_type: flags.into(),
                         is_first_push: false,
                     },
