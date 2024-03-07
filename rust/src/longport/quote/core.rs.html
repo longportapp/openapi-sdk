@@ -1019,6 +1019,22 @@
 <a href="#1018" id="1018">1018</a>
 <a href="#1019" id="1019">1019</a>
 <a href="#1020" id="1020">1020</a>
+<a href="#1021" id="1021">1021</a>
+<a href="#1022" id="1022">1022</a>
+<a href="#1023" id="1023">1023</a>
+<a href="#1024" id="1024">1024</a>
+<a href="#1025" id="1025">1025</a>
+<a href="#1026" id="1026">1026</a>
+<a href="#1027" id="1027">1027</a>
+<a href="#1028" id="1028">1028</a>
+<a href="#1029" id="1029">1029</a>
+<a href="#1030" id="1030">1030</a>
+<a href="#1031" id="1031">1031</a>
+<a href="#1032" id="1032">1032</a>
+<a href="#1033" id="1033">1033</a>
+<a href="#1034" id="1034">1034</a>
+<a href="#1035" id="1035">1035</a>
+<a href="#1036" id="1036">1036</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1492,18 +1508,22 @@
 
         <span class="kw">for </span>symbol <span class="kw">in </span><span class="kw-2">&amp;</span>symbols {
             <span class="kw">let </span><span class="kw-2">mut </span>st = sub_types;
+
             <span class="kw">if let </span><span class="prelude-val">Some</span>(candlesticks) = <span class="self">self
                 </span>.store
                 .securities
                 .get(symbol)
                 .map(|data| <span class="kw-2">&amp;</span>data.candlesticks)
             {
-                <span class="kw">if </span>candlesticks.contains_key(<span class="kw-2">&amp;</span>Period::Day) {
-                    st.remove(SubFlags::QUOTE);
-                } <span class="kw">else if </span>!candlesticks.is_empty() {
-                    st.remove(SubFlags::TRADE);
+                <span class="kw">for </span>period <span class="kw">in </span>candlesticks.keys() {
+                    <span class="kw">if </span>period == <span class="kw-2">&amp;</span>Period::Day {
+                        st.remove(SubFlags::QUOTE);
+                    } <span class="kw">else </span>{
+                        st.remove(SubFlags::TRADE);
+                    }
                 }
             }
+
             <span class="kw">if </span>!st.is_empty() {
                 st_group.entry(st).or_default().push(symbol.as_ref());
             }
@@ -1643,31 +1663,39 @@
             .get_mut(<span class="kw-2">&amp;</span>symbol)
             .map(|data| <span class="kw-2">&amp;mut </span>data.candlesticks)
         {
-            <span class="kw">if </span>periods.remove(<span class="kw-2">&amp;</span>period).is_some()
-                &amp;&amp; periods.is_empty()
-                &amp;&amp; !<span class="self">self
+            <span class="kw">if </span>periods.remove(<span class="kw-2">&amp;</span>period).is_some() {
+                <span class="kw">if </span>period == Period::Day {
+                    unsubscribe_quote = <span class="bool-val">true</span>;
+                } <span class="kw">else </span>{
+                    <span class="kw">if </span>periods.is_empty()
+                        || (periods.len() == <span class="number">1 </span>&amp;&amp; periods.contains_key(<span class="kw-2">&amp;</span>Period::Day))
+                    {
+                        unsubscribe_quote = <span class="bool-val">true</span>;
+                    }
+                }
+            }
+
+            <span class="kw">if </span>unsubscribe_quote {
+                <span class="kw">if </span>!<span class="self">self
                     </span>.subscriptions
                     .get(<span class="kw-2">&amp;</span>symbol)
                     .copied()
                     .unwrap_or_else(SubFlags::empty)
                     .contains(unsubscribe_sub_flags)
-            {
-                unsubscribe_quote = <span class="bool-val">true</span>;
+                {
+                    <span class="self">self</span>.ws_cli
+                        .request(
+                            cmd_code::UNSUBSCRIBE,
+                            <span class="prelude-val">None</span>,
+                            UnsubscribeRequest {
+                                symbol: <span class="macro">vec!</span>[symbol],
+                                sub_type: unsubscribe_sub_flags.into(),
+                                unsub_all: <span class="bool-val">false</span>,
+                            },
+                        )
+                        .<span class="kw">await</span><span class="question-mark">?</span>;
+                }
             }
-        }
-
-        <span class="kw">if </span>unsubscribe_quote {
-            <span class="self">self</span>.ws_cli
-                .request(
-                    cmd_code::UNSUBSCRIBE,
-                    <span class="prelude-val">None</span>,
-                    UnsubscribeRequest {
-                        symbol: <span class="macro">vec!</span>[symbol],
-                        sub_type: unsubscribe_sub_flags.into(),
-                        unsub_all: <span class="bool-val">false</span>,
-                    },
-                )
-                .<span class="kw">await</span><span class="question-mark">?</span>;
         }
 
         <span class="prelude-val">Ok</span>(())
@@ -1698,22 +1726,26 @@
     }
 
     <span class="kw">async fn </span>resubscribe(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>subscriptions: HashMap&lt;SubFlags, Vec&lt;String&gt;&gt; = HashMap::new();
+        <span class="kw">let </span><span class="kw-2">mut </span>subscriptions: HashMap&lt;SubFlags, HashSet&lt;String&gt;&gt; = HashMap::new();
 
         <span class="kw">for </span>(symbol, flags) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.subscriptions {
-            <span class="kw">let </span><span class="kw-2">mut </span>flags = <span class="kw-2">*</span>flags;
+            subscriptions
+                .entry(<span class="kw-2">*</span>flags)
+                .or_default()
+                .insert(symbol.clone());
+        }
 
-            <span class="kw">if </span><span class="self">self
-                </span>.store
-                .securities
-                .get(symbol)
-                .map(|data| !data.candlesticks.is_empty())
-                .unwrap_or_default()
-            {
-                flags |= SubFlags::TRADE;
+        <span class="kw">for </span>(symbol, data) <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.store.securities {
+            <span class="kw">for </span>period <span class="kw">in </span>data.candlesticks.keys() {
+                subscriptions
+                    .entry(<span class="kw">if </span><span class="kw-2">*</span>period == Period::Day {
+                        SubFlags::QUOTE
+                    } <span class="kw">else </span>{
+                        SubFlags::TRADE
+                    })
+                    .or_default()
+                    .insert(symbol.clone());
             }
-
-            subscriptions.entry(flags).or_default().push(symbol.clone());
         }
 
         <span class="kw">for </span>(flags, symbols) <span class="kw">in </span>subscriptions {
@@ -1722,7 +1754,7 @@
                     cmd_code::SUBSCRIBE,
                     <span class="prelude-val">None</span>,
                     SubscribeRequest {
-                        symbol: symbols,
+                        symbol: symbols.into_iter().collect(),
                         sub_type: flags.into(),
                         is_first_push: <span class="bool-val">false</span>,
                     },
