@@ -13,7 +13,7 @@ const MAX_TRADES: usize = 500;
 macro_rules! check_sequence {
     ($prev:expr, $new:expr) => {
         if $new != 0 && $new <= $prev {
-            return;
+            return false;
         }
         $prev = $new;
     };
@@ -65,7 +65,7 @@ pub(crate) struct Store {
 }
 
 impl Store {
-    pub(crate) fn handle_push(&mut self, event: &mut PushEvent) {
+    pub(crate) fn handle_push(&mut self, event: &mut PushEvent) -> bool {
         let data = self.securities.entry(event.symbol.clone()).or_default();
 
         match &mut event.detail {
@@ -85,8 +85,10 @@ impl Store {
                 check_sequence!(data.trades_sequence, event.sequence);
                 merge_trades(data, trade);
             }
-            PushEventDetail::Candlestick(_) => {}
+            PushEventDetail::Candlestick(_) => unreachable!(),
         }
+
+        true
     }
 }
 

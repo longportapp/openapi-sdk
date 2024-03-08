@@ -731,7 +731,9 @@ impl Core {
     async fn handle_push(&mut self, command_code: u8, body: Vec<u8>) -> Result<()> {
         match PushEvent::parse(command_code, &body) {
             Ok(mut event) => {
-                self.store.handle_push(&mut event);
+                if !self.store.handle_push(&mut event) {
+                    return Ok(());
+                }
 
                 if let PushEventDetail::Trade(trades) = &event.detail {
                     // merge candlesticks
