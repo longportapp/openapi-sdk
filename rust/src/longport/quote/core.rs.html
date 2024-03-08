@@ -1035,6 +1035,8 @@
 <a href="#1034" id="1034">1034</a>
 <a href="#1035" id="1035">1035</a>
 <a href="#1036" id="1036">1036</a>
+<a href="#1037" id="1037">1037</a>
+<a href="#1038" id="1038">1038</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1768,7 +1770,9 @@
     <span class="kw">async fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command_code: u8, body: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span>PushEvent::parse(command_code, <span class="kw-2">&amp;</span>body) {
             <span class="prelude-val">Ok</span>(<span class="kw-2">mut </span>event) =&gt; {
-                <span class="self">self</span>.store.handle_push(<span class="kw-2">&amp;mut </span>event);
+                <span class="kw">if </span>!<span class="self">self</span>.store.handle_push(<span class="kw-2">&amp;mut </span>event) {
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+                }
 
                 <span class="kw">if let </span>PushEventDetail::Trade(trades) = <span class="kw-2">&amp;</span>event.detail {
                     <span class="comment">// merge candlesticks

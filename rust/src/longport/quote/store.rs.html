@@ -141,6 +141,8 @@
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>longport_proto::quote::Period;
@@ -156,7 +158,7 @@
 <span class="macro">macro_rules! </span>check_sequence {
     (<span class="macro-nonterminal">$prev</span>:expr, <span class="macro-nonterminal">$new</span>:expr) =&gt; {
         <span class="kw">if </span><span class="macro-nonterminal">$new </span>!= <span class="number">0 </span>&amp;&amp; <span class="macro-nonterminal">$new </span>&lt;= <span class="macro-nonterminal">$prev </span>{
-            <span class="kw">return</span>;
+            <span class="kw">return </span><span class="bool-val">false</span>;
         }
         <span class="macro-nonterminal">$prev </span>= <span class="macro-nonterminal">$new</span>;
     };
@@ -208,7 +210,7 @@
 }
 
 <span class="kw">impl </span>Store {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: <span class="kw-2">&amp;mut </span>PushEvent) {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: <span class="kw-2">&amp;mut </span>PushEvent) -&gt; bool {
         <span class="kw">let </span>data = <span class="self">self</span>.securities.entry(event.symbol.clone()).or_default();
 
         <span class="kw">match </span><span class="kw-2">&amp;mut </span>event.detail {
@@ -228,9 +230,11 @@
                 <span class="macro">check_sequence!</span>(data.trades_sequence, event.sequence);
                 merge_trades(data, trade);
             }
-            PushEventDetail::Candlestick(<span class="kw">_</span>) =&gt; {}
+            PushEventDetail::Candlestick(<span class="kw">_</span>) =&gt; <span class="macro">unreachable!</span>(),
         }
-    }
+
+        <span class="bool-val">true
+    </span>}
 }
 
 <span class="kw">fn </span>merge_quote(data: <span class="kw-2">&amp;mut </span>SecuritiesData, quote: <span class="kw-2">&amp;mut </span>PushQuote) {
