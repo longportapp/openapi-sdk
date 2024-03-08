@@ -2,6 +2,20 @@
 
 `longport` provides an easy-to-use interface for invokes [`LongPort OpenAPI`](https://open.longportapp.com/en/).
 
+## References
+
+- [Config](https://longportapp.github.io/openapi-sdk/python/config/)
+
+  The configuration of the SDK.
+   
+- [QuoteContext](https://longportapp.github.io/openapi-sdk/python/quote_context/)
+
+  The Quote API part of the SDK, e.g.: get basic information of securities, subscribe quotes...
+
+- [TradeContext](https://longportapp.github.io/openapi-sdk/python/trade_context/)
+
+  The Trade API part of the SDK, e.g.: submit order, get order status...
+  
 ## Quickstart
 
 _Install LongPort OpenAPI SDK_
