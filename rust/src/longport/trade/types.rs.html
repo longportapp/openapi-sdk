@@ -1248,6 +1248,10 @@
 <a href="#1247" id="1247">1247</a>
 <a href="#1248" id="1248">1248</a>
 <a href="#1249" id="1249">1249</a>
+<a href="#1250" id="1250">1250</a>
+<a href="#1251" id="1251">1251</a>
+<a href="#1252" id="1252">1252</a>
+<a href="#1253" id="1253">1253</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -1964,8 +1968,8 @@
     <span class="doccomment">/// Market
     </span><span class="kw">pub </span>market: Market,
     <span class="doccomment">/// Initial position before market opening
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
-    </span><span class="kw">pub </span>init_quantity: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str_empty_is_none"</span>)]
+    </span><span class="kw">pub </span>init_quantity: <span class="prelude-ty">Option</span>&lt;i64&gt;,
 }
 
 <span class="doccomment">/// Margin ratio
@@ -2063,7 +2067,8 @@
                     "quantity": "650",
                     "available_quantity": "-450",
                     "cost_price": "457.53",
-                    "market": "HK"
+                    "market": "HK",
+                    "init_quantity": "2000"
                   },
                   {
                     "symbol": "9991.HK",
@@ -2072,7 +2077,8 @@
                     "quantity": "200",
                     "available_quantity": "0",
                     "cost_price": "32.25",
-                    "market": "HK"
+                    "market": "HK",
+                    "init_quantity": ""
                   }
                 ]
               }
@@ -2095,6 +2101,7 @@
         <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
         <span class="macro">assert_eq!</span>(position.market, Market::HK);
+        <span class="macro">assert_eq!</span>(position.init_quantity, <span class="prelude-val">Some</span>(<span class="number">2000</span>));
 
         <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
         <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"700.HK"</span>);
@@ -2112,6 +2119,7 @@
         <span class="macro">assert_eq!</span>(position.quantity, <span class="number">200</span>);
         <span class="macro">assert_eq!</span>(position.available_quantity, <span class="number">0</span>);
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">32.25f32</span>));
+        <span class="macro">assert_eq!</span>(position.init_quantity, <span class="prelude-val">None</span>);
     }
 
     <span class="attr">#[test]

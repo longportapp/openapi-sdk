@@ -7,7 +7,7 @@ var searchData=
   ['in_220',['In',['../namespacelongport_1_1trade.html#abcfbac840bf46f7df48752257f06ed00aefeb369cccbd560588a756610865664c',1,'longport::trade']]],
   ['inflow_221',['inflow',['../structlongport_1_1quote_1_1_capital_flow_line.html#a743877530aae45b4864ea09594aa723b',1,'longport::quote::CapitalFlowLine']]],
   ['init_5fmargin_222',['init_margin',['../structlongport_1_1trade_1_1_account_balance.html#a6465fe9c692a6e3f69d22684fe2520bc',1,'longport::trade::AccountBalance']]],
-  ['init_5fquantity_223',['init_quantity',['../structlongport_1_1trade_1_1_stock_position.html#a7d15ce40eb466c99fcc723e4bc3249b2',1,'longport::trade::StockPosition']]],
+  ['init_5fquantity_223',['init_quantity',['../structlongport_1_1trade_1_1_stock_position.html#a8af04deacd8aa75de7ddd319421195bc',1,'longport::trade::StockPosition']]],
   ['inline_224',['Inline',['../namespacelongport_1_1quote.html#acc6eac080c16a5f14aa8612f111c50d4a0125cf5f3ca38b312ca5d3b511c45a13',1,'longport::quote']]],
   ['intraday_225',['intraday',['../classlongport_1_1quote_1_1_quote_context.html#a18b77f68131ca215949fe23bd45c32f2',1,'longport::quote::QuoteContext']]],
   ['intradayline_226',['IntradayLine',['../structlongport_1_1quote_1_1_intraday_line.html',1,'longport::quote']]],
