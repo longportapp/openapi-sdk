@@ -5,7 +5,8 @@ var searchData=
   ['implied_5fvolatility_149',['implied_volatility',['../structlb__option__quote__t.html#a87eaa71ad63774cbf702d2ba0bce9690',1,'lb_option_quote_t::implied_volatility()'],['../structlb__warrant__quote__t.html#a87eaa71ad63774cbf702d2ba0bce9690',1,'lb_warrant_quote_t::implied_volatility()'],['../structlb__security__calc__index__t.html#a9301987b099ddad89e48d38b658e0646',1,'lb_security_calc_index_t::implied_volatility()']]],
   ['inflow_150',['inflow',['../structlb__capital__flow__line__t.html#a4b72f5bbea11d8529ec5e8420a7df391',1,'lb_capital_flow_line_t']]],
   ['init_5fmargin_151',['init_margin',['../structlb__account__balance__t.html#ab49f375cca2b002cbe93caf2b10e6bed',1,'lb_account_balance_t']]],
-  ['issuer_5fid_152',['issuer_id',['../structlb__issuer__info__t.html#a071c3acfc18c85b13f6245d3b524fcd3',1,'lb_issuer_info_t']]],
-  ['items_153',['items',['../structlb__order__charge__detail__t.html#ac3083b62f3ca6285542e76913ee07df3',1,'lb_order_charge_detail_t']]],
-  ['itm_5fotm_154',['itm_otm',['../structlb__security__calc__index__t.html#a9d8f39b61a8d9b3824a23780e061ec40',1,'lb_security_calc_index_t']]]
+  ['init_5fquantity_152',['init_quantity',['../structlb__stock__position__t.html#a7f01bf18ce66e97030725ff7cd347bfd',1,'lb_stock_position_t']]],
+  ['issuer_5fid_153',['issuer_id',['../structlb__issuer__info__t.html#a071c3acfc18c85b13f6245d3b524fcd3',1,'lb_issuer_info_t']]],
+  ['items_154',['items',['../structlb__order__charge__detail__t.html#ac3083b62f3ca6285542e76913ee07df3',1,'lb_order_charge_detail_t']]],
+  ['itm_5fotm_155',['itm_otm',['../structlb__security__calc__index__t.html#a9d8f39b61a8d9b3824a23780e061ec40',1,'lb_security_calc_index_t']]]
 ];

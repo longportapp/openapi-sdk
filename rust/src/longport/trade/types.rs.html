@@ -1245,6 +1245,9 @@
 <a href="#1244" id="1244">1244</a>
 <a href="#1245" id="1245">1245</a>
 <a href="#1246" id="1246">1246</a>
+<a href="#1247" id="1247">1247</a>
+<a href="#1248" id="1248">1248</a>
+<a href="#1249" id="1249">1249</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -1960,6 +1963,9 @@
     </span><span class="kw">pub </span>cost_price: Decimal,
     <span class="doccomment">/// Market
     </span><span class="kw">pub </span>market: Market,
+    <span class="doccomment">/// Initial position before market opening
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
+    </span><span class="kw">pub </span>init_quantity: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
 }
 
 <span class="doccomment">/// Margin ratio
