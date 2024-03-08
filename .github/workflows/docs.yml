@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release
+      - master
 
 jobs:
   build-api-docs:
