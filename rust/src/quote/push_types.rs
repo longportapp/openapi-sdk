@@ -1,4 +1,4 @@
-use longport_proto::quote::{self, Period, TradeSession, TradeStatus};
+use longport_proto::quote::{self, Period, PushQuoteTag, TradeSession, TradeStatus};
 use prost::Message;
 use rust_decimal::Decimal;
 use time::OffsetDateTime;
@@ -107,35 +107,43 @@ pub struct PushEvent {
 }
 
 impl PushEvent {
-    pub(crate) fn parse(command_code: u8, data: &[u8]) -> Result<PushEvent> {
+    pub(crate) fn parse(
+        command_code: u8,
+        data: &[u8],
+    ) -> Result<(PushEvent, Option<PushQuoteTag>)> {
         match command_code {
-            cmd_code::PUSH_REALTIME_QUOTE => parse_push_quote(data),
-            cmd_code::PUSH_REALTIME_DEPTH => parse_push_depth(data),
-            cmd_code::PUSH_REALTIME_BROKERS => parse_push_brokers(data),
-            cmd_code::PUSH_REALTIME_TRADES => parse_push_trade(data),
+            cmd_code::PUSH_REALTIME_QUOTE => {
+                parse_push_quote(data).map(|(event, tag)| (event, Some(tag)))
+            }
+            cmd_code::PUSH_REALTIME_DEPTH => parse_push_depth(data).map(|event| (event, None)),
+            cmd_code::PUSH_REALTIME_BROKERS => parse_push_brokers(data).map(|event| (event, None)),
+            cmd_code::PUSH_REALTIME_TRADES => parse_push_trade(data).map(|event| (event, None)),
             _ => Err(Error::UnknownCommand(command_code)),
         }
     }
 }
 
-fn parse_push_quote(data: &[u8]) -> Result<PushEvent> {
+fn parse_push_quote(data: &[u8]) -> Result<(PushEvent, PushQuoteTag)> {
     let push_quote = quote::PushQuote::decode(data)?;
-    Ok(PushEvent {
-        symbol: push_quote.symbol,
-        sequence: push_quote.sequence,
-        detail: PushEventDetail::Quote(PushQuote {
-            last_done: push_quote.last_done.parse().unwrap_or_default(),
-            open: push_quote.open.parse().unwrap_or_default(),
-            high: push_quote.high.parse().unwrap_or_default(),
-            low: push_quote.low.parse().unwrap_or_default(),
-            timestamp: OffsetDateTime::from_unix_timestamp(push_quote.timestamp)
-                .map_err(|err| Error::parse_field_error("timestamp", err))?,
-            volume: push_quote.volume,
-            turnover: push_quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(push_quote.trade_status).unwrap_or_default(),
-            trade_session: TradeSession::from_i32(push_quote.trade_session).unwrap_or_default(),
-        }),
-    })
+    Ok((
+        PushEvent {
+            symbol: push_quote.symbol,
+            sequence: push_quote.sequence,
+            detail: PushEventDetail::Quote(PushQuote {
+                last_done: push_quote.last_done.parse().unwrap_or_default(),
+                open: push_quote.open.parse().unwrap_or_default(),
+                high: push_quote.high.parse().unwrap_or_default(),
+                low: push_quote.low.parse().unwrap_or_default(),
+                timestamp: OffsetDateTime::from_unix_timestamp(push_quote.timestamp)
+                    .map_err(|err| Error::parse_field_error("timestamp", err))?,
+                volume: push_quote.volume,
+                turnover: push_quote.turnover.parse().unwrap_or_default(),
+                trade_status: TradeStatus::from_i32(push_quote.trade_status).unwrap_or_default(),
+                trade_session: TradeSession::from_i32(push_quote.trade_session).unwrap_or_default(),
+            }),
+        },
+        PushQuoteTag::from_i32(push_quote.tag).unwrap_or_default(),
+    ))
 }
 
 fn parse_push_depth(data: &[u8]) -> Result<PushEvent> {

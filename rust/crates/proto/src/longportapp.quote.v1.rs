@@ -567,6 +567,8 @@ pub struct PushQuote {
     pub current_volume: i64,
     #[prost(string, tag="13")]
     pub current_turnover: ::prost::alloc::string::String,
+    #[prost(enumeration="PushQuoteTag", tag="14")]
+    pub tag: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PushDepth {
@@ -940,6 +942,12 @@ pub enum SubType {
     Depth = 2,
     Brokers = 3,
     Trade = 4,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum PushQuoteTag {
+    Normal = 0,
+    Eod = 1,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

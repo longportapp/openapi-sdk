@@ -7,8 +7,8 @@ use longport_candlesticks::{IsHalfTradeDay, Type, UpdateAction};
 use longport_httpcli::HttpClient;
 use longport_proto::quote::{
     self, AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, MultiSecurityRequest, Period,
-    SecurityCandlestickRequest, SecurityCandlestickResponse, SecurityStaticInfoResponse,
-    SubscribeRequest, TradeSession, UnsubscribeRequest,
+    PushQuoteTag, SecurityCandlestickRequest, SecurityCandlestickResponse,
+    SecurityStaticInfoResponse, SubscribeRequest, TradeSession, UnsubscribeRequest,
 };
 use longport_wscli::{
     CodecType, Platform, ProtocolVersion, RateLimit, WsClient, WsClientError, WsEvent, WsSession,
@@ -730,9 +730,11 @@ impl Core {
 
     async fn handle_push(&mut self, command_code: u8, body: Vec<u8>) -> Result<()> {
         match PushEvent::parse(command_code, &body) {
-            Ok(mut event) => {
-                if !self.store.handle_push(&mut event) {
-                    return Ok(());
+            Ok((mut event, tag)) => {
+                if tag == Some(PushQuoteTag::Normal) {
+                    if !self.store.handle_push(&mut event) {
+                        return Ok(());
+                    }
                 }
 
                 if let PushEventDetail::Trade(trades) = &event.detail {
