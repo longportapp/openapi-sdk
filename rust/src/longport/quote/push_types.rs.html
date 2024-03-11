@@ -194,7 +194,15 @@
 <a href="#193" id="193">193</a>
 <a href="#194" id="194">194</a>
 <a href="#195" id="195">195</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, TradeSession, TradeStatus};
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, PushQuoteTag, TradeSession, TradeStatus};
 <span class="kw">use </span>prost::Message;
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>time::OffsetDateTime;
@@ -303,35 +311,43 @@
 }
 
 <span class="kw">impl </span>PushEvent {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse(command_code: u8, data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>parse(
+        command_code: u8,
+        data: <span class="kw-2">&amp;</span>[u8],
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(PushEvent, <span class="prelude-ty">Option</span>&lt;PushQuoteTag&gt;)&gt; {
         <span class="kw">match </span>command_code {
-            cmd_code::PUSH_REALTIME_QUOTE =&gt; parse_push_quote(data),
-            cmd_code::PUSH_REALTIME_DEPTH =&gt; parse_push_depth(data),
-            cmd_code::PUSH_REALTIME_BROKERS =&gt; parse_push_brokers(data),
-            cmd_code::PUSH_REALTIME_TRADES =&gt; parse_push_trade(data),
+            cmd_code::PUSH_REALTIME_QUOTE =&gt; {
+                parse_push_quote(data).map(|(event, tag)| (event, <span class="prelude-val">Some</span>(tag)))
+            }
+            cmd_code::PUSH_REALTIME_DEPTH =&gt; parse_push_depth(data).map(|event| (event, <span class="prelude-val">None</span>)),
+            cmd_code::PUSH_REALTIME_BROKERS =&gt; parse_push_brokers(data).map(|event| (event, <span class="prelude-val">None</span>)),
+            cmd_code::PUSH_REALTIME_TRADES =&gt; parse_push_trade(data).map(|event| (event, <span class="prelude-val">None</span>)),
             <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(Error::UnknownCommand(command_code)),
         }
     }
 }
 
-<span class="kw">fn </span>parse_push_quote(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
+<span class="kw">fn </span>parse_push_quote(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;(PushEvent, PushQuoteTag)&gt; {
     <span class="kw">let </span>push_quote = quote::PushQuote::decode(data)<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>(PushEvent {
-        symbol: push_quote.symbol,
-        sequence: push_quote.sequence,
-        detail: PushEventDetail::Quote(PushQuote {
-            last_done: push_quote.last_done.parse().unwrap_or_default(),
-            open: push_quote.open.parse().unwrap_or_default(),
-            high: push_quote.high.parse().unwrap_or_default(),
-            low: push_quote.low.parse().unwrap_or_default(),
-            timestamp: OffsetDateTime::from_unix_timestamp(push_quote.timestamp)
-                .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
-            volume: push_quote.volume,
-            turnover: push_quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(push_quote.trade_status).unwrap_or_default(),
-            trade_session: TradeSession::from_i32(push_quote.trade_session).unwrap_or_default(),
-        }),
-    })
+    <span class="prelude-val">Ok</span>((
+        PushEvent {
+            symbol: push_quote.symbol,
+            sequence: push_quote.sequence,
+            detail: PushEventDetail::Quote(PushQuote {
+                last_done: push_quote.last_done.parse().unwrap_or_default(),
+                open: push_quote.open.parse().unwrap_or_default(),
+                high: push_quote.high.parse().unwrap_or_default(),
+                low: push_quote.low.parse().unwrap_or_default(),
+                timestamp: OffsetDateTime::from_unix_timestamp(push_quote.timestamp)
+                    .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
+                volume: push_quote.volume,
+                turnover: push_quote.turnover.parse().unwrap_or_default(),
+                trade_status: TradeStatus::from_i32(push_quote.trade_status).unwrap_or_default(),
+                trade_session: TradeSession::from_i32(push_quote.trade_session).unwrap_or_default(),
+            }),
+        },
+        PushQuoteTag::from_i32(push_quote.tag).unwrap_or_default(),
+    ))
 }
 
 <span class="kw">fn </span>parse_push_depth(data: <span class="kw-2">&amp;</span>[u8]) -&gt; <span class="prelude-ty">Result</span>&lt;PushEvent&gt; {
