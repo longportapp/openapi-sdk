@@ -1039,6 +1039,9 @@
 <a href="#1038" id="1038">1038</a>
 <a href="#1039" id="1039">1039</a>
 <a href="#1040" id="1040">1040</a>
+<a href="#1041" id="1041">1041</a>
+<a href="#1042" id="1042">1042</a>
+<a href="#1043" id="1043">1043</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1772,7 +1775,7 @@
     <span class="kw">async fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command_code: u8, body: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span>PushEvent::parse(command_code, <span class="kw-2">&amp;</span>body) {
             <span class="prelude-val">Ok</span>((<span class="kw-2">mut </span>event, tag)) =&gt; {
-                <span class="kw">if </span>tag == <span class="prelude-val">Some</span>(PushQuoteTag::Normal) {
+                <span class="kw">if </span>tag != <span class="prelude-val">Some</span>(PushQuoteTag::Eod) {
                     <span class="kw">if </span>!<span class="self">self</span>.store.handle_push(<span class="kw-2">&amp;mut </span>event) {
                         <span class="kw">return </span><span class="prelude-val">Ok</span>(());
                     }
@@ -1856,14 +1859,13 @@
                         <span class="comment">// merge candlesticks
                         </span><span class="kw">let </span>market = parse_market_from_symbol(<span class="kw-2">&amp;</span>event.symbol);
                         <span class="kw">if let </span><span class="prelude-val">Some</span>(market) = market {
-                            <span class="kw">if let </span><span class="prelude-val">Some</span>((merge_ty, quote, candlesticks)) = <span class="self">self
+                            <span class="kw">if let </span><span class="prelude-val">Some</span>((merge_ty, candlesticks)) = <span class="self">self
                                 </span>.store
                                 .securities
                                 .get_mut(<span class="kw-2">&amp;</span>event.symbol)
                                 .and_then(|data| {
                                     <span class="prelude-val">Some</span>((
                                         get_merger_ty(data.board),
-                                        <span class="kw-2">&amp;</span>data.quote,
                                         data.candlesticks.get_mut(<span class="kw-2">&amp;</span>Period::Day)<span class="question-mark">?</span>,
                                     ))
                                 })
@@ -1879,13 +1881,13 @@
                                     prev.as_ref(),
                                     merge_ty,
                                     longport_candlesticks::Quote {
-                                        time: quote.timestamp,
-                                        open: quote.open,
-                                        high: quote.high,
-                                        low: quote.low,
-                                        lastdone: quote.last_done,
-                                        volume: quote.volume,
-                                        turnover: quote.turnover,
+                                        time: push_quote.timestamp,
+                                        open: push_quote.open,
+                                        high: push_quote.high,
+                                        low: push_quote.low,
+                                        lastdone: push_quote.last_done,
+                                        volume: push_quote.volume,
+                                        turnover: push_quote.turnover,
                                     },
                                 );
                                 update_and_push_candlestick(
@@ -1907,6 +1909,10 @@
                     {
                         <span class="kw">return </span><span class="prelude-val">Ok</span>(());
                     }
+                }
+
+                <span class="kw">if </span>tag == <span class="prelude-val">Some</span>(PushQuoteTag::Eod) {
+                    <span class="kw">return </span><span class="prelude-val">Ok</span>(());
                 }
 
                 <span class="kw">let _ </span>= <span class="self">self</span>.push_tx.send(event);
