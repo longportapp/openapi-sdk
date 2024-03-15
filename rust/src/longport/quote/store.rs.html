@@ -116,33 +116,6 @@
 <a href="#115" id="115">115</a>
 <a href="#116" id="116">116</a>
 <a href="#117" id="117">117</a>
-<a href="#118" id="118">118</a>
-<a href="#119" id="119">119</a>
-<a href="#120" id="120">120</a>
-<a href="#121" id="121">121</a>
-<a href="#122" id="122">122</a>
-<a href="#123" id="123">123</a>
-<a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a>
-<a href="#126" id="126">126</a>
-<a href="#127" id="127">127</a>
-<a href="#128" id="128">128</a>
-<a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a>
-<a href="#131" id="131">131</a>
-<a href="#132" id="132">132</a>
-<a href="#133" id="133">133</a>
-<a href="#134" id="134">134</a>
-<a href="#135" id="135">135</a>
-<a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-<a href="#144" id="144">144</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>longport_proto::quote::Period;
@@ -154,15 +127,6 @@
 };
 
 <span class="kw">const </span>MAX_TRADES: usize = <span class="number">500</span>;
-
-<span class="macro">macro_rules! </span>check_sequence {
-    (<span class="macro-nonterminal">$prev</span>:expr, <span class="macro-nonterminal">$new</span>:expr) =&gt; {
-        <span class="kw">if </span><span class="macro-nonterminal">$new </span>!= <span class="number">0 </span>&amp;&amp; <span class="macro-nonterminal">$new </span>&lt;= <span class="macro-nonterminal">$prev </span>{
-            <span class="kw">return </span><span class="bool-val">false</span>;
-        }
-        <span class="macro-nonterminal">$prev </span>= <span class="macro-nonterminal">$new</span>;
-    };
-}
 
 <span class="macro">macro_rules! </span>merge_decimal {
     (<span class="macro-nonterminal">$prev</span>:expr, <span class="macro-nonterminal">$new</span>:expr, <span class="macro-nonterminal">$field</span>:ident) =&gt; {
@@ -186,18 +150,14 @@
 
 <span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>SecuritiesData {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) quote_sequence: i64,
     <span class="kw">pub</span>(<span class="kw">crate</span>) quote: PushQuote,
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) depth_sequence: i64,
     <span class="kw">pub</span>(<span class="kw">crate</span>) asks: Vec&lt;Depth&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) bids: Vec&lt;Depth&gt;,
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) brokers_sequence: i64,
     <span class="kw">pub</span>(<span class="kw">crate</span>) ask_brokers: Vec&lt;Brokers&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) bid_brokers: Vec&lt;Brokers&gt;,
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) trades_sequence: i64,
     <span class="kw">pub</span>(<span class="kw">crate</span>) trades: Vec&lt;Trade&gt;,
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) board: SecurityBoard,
@@ -210,31 +170,17 @@
 }
 
 <span class="kw">impl </span>Store {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: <span class="kw-2">&amp;mut </span>PushEvent) -&gt; bool {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, event: <span class="kw-2">&amp;mut </span>PushEvent) {
         <span class="kw">let </span>data = <span class="self">self</span>.securities.entry(event.symbol.clone()).or_default();
 
         <span class="kw">match </span><span class="kw-2">&amp;mut </span>event.detail {
-            PushEventDetail::Quote(quote) =&gt; {
-                <span class="macro">check_sequence!</span>(data.quote_sequence, event.sequence);
-                merge_quote(data, quote);
-            }
-            PushEventDetail::Depth(depth) =&gt; {
-                <span class="macro">check_sequence!</span>(data.depth_sequence, event.sequence);
-                merge_depth(data, depth);
-            }
-            PushEventDetail::Brokers(brokers) =&gt; {
-                <span class="macro">check_sequence!</span>(data.brokers_sequence, event.sequence);
-                merge_brokers(data, brokers);
-            }
-            PushEventDetail::Trade(trade) =&gt; {
-                <span class="macro">check_sequence!</span>(data.trades_sequence, event.sequence);
-                merge_trades(data, trade);
-            }
+            PushEventDetail::Quote(quote) =&gt; merge_quote(data, quote),
+            PushEventDetail::Depth(depth) =&gt; merge_depth(data, depth),
+            PushEventDetail::Brokers(brokers) =&gt; merge_brokers(data, brokers),
+            PushEventDetail::Trade(trade) =&gt; merge_trades(data, trade),
             PushEventDetail::Candlestick(<span class="kw">_</span>) =&gt; <span class="macro">unreachable!</span>(),
         }
-
-        <span class="bool-val">true
-    </span>}
+    }
 }
 
 <span class="kw">fn </span>merge_quote(data: <span class="kw-2">&amp;mut </span>SecuritiesData, quote: <span class="kw-2">&amp;mut </span>PushQuote) {

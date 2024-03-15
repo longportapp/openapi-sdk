@@ -1042,6 +1042,7 @@
 <a href="#1041" id="1041">1041</a>
 <a href="#1042" id="1042">1042</a>
 <a href="#1043" id="1043">1043</a>
+<a href="#1044" id="1044">1044</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1755,6 +1756,8 @@
             }
         }
 
+        <span class="macro">tracing::debug!</span>(subscriptions = <span class="question-mark">?</span>subscriptions, <span class="string">"resubscribe"</span>);
+
         <span class="kw">for </span>(flags, symbols) <span class="kw">in </span>subscriptions {
             <span class="self">self</span>.ws_cli
                 .request(
@@ -1768,17 +1771,16 @@
                 )
                 .<span class="kw">await</span><span class="question-mark">?</span>;
         }
-
         <span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">async fn </span>handle_push(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command_code: u8, body: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span>PushEvent::parse(command_code, <span class="kw-2">&amp;</span>body) {
             <span class="prelude-val">Ok</span>((<span class="kw-2">mut </span>event, tag)) =&gt; {
+                <span class="macro">tracing::debug!</span>(event = <span class="question-mark">?</span>event, tag = <span class="question-mark">?</span>tag,<span class="string">"push event"</span>);
+
                 <span class="kw">if </span>tag != <span class="prelude-val">Some</span>(PushQuoteTag::Eod) {
-                    <span class="kw">if </span>!<span class="self">self</span>.store.handle_push(<span class="kw-2">&amp;mut </span>event) {
-                        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-                    }
+                    <span class="self">self</span>.store.handle_push(<span class="kw-2">&amp;mut </span>event);
                 }
 
                 <span class="kw">if let </span>PushEventDetail::Trade(trades) = <span class="kw-2">&amp;</span>event.detail {

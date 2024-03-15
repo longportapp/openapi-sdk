@@ -202,6 +202,7 @@
 <a href="#201" id="201">201</a>
 <a href="#202" id="202">202</a>
 <a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, PushQuoteTag, TradeSession, TradeStatus};
 <span class="kw">use </span>prost::Message;
 <span class="kw">use </span>rust_decimal::Decimal;
@@ -303,7 +304,8 @@
 <span class="doccomment">/// Push event
 </span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>PushEvent {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) sequence: i64,
+    <span class="attr">#[allow(dead_code)]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) sequence: i64,
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Event detail
