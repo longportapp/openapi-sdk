@@ -1,6 +1,7 @@
 use http::Method;
 pub(crate) use http::{header, HeaderValue, Request};
 use longport_httpcli::{is_cn, HttpClient, HttpClientConfig, Json};
+use num_enum::IntoPrimitive;
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
 use tokio_tungstenite::tungstenite::client::IntoClientRequest;
@@ -13,15 +14,16 @@ const CN_QUOTE_WS_URL: &str = "wss://openapi-quote.longportapp.cn/v2";
 const CN_TRADE_WS_URL: &str = "wss://openapi-trade.longportapp.cn/v2";
 
 /// Language identifier
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, IntoPrimitive)]
 #[allow(non_camel_case_types)]
+#[repr(i32)]
 pub enum Language {
     /// zh-CN
-    ZH_CN,
+    ZH_CN = 0,
     /// zh-HK
-    ZH_HK,
+    ZH_HK = 2,
     /// en
-    EN,
+    EN = 1,
 }
 
 impl Language {
@@ -40,7 +42,7 @@ pub struct Config {
     pub(crate) http_cli_config: HttpClientConfig,
     pub(crate) quote_ws_url: String,
     pub(crate) trade_ws_url: String,
-    language: Language,
+    pub(crate) language: Language,
 }
 
 impl Config {

@@ -414,3 +414,141 @@ pub enum CCalcIndex {
     #[c(remote = "Rho")]
     CalcIndexRho,
 }
+
+/// Sort order type
+#[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
+#[c(remote = "longport::quote::SortOrderType")]
+#[repr(C)]
+pub enum CSortOrderType {
+    /// Ascending
+    #[c(remote = "Ascending")]
+    SortOrderAscending,
+    /// Descending
+    #[c(remote = "Descending")]
+    SortOrderDescending,
+}
+
+/// Warrant sort by
+#[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
+#[c(remote = "longport::quote::WarrantSortBy")]
+#[allow(clippy::enum_variant_names)]
+#[repr(C)]
+pub enum CWarrantSortBy {
+    /// Last done
+    #[c(remote = "LastDone")]
+    WarrantSortByLastDone,
+    /// Change rate
+    #[c(remote = "ChangeRate")]
+    WarrantSortByChangeRate,
+    /// Change value
+    #[c(remote = "ChangeValue")]
+    WarrantSortByChangeValue,
+    /// Volume
+    #[c(remote = "Volume")]
+    WarrantSortByVolume,
+    /// Turnover
+    #[c(remote = "Turnover")]
+    WarrantSortByTurnover,
+    /// Expiry date
+    #[c(remote = "ExpiryDate")]
+    WarrantSortByExpiryDate,
+    /// Strike price
+    #[c(remote = "StrikePrice")]
+    WarrantSortByStrikePrice,
+    /// Upper strike price
+    #[c(remote = "UpperStrikePrice")]
+    WarrantSortByUpperStrikePrice,
+    /// Lower strike price
+    #[c(remote = "LowerStrikePrice")]
+    WarrantSortByLowerStrikePrice,
+    /// Outstanding quantity
+    #[c(remote = "OutstandingQuantity")]
+    WarrantSortByOutstandingQuantity,
+    /// Outstanding ratio
+    #[c(remote = "OutstandingRatio")]
+    WarrantSortByOutstandingRatio,
+    /// Premium
+    #[c(remote = "Premium")]
+    WarrantSortByPremium,
+    /// In/out of the bound
+    #[c(remote = "ItmOtm")]
+    WarrantSortByItmOtm,
+    /// Implied volatility
+    #[c(remote = "ImpliedVolatility")]
+    WarrantSortByImpliedVolatility,
+    /// Greek value delta
+    #[c(remote = "Delta")]
+    WarrantSortByDelta,
+    /// Call price
+    #[c(remote = "CallPrice")]
+    WarrantSortByCallPrice,
+    /// Price interval from the call price
+    #[c(remote = "ToCallPrice")]
+    WarrantSortByToCallPrice,
+    /// Effective leverage
+    #[c(remote = "EffectiveLeverage")]
+    WarrantSortByEffectiveLeverage,
+    /// Leverage ratio
+    #[c(remote = "LeverageRatio")]
+    WarrantSortByLeverageRatio,
+    /// Conversion ratio
+    #[c(remote = "ConversionRatio")]
+    WarrantSortByConversionRatio,
+    /// Breakeven point
+    #[c(remote = "BalancePoint")]
+    WarrantSortByBalancePoint,
+    /// Status
+    #[c(remote = "Status")]
+    WarrantSortByStatus,
+}
+
+/// Filter warrant expiry date type
+#[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
+#[c(remote = "longport::quote::FilterWarrantExpiryDate")]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub enum CFilterWarrantExpiryDate {
+    /// Less than 3 months
+    #[c(remote = "LT_3")]
+    WarrantExpiryDate_LT_3,
+    /// 3 - 6 months
+    #[c(remote = "Between_3_6")]
+    WarrantExpiryDate_Between_3_6,
+    /// 6 - 12 months
+    #[c(remote = "Between_6_12")]
+    WarrantExpiryDate_Between_6_12,
+    /// Greater than 12 months
+    #[c(remote = "GT_12")]
+    WarrantExpiryDate_GT_12,
+}
+
+/// Filter warrant in/out of the bounds type
+#[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
+#[c(remote = "longport::quote::FilterWarrantInOutBoundsType")]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub enum CFilterWarrantInOutBoundsType {
+    /// In bounds
+    #[c(remote = "In")]
+    WarrantInOutBoundsType_In,
+    /// Out bounds
+    #[c(remote = "Out")]
+    WarrantInOutBoundsType_Out,
+}
+
+/// Warrant status
+#[derive(Debug, Copy, Clone, Eq, PartialEq, CEnum)]
+#[c(remote = "longport::quote::WarrantStatus")]
+#[allow(clippy::enum_variant_names)]
+#[repr(C)]
+pub enum CWarrantStatus {
+    /// Suspend
+    #[c(remote = "Suspend")]
+    WarrantStatusSuspend,
+    /// Prepare List
+    #[c(remote = "PrepareList")]
+    WarrantStatusPrepareList,
+    /// Normal
+    #[c(remote = "Normal")]
+    WarrantStatusNormal,
+}

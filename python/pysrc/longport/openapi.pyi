@@ -1419,6 +1419,360 @@ class IssuerInfo:
     Issuer name (zh-HK)
     """
 
+class WarrantStatus:
+    """
+    Warrant status
+    """
+
+    class Suspend(WarrantStatus):
+        """
+        Suspend
+        """
+
+    class PrepareList(WarrantStatus):
+        """
+        Prepare List
+        """
+
+    class Normal(WarrantStatus):
+        """
+        Normal
+        """
+
+class WarrantType:
+    """
+    Warrant type
+    """
+
+    class Unknown(WarrantType):
+        """
+        Unknown
+        """
+
+    class Call(WarrantType):
+        """
+        Call
+        """
+
+    class Put(WarrantType):
+        """
+        Put
+        """
+
+    class Bull(WarrantType):
+        """
+        Bull
+        """
+
+    class Bear(WarrantType):
+        """
+        Bear
+        """
+
+    class Inline(WarrantType):
+        """
+        Inline
+        """
+
+class SortOrderType:
+    """
+    Sort order type
+    """
+
+    class Ascending(SortOrderType):
+        """
+        Ascending
+        """
+
+    class Descending(SortOrderType):
+        """
+        Descending
+        """
+
+class WarrantSortBy:
+    """
+    Warrant sort by
+    """
+
+    class LastDone(WarrantSortBy):
+        """
+        LastDone
+        """
+
+    class ChangeRate(WarrantSortBy):
+        """
+        Change rate
+        """
+
+    class ChangeValue(WarrantSortBy):
+        """
+        Change value
+        """
+
+    class Volume(WarrantSortBy):
+        """
+        Volume
+        """
+
+    class Turnover(WarrantSortBy):
+        """
+        Turnover
+        """
+
+    class ExpiryDate(WarrantSortBy):
+        """
+        Expiry date
+        """
+
+    class StrikePrice(WarrantSortBy):
+        """
+        Strike price
+        """
+    
+    class UpperStrikePrice(WarrantSortBy):
+        """
+        Upper strike price
+        """
+
+    class LowerStrikePrice(WarrantSortBy):
+        """
+        Lower strike price
+        """
+
+    class OutstandingQuantity(WarrantSortBy):
+        """
+        Outstanding quantity
+        """
+
+    class OutstandingRatio(WarrantSortBy):
+        """
+        Outstanding ratio
+        """
+
+    class Premium(WarrantSortBy):
+        """
+        Premium
+        """
+
+    class ItmOtm(WarrantSortBy):
+        """
+        In/out of the bound
+        """
+
+    class ImpliedVolatility(WarrantSortBy):
+        """
+        Implied volatility
+        """
+
+    class Delta(WarrantSortBy):
+        """
+        Greek value delta
+        """
+
+    class CallPrice(WarrantSortBy):
+        """
+        Call price
+        """
+
+    class ToCallPrice(WarrantSortBy):
+        """
+        Price interval from the call price
+        """
+
+    class EffectiveLeverage(WarrantSortBy):
+        """
+        Effective leverage
+        """
+
+    class LeverageRatio(WarrantSortBy):
+        """
+        Leverage ratio
+        """
+
+    class ConversionRatio(WarrantSortBy):
+        """
+        Conversion ratio
+        """
+
+    class BalancePoint(WarrantSortBy):
+        """
+        Breakeven point
+        """
+
+    class Status(WarrantSortBy):
+        """
+        Status
+        """
+
+class FilterWarrantExpiryDate:
+    """
+    Filter warrant expiry date type
+    """
+
+    class LT_3(FilterWarrantExpiryDate):
+        """
+        Less than 3 months
+        """
+
+    class Between_3_6(FilterWarrantExpiryDate):
+        """
+        3 - 6 months
+        """
+
+    class Between_6_12(FilterWarrantExpiryDate):
+        """
+        6 - 12 months
+        """
+
+    class GT_12(FilterWarrantExpiryDate):
+        """
+        Greater than 12 months
+        """
+
+class FilterWarrantInOutBoundsType:
+    """
+    Filter warrant in/out of the bounds type
+    """
+
+    class In(FilterWarrantInOutBoundsType):
+        """
+        In bounds
+        """
+
+    class Out(FilterWarrantInOutBoundsType):
+        """
+        Out bounds
+        """
+
+class WarrantInfo:
+    """
+    Warrant info
+    """
+
+    symbol: str
+    """
+    Security code
+    """
+
+    warrant_type: Type[WarrantType]
+    """
+    Warrant type
+    """
+
+    name: str
+    """
+    Security name
+    """
+
+    last_done: Decimal
+    """
+    Latest price
+    """
+
+    change_rate: Decimal
+    """
+    Quote change rate
+    """
+
+    change_value: Decimal
+    """
+    Quote change
+    """
+
+    volume: int
+    """
+    Volume
+    """
+
+    turnover: Decimal
+    """
+    Turnover
+    """
+
+    expiry_date: date
+    """
+    Expiry date
+    """
+
+    strike_price: Optional[Decimal]
+    """
+    Strike price
+    """
+
+    upper_strike_price: Optional[Decimal]
+    """
+    Upper strike price
+    """
+
+    lower_strike_price: Optional[Decimal]
+    """
+    Lower strike price
+    """
+
+    outstanding_qty: int
+    """
+    Outstanding quantity
+    """
+
+    outstanding_ratio: Decimal
+    """
+    Outstanding ratio
+    """
+
+    premium: Decimal
+    """
+    Premium
+    """
+
+    itm_otm: Optional[Decimal]
+    """
+    In/out of the bound
+    """
+
+    implied_volatility: Optional[Decimal]
+    """
+    Implied volatility
+    """
+
+    delta: Optional[Decimal]
+    """
+    Greek value delta
+    """
+
+    call_price: Optional[Decimal]
+    """
+    Call price
+    """
+
+    to_call_price: Optional[Decimal]
+    """
+    Price interval from the call price
+    """
+
+    effective_leverage: Optional[Decimal]
+    """
+    Effective leverage
+    """
+
+    leverage_ratio: Decimal
+    """
+    Leverage ratio
+    """
+
+    conversion_ratio: Optional[Decimal]
+    """
+    Conversion ratio
+    """
+
+    balance_point: Optional[Decimal]
+    """
+    Breakeven point
+    """
+
+    status: Type[WarrantStatus]
+    """
+    Status
+    """
 
 class TradingSessionInfo:
     """
@@ -1892,7 +2246,7 @@ class SecurityCalcIndex:
     Change value
     """
 
-    change_rate: Optional[float]
+    change_rate: Optional[Decimal]
     """
     Change ratio
     """
@@ -1907,12 +2261,12 @@ class SecurityCalcIndex:
     Turnover
     """
 
-    ytd_change_rate: Optional[float]
+    ytd_change_rate: Optional[Decimal]
     """
     Year-to-date change ratio
     """
 
-    turnover_rate: Optional[float]
+    turnover_rate: Optional[Decimal]
     """
     turnover_rate
     """
@@ -1927,47 +2281,47 @@ class SecurityCalcIndex:
     Capital flow
     """
 
-    amplitude: Optional[float]
+    amplitude: Optional[Decimal]
     """
     Amplitude
     """
 
-    volume_ratio: Optional[float]
+    volume_ratio: Optional[Decimal]
     """
     Volume ratio
     """
 
-    pe_ttm_ratio: Optional[float]
+    pe_ttm_ratio: Optional[Decimal]
     """
     PE (TTM)
     """
 
-    pb_ratio: Optional[float]
+    pb_ratio: Optional[Decimal]
     """
     PB
     """
 
-    dividend_ratio_ttm: Optional[float]
+    dividend_ratio_ttm: Optional[Decimal]
     """
     Dividend ratio (TTM)
     """
 
-    five_day_change_rate: Optional[float]
+    five_day_change_rate: Optional[Decimal]
     """
     Five days change ratio
     """
 
-    ten_day_change_rate: Optional[float]
+    ten_day_change_rate: Optional[Decimal]
     """
     Ten days change ratio
     """
 
-    half_year_change_rate: Optional[float]
+    half_year_change_rate: Optional[Decimal]
     """
     Half year change ratio
     """
 
-    five_minutes_change_rate: Optional[float]
+    five_minutes_change_rate: Optional[Decimal]
     """
     Five minutes change ratio
     """
@@ -1997,27 +2351,27 @@ class SecurityCalcIndex:
     Outstanding quantity
     """
 
-    outstanding_ratio: Optional[float]
+    outstanding_ratio: Optional[Decimal]
     """
     Outstanding ratio
     """
 
-    premium: Optional[float]
+    premium: Optional[Decimal]
     """
     Premium
     """
 
-    itm_otm: Optional[float]
+    itm_otm: Optional[Decimal]
     """
     In/out of the bound
     """
 
-    implied_volatility: Optional[float]
+    implied_volatility: Optional[Decimal]
     """
     Implied volatility
     """
 
-    warrant_delta: Optional[float]
+    warrant_delta: Optional[Decimal]
     """
     Warrant delta
     """
@@ -2032,22 +2386,22 @@ class SecurityCalcIndex:
     Price interval from the call price
     """
 
-    effective_leverage: Optional[float]
+    effective_leverage: Optional[Decimal]
     """
     Effective leverage
     """
 
-    leverage_ratio: Optional[float]
+    leverage_ratio: Optional[Decimal]
     """
     Leverage ratio
     """
 
-    conversion_ratio: Optional[float]
+    conversion_ratio: Optional[Decimal]
     """
     Conversion ratio
     """
 
-    balance_point: Optional[float]
+    balance_point: Optional[Decimal]
     """
     Breakeven point
     """
@@ -2057,27 +2411,27 @@ class SecurityCalcIndex:
     Open interest
     """
 
-    delta: Optional[float]
+    delta: Optional[Decimal]
     """
     Delta
     """
 
-    gamma: Optional[float]
+    gamma: Optional[Decimal]
     """
     Gamma
     """
 
-    theta: Optional[float]
+    theta: Optional[Decimal]
     """
     Theta
     """
 
-    vega: Optional[float]
+    vega: Optional[Decimal]
     """
     Vega
     """
 
-    rho: Optional[float]
+    rho: Optional[Decimal]
     """
     Rho
     """
@@ -2520,6 +2874,35 @@ class QuoteContext:
                 print(resp)
         """
 
+    def warrant_list(self, symbol: str, sort_by: Type[WarrantSortBy], sort_order: Type[SortOrderType], warrant_type: Optional[List[Type[WarrantType]]] = None, issuer: Optional[List[int]] = None, expiry_date: Optional[List[Type[FilterWarrantExpiryDate]]] = None, price_type: Optional[List[Type[FilterWarrantInOutBoundsType]]] = None, status: Optional[List[Type[WarrantStatus]]] = None) -> List[WarrantInfo]:
+        """
+        Get warrant list
+
+        Args:
+            symbol: Security code
+            sort_by: Sort by field
+            sort_order: Sort order
+            warrant_type: Filter by warrant type
+            issuer: Filter by issuer
+            expiry_date: Filter by expiry date
+            price_type: Filter by price type
+            status: Filter by status
+
+        Returns:
+            Warrant list
+
+        Examples:
+            ::
+
+                from longport.openapi import QuoteContext, Config, WarrantSortBy, SortOrderType
+
+                config = Config.from_env()
+                ctx = QuoteContext(config)
+
+                resp = ctx.warrant_list("700.HK", WarrantSortBy.LastDone, SortOrderType.Ascending)
+                print(resp)
+        """
+
     def trading_session(self) -> List[MarketTradingSession]:
         """
         Get trading session of the day
@@ -2632,13 +3015,6 @@ class QuoteContext:
 
                 resp = ctx.calc_indexes(["700.HK", "APPL.US"], [CalcIndex.LastDone, CalcIndex.ChangeRate])
                 print(resp)
-        """
-
-    def watch_list(self) -> List[WatchlistGroup]:
-        """
-        Get watch list
-
-        Deprecated: use instead `watchlist`
         """
 
     def watchlist(self) -> List[WatchlistGroup]:

@@ -15,10 +15,12 @@ use crate::{
         push::handle_push_event,
         types::{
             AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
-            IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
-            ParticipantInfo, Period, RealtimeQuote, SecuritiesUpdateMode, SecurityBrokers,
-            SecurityCalcIndex, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-            SubType, SubTypes, Subscription, Trade, WarrantQuote, WatchlistGroup,
+            FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, IntradayLine, IssuerInfo,
+            MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
+            RealtimeQuote, SecuritiesUpdateMode, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
+            SecurityQuote, SecurityStaticInfo, SortOrderType, StrikePriceInfo, SubType, SubTypes,
+            Subscription, Trade, WarrantInfo, WarrantQuote, WarrantSortBy, WarrantStatus,
+            WarrantType, WatchlistGroup,
         },
     },
     time::{PyDateWrapper, PyOffsetDateTimeWrapper},
@@ -342,6 +344,44 @@ impl QuoteContext {
             .collect()
     }
 
+    /// Query warrant list
+    #[allow(clippy::too_many_arguments)]
+    fn warrant_list(
+        &self,
+        symbol: String,
+        sort_by: WarrantSortBy,
+        sort_order: SortOrderType,
+        warrant_type: Option<Vec<WarrantType>>,
+        issuer: Option<Vec<i32>>,
+        expiry_date: Option<Vec<FilterWarrantExpiryDate>>,
+        price_type: Option<Vec<FilterWarrantInOutBoundsType>>,
+        status: Option<Vec<WarrantStatus>>,
+    ) -> PyResult<Vec<WarrantInfo>> {
+        let warrant_type: Option<Vec<longport::quote::WarrantType>> =
+            warrant_type.map(|v| v.into_iter().map(Into::into).collect());
+        let expiry_date: Option<Vec<longport::quote::FilterWarrantExpiryDate>> =
+            expiry_date.map(|v| v.into_iter().map(Into::into).collect());
+        let price_type: Option<Vec<longport::quote::FilterWarrantInOutBoundsType>> =
+            price_type.map(|v| v.into_iter().map(Into::into).collect());
+        let status: Option<Vec<longport::quote::WarrantStatus>> =
+            status.map(|v| v.into_iter().map(Into::into).collect());
+        self.ctx
+            .warrant_list(
+                symbol,
+                sort_by.into(),
+                sort_order.into(),
+                warrant_type.as_deref(),
+                issuer.as_deref(),
+                expiry_date.as_deref(),
+                price_type.as_deref(),
+                status.as_deref(),
+            )
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
     /// Get trading session of the day
     fn trading_session(&self) -> PyResult<Vec<MarketTradingSession>> {
         self.ctx
@@ -395,11 +435,6 @@ impl QuoteContext {
             .into_iter()
             .map(TryInto::try_into)
             .collect()
-    }
-
-    /// Get watch list
-    fn watch_list(&self) -> PyResult<Vec<WatchlistGroup>> {
-        self.watchlist()
     }
 
     /// Get watch list

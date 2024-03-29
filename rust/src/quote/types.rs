@@ -1,5 +1,5 @@
 use longport_proto::quote::{self, Period, TradeSession, TradeStatus};
-use num_enum::{FromPrimitive, IntoPrimitive};
+use num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive};
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use strum_macros::{Display, EnumString};
@@ -503,7 +503,7 @@ impl TryFrom<quote::OptionQuote> for OptionQuote {
 }
 
 /// Warrant type
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, IntoPrimitive)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, IntoPrimitive, TryFromPrimitive)]
 #[repr(i32)]
 pub enum WarrantType {
     /// Unknown
@@ -803,55 +803,258 @@ impl From<quote::IssuerInfo> for IssuerInfo {
     }
 }
 
-// /// Sort type
-// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
-// #[repr(i32)]
-// pub enum SortType {
-//     /// Ascending
-//     Ascending = 0,
-//     /// Descending
-//     Descending = 1,
-// }
+/// Sort order type
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+#[repr(i32)]
+pub enum SortOrderType {
+    /// Ascending
+    Ascending = 0,
+    /// Descending
+    Descending = 1,
+}
 
-// /// Filter warrant expiry date type
-// #[allow(non_camel_case_types)]
-// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
-// #[repr(i32)]
-// pub enum FilterWarrantExpiryDate {
-//     /// Less than 3 months
-//     LT_3 = 1,
-//     /// 3 - 6 months
-//     Between_3_6 = 2,
-//     /// 6 - 12 months
-//     Between_6_12 = 3,
-//     /// Greater than 12 months
-//     GT_12 = 4,
-// }
+/// Warrant sort by
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+#[repr(i32)]
+pub enum WarrantSortBy {
+    /// Last done
+    LastDone = 0,
+    /// Change rate
+    ChangeRate = 1,
+    /// Change value
+    ChangeValue = 2,
+    /// Volume
+    Volume = 3,
+    /// Turnover
+    Turnover = 4,
+    /// Expiry date
+    ExpiryDate = 5,
+    /// Strike price
+    StrikePrice = 6,
+    /// Upper strike price
+    UpperStrikePrice = 7,
+    /// Lower strike price
+    LowerStrikePrice = 8,
+    /// Outstanding quantity
+    OutstandingQuantity = 9,
+    /// Outstanding ratio
+    OutstandingRatio = 10,
+    /// Premium
+    Premium = 11,
+    /// In/out of the bound
+    ItmOtm = 12,
+    /// Implied volatility
+    ImpliedVolatility = 13,
+    /// Greek value Delta
+    Delta = 14,
+    /// Call price
+    CallPrice = 15,
+    /// Price interval from the call price
+    ToCallPrice = 16,
+    /// Effective leverage
+    EffectiveLeverage = 17,
+    /// Leverage ratio
+    LeverageRatio = 18,
+    /// Conversion ratio
+    ConversionRatio = 19,
+    /// Breakeven point
+    BalancePoint = 20,
+    /// Status
+    Status = 21,
+}
 
-// /// Filter warrant status type
-// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
-// #[repr(i32)]
-// pub enum FilterWarrantStatus {
-//     /// Suspend
-//     Suspend = 2,
-//     /// Prepare List
-//     PrepareList = 3,
-//     /// Normal
-//     Normal = 4,
-// }
+/// Filter warrant expiry date type
+#[allow(non_camel_case_types)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+#[repr(i32)]
+pub enum FilterWarrantExpiryDate {
+    /// Less than 3 months
+    LT_3 = 1,
+    /// 3 - 6 months
+    Between_3_6 = 2,
+    /// 6 - 12 months
+    Between_6_12 = 3,
+    /// Greater than 12 months
+    GT_12 = 4,
+}
 
-// /// Language type
-// #[allow(non_camel_case_types)]
-// #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
-// #[repr(i32)]
-// pub enum Language {
-//     /// zh-CN
-//     ZH_CN = 0,
-//     /// en
-//     EN = 1,
-//     /// zh-HK
-//     ZH_HK = 2,
-// }
+/// Filter warrant in/out of the bounds type
+#[allow(non_camel_case_types)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive)]
+#[repr(i32)]
+pub enum FilterWarrantInOutBoundsType {
+    /// In bounds
+    In = 1,
+    /// Out bounds
+    Out = 2,
+}
+
+/// Warrant status
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive, TryFromPrimitive)]
+#[repr(i32)]
+pub enum WarrantStatus {
+    /// Suspend
+    Suspend = 2,
+    /// Prepare List
+    PrepareList = 3,
+    /// Normal
+    Normal = 4,
+}
+
+/// Warrant info
+#[derive(Debug, Clone)]
+pub struct WarrantInfo {
+    /// Security code
+    pub symbol: String,
+    /// Warrant type
+    pub warrant_type: WarrantType,
+    /// Security name
+    pub name: String,
+    /// Latest price
+    pub last_done: Decimal,
+    /// Quote change rate
+    pub change_rate: Decimal,
+    /// Quote change
+    pub change_value: Decimal,
+    /// Volume
+    pub volume: i64,
+    /// Turnover
+    pub turnover: Decimal,
+    /// Expiry date
+    pub expiry_date: Date,
+    /// Strike price
+    pub strike_price: Option<Decimal>,
+    /// Upper strike price
+    pub upper_strike_price: Option<Decimal>,
+    /// Lower strike price
+    pub lower_strike_price: Option<Decimal>,
+    /// Outstanding quantity
+    pub outstanding_qty: i64,
+    /// Outstanding ratio
+    pub outstanding_ratio: Decimal,
+    /// Premium
+    pub premium: Decimal,
+    /// In/out of the bound
+    pub itm_otm: Option<Decimal>,
+    /// Implied volatility
+    pub implied_volatility: Option<Decimal>,
+    /// Delta
+    pub delta: Option<Decimal>,
+    /// Call price
+    pub call_price: Option<Decimal>,
+    /// Price interval from the call price
+    pub to_call_price: Option<Decimal>,
+    /// Effective leverage
+    pub effective_leverage: Option<Decimal>,
+    /// Leverage ratio
+    pub leverage_ratio: Decimal,
+    /// Conversion ratio
+    pub conversion_ratio: Option<Decimal>,
+    /// Breakeven point
+    pub balance_point: Option<Decimal>,
+    /// Status
+    pub status: WarrantStatus,
+}
+
+impl TryFrom<quote::FilterWarrant> for WarrantInfo {
+    type Error = Error;
+
+    fn try_from(info: quote::FilterWarrant) -> Result<Self> {
+        let r#type = WarrantType::try_from(info.r#type)
+            .map_err(|err| Error::parse_field_error("type", err))?;
+
+        match r#type {
+            WarrantType::Unknown => unreachable!(),
+            WarrantType::Call | WarrantType::Put => Ok(Self {
+                symbol: info.symbol,
+                warrant_type: r#type,
+                name: info.name,
+                last_done: info.last_done.parse().unwrap_or_default(),
+                change_rate: info.change_rate.parse().unwrap_or_default(),
+                change_value: info.change_val.parse().unwrap_or_default(),
+                volume: info.volume,
+                turnover: info.turnover.parse().unwrap_or_default(),
+                expiry_date: parse_date(&info.expiry_date)
+                    .map_err(|err| Error::parse_field_error("expiry_date", err))?,
+                strike_price: Some(info.last_done.parse().unwrap_or_default()),
+                upper_strike_price: None,
+                lower_strike_price: None,
+                outstanding_qty: info.outstanding_qty.parse().unwrap_or_default(),
+                outstanding_ratio: info.outstanding_ratio.parse().unwrap_or_default(),
+                premium: info.premium.parse().unwrap_or_default(),
+                itm_otm: Some(info.last_done.parse().unwrap_or_default()),
+                implied_volatility: Some(info.last_done.parse().unwrap_or_default()),
+                delta: Some(info.last_done.parse().unwrap_or_default()),
+                call_price: None,
+                to_call_price: None,
+                effective_leverage: Some(info.last_done.parse().unwrap_or_default()),
+                leverage_ratio: info.leverage_ratio.parse().unwrap_or_default(),
+                conversion_ratio: Some(info.last_done.parse().unwrap_or_default()),
+                balance_point: Some(info.last_done.parse().unwrap_or_default()),
+                status: WarrantStatus::try_from(info.status)
+                    .map_err(|err| Error::parse_field_error("state", err))?,
+            }),
+            WarrantType::Bull | WarrantType::Bear => Ok(Self {
+                symbol: info.symbol,
+                warrant_type: r#type,
+                name: info.name,
+                last_done: info.last_done.parse().unwrap_or_default(),
+                change_rate: info.change_rate.parse().unwrap_or_default(),
+                change_value: info.change_val.parse().unwrap_or_default(),
+                volume: info.volume,
+                turnover: info.turnover.parse().unwrap_or_default(),
+                expiry_date: parse_date(&info.expiry_date)
+                    .map_err(|err| Error::parse_field_error("expiry_date", err))?,
+                strike_price: Some(info.last_done.parse().unwrap_or_default()),
+                upper_strike_price: None,
+                lower_strike_price: None,
+                outstanding_qty: info.outstanding_qty.parse().unwrap_or_default(),
+                outstanding_ratio: info.outstanding_ratio.parse().unwrap_or_default(),
+                premium: info.premium.parse().unwrap_or_default(),
+                itm_otm: Some(info.last_done.parse().unwrap_or_default()),
+                implied_volatility: None,
+                delta: None,
+                call_price: Some(info.call_price.parse().unwrap_or_default()),
+                to_call_price: Some(info.to_call_price.parse().unwrap_or_default()),
+                effective_leverage: None,
+                leverage_ratio: info.leverage_ratio.parse().unwrap_or_default(),
+                conversion_ratio: Some(info.last_done.parse().unwrap_or_default()),
+                balance_point: Some(info.last_done.parse().unwrap_or_default()),
+                status: WarrantStatus::try_from(info.status)
+                    .map_err(|err| Error::parse_field_error("state", err))?,
+            }),
+            WarrantType::Inline => Ok(Self {
+                symbol: info.symbol,
+                warrant_type: r#type,
+                name: info.name,
+                last_done: info.last_done.parse().unwrap_or_default(),
+                change_rate: info.change_rate.parse().unwrap_or_default(),
+                change_value: info.change_val.parse().unwrap_or_default(),
+                volume: info.volume,
+                turnover: info.turnover.parse().unwrap_or_default(),
+                expiry_date: parse_date(&info.expiry_date)
+                    .map_err(|err| Error::parse_field_error("expiry_date", err))?,
+                strike_price: None,
+                upper_strike_price: Some(info.upper_strike_price.parse().unwrap_or_default()),
+                lower_strike_price: Some(info.lower_strike_price.parse().unwrap_or_default()),
+                outstanding_qty: info.outstanding_qty.parse().unwrap_or_default(),
+                outstanding_ratio: info.outstanding_ratio.parse().unwrap_or_default(),
+                premium: info.premium.parse().unwrap_or_default(),
+                itm_otm: None,
+                implied_volatility: None,
+                delta: None,
+                call_price: None,
+                to_call_price: None,
+                effective_leverage: None,
+                leverage_ratio: info.leverage_ratio.parse().unwrap_or_default(),
+                conversion_ratio: None,
+                balance_point: None,
+                status: WarrantStatus::try_from(info.status)
+                    .map_err(|err| Error::parse_field_error("state", err))?,
+            }),
+        }
+    }
+}
 
 /// The information of trading session
 #[derive(Debug, Clone)]
@@ -1262,37 +1465,37 @@ pub struct SecurityCalcIndex {
     /// Change value
     pub change_value: Option<Decimal>,
     /// Change ratio
-    pub change_rate: Option<f64>,
+    pub change_rate: Option<Decimal>,
     /// Volume
     pub volume: Option<i64>,
     /// Turnover
     pub turnover: Option<Decimal>,
     /// Year-to-date change ratio
-    pub ytd_change_rate: Option<f64>,
+    pub ytd_change_rate: Option<Decimal>,
     /// Turnover rate
-    pub turnover_rate: Option<f64>,
+    pub turnover_rate: Option<Decimal>,
     /// Total market value
     pub total_market_value: Option<Decimal>,
     /// Capital flow
     pub capital_flow: Option<Decimal>,
     /// Amplitude
-    pub amplitude: Option<f64>,
+    pub amplitude: Option<Decimal>,
     /// Volume ratio
-    pub volume_ratio: Option<f64>,
+    pub volume_ratio: Option<Decimal>,
     /// PE (TTM)
-    pub pe_ttm_ratio: Option<f64>,
+    pub pe_ttm_ratio: Option<Decimal>,
     /// PB
-    pub pb_ratio: Option<f64>,
+    pub pb_ratio: Option<Decimal>,
     /// Dividend ratio (TTM)
-    pub dividend_ratio_ttm: Option<f64>,
+    pub dividend_ratio_ttm: Option<Decimal>,
     /// Five days change ratio
-    pub five_day_change_rate: Option<f64>,
+    pub five_day_change_rate: Option<Decimal>,
     /// Ten days change ratio
-    pub ten_day_change_rate: Option<f64>,
+    pub ten_day_change_rate: Option<Decimal>,
     /// Half year change ratio
-    pub half_year_change_rate: Option<f64>,
+    pub half_year_change_rate: Option<Decimal>,
     /// Five minutes change ratio
-    pub five_minutes_change_rate: Option<f64>,
+    pub five_minutes_change_rate: Option<Decimal>,
     /// Expiry date
     pub expiry_date: Option<Date>,
     /// Strike price
@@ -1304,39 +1507,39 @@ pub struct SecurityCalcIndex {
     /// Outstanding quantity
     pub outstanding_qty: Option<i64>,
     /// Outstanding ratio
-    pub outstanding_ratio: Option<f64>,
+    pub outstanding_ratio: Option<Decimal>,
     /// Premium
-    pub premium: Option<f64>,
+    pub premium: Option<Decimal>,
     /// In/out of the bound
-    pub itm_otm: Option<f64>,
+    pub itm_otm: Option<Decimal>,
     /// Implied volatility
-    pub implied_volatility: Option<f64>,
+    pub implied_volatility: Option<Decimal>,
     /// Warrant delta
-    pub warrant_delta: Option<f64>,
+    pub warrant_delta: Option<Decimal>,
     /// Call price
     pub call_price: Option<Decimal>,
     /// Price interval from the call price
     pub to_call_price: Option<Decimal>,
     /// Effective leverage
-    pub effective_leverage: Option<f64>,
+    pub effective_leverage: Option<Decimal>,
     /// Leverage ratio
-    pub leverage_ratio: Option<f64>,
+    pub leverage_ratio: Option<Decimal>,
     /// Conversion ratio
-    pub conversion_ratio: Option<f64>,
+    pub conversion_ratio: Option<Decimal>,
     /// Breakeven point
-    pub balance_point: Option<f64>,
+    pub balance_point: Option<Decimal>,
     /// Open interest
     pub open_interest: Option<i64>,
     /// Delta
-    pub delta: Option<f64>,
+    pub delta: Option<Decimal>,
     /// Gamma
-    pub gamma: Option<f64>,
+    pub gamma: Option<Decimal>,
     /// Theta
-    pub theta: Option<f64>,
+    pub theta: Option<Decimal>,
     /// Vega
-    pub vega: Option<f64>,
+    pub vega: Option<Decimal>,
     /// Rho
-    pub rho: Option<f64>,
+    pub rho: Option<Decimal>,
 }
 
 impl SecurityCalcIndex {

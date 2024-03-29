@@ -650,6 +650,176 @@ pub(crate) struct IssuerInfo {
     name_hk: String,
 }
 
+/// Sort order type
+#[pyclass]
+#[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[py(remote = "longport::quote::SortOrderType")]
+pub enum SortOrderType {
+    /// Ascending
+    Ascending,
+    /// Descending
+    Descending,
+}
+
+/// Warrant sort by
+#[pyclass]
+#[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[py(remote = "longport::quote::WarrantSortBy")]
+pub enum WarrantSortBy {
+    /// Last done
+    LastDone,
+    /// Change rate
+    ChangeRate,
+    /// Change value
+    ChangeValue,
+    /// Volume
+    Volume,
+    /// Turnover
+    Turnover,
+    /// Expiry date
+    ExpiryDate,
+    /// Strike price
+    StrikePrice,
+    /// Upper strike price
+    UpperStrikePrice,
+    /// Lower strike price
+    LowerStrikePrice,
+    /// Outstanding quantity
+    OutstandingQuantity,
+    /// Outstanding ratio
+    OutstandingRatio,
+    /// Premium
+    Premium,
+    /// In/out of the bound
+    ItmOtm,
+    /// Implied volatility
+    ImpliedVolatility,
+    /// Greek value delta
+    Delta,
+    /// Call price
+    CallPrice,
+    /// Price interval from the call price
+    ToCallPrice,
+    /// Effective leverage
+    EffectiveLeverage,
+    /// Leverage ratio
+    LeverageRatio,
+    /// Conversion ratio
+    ConversionRatio,
+    /// Breakeven point
+    BalancePoint,
+    /// Status
+    Status,
+}
+
+/// Filter warrant expiry date type
+#[pyclass]
+#[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[py(remote = "longport::quote::FilterWarrantExpiryDate")]
+#[allow(non_camel_case_types)]
+pub enum FilterWarrantExpiryDate {
+    /// Less than 3 months
+    LT_3,
+    /// 3 - 6 months
+    Between_3_6,
+    /// 6 - 12 months
+    Between_6_12,
+    /// Greater than 12 months
+    GT_12,
+}
+
+/// Filter warrant in/out of the bounds type
+#[pyclass]
+#[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[py(remote = "longport::quote::FilterWarrantInOutBoundsType")]
+pub enum FilterWarrantInOutBoundsType {
+    /// In bounds
+    In,
+    /// Out bounds
+    Out,
+}
+
+/// Warrant info
+#[pyclass]
+#[derive(Debug, Clone, PyObject)]
+#[py(remote = "longport::quote::WarrantInfo")]
+pub(crate) struct WarrantInfo {
+    /// Security code
+    symbol: String,
+    /// Warrant type
+    warrant_type: WarrantType,
+    /// Security name
+    name: String,
+    /// Latest price
+    last_done: PyDecimal,
+    /// Quote change rate
+    change_rate: PyDecimal,
+    /// Quote change
+    change_value: PyDecimal,
+    /// Volume
+    volume: i64,
+    /// Turnover
+    turnover: PyDecimal,
+    /// Expiry date
+    expiry_date: PyDateWrapper,
+    /// Strike price
+    #[py(opt)]
+    strike_price: Option<PyDecimal>,
+    /// Upper strike price
+    #[py(opt)]
+    upper_strike_price: Option<PyDecimal>,
+    /// Lower strike price
+    #[py(opt)]
+    lower_strike_price: Option<PyDecimal>,
+    /// Outstanding quantity
+    outstanding_qty: i64,
+    /// Outstanding ratio
+    outstanding_ratio: PyDecimal,
+    /// Premium
+    premium: PyDecimal,
+    /// In/out of the bound
+    #[py(opt)]
+    itm_otm: Option<PyDecimal>,
+    /// Implied volatility
+    #[py(opt)]
+    implied_volatility: Option<PyDecimal>,
+    /// Delta
+    #[py(opt)]
+    delta: Option<PyDecimal>,
+    /// Call price
+    #[py(opt)]
+    call_price: Option<PyDecimal>,
+    /// Price interval from the call price
+    #[py(opt)]
+    to_call_price: Option<PyDecimal>,
+    /// Effective leverage
+    #[py(opt)]
+    effective_leverage: Option<PyDecimal>,
+    /// Leverage ratio
+    leverage_ratio: PyDecimal,
+    /// Conversion ratio
+    #[py(opt)]
+    conversion_ratio: Option<PyDecimal>,
+    /// Breakeven point
+    #[py(opt)]
+    balance_point: Option<PyDecimal>,
+    /// Status
+    status: WarrantStatus,
+}
+
+/// Warrant status
+#[pyclass]
+#[derive(PyEnum, Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[py(remote = "longport::quote::WarrantStatus")]
+pub enum WarrantStatus {
+    /// Suspend
+    Suspend,
+    /// Prepare List
+    PrepareList,
+    /// Normal
+    Normal,
+}
+
 /// The information of trading session
 #[pyclass]
 #[derive(Debug, PyObject, Copy, Clone)]
@@ -970,7 +1140,7 @@ pub(crate) struct SecurityCalcIndex {
     change_value: Option<PyDecimal>,
     /// Change ratio
     #[py(opt)]
-    change_rate: Option<f64>,
+    change_rate: Option<PyDecimal>,
     /// Volume
     #[py(opt)]
     volume: Option<i64>,
@@ -979,10 +1149,10 @@ pub(crate) struct SecurityCalcIndex {
     turnover: Option<PyDecimal>,
     /// Year-to-date change ratio
     #[py(opt)]
-    ytd_change_rate: Option<f64>,
+    ytd_change_rate: Option<PyDecimal>,
     /// Turnover rate
     #[py(opt)]
-    turnover_rate: Option<f64>,
+    turnover_rate: Option<PyDecimal>,
     /// Total market value
     #[py(opt)]
     total_market_value: Option<PyDecimal>,
@@ -991,31 +1161,31 @@ pub(crate) struct SecurityCalcIndex {
     capital_flow: Option<PyDecimal>,
     /// Amplitude
     #[py(opt)]
-    amplitude: Option<f64>,
+    amplitude: Option<PyDecimal>,
     /// Volume ratio
     #[py(opt)]
-    volume_ratio: Option<f64>,
+    volume_ratio: Option<PyDecimal>,
     /// PE (TTM)
     #[py(opt)]
-    pe_ttm_ratio: Option<f64>,
+    pe_ttm_ratio: Option<PyDecimal>,
     /// PB
     #[py(opt)]
-    pb_ratio: Option<f64>,
+    pb_ratio: Option<PyDecimal>,
     /// Dividend ratio (TTM)
     #[py(opt)]
-    dividend_ratio_ttm: Option<f64>,
+    dividend_ratio_ttm: Option<PyDecimal>,
     /// Five days change ratio
     #[py(opt)]
-    five_day_change_rate: Option<f64>,
+    five_day_change_rate: Option<PyDecimal>,
     /// Ten days change ratio
     #[py(opt)]
-    ten_day_change_rate: Option<f64>,
+    ten_day_change_rate: Option<PyDecimal>,
     /// Half year change ratio
     #[py(opt)]
-    half_year_change_rate: Option<f64>,
+    half_year_change_rate: Option<PyDecimal>,
     /// Five minutes change ratio
     #[py(opt)]
-    five_minutes_change_rate: Option<f64>,
+    five_minutes_change_rate: Option<PyDecimal>,
     /// Expiry date
     #[py(opt)]
     expiry_date: Option<PyDateWrapper>,
@@ -1033,19 +1203,19 @@ pub(crate) struct SecurityCalcIndex {
     outstanding_qty: Option<i64>,
     /// Outstanding ratio
     #[py(opt)]
-    outstanding_ratio: Option<f64>,
+    outstanding_ratio: Option<PyDecimal>,
     /// Premium
     #[py(opt)]
-    premium: Option<f64>,
+    premium: Option<PyDecimal>,
     /// In/out of the bound
     #[py(opt)]
-    itm_otm: Option<f64>,
+    itm_otm: Option<PyDecimal>,
     /// Implied volatility
     #[py(opt)]
-    implied_volatility: Option<f64>,
+    implied_volatility: Option<PyDecimal>,
     /// Warrant delta
     #[py(opt)]
-    warrant_delta: Option<f64>,
+    warrant_delta: Option<PyDecimal>,
     /// Call price
     #[py(opt)]
     call_price: Option<PyDecimal>,
@@ -1054,32 +1224,32 @@ pub(crate) struct SecurityCalcIndex {
     to_call_price: Option<PyDecimal>,
     /// Effective leverage
     #[py(opt)]
-    effective_leverage: Option<f64>,
+    effective_leverage: Option<PyDecimal>,
     /// Leverage ratio
     #[py(opt)]
-    leverage_ratio: Option<f64>,
+    leverage_ratio: Option<PyDecimal>,
     /// Conversion ratio
     #[py(opt)]
-    conversion_ratio: Option<f64>,
+    conversion_ratio: Option<PyDecimal>,
     /// Breakeven point
     #[py(opt)]
-    balance_point: Option<f64>,
+    balance_point: Option<PyDecimal>,
     /// Open interest
     #[py(opt)]
     open_interest: Option<i64>,
     /// Delta
     #[py(opt)]
-    delta: Option<f64>,
+    delta: Option<PyDecimal>,
     /// Gamma
     #[py(opt)]
-    gamma: Option<f64>,
+    gamma: Option<PyDecimal>,
     /// Theta
     #[py(opt)]
-    theta: Option<f64>,
+    theta: Option<PyDecimal>,
     /// Vega
     #[py(opt)]
-    vega: Option<f64>,
+    vega: Option<PyDecimal>,
     /// Rho
     #[py(opt)]
-    rho: Option<f64>,
+    rho: Option<PyDecimal>,
 }

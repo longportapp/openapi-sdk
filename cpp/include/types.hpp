@@ -897,37 +897,37 @@ struct SecurityCalcIndex
   /// Change value
   std::optional<Decimal> change_value;
   /// Change ratio
-  std::optional<double> change_rate;
+  std::optional<Decimal> change_rate;
   /// Volume
   std::optional<int64_t> volume;
   /// Turnover
   std::optional<Decimal> turnover;
   /// Year-to-date change ratio
-  std::optional<double> ytd_change_rate;
+  std::optional<Decimal> ytd_change_rate;
   /// Turnover rate
-  std::optional<double> turnover_rate;
+  std::optional<Decimal> turnover_rate;
   /// Total market value
   std::optional<Decimal> total_market_value;
   /// Capital flow
   std::optional<Decimal> capital_flow;
   /// Amplitude
-  std::optional<double> amplitude;
+  std::optional<Decimal> amplitude;
   /// Volume ratio
-  std::optional<double> volume_ratio;
+  std::optional<Decimal> volume_ratio;
   /// PE (TTM)
-  std::optional<double> pe_ttm_ratio;
+  std::optional<Decimal> pe_ttm_ratio;
   /// PB
-  std::optional<double> pb_ratio;
+  std::optional<Decimal> pb_ratio;
   /// Dividend ratio (TTM)
-  std::optional<double> dividend_ratio_ttm;
+  std::optional<Decimal> dividend_ratio_ttm;
   /// Five days change ratio
-  std::optional<double> five_day_change_rate;
+  std::optional<Decimal> five_day_change_rate;
   /// Ten days change ratio
-  std::optional<double> ten_day_change_rate;
+  std::optional<Decimal> ten_day_change_rate;
   /// Half year change ratio
-  std::optional<double> half_year_change_rate;
+  std::optional<Decimal> half_year_change_rate;
   /// Five minutes change ratio
-  std::optional<double> five_minutes_change_rate;
+  std::optional<Decimal> five_minutes_change_rate;
   /// Expiry date
   std::optional<Date> expiry_date;
   /// Strike price
@@ -939,39 +939,185 @@ struct SecurityCalcIndex
   /// Outstanding quantity
   std::optional<int64_t> outstanding_qty;
   /// Outstanding ratio
-  std::optional<double> outstanding_ratio;
+  std::optional<Decimal> outstanding_ratio;
   /// Premium
-  std::optional<double> premium;
+  std::optional<Decimal> premium;
   /// In/out of the bound
-  std::optional<double> itm_otm;
+  std::optional<Decimal> itm_otm;
   /// Implied volatility
-  std::optional<double> implied_volatility;
+  std::optional<Decimal> implied_volatility;
   /// Warrant delta
-  std::optional<double> warrant_delta;
+  std::optional<Decimal> warrant_delta;
   /// Call price
   std::optional<Decimal> call_price;
   /// Price interval from the call price
   std::optional<Decimal> to_call_price;
   /// Effective leverage
-  std::optional<double> effective_leverage;
+  std::optional<Decimal> effective_leverage;
   /// Leverage ratio
-  std::optional<double> leverage_ratio;
+  std::optional<Decimal> leverage_ratio;
   /// Conversion ratio
-  std::optional<double> conversion_ratio;
+  std::optional<Decimal> conversion_ratio;
   /// Breakeven point
-  std::optional<double> balance_point;
+  std::optional<Decimal> balance_point;
   /// Open interest
   std::optional<int64_t> open_interest;
   /// Delta
-  std::optional<double> delta;
+  std::optional<Decimal> delta;
   /// Gamma
-  std::optional<double> gamma;
+  std::optional<Decimal> gamma;
   /// Theta
-  std::optional<double> theta;
+  std::optional<Decimal> theta;
   /// Vega
-  std::optional<double> vega;
+  std::optional<Decimal> vega;
   /// Rho
-  std::optional<double> rho;
+  std::optional<Decimal> rho;
+};
+
+/// Sort order type
+enum class SortOrderType
+{
+  /// Ascending
+  Ascending,
+  /// Descending
+  Descending,
+};
+
+/// Warrant sort by
+enum class WarrantSortBy
+{
+  /// Last done
+  LastDone,
+  /// Change rate
+  ChangeRate,
+  /// Change value
+  ChangeValue,
+  /// Volume
+  Volume,
+  /// Turnover
+  Turnover,
+  /// Expiry date
+  ExpiryDate,
+  /// Strike price
+  StrikePrice,
+  /// Upper strike price
+  UpperStrikePrice,
+  /// Lower strike price
+  LowerStrikePrice,
+  /// Outstanding quantity
+  OutstandingQuantity,
+  /// Outstanding ratio
+  OutstandingRatio,
+  /// Premium
+  Premium,
+  /// In/out of the bound
+  ItmOtm,
+  /// Implied volatility
+  ImpliedVolatility,
+  /// Greek value Delta
+  Delta,
+  /// Call price
+  CallPrice,
+  /// Price interval from the call price
+  ToCallPrice,
+  /// Effective leverage
+  EffectiveLeverage,
+  /// Leverage ratio
+  LeverageRatio,
+  /// Conversion ratio
+  ConversionRatio,
+  /// Breakeven point
+  BalancePoint,
+  /// Status
+  Status,
+};
+
+/// Filter warrant expiry date type
+enum class FilterWarrantExpiryDate
+{
+  /// Less than 3 months
+  LT_3,
+  /// 3 - 6 months
+  Between_3_6,
+  /// 6 - 12 months
+  Between_6_12,
+  /// Greater than 12 months
+  GT_12,
+};
+
+/// Filter warrant in/out of the bounds type
+enum class FilterWarrantInOutBoundsType
+{
+  /// In bounds
+  In,
+  /// Out bounds
+  Out,
+};
+
+/// Warrant status
+enum class WarrantStatus
+{
+  /// Suspend
+  Suspend,
+  /// Prepare List
+  PrepareList,
+  /// Normal
+  Normal,
+};
+
+/// Warrant info
+struct WarrantInfo
+{
+  /// Security code
+  std::string symbol;
+  /// Warrant type
+  WarrantType warrant_type;
+  /// Security name
+  std::string name;
+  /// Latest price
+  Decimal last_done;
+  /// Quote change rate
+  Decimal change_rate;
+  /// Quote change
+  Decimal change_value;
+  /// Volume
+  int64_t volume;
+  /// Turnover
+  Decimal turnover;
+  /// Expiry date
+  Date expiry_date;
+  /// Strike price
+  std::optional<Decimal> strike_price;
+  /// Upper strike price
+  std::optional<Decimal> upper_strike_price;
+  /// Lower strike price
+  std::optional<Decimal> lower_strike_price;
+  /// Outstanding quantity
+  int64_t outstanding_qty;
+  /// Outstanding ratio
+  Decimal outstanding_ratio;
+  /// Premium
+  Decimal premium;
+  /// In/out of the bound
+  std::optional<Decimal> itm_otm;
+  /// Implied volatility
+  std::optional<Decimal> implied_volatility;
+  /// Delta
+  std::optional<Decimal> delta;
+  /// Call price
+  std::optional<Decimal> call_price;
+  /// Price interval from the call price
+  std::optional<Decimal> to_call_price;
+  /// Effective leverage
+  std::optional<Decimal> effective_leverage;
+  /// Leverage ratio
+  Decimal leverage_ratio;
+  /// Conversion ratio
+  std::optional<Decimal> conversion_ratio;
+  /// Breakeven point
+  std::optional<Decimal> balance_point;
+  /// Status
+  WarrantStatus status;
 };
 
 } // namespace quote

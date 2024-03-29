@@ -5,8 +5,8 @@ use std::{
 
 // because we may call `is_cn` multi times in a short time, we cache the result
 thread_local! {
-    static LAST_PING: Cell<Option<Instant>> = Cell::new(None);
-    static LAST_PING_REGION: RefCell<String> = RefCell::new(String::new());
+    static LAST_PING: Cell<Option<Instant>> = const { Cell::new(None) };
+    static LAST_PING_REGION: RefCell<String> = const { RefCell::new(String::new()) };
 }
 
 fn region() -> Option<String> {
@@ -41,13 +41,10 @@ async fn ping() -> Option<String> {
     else {
         return None;
     };
-    let Some(region) = resp
+    let region = resp
         .headers()
         .get("X-Ip-Region")
-        .and_then(|v| v.to_str().ok())
-    else {
-        return None;
-    };
+        .and_then(|v| v.to_str().ok())?;
     LAST_PING.set(Some(Instant::now()));
     LAST_PING_REGION.replace(region.to_string());
     Some(region.to_string())

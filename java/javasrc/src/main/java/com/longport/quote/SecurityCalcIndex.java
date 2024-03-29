@@ -11,37 +11,37 @@ public class SecurityCalcIndex {
     /// Change value
     private BigDecimal changeValue;
     /// Change ratio
-    private double changeRate;
+    private BigDecimal changeRate;
     /// Volume
     private long volume;
     /// Turnover
     private BigDecimal turnover;
     /// Year-to-date change ratio
-    private double ytdChangeRate;
+    private BigDecimal ytdChangeRate;
     /// Turnover rate
-    private double turnoverRate;
+    private BigDecimal turnoverRate;
     /// Total market value
     private BigDecimal totalMarketValue;
     /// Capital flow
     private BigDecimal capitalFlow;
     /// Amplitude
-    private double amplitude;
+    private BigDecimal amplitude;
     /// Volume ratio
-    private double volumeRatio;
+    private BigDecimal volumeRatio;
     /// PE (TTM)
-    private double peTtmRatio;
+    private BigDecimal peTtmRatio;
     /// PB
-    private double pbRatio;
+    private BigDecimal pbRatio;
     /// Dividend ratio (TTM)
-    private double dividendRatioTtm;
+    private BigDecimal dividendRatioTtm;
     /// Five days change ratio
-    private double fiveDayChangeRate;
+    private BigDecimal fiveDayChangeRate;
     /// Ten days change ratio
-    private double tenDayChangeRate;
+    private BigDecimal tenDayChangeRate;
     /// Half year change ratio
-    private double halfYearChangeRate;
+    private BigDecimal halfYearChangeRate;
     /// Five minutes change ratio
-    private double fiveMinutesChangeRate;
+    private BigDecimal fiveMinutesChangeRate;
     /// Expiry date
     private LocalDate expiryDate;
     /// Strike price
@@ -53,39 +53,39 @@ public class SecurityCalcIndex {
     /// Outstanding quantity
     private long outstandingQty;
     /// Outstanding ratio
-    private double outstandingRatio;
+    private BigDecimal outstandingRatio;
     /// Premium
-    private double premium;
+    private BigDecimal premium;
     /// In/out of the bound
-    private double itmOtm;
+    private BigDecimal itmOtm;
     /// Implied volatility
-    private double impliedVolatility;
+    private BigDecimal impliedVolatility;
     /// Warrant delta
-    private double warrantDelta;
+    private BigDecimal warrantDelta;
     /// Call price
     private BigDecimal callPrice;
     /// Price interval from the call price
     private BigDecimal toCallPrice;
     /// Effective leverage
-    private double effectiveLeverage;
+    private BigDecimal effectiveLeverage;
     /// Leverage ratio
-    private double leverageRatio;
+    private BigDecimal leverageRatio;
     /// Conversion ratio
-    private double conversionRatio;
+    private BigDecimal conversionRatio;
     /// Breakeven point
-    private double balancePoint;
+    private BigDecimal balancePoint;
     /// Open interest
     private long openInterest;
     /// Delta
-    private double delta;
+    private BigDecimal delta;
     /// Gamma
-    private double gamma;
+    private BigDecimal gamma;
     /// Theta
-    private double theta;
+    private BigDecimal theta;
     /// Vega
-    private double vega;
+    private BigDecimal vega;
     /// Rho
-    private double rho;
+    private BigDecimal rho;
 
     public String getSymbol() {
         return symbol;
@@ -99,7 +99,7 @@ public class SecurityCalcIndex {
         return changeValue;
     }
 
-    public double getChangeRate() {
+    public BigDecimal getChangeRate() {
         return changeRate;
     }
 
@@ -111,11 +111,11 @@ public class SecurityCalcIndex {
         return turnover;
     }
 
-    public double getYtdChangeRate() {
+    public BigDecimal getYtdChangeRate() {
         return ytdChangeRate;
     }
 
-    public double getTurnoverRate() {
+    public BigDecimal getTurnoverRate() {
         return turnoverRate;
     }
 
@@ -127,39 +127,39 @@ public class SecurityCalcIndex {
         return capitalFlow;
     }
 
-    public double getAmplitude() {
+    public BigDecimal getAmplitude() {
         return amplitude;
     }
 
-    public double getVolumeRatio() {
+    public BigDecimal getVolumeRatio() {
         return volumeRatio;
     }
 
-    public double getPeTtmRatio() {
+    public BigDecimal getPeTtmRatio() {
         return peTtmRatio;
     }
 
-    public double getPbRatio() {
+    public BigDecimal getPbRatio() {
         return pbRatio;
     }
 
-    public double getDividendRatioTtm() {
+    public BigDecimal getDividendRatioTtm() {
         return dividendRatioTtm;
     }
 
-    public double getFiveDayChangeRate() {
+    public BigDecimal getFiveDayChangeRate() {
         return fiveDayChangeRate;
     }
 
-    public double getTenDayChangeRate() {
+    public BigDecimal getTenDayChangeRate() {
         return tenDayChangeRate;
     }
 
-    public double getHalfYearChangeRate() {
+    public BigDecimal getHalfYearChangeRate() {
         return halfYearChangeRate;
     }
 
-    public double getFiveMinutesChangeRate() {
+    public BigDecimal getFiveMinutesChangeRate() {
         return fiveMinutesChangeRate;
     }
 
@@ -183,23 +183,23 @@ public class SecurityCalcIndex {
         return outstandingQty;
     }
 
-    public double getOutstandingRatio() {
+    public BigDecimal getOutstandingRatio() {
         return outstandingRatio;
     }
 
-    public double getPremium() {
+    public BigDecimal getPremium() {
         return premium;
     }
 
-    public double getItmOtm() {
+    public BigDecimal getItmOtm() {
         return itmOtm;
     }
 
-    public double getImpliedVolatility() {
+    public BigDecimal getImpliedVolatility() {
         return impliedVolatility;
     }
 
-    public double getWarrantDelta() {
+    public BigDecimal getWarrantDelta() {
         return warrantDelta;
     }
 
@@ -211,19 +211,19 @@ public class SecurityCalcIndex {
         return toCallPrice;
     }
 
-    public double getEffectiveLeverage() {
+    public BigDecimal getEffectiveLeverage() {
         return effectiveLeverage;
     }
 
-    public double getLeverageRatio() {
+    public BigDecimal getLeverageRatio() {
         return leverageRatio;
     }
 
-    public double getConversionRatio() {
+    public BigDecimal getConversionRatio() {
         return conversionRatio;
     }
 
-    public double getBalancePoint() {
+    public BigDecimal getBalancePoint() {
         return balancePoint;
     }
 
@@ -231,23 +231,23 @@ public class SecurityCalcIndex {
         return openInterest;
     }
 
-    public double getDelta() {
+    public BigDecimal getDelta() {
         return delta;
     }
 
-    public double getGamma() {
+    public BigDecimal getGamma() {
         return gamma;
     }
 
-    public double getTheta() {
+    public BigDecimal getTheta() {
         return theta;
     }
 
-    public double getVega() {
+    public BigDecimal getVega() {
         return vega;
     }
 
-    public double getRho() {
+    public BigDecimal getRho() {
         return rho;
     }
 
@@ -269,4 +269,5 @@ public class SecurityCalcIndex {
                 + balancePoint + ", openInterest=" + openInterest + ", delta=" + delta + ", gamma=" + gamma + ", theta="
                 + theta + ", vega=" + vega + ", rho=" + rho + "]";
     }
+
 }

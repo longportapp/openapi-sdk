@@ -41,6 +41,13 @@ pub(crate) fn register_types(parent: &PyModule) -> PyResult<()> {
     parent.add_class::<types::WatchlistSecurity>()?;
     parent.add_class::<types::WatchlistGroup>()?;
     parent.add_class::<types::SecuritiesUpdateMode>()?;
+    parent.add_class::<types::WarrantInfo>()?;
+    parent.add_class::<types::WarrantStatus>()?;
+    parent.add_class::<types::WarrantType>()?;
+    parent.add_class::<types::SortOrderType>()?;
+    parent.add_class::<types::WarrantSortBy>()?;
+    parent.add_class::<types::FilterWarrantExpiryDate>()?;
+    parent.add_class::<types::FilterWarrantInOutBoundsType>()?;
 
     parent.add_class::<context::QuoteContext>()?;
     Ok(())

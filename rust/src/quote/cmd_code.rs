@@ -52,6 +52,9 @@ pub(crate) const GET_OPTION_CHAIN_INFO_BY_DATE: u8 = 21;
 /// Get Warrant Issuer IDs
 pub(crate) const GET_WARRANT_ISSUER_IDS: u8 = 22;
 
+/// Get Filtered Warrant
+pub(crate) const GET_FILTERED_WARRANT: u8 = 23;
+
 /// Get Security Capital Flow Intraday
 pub(crate) const GET_CAPITAL_FLOW_INTRADAY: u8 = 24;
 

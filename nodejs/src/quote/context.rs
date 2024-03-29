@@ -14,10 +14,12 @@ use crate::{
         requests::{CreateWatchlistGroup, DeleteWatchlistGroup, UpdateWatchlistGroup},
         types::{
             AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
-            IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
-            ParticipantInfo, Period, RealtimeQuote, SecurityBrokers, SecurityCalcIndex,
-            SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, SubType, SubTypes,
-            Subscription, Trade, WarrantQuote, WatchlistGroup,
+            FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, IntradayLine, IssuerInfo,
+            MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
+            RealtimeQuote, SecurityBrokers, SecurityCalcIndex, SecurityDepth, SecurityQuote,
+            SecurityStaticInfo, SortOrderType, StrikePriceInfo, SubType, SubTypes, Subscription,
+            Trade, WarrantInfo, WarrantQuote, WarrantSortBy, WarrantStatus, WarrantType,
+            WatchlistGroup,
         },
     },
     time::{NaiveDate, NaiveDatetime},
@@ -691,6 +693,59 @@ impl QuoteContext {
             .collect()
     }
 
+    /// Query warrant list
+    ///
+    /// #### Example
+    /// ```javascript
+    /// const { Config, QuoteContext, WarrantSortBy, SortOrderType } = require("longport")
+    /// let config = Config.fromEnv()
+    /// QuoteContext.new(config)
+    ///  .then((ctx) => ctx.warrantList("700.HK", WarrantSortBy.LastDone, SortOrderType.Asc))
+    /// .then((resp) => {
+    ///  for (let obj of resp) {
+    ///   console.log(obj.toString())
+    /// }
+    /// })
+    /// ```
+    #[napi]
+    #[allow(clippy::too_many_arguments)]
+    pub async fn warrant_list(
+        &self,
+        symbol: String,
+        sort_by: WarrantSortBy,
+        sort_order: SortOrderType,
+        warrant_type: Option<Vec<WarrantType>>,
+        issuer: Option<Vec<i32>>,
+        expiry_date: Option<Vec<FilterWarrantExpiryDate>>,
+        price_type: Option<Vec<FilterWarrantInOutBoundsType>>,
+        status: Option<Vec<WarrantStatus>>,
+    ) -> Result<Vec<WarrantInfo>> {
+        let warrant_type: Option<Vec<longport::quote::WarrantType>> =
+            warrant_type.map(|v| v.into_iter().map(Into::into).collect());
+        let expiry_date: Option<Vec<longport::quote::FilterWarrantExpiryDate>> =
+            expiry_date.map(|v| v.into_iter().map(Into::into).collect());
+        let price_type: Option<Vec<longport::quote::FilterWarrantInOutBoundsType>> =
+            price_type.map(|v| v.into_iter().map(Into::into).collect());
+        let status: Option<Vec<longport::quote::WarrantStatus>> =
+            status.map(|v| v.into_iter().map(Into::into).collect());
+        self.ctx
+            .warrant_list(
+                symbol,
+                sort_by.into(),
+                sort_order.into(),
+                warrant_type.as_deref(),
+                issuer.as_deref(),
+                expiry_date.as_deref(),
+                price_type.as_deref(),
+                status.as_deref(),
+            )
+            .await
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
+    }
+
     /// Get trading session of the day
     ///
     /// #### Example
@@ -795,9 +850,7 @@ impl QuoteContext {
             .try_into()
     }
 
-    /// Get watchlist
-    ///
-    /// Deprecated: use `watchlist` instead
+    /// Get calc indexes
     #[napi]
     pub async fn calc_indexes(
         &self,
@@ -811,14 +864,6 @@ impl QuoteContext {
             .into_iter()
             .map(TryInto::try_into)
             .collect()
-    }
-
-    /// Get watchlist
-    ///
-    /// Deprecated: use `watchlist` instead
-    #[napi]
-    pub async fn watch_list(&self) -> Result<Vec<WatchlistGroup>> {
-        self.watchlist().await
     }
 
     /// Get watchlist

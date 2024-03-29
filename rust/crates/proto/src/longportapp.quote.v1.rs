@@ -479,8 +479,10 @@ pub struct FilterWarrant {
     pub conversion_ratio: ::prost::alloc::string::String,
     #[prost(string, tag="23")]
     pub balance_point: ::prost::alloc::string::String,
-    #[prost(string, tag="24")]
-    pub state: ::prost::alloc::string::String,
+    #[prost(int32, tag="24")]
+    pub status: i32,
+    #[prost(int32, tag="25")]
+    pub r#type: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarketTradePeriodResponse {

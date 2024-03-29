@@ -45,6 +45,7 @@ impl ToFFI for i64 {
 impl<T> ToFFI for *const *const T {
     type FFIType = *const T;
 
+    #[inline]
     fn to_ffi_type(&self) -> Self::FFIType {
         if self.is_null() {
             std::ptr::null()

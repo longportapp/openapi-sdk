@@ -18,12 +18,14 @@ pub use push_types::{
 pub use sub_flags::SubFlags;
 pub use types::{
     Brokers, CalcIndex, Candlestick, CapitalDistribution, CapitalDistributionResponse,
-    CapitalFlowLine, Depth, DerivativeType, IntradayLine, IssuerInfo, MarketTradingDays,
-    MarketTradingSession, OptionDirection, OptionQuote, OptionType, ParticipantInfo, PrePostQuote,
-    RealtimeQuote, RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, SecuritiesUpdateMode,
-    SecurityBoard, SecurityBrokers, SecurityCalcIndex, SecurityDepth, SecurityQuote,
-    SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, TradeDirection, TradingSessionInfo,
-    WarrantQuote, WarrantType, WatchlistGroup, WatchlistSecurity,
+    CapitalFlowLine, Depth, DerivativeType, FilterWarrantExpiryDate, FilterWarrantInOutBoundsType,
+    IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionDirection,
+    OptionQuote, OptionType, ParticipantInfo, PrePostQuote, RealtimeQuote,
+    RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, SecuritiesUpdateMode, SecurityBoard,
+    SecurityBrokers, SecurityCalcIndex, SecurityDepth, SecurityQuote, SecurityStaticInfo,
+    SortOrderType, StrikePriceInfo, Subscription, Trade, TradeDirection, TradingSessionInfo,
+    WarrantInfo, WarrantQuote, WarrantSortBy, WarrantStatus, WarrantType, WatchlistGroup,
+    WatchlistSecurity,
 };
 // pub use types::{FilterWarrantExpiryDate,
 // FilterWarrantStatus,Language,SortType};

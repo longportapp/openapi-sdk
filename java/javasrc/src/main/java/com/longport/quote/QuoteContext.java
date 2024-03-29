@@ -798,19 +798,6 @@ public class QuoteContext implements AutoCloseable {
     /**
      * Get watchlist
      * 
-     * Deprecated: Use `getWatchlist` instead
-     */
-    @Deprecated
-    public CompletableFuture<WatchlistGroup[]> getWatchList()
-            throws OpenApiException {
-        return AsyncCallback.executeTask((callback) -> {
-            SdkNative.quoteContextWatchlist(this.raw, callback);
-        });
-    }
-
-    /**
-     * Get watchlist
-     * 
      * <pre>
      * {@code
      * import com.longport.*;

@@ -19,7 +19,10 @@ use crate::{
     callback::{CFreeUserDataFunc, Callback},
     config::CConfig,
     quote_context::{
-        enum_types::{CAdjustType, CCalcIndex, CPeriod},
+        enum_types::{
+            CAdjustType, CCalcIndex, CFilterWarrantExpiryDate, CFilterWarrantInOutBoundsType,
+            CPeriod, CSortOrderType, CWarrantSortBy, CWarrantStatus, CWarrantType,
+        },
         types::{
             CCandlestickOwned, CCapitalDistributionResponseOwned, CCapitalFlowLineOwned,
             CCreateWatchlistGroup, CIntradayLineOwned, CIssuerInfoOwned, CMarketTradingDaysOwned,
@@ -29,7 +32,7 @@ use crate::{
             CRealtimeQuoteOwned, CSecurityBrokersOwned, CSecurityCalcIndexOwned,
             CSecurityDepthOwned, CSecurityQuoteOwned, CSecurityStaticInfoOwned,
             CStrikePriceInfoOwned, CSubscriptionOwned, CTradeOwned, CUpdateWatchlistGroup,
-            CWarrantQuoteOwned, CWatchlistGroupOwned, LB_WATCHLIST_GROUP_NAME,
+            CWarrantInfoOwned, CWarrantQuoteOwned, CWatchlistGroupOwned, LB_WATCHLIST_GROUP_NAME,
             LB_WATCHLIST_GROUP_SECURITIES,
         },
     },
@@ -726,6 +729,69 @@ pub unsafe extern "C" fn lb_quote_context_warrant_issuers(
     });
 }
 
+/// Query warrant list
+#[no_mangle]
+pub unsafe extern "C" fn lb_quote_context_warrant_list(
+    ctx: *const CQuoteContext,
+    symbol: *const c_char,
+    sort_by: CWarrantSortBy,
+    sort_order: CSortOrderType,
+    warrant_type: *const CWarrantType,
+    num_warrant_type: usize,
+    issuer: *const i32,
+    num_issuer: usize,
+    expiry_date: *const CFilterWarrantExpiryDate,
+    num_expiry_date: usize,
+    price_type: *const CFilterWarrantInOutBoundsType,
+    num_price_type: usize,
+    status: *const CWarrantStatus,
+    num_status: usize,
+    callback: CAsyncCallback,
+    userdata: *mut c_void,
+) {
+    let ctx_inner = (*ctx).ctx.clone();
+    let symbol = cstr_to_rust(symbol);
+    let sort_by = sort_by.into();
+    let sort_order = sort_order.into();
+    let warrant_type = std::slice::from_raw_parts(warrant_type, num_warrant_type)
+        .iter()
+        .copied()
+        .map(Into::into)
+        .collect::<Vec<_>>();
+    let issuer = std::slice::from_raw_parts(issuer, num_issuer).to_vec();
+    let expiry_date = std::slice::from_raw_parts(expiry_date, num_expiry_date)
+        .iter()
+        .copied()
+        .map(Into::into)
+        .collect::<Vec<_>>();
+    let price_type = std::slice::from_raw_parts(price_type, num_price_type)
+        .iter()
+        .copied()
+        .map(Into::into)
+        .collect::<Vec<_>>();
+    let status = std::slice::from_raw_parts(status, num_status)
+        .iter()
+        .copied()
+        .map(Into::into)
+        .collect::<Vec<_>>();
+    execute_async(callback, ctx, userdata, async move {
+        let rows: CVec<CWarrantInfoOwned> = ctx_inner
+            .warrant_list(
+                symbol,
+                sort_by,
+                sort_order,
+                Some(&warrant_type),
+                Some(&issuer),
+                Some(&expiry_date),
+                Some(&price_type),
+                Some(&status),
+            )
+            .await?
+            .into();
+        Ok(rows)
+    });
+}
+
 /// Get trading session of the day
 #[no_mangle]
 pub unsafe extern "C" fn lb_quote_context_trading_session(
@@ -818,18 +884,6 @@ pub unsafe extern "C" fn lb_quote_context_calc_indexes(
             ctx_inner.calc_indexes(symbols, indexes).await?.into();
         Ok(resp)
     });
-}
-
-/// Get watchlist
-///
-/// Deprecated, use `lb_quote_context_watchlist` instead.
-#[no_mangle]
-pub unsafe extern "C" fn lb_quote_context_watch_list(
-    ctx: *const CQuoteContext,
-    callback: CAsyncCallback,
-    userdata: *mut c_void,
-) {
-    lb_quote_context_watchlist(ctx, callback, userdata);
 }
 
 /// Get watchlist

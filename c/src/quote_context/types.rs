@@ -7,13 +7,13 @@ use longport::quote::{
     PushDepth, PushQuote, PushTrades, RealtimeQuote, SecurityBoard, SecurityBrokers,
     SecurityCalcIndex, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
     Subscription, Trade, TradeDirection, TradeSession, TradeStatus, TradingSessionInfo,
-    WarrantQuote, WarrantType, WatchlistGroup, WatchlistSecurity,
+    WarrantInfo, WarrantQuote, WarrantType, WatchlistGroup, WatchlistSecurity,
 };
 
 use crate::{
     quote_context::enum_types::{
         COptionDirection, COptionType, CPeriod, CSecuritiesUpdateMode, CSecurityBoard,
-        CTradeDirection, CTradeSession, CTradeStatus, CWarrantType,
+        CTradeDirection, CTradeSession, CTradeStatus, CWarrantStatus, CWarrantType,
     },
     types::{CDate, CDecimal, CMarket, COption, CString, CTime, CVec, ToFFI},
 };
@@ -2148,37 +2148,37 @@ pub struct CSecurityCalcIndex {
     /// Change value
     pub change_value: *const CDecimal,
     /// Change ratio
-    pub change_rate: *const f64,
+    pub change_rate: *const CDecimal,
     /// Volume
     pub volume: *const i64,
     /// Turnover
     pub turnover: *const CDecimal,
     /// Year-to-date change ratio
-    pub ytd_change_rate: *const f64,
+    pub ytd_change_rate: *const CDecimal,
     /// Turnover rate
-    pub turnover_rate: *const f64,
+    pub turnover_rate: *const CDecimal,
     /// Total market value
     pub total_market_value: *const CDecimal,
     /// Capital flow
     pub capital_flow: *const CDecimal,
     /// Amplitude
-    pub amplitude: *const f64,
+    pub amplitude: *const CDecimal,
     /// Volume ratio
-    pub volume_ratio: *const f64,
+    pub volume_ratio: *const CDecimal,
     /// PE (TTM)
-    pub pe_ttm_ratio: *const f64,
+    pub pe_ttm_ratio: *const CDecimal,
     /// PB
-    pub pb_ratio: *const f64,
+    pub pb_ratio: *const CDecimal,
     /// Dividend ratio (TTM)
-    pub dividend_ratio_ttm: *const f64,
+    pub dividend_ratio_ttm: *const CDecimal,
     /// Five days change ratio
-    pub five_day_change_rate: *const f64,
+    pub five_day_change_rate: *const CDecimal,
     /// Ten days change ratio
-    pub ten_day_change_rate: *const f64,
+    pub ten_day_change_rate: *const CDecimal,
     /// Half year change ratio
-    pub half_year_change_rate: *const f64,
+    pub half_year_change_rate: *const CDecimal,
     /// Five minutes change ratio
-    pub five_minutes_change_rate: *const f64,
+    pub five_minutes_change_rate: *const CDecimal,
     /// Expiry date
     pub expiry_date: *const CDate,
     /// Strike price
@@ -2190,39 +2190,39 @@ pub struct CSecurityCalcIndex {
     /// Outstanding quantity
     pub outstanding_qty: *const i64,
     /// Outstanding ratio
-    pub outstanding_ratio: *const f64,
+    pub outstanding_ratio: *const CDecimal,
     /// Premium
-    pub premium: *const f64,
+    pub premium: *const CDecimal,
     /// In/out of the bound
-    pub itm_otm: *const f64,
+    pub itm_otm: *const CDecimal,
     /// Implied volatility
-    pub implied_volatility: *const f64,
+    pub implied_volatility: *const CDecimal,
     /// Warrant delta
-    pub warrant_delta: *const f64,
+    pub warrant_delta: *const CDecimal,
     /// Call price
     pub call_price: *const CDecimal,
     /// Price interval from the call price
     pub to_call_price: *const CDecimal,
     /// Effective leverage
-    pub effective_leverage: *const f64,
+    pub effective_leverage: *const CDecimal,
     /// Leverage ratio
-    pub leverage_ratio: *const f64,
+    pub leverage_ratio: *const CDecimal,
     /// Conversion ratio
-    pub conversion_ratio: *const f64,
+    pub conversion_ratio: *const CDecimal,
     /// Breakeven point
-    pub balance_point: *const f64,
+    pub balance_point: *const CDecimal,
     /// Open interest
     pub open_interest: *const i64,
     /// Delta
-    pub delta: *const f64,
+    pub delta: *const CDecimal,
     /// Gamma
-    pub gamma: *const f64,
+    pub gamma: *const CDecimal,
     /// Theta
-    pub theta: *const f64,
+    pub theta: *const CDecimal,
     /// Vega
-    pub vega: *const f64,
+    pub vega: *const CDecimal,
     /// Rho
-    pub rho: *const f64,
+    pub rho: *const CDecimal,
 }
 
 pub(crate) struct CSecurityCalcIndexOwned {
@@ -2233,37 +2233,37 @@ pub(crate) struct CSecurityCalcIndexOwned {
     /// Change value
     change_value: COption<CDecimal>,
     /// Change ratio
-    change_rate: COption<f64>,
+    change_rate: COption<CDecimal>,
     /// Volume
     volume: COption<i64>,
     /// Turnover
     turnover: COption<CDecimal>,
     /// Year-to-date change ratio
-    ytd_change_rate: COption<f64>,
+    ytd_change_rate: COption<CDecimal>,
     /// Turnover rate
-    turnover_rate: COption<f64>,
+    turnover_rate: COption<CDecimal>,
     /// Total market value
     total_market_value: COption<CDecimal>,
     /// Capital flow
     capital_flow: COption<CDecimal>,
     /// Amplitude
-    amplitude: COption<f64>,
+    amplitude: COption<CDecimal>,
     /// Volume ratio
-    volume_ratio: COption<f64>,
+    volume_ratio: COption<CDecimal>,
     /// PE (TTM)
-    pe_ttm_ratio: COption<f64>,
+    pe_ttm_ratio: COption<CDecimal>,
     /// PB
-    pb_ratio: COption<f64>,
+    pb_ratio: COption<CDecimal>,
     /// Dividend ratio (TTM)
-    dividend_ratio_ttm: COption<f64>,
+    dividend_ratio_ttm: COption<CDecimal>,
     /// Five days change ratio
-    five_day_change_rate: COption<f64>,
+    five_day_change_rate: COption<CDecimal>,
     /// Ten days change ratio
-    ten_day_change_rate: COption<f64>,
+    ten_day_change_rate: COption<CDecimal>,
     /// Half year change ratio
-    half_year_change_rate: COption<f64>,
+    half_year_change_rate: COption<CDecimal>,
     /// Five minutes change ratio
-    five_minutes_change_rate: COption<f64>,
+    five_minutes_change_rate: COption<CDecimal>,
     /// Expiry date
     expiry_date: COption<CDate>,
     /// Strike price
@@ -2275,39 +2275,39 @@ pub(crate) struct CSecurityCalcIndexOwned {
     /// Outstanding quantity
     outstanding_qty: COption<i64>,
     /// Outstanding ratio
-    outstanding_ratio: COption<f64>,
+    outstanding_ratio: COption<CDecimal>,
     /// Premium
-    premium: COption<f64>,
+    premium: COption<CDecimal>,
     /// In/out of the bound
-    itm_otm: COption<f64>,
+    itm_otm: COption<CDecimal>,
     /// Implied volatility
-    implied_volatility: COption<f64>,
+    implied_volatility: COption<CDecimal>,
     /// Warrant delta
-    warrant_delta: COption<f64>,
+    warrant_delta: COption<CDecimal>,
     /// Call price
     call_price: COption<CDecimal>,
     /// Price interval from the call price
     to_call_price: COption<CDecimal>,
     /// Effective leverage
-    effective_leverage: COption<f64>,
+    effective_leverage: COption<CDecimal>,
     /// Leverage ratio
-    leverage_ratio: COption<f64>,
+    leverage_ratio: COption<CDecimal>,
     /// Conversion ratio
-    conversion_ratio: COption<f64>,
+    conversion_ratio: COption<CDecimal>,
     /// Breakeven point
-    balance_point: COption<f64>,
+    balance_point: COption<CDecimal>,
     /// Open interest
     open_interest: COption<i64>,
     /// Delta
-    delta: COption<f64>,
+    delta: COption<CDecimal>,
     /// Gamma
-    gamma: COption<f64>,
+    gamma: COption<CDecimal>,
     /// Theta
-    theta: COption<f64>,
+    theta: COption<CDecimal>,
     /// Vega
-    vega: COption<f64>,
+    vega: COption<CDecimal>,
     /// Rho
-    rho: COption<f64>,
+    rho: COption<CDecimal>,
 }
 
 impl From<SecurityCalcIndex> for CSecurityCalcIndexOwned {
@@ -2452,44 +2452,305 @@ impl ToFFI for CSecurityCalcIndexOwned {
             symbol: symbol.to_ffi_type(),
             last_done: last_done.to_ffi_type().to_ffi_type(),
             change_value: change_value.to_ffi_type().to_ffi_type(),
-            change_rate: change_rate.to_ffi_type(),
+            change_rate: change_rate.to_ffi_type().to_ffi_type(),
             volume: volume.to_ffi_type(),
             turnover: turnover.to_ffi_type().to_ffi_type(),
-            ytd_change_rate: ytd_change_rate.to_ffi_type(),
-            turnover_rate: turnover_rate.to_ffi_type(),
+            ytd_change_rate: ytd_change_rate.to_ffi_type().to_ffi_type(),
+            turnover_rate: turnover_rate.to_ffi_type().to_ffi_type(),
             total_market_value: total_market_value.to_ffi_type().to_ffi_type(),
             capital_flow: capital_flow.to_ffi_type().to_ffi_type(),
-            amplitude: amplitude.to_ffi_type(),
-            volume_ratio: volume_ratio.to_ffi_type(),
-            pe_ttm_ratio: pe_ttm_ratio.to_ffi_type(),
-            pb_ratio: pb_ratio.to_ffi_type(),
-            dividend_ratio_ttm: dividend_ratio_ttm.to_ffi_type(),
-            five_day_change_rate: five_day_change_rate.to_ffi_type(),
-            ten_day_change_rate: ten_day_change_rate.to_ffi_type(),
-            half_year_change_rate: half_year_change_rate.to_ffi_type(),
-            five_minutes_change_rate: five_minutes_change_rate.to_ffi_type(),
+            amplitude: amplitude.to_ffi_type().to_ffi_type(),
+            volume_ratio: volume_ratio.to_ffi_type().to_ffi_type(),
+            pe_ttm_ratio: pe_ttm_ratio.to_ffi_type().to_ffi_type(),
+            pb_ratio: pb_ratio.to_ffi_type().to_ffi_type(),
+            dividend_ratio_ttm: dividend_ratio_ttm.to_ffi_type().to_ffi_type(),
+            five_day_change_rate: five_day_change_rate.to_ffi_type().to_ffi_type(),
+            ten_day_change_rate: ten_day_change_rate.to_ffi_type().to_ffi_type(),
+            half_year_change_rate: half_year_change_rate.to_ffi_type().to_ffi_type(),
+            five_minutes_change_rate: five_minutes_change_rate.to_ffi_type().to_ffi_type(),
             expiry_date: expiry_date.to_ffi_type(),
             strike_price: strike_price.to_ffi_type().to_ffi_type(),
             upper_strike_price: upper_strike_price.to_ffi_type().to_ffi_type(),
             lower_strike_price: lower_strike_price.to_ffi_type().to_ffi_type(),
             outstanding_qty: outstanding_qty.to_ffi_type(),
-            outstanding_ratio: outstanding_ratio.to_ffi_type(),
-            premium: premium.to_ffi_type(),
-            itm_otm: itm_otm.to_ffi_type(),
-            implied_volatility: implied_volatility.to_ffi_type(),
-            warrant_delta: warrant_delta.to_ffi_type(),
+            outstanding_ratio: outstanding_ratio.to_ffi_type().to_ffi_type(),
+            premium: premium.to_ffi_type().to_ffi_type(),
+            itm_otm: itm_otm.to_ffi_type().to_ffi_type(),
+            implied_volatility: implied_volatility.to_ffi_type().to_ffi_type(),
+            warrant_delta: warrant_delta.to_ffi_type().to_ffi_type(),
             call_price: call_price.to_ffi_type().to_ffi_type(),
             to_call_price: to_call_price.to_ffi_type().to_ffi_type(),
-            effective_leverage: effective_leverage.to_ffi_type(),
-            leverage_ratio: leverage_ratio.to_ffi_type(),
-            conversion_ratio: conversion_ratio.to_ffi_type(),
-            balance_point: balance_point.to_ffi_type(),
+            effective_leverage: effective_leverage.to_ffi_type().to_ffi_type(),
+            leverage_ratio: leverage_ratio.to_ffi_type().to_ffi_type(),
+            conversion_ratio: conversion_ratio.to_ffi_type().to_ffi_type(),
+            balance_point: balance_point.to_ffi_type().to_ffi_type(),
             open_interest: open_interest.to_ffi_type(),
-            delta: delta.to_ffi_type(),
-            gamma: gamma.to_ffi_type(),
-            theta: theta.to_ffi_type(),
-            vega: vega.to_ffi_type(),
-            rho: rho.to_ffi_type(),
+            delta: delta.to_ffi_type().to_ffi_type(),
+            gamma: gamma.to_ffi_type().to_ffi_type(),
+            theta: theta.to_ffi_type().to_ffi_type(),
+            vega: vega.to_ffi_type().to_ffi_type(),
+            rho: rho.to_ffi_type().to_ffi_type(),
+        }
+    }
+}
+
+/// Warrant info
+#[repr(C)]
+pub struct CWarrantInfo {
+    /// Security code
+    pub symbol: *const c_char,
+    /// Warrant type
+    pub warrant_type: CWarrantType,
+    /// Security name
+    pub name: *const c_char,
+    /// Latest price
+    pub last_done: *const CDecimal,
+    /// Quote change rate
+    pub change_rate: *const CDecimal,
+    /// Quote change
+    pub change_value: *const CDecimal,
+    /// Volume
+    pub volume: i64,
+    /// Turnover
+    pub turnover: *const CDecimal,
+    /// Expiry date
+    pub expiry_date: CDate,
+    /// Strike price
+    pub strike_price: *const CDecimal,
+    /// Upper strike price
+    pub upper_strike_price: *const CDecimal,
+    /// Lower strike price
+    pub lower_strike_price: *const CDecimal,
+    /// Outstanding quantity
+    pub outstanding_qty: i64,
+    /// Outstanding ratio
+    pub outstanding_ratio: *const CDecimal,
+    /// Premium
+    pub premium: *const CDecimal,
+    /// In/out of the bound
+    pub itm_otm: *const CDecimal,
+    /// Implied volatility
+    pub implied_volatility: *const CDecimal,
+    /// Delta
+    pub delta: *const CDecimal,
+    /// Call price
+    pub call_price: *const CDecimal,
+    /// Price interval from the call price
+    pub to_call_price: *const CDecimal,
+    /// Effective leverage
+    pub effective_leverage: *const CDecimal,
+    /// Leverage ratio
+    pub leverage_ratio: *const CDecimal,
+    /// Conversion ratio
+    pub conversion_ratio: *const CDecimal,
+    /// Breakeven point
+    pub balance_point: *const CDecimal,
+    /// Status
+    pub status: CWarrantStatus,
+}
+
+pub(crate) struct CWarrantInfoOwned {
+    /// Security code
+    pub symbol: CString,
+    /// Warrant type
+    pub warrant_type: CWarrantType,
+    /// Security name
+    pub name: CString,
+    /// Latest price
+    pub last_done: CDecimal,
+    /// Quote change rate
+    pub change_rate: CDecimal,
+    /// Quote change
+    pub change_value: CDecimal,
+    /// Volume
+    pub volume: i64,
+    /// Turnover
+    pub turnover: CDecimal,
+    /// Expiry date
+    pub expiry_date: CDate,
+    /// Strike price
+    pub strike_price: Option<CDecimal>,
+    /// Upper strike price
+    pub upper_strike_price: Option<CDecimal>,
+    /// Lower strike price
+    pub lower_strike_price: Option<CDecimal>,
+    /// Outstanding quantity
+    pub outstanding_qty: i64,
+    /// Outstanding ratio
+    pub outstanding_ratio: CDecimal,
+    /// Premium
+    pub premium: CDecimal,
+    /// In/out of the bound
+    pub itm_otm: Option<CDecimal>,
+    /// Implied volatility
+    pub implied_volatility: Option<CDecimal>,
+    /// Delta
+    pub delta: Option<CDecimal>,
+    /// Call price
+    pub call_price: Option<CDecimal>,
+    /// Price interval from the call price
+    pub to_call_price: Option<CDecimal>,
+    /// Effective leverage
+    pub effective_leverage: Option<CDecimal>,
+    /// Leverage ratio
+    pub leverage_ratio: CDecimal,
+    /// Conversion ratio
+    pub conversion_ratio: Option<CDecimal>,
+    /// Breakeven point
+    pub balance_point: Option<CDecimal>,
+    /// Status
+    pub status: CWarrantStatus,
+}
+
+impl ToFFI for CWarrantInfoOwned {
+    type FFIType = CWarrantInfo;
+
+    fn to_ffi_type(&self) -> Self::FFIType {
+        let CWarrantInfoOwned {
+            symbol,
+            warrant_type,
+            name,
+            last_done,
+            change_rate,
+            change_value,
+            volume,
+            turnover,
+            expiry_date,
+            strike_price,
+            upper_strike_price,
+            lower_strike_price,
+            outstanding_qty,
+            outstanding_ratio,
+            premium,
+            itm_otm,
+            implied_volatility,
+            delta,
+            call_price,
+            to_call_price,
+            effective_leverage,
+            leverage_ratio,
+            conversion_ratio,
+            balance_point,
+            status,
+        } = self;
+        CWarrantInfo {
+            symbol: symbol.to_ffi_type(),
+            warrant_type: *warrant_type,
+            name: name.to_ffi_type(),
+            last_done: last_done.to_ffi_type(),
+            change_rate: change_rate.to_ffi_type(),
+            change_value: change_value.to_ffi_type(),
+            volume: *volume,
+            turnover: turnover.to_ffi_type(),
+            expiry_date: expiry_date.to_ffi_type(),
+            strike_price: strike_price
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            upper_strike_price: upper_strike_price
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            lower_strike_price: lower_strike_price
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            outstanding_qty: *outstanding_qty,
+            outstanding_ratio: outstanding_ratio.to_ffi_type(),
+            premium: premium.to_ffi_type(),
+            itm_otm: itm_otm
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            implied_volatility: implied_volatility
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            delta: delta
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            call_price: call_price
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            to_call_price: to_call_price
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            effective_leverage: effective_leverage
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            leverage_ratio: leverage_ratio.to_ffi_type(),
+            conversion_ratio: conversion_ratio
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            balance_point: balance_point
+                .as_ref()
+                .map(ToFFI::to_ffi_type)
+                .unwrap_or(std::ptr::null()),
+            status: *status,
+        }
+    }
+}
+
+impl From<WarrantInfo> for CWarrantInfoOwned {
+    fn from(resp: WarrantInfo) -> Self {
+        let WarrantInfo {
+            symbol,
+            warrant_type,
+            name,
+            last_done,
+            change_rate,
+            change_value,
+            volume,
+            turnover,
+            expiry_date,
+            strike_price,
+            upper_strike_price,
+            lower_strike_price,
+            outstanding_qty,
+            outstanding_ratio,
+            premium,
+            itm_otm,
+            implied_volatility,
+            delta,
+            call_price,
+            to_call_price,
+            effective_leverage,
+            leverage_ratio,
+            conversion_ratio,
+            balance_point,
+            status,
+        } = resp;
+        CWarrantInfoOwned {
+            symbol: symbol.into(),
+            warrant_type: warrant_type.into(),
+            name: name.into(),
+            last_done: last_done.into(),
+            change_rate: change_rate.into(),
+            change_value: change_value.into(),
+            volume,
+            turnover: turnover.into(),
+            expiry_date: expiry_date.into(),
+            strike_price: strike_price.map(Into::into),
+            upper_strike_price: upper_strike_price.map(Into::into),
+            lower_strike_price: lower_strike_price.map(Into::into),
+            outstanding_qty,
+            outstanding_ratio: outstanding_ratio.into(),
+            premium: premium.into(),
+            itm_otm: itm_otm.map(Into::into),
+            implied_volatility: implied_volatility.map(Into::into),
+            delta: delta.map(Into::into),
+            call_price: call_price.map(Into::into),
+            to_call_price: to_call_price.map(Into::into),
+            effective_leverage: effective_leverage.map(Into::into),
+            leverage_ratio: leverage_ratio.into(),
+            conversion_ratio: conversion_ratio.map(Into::into),
+            balance_point: balance_point.map(Into::into),
+            status: status.into(),
         }
     }
 }

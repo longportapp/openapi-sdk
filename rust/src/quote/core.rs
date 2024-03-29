@@ -626,38 +626,29 @@ impl Core {
             .get_mut(&symbol)
             .map(|data| &mut data.candlesticks)
         {
-            if periods.remove(&period).is_some() {
-                if period == Period::Day {
-                    unsubscribe_quote = true;
-                } else {
-                    if periods.is_empty()
-                        || (periods.len() == 1 && periods.contains_key(&Period::Day))
-                    {
-                        unsubscribe_quote = true;
-                    }
-                }
+            if periods.remove(&period).is_some() && period == Period::Day {
+                unsubscribe_quote = true;
             }
 
-            if unsubscribe_quote {
-                if !self
+            if unsubscribe_quote
+                && !self
                     .subscriptions
                     .get(&symbol)
                     .copied()
                     .unwrap_or_else(SubFlags::empty)
                     .contains(unsubscribe_sub_flags)
-                {
-                    self.ws_cli
-                        .request(
-                            cmd_code::UNSUBSCRIBE,
-                            None,
-                            UnsubscribeRequest {
-                                symbol: vec![symbol],
-                                sub_type: unsubscribe_sub_flags.into(),
-                                unsub_all: false,
-                            },
-                        )
-                        .await?;
-                }
+            {
+                self.ws_cli
+                    .request(
+                        cmd_code::UNSUBSCRIBE,
+                        None,
+                        UnsubscribeRequest {
+                            symbol: vec![symbol],
+                            sub_type: unsubscribe_sub_flags.into(),
+                            unsub_all: false,
+                        },
+                    )
+                    .await?;
             }
         }
 

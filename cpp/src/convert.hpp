@@ -18,6 +18,8 @@ using longport::quote::CapitalDistributionResponse;
 using longport::quote::CapitalFlowLine;
 using longport::quote::Depth;
 using longport::quote::DerivativeType;
+using longport::quote::FilterWarrantExpiryDate;
+using longport::quote::FilterWarrantInOutBoundsType;
 using longport::quote::IntradayLine;
 using longport::quote::IssuerInfo;
 using longport::quote::MarketTradingDays;
@@ -41,6 +43,7 @@ using longport::quote::SecurityCalcIndex;
 using longport::quote::SecurityDepth;
 using longport::quote::SecurityQuote;
 using longport::quote::SecurityStaticInfo;
+using longport::quote::SortOrderType;
 using longport::quote::StrikePriceInfo;
 using longport::quote::SubFlags;
 using longport::quote::Subscription;
@@ -49,7 +52,10 @@ using longport::quote::TradeDirection;
 using longport::quote::TradeSession;
 using longport::quote::TradeStatus;
 using longport::quote::TradingSessionInfo;
+using longport::quote::WarrantInfo;
 using longport::quote::WarrantQuote;
+using longport::quote::WarrantSortBy;
+using longport::quote::WarrantStatus;
 using longport::quote::WarrantType;
 using longport::quote::WatchlistGroup;
 using longport::quote::WatchlistSecurity;
@@ -622,6 +628,27 @@ convert(lb_warrant_type_t ty)
       return WarrantType::Bear;
     case WarrantTypeInline:
       return WarrantType::Inline;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline lb_warrant_type_t
+convert(WarrantType ty)
+{
+  switch (ty) {
+    case WarrantType::Unknown:
+      return WarrantTypeUnknown;
+    case WarrantType::Put:
+      return WarrantTypePut;
+    case WarrantType::Call:
+      return WarrantTypeCall;
+    case WarrantType::Bull:
+      return WarrantTypeBull;
+    case WarrantType::Bear:
+      return WarrantTypeBear;
+    case WarrantType::Inline:
+      return WarrantTypeInline;
     default:
       throw std::invalid_argument("unreachable");
   }
@@ -1724,31 +1751,39 @@ convert(const lb_security_calc_index_t* resp)
     resp->last_done ? std::optional{ Decimal(resp->last_done) } : std::nullopt,
     resp->change_value ? std::optional{ Decimal(resp->change_value) }
                        : std::nullopt,
-    resp->change_rate ? std::optional{ *resp->change_rate } : std::nullopt,
+    resp->change_rate ? std::optional{ Decimal(resp->change_rate) }
+                      : std::nullopt,
     resp->volume ? std::optional{ *resp->volume } : std::nullopt,
     resp->turnover ? std::optional{ Decimal(resp->turnover) } : std::nullopt,
-    resp->ytd_change_rate ? std::optional{ *resp->ytd_change_rate }
+    resp->ytd_change_rate ? std::optional{ Decimal(resp->ytd_change_rate) }
                           : std::nullopt,
-    resp->turnover_rate ? std::optional{ *resp->turnover_rate } : std::nullopt,
+    resp->turnover_rate ? std::optional{ Decimal(resp->turnover_rate) }
+                        : std::nullopt,
     resp->total_market_value
       ? std::optional{ Decimal(resp->total_market_value) }
       : std::nullopt,
     resp->capital_flow ? std::optional{ Decimal(resp->capital_flow) }
                        : std::nullopt,
-    resp->amplitude ? std::optional{ *resp->amplitude } : std::nullopt,
-    resp->volume_ratio ? std::optional{ *resp->volume_ratio } : std::nullopt,
-    resp->pe_ttm_ratio ? std::optional{ *resp->pe_ttm_ratio } : std::nullopt,
-    resp->pb_ratio ? std::optional{ *resp->pb_ratio } : std::nullopt,
-    resp->dividend_ratio_ttm ? std::optional{ *resp->dividend_ratio_ttm }
-                             : std::nullopt,
-    resp->five_day_change_rate ? std::optional{ *resp->five_day_change_rate }
-                               : std::nullopt,
-    resp->ten_day_change_rate ? std::optional{ *resp->ten_day_change_rate }
-                              : std::nullopt,
-    resp->half_year_change_rate ? std::optional{ *resp->half_year_change_rate }
-                                : std::nullopt,
+    resp->amplitude ? std::optional{ Decimal(resp->amplitude) } : std::nullopt,
+    resp->volume_ratio ? std::optional{ Decimal(resp->volume_ratio) }
+                       : std::nullopt,
+    resp->pe_ttm_ratio ? std::optional{ Decimal(resp->pe_ttm_ratio) }
+                       : std::nullopt,
+    resp->pb_ratio ? std::optional{ Decimal(resp->pb_ratio) } : std::nullopt,
+    resp->dividend_ratio_ttm
+      ? std::optional{ Decimal(resp->dividend_ratio_ttm) }
+      : std::nullopt,
+    resp->five_day_change_rate
+      ? std::optional{ Decimal(resp->five_day_change_rate) }
+      : std::nullopt,
+    resp->ten_day_change_rate
+      ? std::optional{ Decimal(resp->ten_day_change_rate) }
+      : std::nullopt,
+    resp->half_year_change_rate
+      ? std::optional{ Decimal(resp->half_year_change_rate) }
+      : std::nullopt,
     resp->five_minutes_change_rate
-      ? std::optional{ *resp->five_minutes_change_rate }
+      ? std::optional{ Decimal(resp->five_minutes_change_rate) }
       : std::nullopt,
     resp->expiry_date ? std::optional{ convert(resp->expiry_date) }
                       : std::nullopt,
@@ -1762,30 +1797,200 @@ convert(const lb_security_calc_index_t* resp)
       : std::nullopt,
     resp->outstanding_qty ? std::optional{ *resp->outstanding_qty }
                           : std::nullopt,
-    resp->outstanding_ratio ? std::optional{ *resp->outstanding_ratio }
+    resp->outstanding_ratio ? std::optional{ Decimal(resp->outstanding_ratio) }
                             : std::nullopt,
-    resp->premium ? std::optional{ *resp->premium } : std::nullopt,
-    resp->itm_otm ? std::optional{ *resp->itm_otm } : std::nullopt,
-    resp->implied_volatility ? std::optional{ *resp->implied_volatility }
-                             : std::nullopt,
-    resp->warrant_delta ? std::optional{ *resp->warrant_delta } : std::nullopt,
+    resp->premium ? std::optional{ Decimal(resp->premium) } : std::nullopt,
+    resp->itm_otm ? std::optional{ Decimal(resp->itm_otm) } : std::nullopt,
+    resp->implied_volatility
+      ? std::optional{ Decimal(resp->implied_volatility) }
+      : std::nullopt,
+    resp->warrant_delta ? std::optional{ Decimal(resp->warrant_delta) }
+                        : std::nullopt,
     resp->call_price ? std::optional{ Decimal(resp->call_price) }
                      : std::nullopt,
     resp->to_call_price ? std::optional{ Decimal(resp->to_call_price) }
                         : std::nullopt,
-    resp->effective_leverage ? std::optional{ *resp->effective_leverage }
-                             : std::nullopt,
-    resp->leverage_ratio ? std::optional{ *resp->leverage_ratio }
+    resp->effective_leverage
+      ? std::optional{ Decimal(resp->effective_leverage) }
+      : std::nullopt,
+    resp->leverage_ratio ? std::optional{ Decimal(resp->leverage_ratio) }
                          : std::nullopt,
-    resp->conversion_ratio ? std::optional{ *resp->conversion_ratio }
+    resp->conversion_ratio ? std::optional{ Decimal(resp->conversion_ratio) }
                            : std::nullopt,
-    resp->balance_point ? std::optional{ *resp->balance_point } : std::nullopt,
+    resp->balance_point ? std::optional{ Decimal(resp->balance_point) }
+                        : std::nullopt,
     resp->open_interest ? std::optional{ *resp->open_interest } : std::nullopt,
-    resp->delta ? std::optional{ *resp->delta } : std::nullopt,
-    resp->gamma ? std::optional{ *resp->gamma } : std::nullopt,
-    resp->theta ? std::optional{ *resp->theta } : std::nullopt,
-    resp->vega ? std::optional{ *resp->vega } : std::nullopt,
-    resp->rho ? std::optional{ *resp->rho } : std::nullopt,
+    resp->delta ? std::optional{ Decimal(resp->delta) } : std::nullopt,
+    resp->gamma ? std::optional{ Decimal(resp->gamma) } : std::nullopt,
+    resp->theta ? std::optional{ Decimal(resp->theta) } : std::nullopt,
+    resp->vega ? std::optional{ Decimal(resp->vega) } : std::nullopt,
+    resp->rho ? std::optional{ Decimal(resp->rho) } : std::nullopt,
+  };
+}
+
+inline lb_sort_order_type_t
+convert(SortOrderType ty)
+{
+  switch (ty) {
+    case SortOrderType::Ascending:
+      return SortOrderAscending;
+    case SortOrderType::Descending:
+      return SortOrderDescending;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline lb_warrant_sort_by_t
+convert(WarrantSortBy ty)
+{
+  switch (ty) {
+    case WarrantSortBy::LastDone:
+      return WarrantSortByLastDone;
+    case WarrantSortBy::ChangeRate:
+      return WarrantSortByChangeRate;
+    case WarrantSortBy::ChangeValue:
+      return WarrantSortByChangeValue;
+    case WarrantSortBy::Volume:
+      return WarrantSortByVolume;
+    case WarrantSortBy::Turnover:
+      return WarrantSortByTurnover;
+    case WarrantSortBy::ExpiryDate:
+      return WarrantSortByExpiryDate;
+    case WarrantSortBy::StrikePrice:
+      return WarrantSortByStrikePrice;
+    case WarrantSortBy::UpperStrikePrice:
+      return WarrantSortByUpperStrikePrice;
+    case WarrantSortBy::LowerStrikePrice:
+      return WarrantSortByLowerStrikePrice;
+    case WarrantSortBy::OutstandingQuantity:
+      return WarrantSortByOutstandingQuantity;
+    case WarrantSortBy::OutstandingRatio:
+      return WarrantSortByOutstandingRatio;
+    case WarrantSortBy::Premium:
+      return WarrantSortByPremium;
+    case WarrantSortBy::ItmOtm:
+      return WarrantSortByItmOtm;
+    case WarrantSortBy::ImpliedVolatility:
+      return WarrantSortByImpliedVolatility;
+    case WarrantSortBy::Delta:
+      return WarrantSortByDelta;
+    case WarrantSortBy::CallPrice:
+      return WarrantSortByCallPrice;
+    case WarrantSortBy::ToCallPrice:
+      return WarrantSortByToCallPrice;
+    case WarrantSortBy::EffectiveLeverage:
+      return WarrantSortByEffectiveLeverage;
+    case WarrantSortBy::LeverageRatio:
+      return WarrantSortByLeverageRatio;
+    case WarrantSortBy::ConversionRatio:
+      return WarrantSortByConversionRatio;
+    case WarrantSortBy::BalancePoint:
+      return WarrantSortByBalancePoint;
+    case WarrantSortBy::Status:
+      return WarrantSortByStatus;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline lb_filter_warrant_expiry_date_t
+convert(FilterWarrantExpiryDate ty)
+{
+  switch (ty) {
+    case FilterWarrantExpiryDate::LT_3:
+      return WarrantExpiryDate_LT_3;
+    case FilterWarrantExpiryDate::Between_3_6:
+      return WarrantExpiryDate_Between_3_6;
+    case FilterWarrantExpiryDate::Between_6_12:
+      return WarrantExpiryDate_Between_6_12;
+    case FilterWarrantExpiryDate::GT_12:
+      return WarrantExpiryDate_GT_12;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline lb_filter_warrant_in_out_bounds_type_t
+convert(FilterWarrantInOutBoundsType ty)
+{
+  switch (ty) {
+    case FilterWarrantInOutBoundsType::In:
+      return WarrantInOutBoundsType_In;
+    case FilterWarrantInOutBoundsType::Out:
+      return WarrantInOutBoundsType_Out;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline lb_warrant_status_t
+convert(WarrantStatus ty)
+{
+  switch (ty) {
+    case WarrantStatus::Suspend:
+      return WarrantStatusSuspend;
+    case WarrantStatus::PrepareList:
+      return WarrantStatusPrepareList;
+    case WarrantStatus::Normal:
+      return WarrantStatusNormal;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline WarrantStatus
+convert(lb_warrant_status_t ty)
+{
+  switch (ty) {
+    case WarrantStatusSuspend:
+      return WarrantStatus::Suspend;
+    case WarrantStatusPrepareList:
+      return WarrantStatus::PrepareList;
+    case WarrantStatusNormal:
+      return WarrantStatus::Normal;
+    default:
+      throw std::invalid_argument("unreachable");
+  }
+}
+
+inline WarrantInfo
+convert(lb_warrant_info_t info)
+{
+  return WarrantInfo{
+    info.symbol,
+    convert(info.warrant_type),
+    info.name,
+    Decimal(info.last_done),
+    Decimal(info.change_rate),
+    Decimal(info.change_value),
+    info.volume,
+    Decimal(info.turnover),
+    convert(&info.expiry_date),
+    info.strike_price ? std::optional{ Decimal(info.strike_price) }
+                      : std::nullopt,
+    info.upper_strike_price ? std::optional{ Decimal(info.upper_strike_price) }
+                            : std::nullopt,
+    info.lower_strike_price ? std::optional{ Decimal(info.lower_strike_price) }
+                            : std::nullopt,
+    info.outstanding_qty,
+    Decimal(info.outstanding_ratio),
+    Decimal(info.premium),
+    info.itm_otm ? std::optional{ Decimal(info.itm_otm) } : std::nullopt,
+    info.implied_volatility ? std::optional{ Decimal(info.implied_volatility) }
+                            : std::nullopt,
+    info.delta ? std::optional{ Decimal(info.delta) } : std::nullopt,
+    info.call_price ? std::optional{ Decimal(info.call_price) } : std::nullopt,
+    info.to_call_price ? std::optional{ Decimal(info.to_call_price) }
+                       : std::nullopt,
+    info.effective_leverage ? std::optional{ Decimal(info.effective_leverage) }
+                            : std::nullopt,
+    Decimal(info.leverage_ratio),
+    info.conversion_ratio ? std::optional{ Decimal(info.conversion_ratio) }
+                          : std::nullopt,
+    info.balance_point ? std::optional{ Decimal(info.balance_point) }
+                       : std::nullopt,
+    convert(info.status),
   };
 }
 

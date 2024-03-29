@@ -6,11 +6,12 @@ use crate::{
     blocking::runtime::BlockingRuntime,
     quote::{
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
-        IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
-        ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
-        RequestUpdateWatchlistGroup, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, SubFlags, Subscription, Trade,
-        WarrantQuote, WatchlistGroup,
+        FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, IntradayLine, IssuerInfo,
+        MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period, PushEvent,
+        RealtimeQuote, RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, SecurityBrokers,
+        SecurityCalcIndex, SecurityDepth, SecurityQuote, SecurityStaticInfo, SortOrderType,
+        StrikePriceInfo, SubFlags, Subscription, Trade, WarrantInfo, WarrantQuote, WarrantSortBy,
+        WarrantStatus, WarrantType, WatchlistGroup,
     },
     Config, Market, QuoteContext, Result,
 };
@@ -553,6 +554,39 @@ impl QuoteContextSync {
             .call(move |ctx| async move { ctx.warrant_issuers().await })
     }
 
+    /// Query warrant list
+    #[allow(clippy::too_many_arguments)]
+    pub fn warrant_list(
+        &self,
+        symbol: impl Into<String> + Send + 'static,
+        sort_by: WarrantSortBy,
+        sort_order: SortOrderType,
+        warrant_type: Option<&[WarrantType]>,
+        issuer: Option<&[i32]>,
+        expiry_date: Option<&[FilterWarrantExpiryDate]>,
+        price_type: Option<&[FilterWarrantInOutBoundsType]>,
+        status: Option<&[WarrantStatus]>,
+    ) -> Result<Vec<WarrantInfo>> {
+        let warrant_type = warrant_type.map(|v| v.to_vec());
+        let issuer = issuer.map(|v| v.to_vec());
+        let expiry_date = expiry_date.map(|v| v.to_vec());
+        let price_type = price_type.map(|v| v.to_vec());
+        let status = status.map(|v| v.to_vec());
+        self.rt.call(move |ctx| async move {
+            ctx.warrant_list(
+                symbol,
+                sort_by,
+                sort_order,
+                warrant_type.as_deref(),
+                issuer.as_deref(),
+                expiry_date.as_deref(),
+                price_type.as_deref(),
+                status.as_deref(),
+            )
+            .await
+        })
+    }
+
     /// Get trading session of the day
     ///
     /// # Examples
@@ -673,13 +707,6 @@ impl QuoteContextSync {
     {
         self.rt
             .call(move |ctx| async move { ctx.calc_indexes(symbols, indexes).await })
-    }
-
-    /// Get watchlist
-    #[deprecated = "Use `watchlist` instead"]
-    pub fn watch_list(&self) -> Result<Vec<WatchlistGroup>> {
-        self.rt
-            .call(move |ctx| async move { ctx.watchlist().await })
     }
 
     /// Get watchlist

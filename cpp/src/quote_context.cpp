@@ -838,6 +838,82 @@ QuoteContext::warrant_issuers(
 }
 
 void
+QuoteContext::warrant_list(
+  const std::string& symbol,
+  WarrantSortBy sort_by,
+  SortOrderType sort_order,
+  const std::vector<WarrantType>& warrant_type,
+  const std::vector<int32_t>& issuer,
+  const std::vector<FilterWarrantExpiryDate>& expiry_date,
+  const std::vector<FilterWarrantInOutBoundsType>& price_type,
+  const std::vector<WarrantStatus>& status,
+  AsyncCallback<QuoteContext, std::vector<WarrantInfo>> callback) const
+{
+  std::vector<lb_warrant_type_t> c_warrant_type;
+  std::transform(warrant_type.cbegin(),
+                 warrant_type.cend(),
+                 std::back_inserter(c_warrant_type),
+                 [](auto row) { return convert(row); });
+
+  std::vector<lb_filter_warrant_expiry_date_t> c_expiry_date;
+  std::transform(expiry_date.cbegin(),
+                 expiry_date.cend(),
+                 std::back_inserter(c_expiry_date),
+                 [](auto row) { return convert(row); });
+
+  std::vector<lb_filter_warrant_in_out_bounds_type_t> c_price_type;
+  std::transform(price_type.cbegin(),
+                 price_type.cend(),
+                 std::back_inserter(c_price_type),
+                 [](auto row) { return convert(row); });
+
+  std::vector<lb_warrant_status_t> c_status;
+  std::transform(status.cbegin(),
+                 status.cend(),
+                 std::back_inserter(c_status),
+                 [](auto row) { return convert(row); });
+
+  lb_quote_context_warrant_list(
+    ctx_,
+    symbol.c_str(),
+    convert(sort_by),
+    convert(sort_order),
+    c_warrant_type.data(),
+    c_warrant_type.size(),
+    issuer.data(),
+    issuer.size(),
+    c_expiry_date.data(),
+    c_expiry_date.size(),
+    c_price_type.data(),
+    c_price_type.size(),
+    c_status.data(),
+    c_status.size(),
+    [](auto res) {
+      auto callback_ptr =
+        callback::get_async_callback<QuoteContext, std::vector<WarrantInfo>>(
+          res->userdata);
+      QuoteContext ctx((const lb_quote_context_t*)res->ctx);
+      Status status(res->error);
+
+      if (status) {
+        auto rows = (const lb_warrant_info_t*)res->data;
+        std::vector<WarrantInfo> rows2;
+        std::transform(rows,
+                       rows + res->length,
+                       std::back_inserter(rows2),
+                       [](auto row) { return convert(row); });
+
+        (*callback_ptr)(AsyncResult<QuoteContext, std::vector<WarrantInfo>>(
+          ctx, std::move(status), &rows2));
+      } else {
+        (*callback_ptr)(AsyncResult<QuoteContext, std::vector<WarrantInfo>>(
+          ctx, std::move(status), nullptr));
+      }
+    },
+    new AsyncCallback<QuoteContext, std::vector<WarrantInfo>>(callback));
+}
+
+void
 QuoteContext::trading_session(
   AsyncCallback<QuoteContext, std::vector<MarketTradingSession>> callback) const
 {
@@ -1014,13 +1090,6 @@ QuoteContext::calc_indexes(
       }
     },
     new AsyncCallback<QuoteContext, std::vector<SecurityCalcIndex>>(callback));
-}
-
-void
-QuoteContext::watch_list(
-  AsyncCallback<QuoteContext, std::vector<WatchlistGroup>> callback) const
-{
-  watchlist(callback);
 }
 
 void

@@ -337,6 +337,42 @@ typedef enum lb_deduction_status_t {
 } lb_deduction_status_t;
 
 /**
+ * Filter warrant expiry date type
+ */
+typedef enum lb_filter_warrant_expiry_date_t {
+  /**
+   * Less than 3 months
+   */
+  WarrantExpiryDate_LT_3,
+  /**
+   * 3 - 6 months
+   */
+  WarrantExpiryDate_Between_3_6,
+  /**
+   * 6 - 12 months
+   */
+  WarrantExpiryDate_Between_6_12,
+  /**
+   * Greater than 12 months
+   */
+  WarrantExpiryDate_GT_12,
+} lb_filter_warrant_expiry_date_t;
+
+/**
+ * Filter warrant in/out of the bounds type
+ */
+typedef enum lb_filter_warrant_in_out_bounds_type_t {
+  /**
+   * In bounds
+   */
+  WarrantInOutBoundsType_In,
+  /**
+   * Out bounds
+   */
+  WarrantInOutBoundsType_Out,
+} lb_filter_warrant_in_out_bounds_type_t;
+
+/**
  * Language identifer
  */
 typedef enum lb_language_t {
@@ -809,6 +845,20 @@ typedef enum lb_security_board_t {
 } lb_security_board_t;
 
 /**
+ * Sort order type
+ */
+typedef enum lb_sort_order_type_t {
+  /**
+   * Ascending
+   */
+  SortOrderAscending,
+  /**
+   * Descending
+   */
+  SortOrderDescending,
+} lb_sort_order_type_t;
+
+/**
  * Time in force Type
  */
 typedef enum lb_time_in_force_type_t {
@@ -947,6 +997,118 @@ typedef enum lb_trigger_status_t {
    */
   TriggerStatusReleased,
 } lb_trigger_status_t;
+
+/**
+ * Warrant sort by
+ */
+typedef enum lb_warrant_sort_by_t {
+  /**
+   * Last done
+   */
+  WarrantSortByLastDone,
+  /**
+   * Change rate
+   */
+  WarrantSortByChangeRate,
+  /**
+   * Change value
+   */
+  WarrantSortByChangeValue,
+  /**
+   * Volume
+   */
+  WarrantSortByVolume,
+  /**
+   * Turnover
+   */
+  WarrantSortByTurnover,
+  /**
+   * Expiry date
+   */
+  WarrantSortByExpiryDate,
+  /**
+   * Strike price
+   */
+  WarrantSortByStrikePrice,
+  /**
+   * Upper strike price
+   */
+  WarrantSortByUpperStrikePrice,
+  /**
+   * Lower strike price
+   */
+  WarrantSortByLowerStrikePrice,
+  /**
+   * Outstanding quantity
+   */
+  WarrantSortByOutstandingQuantity,
+  /**
+   * Outstanding ratio
+   */
+  WarrantSortByOutstandingRatio,
+  /**
+   * Premium
+   */
+  WarrantSortByPremium,
+  /**
+   * In/out of the bound
+   */
+  WarrantSortByItmOtm,
+  /**
+   * Implied volatility
+   */
+  WarrantSortByImpliedVolatility,
+  /**
+   * Greek value delta
+   */
+  WarrantSortByDelta,
+  /**
+   * Call price
+   */
+  WarrantSortByCallPrice,
+  /**
+   * Price interval from the call price
+   */
+  WarrantSortByToCallPrice,
+  /**
+   * Effective leverage
+   */
+  WarrantSortByEffectiveLeverage,
+  /**
+   * Leverage ratio
+   */
+  WarrantSortByLeverageRatio,
+  /**
+   * Conversion ratio
+   */
+  WarrantSortByConversionRatio,
+  /**
+   * Breakeven point
+   */
+  WarrantSortByBalancePoint,
+  /**
+   * Status
+   */
+  WarrantSortByStatus,
+} lb_warrant_sort_by_t;
+
+/**
+ * Warrant status
+ */
+typedef enum lb_warrant_status_t {
+  /**
+   * Suspend
+   */
+  WarrantStatusSuspend,
+  /**
+   * Prepare List
+   */
+  WarrantStatusPrepareList,
+  /**
+   * Normal
+   */
+  WarrantStatusNormal,
+} lb_warrant_status_t;
 
 /**
  * Warrant type
@@ -3117,7 +3279,7 @@ typedef struct lb_security_calc_index_t {
   /**
    * Change ratio
    */
-  const double *change_rate;
+  const struct lb_decimal_t *change_rate;
   /**
    * Volume
    */
@@ -3129,11 +3291,11 @@ typedef struct lb_security_calc_index_t {
   /**
    * Year-to-date change ratio
    */
-  const double *ytd_change_rate;
+  const struct lb_decimal_t *ytd_change_rate;
   /**
    * Turnover rate
    */
-  const double *turnover_rate;
+  const struct lb_decimal_t *turnover_rate;
   /**
    * Total market value
    */
@@ -3145,39 +3307,39 @@ typedef struct lb_security_calc_index_t {
   /**
    * Amplitude
    */
-  const double *amplitude;
+  const struct lb_decimal_t *amplitude;
   /**
    * Volume ratio
    */
-  const double *volume_ratio;
+  const struct lb_decimal_t *volume_ratio;
   /**
    * PE (TTM)
    */
-  const double *pe_ttm_ratio;
+  const struct lb_decimal_t *pe_ttm_ratio;
   /**
    * PB
    */
-  const double *pb_ratio;
+  const struct lb_decimal_t *pb_ratio;
   /**
    * Dividend ratio (TTM)
    */
-  const double *dividend_ratio_ttm;
+  const struct lb_decimal_t *dividend_ratio_ttm;
   /**
    * Five days change ratio
    */
-  const double *five_day_change_rate;
+  const struct lb_decimal_t *five_day_change_rate;
   /**
    * Ten days change ratio
    */
-  const double *ten_day_change_rate;
+  const struct lb_decimal_t *ten_day_change_rate;
   /**
    * Half year change ratio
    */
-  const double *half_year_change_rate;
+  const struct lb_decimal_t *half_year_change_rate;
   /**
    * Five minutes change ratio
    */
-  const double *five_minutes_change_rate;
+  const struct lb_decimal_t *five_minutes_change_rate;
   /**
    * Expiry date
    */
@@ -3201,23 +3363,23 @@ typedef struct lb_security_calc_index_t {
   /**
    * Outstanding ratio
    */
-  const double *outstanding_ratio;
+  const struct lb_decimal_t *outstanding_ratio;
   /**
    * Premium
    */
-  const double *premium;
+  const struct lb_decimal_t *premium;
   /**
    * In/out of the bound
    */
-  const double *itm_otm;
+  const struct lb_decimal_t *itm_otm;
   /**
    * Implied volatility
    */
-  const double *implied_volatility;
+  const struct lb_decimal_t *implied_volatility;
   /**
    * Warrant delta
    */
-  const double *warrant_delta;
+  const struct lb_decimal_t *warrant_delta;
   /**
    * Call price
    */
@@ -3229,19 +3391,19 @@ typedef struct lb_security_calc_index_t {
   /**
    * Effective leverage
    */
-  const double *effective_leverage;
+  const struct lb_decimal_t *effective_leverage;
   /**
    * Leverage ratio
    */
-  const double *leverage_ratio;
+  const struct lb_decimal_t *leverage_ratio;
   /**
    * Conversion ratio
    */
-  const double *conversion_ratio;
+  const struct lb_decimal_t *conversion_ratio;
   /**
    * Breakeven point
    */
-  const double *balance_point;
+  const struct lb_decimal_t *balance_point;
   /**
    * Open interest
    */
@@ -3249,24 +3411,130 @@ typedef struct lb_security_calc_index_t {
   /**
    * Delta
    */
-  const double *delta;
+  const struct lb_decimal_t *delta;
   /**
    * Gamma
    */
-  const double *gamma;
+  const struct lb_decimal_t *gamma;
   /**
    * Theta
    */
-  const double *theta;
+  const struct lb_decimal_t *theta;
   /**
    * Vega
    */
-  const double *vega;
+  const struct lb_decimal_t *vega;
   /**
    * Rho
    */
-  const double *rho;
+  const struct lb_decimal_t *rho;
 } lb_security_calc_index_t;
+
+/**
+ * Warrant info
+ */
+typedef struct lb_warrant_info_t {
+  /**
+   * Security code
+   */
+  const char *symbol;
+  /**
+   * Warrant type
+   */
+  enum lb_warrant_type_t warrant_type;
+  /**
+   * Security name
+   */
+  const char *name;
+  /**
+   * Latest price
+   */
+  const struct lb_decimal_t *last_done;
+  /**
+   * Quote change rate
+   */
+  const struct lb_decimal_t *change_rate;
+  /**
+   * Quote change
+   */
+  const struct lb_decimal_t *change_value;
+  /**
+   * Volume
+   */
+  int64_t volume;
+  /**
+   * Turnover
+   */
+  const struct lb_decimal_t *turnover;
+  /**
+   * Expiry date
+   */
+  struct lb_date_t expiry_date;
+  /**
+   * Strike price
+   */
+  const struct lb_decimal_t *strike_price;
+  /**
+   * Upper strike price
+   */
+  const struct lb_decimal_t *upper_strike_price;
+  /**
+   * Lower strike price
+   */
+  const struct lb_decimal_t *lower_strike_price;
+  /**
+   * Outstanding quantity
+   */
+  int64_t outstanding_qty;
+  /**
+   * Outstanding ratio
+   */
+  const struct lb_decimal_t *outstanding_ratio;
+  /**
+   * Premium
+   */
+  const struct lb_decimal_t *premium;
+  /**
+   * In/out of the bound
+   */
+  const struct lb_decimal_t *itm_otm;
+  /**
+   * Implied volatility
+   */
+  const struct lb_decimal_t *implied_volatility;
+  /**
+   * Delta
+   */
+  const struct lb_decimal_t *delta;
+  /**
+   * Call price
+   */
+  const struct lb_decimal_t *call_price;
+  /**
+   * Price interval from the call price
+   */
+  const struct lb_decimal_t *to_call_price;
+  /**
+   * Effective leverage
+   */
+  const struct lb_decimal_t *effective_leverage;
+  /**
+   * Leverage ratio
+   */
+  const struct lb_decimal_t *leverage_ratio;
+  /**
+   * Conversion ratio
+   */
+  const struct lb_decimal_t *conversion_ratio;
+  /**
+   * Breakeven point
+   */
+  const struct lb_decimal_t *balance_point;
+  /**
+   * Status
+   */
+  enum lb_warrant_status_t status;
+} lb_warrant_info_t;
 
 #ifdef __cplusplus
 extern "C" {
@@ -3613,6 +3881,26 @@ void lb_quote_context_warrant_issuers(const struct lb_quote_context_t *ctx,
                                       void *userdata);
 
 /**
+ * Query warrant list
+ */
+void lb_quote_context_warrant_list(const struct lb_quote_context_t *ctx,
+                                   const char *symbol,
+                                   enum lb_warrant_sort_by_t sort_by,
+                                   enum lb_sort_order_type_t sort_order,
+                                   const enum lb_warrant_type_t *warrant_type,
+                                   uintptr_t num_warrant_type,
+                                   const int32_t *issuer,
+                                   uintptr_t num_issuer,
+                                   const enum lb_filter_warrant_expiry_date_t *expiry_date,
+                                   uintptr_t num_expiry_date,
+                                   const enum lb_filter_warrant_in_out_bounds_type_t *price_type,
+                                   uintptr_t num_price_type,
+                                   const enum lb_warrant_status_t *status,
+                                   uintptr_t num_status,
+                                   lb_async_callback_t callback,
+                                   void *userdata);
+
+/**
  * Get trading session of the day
  */
 void lb_quote_context_trading_session(const struct lb_quote_context_t *ctx,
@@ -3655,15 +3943,6 @@ void lb_quote_context_calc_indexes(const struct lb_quote_context_t *ctx,
                                    uintptr_t num_indexes,
                                    lb_async_callback_t callback,
                                    void *userdata);
-
-/**
- * Get watchlist
- *
- * Deprecated, use `lb_quote_context_watchlist` instead.
- */
-void lb_quote_context_watch_list(const struct lb_quote_context_t *ctx,
-                                 lb_async_callback_t callback,
-                                 void *userdata);
 
 /**
  * Get watchlist

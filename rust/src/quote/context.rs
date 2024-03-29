@@ -13,16 +13,19 @@ use crate::{
         cmd_code,
         core::{Command, Core},
         sub_flags::SubFlags,
-        types::SecuritiesUpdateMode,
+        types::{
+            FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, SecuritiesUpdateMode,
+            SortOrderType, WarrantSortBy, WarrantStatus,
+        },
         utils::{format_date, parse_date},
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
         IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
         ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
         RequestUpdateWatchlistGroup, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantQuote,
-        WatchlistGroup,
+        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantInfo,
+        WarrantQuote, WarrantType, WatchlistGroup,
     },
-    serde_utils, Config, Error, Market, Result,
+    serde_utils, Config, Error, Language, Market, Result,
 };
 
 const PARTICIPANT_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(30 * 60);
@@ -34,6 +37,7 @@ const TRADING_SESSION_CACHE_TIMEOUT: Duration = Duration::from_secs(60 * 60 * 2)
 /// Quote context
 #[derive(Clone)]
 pub struct QuoteContext {
+    language: Language,
     http_cli: HttpClient,
     command_tx: mpsc::UnboundedSender<Command>,
     cache_participants: Cache<Vec<ParticipantInfo>>,
@@ -50,6 +54,7 @@ impl QuoteContext {
     pub async fn try_new(
         config: Arc<Config>,
     ) -> Result<(Self, mpsc::UnboundedReceiver<PushEvent>)> {
+        let language = config.language;
         let http_cli = config.create_http_client();
         let (command_tx, command_rx) = mpsc::unbounded_channel();
         let (push_tx, push_rx) = mpsc::unbounded_channel();
@@ -59,6 +64,7 @@ impl QuoteContext {
         tokio::spawn(core.run());
         Ok((
             QuoteContext {
+                language,
                 http_cli,
                 command_tx,
                 cache_participants: Cache::new(PARTICIPANT_INFO_CACHE_TIMEOUT),
@@ -918,6 +924,53 @@ impl QuoteContext {
             .await
     }
 
+    /// Query warrant list
+    #[allow(clippy::too_many_arguments)]
+    pub async fn warrant_list(
+        &self,
+        symbol: impl Into<String>,
+        sort_by: WarrantSortBy,
+        sort_order: SortOrderType,
+        warrant_type: Option<&[WarrantType]>,
+        issuer: Option<&[i32]>,
+        expiry_date: Option<&[FilterWarrantExpiryDate]>,
+        price_type: Option<&[FilterWarrantInOutBoundsType]>,
+        status: Option<&[WarrantStatus]>,
+    ) -> Result<Vec<WarrantInfo>> {
+        let resp = self
+            .request::<_, quote::WarrantFilterListResponse>(
+                cmd_code::GET_FILTERED_WARRANT,
+                quote::WarrantFilterListRequest {
+                    symbol: symbol.into(),
+                    filter_config: Some(quote::FilterConfig {
+                        sort_by: sort_by.into(),
+                        sort_order: sort_order.into(),
+                        sort_offset: 0,
+                        sort_count: 0,
+                        r#type: warrant_type
+                            .map(|types| types.iter().map(|ty| (*ty).into()).collect())
+                            .unwrap_or_default(),
+                        issuer: issuer.map(|types| types.to_vec()).unwrap_or_default(),
+                        expiry_date: expiry_date
+                            .map(|e| e.iter().map(|e| (*e).into()).collect())
+                            .unwrap_or_default(),
+                        price_type: price_type
+                            .map(|types| types.iter().map(|ty| (*ty).into()).collect())
+                            .unwrap_or_default(),
+                        status: status
+                            .map(|status| status.iter().map(|status| (*status).into()).collect())
+                            .unwrap_or_default(),
+                    }),
+                    language: self.language.into(),
+                },
+            )
+            .await?;
+        resp.warrant_list
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::<Result<Vec<_>>>()
+    }
+
     /// Get trading session of the day
     ///
     /// Reference: <https://open.longportapp.com/en/docs/quote/pull/trade-session>
@@ -1112,12 +1165,6 @@ impl QuoteContext {
             .into_iter()
             .map(|resp| SecurityCalcIndex::from_proto(resp, &indexes))
             .collect())
-    }
-
-    /// Get watchlist
-    #[deprecated(note = "Use `watchlist` instead")]
-    pub async fn watch_list(&self) -> Result<Vec<WatchlistGroup>> {
-        self.watchlist().await
     }
 
     /// Get watchlist

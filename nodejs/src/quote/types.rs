@@ -657,6 +657,176 @@ pub struct IssuerInfo {
     name_hk: String,
 }
 
+/// Sort order type
+#[napi_derive::napi]
+#[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
+#[js(remote = "longport::quote::SortOrderType")]
+pub enum SortOrderType {
+    /// Ascending
+    Ascending,
+    /// Descending
+    Descending,
+}
+
+/// Warrant sort by
+#[napi_derive::napi]
+#[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
+#[js(remote = "longport::quote::WarrantSortBy")]
+pub enum WarrantSortBy {
+    /// Last done
+    LastDone,
+    /// Change rate
+    ChangeRate,
+    /// Change value
+    ChangeValue,
+    /// Volume
+    Volume,
+    /// Turnover
+    Turnover,
+    /// Expiry date
+    ExpiryDate,
+    /// Strike price
+    StrikePrice,
+    /// Upper strike price
+    UpperStrikePrice,
+    /// Lower strike price
+    LowerStrikePrice,
+    /// Outstanding quantity
+    OutstandingQuantity,
+    /// Outstanding ratio
+    OutstandingRatio,
+    /// Premium
+    Premium,
+    /// In/out of the bound
+    ItmOtm,
+    /// Implied volatility
+    ImpliedVolatility,
+    /// Greek value delta
+    Delta,
+    /// Call price
+    CallPrice,
+    /// Price interval from the call price
+    ToCallPrice,
+    /// Effective leverage
+    EffectiveLeverage,
+    /// Leverage ratio
+    LeverageRatio,
+    /// Conversion ratio
+    ConversionRatio,
+    /// Breakeven point
+    BalancePoint,
+    /// Status
+    Status,
+}
+
+/// Filter warrant expiry date type
+#[napi_derive::napi]
+#[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
+#[js(remote = "longport::quote::FilterWarrantExpiryDate")]
+#[allow(non_camel_case_types)]
+pub enum FilterWarrantExpiryDate {
+    /// Less than 3 months
+    LT_3,
+    /// 3 - 6 months
+    Between_3_6,
+    /// 6 - 12 months
+    Between_6_12,
+    /// Greater than 12 months
+    GT_12,
+}
+
+/// Filter warrant in/out of the bounds type
+#[napi_derive::napi]
+#[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
+#[js(remote = "longport::quote::FilterWarrantInOutBoundsType")]
+pub enum FilterWarrantInOutBoundsType {
+    /// In bounds
+    In,
+    /// Out bounds
+    Out,
+}
+
+/// Warrant info
+#[napi_derive::napi]
+#[derive(Debug, JsObject)]
+#[js(remote = "longport::quote::WarrantInfo")]
+pub struct WarrantInfo {
+    /// Security code
+    symbol: String,
+    /// Warrant type
+    warrant_type: WarrantType,
+    /// Security name
+    name: String,
+    /// Latest price
+    last_done: Decimal,
+    /// Quote change rate
+    change_rate: Decimal,
+    /// Quote change
+    change_value: Decimal,
+    /// Volume
+    volume: i64,
+    /// Turnover
+    turnover: Decimal,
+    /// Expiry date
+    expiry_date: NaiveDate,
+    /// Strike price
+    #[js(opt)]
+    strike_price: Option<Decimal>,
+    /// Upper strike price
+    #[js(opt)]
+    upper_strike_price: Option<Decimal>,
+    /// Lower strike price
+    #[js(opt)]
+    lower_strike_price: Option<Decimal>,
+    /// Outstanding quantity
+    outstanding_qty: i64,
+    /// Outstanding ratio
+    outstanding_ratio: Decimal,
+    /// Premium
+    premium: Decimal,
+    /// In/out of the bound
+    #[js(opt)]
+    itm_otm: Option<Decimal>,
+    /// Implied volatility
+    #[js(opt)]
+    implied_volatility: Option<Decimal>,
+    /// Delta
+    #[js(opt)]
+    delta: Option<Decimal>,
+    /// Call price
+    #[js(opt)]
+    call_price: Option<Decimal>,
+    /// Price interval from the call price
+    #[js(opt)]
+    to_call_price: Option<Decimal>,
+    /// Effective leverage
+    #[js(opt)]
+    effective_leverage: Option<Decimal>,
+    /// Leverage ratio
+    leverage_ratio: Decimal,
+    /// Conversion ratio
+    #[js(opt)]
+    conversion_ratio: Option<Decimal>,
+    /// Breakeven point
+    #[js(opt)]
+    balance_point: Option<Decimal>,
+    /// Status
+    status: WarrantStatus,
+}
+
+/// Warrant status
+#[napi_derive::napi]
+#[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
+#[js(remote = "longport::quote::WarrantStatus")]
+pub enum WarrantStatus {
+    /// Suspend
+    Suspend,
+    /// Prepare List
+    PrepareList,
+    /// Normal
+    Normal,
+}
+
 /// The information of trading session
 #[napi_derive::napi]
 #[derive(Debug, JsObject, Copy, Clone)]
@@ -980,7 +1150,7 @@ pub struct SecurityCalcIndex {
     change_value: Option<Decimal>,
     /// Change ratio
     #[js(opt)]
-    change_rate: Option<f64>,
+    change_rate: Option<Decimal>,
     /// Volume
     #[js(opt)]
     volume: Option<i64>,
@@ -989,10 +1159,10 @@ pub struct SecurityCalcIndex {
     turnover: Option<Decimal>,
     /// Year-to-date change ratio
     #[js(opt)]
-    ytd_change_rate: Option<f64>,
+    ytd_change_rate: Option<Decimal>,
     /// Turnover rate
     #[js(opt)]
-    turnover_rate: Option<f64>,
+    turnover_rate: Option<Decimal>,
     /// Total market value
     #[js(opt)]
     total_market_value: Option<Decimal>,
@@ -1001,31 +1171,31 @@ pub struct SecurityCalcIndex {
     capital_flow: Option<Decimal>,
     /// Amplitude
     #[js(opt)]
-    amplitude: Option<f64>,
+    amplitude: Option<Decimal>,
     /// Volume ratio
     #[js(opt)]
-    volume_ratio: Option<f64>,
+    volume_ratio: Option<Decimal>,
     /// PE (TTM)
     #[js(opt)]
-    pe_ttm_ratio: Option<f64>,
+    pe_ttm_ratio: Option<Decimal>,
     /// PB
     #[js(opt)]
-    pb_ratio: Option<f64>,
+    pb_ratio: Option<Decimal>,
     /// Dividend ratio (TTM)
     #[js(opt)]
-    dividend_ratio_ttm: Option<f64>,
+    dividend_ratio_ttm: Option<Decimal>,
     /// Five days change ratio
     #[js(opt)]
-    five_day_change_rate: Option<f64>,
+    five_day_change_rate: Option<Decimal>,
     /// Ten days change ratio
     #[js(opt)]
-    ten_day_change_rate: Option<f64>,
+    ten_day_change_rate: Option<Decimal>,
     /// Half year change ratio
     #[js(opt)]
-    half_year_change_rate: Option<f64>,
+    half_year_change_rate: Option<Decimal>,
     /// Five minutes change ratio
     #[js(opt)]
-    five_minutes_change_rate: Option<f64>,
+    five_minutes_change_rate: Option<Decimal>,
     /// Expiry date
     #[js(opt)]
     expiry_date: Option<NaiveDate>,
@@ -1043,19 +1213,19 @@ pub struct SecurityCalcIndex {
     outstanding_qty: Option<i64>,
     /// Outstanding ratio
     #[js(opt)]
-    outstanding_ratio: Option<f64>,
+    outstanding_ratio: Option<Decimal>,
     /// Premium
     #[js(opt)]
-    premium: Option<f64>,
+    premium: Option<Decimal>,
     /// In/out of the bound
     #[js(opt)]
-    itm_otm: Option<f64>,
+    itm_otm: Option<Decimal>,
     /// Implied volatility
     #[js(opt)]
-    implied_volatility: Option<f64>,
+    implied_volatility: Option<Decimal>,
     /// Warrant delta
     #[js(opt)]
-    warrant_delta: Option<f64>,
+    warrant_delta: Option<Decimal>,
     /// Call price
     #[js(opt)]
     call_price: Option<Decimal>,
@@ -1064,32 +1234,32 @@ pub struct SecurityCalcIndex {
     to_call_price: Option<Decimal>,
     /// Effective leverage
     #[js(opt)]
-    effective_leverage: Option<f64>,
+    effective_leverage: Option<Decimal>,
     /// Leverage ratio
     #[js(opt)]
-    leverage_ratio: Option<f64>,
+    leverage_ratio: Option<Decimal>,
     /// Conversion ratio
     #[js(opt)]
-    conversion_ratio: Option<f64>,
+    conversion_ratio: Option<Decimal>,
     /// Breakeven point
     #[js(opt)]
-    balance_point: Option<f64>,
+    balance_point: Option<Decimal>,
     /// Open interest
     #[js(opt)]
     open_interest: Option<i64>,
     /// Delta
     #[js(opt)]
-    delta: Option<f64>,
+    delta: Option<Decimal>,
     /// Gamma
     #[js(opt)]
-    gamma: Option<f64>,
+    gamma: Option<Decimal>,
     /// Theta
     #[js(opt)]
-    theta: Option<f64>,
+    theta: Option<Decimal>,
     /// Vega
     #[js(opt)]
-    vega: Option<f64>,
+    vega: Option<Decimal>,
     /// Rho
     #[js(opt)]
-    rho: Option<f64>,
+    rho: Option<Decimal>,
 }

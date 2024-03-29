@@ -168,6 +168,18 @@ public:
   void warrant_issuers(
     AsyncCallback<QuoteContext, std::vector<IssuerInfo>> callback) const;
 
+  /// Query warrant list
+  void warrant_list(
+    const std::string& symbol,
+    WarrantSortBy sort_by,
+    SortOrderType sort_order,
+    const std::vector<WarrantType>& warrant_type,
+    const std::vector<int32_t>& issuer,
+    const std::vector<FilterWarrantExpiryDate>& expiry_date,
+    const std::vector<FilterWarrantInOutBoundsType>& price_type,
+    const std::vector<WarrantStatus>& status,
+    AsyncCallback<QuoteContext, std::vector<WarrantInfo>> callback) const;
+
   /// Get trading session of the day
   void trading_session(
     AsyncCallback<QuoteContext, std::vector<MarketTradingSession>> callback)
@@ -197,10 +209,6 @@ public:
     const std::vector<std::string>& symbols,
     const std::vector<CalcIndex>& indexes,
     AsyncCallback<QuoteContext, std::vector<SecurityCalcIndex>> callback) const;
-
-  /// Get watchlist
-  [[deprecated("use `watchlist` instead")]] void watch_list(
-    AsyncCallback<QuoteContext, std::vector<WatchlistGroup>> callback) const;
 
   /// Get watchlist
   void watchlist(

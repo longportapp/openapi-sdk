@@ -113,6 +113,12 @@ cpp_compat = true
 "CSecuritiesUpdateMode" = "lb_securities_update_mode_t"
 "CCalcIndex" = "lb_calc_index_t"
 "CSecurityCalcIndex" = "lb_security_calc_index_t"
+"CSortOrderType" = "lb_sort_order_type_t"
+"CWarrantSortBy" = "lb_warrant_sort_by_t"
+"CFilterWarrantExpiryDate" = "lb_filter_warrant_expiry_date_t"
+"CFilterWarrantInOutBoundsType" = "lb_filter_warrant_in_out_bounds_type_t"
+"CWarrantStatus" = "lb_warrant_status_t"
+"CWarrantInfo" = "lb_warrant_info_t"
 
 [export]
 include = [
@@ -146,4 +152,5 @@ include = [
     "COrderDetail",
     "CEstimateMaxPurchaseQuantityResponse",
     "CSecurityCalcIndex",
+    "CWarrantInfo",
 ]

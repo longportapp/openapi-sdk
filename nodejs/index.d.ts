@@ -227,6 +227,87 @@ export const enum SecurityBoard {
   /** SG Industry Board */
   SGSector = 24
 }
+/** Sort order type */
+export const enum SortOrderType {
+  /** Ascending */
+  Ascending = 0,
+  /** Descending */
+  Descending = 1
+}
+/** Warrant sort by */
+export const enum WarrantSortBy {
+  /** Last done */
+  LastDone = 0,
+  /** Change rate */
+  ChangeRate = 1,
+  /** Change value */
+  ChangeValue = 2,
+  /** Volume */
+  Volume = 3,
+  /** Turnover */
+  Turnover = 4,
+  /** Expiry date */
+  ExpiryDate = 5,
+  /** Strike price */
+  StrikePrice = 6,
+  /** Upper strike price */
+  UpperStrikePrice = 7,
+  /** Lower strike price */
+  LowerStrikePrice = 8,
+  /** Outstanding quantity */
+  OutstandingQuantity = 9,
+  /** Outstanding ratio */
+  OutstandingRatio = 10,
+  /** Premium */
+  Premium = 11,
+  /** In/out of the bound */
+  ItmOtm = 12,
+  /** Implied volatility */
+  ImpliedVolatility = 13,
+  /** Greek value delta */
+  Delta = 14,
+  /** Call price */
+  CallPrice = 15,
+  /** Price interval from the call price */
+  ToCallPrice = 16,
+  /** Effective leverage */
+  EffectiveLeverage = 17,
+  /** Leverage ratio */
+  LeverageRatio = 18,
+  /** Conversion ratio */
+  ConversionRatio = 19,
+  /** Breakeven point */
+  BalancePoint = 20,
+  /** Status */
+  Status = 21
+}
+/** Filter warrant expiry date type */
+export const enum FilterWarrantExpiryDate {
+  /** Less than 3 months */
+  LT_3 = 0,
+  /** 3 - 6 months */
+  Between_3_6 = 1,
+  /** 6 - 12 months */
+  Between_6_12 = 2,
+  /** Greater than 12 months */
+  GT_12 = 3
+}
+/** Filter warrant in/out of the bounds type */
+export const enum FilterWarrantInOutBoundsType {
+  /** In bounds */
+  In = 0,
+  /** Out bounds */
+  Out = 1
+}
+/** Warrant status */
+export const enum WarrantStatus {
+  /** Suspend */
+  Suspend = 0,
+  /** Prepare List */
+  PrepareList = 1,
+  /** Normal */
+  Normal = 2
+}
 /** Securities update mode */
 export const enum SecuritiesUpdateMode {
   /** Add securities */
@@ -1163,6 +1244,23 @@ export class QuoteContext {
    */
   warrantIssuers(): Promise<Array<IssuerInfo>>
   /**
+   * Query warrant list
+   *
+   * #### Example
+   * ```javascript
+   * const { Config, QuoteContext, WarrantSortBy, SortOrderType } = require("longport")
+   * let config = Config.fromEnv()
+   * QuoteContext.new(config)
+   *  .then((ctx) => ctx.warrantList("700.HK", WarrantSortBy.LastDone, SortOrderType.Asc))
+   * .then((resp) => {
+   *  for (let obj of resp) {
+   *   console.log(obj.toString())
+   * }
+   * })
+   * ```
+   */
+  warrantList(symbol: string, sortBy: WarrantSortBy, sortOrder: SortOrderType, warrantType?: Array<WarrantType> | undefined | null, issuer?: Array<number> | undefined | null, expiryDate?: Array<FilterWarrantExpiryDate> | undefined | null, priceType?: Array<FilterWarrantInOutBoundsType> | undefined | null, status?: Array<WarrantStatus> | undefined | null): Promise<Array<WarrantInfo>>
+  /**
    * Get trading session of the day
    *
    * #### Example
@@ -1230,18 +1328,8 @@ export class QuoteContext {
    * ```
    */
   capitalDistribution(symbol: string): Promise<CapitalDistributionResponse>
-  /**
-   * Get watchlist
-   *
-   * Deprecated: use `watchlist` instead
-   */
+  /** Get calc indexes */
   calcIndexes(symbols: Array<string>, indexes: Array<CalcIndex>): Promise<Array<SecurityCalcIndex>>
-  /**
-   * Get watchlist
-   *
-   * Deprecated: use `watchlist` instead
-   */
-  watchList(): Promise<Array<WatchlistGroup>>
   /**
    * Get watchlist
    *
@@ -1745,6 +1833,60 @@ export class IssuerInfo {
   /** Issuer name (zh-HK) */
   get nameHk(): string
 }
+/** Warrant info */
+export class WarrantInfo {
+  toString(): string
+  /** Security code */
+  get symbol(): string
+  /** Warrant type */
+  get warrantType(): WarrantType
+  /** Security name */
+  get name(): string
+  /** Latest price */
+  get lastDone(): Decimal
+  /** Quote change rate */
+  get changeRate(): Decimal
+  /** Quote change */
+  get changeVal(): Decimal
+  /** Volume */
+  get volume(): number
+  /** Turnover */
+  get turnover(): Decimal
+  /** Expiry date */
+  get expiryDate(): NaiveDate
+  /** Strike price */
+  get strikePrice(): Decimal | null
+  /** Upper strike price */
+  get upperStrikePrice(): Decimal | null
+  /** Lower strike price */
+  get lowerStrikePrice(): Decimal | null
+  /** Outstanding quantity */
+  get outstandingQty(): number
+  /** Outstanding ratio */
+  get outstandingRatio(): Decimal
+  /** Premium */
+  get premium(): Decimal
+  /** In/out of the bound */
+  get itmOtm(): Decimal | null
+  /** Implied volatility */
+  get impliedVolatility(): Decimal | null
+  /** Delta */
+  get delta(): Decimal | null
+  /** Call price */
+  get callPrice(): Decimal | null
+  /** Price interval from the call price */
+  get toCallPrice(): Decimal | null
+  /** Effective leverage */
+  get effectiveLeverage(): Decimal | null
+  /** Leverage ratio */
+  get leverageRatio(): Decimal
+  /** Conversion ratio */
+  get conversionRatio(): Decimal | null
+  /** Breakeven point */
+  get balancePoint(): Decimal | null
+  /** Status */
+  get status(): WarrantStatus
+}
 /** The information of trading session */
 export class TradingSessionInfo {
   toString(): string
@@ -1907,37 +2049,37 @@ export class SecurityCalcIndex {
   /** Change value */
   get changeValue(): Decimal | null
   /** Change ratio */
-  get changeRate(): number | null
+  get changeRate(): Decimal | null
   /** Volume */
   get volume(): number | null
   /** Turnover */
   get turnover(): Decimal | null
   /** Year-to-date change ratio */
-  get ytdChangeRate(): number | null
+  get ytdChangeRate(): Decimal | null
   /** Turnover rate */
-  get turnoverRate(): number | null
+  get turnoverRate(): Decimal | null
   /** Total market value */
   get totalMarketValue(): Decimal | null
   /** Capital flow */
   get capitalFlow(): Decimal | null
   /** Amplitude */
-  get amplitude(): number | null
+  get amplitude(): Decimal | null
   /** Volume ratio */
-  get volumeRatio(): number | null
+  get volumeRatio(): Decimal | null
   /** PE (TTM) */
-  get peTtmRatio(): number | null
+  get peTtmRatio(): Decimal | null
   /** PB */
-  get pbRatio(): number | null
+  get pbRatio(): Decimal | null
   /** Dividend ratio (TTM) */
-  get dividendRatioTtm(): number | null
+  get dividendRatioTtm(): Decimal | null
   /** Five days change ratio */
-  get fiveDayChangeRate(): number | null
+  get fiveDayChangeRate(): Decimal | null
   /** Ten days change ratio */
-  get tenDayChangeRate(): number | null
+  get tenDayChangeRate(): Decimal | null
   /** Half year change ratio */
-  get halfYearChangeRate(): number | null
+  get halfYearChangeRate(): Decimal | null
   /** Five minutes change ratio */
-  get fiveMinutesChangeRate(): number | null
+  get fiveMinutesChangeRate(): Decimal | null
   /** Expiry date */
   get expiryDate(): NaiveDate | null
   /** Strike price */
@@ -1949,39 +2091,39 @@ export class SecurityCalcIndex {
   /** Outstanding quantity */
   get outstandingQty(): number | null
   /** Outstanding ratio */
-  get outstandingRatio(): number | null
+  get outstandingRatio(): Decimal | null
   /** Premium */
-  get premium(): number | null
+  get premium(): Decimal | null
   /** In/out of the bound */
-  get itmOtm(): number | null
+  get itmOtm(): Decimal | null
   /** Implied volatility */
-  get impliedVolatility(): number | null
+  get impliedVolatility(): Decimal | null
   /** Warrant delta */
-  get warrantDelta(): number | null
+  get warrantDelta(): Decimal | null
   /** Call price */
   get callPrice(): Decimal | null
   /** Price interval from the call price */
   get toCallPrice(): Decimal | null
   /** Effective leverage */
-  get effectiveLeverage(): number | null
+  get effectiveLeverage(): Decimal | null
   /** Leverage ratio */
-  get leverageRatio(): number | null
+  get leverageRatio(): Decimal | null
   /** Conversion ratio */
-  get conversionRatio(): number | null
+  get conversionRatio(): Decimal | null
   /** Breakeven point */
-  get balancePoint(): number | null
+  get balancePoint(): Decimal | null
   /** Open interest */
   get openInterest(): number | null
   /** Delta */
-  get delta(): number | null
+  get delta(): Decimal | null
   /** Gamma */
-  get gamma(): number | null
+  get gamma(): Decimal | null
   /** Theta */
-  get theta(): number | null
+  get theta(): Decimal | null
   /** Vega */
-  get vega(): number | null
+  get vega(): Decimal | null
   /** Rho */
-  get rho(): number | null
+  get rho(): Decimal | null
 }
 /** Naive date type */
 export class NaiveDate {
@@ -2737,7 +2879,7 @@ export class StockPosition {
   /** Market */
   get market(): Market
   /** Initial position before market opening */
-  get initQuantity(): Decimal | null
+  get initQuantity(): number | null
 }
 /** Margin ratio */
 export class MarginRatio {
