@@ -1561,6 +1561,7 @@
 <a href="#1559" id="1559">1559</a>
 <a href="#1560" id="1560">1560</a>
 <a href="#1561" id="1561">1561</a>
+<a href="#1562" id="1562">1562</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
@@ -2488,6 +2489,7 @@
     </span>}
 
     <span class="doccomment">/// Query warrant list
+    </span><span class="attr">#[allow(clippy::too_many_arguments)]
     </span><span class="kw">pub async fn </span>warrant_list(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         symbol: <span class="kw">impl </span>Into&lt;String&gt;,

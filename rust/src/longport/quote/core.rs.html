@@ -1035,15 +1035,6 @@
 <a href="#1033" id="1033">1033</a>
 <a href="#1034" id="1034">1034</a>
 <a href="#1035" id="1035">1035</a>
-<a href="#1036" id="1036">1036</a>
-<a href="#1037" id="1037">1037</a>
-<a href="#1038" id="1038">1038</a>
-<a href="#1039" id="1039">1039</a>
-<a href="#1040" id="1040">1040</a>
-<a href="#1041" id="1041">1041</a>
-<a href="#1042" id="1042">1042</a>
-<a href="#1043" id="1043">1043</a>
-<a href="#1044" id="1044">1044</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1672,38 +1663,29 @@
             .get_mut(<span class="kw-2">&amp;</span>symbol)
             .map(|data| <span class="kw-2">&amp;mut </span>data.candlesticks)
         {
-            <span class="kw">if </span>periods.remove(<span class="kw-2">&amp;</span>period).is_some() {
-                <span class="kw">if </span>period == Period::Day {
-                    unsubscribe_quote = <span class="bool-val">true</span>;
-                } <span class="kw">else </span>{
-                    <span class="kw">if </span>periods.is_empty()
-                        || (periods.len() == <span class="number">1 </span>&amp;&amp; periods.contains_key(<span class="kw-2">&amp;</span>Period::Day))
-                    {
-                        unsubscribe_quote = <span class="bool-val">true</span>;
-                    }
-                }
+            <span class="kw">if </span>periods.remove(<span class="kw-2">&amp;</span>period).is_some() &amp;&amp; period == Period::Day {
+                unsubscribe_quote = <span class="bool-val">true</span>;
             }
 
-            <span class="kw">if </span>unsubscribe_quote {
-                <span class="kw">if </span>!<span class="self">self
+            <span class="kw">if </span>unsubscribe_quote
+                &amp;&amp; !<span class="self">self
                     </span>.subscriptions
                     .get(<span class="kw-2">&amp;</span>symbol)
                     .copied()
                     .unwrap_or_else(SubFlags::empty)
                     .contains(unsubscribe_sub_flags)
-                {
-                    <span class="self">self</span>.ws_cli
-                        .request(
-                            cmd_code::UNSUBSCRIBE,
-                            <span class="prelude-val">None</span>,
-                            UnsubscribeRequest {
-                                symbol: <span class="macro">vec!</span>[symbol],
-                                sub_type: unsubscribe_sub_flags.into(),
-                                unsub_all: <span class="bool-val">false</span>,
-                            },
-                        )
-                        .<span class="kw">await</span><span class="question-mark">?</span>;
-                }
+            {
+                <span class="self">self</span>.ws_cli
+                    .request(
+                        cmd_code::UNSUBSCRIBE,
+                        <span class="prelude-val">None</span>,
+                        UnsubscribeRequest {
+                            symbol: <span class="macro">vec!</span>[symbol],
+                            sub_type: unsubscribe_sub_flags.into(),
+                            unsub_all: <span class="bool-val">false</span>,
+                        },
+                    )
+                    .<span class="kw">await</span><span class="question-mark">?</span>;
             }
         }
 
