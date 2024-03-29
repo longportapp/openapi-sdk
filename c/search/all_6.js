@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gamma_138',['gamma',['../structlb__security__calc__index__t.html#a4813d4194b211b475c04bcb6d387e630',1,'lb_security_calc_index_t']]]
+  ['gamma_138',['gamma',['../structlb__security__calc__index__t.html#a1c2926f413a50fbffef7aadd4cd33d53',1,'lb_security_calc_index_t']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['balance_11',['balance',['../structlb__cash__flow__t.html#a3c5a6b3ec5703721e147cb349e30108a',1,'lb_cash_flow_t']]],
-  ['balance_5fpoint_12',['balance_point',['../structlb__security__calc__index__t.html#a4f93a21649876fb36baaf2057bec0cba',1,'lb_security_calc_index_t']]],
+  ['balance_5fpoint_12',['balance_point',['../structlb__security__calc__index__t.html#a25f39636eed7efb3890c0004619c4560',1,'lb_security_calc_index_t::balance_point()'],['../structlb__warrant__info__t.html#a25f39636eed7efb3890c0004619c4560',1,'lb_warrant_info_t::balance_point()']]],
   ['balancetypecash_13',['BalanceTypeCash',['../longport_8h.html#ac0ec531aeaece7112d0f70761dfd7d10a2a4479d6fa3788dde90ffcb1ef24e759',1,'longport.h']]],
   ['balancetypefund_14',['BalanceTypeFund',['../longport_8h.html#ac0ec531aeaece7112d0f70761dfd7d10afc55415409b79138d06adaded57e475d',1,'longport.h']]],
   ['balancetypestock_15',['BalanceTypeStock',['../longport_8h.html#ac0ec531aeaece7112d0f70761dfd7d10ad371abf75f381d861e12f1c4d3cb9e6e',1,'longport.h']]],

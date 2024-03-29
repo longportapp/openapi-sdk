@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['language_1084',['Language',['../namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473c',1,'longport']]]
+  ['filterwarrantexpirydate_1103',['FilterWarrantExpiryDate',['../namespacelongport_1_1quote.html#a581b39d5633ca7263f622748ee35d282',1,'longport::quote']]],
+  ['filterwarrantinoutboundstype_1104',['FilterWarrantInOutBoundsType',['../namespacelongport_1_1quote.html#ab0e799c3426ada8aa54e14ffd84714c4',1,'longport::quote']]]
 ];

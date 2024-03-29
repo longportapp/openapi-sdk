@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/context.rs`."><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0 (07dca489a 2024-02-04)" data-channel="1.76.0" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../../../static.files/src-script-39ed315d46fb705f.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/quote/context.rs`."><title>context.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.77.1 (7cf61ebde 2024-03-27)" data-channel="1.77.1" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../longport/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1514,6 +1515,52 @@
 <a href="#1513" id="1513">1513</a>
 <a href="#1514" id="1514">1514</a>
 <a href="#1515" id="1515">1515</a>
+<a href="#1516" id="1516">1516</a>
+<a href="#1517" id="1517">1517</a>
+<a href="#1518" id="1518">1518</a>
+<a href="#1519" id="1519">1519</a>
+<a href="#1520" id="1520">1520</a>
+<a href="#1521" id="1521">1521</a>
+<a href="#1522" id="1522">1522</a>
+<a href="#1523" id="1523">1523</a>
+<a href="#1524" id="1524">1524</a>
+<a href="#1525" id="1525">1525</a>
+<a href="#1526" id="1526">1526</a>
+<a href="#1527" id="1527">1527</a>
+<a href="#1528" id="1528">1528</a>
+<a href="#1529" id="1529">1529</a>
+<a href="#1530" id="1530">1530</a>
+<a href="#1531" id="1531">1531</a>
+<a href="#1532" id="1532">1532</a>
+<a href="#1533" id="1533">1533</a>
+<a href="#1534" id="1534">1534</a>
+<a href="#1535" id="1535">1535</a>
+<a href="#1536" id="1536">1536</a>
+<a href="#1537" id="1537">1537</a>
+<a href="#1538" id="1538">1538</a>
+<a href="#1539" id="1539">1539</a>
+<a href="#1540" id="1540">1540</a>
+<a href="#1541" id="1541">1541</a>
+<a href="#1542" id="1542">1542</a>
+<a href="#1543" id="1543">1543</a>
+<a href="#1544" id="1544">1544</a>
+<a href="#1545" id="1545">1545</a>
+<a href="#1546" id="1546">1546</a>
+<a href="#1547" id="1547">1547</a>
+<a href="#1548" id="1548">1548</a>
+<a href="#1549" id="1549">1549</a>
+<a href="#1550" id="1550">1550</a>
+<a href="#1551" id="1551">1551</a>
+<a href="#1552" id="1552">1552</a>
+<a href="#1553" id="1553">1553</a>
+<a href="#1554" id="1554">1554</a>
+<a href="#1555" id="1555">1555</a>
+<a href="#1556" id="1556">1556</a>
+<a href="#1557" id="1557">1557</a>
+<a href="#1558" id="1558">1558</a>
+<a href="#1559" id="1559">1559</a>
+<a href="#1560" id="1560">1560</a>
+<a href="#1561" id="1561">1561</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
@@ -1529,16 +1576,19 @@
         cmd_code,
         core::{Command, Core},
         sub_flags::SubFlags,
-        types::SecuritiesUpdateMode,
+        types::{
+            FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, SecuritiesUpdateMode,
+            SortOrderType, WarrantSortBy, WarrantStatus,
+        },
         utils::{format_date, parse_date},
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
         IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
         ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
         RequestUpdateWatchlistGroup, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantQuote,
-        WatchlistGroup,
+        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantInfo,
+        WarrantQuote, WarrantType, WatchlistGroup,
     },
-    serde_utils, Config, Error, Market, <span class="prelude-ty">Result</span>,
+    serde_utils, Config, Error, Language, Market, <span class="prelude-ty">Result</span>,
 };
 
 <span class="kw">const </span>PARTICIPANT_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">30 </span>* <span class="number">60</span>);
@@ -1550,6 +1600,7 @@
 <span class="doccomment">/// Quote context
 </span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>QuoteContext {
+    language: Language,
     http_cli: HttpClient,
     command_tx: mpsc::UnboundedSender&lt;Command&gt;,
     cache_participants: Cache&lt;Vec&lt;ParticipantInfo&gt;&gt;,
@@ -1566,6 +1617,7 @@
     </span><span class="kw">pub async fn </span>try_new(
         config: Arc&lt;Config&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, mpsc::UnboundedReceiver&lt;PushEvent&gt;)&gt; {
+        <span class="kw">let </span>language = config.language;
         <span class="kw">let </span>http_cli = config.create_http_client();
         <span class="kw">let </span>(command_tx, command_rx) = mpsc::unbounded_channel();
         <span class="kw">let </span>(push_tx, push_rx) = mpsc::unbounded_channel();
@@ -1575,6 +1627,7 @@
         tokio::spawn(core.run());
         <span class="prelude-val">Ok</span>((
             QuoteContext {
+                language,
                 http_cli,
                 command_tx,
                 cache_participants: Cache::new(PARTICIPANT_INFO_CACHE_TIMEOUT),
@@ -2434,6 +2487,52 @@
             .<span class="kw">await
     </span>}
 
+    <span class="doccomment">/// Query warrant list
+    </span><span class="kw">pub async fn </span>warrant_list(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        symbol: <span class="kw">impl </span>Into&lt;String&gt;,
+        sort_by: WarrantSortBy,
+        sort_order: SortOrderType,
+        warrant_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[WarrantType]&gt;,
+        issuer: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[i32]&gt;,
+        expiry_date: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[FilterWarrantExpiryDate]&gt;,
+        price_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[FilterWarrantInOutBoundsType]&gt;,
+        status: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>[WarrantStatus]&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;WarrantInfo&gt;&gt; {
+        <span class="kw">let </span>resp = <span class="self">self
+            </span>.request::&lt;<span class="kw">_</span>, quote::WarrantFilterListResponse&gt;(
+                cmd_code::GET_FILTERED_WARRANT,
+                quote::WarrantFilterListRequest {
+                    symbol: symbol.into(),
+                    filter_config: <span class="prelude-val">Some</span>(quote::FilterConfig {
+                        sort_by: sort_by.into(),
+                        sort_order: sort_order.into(),
+                        sort_offset: <span class="number">0</span>,
+                        sort_count: <span class="number">0</span>,
+                        r#type: warrant_type
+                            .map(|types| types.iter().map(|ty| (<span class="kw-2">*</span>ty).into()).collect())
+                            .unwrap_or_default(),
+                        issuer: issuer.map(|types| types.to_vec()).unwrap_or_default(),
+                        expiry_date: expiry_date
+                            .map(|e| e.iter().map(|e| (<span class="kw-2">*</span>e).into()).collect())
+                            .unwrap_or_default(),
+                        price_type: price_type
+                            .map(|types| types.iter().map(|ty| (<span class="kw-2">*</span>ty).into()).collect())
+                            .unwrap_or_default(),
+                        status: status
+                            .map(|status| status.iter().map(|status| (<span class="kw-2">*</span>status).into()).collect())
+                            .unwrap_or_default(),
+                    }),
+                    language: <span class="self">self</span>.language.into(),
+                },
+            )
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+        resp.warrant_list
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect::&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;&gt;()
+    }
+
     <span class="doccomment">/// Get trading session of the day
     ///
     /// Reference: &lt;https://open.longportapp.com/en/docs/quote/pull/trade-session&gt;
@@ -2629,12 +2728,6 @@
             .map(|resp| SecurityCalcIndex::from_proto(resp, <span class="kw-2">&amp;</span>indexes))
             .collect())
     }
-
-    <span class="doccomment">/// Get watchlist
-    </span><span class="attr">#[deprecated(note = <span class="string">"Use `watchlist` instead"</span>)]
-    </span><span class="kw">pub async fn </span>watch_list(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;WatchlistGroup&gt;&gt; {
-        <span class="self">self</span>.watchlist().<span class="kw">await
-    </span>}
 
     <span class="doccomment">/// Get watchlist
     ///

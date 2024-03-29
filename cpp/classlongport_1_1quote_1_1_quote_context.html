@@ -171,6 +171,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afbe16589f9ec238e971b28accbcbb880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#afbe16589f9ec238e971b28accbcbb880">warrant_issuers</a> (<a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_issuer_info.html">IssuerInfo</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:afbe16589f9ec238e971b28accbcbb880"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get warrant issuers.  <a href="classlongport_1_1quote_1_1_quote_context.html#afbe16589f9ec238e971b28accbcbb880">More...</a><br /></td></tr>
 <tr class="separator:afbe16589f9ec238e971b28accbcbb880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c149e3497bfea11baf5a9eaf7a4ff4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a19c149e3497bfea11baf5a9eaf7a4ff4">warrant_list</a> (const std::string &amp;symbol, <a class="el" href="namespacelongport_1_1quote.html#aaf9b79be6c85e5972d5a043fc2abf001">WarrantSortBy</a> sort_by, <a class="el" href="namespacelongport_1_1quote.html#ae5b0516484ac8b93bb8d3c3c26ee746b">SortOrderType</a> sort_order, const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#acc6eac080c16a5f14aa8612f111c50d4">WarrantType</a> &gt; &amp;warrant_type, const std::vector&lt; int32_t &gt; &amp;issuer, const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#a581b39d5633ca7263f622748ee35d282">FilterWarrantExpiryDate</a> &gt; &amp;expiry_date, const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#ab0e799c3426ada8aa54e14ffd84714c4">FilterWarrantInOutBoundsType</a> &gt; &amp;price_type, const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#aa3d52eeb7d82a2a44a3b3b88f5fb776d">WarrantStatus</a> &gt; &amp;status, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_warrant_info.html">WarrantInfo</a> &gt;&gt; callback) const</td></tr>
+<tr class="memdesc:a19c149e3497bfea11baf5a9eaf7a4ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query warrant list.  <a href="classlongport_1_1quote_1_1_quote_context.html#a19c149e3497bfea11baf5a9eaf7a4ff4">More...</a><br /></td></tr>
+<tr class="separator:a19c149e3497bfea11baf5a9eaf7a4ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bfc910ef7b64f60ad130610073aa7cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a7bfc910ef7b64f60ad130610073aa7cd">trading_session</a> (<a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_market_trading_session.html">MarketTradingSession</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:a7bfc910ef7b64f60ad130610073aa7cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get trading session of the day.  <a href="classlongport_1_1quote_1_1_quote_context.html#a7bfc910ef7b64f60ad130610073aa7cd">More...</a><br /></td></tr>
 <tr class="separator:a7bfc910ef7b64f60ad130610073aa7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,9 +188,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af2d2c7bb0fe0a14b1532537f49a416b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#af2d2c7bb0fe0a14b1532537f49a416b4">calc_indexes</a> (const std::vector&lt; std::string &gt; &amp;symbols, const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbe">CalcIndex</a> &gt; &amp;indexes, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_security_calc_index.html">SecurityCalcIndex</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:af2d2c7bb0fe0a14b1532537f49a416b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get calc indexes.  <a href="classlongport_1_1quote_1_1_quote_context.html#af2d2c7bb0fe0a14b1532537f49a416b4">More...</a><br /></td></tr>
 <tr class="separator:af2d2c7bb0fe0a14b1532537f49a416b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc536f6e7b78560fb2262aecd811bded"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#adc536f6e7b78560fb2262aecd811bded">watch_list</a> (<a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_watchlist_group.html">WatchlistGroup</a> &gt;&gt; callback) const</td></tr>
-<tr class="memdesc:adc536f6e7b78560fb2262aecd811bded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get watchlist.  <a href="classlongport_1_1quote_1_1_quote_context.html#adc536f6e7b78560fb2262aecd811bded">More...</a><br /></td></tr>
-<tr class="separator:adc536f6e7b78560fb2262aecd811bded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b01947ccd7ed19cadf09ea1f9689bb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a3b01947ccd7ed19cadf09ea1f9689bb5">watchlist</a> (<a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_watchlist_group.html">WatchlistGroup</a> &gt;&gt; callback) const</td></tr>
 <tr class="memdesc:a3b01947ccd7ed19cadf09ea1f9689bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get watchlist.  <a href="classlongport_1_1quote_1_1_quote_context.html#a3b01947ccd7ed19cadf09ea1f9689bb5">More...</a><br /></td></tr>
 <tr class="separator:a3b01947ccd7ed19cadf09ea1f9689bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1588,6 +1588,78 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a19c149e3497bfea11baf5a9eaf7a4ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19c149e3497bfea11baf5a9eaf7a4ff4">&#9670;&nbsp;</a></span>warrant_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longport::quote::QuoteContext::warrant_list </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>symbol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongport_1_1quote.html#aaf9b79be6c85e5972d5a043fc2abf001">WarrantSortBy</a>&#160;</td>
+          <td class="paramname"><em>sort_by</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongport_1_1quote.html#ae5b0516484ac8b93bb8d3c3c26ee746b">SortOrderType</a>&#160;</td>
+          <td class="paramname"><em>sort_order</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#acc6eac080c16a5f14aa8612f111c50d4">WarrantType</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>warrant_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; int32_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>issuer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#a581b39d5633ca7263f622748ee35d282">FilterWarrantExpiryDate</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>expiry_date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#ab0e799c3426ada8aa54e14ffd84714c4">FilterWarrantInOutBoundsType</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>price_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacelongport_1_1quote.html#aa3d52eeb7d82a2a44a3b3b88f5fb776d">WarrantStatus</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_warrant_info.html">WarrantInfo</a> &gt;&gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Query warrant list. </p>
+
+</div>
+</div>
 <a id="ae92955368d26a4ea18bae23e35604039"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae92955368d26a4ea18bae23e35604039">&#9670;&nbsp;</a></span>warrant_quote()</h2>
 
@@ -1615,26 +1687,6 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get quote of warrant securities. </p>
-
-</div>
-</div>
-<a id="adc536f6e7b78560fb2262aecd811bded"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc536f6e7b78560fb2262aecd811bded">&#9670;&nbsp;</a></span>watch_list()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void longport::quote::QuoteContext::watch_list </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_watchlist_group.html">WatchlistGroup</a> &gt;&gt;&#160;</td>
-          <td class="paramname"><em>callback</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get watchlist. </p>
 
 </div>
 </div>
