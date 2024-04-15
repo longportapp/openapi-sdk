@@ -1847,7 +1847,7 @@ export class WarrantInfo {
   /** Quote change rate */
   get changeRate(): Decimal
   /** Quote change */
-  get changeVal(): Decimal
+  get changeValue(): Decimal
   /** Volume */
   get volume(): number
   /** Turnover */
@@ -2747,6 +2747,8 @@ export class PushOrderChanged {
   get lastShare(): Decimal | null
   /** Last price */
   get lastPrice(): Decimal | null
+  /** Remark message */
+  get remark(): string
 }
 /** Response for submit order request */
 export class SubmitOrderResponse {

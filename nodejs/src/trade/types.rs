@@ -537,6 +537,8 @@ pub struct PushOrderChanged {
     /// Last price
     #[js(opt)]
     last_price: Option<Decimal>,
+    /// Remark message
+    remark: String,
 }
 
 /// Response for submit order request

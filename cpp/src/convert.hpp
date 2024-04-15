@@ -1436,6 +1436,7 @@ convert(const lb_push_order_changed_t* info)
                      : std::nullopt,
     info->last_price ? std::optional{ Decimal(info->last_price) }
                      : std::nullopt,
+    info->remark,
   };
 }
 

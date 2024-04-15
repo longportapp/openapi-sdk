@@ -73,6 +73,8 @@ pub struct CPushOrderChanged {
     pub last_share: *const CDecimal,
     /// Last price (maybe null)
     pub last_price: *const CDecimal,
+    /// Remark message
+    pub remark: *const c_char,
 }
 
 pub struct CPushOrderChangedOwned {
@@ -100,6 +102,8 @@ pub struct CPushOrderChangedOwned {
     account_no: CString,
     last_share: Option<CDecimal>,
     last_price: Option<CDecimal>,
+    /// Remark message
+    pub remark: CString,
 }
 
 impl From<PushOrderChanged> for CPushOrderChangedOwned {
@@ -129,6 +133,7 @@ impl From<PushOrderChanged> for CPushOrderChangedOwned {
             account_no,
             last_share,
             last_price,
+            remark,
         } = order_changed;
         CPushOrderChangedOwned {
             side,
@@ -155,6 +160,7 @@ impl From<PushOrderChanged> for CPushOrderChangedOwned {
             account_no: account_no.into(),
             last_share: last_share.map(Into::into),
             last_price: last_price.map(Into::into),
+            remark: remark.into(),
         }
     }
 }
@@ -188,6 +194,7 @@ impl ToFFI for CPushOrderChangedOwned {
             account_no,
             last_share,
             last_price,
+            remark,
         } = self;
         CPushOrderChanged {
             side: (*side).into(),
@@ -241,6 +248,7 @@ impl ToFFI for CPushOrderChangedOwned {
                 .as_ref()
                 .map(ToFFI::to_ffi_type)
                 .unwrap_or(std::ptr::null()),
+            remark: remark.to_ffi_type(),
         }
     }
 }

@@ -1640,6 +1640,10 @@ typedef struct lb_push_order_changed_t {
    * Last price (maybe null)
    */
   const struct lb_decimal_t *last_price;
+  /**
+   * Remark message
+   */
+  const char *remark;
 } lb_push_order_changed_t;
 
 typedef void (*lb_order_changed_callback_t)(const struct lb_trade_context_t*,

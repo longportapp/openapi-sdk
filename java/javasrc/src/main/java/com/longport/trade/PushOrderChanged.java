@@ -28,6 +28,7 @@ public class PushOrderChanged {
     private String accountNo;
     private BigDecimal lastShare;
     private BigDecimal lastPrice;
+    private String remark;
 
     public OrderSide getSide() {
         return side;
@@ -117,12 +118,16 @@ public class PushOrderChanged {
         return accountNo;
     }
 
+    public BigDecimal getLastShare() {
+        return lastShare;
+    }
+
     public BigDecimal getLastPrice() {
         return lastPrice;
     }
 
-    public BigDecimal getLastShare() {
-        return lastShare;
+    public String getRemark() {
+        return remark;
     }
 
     @Override
@@ -134,7 +139,8 @@ public class PushOrderChanged {
                 + submittedAt + ", updatedAt=" + updatedAt + ", triggerPrice=" + triggerPrice + ", msg=" + msg
                 + ", tag=" + tag + ", triggerStatus=" + triggerStatus + ", triggerAt=" + triggerAt + ", trailingAmount="
                 + trailingAmount + ", trailingPercent=" + trailingPercent + ", limitOffset=" + limitOffset
-                + ", accountNo=" + accountNo + ", lastShare=" + lastShare + ", lastPrice=" + lastPrice + "]";
+                + ", accountNo=" + accountNo + ", lastShare=" + lastShare + ", lastPrice=" + lastPrice + ", remark="
+                + remark + "]";
     }
 
 }

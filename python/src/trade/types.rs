@@ -537,6 +537,8 @@ pub(crate) struct PushOrderChanged {
     /// Last price
     #[py(opt)]
     last_price: Option<PyDecimal>,
+    /// Remark message
+    remark: String,
 }
 
 /// Response for submit order request

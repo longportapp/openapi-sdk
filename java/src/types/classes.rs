@@ -591,7 +591,8 @@ impl_java_class!(
         limit_offset,
         account_no,
         last_share,
-        last_price
+        last_price,
+        remark
     ]
 );
 

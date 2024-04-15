@@ -1439,41 +1439,6 @@ class WarrantStatus:
         Normal
         """
 
-class WarrantType:
-    """
-    Warrant type
-    """
-
-    class Unknown(WarrantType):
-        """
-        Unknown
-        """
-
-    class Call(WarrantType):
-        """
-        Call
-        """
-
-    class Put(WarrantType):
-        """
-        Put
-        """
-
-    class Bull(WarrantType):
-        """
-        Bull
-        """
-
-    class Bear(WarrantType):
-        """
-        Bear
-        """
-
-    class Inline(WarrantType):
-        """
-        Inline
-        """
-
 class SortOrderType:
     """
     Sort order type
@@ -3672,6 +3637,11 @@ class PushOrderChanged:
     last_price: Optional[Decimal]
     """
     Last price
+    """
+
+    remark: str
+    """
+    Remark message
     """
 
 

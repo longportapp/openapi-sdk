@@ -1417,6 +1417,8 @@ struct PushOrderChanged
   std::optional<Decimal> last_share;
   /// Last price
   std::optional<Decimal> last_price;
+  /// Remark message
+  std::string remark;
 };
 
 /// Options for get history orders request
