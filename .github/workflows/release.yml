@@ -714,9 +714,9 @@ jobs:
 
       - name: Copy files
         run: |
-          mkdir -p dist/lib/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}
-          cp target/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}/liblongport_c.a dist/lib/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}
-          cp cpp/cmake.build/liblongport_cpp.a dist/lib/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}
+          mkdir -p dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
+          cp target/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}/liblongport_c.a dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
+          cp cpp/cmake.build/liblongport_cpp.a dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -804,9 +804,9 @@ jobs:
 
       - name: Copy files
         run: |
-          mkdir -p dist/lib/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}
-          cp target/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}/liblongport_c.a dist/lib/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}
-          cp cpp/cmake.build/liblongport_cpp.a dist/lib/${{ matrix.settings.target }}/{{ matrix.settings.target-dir }}
+          mkdir -p dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
+          cp target/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}/liblongport_c.a dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
+          cp cpp/cmake.build/liblongport_cpp.a dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
