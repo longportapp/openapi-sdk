@@ -264,9 +264,19 @@ jobs:
         run: |
           rustup target install ${{ matrix.target }}
 
-      - name: Build
+      - name: Build C
+        working-directory: c
         run: |
-          cd c && cargo rustc --crate-type=staticlib --target --target ${{ matrix.target }}
+          cargo rustc --crate-type=staticlib --target --target ${{ matrix.target }}
+
+      - name: Get CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Build CPP
+        working-directory: cpp
+        run: |
+          mkdir cmake.build
+          cd cmake.build && cmake --toolchain ../static/toolchains/ios.cmake ../static && make
 
   check-android-cpp-sdk:
     needs:
@@ -305,10 +315,24 @@ jobs:
           ndk-version: r26d
           add-to-path: true
 
-      - name: Build
+      - name: Build C
+        working-directory: c
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
           CC: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/${{ matrix.settings.cc }}
           AR: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/${{ matrix.settings.ar }}
         run: |
-          cd c && cargo rustc --crate-type=staticlib --target ${{ matrix.settings.target }}
+          cargo rustc --crate-type=staticlib --target ${{ matrix.settings.target }}
+
+      - name: Get CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Build CPP
+        working-directory: cpp
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          CC: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/${{ matrix.settings.cc }}
+          AR: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/${{ matrix.settings.ar }}
+        run: |
+          mkdir cmake.build
+          cd cmake.build && cmake ../static && make
