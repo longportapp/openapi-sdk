@@ -294,6 +294,7 @@ jobs:
       - name: Build
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          CC_armv7-linux-androideabi: armv7a-linux-androideabi28-clang
         run: |
           cargo build -p longport-c --target armv7-linux-androideabi
           cargo build -p longport-c --target aarch64-linux-android
