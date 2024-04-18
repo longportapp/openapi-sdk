@@ -669,18 +669,22 @@ jobs:
             platform: OS64
             build-type: Debug
             target-dir: debug
+            cargo-args: ""
           - target: aarch64-apple-ios
             platform: OS64
             build-type: Release
             target-dir: release
+            cargo-args: -r
           - target: aarch64-apple-ios-sim
             platform: SIMULATOR64
             build-type: Debug
             target-dir: debug
+            cargo-args: ""
           - target: aarch64-apple-ios-sim
             platform: SIMULATOR64
             build-type: Release
             target-dir: release
+            cargo-args: -r
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -701,7 +705,7 @@ jobs:
       - name: Build C
         working-directory: c
         run: |
-          cargo rustc --crate-type=staticlib --target --target ${{ matrix.settings.target }}
+          cargo rustc --crate-type=staticlib --target --target ${{ matrix.settings.target }} ${{ matrix.settings.cargo-args }}
 
       - name: Get CMake
         uses: lukka/get-cmake@latest
@@ -737,24 +741,28 @@ jobs:
             ar: llvm-ar
             build-type: Debug
             target-dir: debug
+            cargo-args: ""
           - target: armv7-linux-androideabi
             cc: armv7a-linux-androideabi28-clang
             cxx: armv7a-linux-androideabi28-clang++
             ar: llvm-ar
             build-type: Release
             target-dir: release
+            cargo-args: -r
           - target: aarch64-linux-android
             cc: aarch64-linux-android28-clang
             cxx: aarch64-linux-android28-clang++
             ar: llvm-ar
             build-type: Debug
             target-dir: debug
+            cargo-args: ""
           - target: aarch64-linux-android
             cc: aarch64-linux-android28-clang
             cxx: aarch64-linux-android28-clang++
             ar: llvm-ar
             build-type: Release
             target-dir: release
+            cargo-args: -r
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -786,7 +794,7 @@ jobs:
           CC: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/${{ matrix.settings.cc }}
           AR: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/${{ matrix.settings.ar }}
         run: |
-          cargo rustc --crate-type=staticlib --target ${{ matrix.settings.target }}
+          cargo rustc --crate-type=staticlib --target ${{ matrix.settings.target }} ${{ matrix.settings.cargo-args }}
 
       - name: Get CMake
         uses: lukka/get-cmake@latest
