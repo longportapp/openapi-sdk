@@ -2511,6 +2511,7 @@ class QuoteContext:
                 def on_candlestick(symbol: str, event: PushCandlestick):
                     print(symbol, event)
 
+                ctx.set_on_candlestick(on_candlestick)
                 ctx.subscribe_candlesticks("700.HK", Period.Min_1)
                 sleep(30)
         """
