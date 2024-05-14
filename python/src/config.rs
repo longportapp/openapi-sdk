@@ -16,6 +16,7 @@ impl Config {
         quote_ws_url = None,
         trade_ws_url = None,
         language = None,
+        enable_overnight = false,
     ))]
     fn py_new(
         app_key: String,
@@ -25,6 +26,7 @@ impl Config {
         quote_ws_url: Option<String>,
         trade_ws_url: Option<String>,
         language: Option<Language>,
+        enable_overnight: bool,
     ) -> Self {
         let mut config = longport::Config::new(app_key, app_secret, access_token);
         if let Some(http_url) = http_url {
@@ -38,6 +40,9 @@ impl Config {
         }
         if let Some(language) = language {
             config = config.language(language.into());
+        }
+        if enable_overnight {
+            config = config.enable_overnight();
         }
         Self(config)
     }

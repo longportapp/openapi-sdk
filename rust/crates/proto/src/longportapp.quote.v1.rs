@@ -81,6 +81,8 @@ pub struct SecurityQuote {
     pub pre_market_quote: ::core::option::Option<PrePostQuote>,
     #[prost(message, optional, tag="12")]
     pub post_market_quote: ::core::option::Option<PrePostQuote>,
+    #[prost(message, optional, tag="13")]
+    pub over_night_quote: ::core::option::Option<PrePostQuote>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PrePostQuote {
@@ -915,6 +917,7 @@ pub enum TradeSession {
     NormalTrade = 0,
     PreTrade = 1,
     PostTrade = 2,
+    OvernightTrade = 3,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

@@ -1,6 +1,6 @@
 use jni::{
     objects::{JClass, JObject, JString},
-    sys::jlong,
+    sys::{jboolean, jlong},
     JNIEnv,
 };
 use longport::{Config, Language};
@@ -19,6 +19,7 @@ pub extern "system" fn Java_com_longport_SdkNative_newConfig(
     quote_ws_url: JString,
     trade_ws_url: JString,
     language: JObject,
+    enable_overnight: jboolean,
 ) -> jlong {
     jni_result(&mut env, 0, |env| {
         let app_key = String::from_jvalue(env, app_key.into())?;
@@ -42,6 +43,9 @@ pub extern "system" fn Java_com_longport_SdkNative_newConfig(
         }
         if let Some(language) = language {
             config = config.language(language);
+        }
+        if enable_overnight > 0 {
+            config = config.enable_overnight();
         }
 
         Ok(Box::into_raw(Box::new(config)) as jlong)

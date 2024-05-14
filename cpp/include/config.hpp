@@ -42,11 +42,31 @@ public:
          const std::optional<std::string>& http_url,
          const std::optional<std::string>& quote_ws_url,
          const std::optional<std::string>& trade_ws_url,
-         const std::optional<Language>& language);
+         const std::optional<Language>& language,
+         bool enable_overnight);
 
   ~Config();
 
   operator const lb_config_t*() const;
+
+  /// Create a new `Config` from the given environment variables
+  ///
+  /// It first gets the environment variables from the `.env` file in the
+  /// current directory.
+  ///
+  /// # Variables
+  ///
+  /// - `LONGPORT_APP_KEY` - App key
+  /// - `LONGPORT_APP_SECRET` - App secret
+  /// - `LONGPORT_ACCESS_TOKEN` - Access token
+  /// - `LONGPORT_HTTP_URL` - HTTP endpoint url (Default:
+  /// `https://openapi.longportapp.com`)
+  /// - `LONGPORT_QUOTE_WS_URL` - Quote websocket endpoint url (Default:
+  ///   `wss://openapi-quote.longportapp.com/v2`)
+  /// - `LONGPORT_TRADE_WS_URL` - Trade websocket endpoint url (Default:
+  ///   `wss://openapi-trade.longportapp.com/v2`)
+  /// - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or
+  ///   `false` (Default: `false`)
   static Status from_env(Config& config);
 
   /// Gets a new `access_token`

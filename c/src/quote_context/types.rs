@@ -864,6 +864,8 @@ pub struct CSecurityQuote {
     pub pre_market_quote: *const CPrePostQuote,
     /// Quote of US post market
     pub post_market_quote: *const CPrePostQuote,
+    /// Quote of US overnight market
+    pub overnight_quote: *const CPrePostQuote,
 }
 
 pub(crate) struct CSecurityQuoteOwned {
@@ -879,6 +881,7 @@ pub(crate) struct CSecurityQuoteOwned {
     trade_status: TradeStatus,
     pre_market_quote: COption<CPrePostQuoteOwned>,
     post_market_quote: COption<CPrePostQuoteOwned>,
+    overnight_quote: COption<CPrePostQuoteOwned>,
 }
 
 impl From<SecurityQuote> for CSecurityQuoteOwned {
@@ -896,6 +899,7 @@ impl From<SecurityQuote> for CSecurityQuoteOwned {
             trade_status,
             pre_market_quote,
             post_market_quote,
+            overnight_quote,
         } = quote;
         Self {
             symbol: symbol.into(),
@@ -910,6 +914,7 @@ impl From<SecurityQuote> for CSecurityQuoteOwned {
             trade_status,
             pre_market_quote: pre_market_quote.into(),
             post_market_quote: post_market_quote.into(),
+            overnight_quote: overnight_quote.into(),
         }
     }
 }
@@ -931,6 +936,7 @@ impl ToFFI for CSecurityQuoteOwned {
             trade_status,
             pre_market_quote,
             post_market_quote,
+            overnight_quote,
         } = self;
         CSecurityQuote {
             symbol: symbol.to_ffi_type(),
@@ -945,6 +951,7 @@ impl ToFFI for CSecurityQuoteOwned {
             trade_status: (*trade_status).into(),
             pre_market_quote: pre_market_quote.to_ffi_type(),
             post_market_quote: post_market_quote.to_ffi_type(),
+            overnight_quote: overnight_quote.to_ffi_type(),
         }
     }
 }

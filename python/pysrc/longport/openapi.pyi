@@ -85,6 +85,7 @@ class Config:
         quote_ws_url: Websocket url for quote API
         trade_ws_url: Websocket url for trade API
         language: Language identifier
+        enable_overnight: Enable overnight quote
     """
 
     def __init__(
@@ -96,6 +97,7 @@ class Config:
         quote_ws_url: Optional[str] = None,
         trade_ws_url: Optional[str] = None,
         language: Optional[Type[Language]] = None,
+        enable_overnight: bool = False,
     ) -> None: ...
 
     @classmethod
@@ -113,6 +115,7 @@ class Config:
         - `LONGPORT_HTTP_URL` - HTTP endpoint url
         - `LONGPORT_QUOTE_WS_URL` - Quote websocket endpoint url
         - `LONGPORT_TRADE_WS_URL` - Trade websocket endpoint url
+        - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or `false` (Default: `false`)
         """
 
     def refresh_access_token(self, expired_at: Optional[datetime] = None) -> str:
@@ -712,6 +715,11 @@ class SecurityQuote:
     post_market_quote: Optional[PrePostQuote]
     """
     Quote of US post market
+    """
+
+    overnight_quote: Optional[PrePostQuote]
+    """
+    Quote of US overnight market
     """
 
 

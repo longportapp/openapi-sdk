@@ -88,6 +88,9 @@ pub enum TradeSession {
     /// Post-Trading
     #[js(remote = "PostTrade")]
     Post,
+    /// Overnight-Trading
+    #[js(remote = "OvernightTrade")]
+    Overnight,
 }
 
 /// Quote type of subscription
@@ -398,6 +401,9 @@ pub struct SecurityQuote {
     /// Quote of US post market
     #[js(opt)]
     post_market_quote: Option<PrePostQuote>,
+    /// Quote of US overnight market
+    #[js(opt)]
+    overnight_quote: Option<PrePostQuote>,
 }
 
 /// Quote of option

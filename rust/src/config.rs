@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use http::Method;
 pub(crate) use http::{header, HeaderValue, Request};
 use longport_httpcli::{is_cn, HttpClient, HttpClientConfig, Json};
@@ -43,6 +45,7 @@ pub struct Config {
     pub(crate) quote_ws_url: String,
     pub(crate) trade_ws_url: String,
     pub(crate) language: Language,
+    pub(crate) enable_overnight: bool,
 }
 
 impl Config {
@@ -67,6 +70,7 @@ impl Config {
             }
             .to_string(),
             language: Language::EN,
+            enable_overnight: false,
         }
     }
 
@@ -85,6 +89,8 @@ impl Config {
     ///   `wss://openapi-quote.longportapp.com/v2`)
     /// - `LONGPORT_TRADE_WS_URL` - Trade websocket endpoint url (Default:
     ///   `wss://openapi-trade.longportapp.com/v2`)
+    /// - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or
+    ///   `false` (Default: `false`)
     pub fn from_env() -> Result<Self> {
         let _ = dotenv::dotenv();
 
@@ -109,12 +115,17 @@ impl Config {
                 }
                 .to_string()
             });
+        let enable_overnight = std::env::var("LONGPORT_ENABLE_OVERNIGHT")
+            .ok()
+            .map(|var| var == "true")
+            .unwrap_or_default();
 
         Ok(Config {
             http_cli_config,
             quote_ws_url,
             trade_ws_url,
             language: Language::EN,
+            enable_overnight,
         })
     }
 
@@ -160,6 +171,25 @@ impl Config {
     /// Default: `Language::EN`
     pub fn language(self, language: Language) -> Self {
         Self { language, ..self }
+    }
+
+    /// Enable overnight quote
+    ///
+    /// Default: `false`
+    pub fn enable_overnight(self) -> Self {
+        Self {
+            enable_overnight: true,
+            ..self
+        }
+    }
+
+    /// Create metadata for auth/reconnect request
+    pub fn create_metadata(&self) -> HashMap<String, String> {
+        let mut metadata = HashMap::new();
+        if self.enable_overnight {
+            metadata.insert("need_over_night_quote".to_string(), "true".to_string());
+        }
+        metadata
     }
 
     #[inline]

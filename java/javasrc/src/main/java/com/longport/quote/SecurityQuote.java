@@ -16,6 +16,7 @@ public class SecurityQuote {
     private TradeStatus tradeStatus;
     private PrePostQuote preMarketQuote;
     private PrePostQuote postMarketQuote;
+    private PrePostQuote overnightQuote;
 
     public String getSymbol() {
         return symbol;
@@ -65,11 +66,16 @@ public class SecurityQuote {
         return postMarketQuote;
     }
 
+    public PrePostQuote getOvernightQuote() {
+        return overnightQuote;
+    }
+
     @Override
     public String toString() {
-        return "SecurityQuote [high=" + high + ", lastDone=" + lastDone + ", low=" + low + ", open=" + open
-                + ", postMarketQuote=" + postMarketQuote + ", preMarketQuote=" + preMarketQuote + ", prevClose="
-                + prevClose + ", symbol=" + symbol + ", timestamp=" + timestamp + ", tradeStatus=" + tradeStatus
-                + ", turnover=" + turnover + ", volume=" + volume + "]";
+        return "SecurityQuote [symbol=" + symbol + ", lastDone=" + lastDone + ", prevClose=" + prevClose + ", open="
+                + open + ", high=" + high + ", low=" + low + ", timestamp=" + timestamp + ", volume=" + volume
+                + ", turnover=" + turnover + ", tradeStatus=" + tradeStatus + ", preMarketQuote=" + preMarketQuote
+                + ", postMarketQuote=" + postMarketQuote + ", overnightQuote=" + overnightQuote + "]";
     }
+
 }

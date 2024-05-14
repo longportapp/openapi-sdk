@@ -159,6 +159,8 @@ enum class TradeSession
   Pre,
   /// Post-Trading
   Post,
+  /// Overnight-Trading
+  Overnight,
 };
 
 /// Quote message
@@ -394,6 +396,8 @@ struct SecurityQuote
   std::optional<PrePostQuote> pre_market_quote;
   /// Quote of US post market
   std::optional<PrePostQuote> post_market_quote;
+  /// Quote of US overnight market
+  std::optional<PrePostQuote> overnight_quote;
 };
 
 /// Option type

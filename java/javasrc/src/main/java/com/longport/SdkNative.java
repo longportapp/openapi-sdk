@@ -25,7 +25,7 @@ public class SdkNative {
         public static native void httpClientRequest(long httpClient, String request, AsyncCallback callback);
 
         public static native long newConfig(String appKey, String appSecret, String accessToken, String httpUrl,
-                        String quoteWsUrl, String tradeWsUrl, Language language);
+                        String quoteWsUrl, String tradeWsUrl, Language language, boolean enableOvernight);
 
         public static native long newConfigFromEnv();
 

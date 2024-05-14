@@ -166,7 +166,7 @@ impl Core {
 
         tracing::debug!(url = config.quote_ws_url.as_str(), "quote server connected");
 
-        let session = ws_cli.request_auth(otp).await?;
+        let session = ws_cli.request_auth(otp, config.create_metadata()).await?;
 
         // fetch user profile
         let resp = ws_cli
@@ -267,7 +267,11 @@ impl Core {
                 // request new session
                 match &self.session {
                     Some(session) if !session.is_expired() => {
-                        match self.ws_cli.request_reconnect(&session.session_id).await {
+                        match self
+                            .ws_cli
+                            .request_reconnect(&session.session_id, self.config.create_metadata())
+                            .await
+                        {
                             Ok(new_session) => self.session = Some(new_session),
                             Err(err) => {
                                 self.session = None; // invalid session
@@ -285,7 +289,11 @@ impl Core {
                             }
                         };
 
-                        match self.ws_cli.request_auth(otp).await {
+                        match self
+                            .ws_cli
+                            .request_auth(otp, self.config.create_metadata())
+                            .await
+                        {
                             Ok(new_session) => self.session = Some(new_session),
                             Err(err) => {
                                 tracing::error!(error = %err, "failed to request session id");

@@ -362,6 +362,7 @@ convert(const lb_security_quote_t* info)
     convert(info->trade_status),
     convert(info->pre_market_quote),
     convert(info->post_market_quote),
+    convert(info->overnight_quote),
   };
 }
 
@@ -477,6 +478,8 @@ convert(lb_trade_session_t ty)
       return TradeSession::Pre;
     case TradeSessionPost:
       return TradeSession::Post;
+    case TradeSessionOvernight:
+      return TradeSession::Overnight;
     default:
       throw std::invalid_argument("unreachable");
   }

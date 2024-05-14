@@ -267,7 +267,7 @@ impl TradeContext {
         Ok(self
             .http_cli
             .request(Method::GET, "/v1/trade/order/history")
-            .query_params(options.into().unwrap_or_default())
+            .query_params(dbg!(options.into().unwrap_or_default()))
             .response::<Json<Response>>()
             .send()
             .await?

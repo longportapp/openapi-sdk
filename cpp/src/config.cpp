@@ -27,7 +27,8 @@ Config::Config(const std::string& app_key,
                const std::optional<std::string>& http_url,
                const std::optional<std::string>& quote_ws_url,
                const std::optional<std::string>& trade_ws_url,
-               const std::optional<Language>& language)
+               const std::optional<Language>& language,
+               bool enable_overnight)
 {
   lb_language_t c_language;
   if (language) {
@@ -40,7 +41,8 @@ Config::Config(const std::string& app_key,
                           http_url ? http_url->c_str() : nullptr,
                           quote_ws_url ? quote_ws_url->c_str() : nullptr,
                           trade_ws_url ? trade_ws_url->c_str() : nullptr,
-                          language ? &c_language : nullptr);
+                          language ? &c_language : nullptr,
+                          enable_overnight);
 }
 
 Config::~Config()

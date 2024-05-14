@@ -37,6 +37,8 @@ pub struct Heartbeat {
 pub struct AuthRequest {
     #[prost(string, tag="1")]
     pub token: ::prost::alloc::string::String,
+    #[prost(map="string, string", tag="2")]
+    pub metadata: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AuthResponse {
@@ -53,6 +55,8 @@ pub struct AuthResponse {
 pub struct ReconnectRequest {
     #[prost(string, tag="1")]
     pub session_id: ::prost::alloc::string::String,
+    #[prost(map="string, string", tag="2")]
+    pub metadata: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReconnectResponse {

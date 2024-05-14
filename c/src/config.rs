@@ -31,6 +31,8 @@ pub struct CConfig(pub(crate) Arc<Config>);
 ///   `wss://openapi-quote.longportapp.com/v2`)
 /// - `LONGPORT_TRADE_WS_URL` - Trade websocket endpoint url (Default:
 ///   `wss://openapi-trade.longportapp.com/v2`)
+/// - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or `false`
+///   (Default: `false`)
 #[no_mangle]
 pub unsafe extern "C" fn lb_config_from_env(error: *mut *mut CError) -> *mut CConfig {
     match Config::from_env() {
@@ -54,6 +56,7 @@ pub unsafe extern "C" fn lb_config_new(
     quote_ws_url: *const c_char,
     trade_ws_url: *const c_char,
     language: *const CLanguage,
+    enable_overight: bool,
 ) -> *mut CConfig {
     let app_key = CStr::from_ptr(app_key).to_str().expect("invalid app key");
     let app_secret = CStr::from_ptr(app_secret)
@@ -83,6 +86,10 @@ pub unsafe extern "C" fn lb_config_new(
     }
     if !language.is_null() {
         config = config.language((*language).into());
+    }
+
+    if enable_overight {
+        config = config.enable_overnight();
     }
 
     Box::into_raw(Box::new(CConfig(Arc::new(config))))

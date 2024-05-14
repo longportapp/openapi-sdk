@@ -63,6 +63,9 @@ pub(crate) enum TradeSession {
     /// Post-Trading
     #[py(remote = "PostTrade")]
     Post,
+    /// Overnight-Trading
+    #[py(remote = "OvernightTrade")]
+    Overnight,
 }
 
 /// Quote type of subscription
@@ -396,6 +399,9 @@ pub(crate) struct SecurityQuote {
     /// Quote of US post market
     #[py(opt)]
     post_market_quote: Option<PrePostQuote>,
+    /// Quote of US overnight market
+    #[py(opt)]
+    overnight_quote: Option<PrePostQuote>,
 }
 
 /// Quote of option

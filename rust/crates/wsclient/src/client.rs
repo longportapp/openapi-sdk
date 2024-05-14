@@ -298,12 +298,19 @@ impl WsClient {
     ///
     /// Reference: <https://open.longportapp.com/en/docs/socket-token-api>
     /// Reference: <https://open.longportapp.com/en/docs/socket/control-command#auth>
-    pub async fn request_auth(&self, otp: impl Into<String>) -> WsClientResult<WsSession> {
+    pub async fn request_auth(
+        &self,
+        otp: impl Into<String>,
+        metadata: HashMap<String, String>,
+    ) -> WsClientResult<WsSession> {
         let resp: AuthResponse = self
             .request(
                 COMMAND_CODE_AUTH,
                 Some(AUTH_TIMEOUT),
-                AuthRequest { token: otp.into() },
+                AuthRequest {
+                    token: otp.into(),
+                    metadata,
+                },
             )
             .await?;
         let expires_mills = resp.expires.saturating_sub(
@@ -325,6 +332,7 @@ impl WsClient {
     pub async fn request_reconnect(
         &self,
         session_id: impl Into<String>,
+        metadata: HashMap<String, String>,
     ) -> WsClientResult<WsSession> {
         let resp: ReconnectResponse = self
             .request(
@@ -332,6 +340,7 @@ impl WsClient {
                 Some(RECONNECT_TIMEOUT),
                 ReconnectRequest {
                     session_id: session_id.into(),
+                    metadata,
                 },
             )
             .await?;

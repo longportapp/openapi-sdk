@@ -924,6 +924,10 @@ typedef enum lb_trade_session_t {
    * Post-Trading
    */
   TradeSessionPost,
+  /**
+   * Post-Trading
+   */
+  TradeSessionOvernight,
 } lb_trade_session_t;
 
 /**
@@ -2076,6 +2080,10 @@ typedef struct lb_security_quote_t {
    * Quote of US post market
    */
   const struct lb_prepost_quote_t *post_market_quote;
+  /**
+   * Quote of US overnight market
+   */
+  const struct lb_prepost_quote_t *overnight_quote;
 } lb_security_quote_t;
 
 /**
@@ -3560,6 +3568,8 @@ extern "C" {
  *   `wss://openapi-quote.longportapp.com/v2`)
  * - `LONGPORT_TRADE_WS_URL` - Trade websocket endpoint url (Default:
  *   `wss://openapi-trade.longportapp.com/v2`)
+ * - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or `false`
+ *   (Default: `false`)
  */
 struct lb_config_t *lb_config_from_env(struct lb_error_t **error);
 
@@ -3569,7 +3579,8 @@ struct lb_config_t *lb_config_new(const char *app_key,
                                   const char *http_url,
                                   const char *quote_ws_url,
                                   const char *trade_ws_url,
-                                  const enum lb_language_t *language);
+                                  const enum lb_language_t *language,
+                                  bool enable_overight);
 
 /**
  * Free the config object

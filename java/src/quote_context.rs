@@ -590,7 +590,7 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_quoteContextHistoryCan
     symbol: JString,
     period: JObject,
     adjust_type: JObject,
-    forward: bool,
+    forward: jboolean,
     datetime: JObject,
     count: i32,
     callback: JObject,
@@ -609,7 +609,7 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_quoteContextHistoryCan
                         symbol,
                         period,
                         adjust_type,
-                        forward,
+                        forward > 0,
                         datetime,
                         count as usize,
                     )

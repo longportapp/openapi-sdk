@@ -11,6 +11,7 @@ public class ConfigBuilder {
     private String quoteWsUrl;
     private String tradeWsUrl;
     private Language language;
+    private boolean enableOvernight;
 
     /**
      * Create a `Config` object builder
@@ -78,6 +79,16 @@ public class ConfigBuilder {
     }
 
     /**
+     * Enable overnight quote
+     * 
+     * @return this object
+     */
+    public ConfigBuilder enableOvernight() {
+        this.enableOvernight = true;
+        return this;
+    }
+
+    /**
      * Build a Config object
      * 
      * @return Config object
@@ -85,6 +96,7 @@ public class ConfigBuilder {
      */
     public Config build() throws OpenApiException {
         return new Config(
-                SdkNative.newConfig(appKey, appSecret, accessToken, httpUrl, quoteWsUrl, tradeWsUrl, language));
+                SdkNative.newConfig(appKey, appSecret, accessToken, httpUrl, quoteWsUrl, tradeWsUrl, language,
+                        enableOvernight));
     }
 }

@@ -4,4 +4,5 @@ public enum TradeSession {
     NormalTrade,
     PreTrade,
     PostTrade,
+    OvernightTrade,
 }

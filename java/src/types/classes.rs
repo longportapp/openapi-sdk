@@ -142,7 +142,8 @@ impl_java_class!(
         turnover,
         trade_status,
         pre_market_quote,
-        post_market_quote
+        post_market_quote,
+        overnight_quote
     ]
 );
 

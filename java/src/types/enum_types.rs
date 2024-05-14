@@ -45,7 +45,7 @@ impl_java_enum!(
 impl_java_enum!(
     "com/longport/quote/TradeSession",
     longport::quote::TradeSession,
-    [NormalTrade, PreTrade, PostTrade]
+    [NormalTrade, PreTrade, PostTrade, OvernightTrade]
 );
 
 impl_java_enum!(

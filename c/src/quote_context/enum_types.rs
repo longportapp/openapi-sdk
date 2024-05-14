@@ -56,6 +56,9 @@ pub enum CTradeSession {
     /// Post-Trading
     #[c(remote = "PostTrade")]
     TradeSessionPost,
+    /// Post-Trading
+    #[c(remote = "OvernightTrade")]
+    TradeSessionOvernight,
 }
 
 /// Trade direction

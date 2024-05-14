@@ -22,6 +22,8 @@ pub struct ConfigParams {
     pub trade_ws_url: Option<String>,
     /// Language identifier (default: Language.EN)
     pub language: Option<Language>,
+    /// Enable overnight (default: false)
+    pub enable_overnight: Option<bool>,
 }
 
 /// Configuration for LongPort sdk
@@ -52,6 +54,10 @@ impl Config {
             config = config.language(language.into());
         }
 
+        if let Some(true) = params.enable_overnight {
+            config = config.enable_overnight();
+        }
+
         Self(config)
     }
 
@@ -68,6 +74,8 @@ impl Config {
     /// - `LONGPORT_HTTP_URL` - HTTP endpoint url
     /// - `LONGPORT_QUOTE_WS_URL` - Quote websocket endpoint url
     /// - `LONGPORT_TRADE_WS_URL` - Trade websocket endpoint url
+    /// - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or
+    ///   `false` (Default: `false`)
     #[napi(factory)]
     pub fn from_env() -> Result<Self> {
         Ok(Self(longport::Config::from_env().map_err(ErrorNewType)?))
