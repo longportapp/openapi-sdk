@@ -59,7 +59,7 @@ jobs:
           cargo publish --no-verify
 
   build-python-sdk-macos:
-    runs-on: macos-latest
+    runs-on: macos-13
     strategy:
       fail-fast: true
       matrix:
@@ -257,7 +257,7 @@ jobs:
       fail-fast: true
       matrix:
         settings:
-          - host: macos-latest
+          - host: macos-13
             architecture: x64
             build: |
               npm run build
@@ -272,7 +272,7 @@ jobs:
               npm run build
               strip *.node
 
-          - host: macos-latest
+          - host: macos-13
             target: aarch64-apple-darwin
             build: |
               sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*;
@@ -376,11 +376,11 @@ jobs:
           - host: windows-latest
             lib_suffix: ".dll"
             target: x86_64-pc-windows-msvc
-          - host: macos-latest
+          - host: macos-13
             lib_prefix: "lib"
             lib_suffix: ".dylib"
             target: x86_64-apple-darwin
-          - host: macos-latest
+          - host: macos-13
             lib_prefix: "lib"
             lib_suffix: ".dylib"
             target: aarch64-apple-darwin
@@ -510,11 +510,11 @@ jobs:
           - host: windows-latest
             target: x86_64-pc-windows-msvc
             platform: x86_64_windows
-          - host: macos-latest
+          - host: macos-13
             target: x86_64-apple-darwin
             platform: x86_64_macos
             dylib_ext: dylib
-          - host: macos-latest
+          - host: macos-13
             target: aarch64-apple-darwin
             platform: aarch64_macos
             dylib_ext: dylib
@@ -591,11 +591,11 @@ jobs:
           - host: windows-latest
             target: x86_64-pc-windows-msvc
             platform: x86_64_windows
-          - host: macos-latest
+          - host: macos-13
             target: x86_64-apple-darwin
             platform: x86_64_macos
             dylib_ext: dylib
-          - host: macos-latest
+          - host: macos-13
             target: aarch64-apple-darwin
             platform: aarch64_macos
             dylib_ext: dylib
@@ -685,7 +685,7 @@ jobs:
             build-type: Release
             target-dir: release
             cargo-args: -r
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v3
         with:
