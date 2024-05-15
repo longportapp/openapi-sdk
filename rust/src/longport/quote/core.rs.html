@@ -1950,8 +1950,8 @@
     <span class="kw">fn </span>handle_get_realtime_depth(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: String) -&gt; SecurityDepth {
         <span class="kw">let </span><span class="kw-2">mut </span>result = SecurityDepth::default();
         <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = <span class="self">self</span>.store.securities.get(<span class="kw-2">&amp;</span>symbol) {
-            result.asks = data.asks.clone();
-            result.bids = data.bids.clone();
+            result.asks.clone_from(<span class="kw-2">&amp;</span>data.asks);
+            result.bids.clone_from(<span class="kw-2">&amp;</span>data.bids);
         }
         result
     }
@@ -1973,8 +1973,8 @@
     <span class="kw">fn </span>handle_get_realtime_brokers(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: String) -&gt; SecurityBrokers {
         <span class="kw">let </span><span class="kw-2">mut </span>result = SecurityBrokers::default();
         <span class="kw">if let </span><span class="prelude-val">Some</span>(data) = <span class="self">self</span>.store.securities.get(<span class="kw-2">&amp;</span>symbol) {
-            result.ask_brokers = data.ask_brokers.clone();
-            result.bid_brokers = data.bid_brokers.clone();
+            result.ask_brokers.clone_from(<span class="kw-2">&amp;</span>data.ask_brokers);
+            result.bid_brokers.clone_from(<span class="kw-2">&amp;</span>data.bid_brokers);
         }
         result
     }
