@@ -988,7 +988,7 @@
         <span class="prelude-val">Ok</span>(<span class="self">self
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/order/history"</span>)
-            .query_params(<span class="macro">dbg!</span>(options.into().unwrap_or_default()))
+            .query_params(options.into().unwrap_or_default())
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
             .<span class="kw">await</span><span class="question-mark">?
