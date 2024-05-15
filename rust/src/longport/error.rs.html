@@ -141,6 +141,14 @@
 <a href="#139" id="139">139</a>
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Display;
 
 <span class="kw">use </span>longport_httpcli::HttpClientError;
@@ -270,6 +278,14 @@
     </span><span class="kw">pub fn </span>code(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i64&gt; {
         <span class="kw">match </span><span class="self">self </span>{
             SimpleError::Response { code, .. } =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">*</span>code),
+            SimpleError::Other(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+        }
+    }
+
+    <span class="doccomment">/// Returns the trace id
+    </span><span class="kw">pub fn </span>trace_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            SimpleError::Response { trace_id, .. } =&gt; <span class="prelude-val">Some</span>(trace_id),
             SimpleError::Other(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         }
     }
