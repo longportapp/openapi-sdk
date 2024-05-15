@@ -18,6 +18,7 @@ impl Config {
         language = None,
         enable_overnight = false,
     ))]
+    #[allow(clippy::too_many_arguments)]
     fn py_new(
         app_key: String,
         app_secret: String,

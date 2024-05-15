@@ -153,9 +153,9 @@ impl<'a, 'b, W: Write> Serializer for QsSerializer<'a, 'b, W> {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_some<T: ?Sized>(self, _value: &T) -> Result<Self::Ok, Self::Error>
+    fn serialize_some<T>(self, _value: &T) -> Result<Self::Ok, Self::Error>
     where
-        T: serde::Serialize,
+        T: serde::Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -177,18 +177,18 @@ impl<'a, 'b, W: Write> Serializer for QsSerializer<'a, 'b, W> {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_struct<T: ?Sized>(
+    fn serialize_newtype_struct<T>(
         self,
         _name: &'static str,
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: serde::Serialize,
+        T: serde::Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_variant<T: ?Sized>(
+    fn serialize_newtype_variant<T>(
         self,
         _name: &'static str,
         _variant_index: u32,
@@ -196,7 +196,7 @@ impl<'a, 'b, W: Write> Serializer for QsSerializer<'a, 'b, W> {
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: serde::Serialize,
+        T: serde::Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -267,9 +267,9 @@ impl<'a, 'b, W: Write> SerializeSeq for QsSeqSerializer<'a, 'b, W> {
     type Ok = ();
     type Error = QsError;
 
-    fn serialize_element<T: ?Sized>(&mut self, value: &T) -> Result<(), Self::Error>
+    fn serialize_element<T>(&mut self, value: &T) -> Result<(), Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         value.serialize(QsSeqItemSerializer {
             writer: self.writer,
@@ -289,9 +289,9 @@ impl<'a, 'b, W: Write> SerializeTuple for QsTupleSerializer<'a, 'b, W> {
     type Ok = ();
     type Error = QsError;
 
-    fn serialize_element<T: ?Sized>(&mut self, value: &T) -> Result<(), Self::Error>
+    fn serialize_element<T>(&mut self, value: &T) -> Result<(), Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         value.serialize(QsSeqItemSerializer {
             writer: self.writer,
@@ -340,9 +340,9 @@ impl<'a, 'b, W: Write> Serializer for QsSeqItemSerializer<'a, 'b, W> {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_some<T: ?Sized>(self, _value: &T) -> Result<Self::Ok, Self::Error>
+    fn serialize_some<T>(self, _value: &T) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -364,18 +364,18 @@ impl<'a, 'b, W: Write> Serializer for QsSeqItemSerializer<'a, 'b, W> {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_struct<T: ?Sized>(
+    fn serialize_newtype_struct<T>(
         self,
         _name: &'static str,
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_variant<T: ?Sized>(
+    fn serialize_newtype_variant<T>(
         self,
         _name: &'static str,
         _variant_index: u32,
@@ -383,7 +383,7 @@ impl<'a, 'b, W: Write> Serializer for QsSeqItemSerializer<'a, 'b, W> {
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -452,9 +452,9 @@ impl<'a, 'b, W: Write> SerializeTuple for QsTuplePairSerializer<'a, 'b, W> {
     type Ok = ();
     type Error = QsError;
 
-    fn serialize_element<T: ?Sized>(&mut self, value: &T) -> Result<(), Self::Error>
+    fn serialize_element<T>(&mut self, value: &T) -> Result<(), Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         if self.key.is_none() {
             self.key = Some(value.serialize(QsKeySerializer)?);
@@ -504,17 +504,17 @@ impl<'a, 'b, W: Write> SerializeMap for QsMapSerializer<'a, 'b, W> {
     type Ok = ();
     type Error = QsError;
 
-    fn serialize_key<T: ?Sized>(&mut self, key: &T) -> Result<(), Self::Error>
+    fn serialize_key<T>(&mut self, key: &T) -> Result<(), Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         self.key = Some(key.serialize(QsKeySerializer)?);
         Ok(())
     }
 
-    fn serialize_value<T: ?Sized>(&mut self, value: &T) -> Result<(), Self::Error>
+    fn serialize_value<T>(&mut self, value: &T) -> Result<(), Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         for value in value.serialize(QsValueSerializer)? {
             self.writer.add_pair(self.key.as_ref().unwrap(), &value)?;
@@ -562,9 +562,9 @@ impl Serializer for QsKeySerializer {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_some<T: ?Sized>(self, _value: &T) -> Result<Self::Ok, Self::Error>
+    fn serialize_some<T>(self, _value: &T) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -586,18 +586,18 @@ impl Serializer for QsKeySerializer {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_struct<T: ?Sized>(
+    fn serialize_newtype_struct<T>(
         self,
         _name: &'static str,
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_variant<T: ?Sized>(
+    fn serialize_newtype_variant<T>(
         self,
         _name: &'static str,
         _variant_index: u32,
@@ -605,7 +605,7 @@ impl Serializer for QsKeySerializer {
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -694,9 +694,9 @@ impl Serializer for QsValueSerializer {
         Ok(vec![])
     }
 
-    fn serialize_some<T: ?Sized>(self, value: &T) -> Result<Self::Ok, Self::Error>
+    fn serialize_some<T>(self, value: &T) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         value.serialize(self)
     }
@@ -718,18 +718,18 @@ impl Serializer for QsValueSerializer {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_struct<T: ?Sized>(
+    fn serialize_newtype_struct<T>(
         self,
         _name: &'static str,
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_variant<T: ?Sized>(
+    fn serialize_newtype_variant<T>(
         self,
         _name: &'static str,
         _variant_index: u32,
@@ -737,7 +737,7 @@ impl Serializer for QsValueSerializer {
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -831,9 +831,9 @@ impl Serializer for QsPrimaryValueSerializer {
         Ok(None)
     }
 
-    fn serialize_some<T: ?Sized>(self, value: &T) -> Result<Self::Ok, Self::Error>
+    fn serialize_some<T>(self, value: &T) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         value.serialize(self)
     }
@@ -855,18 +855,18 @@ impl Serializer for QsPrimaryValueSerializer {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_struct<T: ?Sized>(
+    fn serialize_newtype_struct<T>(
         self,
         _name: &'static str,
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
 
-    fn serialize_newtype_variant<T: ?Sized>(
+    fn serialize_newtype_variant<T>(
         self,
         _name: &'static str,
         _variant_index: u32,
@@ -874,7 +874,7 @@ impl Serializer for QsPrimaryValueSerializer {
         _value: &T,
     ) -> Result<Self::Ok, Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         Err(QsError::Unsupported)
     }
@@ -936,9 +936,9 @@ impl SerializeSeq for QsArrayValueSerializer {
     type Ok = Vec<String>;
     type Error = QsError;
 
-    fn serialize_element<T: ?Sized>(&mut self, value: &T) -> Result<(), Self::Error>
+    fn serialize_element<T>(&mut self, value: &T) -> Result<(), Self::Error>
     where
-        T: Serialize,
+        T: Serialize + ?Sized,
     {
         let value = value.serialize(QsPrimaryValueSerializer)?;
         self.values.extend(value);

@@ -905,8 +905,8 @@ impl Core {
     fn handle_get_realtime_depth(&self, symbol: String) -> SecurityDepth {
         let mut result = SecurityDepth::default();
         if let Some(data) = self.store.securities.get(&symbol) {
-            result.asks = data.asks.clone();
-            result.bids = data.bids.clone();
+            result.asks.clone_from(&data.asks);
+            result.bids.clone_from(&data.bids);
         }
         result
     }
@@ -928,8 +928,8 @@ impl Core {
     fn handle_get_realtime_brokers(&self, symbol: String) -> SecurityBrokers {
         let mut result = SecurityBrokers::default();
         if let Some(data) = self.store.securities.get(&symbol) {
-            result.ask_brokers = data.ask_brokers.clone();
-            result.bid_brokers = data.bid_brokers.clone();
+            result.ask_brokers.clone_from(&data.ask_brokers);
+            result.bid_brokers.clone_from(&data.bid_brokers);
         }
         result
     }
