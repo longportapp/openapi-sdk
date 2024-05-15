@@ -4,4 +4,5 @@ public enum OutsideRTH {
     Unknown,
     RTHOnly,
     AnyTime,
+    Overnight,
 }

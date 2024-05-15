@@ -131,6 +131,14 @@ impl SimpleError {
         }
     }
 
+    /// Returns the trace id
+    pub fn trace_id(&self) -> Option<&str> {
+        match self {
+            SimpleError::Response { trace_id, .. } => Some(trace_id),
+            SimpleError::Other(_) => None,
+        }
+    }
+
     /// Returns the error message
     pub fn message(&self) -> &str {
         match self {

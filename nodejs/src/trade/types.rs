@@ -189,6 +189,8 @@ pub enum OutsideRTH {
     RTHOnly,
     /// Any time
     AnyTime,
+    /// Overnight
+    Overnight,
 }
 
 /// Order

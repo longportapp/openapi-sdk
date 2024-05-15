@@ -1311,6 +1311,8 @@ enum class OutsideRTH
   RTHOnly,
   /// Any time
   AnyTime,
+  /// Overnight
+  Overnight,
 };
 
 /// Order

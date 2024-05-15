@@ -1162,6 +1162,8 @@ convert(lb_outside_rth_t status)
       return OutsideRTH::RTHOnly;
     case OutsideRTHAnyTime:
       return OutsideRTH::AnyTime;
+    case OutsideRTHOvernight:
+      return OutsideRTH::Overnight;
     default:
       throw std::invalid_argument("unreachable");
   }
@@ -1177,6 +1179,8 @@ convert(OutsideRTH status)
       return OutsideRTHOnly;
     case OutsideRTH::AnyTime:
       return OutsideRTHAnyTime;
+    case OutsideRTH::Overnight:
+      return OutsideRTHOvernight;
     default:
       throw std::invalid_argument("unreachable");
   }

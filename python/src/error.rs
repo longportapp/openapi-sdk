@@ -8,6 +8,10 @@ impl std::convert::From<ErrorNewType> for PyErr {
     #[inline]
     fn from(err: ErrorNewType) -> PyErr {
         let err = err.0.into_simple_error();
-        OpenApiException::new_err((err.code(), err.message().to_string()))
+        OpenApiException::new_err((
+            err.code(),
+            err.trace_id().map(ToString::to_string),
+            err.message().to_string(),
+        ))
     }
 }

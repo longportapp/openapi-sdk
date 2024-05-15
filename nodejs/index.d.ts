@@ -655,7 +655,9 @@ export const enum OutsideRTH {
   /** Regular trading hour only */
   RTHOnly = 1,
   /** Any time */
-  AnyTime = 2
+  AnyTime = 2,
+  /** Overnight */
+  Overnight = 3
 }
 /** Commission-free Status */
 export const enum CommissionFreeStatus {

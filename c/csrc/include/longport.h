@@ -672,6 +672,7 @@ typedef enum lb_outside_rth_t {
    * Any time
    */
   OutsideRTHAnyTime,
+  OutsideRTHOvernight,
 } lb_outside_rth_t;
 
 /**

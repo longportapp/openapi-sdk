@@ -364,7 +364,7 @@ impl_java_enum!(
 impl_java_enum!(
     "com/longport/trade/OutsideRTH",
     longport::trade::OutsideRTH,
-    [Unknown, RTHOnly, AnyTime]
+    [Unknown, RTHOnly, AnyTime, Overnight]
 );
 
 impl_java_enum!(

@@ -3700,6 +3700,10 @@ class OutsideRTH:
         Any time
         """
 
+    class Overnight(OutsideRTH):
+        """
+        Overnight
+        """
 
 class Order:
     """

@@ -235,6 +235,9 @@ pub enum OutsideRTH {
     /// Any time
     #[strum(serialize = "ANY_TIME")]
     AnyTime,
+    /// Overnight
+    #[strum(serialize = "OVERNIGHT")]
+    Overnight,
 }
 
 /// Order
