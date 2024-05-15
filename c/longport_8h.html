@@ -676,6 +676,7 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a17449644fdd0c687757a02335c2f415a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a17449644fdd0c687757a02335c2f415a">lb_outside_rth_t</a> { <a class="el" href="longport_8h.html#a17449644fdd0c687757a02335c2f415aac6e6a2d51e1c93a6fcab615f8aea6607">OutsideRTHUnknown</a>
 , <a class="el" href="longport_8h.html#a17449644fdd0c687757a02335c2f415aa47033c7a9930cd046fa5bc2553ea17f7">OutsideRTHOnly</a>
 , <a class="el" href="longport_8h.html#a17449644fdd0c687757a02335c2f415aaf974224b56b8b75e15a6694cc54d46a5">OutsideRTHAnyTime</a>
+, <a class="el" href="longport_8h.html#a17449644fdd0c687757a02335c2f415aabc819df7f39792d513766b65f7838ee0">OutsideRTHOvernight</a>
  }</td></tr>
 <tr class="separator:a17449644fdd0c687757a02335c2f415a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2232d462d8b15fd3688cc8dfc15542e9"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a2232d462d8b15fd3688cc8dfc15542e9">lb_period_t</a> { <br />
@@ -755,6 +756,7 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a0424201fa38ece04dc1036e169aa5941"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a0424201fa38ece04dc1036e169aa5941">lb_trade_session_t</a> { <a class="el" href="longport_8h.html#a0424201fa38ece04dc1036e169aa5941af538d3170c96468eb65f898299482d30">TradeSessionNormal</a>
 , <a class="el" href="longport_8h.html#a0424201fa38ece04dc1036e169aa5941a2d78a8718a22c9a78aa890bdee76ab48">TradeSessionPre</a>
 , <a class="el" href="longport_8h.html#a0424201fa38ece04dc1036e169aa5941a9dd802e5b8c7cc627792f1646d62eff1">TradeSessionPost</a>
+, <a class="el" href="longport_8h.html#a0424201fa38ece04dc1036e169aa5941a2fc1d7813cf21cbd1196376c0ede48c8">TradeSessionOvernight</a>
  }</td></tr>
 <tr class="separator:a0424201fa38ece04dc1036e169aa5941"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a285b6a5c46dcb87d324aa8ed09de1e15"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a285b6a5c46dcb87d324aa8ed09de1e15">lb_trade_status_t</a> { <br />
@@ -832,8 +834,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ab20ada1449c2fded9e2b9c11df9fc33c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#ab20ada1449c2fded9e2b9c11df9fc33c">lb_config_from_env</a> (struct <a class="el" href="longport_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a> **error)</td></tr>
 <tr class="separator:ab20ada1449c2fded9e2b9c11df9fc33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbd3be210a2ef8f6a065860a7e85143b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#abbd3be210a2ef8f6a065860a7e85143b">lb_config_new</a> (const char *app_key, const char *app_secret, const char *access_token, const char *http_url, const char *quote_ws_url, const char *trade_ws_url, const enum <a class="el" href="longport_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a> *language)</td></tr>
-<tr class="separator:abbd3be210a2ef8f6a065860a7e85143b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd841fcc96d90b7e48b05662430b5286"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#abd841fcc96d90b7e48b05662430b5286">lb_config_new</a> (const char *app_key, const char *app_secret, const char *access_token, const char *http_url, const char *quote_ws_url, const char *trade_ws_url, const enum <a class="el" href="longport_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a> *language, bool enable_overight)</td></tr>
+<tr class="separator:abd841fcc96d90b7e48b05662430b5286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bde35f4be29458bded4a14ad0df22aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a2bde35f4be29458bded4a14ad0df22aa">lb_config_free</a> (struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *config)</td></tr>
 <tr class="separator:a2bde35f4be29458bded4a14ad0df22aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98beddab6e38b318e15a1936e7d97ee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a98beddab6e38b318e15a1936e7d97ee6">lb_config_refresh_access_token</a> (struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *config, int64_t expired_at, <a class="el" href="longport_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
@@ -3481,6 +3483,7 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a17449644fdd0c687757a02335c2f415aaf974224b56b8b75e15a6694cc54d46a5"></a>OutsideRTHAnyTime&#160;</td><td class="fielddoc"><p>Any time </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a17449644fdd0c687757a02335c2f415aabc819df7f39792d513766b65f7838ee0"></a>OutsideRTHOvernight&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -3719,6 +3722,8 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a0424201fa38ece04dc1036e169aa5941a9dd802e5b8c7cc627792f1646d62eff1"></a>TradeSessionPost&#160;</td><td class="fielddoc"><p>Post-Trading </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a0424201fa38ece04dc1036e169aa5941a2fc1d7813cf21cbd1196376c0ede48c8"></a>TradeSessionOvernight&#160;</td><td class="fielddoc"><p>Post-Trading </p>
+</td></tr>
 </table>
 
 </div>
@@ -3945,13 +3950,14 @@ Variables</h1>
 <li><code>LONGPORT_ACCESS_TOKEN</code> - Access token</li>
 <li><code>LONGPORT_HTTP_URL</code> - HTTP endpoint url (Default: <code><a href="https://openapi.longportapp.com">https://openapi.longportapp.com</a></code>)</li>
 <li><code>LONGPORT_QUOTE_WS_URL</code> - Quote websocket endpoint url (Default: <code>wss://openapi-quote.longportapp.com/v2</code>)</li>
-<li><code>LONGPORT_TRADE_WS_URL</code> - Trade websocket endpoint url (Default: <code>wss://openapi-trade.longportapp.com/v2</code>) </li>
+<li><code>LONGPORT_TRADE_WS_URL</code> - Trade websocket endpoint url (Default: <code>wss://openapi-trade.longportapp.com/v2</code>)</li>
+<li><code>LONGPORT_ENABLE_OVERNIGHT</code> - Enable overnight quote, <code>true</code> or <code>false</code> (Default: <code>false</code>) </li>
 </ul>
 
 </div>
 </div>
-<a id="abbd3be210a2ef8f6a065860a7e85143b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbd3be210a2ef8f6a065860a7e85143b">&#9670;&nbsp;</a></span>lb_config_new()</h2>
+<a id="abd841fcc96d90b7e48b05662430b5286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd841fcc96d90b7e48b05662430b5286">&#9670;&nbsp;</a></span>lb_config_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3996,7 +4002,13 @@ Variables</h1>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const enum <a class="el" href="longport_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a> *&#160;</td>
-          <td class="paramname"><em>language</em>&#160;</td>
+          <td class="paramname"><em>language</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable_overight</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

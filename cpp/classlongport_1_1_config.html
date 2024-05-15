@@ -86,8 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7816a9cb0811b17c02b548fffd59e300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae19c732c885f94fff6c3f12c1da097fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#ae19c732c885f94fff6c3f12c1da097fe">Config</a> (<a class="el" href="classlongport_1_1_config.html">Config</a> &amp;&amp;other)</td></tr>
 <tr class="separator:ae19c732c885f94fff6c3f12c1da097fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad99eb96dccff504c75fde3979a471f8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#ad99eb96dccff504c75fde3979a471f8f">Config</a> (const std::string &amp;app_key, const std::string &amp;app_secret, const std::string &amp;access_token, const std::optional&lt; std::string &gt; &amp;http_url, const std::optional&lt; std::string &gt; &amp;quote_ws_url, const std::optional&lt; std::string &gt; &amp;trade_ws_url, const std::optional&lt; <a class="el" href="namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473c">Language</a> &gt; &amp;language)</td></tr>
-<tr class="separator:ad99eb96dccff504c75fde3979a471f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac54423503ea2a0c2c42c6a673a3a3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#aeac54423503ea2a0c2c42c6a673a3a3b">Config</a> (const std::string &amp;app_key, const std::string &amp;app_secret, const std::string &amp;access_token, const std::optional&lt; std::string &gt; &amp;http_url, const std::optional&lt; std::string &gt; &amp;quote_ws_url, const std::optional&lt; std::string &gt; &amp;trade_ws_url, const std::optional&lt; <a class="el" href="namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473c">Language</a> &gt; &amp;language, bool enable_overnight)</td></tr>
+<tr class="separator:aeac54423503ea2a0c2c42c6a673a3a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae225067b780bcf595885c9f5aa61b9a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#ae225067b780bcf595885c9f5aa61b9a4">~Config</a> ()</td></tr>
 <tr class="separator:ae225067b780bcf595885c9f5aa61b9a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e443bbce0f361514770943c01026c88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#a1e443bbce0f361514770943c01026c88">operator const lb_config_t *</a> () const</td></tr>
@@ -181,8 +181,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad99eb96dccff504c75fde3979a471f8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad99eb96dccff504c75fde3979a471f8f">&#9670;&nbsp;</a></span>Config() <span class="overload">[5/5]</span></h2>
+<a id="aeac54423503ea2a0c2c42c6a673a3a3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac54423503ea2a0c2c42c6a673a3a3b">&#9670;&nbsp;</a></span>Config() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -227,7 +227,13 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::optional&lt; <a class="el" href="namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473c">Language</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>language</em>&#160;</td>
+          <td class="paramname"><em>language</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable_overnight</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -293,6 +299,19 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create a new <code><a class="el" href="classlongport_1_1_config.html">Config</a></code> from the given environment variables</p>
+<p>It first gets the environment variables from the <code>.env</code> file in the current directory.</p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Variables</h1>
+<ul>
+<li><code>LONGPORT_APP_KEY</code> - App key</li>
+<li><code>LONGPORT_APP_SECRET</code> - App secret</li>
+<li><code>LONGPORT_ACCESS_TOKEN</code> - Access token</li>
+<li><code>LONGPORT_HTTP_URL</code> - HTTP endpoint url (Default: <code><a href="https://openapi.longportapp.com">https://openapi.longportapp.com</a></code>)</li>
+<li><code>LONGPORT_QUOTE_WS_URL</code> - Quote websocket endpoint url (Default: <code>wss://openapi-quote.longportapp.com/v2</code>)</li>
+<li><code>LONGPORT_TRADE_WS_URL</code> - Trade websocket endpoint url (Default: <code>wss://openapi-trade.longportapp.com/v2</code>)</li>
+<li><code>LONGPORT_ENABLE_OVERNIGHT</code> - Enable overnight quote, <code>true</code> or <code>false</code> (Default: <code>false</code>) </li>
+</ul>
 
 </div>
 </div>
