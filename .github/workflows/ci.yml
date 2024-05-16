@@ -92,6 +92,185 @@ jobs:
           pip install longport --no-index --find-links dist --force-reinstall
           python -c "import longport"
 
+  build-python-sdk-macos:
+    needs:
+      - check-python-sdk
+    runs-on: macos-13
+    strategy:
+      fail-fast: true
+      matrix:
+        python:
+          - version: "3.7"
+            universal2: false
+          - version: "3.8"
+            universal2: true
+          - version: "3.9"
+            universal2: true
+          - version: "3.10"
+            universal2: true
+          - version: "3.11"
+            universal2: true
+          - version: "3.12"
+            universal2: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python.version }}
+          architecture: x64
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          default: true
+      - name: Build wheels - x86_64
+        uses: PyO3/maturin-action@v1
+        with:
+          target: x86_64
+          args: -i python --release --out dist -m python/Cargo.toml
+      - name: Install built wheel - x86_64
+        run: |
+          pip install longport --no-index --find-links dist --force-reinstall
+      - name: Build wheels - universal2
+        if: ${{ matrix.python.universal2 }}
+        uses: PyO3/maturin-action@v1
+        with:
+          args: -i python --release --target universal2-apple-darwin --out dist -m python/Cargo.toml
+      - name: Install built wheel - universal2
+        if: ${{ matrix.python.universal2 }}
+        run: |
+          pip install longport --no-index --find-links dist --force-reinstall
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: dist
+
+  build-python-sdk-windows:
+    needs:
+      - check-python-sdk
+    runs-on: windows-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        target: [x64, x86]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: ${{ matrix.target }}
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          default: true
+      - name: Build wheels
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          args: -i python --release --out dist -m python/Cargo.toml
+      - name: Install built wheel
+        run: |
+          pip install longport --no-index --find-links dist --force-reinstall
+          python -c "import longport"
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: dist
+
+  build-python-sdk-linux:
+    needs:
+      - check-python-sdk
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        target: [x86_64, i686]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build wheels
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          manylinux: auto
+          args: -i python${{ matrix.python-version }} --release --out dist -m python/Cargo.toml
+      - name: Install built wheel
+        if: matrix.target == 'x86_64'
+        run: |
+          pip install longport --no-index --find-links dist --force-reinstall
+          python -c "import longport"
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: dist
+
+  build-python-sdk-linux-cross:
+    needs:
+      - check-python-sdk
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        target: [aarch64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Build wheels
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.target }}
+          manylinux: 2_28
+          args: -i python${{ matrix.python-version }} --release --out dist -m python/Cargo.toml
+      - uses: uraimo/run-on-arch-action@v2.2.0
+        if: matrix.target != 'ppc64'
+        name: Install built wheel
+        with:
+          arch: ${{ matrix.target }}
+          distro: ubuntu20.04
+          githubToken: ${{ github.token }}
+          dockerRunArgs: |
+            --volume "${PWD}/dist:/artifacts"
+          install: |
+            apt-get update
+            apt-get install -y --no-install-recommends python3 python3-venv software-properties-common
+            add-apt-repository ppa:deadsnakes/ppa
+            apt-get update
+            apt-get install -y curl python${{ matrix.python-version }}-venv
+          run: |
+            ls -lrth /artifacts
+            PYTHON=python${{ matrix.python-version }}
+            $PYTHON -m venv venv
+            venv/bin/pip install -U pip
+            venv/bin/pip install longport --no-index --find-links /artifacts --force-reinstall
+            venv/bin/python -c 'import longport'
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheels
+          path: dist
+
   check-nodejs-sdk:
     needs:
       - check-format
