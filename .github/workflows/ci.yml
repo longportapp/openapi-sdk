@@ -281,16 +281,16 @@ jobs:
           - host: macos-13
             architecture: x64
             build: |
-              npm run build
+              npm run build:debug
               strip -x *.node
 
           - host: windows-latest
-            build: npm run build
+            build: npm run build:debug
             architecture: x64
 
           - host: ubuntu-latest
             build: |
-              npm run build
+              npm run build:debug
               strip *.node
 
           - host: macos-13
