@@ -1672,6 +1672,28 @@
 <a href="#1670" id="1670">1670</a>
 <a href="#1671" id="1671">1671</a>
 <a href="#1672" id="1672">1672</a>
+<a href="#1673" id="1673">1673</a>
+<a href="#1674" id="1674">1674</a>
+<a href="#1675" id="1675">1675</a>
+<a href="#1676" id="1676">1676</a>
+<a href="#1677" id="1677">1677</a>
+<a href="#1678" id="1678">1678</a>
+<a href="#1679" id="1679">1679</a>
+<a href="#1680" id="1680">1680</a>
+<a href="#1681" id="1681">1681</a>
+<a href="#1682" id="1682">1682</a>
+<a href="#1683" id="1683">1683</a>
+<a href="#1684" id="1684">1684</a>
+<a href="#1685" id="1685">1685</a>
+<a href="#1686" id="1686">1686</a>
+<a href="#1687" id="1687">1687</a>
+<a href="#1688" id="1688">1688</a>
+<a href="#1689" id="1689">1689</a>
+<a href="#1690" id="1690">1690</a>
+<a href="#1691" id="1691">1691</a>
+<a href="#1692" id="1692">1692</a>
+<a href="#1693" id="1693">1693</a>
+<a href="#1694" id="1694">1694</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, TradeSession, TradeStatus};
 <span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
@@ -3343,5 +3365,27 @@
 
         output
     }
+}
+
+<span class="doccomment">/// Security list category
+</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="kw">pub enum </span>SecurityListCategory {
+    <span class="doccomment">/// Overnight
+    </span>Overnight,
+}
+
+<span class="macro">impl_serialize_for_enum_string!</span>(SecurityListCategory);
+
+<span class="doccomment">/// The basic information of securities
+</span><span class="attr">#[derive(Debug, Deserialize)]
+</span><span class="kw">pub struct </span>Security {
+    <span class="doccomment">/// Security code
+    </span><span class="kw">pub </span>symbol: String,
+    <span class="doccomment">/// Security name (zh-CN)
+    </span><span class="kw">pub </span>name_cn: String,
+    <span class="doccomment">/// Security name (en)
+    </span><span class="kw">pub </span>name_en: String,
+    <span class="doccomment">/// Security name (zh-HK)
+    </span><span class="kw">pub </span>name_hk: String,
 }
 </code></pre></div></section></main></body></html>

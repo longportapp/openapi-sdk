@@ -200,6 +200,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa32421ee6a372a48b94f79e87ee57fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#aa32421ee6a372a48b94f79e87ee57fb1">update_watchlist_group</a> (const <a class="el" href="structlongport_1_1quote_1_1_update_watchlist_group.html">UpdateWatchlistGroup</a> &amp;req, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, void &gt; callback) const</td></tr>
 <tr class="memdesc:aa32421ee6a372a48b94f79e87ee57fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create watchlist group.  <a href="classlongport_1_1quote_1_1_quote_context.html#aa32421ee6a372a48b94f79e87ee57fb1">More...</a><br /></td></tr>
 <tr class="separator:aa32421ee6a372a48b94f79e87ee57fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32237f629171dd19621d91bf430c3065"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a32237f629171dd19621d91bf430c3065">security_list</a> (<a class="el" href="namespacelongport.html#ac15877688faec3e2d5776a503a55e5a4">Market</a> market, <a class="el" href="namespacelongport_1_1quote.html#aa93af3fc6c64ad59a3314237846cdca6">SecurityListCategory</a> category, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_security.html">Security</a> &gt;&gt; callback) const</td></tr>
+<tr class="memdesc:a32237f629171dd19621d91bf430c3065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get security list.  <a href="classlongport_1_1quote_1_1_quote_context.html#a32237f629171dd19621d91bf430c3065">More...</a><br /></td></tr>
+<tr class="separator:a32237f629171dd19621d91bf430c3065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59a1b824687ca339e0024aa3e95e8337"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a59a1b824687ca339e0024aa3e95e8337">realtime_quote</a> (const std::vector&lt; std::string &gt; &amp;symbols, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_realtime_quote.html">RealtimeQuote</a> &gt;&gt; callback) const</td></tr>
 <tr class="separator:a59a1b824687ca339e0024aa3e95e8337"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61ff545ee272ee6ef49a46ccec25355c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a61ff545ee272ee6ef49a46ccec25355c">realtime_depth</a> (const std::string &amp;symbol, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, <a class="el" href="structlongport_1_1quote_1_1_security_depth.html">SecurityDepth</a> &gt; callback) const</td></tr>
@@ -1142,6 +1145,42 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32237f629171dd19621d91bf430c3065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32237f629171dd19621d91bf430c3065">&#9670;&nbsp;</a></span>security_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longport::quote::QuoteContext::security_list </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacelongport.html#ac15877688faec3e2d5776a503a55e5a4">Market</a>&#160;</td>
+          <td class="paramname"><em>market</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongport_1_1quote.html#aa93af3fc6c64ad59a3314237846cdca6">SecurityListCategory</a>&#160;</td>
+          <td class="paramname"><em>category</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_security.html">Security</a> &gt;&gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get security list. </p>
 
 </div>
 </div>

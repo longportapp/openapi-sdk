@@ -333,6 +333,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.Security" class="nav-link">Security</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.SecurityBoard" class="nav-link">SecurityBoard</a>
               <ul class="nav flex-column">
               </ul>
@@ -346,6 +350,10 @@
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.SecurityDepth" class="nav-link">SecurityDepth</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.SecurityListCategory" class="nav-link">SecurityListCategory</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -12624,6 +12632,100 @@ print(resp)</code></pre>
 <div class="doc doc-object doc-function">
 
 
+<h3 id="longport.openapi.QuoteContext.security_list" class="doc doc-heading">
+            <code class="highlight language-python">security_list(market, category)</code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get security list</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>market</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longport.openapi.Market" href="#longport.openapi.Market">Market</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Market</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>category</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Type" href="https://docs.python.org/3/library/typing.html#typing.Type">Type</a>[<a class="autorefs autorefs-internal" title="longport.openapi.SecurityListCategory" href="#longport.openapi.SecurityListCategory">SecurityListCategory</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security list category</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="longport.openapi.Security" href="#longport.openapi.Security">Security</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, Market, SecurityListCategory
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.security_list(Market.HK, SecurityListCategory.Overnight)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="longport.openapi.QuoteContext.set_on_brokers" class="doc doc-heading">
             <code class="highlight language-python">set_on_brokers(callback)</code>
 
@@ -14139,6 +14241,127 @@ print(resp)</code></pre>
     </div>
 
 </div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="longport.openapi.Security" class="doc doc-heading">
+            <code>Security</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+      <p>Security</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="longport.openapi.Security.name_cn" class="doc doc-heading">
+            <code class="highlight language-python">name_cn: str</code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Security name (zh-CN)</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="longport.openapi.Security.name_en" class="doc doc-heading">
+            <code class="highlight language-python">name_en: str</code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Security name (en)</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="longport.openapi.Security.name_hk" class="doc doc-heading">
+            <code class="highlight language-python">name_hk: str</code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Security name (zh-HK)</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="longport.openapi.Security.symbol" class="doc doc-heading">
+            <code class="highlight language-python">symbol: str</code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Security code</p>
+    </div>
+
+</div>
+
 
 
 
@@ -15807,6 +16030,66 @@ print(resp)</code></pre>
 
 </div>
 
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="longport.openapi.SecurityListCategory" class="doc doc-heading">
+            <code>SecurityListCategory</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+      <p>Security list category</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="longport.openapi.SecurityListCategory.Overnight" class="doc doc-heading">
+            <code>Overnight</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="longport.openapi.SecurityListCategory" href="#longport.openapi.SecurityListCategory">SecurityListCategory</a></code></p>
+
+
+      <p>Overnight</p>
+
+
+    </div>
+
+</div>
 
 
 

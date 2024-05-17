@@ -1562,6 +1562,34 @@
 <a href="#1560" id="1560">1560</a>
 <a href="#1561" id="1561">1561</a>
 <a href="#1562" id="1562">1562</a>
+<a href="#1563" id="1563">1563</a>
+<a href="#1564" id="1564">1564</a>
+<a href="#1565" id="1565">1565</a>
+<a href="#1566" id="1566">1566</a>
+<a href="#1567" id="1567">1567</a>
+<a href="#1568" id="1568">1568</a>
+<a href="#1569" id="1569">1569</a>
+<a href="#1570" id="1570">1570</a>
+<a href="#1571" id="1571">1571</a>
+<a href="#1572" id="1572">1572</a>
+<a href="#1573" id="1573">1573</a>
+<a href="#1574" id="1574">1574</a>
+<a href="#1575" id="1575">1575</a>
+<a href="#1576" id="1576">1576</a>
+<a href="#1577" id="1577">1577</a>
+<a href="#1578" id="1578">1578</a>
+<a href="#1579" id="1579">1579</a>
+<a href="#1580" id="1580">1580</a>
+<a href="#1581" id="1581">1581</a>
+<a href="#1582" id="1582">1582</a>
+<a href="#1583" id="1583">1583</a>
+<a href="#1584" id="1584">1584</a>
+<a href="#1585" id="1585">1585</a>
+<a href="#1586" id="1586">1586</a>
+<a href="#1587" id="1587">1587</a>
+<a href="#1588" id="1588">1588</a>
+<a href="#1589" id="1589">1589</a>
+<a href="#1590" id="1590">1590</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
@@ -1585,9 +1613,9 @@
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
         IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
         ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
-        RequestUpdateWatchlistGroup, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-        SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription, Trade, WarrantInfo,
-        WarrantQuote, WarrantType, WatchlistGroup,
+        RequestUpdateWatchlistGroup, Security, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
+        SecurityListCategory, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription,
+        Trade, WarrantInfo, WarrantQuote, WarrantType, WatchlistGroup,
     },
     serde_utils, Config, Error, Language, Market, <span class="prelude-ty">Result</span>,
 };
@@ -2901,6 +2929,34 @@
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
+    }
+
+    <span class="doccomment">/// Get security list
+    </span><span class="kw">pub async fn </span>security_list(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        market: Market,
+        category: SecurityListCategory,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Security&gt;&gt; {
+        <span class="attr">#[derive(Debug, Serialize)]
+        </span><span class="kw">struct </span>Request {
+            market: Market,
+            category: SecurityListCategory,
+        }
+
+        <span class="attr">#[derive(Debug, Deserialize)]
+        </span><span class="kw">struct </span>Resposne {
+            list: Vec&lt;Security&gt;,
+        }
+
+        <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.http_cli
+            .request(Method::GET, <span class="string">"/v1/quote/get_security_list"</span>)
+            .query_params(Request { market, category })
+            .response::&lt;Json&lt;Resposne&gt;&gt;()
+            .send()
+            .<span class="kw">await</span><span class="question-mark">?
+            </span>.<span class="number">0
+            </span>.list)
     }
 
     <span class="doccomment">/// Get real-time quotes
