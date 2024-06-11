@@ -1049,6 +1049,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2749b1a9cf35a6e6ac1352fdd42a8347"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cf04ca80daf7e9a7940b1b4b2620be5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a7cf04ca80daf7e9a7940b1b4b2620be5">lb_decimal_round</a> (struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *value)</td></tr>
 <tr class="separator:a7cf04ca80daf7e9a7940b1b4b2620be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae897e2a1f40d52afa76bf22d7096de25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#ae897e2a1f40d52afa76bf22d7096de25">lb_decimal_round_dp</a> (struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *value, uint32_t dp)</td></tr>
+<tr class="separator:ae897e2a1f40d52afa76bf22d7096de25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ea15beea53504991e0aa008cfa59327"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a1ea15beea53504991e0aa008cfa59327">lb_decimal_trunc</a> (struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *value)</td></tr>
 <tr class="separator:a1ea15beea53504991e0aa008cfa59327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09989088056f6822a91e8d125223785c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a09989088056f6822a91e8d125223785c">lb_decimal_add</a> (struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *a, const struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *b)</td></tr>
@@ -1099,6 +1101,8 @@ Functions</h2></td></tr>
 <tr class="separator:af3f80853cb8d69c57100abf54c20395d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70a43ac1431ba6d21a7128c4de727d1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a70a43ac1431ba6d21a7128c4de727d1c">lb_decimal_norm_pdf</a> (struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *value)</td></tr>
 <tr class="separator:a70a43ac1431ba6d21a7128c4de727d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8ad3ce8c9e1f466935d380d41f3f67a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#aa8ad3ce8c9e1f466935d380d41f3f67a">lb_decimal_to_string</a> (const struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *value)</td></tr>
+<tr class="separator:aa8ad3ce8c9e1f466935d380d41f3f67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a34348b50eaef81d33807ee653f193c71"></a>
@@ -4959,6 +4963,35 @@ Variables</h1>
 
 </div>
 </div>
+<a id="ae897e2a1f40d52afa76bf22d7096de25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae897e2a1f40d52afa76bf22d7096de25">&#9670;&nbsp;</a></span>lb_decimal_round_dp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lb_decimal_round_dp </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>dp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a new Decimal number with the specified number of decimal points for fractional portion. Rounding currently follows “Bankers Rounding” rules. e.g. 6.5 -&gt; 6, 7.5 -&gt; 8 </p>
+
+</div>
+</div>
 <a id="ab106ebc3ad24638c9ce2e7b416d794c1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab106ebc3ad24638c9ce2e7b416d794c1">&#9670;&nbsp;</a></span>lb_decimal_sin()</h2>
 
@@ -5060,6 +5093,25 @@ Variables</h1>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8ad3ce8c9e1f466935d380d41f3f67a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ad3ce8c9e1f466935d380d41f3f67a">&#9670;&nbsp;</a></span>lb_decimal_to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* lb_decimal_to_string </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="longport_8h.html#a050557cb28af08567f39a2dac995788c">lb_decimal_t</a> *&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The Probability density function for a Normal distribution. </p>
 
 </div>
 </div>
