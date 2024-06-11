@@ -45,11 +45,16 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
     let mut fields = Vec::new();
     let mut getters = Vec::new();
     let mut from_fields = Vec::new();
+    let mut set_dictitem = Vec::new();
 
     for field in &s.fields {
         let field_ident = field.ident.as_ref().unwrap();
         let field_type = &field.ty;
+        let name = field_ident.to_string();
 
+        set_dictitem.push(quote! {
+            d.set_item(#name, self.#field_ident.clone().into_py(py))?;
+        });
         fields.push(field_ident);
         getters.push(quote! {
             #[getter]
@@ -97,6 +102,15 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
 
             fn __str__(&self) -> String {
                 ::std::format!("{:?}", self)
+            }
+
+            fn __dict__(&self) -> pyo3::PyResult<pyo3::Py<pyo3::types::PyDict>> {
+                pyo3::Python::with_gil(|py| -> pyo3::PyResult<pyo3::Py<pyo3::types::PyDict>> {
+                    use pyo3::prelude::*;
+                    let d = pyo3::types::PyDict::new_bound(py);
+                    #(#set_dictitem)*
+                    Ok(d.into())
+                })
             }
 
             #(#getters)*

@@ -6,7 +6,7 @@ use rust_decimal::Decimal;
 
 static DECIMAL_TYPE: Lazy<PyObject> = Lazy::new(|| {
     Python::with_gil(|py| {
-        let decimal_module = py.import("decimal")?;
+        let decimal_module = py.import_bound("decimal")?;
         let decimal_type = decimal_module.getattr("Decimal")?;
         Ok::<_, PyErr>(decimal_type.to_object(py))
     })
@@ -49,8 +49,10 @@ impl<'py> FromPyObject<'py> for PyDecimal {
         } else {
             // convert from decimal.Decimal
             Python::with_gil(|py| {
-                let decimal_type = DECIMAL_TYPE.downcast::<PyType>(py).expect("decimal type");
-                if ob.is_instance(decimal_type)? {
+                let decimal_type = DECIMAL_TYPE
+                    .downcast_bound::<PyType>(py)
+                    .expect("decimal type");
+                if ob.is_instance(decimal_type.as_gil_ref())? {
                     let value = ob
                         .str()
                         .and_then(|value| value.to_str())

@@ -49,7 +49,7 @@ impl Config {
     }
 
     #[classmethod]
-    fn from_env(_cls: &PyType) -> PyResult<Self> {
+    fn from_env(_cls: Bound<PyType>) -> PyResult<Self> {
         Ok(Self(longport::Config::from_env().map_err(ErrorNewType)?))
     }
 

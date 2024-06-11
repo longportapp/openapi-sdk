@@ -4,7 +4,7 @@ mod types;
 
 use pyo3::prelude::*;
 
-pub(crate) fn register_types(parent: &PyModule) -> PyResult<()> {
+pub(crate) fn register_types(parent: &Bound<PyModule>) -> PyResult<()> {
     parent.add_class::<types::DerivativeType>()?;
     parent.add_class::<types::TradeStatus>()?;
     parent.add_class::<types::TradeSession>()?;

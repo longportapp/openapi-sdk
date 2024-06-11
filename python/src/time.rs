@@ -46,7 +46,7 @@ impl From<OffsetDateTime> for PyOffsetDateTimeWrapper {
 
 impl IntoPy<PyObject> for PyOffsetDateTimeWrapper {
     fn into_py(self, py: Python<'_>) -> PyObject {
-        PyDateTime::from_timestamp(py, self.0.unix_timestamp() as f64, None)
+        PyDateTime::from_timestamp_bound(py, self.0.unix_timestamp() as f64, None)
             .unwrap()
             .into_py(py)
     }
@@ -82,7 +82,7 @@ impl From<PyDateWrapper> for Date {
 
 impl IntoPy<PyObject> for PyDateWrapper {
     fn into_py(self, py: Python<'_>) -> PyObject {
-        PyDate::new(py, self.0.year(), self.0.month() as u8, self.0.day())
+        PyDate::new_bound(py, self.0.year(), self.0.month() as u8, self.0.day())
             .unwrap()
             .into_py(py)
     }
@@ -124,7 +124,7 @@ impl From<Time> for PyTimeWrapper {
 
 impl IntoPy<PyObject> for PyTimeWrapper {
     fn into_py(self, py: Python<'_>) -> PyObject {
-        PyTime::new(py, self.0.hour(), self.0.minute(), self.0.second(), 0, None)
+        PyTime::new_bound(py, self.0.hour(), self.0.minute(), self.0.second(), 0, None)
             .expect("valid time")
             .into_py(py)
     }

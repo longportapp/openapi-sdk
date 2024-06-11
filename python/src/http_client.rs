@@ -26,7 +26,7 @@ impl HttpClient {
     }
 
     #[classmethod]
-    fn from_env(_cls: &PyType) -> PyResult<Self> {
+    fn from_env(_cls: Bound<PyType>) -> PyResult<Self> {
         Ok(Self(LbHttpClient::from_env().map_err(|err| {
             ErrorNewType(longport::Error::HttpClient(err))
         })?))
@@ -37,10 +37,10 @@ impl HttpClient {
         method: String,
         path: String,
         headers: Option<HashMap<String, String>>,
-        body: Option<&PyAny>,
+        body: Option<Bound<PyAny>>,
     ) -> PyResult<PyObject> {
         let body = body
-            .map(pythonize::depythonize::<Value>)
+            .map(pythonize::depythonize_bound::<Value>)
             .transpose()
             .map_err(|err| PyRuntimeError::new_err(err.to_string()))?;
         let req = self.0.request(
