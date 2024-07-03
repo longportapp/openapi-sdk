@@ -74,7 +74,7 @@ pub(crate) mod date_opt {
                 &value,
                 time::macros::format_description!("[year]-[month]-[day]"),
             )
-            .map_err(|_| Error::custom("invalid timestamp"))?;
+            .map_err(|_| Error::custom("invalid date"))?;
             Ok(Some(datetime))
         } else {
             Ok(None)
