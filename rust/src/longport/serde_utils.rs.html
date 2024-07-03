@@ -342,7 +342,7 @@
                 <span class="kw-2">&amp;</span>value,
                 <span class="macro">time::macros::format_description!</span>(<span class="string">"[year]-[month]-[day]"</span>),
             )
-            .map_err(|<span class="kw">_</span>| Error::custom(<span class="string">"invalid timestamp"</span>))<span class="question-mark">?</span>;
+            .map_err(|<span class="kw">_</span>| Error::custom(<span class="string">"invalid date"</span>))<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(datetime))
         } <span class="kw">else </span>{
             <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
