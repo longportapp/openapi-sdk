@@ -12,8 +12,6 @@ add_library(
     longport_cpp SHARED
     ${SOURCES}
 )
-if(WIN32)
 target_link_libraries(longport_cpp longport_c)
-endif()
 
 add_subdirectory(test)
