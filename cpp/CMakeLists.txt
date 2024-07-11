@@ -12,7 +12,7 @@ add_library(
     longport_cpp SHARED
     ${SOURCES}
 )
-if(NOT CMAKE_HOST_LINUX)
+if(WIN32)
 target_link_libraries(longport_cpp longport_c)
 endif()
 
