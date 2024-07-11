@@ -277,6 +277,36 @@
 <a href="#277" id="277">277</a>
 <a href="#278" id="278">278</a>
 <a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>http::Method;
@@ -317,6 +347,15 @@
     }
 }
 
+<span class="doccomment">/// Push mode for candlestick
+</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+</span><span class="kw">pub enum </span>PushCandlestickMode {
+    <span class="doccomment">/// Realtime mode
+    </span>Realtime,
+    <span class="doccomment">/// Confirmed mode
+    </span>Confirmed,
+}
+
 <span class="doccomment">/// Configuration options for LongPort sdk
 </span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Config {
@@ -325,6 +364,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) trade_ws_url: String,
     <span class="kw">pub</span>(<span class="kw">crate</span>) language: Language,
     <span class="kw">pub</span>(<span class="kw">crate</span>) enable_overnight: bool,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) push_candlestick_mode: PushCandlestickMode,
 }
 
 <span class="kw">impl </span>Config {
@@ -350,6 +390,7 @@
             .to_string(),
             language: Language::EN,
             enable_overnight: <span class="bool-val">false</span>,
+            push_candlestick_mode: PushCandlestickMode::Realtime,
         }
     }
 
@@ -370,6 +411,8 @@
     ///   `wss://openapi-trade.longportapp.com/v2`)
     /// - `LONGPORT_ENABLE_OVERNIGHT` - Enable overnight quote, `true` or
     ///   `false` (Default: `false`)
+    /// - `LONGPORT_PUSH_CANDLESTICK_MODE` - `realtime` or `confirmed` (Default:
+    ///   `realtime`)
     </span><span class="kw">pub fn </span>from_env() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let _ </span>= dotenv::dotenv();
 
@@ -398,6 +441,12 @@
             .ok()
             .map(|var| var == <span class="string">"true"</span>)
             .unwrap_or_default();
+        <span class="kw">let </span>push_candlestick_mode =
+            <span class="kw">if </span>std::env::var(<span class="string">"LONGPORT_PUSH_CANDLESTICK_MODE"</span>).as_deref() == <span class="prelude-val">Ok</span>(<span class="string">"confirmed"</span>) {
+                PushCandlestickMode::Confirmed
+            } <span class="kw">else </span>{
+                PushCandlestickMode::Realtime
+            };
 
         <span class="prelude-val">Ok</span>(Config {
             http_cli_config,
@@ -405,6 +454,7 @@
             trade_ws_url,
             language: Language::EN,
             enable_overnight,
+            push_candlestick_mode,
         })
     }
 
@@ -458,6 +508,16 @@
     </span><span class="kw">pub fn </span>enable_overnight(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             enable_overnight: <span class="bool-val">true</span>,
+            ..<span class="self">self
+        </span>}
+    }
+
+    <span class="doccomment">/// Specifies the push candlestick mode
+    ///
+    /// Default: `PushCandlestickMode::Realtime`
+    </span><span class="kw">pub fn </span>push_candlestick_mode(<span class="self">self</span>, mode: PushCandlestickMode) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            push_candlestick_mode: mode,
             ..<span class="self">self
         </span>}
     }

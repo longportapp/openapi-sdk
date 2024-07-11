@@ -115,8 +115,28 @@
 <a href="#115" id="115">115</a>
 <a href="#116" id="116">116</a>
 <a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
+<span class="kw">use </span>longport_candlesticks::InputCandlestick;
 <span class="kw">use </span>longport_proto::quote::Period;
 
 <span class="kw">use </span><span class="kw">crate</span>::quote::{
@@ -147,6 +167,24 @@
     };
 }
 
+<span class="attr">#[derive(Debug)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Candlesticks {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) candlesticks: Vec&lt;Candlestick&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) confirmed: bool,
+}
+
+<span class="kw">impl </span>Candlesticks {
+    <span class="attr">#[inline]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>merge_input(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; InputCandlestick {
+        <span class="kw">match </span>(<span class="self">self</span>.candlesticks.last(), <span class="self">self</span>.confirmed) {
+            (<span class="prelude-val">None</span>, <span class="bool-val">true</span>) =&gt; <span class="macro">unreachable!</span>(),
+            (<span class="prelude-val">None</span>, <span class="bool-val">false</span>) =&gt; InputCandlestick::None,
+            (<span class="prelude-val">Some</span>(prev), <span class="bool-val">true</span>) =&gt; InputCandlestick::Confirmed((<span class="kw-2">*</span>prev).into()),
+            (<span class="prelude-val">Some</span>(prev), <span class="bool-val">false</span>) =&gt; InputCandlestick::Normal((<span class="kw-2">*</span>prev).into()),
+        }
+    }
+}
+
 <span class="attr">#[derive(Debug, Default)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>SecuritiesData {
     <span class="kw">pub</span>(<span class="kw">crate</span>) quote: PushQuote,
@@ -160,7 +198,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) trades: Vec&lt;Trade&gt;,
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) board: SecurityBoard,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) candlesticks: HashMap&lt;Period, Vec&lt;Candlestick&gt;&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) candlesticks: HashMap&lt;Period, Candlesticks&gt;,
 }
 
 <span class="attr">#[derive(Debug, Default)]

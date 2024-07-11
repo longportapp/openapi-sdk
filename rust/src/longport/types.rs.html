@@ -18,6 +18,17 @@
 <a href="#18" id="18">18</a>
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
+<a href="#21" id="21">21</a>
+<a href="#22" id="22">22</a>
+<a href="#23" id="23">23</a>
+<a href="#24" id="24">24</a>
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>strum_macros::{Display, EnumString};
 
 <span class="doccomment">/// Market
@@ -38,4 +49,15 @@
 
 <span class="macro">impl_default_for_enum_string!</span>(Market);
 <span class="macro">impl_serde_for_enum_string!</span>(Market);
+
+<span class="kw">impl </span>From&lt;longport_candlesticks::Market&gt; <span class="kw">for </span>Market {
+    <span class="kw">fn </span>from(market: longport_candlesticks::Market) -&gt; <span class="self">Self </span>{
+        <span class="kw">match </span>market {
+            longport_candlesticks::Market::HK =&gt; Market::HK,
+            longport_candlesticks::Market::US =&gt; Market::US,
+            longport_candlesticks::Market::SH | longport_candlesticks::Market::SZ =&gt; Market::CN,
+            longport_candlesticks::Market::SG =&gt; Market::SG,
+        }
+    }
+}
 </code></pre></div></section></main></body></html>
