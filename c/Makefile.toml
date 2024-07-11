@@ -1,21 +1,21 @@
 [tasks.c]
 command = "make"
-args = ["cargo-build_longport-c"]
+args = ["cargo-build_longport_c"]
 cwd = "cmake.build"
 
 [tasks.c-release]
 command = "make"
-args = ["cargo-build_longport-c"]
+args = ["cargo-build_longport_c"]
 cwd = "cmake.build"
 
 [tasks.c.windows]
 command = "msbuild"
-args = ["longport.sln", "-p:Configuration=Debug", "/t:cargo-build_longport-c"]
+args = ["longport.sln", "-p:Configuration=Debug", "/t:cargo-build_longport_c"]
 cwd = "cmake.build"
 
 [tasks.c-release.windows]
 command = "msbuild"
-args = ["longport.sln", "-p:Configuration=Release", "/t:cargo-build_longport-c"]
+args = ["longport.sln", "-p:Configuration=Release", "/t:cargo-build_longport_c"]
 cwd = "cmake.build"
 
 [tasks.c-test]
