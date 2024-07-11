@@ -24,5 +24,5 @@ var searchData=
   ['hour_220',['hour',['../structlongport_1_1_time.html#a98bf39d177d8a67a7bc8e5117f0b8826',1,'longport::Time']]],
   ['http_5fclient_2ehpp_221',['http_client.hpp',['../http__client_8hpp.html',1,'']]],
   ['httpclient_222',['HttpClient',['../classlongport_1_1_http_client.html#a642b8a6dd8f8b4ed5ac65dd3c91fc14d',1,'longport::HttpClient::HttpClient(const std::string &amp;http_url, const std::string &amp;app_key, const std::string &amp;app_secret, const std::string &amp;access_token)'],['../classlongport_1_1_http_client.html#a91ee4478c7436c98303c761d244511c5',1,'longport::HttpClient::HttpClient(HttpClient &amp;)=delete'],['../classlongport_1_1_http_client.html#aa85a3f95f001be8dd051a8cbf087811c',1,'longport::HttpClient::HttpClient()'],['../classlongport_1_1_http_client.html',1,'longport::HttpClient']]],
-  ['httpresult_223',['HttpResult',['../structlongport_1_1_http_result.html',1,'longport']]]
+  ['httpresult_223',['HttpResult',['../structlongport_1_1_http_result.html#a28737d70dc757a5bfd489677dfc150d5',1,'longport::HttpResult::HttpResult()'],['../structlongport_1_1_http_result.html',1,'longport::HttpResult']]]
 ];
