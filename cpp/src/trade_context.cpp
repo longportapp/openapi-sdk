@@ -426,7 +426,7 @@ TradeContext::submit_order(
     nullptr,
     nullptr,
     nullptr,
-    opts.remark.c_str(),
+    opts.remark ? opts.remark->c_str() : nullptr,
   };
   lb_date_t expire_date;
   lb_outside_rth_t outside_rth;
