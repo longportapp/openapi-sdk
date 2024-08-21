@@ -13,5 +13,6 @@ var searchData=
   ['bps_21',['bps',['../structlb__security__static__info__t.html#a6895b3cd03829baa75b769a966c8b224',1,'lb_security_static_info_t']]],
   ['broker_5fids_22',['broker_ids',['../structlb__brokers__t.html#aa60628722a72867302c59acd932e7bd3',1,'lb_brokers_t::broker_ids()'],['../structlb__participant__info__t.html#aa60628722a72867302c59acd932e7bd3',1,'lb_participant_info_t::broker_ids()']]],
   ['business_5ftime_23',['business_time',['../structlb__cash__flow__t.html#a4cf70ee86ab76a3d8e62e7379f2c320d',1,'lb_cash_flow_t']]],
-  ['business_5ftype_24',['business_type',['../structlb__get__cash__flow__options__t.html#a6b5eac076160bb5dd5254f08b8386f40',1,'lb_get_cash_flow_options_t::business_type()'],['../structlb__cash__flow__t.html#ac6a985190c6feafb33e8f5cd4d9a84c1',1,'lb_cash_flow_t::business_type()']]]
+  ['business_5ftype_24',['business_type',['../structlb__get__cash__flow__options__t.html#a6b5eac076160bb5dd5254f08b8386f40',1,'lb_get_cash_flow_options_t::business_type()'],['../structlb__cash__flow__t.html#ac6a985190c6feafb33e8f5cd4d9a84c1',1,'lb_cash_flow_t::business_type()']]],
+  ['buy_5fpower_25',['buy_power',['../structlb__account__balance__t.html#a0d5b99ec2d2d1d7c4c9cd6554808ae3b',1,'lb_account_balance_t']]]
 ];

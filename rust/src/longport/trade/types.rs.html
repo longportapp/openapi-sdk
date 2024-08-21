@@ -1254,6 +1254,9 @@
 <a href="#1254" id="1254">1254</a>
 <a href="#1255" id="1255">1255</a>
 <a href="#1256" id="1256">1256</a>
+<a href="#1257" id="1257">1257</a>
+<a href="#1258" id="1258">1258</a>
+<a href="#1259" id="1259">1259</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -1816,6 +1819,9 @@
     <span class="doccomment">/// Maintenance margin
     </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
     </span><span class="kw">pub </span>maintenance_margin: Decimal,
+    <span class="doccomment">/// Buy power
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_empty_is_0"</span>)]
+    </span><span class="kw">pub </span>buy_power: Decimal,
 }
 
 <span class="doccomment">/// Balance type
