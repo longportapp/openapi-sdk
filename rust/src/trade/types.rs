@@ -560,6 +560,9 @@ pub struct AccountBalance {
     /// Maintenance margin
     #[serde(with = "serde_utils::decimal_empty_is_0")]
     pub maintenance_margin: Decimal,
+    /// Buy power
+    #[serde(with = "serde_utils::decimal_empty_is_0")]
+    pub buy_power: Decimal,
 }
 
 /// Balance type

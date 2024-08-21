@@ -2820,6 +2820,10 @@ typedef struct lb_account_balance_t {
    * Maintenance margin
    */
   const struct lb_decimal_t *maintenance_margin;
+  /**
+   * Buy power
+   */
+  const struct lb_decimal_t *buy_power;
 } lb_account_balance_t;
 
 /**

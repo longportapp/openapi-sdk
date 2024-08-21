@@ -595,6 +595,8 @@ pub struct AccountBalance {
     init_margin: Decimal,
     /// Maintenance margin
     maintenance_margin: Decimal,
+    /// Buy power
+    buy_power: Decimal,
 }
 
 #[napi_derive::napi]

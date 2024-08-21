@@ -2851,6 +2851,8 @@ export class AccountBalance {
   get initMargin(): Decimal
   /** Maintenance margin */
   get maintenanceMargin(): Decimal
+  /** Buy power */
+  get buyPower(): Decimal
 }
 /** Account balance */
 export class CashFlow {

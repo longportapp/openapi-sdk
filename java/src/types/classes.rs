@@ -674,7 +674,8 @@ impl_java_class!(
         cash_infos,
         net_assets,
         init_margin,
-        maintenance_margin
+        maintenance_margin,
+        buy_power
     ]
 );
 

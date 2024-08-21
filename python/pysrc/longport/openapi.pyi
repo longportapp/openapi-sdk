@@ -4389,6 +4389,11 @@ class AccountBalance:
     Maintenance margin
     """
 
+    buy_power: Decimal
+    """
+    Buy power
+    """
+
 
 class BalanceType:
     class Unknown(BalanceType):
@@ -4932,7 +4937,7 @@ class TradeContext:
                 ctx.cancel_order("709043056541253632")
         """
 
-    def account_balance(self, currency: Optional[str]) -> List[AccountBalance]:
+    def account_balance(self, currency: Optional[str] = None) -> List[AccountBalance]:
         """
         Get account balance
 

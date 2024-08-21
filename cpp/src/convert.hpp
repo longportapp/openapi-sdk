@@ -1281,6 +1281,7 @@ convert(const lb_account_balance_t* info)
     Decimal(info->net_assets),
     Decimal(info->init_margin),
     Decimal(info->maintenance_margin),
+    Decimal(info->buy_power),
   };
 }
 

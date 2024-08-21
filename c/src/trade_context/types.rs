@@ -803,6 +803,8 @@ pub struct CAccountBalance {
     pub init_margin: *const CDecimal,
     /// Maintenance margin
     pub maintenance_margin: *const CDecimal,
+    /// Buy power
+    pub buy_power: *const CDecimal,
 }
 
 #[derive(Debug)]
@@ -817,6 +819,7 @@ pub(crate) struct CAccountBalanceOwned {
     net_assets: CDecimal,
     init_margin: CDecimal,
     maintenance_margin: CDecimal,
+    buy_power: CDecimal,
 }
 
 impl From<AccountBalance> for CAccountBalanceOwned {
@@ -832,6 +835,7 @@ impl From<AccountBalance> for CAccountBalanceOwned {
             net_assets,
             init_margin,
             maintenance_margin,
+            buy_power,
         } = info;
         Self {
             total_cash: total_cash.into(),
@@ -844,6 +848,7 @@ impl From<AccountBalance> for CAccountBalanceOwned {
             net_assets: net_assets.into(),
             init_margin: init_margin.into(),
             maintenance_margin: maintenance_margin.into(),
+            buy_power: buy_power.into(),
         }
     }
 }
@@ -863,6 +868,7 @@ impl ToFFI for CAccountBalanceOwned {
             net_assets,
             init_margin,
             maintenance_margin,
+            buy_power,
         } = self;
         CAccountBalance {
             total_cash: total_cash.to_ffi_type(),
@@ -876,6 +882,7 @@ impl ToFFI for CAccountBalanceOwned {
             net_assets: net_assets.to_ffi_type(),
             init_margin: init_margin.to_ffi_type(),
             maintenance_margin: maintenance_margin.to_ffi_type(),
+            buy_power: buy_power.to_ffi_type(),
         }
     }
 }

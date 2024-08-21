@@ -1586,6 +1586,8 @@ struct AccountBalance
   Decimal init_margin;
   /// Maintenance margin
   Decimal maintenance_margin;
+  /// Buy power
+  Decimal buy_power;
 };
 
 /// Cash flow direction

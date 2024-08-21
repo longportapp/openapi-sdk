@@ -595,6 +595,8 @@ pub(crate) struct AccountBalance {
     pub init_margin: PyDecimal,
     /// Maintenance margin
     pub maintenance_margin: PyDecimal,
+    /// Buy power
+    pub buy_power: PyDecimal,
 }
 
 #[pyclass]

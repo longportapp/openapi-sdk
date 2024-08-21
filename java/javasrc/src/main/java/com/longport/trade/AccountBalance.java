@@ -14,6 +14,7 @@ public class AccountBalance {
     private BigDecimal netAssets;
     private BigDecimal initMargin;
     private BigDecimal maintenanceMargin;
+    private BigDecimal buyPower;
 
     public BigDecimal getTotalCash() {
         return totalCash;
@@ -55,11 +56,16 @@ public class AccountBalance {
         return maintenanceMargin;
     }
 
+    public BigDecimal getBuyPower() {
+        return buyPower;
+    }
+
     @Override
     public String toString() {
-        return "AccountBalance [cashInfos=" + Arrays.toString(cashInfos) + ", currency=" + currency + ", initMargin="
-                + initMargin + ", maintenanceMargin=" + maintenanceMargin + ", marginCall=" + marginCall
-                + ", maxFinanceAmount=" + maxFinanceAmount + ", netAssets=" + netAssets + ", remainingFinanceAmount="
-                + remainingFinanceAmount + ", riskLevel=" + riskLevel + ", totalCash=" + totalCash + "]";
+        return "AccountBalance [totalCash=" + totalCash + ", maxFinanceAmount=" + maxFinanceAmount
+                + ", remainingFinanceAmount=" + remainingFinanceAmount + ", riskLevel=" + riskLevel + ", marginCall="
+                + marginCall + ", currency=" + currency + ", cashInfos=" + Arrays.toString(cashInfos) + ", netAssets="
+                + netAssets + ", initMargin=" + initMargin + ", maintenanceMargin=" + maintenanceMargin + ", buyPower="
+                + buyPower + "]";
     }
 }
