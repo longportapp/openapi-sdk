@@ -1257,6 +1257,8 @@
 <a href="#1257" id="1257">1257</a>
 <a href="#1258" id="1258">1258</a>
 <a href="#1259" id="1259">1259</a>
+<a href="#1260" id="1260">1260</a>
+<a href="#1261" id="1261">1261</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -2221,7 +2223,8 @@
                 ],
                 "net_assets": "11111.12",
                 "init_margin": "2222.23",
-                "maintenance_margin": "3333.45"
+                "maintenance_margin": "3333.45",
+                "buy_power": "1234.67"
               }
             ]
           }"#</span>;
@@ -2244,6 +2247,7 @@
         <span class="macro">assert_eq!</span>(balance.net_assets, <span class="string">"11111.12"</span>.parse().unwrap());
         <span class="macro">assert_eq!</span>(balance.init_margin, <span class="string">"2222.23"</span>.parse().unwrap());
         <span class="macro">assert_eq!</span>(balance.maintenance_margin, <span class="string">"3333.45"</span>.parse().unwrap());
+        <span class="macro">assert_eq!</span>(balance.buy_power, <span class="string">"1234.67"</span>.parse().unwrap());
 
         <span class="macro">assert_eq!</span>(balance.cash_infos.len(), <span class="number">2</span>);
 
