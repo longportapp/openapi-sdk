@@ -539,7 +539,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Install cargo make
-        run: cargo install cargo-make
+        uses: davidB/rust-cargo-make@v1
 
       - name: Build
         if: ${{ matrix.settings.target != 'aarch64-apple-darwin' }}
@@ -558,8 +558,8 @@ jobs:
         if: ${{ matrix.settings.host == 'windows-latest' }}
         run: |
           md dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\x64\Debug\cargo\build\x86_64-pc-windows-msvc\longport_c.dll dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\x64\Debug\cargo\build\x86_64-pc-windows-msvc\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\debug\longport_c.lib
+          copy cmake.build\x64\Debug\cargo\build\${{ matrix.settings.target }}\debug\longport_c.dll dist\lib\${{ matrix.settings.platform }}\debug
+          copy cmake.build\x64\Debug\cargo\build\${{ matrix.settings.target }}\debug\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\debug\longport_c.lib
           copy cmake.build\Debug\longport_cpp.dll dist\lib\${{ matrix.settings.platform }}\debug
           copy cmake.build\cpp\Debug\longport_cpp.lib dist\lib\${{ matrix.settings.platform }}\debug
 
@@ -567,7 +567,7 @@ jobs:
         if: ${{ matrix.settings.host != 'windows-latest' }}
         run: |
           mkdir -p dist/lib/${{ matrix.settings.platform }}/debug
-          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
+          cp cmake.build/cargo/build/${{ matrix.settings.target }}/debug/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
           cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
 
       - name: Upload artifact
@@ -620,7 +620,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Install cargo make
-        run: cargo install cargo-make
+        uses: davidB/rust-cargo-make@v1
 
       - name: Build
         if: ${{ matrix.settings.target != 'aarch64-apple-darwin' }}
@@ -639,8 +639,8 @@ jobs:
         if: ${{ matrix.settings.host == 'windows-latest' }}
         run: |
           md dist\lib\${{ matrix.settings.platform }}\release
-          copy cmake.build\x64\Release\cargo\build\x86_64-pc-windows-msvc\longport_c.dll dist\lib\${{ matrix.settings.platform }}\release
-          copy cmake.build\x64\Release\cargo\build\x86_64-pc-windows-msvc\ dist\lib\${{ matrix.settings.platform }}\release\longport_c.lib
+          copy cmake.build\x64\Release\cargo\build\${{ matrix.settings.target }}\release\longport_c.dll dist\lib\${{ matrix.settings.platform }}\release
+          copy cmake.build\x64\Release\cargo\build\${{ matrix.settings.target }}\release\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\release\longport_c.lib
           copy cmake.build\Release\longport_cpp.dll dist\lib\${{ matrix.settings.platform }}\release
           copy cmake.build\cpp\Release\longport_cpp.lib dist\lib\${{ matrix.settings.platform }}\release
 
@@ -648,7 +648,7 @@ jobs:
         if: ${{ matrix.settings.host != 'windows-latest' }}
         run: |
           mkdir -p dist/lib/${{ matrix.settings.platform }}/release
-          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
+          cp cmake.build/cargo/build/${{ matrix.settings.target }}/release/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
           cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
 
       - name: Upload artifact
