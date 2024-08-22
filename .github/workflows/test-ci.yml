@@ -36,7 +36,7 @@ jobs:
       - name: Install Git & Gcc
         if: ${{ contains(matrix.settings.container, 'centos') }}
         run: |
-          yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
+          # yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
           yum install -y git gcc
 
       - uses: actions/checkout@v3
