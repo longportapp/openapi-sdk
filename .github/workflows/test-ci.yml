@@ -68,7 +68,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Install cargo make
-        run: cargo install cargo-make
+        uses: davidB/rust-cargo-make@v1
 
       - name: Build
         if: ${{ matrix.settings.target != 'aarch64-apple-darwin' }}
@@ -149,7 +149,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Install cargo make
-        run: cargo install cargo-make
+        uses: davidB/rust-cargo-make@v1
 
       - name: Build
         if: ${{ matrix.settings.target != 'aarch64-apple-darwin' }}
