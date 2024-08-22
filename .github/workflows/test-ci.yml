@@ -11,34 +11,28 @@ jobs:
       matrix:
         settings:
           - host: ubuntu-latest
-            container: centos:7
             lib_prefix: "lib"
             lib_suffix: ".so"
             target: x86_64-unknown-linux-gnu
-          # - host: ubuntu-latest
-          #   lib_prefix: "lib"
-          #   lib_suffix: ".so"
-          #   target: aarch64-unknown-linux-gnu
-          # - host: windows-latest
-          #   lib_suffix: ".dll"
-          #   target: x86_64-pc-windows-msvc
-          # - host: macos-13
-          #   lib_prefix: "lib"
-          #   lib_suffix: ".dylib"
-          #   target: x86_64-apple-darwin
-          # - host: macos-13
-          #   lib_prefix: "lib"
-          #   lib_suffix: ".dylib"
-          #   target: aarch64-apple-darwin
+            cross-target: x86_64-unknown-linux-gnu:centos
+          - host: ubuntu-latest
+            lib_prefix: "lib"
+            lib_suffix: ".so"
+            target: aarch64-unknown-linux-gnu
+            cross-target: aarch64-unknown-linux-gnu
+          - host: windows-latest
+            lib_suffix: ".dll"
+            target: x86_64-pc-windows-msvc
+          - host: macos-13
+            lib_prefix: "lib"
+            lib_suffix: ".dylib"
+            target: x86_64-apple-darwin
+          - host: macos-13
+            lib_prefix: "lib"
+            lib_suffix: ".dylib"
+            target: aarch64-apple-darwin
     runs-on: ${{ matrix.settings.host }}
-    container: ${{ matrix.settings.container }}
     steps:
-      - name: Install Git & Gcc
-        if: ${{ contains(matrix.settings.container, 'centos') }}
-        run: |
-          # yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
-          yum install -y git gcc
-
       - uses: actions/checkout@v3
         with:
           submodules: true
@@ -52,16 +46,16 @@ jobs:
           target: ${{ matrix.settings.target }}
 
       - name: Build
-        if: ${{ matrix.settings.target != 'aarch64-unknown-linux-gnu' }}
+        if: ${{ matrix.settings.cross-target == '' }}
         run: |
           cargo build -p longport-java --release --target ${{ matrix.settings.target }}
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
       - name: Build with Cross
-        if: ${{ matrix.settings.target == 'aarch64-unknown-linux-gnu' }}
+        if: ${{ matrix.settings.cross-target != '' }}
         run: |
           cargo install cross
-          cross build -p longport-java --release --target ${{ matrix.settings.target }}
+          cross build -p longport-java --release --target ${{ matrix.settings.cross-target }}
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
       - name: Upload artifact
