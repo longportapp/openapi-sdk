@@ -14,12 +14,12 @@ jobs:
             lib_prefix: "lib"
             lib_suffix: ".so"
             target: x86_64-unknown-linux-gnu
-            cross-target: x86_64-unknown-linux-gnu:centos
+            cross: true
           - host: ubuntu-latest
             lib_prefix: "lib"
             lib_suffix: ".so"
             target: aarch64-unknown-linux-gnu
-            cross-target: aarch64-unknown-linux-gnu
+            cross: true
           - host: windows-latest
             lib_suffix: ".dll"
             target: x86_64-pc-windows-msvc
@@ -46,19 +46,19 @@ jobs:
           target: ${{ matrix.settings.target }}
 
       - name: Build
-        if: ${{ matrix.settings.cross-target == '' }}
+        if: ${{ !matrix.settings.cross }}
         run: |
           cargo build -p longport-java --release --target ${{ matrix.settings.target }}
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
       - name: Install Cross
-        if: ${{ matrix.settings.cross-target != '' }}
+        if: ${{ matrix.settings.cross }}
         run: cargo install cross
 
       - name: Build with Cross
-        if: ${{ matrix.settings.cross-target != '' }}
+        if: ${{ matrix.settings.cross }}
         run: |
-          cross build -p longport-java --release --target ${{ matrix.settings.cross-target }}
+          cross build -p longport-java --release --target ${{ matrix.settings.cross }}
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
       - name: Upload artifact
