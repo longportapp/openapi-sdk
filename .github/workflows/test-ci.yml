@@ -5,6 +5,25 @@ on:
       - test-ci
 
 jobs:
+  copy-cpp-headers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: include
+          path: c/csrc/include
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: include
+          path: cpp/include
+
   build-cpp-sdk-debug:
     needs:
       - copy-cpp-headers
