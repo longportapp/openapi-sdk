@@ -364,14 +364,15 @@ jobs:
       matrix:
         settings:
           - host: ubuntu-latest
-            container: centos:7
             lib_prefix: "lib"
             lib_suffix: ".so"
             target: x86_64-unknown-linux-gnu
+            cross: true
           - host: ubuntu-latest
             lib_prefix: "lib"
             lib_suffix: ".so"
             target: aarch64-unknown-linux-gnu
+            cross: true
           - host: windows-latest
             lib_suffix: ".dll"
             target: x86_64-pc-windows-msvc
@@ -384,14 +385,7 @@ jobs:
             lib_suffix: ".dylib"
             target: aarch64-apple-darwin
     runs-on: ${{ matrix.settings.host }}
-    container: ${{ matrix.settings.container }}
     steps:
-      - name: Install Git & Gcc
-        if: ${{ contains(matrix.settings.container, 'centos') }}
-        run: |
-          yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
-          yum install -y git gcc
-
       - uses: actions/checkout@v3
         with:
           submodules: true
@@ -405,15 +399,18 @@ jobs:
           target: ${{ matrix.settings.target }}
 
       - name: Build
-        if: ${{ matrix.settings.target != 'aarch64-unknown-linux-gnu' }}
+        if: ${{ !matrix.settings.cross }}
         run: |
           cargo build -p longport-java --release --target ${{ matrix.settings.target }}
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
+      - name: Install latest cross binary
+        if: ${{ matrix.settings.cross }}
+        uses: st3iny/install-cross-binary@v2
+
       - name: Build with Cross
-        if: ${{ matrix.settings.target == 'aarch64-unknown-linux-gnu' }}
+        if: ${{ matrix.settings.cross }}
         run: |
-          cargo install cross
           cross build -p longport-java --release --target ${{ matrix.settings.target }}
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
@@ -539,7 +536,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Install cargo make
-        run: cargo install cargo-make
+        uses: davidB/rust-cargo-make@v1
 
       - name: Build
         if: ${{ matrix.settings.target != 'aarch64-apple-darwin' }}
@@ -558,8 +555,8 @@ jobs:
         if: ${{ matrix.settings.host == 'windows-latest' }}
         run: |
           md dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\C\Debug\longport_c.dll dist\lib\${{ matrix.settings.platform }}\debug
-          copy cmake.build\C\Debug\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\debug\longport_c.lib
+          copy cmake.build\x64\Debug\cargo\build\${{ matrix.settings.target }}\debug\longport_c.dll dist\lib\${{ matrix.settings.platform }}\debug
+          copy cmake.build\x64\Debug\cargo\build\${{ matrix.settings.target }}\debug\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\debug\longport_c.lib
           copy cmake.build\Debug\longport_cpp.dll dist\lib\${{ matrix.settings.platform }}\debug
           copy cmake.build\cpp\Debug\longport_cpp.lib dist\lib\${{ matrix.settings.platform }}\debug
 
@@ -567,7 +564,7 @@ jobs:
         if: ${{ matrix.settings.host != 'windows-latest' }}
         run: |
           mkdir -p dist/lib/${{ matrix.settings.platform }}/debug
-          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
+          cp cmake.build/cargo/build/${{ matrix.settings.target }}/debug/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
           cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
 
       - name: Upload artifact
@@ -620,7 +617,7 @@ jobs:
         uses: lukka/get-cmake@latest
 
       - name: Install cargo make
-        run: cargo install cargo-make
+        uses: davidB/rust-cargo-make@v1
 
       - name: Build
         if: ${{ matrix.settings.target != 'aarch64-apple-darwin' }}
@@ -639,8 +636,8 @@ jobs:
         if: ${{ matrix.settings.host == 'windows-latest' }}
         run: |
           md dist\lib\${{ matrix.settings.platform }}\release
-          copy cmake.build\C\Release\longport_c.dll dist\lib\${{ matrix.settings.platform }}\release
-          copy cmake.build\C\Release\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\release\longport_c.lib
+          copy cmake.build\x64\Release\cargo\build\${{ matrix.settings.target }}\release\longport_c.dll dist\lib\${{ matrix.settings.platform }}\release
+          copy cmake.build\x64\Release\cargo\build\${{ matrix.settings.target }}\release\longport_c.dll.lib dist\lib\${{ matrix.settings.platform }}\release\longport_c.lib
           copy cmake.build\Release\longport_cpp.dll dist\lib\${{ matrix.settings.platform }}\release
           copy cmake.build\cpp\Release\longport_cpp.lib dist\lib\${{ matrix.settings.platform }}\release
 
@@ -648,7 +645,7 @@ jobs:
         if: ${{ matrix.settings.host != 'windows-latest' }}
         run: |
           mkdir -p dist/lib/${{ matrix.settings.platform }}/release
-          cp cmake.build/c/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
+          cp cmake.build/cargo/build/${{ matrix.settings.target }}/release/liblongport_c.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
           cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
 
       - name: Upload artifact
