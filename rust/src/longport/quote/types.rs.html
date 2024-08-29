@@ -1721,7 +1721,7 @@
     <span class="doccomment">/// Position
     </span><span class="kw">pub </span>position: i32,
     <span class="doccomment">/// Price
-    </span><span class="kw">pub </span>price: Decimal,
+    </span><span class="kw">pub </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
     <span class="doccomment">/// Number of orders
@@ -1734,7 +1734,7 @@
     <span class="kw">fn </span>try_from(depth: quote::Depth) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             position: depth.position,
-            price: depth.price.parse().unwrap_or_default(),
+            price: depth.price.parse().ok(),
             volume: depth.volume,
             order_num: depth.order_num,
         })
