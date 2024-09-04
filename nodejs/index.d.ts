@@ -2231,8 +2231,8 @@ export class TradeContext {
    *
    * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => {`
-   *     ctx.setOnQuote((_, event) => console.log(event.toString()));
+   *   .then((ctx) => {
+   *     ctx.setOnOrderChanged((_, event) => console.log(event.toString()));
    *     ctx.subscribe([TopicType.Private]);
    *     return ctx.submitOrder({
    *       symbol: "700.HK",
