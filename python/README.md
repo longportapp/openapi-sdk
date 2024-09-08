@@ -43,7 +43,7 @@ setx LONGPORT_ACCESS_TOKEN "Access Token get from user center"
 ## Quote API _(Get basic information of securities)_
 
 ```python
-from longpport.openapi import Config, QuoteContext
+from longport.openapi import Config, QuoteContext
 
 # Load configuration from environment variables
 config = Config.from_env()
