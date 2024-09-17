@@ -109,7 +109,7 @@ jobs:
         run: |
           pip install longport --no-index --find-links dist --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -146,7 +146,7 @@ jobs:
           pip install longport --no-index --find-links dist --force-reinstall
           python -c "import longport"
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -178,7 +178,7 @@ jobs:
           pip install longport --no-index --find-links dist --force-reinstall
           python -c "import longport"
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -223,7 +223,7 @@ jobs:
             venv/bin/pip install longport --no-index --find-links /artifacts --force-reinstall
             venv/bin/python -c 'import longport'
       - name: Upload wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: dist
@@ -317,7 +317,7 @@ jobs:
         run: ${{ matrix.settings.build }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: bindings
           path: nodejs/longport.*.node
@@ -415,7 +415,7 @@ jobs:
           mv target/${{ matrix.settings.target }}/release/${{ matrix.settings.lib_prefix }}longport_java${{ matrix.settings.lib_suffix }} longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: jnis
           path: longport_java-${{ matrix.settings.target }}${{ matrix.settings.lib_suffix }}
@@ -481,13 +481,13 @@ jobs:
           submodules: true
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: include
           path: c/csrc/include
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: include
           path: cpp/include
@@ -568,7 +568,7 @@ jobs:
           cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/debug
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: libs
           path: dist/lib
@@ -649,7 +649,7 @@ jobs:
           cp cmake.build/liblongport_cpp.${{ matrix.settings.dylib_ext }} dist/lib/${{ matrix.settings.platform }}/release
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: libs
           path: dist/lib
@@ -719,7 +719,7 @@ jobs:
           cp cpp/cmake.build/liblongport_cpp.a dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: libs
           path: dist/lib
@@ -813,7 +813,7 @@ jobs:
           cp cpp/cmake.build/liblongport_cpp.a dist/lib/${{ matrix.settings.target }}/${{ matrix.settings.target-dir }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: libs
           path: dist/lib
