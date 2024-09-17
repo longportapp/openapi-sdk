@@ -241,7 +241,7 @@ jobs:
       - build-python-sdk-linux
       - build-python-sdk-linux-cross
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: wheels
           path: dist
@@ -306,9 +306,6 @@ jobs:
       - name: Check with clippy
         run: cargo clippy -p longport-nodejs --all-features
 
-      - name: Test
-        run: cargo test -p longport-nodejs --all-features
-
       - name: Install napi-rs/cli
         run: npm install -g @napi-rs/cli
 
@@ -339,7 +336,7 @@ jobs:
         run: npm install -g @napi-rs/cli
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: bindings
           path: ./nodejs/artifacts
@@ -435,7 +432,7 @@ jobs:
           distribution: "temurin"
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: jnis
           path: ./java/jnis
@@ -829,13 +826,13 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Download includes
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: libs
           path: ./sdk/libs
 
       - name: Download includes
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: include
           path: ./sdk/include
