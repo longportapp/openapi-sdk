@@ -10,7 +10,7 @@ crate-type = ["cdylib"]
 longport = { path = "../rust" }
 longport-nodejs-macros = { path = "crates/macros" }
 
-napi = { version = "2.16.8", default-features = false, features = [
+napi = { version = "2.16.10", default-features = false, features = [
     "napi4",
     "chrono_date",
     "async",

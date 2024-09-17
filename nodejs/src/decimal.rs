@@ -8,6 +8,9 @@ use rust_decimal::{
     prelude::{FromPrimitive, ToPrimitive},
     MathematicalOps,
 };
+use serde_json::Value;
+
+use crate::utils::ToJSON;
 
 #[napi_derive::napi]
 #[derive(Copy, Clone, Default)]
@@ -420,5 +423,16 @@ impl Decimal {
                 .checked_norm_pdf()
                 .ok_or_else(|| Error::from_reason("overflow"))?,
         ))
+    }
+
+    #[napi(js_name = "toJSON")]
+    pub fn to_json(&self) -> Value {
+        <Self as ToJSON>::to_json(self)
+    }
+}
+
+impl ToJSON for Decimal {
+    fn to_json(&self) -> Value {
+        Value::String(self.0.to_string())
     }
 }

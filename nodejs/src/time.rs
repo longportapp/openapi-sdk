@@ -1,4 +1,7 @@
 use napi::{Error, Result};
+use serde_json::Value;
+
+use crate::utils::ToJSON;
 
 /// Naive date type
 #[derive(Debug, Copy, Clone)]
@@ -50,6 +53,22 @@ impl NaiveDate {
             .format(time::macros::format_description!("[year]-[month]-[day]"))
             .unwrap()
     }
+
+    #[napi(js_name = "toJSON")]
+    pub fn to_json(&self) -> Value {
+        <Self as ToJSON>::to_json(self)
+    }
+}
+
+impl ToJSON for NaiveDate {
+    fn to_json(&self) -> serde_json::Value {
+        serde_json::Value::String(format!(
+            "{}-{:02}-{:02}",
+            self.0.year(),
+            self.0.month() as u8,
+            self.0.day()
+        ))
+    }
 }
 
 /// Time type
@@ -96,6 +115,22 @@ impl Time {
             ))
             .unwrap()
     }
+
+    #[napi(js_name = "toJSON")]
+    pub fn to_json(&self) -> Value {
+        <Self as ToJSON>::to_json(self)
+    }
+}
+
+impl ToJSON for Time {
+    fn to_json(&self) -> serde_json::Value {
+        serde_json::Value::String(format!(
+            "{:02}:{:02}:{:02}",
+            self.0.hour(),
+            self.0.minute(),
+            self.0.second()
+        ))
+    }
 }
 
 /// Naive datetime type
@@ -138,5 +173,24 @@ impl NaiveDatetime {
                 "[year]-[month]-[day] [hour]:[minute]:[second]"
             ))
             .unwrap()
+    }
+
+    #[napi(js_name = "toJSON")]
+    pub fn to_json(&self) -> Value {
+        <Self as ToJSON>::to_json(self)
+    }
+}
+
+impl ToJSON for NaiveDatetime {
+    fn to_json(&self) -> serde_json::Value {
+        serde_json::Value::String(format!(
+            "{}-{:02}-{:02} {:02}:{:02}:{:02}",
+            self.0.year(),
+            self.0.month() as u8,
+            self.0.day(),
+            self.0.hour(),
+            self.0.minute(),
+            self.0.second()
+        ))
     }
 }

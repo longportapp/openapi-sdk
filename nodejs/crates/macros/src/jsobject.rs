@@ -1,3 +1,4 @@
+use convert_case::{Case, Casing};
 use darling::{ast::Data, util::Ignored, FromDeriveInput, FromField};
 use proc_macro2::TokenStream;
 use quote::quote;
@@ -48,6 +49,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
     let mut fields = Vec::new();
     let mut getters = Vec::new();
     let mut from_fields = Vec::new();
+    let mut json_fields = Vec::new();
 
     for field in &s.fields {
         let field_ident = field.ident.as_ref().unwrap();
@@ -62,6 +64,10 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
             pub fn #field_ident(&self) -> #field_type {
                 self.#field_ident.clone()
             }
+        });
+        let name = field_ident.to_string().to_case(Case::Camel);
+        json_fields.push(quote! {
+            (#name.to_string(), <#field_type as crate::utils::ToJSON>::to_json(&self.#field_ident))
         });
 
         if field.sub_types {
@@ -130,6 +136,11 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
                 ::std::format!("{:?}", self)
             }
 
+            #[napi(js_name = "toJSON")]
+            pub fn to_json(&self) -> serde_json::Value {
+                <Self as crate::utils::ToJSON>::to_json(self)
+            }
+
             #(#getters)*
         }
 
@@ -143,6 +154,12 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
                 Ok(Self {
                     #(#from_fields)*
                 })
+            }
+        }
+
+        impl crate::utils::ToJSON for #ident {
+            fn to_json(&self) -> serde_json::Value {
+                serde_json::Value::Object([#(#json_fields),*].into_iter().collect())
             }
         }
     };

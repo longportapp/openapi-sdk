@@ -12,3 +12,4 @@ proc-macro2 = "1.0.29"
 quote = "1.0.9"
 syn = { version = "1.0.77", features = [] }
 thiserror = "1.0.29"
+convert_case = "0.6.0"

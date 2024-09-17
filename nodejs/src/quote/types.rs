@@ -6,6 +6,7 @@ use crate::{
     decimal::Decimal,
     time::{NaiveDate, Time},
     types::Market,
+    utils::ToJSON,
 };
 
 /// Subscription
@@ -28,6 +29,18 @@ pub enum DerivativeType {
     Option,
     /// HK warrants
     Warrant,
+}
+
+impl ToJSON for DerivativeType {
+    fn to_json(&self) -> serde_json::Value {
+        serde_json::Value::String(
+            match self {
+                DerivativeType::Option => "Option",
+                DerivativeType::Warrant => "Warrant",
+            }
+            .to_string(),
+        )
+    }
 }
 
 struct DerivativeTypes(Vec<DerivativeType>);
@@ -105,6 +118,20 @@ pub enum SubType {
     Brokers,
     /// Trade
     Trade,
+}
+
+impl ToJSON for SubType {
+    fn to_json(&self) -> serde_json::Value {
+        serde_json::Value::String(
+            match self {
+                SubType::Quote => "Quote",
+                SubType::Depth => "Depth",
+                SubType::Brokers => "Brokers",
+                SubType::Trade => "Trade",
+            }
+            .to_string(),
+        )
+    }
 }
 
 pub struct SubTypes(pub Vec<SubType>);

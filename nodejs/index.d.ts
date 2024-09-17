@@ -924,6 +924,7 @@ export class Decimal {
   normCdf(): Decimal
   /** The Probability density function for a Normal distribution. */
   normPdf(): this
+  toJSON(): any
 }
 export class HttpClient {
   constructor(httpUrl: string, appKey: string, appSecret: string, accessToken: string)
@@ -1579,6 +1580,7 @@ export class PushCandlestickEvent {
 /** Subscription */
 export class Subscription {
   toString(): string
+  toJSON(): any
   get symbol(): string
   get subTypes(): Array<SubType>
   get candlesticks(): Array<Period>
@@ -1586,6 +1588,7 @@ export class Subscription {
 /** The basic information of securities */
 export class SecurityStaticInfo {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Security name (zh-CN) */
@@ -1622,6 +1625,7 @@ export class SecurityStaticInfo {
 /** Quote of US pre/post market */
 export class PrePostQuote {
   toString(): string
+  toJSON(): any
   /** Latest price */
   get lastDone(): Decimal
   /** Time of latest price */
@@ -1640,6 +1644,7 @@ export class PrePostQuote {
 /** Quote of securitity */
 export class SecurityQuote {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Latest price */
@@ -1670,6 +1675,7 @@ export class SecurityQuote {
 /** Quote of option */
 export class OptionQuote {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Latest price */
@@ -1714,6 +1720,7 @@ export class OptionQuote {
 /** Quote of warrant */
 export class WarrantQuote {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Latest price */
@@ -1762,6 +1769,7 @@ export class WarrantQuote {
 /** Depth */
 export class Depth {
   toString(): string
+  toJSON(): any
   /** Position */
   get position(): number
   /** Price */
@@ -1774,6 +1782,7 @@ export class Depth {
 /** Security depth */
 export class SecurityDepth {
   toString(): string
+  toJSON(): any
   /** Ask depth */
   get asks(): Array<Depth>
   /** Bid depth */
@@ -1782,6 +1791,7 @@ export class SecurityDepth {
 /** Brokers */
 export class Brokers {
   toString(): string
+  toJSON(): any
   /** Position */
   get position(): number
   /** Broker IDs */
@@ -1790,6 +1800,7 @@ export class Brokers {
 /** Security brokers */
 export class SecurityBrokers {
   toString(): string
+  toJSON(): any
   /** Ask brokers */
   get askBrokers(): Array<Brokers>
   /** Bid brokers */
@@ -1798,6 +1809,7 @@ export class SecurityBrokers {
 /** Participant info */
 export class ParticipantInfo {
   toString(): string
+  toJSON(): any
   /** Broker IDs */
   get brokerIds(): Array<number>
   /** Participant name (zh-CN) */
@@ -1810,6 +1822,7 @@ export class ParticipantInfo {
 /** Trade */
 export class Trade {
   toString(): string
+  toJSON(): any
   /** Price */
   get price(): Decimal
   /** Volume */
@@ -1826,6 +1839,7 @@ export class Trade {
 /** Intraday line */
 export class IntradayLine {
   toString(): string
+  toJSON(): any
   /** Close price of the minute */
   get price(): Decimal
   /** Start time of the minute */
@@ -1840,6 +1854,7 @@ export class IntradayLine {
 /** Candlestick */
 export class Candlestick {
   toString(): string
+  toJSON(): any
   /** Close price */
   get close(): Decimal
   /** Open price */
@@ -1858,6 +1873,7 @@ export class Candlestick {
 /** Strike price info */
 export class StrikePriceInfo {
   toString(): string
+  toJSON(): any
   /** Strike price */
   get price(): Decimal
   /** Security code of call option */
@@ -1870,6 +1886,7 @@ export class StrikePriceInfo {
 /** Issuer info */
 export class IssuerInfo {
   toString(): string
+  toJSON(): any
   /** Issuer ID */
   get issuerId(): number
   /** Issuer name (zh-CN) */
@@ -1882,6 +1899,7 @@ export class IssuerInfo {
 /** Warrant info */
 export class WarrantInfo {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Warrant type */
@@ -1936,6 +1954,7 @@ export class WarrantInfo {
 /** The information of trading session */
 export class TradingSessionInfo {
   toString(): string
+  toJSON(): any
   /** Being trading time */
   get beginTime(): Time
   /** End trading time */
@@ -1946,6 +1965,7 @@ export class TradingSessionInfo {
 /** Market trading session */
 export class MarketTradingSession {
   toString(): string
+  toJSON(): any
   /** Market */
   get market(): Market
   /** Trading session */
@@ -1954,6 +1974,7 @@ export class MarketTradingSession {
 /** Real-time quote */
 export class RealtimeQuote {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Latest price */
@@ -1976,6 +1997,7 @@ export class RealtimeQuote {
 /** Push real-time quote */
 export class PushQuote {
   toString(): string
+  toJSON(): any
   /** Latest price */
   get lastDone(): Decimal
   /** Open */
@@ -1998,6 +2020,7 @@ export class PushQuote {
 /** Push real-time depth */
 export class PushDepth {
   toString(): string
+  toJSON(): any
   /** Ask depth */
   get asks(): Array<Depth>
   /** Bid depth */
@@ -2006,6 +2029,7 @@ export class PushDepth {
 /** Push real-time brokers */
 export class PushBrokers {
   toString(): string
+  toJSON(): any
   /** Ask brokers */
   get askBrokers(): Array<Brokers>
   /** Bid brokers */
@@ -2014,12 +2038,14 @@ export class PushBrokers {
 /** Push real-time trades */
 export class PushTrades {
   toString(): string
+  toJSON(): any
   /** Trades data */
   get trades(): Array<Trade>
 }
 /** Candlestick updated event */
 export class PushCandlestick {
   toString(): string
+  toJSON(): any
   /** Period type */
   get period(): Period
   /** Candlestick */
@@ -2028,6 +2054,7 @@ export class PushCandlestick {
 /** Market trading days */
 export class MarketTradingDays {
   toString(): string
+  toJSON(): any
   /** Trading days */
   get tradingDays(): Array<NaiveDate>
   /** Half trading days */
@@ -2036,6 +2063,7 @@ export class MarketTradingDays {
 /** Capital flow line */
 export class CapitalFlowLine {
   toString(): string
+  toJSON(): any
   /** Inflow capital data */
   get inflow(): Decimal
   /** Time */
@@ -2044,6 +2072,7 @@ export class CapitalFlowLine {
 /** Capital distribution */
 export class CapitalDistribution {
   toString(): string
+  toJSON(): any
   /** Large order */
   get large(): Decimal
   /** Medium order */
@@ -2054,6 +2083,7 @@ export class CapitalDistribution {
 /** Capital distribution response */
 export class CapitalDistributionResponse {
   toString(): string
+  toJSON(): any
   /** Time */
   get timestamp(): Date
   /** Inflow capital data */
@@ -2064,6 +2094,7 @@ export class CapitalDistributionResponse {
 /** Watchlist group */
 export class WatchlistGroup {
   toString(): string
+  toJSON(): any
   /** Group id */
   get id(): number
   /** Group name */
@@ -2074,6 +2105,7 @@ export class WatchlistGroup {
 /** Watchlist security */
 export class WatchlistSecurity {
   toString(): string
+  toJSON(): any
   /** Security symbol */
   get symbol(): string
   /** Market */
@@ -2088,6 +2120,7 @@ export class WatchlistSecurity {
 /** Security calc index response */
 export class SecurityCalcIndex {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Latest price */
@@ -2174,6 +2207,7 @@ export class SecurityCalcIndex {
 /** Security */
 export class Security {
   toString(): string
+  toJSON(): any
   /** Security code */
   get symbol(): string
   /** Security name (zh-CN) */
@@ -2190,6 +2224,7 @@ export class NaiveDate {
   get month(): number
   get day(): number
   toString(): string
+  toJSON(): any
 }
 /** Time type */
 export class Time {
@@ -2197,6 +2232,7 @@ export class Time {
   get hour(): number
   get monute(): number
   get toString(): string
+  toJSON(): any
 }
 /** Naive datetime type */
 export class NaiveDatetime {
@@ -2204,6 +2240,7 @@ export class NaiveDatetime {
   get date(): NaiveDate
   get time(): Time
   toString(): string
+  toJSON(): any
 }
 /** Trade context */
 export class TradeContext {
@@ -2231,8 +2268,8 @@ export class TradeContext {
    *
    * let config = Config.fromEnv();
    * TradeContext.new(config)
-   *   .then((ctx) => {
-   *     ctx.setOnOrderChanged((_, event) => console.log(event.toString()));
+   *   .then((ctx) => {`
+   *     ctx.setOnQuote((_, event) => console.log(event.toString()));
    *     ctx.subscribe([TopicType.Private]);
    *     return ctx.submitOrder({
    *       symbol: "700.HK",
@@ -2555,6 +2592,7 @@ export class TradeContext {
 /** Trade */
 export class Execution {
   toString(): string
+  toJSON(): any
   /** Order ID */
   get orderId(): string
   /** Execution ID */
@@ -2571,6 +2609,7 @@ export class Execution {
 /** Order */
 export class Order {
   toString(): string
+  toJSON(): any
   /** Order ID */
   get orderId(): string
   /** Order status */
@@ -2627,6 +2666,7 @@ export class Order {
 /** Order history detail */
 export class OrderHistoryDetail {
   toString(): string
+  toJSON(): any
   /**
    * Executed price for executed orders, submitted price for expired,
    * canceled, rejected orders, etc.
@@ -2647,6 +2687,7 @@ export class OrderHistoryDetail {
 /** Order charge fee */
 export class OrderChargeFee {
   toString(): string
+  toJSON(): any
   /** Charge code */
   get code(): string
   /** Charge name */
@@ -2659,6 +2700,7 @@ export class OrderChargeFee {
 /** Order charge item */
 export class OrderChargeItem {
   toString(): string
+  toJSON(): any
   /** Charge category code */
   get code(): ChargeCategoryCode
   /** Charge category name */
@@ -2669,6 +2711,7 @@ export class OrderChargeItem {
 /** Order charge detail */
 export class OrderChargeDetail {
   toString(): string
+  toJSON(): any
   /** Total charges amount */
   get totalAmount(): Decimal
   /** Settlement currency */
@@ -2679,6 +2722,7 @@ export class OrderChargeDetail {
 /** Order detail */
 export class OrderDetail {
   toString(): string
+  toJSON(): any
   /** Order ID */
   get orderId(): string
   /** Order status */
@@ -2757,6 +2801,7 @@ export class OrderDetail {
 /** Order changed message */
 export class PushOrderChanged {
   toString(): string
+  toJSON(): any
   /** Order side */
   get side(): OrderSide
   /** Stock name */
@@ -2811,12 +2856,14 @@ export class PushOrderChanged {
 /** Response for submit order request */
 export class SubmitOrderResponse {
   toString(): string
+  toJSON(): any
   /** Order id */
   get orderId(): string
 }
 /** Account balance */
 export class CashInfo {
   toString(): string
+  toJSON(): any
   /** Withdraw cash */
   get withdrawCash(): Decimal
   /** Available cash */
@@ -2831,6 +2878,7 @@ export class CashInfo {
 /** Account balance */
 export class AccountBalance {
   toString(): string
+  toJSON(): any
   /** Total cash */
   get totalCash(): Decimal
   /** Maximum financing amount */
@@ -2857,6 +2905,7 @@ export class AccountBalance {
 /** Account balance */
 export class CashFlow {
   toString(): string
+  toJSON(): any
   /** Cash flow name */
   get transactionFlowName(): string
   /** Outflow direction */
@@ -2877,12 +2926,14 @@ export class CashFlow {
 /** Fund positions response */
 export class FundPositionsResponse {
   toString(): string
+  toJSON(): any
   /** Channels */
   get channels(): Array<FundPositionChannel>
 }
 /** Fund position channel */
 export class FundPositionChannel {
   toString(): string
+  toJSON(): any
   /** Account type */
   get accountChannel(): string
   /** Fund positions */
@@ -2891,6 +2942,7 @@ export class FundPositionChannel {
 /** Fund position */
 export class FundPosition {
   toString(): string
+  toJSON(): any
   /** Fund ISIN code */
   get symbol(): string
   /** Current equity */
@@ -2909,12 +2961,14 @@ export class FundPosition {
 /** Stock positions response */
 export class StockPositionsResponse {
   toString(): string
+  toJSON(): any
   /** Channels */
   get channels(): Array<StockPositionChannel>
 }
 /** Stock position channel */
 export class StockPositionChannel {
   toString(): string
+  toJSON(): any
   /** Account type */
   get accountChannel(): string
   /** Stock positions */
@@ -2923,6 +2977,7 @@ export class StockPositionChannel {
 /** Stock position */
 export class StockPosition {
   toString(): string
+  toJSON(): any
   /** Stock code */
   get symbol(): string
   /** Stock name */
@@ -2946,6 +3001,7 @@ export class StockPosition {
 /** Margin ratio */
 export class MarginRatio {
   toString(): string
+  toJSON(): any
   /** Initial margin ratio */
   get imFactor(): Decimal
   /** Maintain the initial margin ratio */
@@ -2956,6 +3012,7 @@ export class MarginRatio {
 /** Response for estimate maximum purchase quantity */
 export class EstimateMaxPurchaseQuantityResponse {
   toString(): string
+  toJSON(): any
   /** Cash available quantity */
   get cashMaxQty(): number
   /** Margin available quantity */

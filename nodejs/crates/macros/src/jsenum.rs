@@ -50,6 +50,7 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
 
     let mut from_remote = Vec::new();
     let mut from_local = Vec::new();
+    let mut to_json = Vec::new();
 
     for variant in e {
         if !variant.fields.is_empty() {
@@ -68,6 +69,11 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
         });
         from_local.push(quote! {
             #ident::#item_ident => #remote::#remote_ident,
+        });
+
+        let name = item_ident.to_string();
+        to_json.push(quote! {
+            #ident::#item_ident => serde_json::Value::String(#name.to_string()),
         });
     }
 
@@ -102,6 +108,14 @@ pub(crate) fn generate(args: DeriveInput) -> GeneratorResult<TokenStream> {
     let expanded = quote! {
         #impl_from
         #impl_into
+
+        impl crate::utils::ToJSON for #ident {
+            fn to_json(&self) -> serde_json::Value {
+                match self {
+                    #(#to_json)*
+                }
+            }
+        }
     };
 
     Ok(expanded)
