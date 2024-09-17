@@ -330,12 +330,11 @@ where
                             );
                         }
                         break;
-                    } else if time.time() >= *end + Duration::minutes(1) + TICK_TIMEOUT {
-                        if idx == trade_sessions.len() - 1
-                            || time.time() < trade_sessions[idx + 1].0
-                        {
-                            return TickAction::Confirm;
-                        }
+                    } else if time.time() >= *end + Duration::minutes(1) + TICK_TIMEOUT
+                        && (idx == trade_sessions.len() - 1
+                            || time.time() < trade_sessions[idx + 1].0)
+                    {
+                        return TickAction::Confirm;
                     }
                 }
             }
@@ -351,12 +350,11 @@ where
                             );
                         }
                         break;
-                    } else if time.time() >= *end + Duration::minutes(1) + TICK_TIMEOUT {
-                        if idx == trade_sessions.len() - 1
-                            || time.time() < trade_sessions[idx + 1].0
-                        {
-                            return TickAction::Confirm;
-                        }
+                    } else if time.time() >= *end + Duration::minutes(1) + TICK_TIMEOUT
+                        && (idx == trade_sessions.len() - 1
+                            || time.time() < trade_sessions[idx + 1].0)
+                    {
+                        return TickAction::Confirm;
                     }
                 }
             }
@@ -406,12 +404,11 @@ where
                             };
                         }
                         break;
-                    } else if time.time() >= *end + TIMEOUT {
-                        if idx == trade_sessions.len() - 1
-                            || time.time() < trade_sessions[idx + 1].0
-                        {
-                            return UpdateAction::Confirm(prev);
-                        }
+                    } else if time.time() >= *end + TIMEOUT
+                        && (idx == trade_sessions.len() - 1
+                            || time.time() < trade_sessions[idx + 1].0)
+                    {
+                        return UpdateAction::Confirm(prev);
                     }
                 }
             }
@@ -434,12 +431,11 @@ where
                             };
                         }
                         break;
-                    } else if time.time() >= *end + TIMEOUT {
-                        if idx == trade_sessions.len() - 1
-                            || time.time() < trade_sessions[idx + 1].0
-                        {
-                            return UpdateAction::Confirm(prev);
-                        }
+                    } else if time.time() >= *end + TIMEOUT
+                        && (idx == trade_sessions.len() - 1
+                            || time.time() < trade_sessions[idx + 1].0)
+                    {
+                        return UpdateAction::Confirm(prev);
                     }
                 }
             }

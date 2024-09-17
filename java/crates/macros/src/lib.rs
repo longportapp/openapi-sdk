@@ -69,9 +69,8 @@ pub fn impl_java_class(input: TokenStream) -> TokenStream {
                         Expr::Path(ExprPath { path, attrs, .. }) => {
                             let args = attrs
                                 .iter()
-                                .find(|attr| attr.path.is_ident("java"))
-                                .and_then(|attr| attr.parse_meta().ok())
-                                .and_then(|meta| FieldArgs::from_meta(&meta).ok())
+                                .find(|attr| attr.path().is_ident("java"))
+                                .and_then(|attr| FieldArgs::from_meta(&attr.meta).ok())
                                 .unwrap_or_default();
                             fields.push((path.clone(), args));
                         }
@@ -213,9 +212,8 @@ pub fn impl_java_enum(input: TokenStream) -> TokenStream {
                         Expr::Path(ExprPath { path, attrs, .. }) => {
                             let args = attrs
                                 .iter()
-                                .find(|attr| attr.path.is_ident("java"))
-                                .and_then(|attr| attr.parse_meta().ok())
-                                .and_then(|meta| EnumItemArgs::from_meta(&meta).ok())
+                                .find(|attr| attr.path().is_ident("java"))
+                                .and_then(|attr| EnumItemArgs::from_meta(&attr.meta).ok())
                                 .unwrap_or_default();
                             items.push((path.clone(), args));
                         }

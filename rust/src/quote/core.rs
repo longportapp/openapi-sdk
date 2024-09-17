@@ -800,7 +800,7 @@ impl Core {
                 };
                 update_and_push_candlestick(
                     candlesticks,
-                    &symbol,
+                    symbol,
                     *period,
                     action,
                     self.push_candlestick_mode,

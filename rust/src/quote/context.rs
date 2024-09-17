@@ -112,7 +112,7 @@ impl QuoteContext {
             match res {
                 Ok(resp) => return Ok(resp),
                 Err(Error::WsClient(WsClientError::Cancelled)) => {}
-                Err(err) => return Err(err.into()),
+                Err(err) => return Err(err),
             }
         }
 

@@ -55,6 +55,7 @@ impl NaiveDate {
     }
 
     #[napi(js_name = "toJSON")]
+    #[allow(clippy::wrong_self_convention)]
     pub fn to_json(&self) -> Value {
         <Self as ToJSON>::to_json(self)
     }
@@ -117,6 +118,7 @@ impl Time {
     }
 
     #[napi(js_name = "toJSON")]
+    #[allow(clippy::wrong_self_convention)]
     pub fn to_json(&self) -> Value {
         <Self as ToJSON>::to_json(self)
     }
@@ -176,6 +178,7 @@ impl NaiveDatetime {
     }
 
     #[napi(js_name = "toJSON")]
+    #[allow(clippy::wrong_self_convention)]
     pub fn to_json(&self) -> Value {
         <Self as ToJSON>::to_json(self)
     }

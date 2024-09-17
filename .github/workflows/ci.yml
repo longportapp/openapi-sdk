@@ -84,7 +84,6 @@ jobs:
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
-          target: ${{ matrix.target }}
           manylinux: auto
           args: -i python${{ matrix.python-version }} --out dist -m python/Cargo.toml
       - name: Install built wheel
