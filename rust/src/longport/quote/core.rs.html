@@ -1144,6 +1144,10 @@
 <a href="#1144" id="1144">1144</a>
 <a href="#1145" id="1145">1145</a>
 <a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1617,7 +1621,9 @@
             sub_type: sub_types.into(),
             is_first_push,
         };
-        <span class="self">self</span>.ws_cli.request(cmd_code::SUBSCRIBE, <span class="prelude-val">None</span>, req).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.ws_cli
+            .request::&lt;<span class="kw">_</span>, ()&gt;(cmd_code::SUBSCRIBE, <span class="prelude-val">None</span>, req)
+            .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// update subscriptions
         </span><span class="kw">for </span>symbol <span class="kw">in </span>symbols {
@@ -1674,7 +1680,7 @@
 
         <span class="kw">for </span>req <span class="kw">in </span>requests {
             <span class="self">self</span>.ws_cli
-                .request(cmd_code::UNSUBSCRIBE, <span class="prelude-val">None</span>, req)
+                .request::&lt;<span class="kw">_</span>, ()&gt;(cmd_code::UNSUBSCRIBE, <span class="prelude-val">None</span>, req)
                 .<span class="kw">await</span><span class="question-mark">?</span>;
         }
 
@@ -1781,7 +1787,9 @@
             sub_type: sub_flags.into(),
             is_first_push: <span class="bool-val">true</span>,
         };
-        <span class="self">self</span>.ws_cli.request(cmd_code::SUBSCRIBE, <span class="prelude-val">None</span>, req).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.ws_cli
+            .request::&lt;<span class="kw">_</span>, ()&gt;(cmd_code::SUBSCRIBE, <span class="prelude-val">None</span>, req)
+            .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
@@ -1817,7 +1825,7 @@
                     .contains(unsubscribe_sub_flags)
             {
                 <span class="self">self</span>.ws_cli
-                    .request(
+                    .request::&lt;<span class="kw">_</span>, ()&gt;(
                         cmd_code::UNSUBSCRIBE,
                         <span class="prelude-val">None</span>,
                         UnsubscribeRequest {
@@ -1884,7 +1892,7 @@
 
         <span class="kw">for </span>(flags, symbols) <span class="kw">in </span>subscriptions {
             <span class="self">self</span>.ws_cli
-                .request(
+                .request::&lt;<span class="kw">_</span>, ()&gt;(
                     cmd_code::SUBSCRIBE,
                     <span class="prelude-val">None</span>,
                     SubscribeRequest {
