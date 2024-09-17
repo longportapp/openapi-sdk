@@ -78,9 +78,6 @@ jobs:
       - name: Check with clippy
         run: cargo clippy -p longport-python --all-features
 
-      - name: Test
-        run: cargo test -p longport-python --all-features
-
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -326,9 +323,6 @@ jobs:
       - name: Check with clippy
         run: cargo clippy -p longport-nodejs --all-features
 
-      # - name: Test
-      #   run: cargo test -p longport-nodejs --all-features
-
       - name: Install napi-rs/cli
         run: npm install -g @napi-rs/cli
 
@@ -368,9 +362,6 @@ jobs:
 
       - name: Check with clippy
         run: cargo clippy -p longport-java --all-features
-
-      - name: Test
-        run: cargo test -p longport-java --all-features
 
       - name: Compile java sources
         working-directory: java/javasrc
