@@ -1,6 +1,6 @@
 [package]
 name = "longport-java-macros"
-version = "1.0.34"
+version = "1.0.35"
 edition = "2021"
 
 [lib]
