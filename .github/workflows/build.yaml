@@ -27,6 +27,7 @@ jobs:
             artifact-name: linux-aarch64
 
           - host: ubuntu-latest
+            architecture: x64
             docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
             build: |
               rustup target add aarch64-unknown-linux-musl

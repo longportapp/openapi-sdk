@@ -276,16 +276,16 @@ jobs:
           - host: macos-13
             architecture: x64
             build: |
-              npm run build:debug
+              yarn build:debug
               strip -x *.node
 
           - host: windows-latest
-            build: npm run build:debug
+            build: yarn build:debug
             architecture: x64
 
           - host: ubuntu-latest
             build: |
-              npm run build:debug
+              yarn build:debug
               strip *.node
 
           - host: macos-13
@@ -296,7 +296,7 @@ jobs:
               export CXX=$(xcrun -f clang++);
               SYSROOT=$(xcrun --sdk macosx --show-sdk-path);
               export CFLAGS="-isysroot $SYSROOT -isystem $SYSROOT";
-              yarn build --target aarch64-apple-darwin
+              yarn build:debug --target aarch64-apple-darwin
               strip -x *.node
 
     runs-on: ${{ matrix.settings.host }}
@@ -323,8 +323,9 @@ jobs:
       - name: Check with clippy
         run: cargo clippy -p longport-nodejs --all-features
 
-      - name: Install napi-rs/cli
-        run: npm install -g @napi-rs/cli
+      - name: Install dependencies
+        working-directory: nodejs
+        run: yarn install --ignore-scripts --frozen-lockfile --registry https://registry.npmjs.org --network-timeout 300000
 
       - name: Build
         working-directory: nodejs
