@@ -354,6 +354,15 @@ jobs:
           options: "--user 0:0 -v ${{ github.workspace }}:/build -w /build/nodejs"
           run: ${{ matrix.settings.build }}
 
+      - name: Move artifacts
+        run: napi artifacts
+        working-directory: ./nodejs
+
+      - name: List packages
+        run: ls -R ./npm
+        shell: bash
+        working-directory: ./nodejs
+
   check-java-sdk:
     needs:
       - check-format
