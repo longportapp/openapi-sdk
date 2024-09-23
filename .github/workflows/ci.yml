@@ -355,7 +355,7 @@ jobs:
           run: ${{ matrix.settings.build }}
 
       - name: Move artifacts
-        run: napi artifacts
+        run: yarn artifacts
         working-directory: ./nodejs
 
       - name: List packages
