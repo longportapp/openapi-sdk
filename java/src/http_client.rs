@@ -3,10 +3,10 @@ use jni::{
     sys::jlong,
     JNIEnv,
 };
+use std::collections::HashMap;
 use longport::httpclient::{HttpClient, HttpClientConfig, Json, Method};
 use serde::Deserialize;
 use serde_json::Value;
-use std::collections::HashMap;
 
 use crate::{
     async_util,
