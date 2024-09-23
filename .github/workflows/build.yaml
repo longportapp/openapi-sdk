@@ -18,7 +18,7 @@ jobs:
             build: |
               npm run build
               strip -x *.node
-            artifact-name: macos
+            artifact-name: linux-x64-musl
 
           - host: macos-13
             architecture: x64
@@ -87,7 +87,7 @@ jobs:
         if: ${{ matrix.settings.docker }}
         with:
           image: ${{ matrix.settings.docker }}
-          options: "--user 0:0 -v ${{ github.workspace }}:/nodejs -w /nodejs"
+          options: "--user 0:0 -v ${{ github.workspace }}/nodejs:/build -w /build"
           run: ${{ matrix.settings.build }}
 
       - name: Upload artifact
