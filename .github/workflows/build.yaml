@@ -88,6 +88,7 @@ jobs:
           target: ${{ matrix.settings.target }}
 
       - name: Install dependencies
+        working-directory: nodejs
         run: yarn install --ignore-scripts --frozen-lockfile --registry https://registry.npmjs.org --network-timeout 300000
 
       - name: Build
