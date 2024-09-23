@@ -26,14 +26,13 @@ jobs:
               aarch64-unknown-linux-gnu-strip *.node
             artifact-name: linux-aarch64
 
-          - host: ubuntu-latest
-            architecture: x64
-            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
-            build: |
-              rustup target add aarch64-unknown-linux-musl
-              yarn build --target aarch64-unknown-linux-musl
-              /aarch64-linux-musl-cross/bin/aarch64-linux-musl-strip *.node
-            artifact-name: linux-aarch64-musl
+          #   - host: ubuntu-latest
+          #     docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
+          #     build: |
+          #       rustup target add aarch64-unknown-linux-musl
+          #       yarn build --target aarch64-unknown-linux-musl
+          #       /aarch64-linux-musl-cross/bin/aarch64-linux-musl-strip *.node
+          #     artifact-name: linux-aarch64-musl
 
           - host: macos-13
             architecture: x64
