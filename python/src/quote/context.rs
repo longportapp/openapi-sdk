@@ -17,10 +17,11 @@ use crate::{
             AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
             FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, IntradayLine, IssuerInfo,
             MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
-            RealtimeQuote, SecuritiesUpdateMode, Security, SecurityBrokers, SecurityCalcIndex,
-            SecurityDepth, SecurityListCategory, SecurityQuote, SecurityStaticInfo, SortOrderType,
-            StrikePriceInfo, SubType, SubTypes, Subscription, Trade, WarrantInfo, WarrantQuote,
-            WarrantSortBy, WarrantStatus, WarrantType, WatchlistGroup,
+            QuotePackageDetail, RealtimeQuote, SecuritiesUpdateMode, Security, SecurityBrokers,
+            SecurityCalcIndex, SecurityDepth, SecurityListCategory, SecurityQuote,
+            SecurityStaticInfo, SortOrderType, StrikePriceInfo, SubType, SubTypes, Subscription,
+            Trade, WarrantInfo, WarrantQuote, WarrantSortBy, WarrantStatus, WarrantType,
+            WatchlistGroup,
         },
     },
     time::{PyDateWrapper, PyOffsetDateTimeWrapper},
@@ -65,6 +66,16 @@ impl QuoteContext {
     /// Returns the quote level
     fn quote_level(&self) -> PyResult<String> {
         Ok(self.ctx.quote_level().map_err(ErrorNewType)?)
+    }
+
+    /// Returns the quote package details
+    fn quote_package_details(&self) -> PyResult<Vec<QuotePackageDetail>> {
+        self.ctx
+            .quote_package_details()
+            .map_err(ErrorNewType)?
+            .into_iter()
+            .map(TryInto::try_into)
+            .collect()
     }
 
     /// Set quote callback, after receiving the quote data push, it

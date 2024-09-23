@@ -43,6 +43,8 @@ public class SdkNative {
 
         public static native String quoteContextGetQuoteLevel(long context);
 
+        public static native QuotePackageDetail[] quoteContextGetQuotePackageDetails(long context);
+
         public static native void quoteContextSetOnQuote(long context, QuoteHandler handler);
 
         public static native void quoteContextSetOnDepth(long context, DepthHandler handler);

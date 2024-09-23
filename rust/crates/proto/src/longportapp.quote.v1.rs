@@ -801,6 +801,8 @@ pub mod security_history_candlestick_request {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UserQuoteProfileRequest {
+    #[prost(string, tag="1")]
+    pub language: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RateLimit {
@@ -810,6 +812,33 @@ pub struct RateLimit {
     pub limit: i32,
     #[prost(int32, tag="3")]
     pub burst: i32,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UserQuoteLevelDetail {
+    /// 按行情包描述
+    #[prost(map="string, message", tag="1")]
+    pub by_package_key: ::std::collections::HashMap<::prost::alloc::string::String, user_quote_level_detail::PackageDetail>,
+}
+/// Nested message and enum types in `UserQuoteLevelDetail`.
+pub mod user_quote_level_detail {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct PackageDetail {
+        /// 行情包 Key
+        #[prost(string, tag="1")]
+        pub key: ::prost::alloc::string::String,
+        /// 行情包名称
+        #[prost(string, tag="2")]
+        pub name: ::prost::alloc::string::String,
+        /// 行情包描述, 根据入参 lang 适配多语言
+        #[prost(string, tag="4")]
+        pub description: ::prost::alloc::string::String,
+        /// 行情包生效开始时间 Unix 时间戳
+        #[prost(int64, tag="5")]
+        pub start: i64,
+        /// 行情包生效结束时间 Unix 时间戳
+        #[prost(int64, tag="6")]
+        pub end: i64,
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UserQuoteProfileResponse {
@@ -827,6 +856,9 @@ pub struct UserQuoteProfileResponse {
     /// command rate limit
     #[prost(message, repeated, tag="5")]
     pub rate_limit: ::prost::alloc::vec::Vec<RateLimit>,
+    /// 用户等级详情
+    #[prost(message, optional, tag="6")]
+    pub quote_level_detail: ::core::option::Option<UserQuoteLevelDetail>,
 }
 /// 协议指令定义
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

@@ -8,10 +8,11 @@ use crate::{
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
         FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, IntradayLine, IssuerInfo,
         MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period, PushEvent,
-        RealtimeQuote, RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, Security,
-        SecurityBrokers, SecurityCalcIndex, SecurityDepth, SecurityListCategory, SecurityQuote,
-        SecurityStaticInfo, SortOrderType, StrikePriceInfo, SubFlags, Subscription, Trade,
-        WarrantInfo, WarrantQuote, WarrantSortBy, WarrantStatus, WarrantType, WatchlistGroup,
+        QuotePackageDetail, RealtimeQuote, RequestCreateWatchlistGroup,
+        RequestUpdateWatchlistGroup, Security, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
+        SecurityListCategory, SecurityQuote, SecurityStaticInfo, SortOrderType, StrikePriceInfo,
+        SubFlags, Subscription, Trade, WarrantInfo, WarrantQuote, WarrantSortBy, WarrantStatus,
+        WarrantType, WatchlistGroup,
     },
     Config, Market, QuoteContext, Result,
 };
@@ -40,6 +41,12 @@ impl QuoteContextSync {
     pub fn quote_level(&self) -> Result<String> {
         self.rt
             .call(|ctx| async move { Ok(ctx.quote_level().to_string()) })
+    }
+
+    /// Returns the quote package details
+    pub fn quote_package_details(&self) -> Result<Vec<QuotePackageDetail>> {
+        self.rt
+            .call(|ctx| async move { Ok(ctx.quote_package_details().to_vec()) })
     }
 
     /// Subscribe

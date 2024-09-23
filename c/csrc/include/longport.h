@@ -3602,6 +3602,32 @@ typedef struct lb_warrant_info_t {
   enum lb_warrant_status_t status;
 } lb_warrant_info_t;
 
+/**
+ * Security
+ */
+typedef struct lb_quote_package_detail_t {
+  /**
+   * Key
+   */
+  const char *key;
+  /**
+   * Name
+   */
+  const char *name;
+  /**
+   * Description
+   */
+  const char *description;
+  /**
+   * Start at
+   */
+  int64_t start_at;
+  /**
+   * End at
+   */
+  int64_t end_at;
+} lb_quote_package_detail_t;
+
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -3727,6 +3753,10 @@ void lb_quote_context_set_free_userdata_func(const struct lb_quote_context_t *ct
 int64_t lb_quote_context_member_id(const struct lb_quote_context_t *ctx);
 
 const char *lb_quote_context_quote_level(const struct lb_quote_context_t *ctx);
+
+void lb_quote_context_quote_package_details(const struct lb_quote_context_t *ctx,
+                                            lb_async_callback_t callback,
+                                            void *userdata);
 
 /**
  * Set quote callback, after receiving the quote data push, it will call back

@@ -16,8 +16,8 @@ use crate::{
             AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
             FilterWarrantExpiryDate, FilterWarrantInOutBoundsType, IntradayLine, IssuerInfo,
             MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
-            RealtimeQuote, Security, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-            SecurityListCategory, SecurityQuote, SecurityStaticInfo, SortOrderType,
+            QuotePackageDetail, RealtimeQuote, Security, SecurityBrokers, SecurityCalcIndex,
+            SecurityDepth, SecurityListCategory, SecurityQuote, SecurityStaticInfo, SortOrderType,
             StrikePriceInfo, SubType, SubTypes, Subscription, Trade, WarrantInfo, WarrantQuote,
             WarrantSortBy, WarrantStatus, WarrantType, WatchlistGroup,
         },
@@ -134,13 +134,26 @@ impl QuoteContext {
     }
 
     /// Returns the member ID
+    #[napi]
     pub fn member_id(&self) -> i64 {
         self.ctx.member_id()
     }
 
     /// Returns the quote level
+    #[napi]
     pub fn quote_level(&self) -> &str {
         self.ctx.quote_level()
+    }
+
+    /// Returns the quote package details
+    #[napi]
+    pub fn quote_package_details(&self) -> Result<Vec<QuotePackageDetail>> {
+        self.ctx
+            .quote_package_details()
+            .into_iter()
+            .cloned()
+            .map(TryInto::try_into)
+            .collect()
     }
 
     /// Set quote callback, after receiving the quote data push, it will call

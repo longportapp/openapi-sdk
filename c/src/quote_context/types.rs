@@ -4,10 +4,10 @@ use longport::quote::{
     Brokers, Candlestick, CapitalDistribution, CapitalDistributionResponse, CapitalFlowLine, Depth,
     IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionDirection,
     OptionQuote, OptionType, ParticipantInfo, Period, PrePostQuote, PushBrokers, PushCandlestick,
-    PushDepth, PushQuote, PushTrades, RealtimeQuote, Security, SecurityBoard, SecurityBrokers,
-    SecurityCalcIndex, SecurityDepth, SecurityQuote, SecurityStaticInfo, StrikePriceInfo,
-    Subscription, Trade, TradeDirection, TradeSession, TradeStatus, TradingSessionInfo,
-    WarrantInfo, WarrantQuote, WarrantType, WatchlistGroup, WatchlistSecurity,
+    PushDepth, PushQuote, PushTrades, QuotePackageDetail, RealtimeQuote, Security, SecurityBoard,
+    SecurityBrokers, SecurityCalcIndex, SecurityDepth, SecurityQuote, SecurityStaticInfo,
+    StrikePriceInfo, Subscription, Trade, TradeDirection, TradeSession, TradeStatus,
+    TradingSessionInfo, WarrantInfo, WarrantQuote, WarrantType, WatchlistGroup, WatchlistSecurity,
 };
 
 use crate::{
@@ -2815,6 +2815,70 @@ impl ToFFI for CSecurityOwned {
             name_cn: name_cn.to_ffi_type(),
             name_en: name_en.to_ffi_type(),
             name_hk: name_hk.to_ffi_type(),
+        }
+    }
+}
+
+/// Security
+#[repr(C)]
+pub struct CQuotePackageDetail {
+    /// Key
+    pub key: *const c_char,
+    /// Name
+    pub name: *const c_char,
+    /// Description
+    pub description: *const c_char,
+    /// Start at
+    pub start_at: i64,
+    /// End at
+    pub end_at: i64,
+}
+
+#[derive(Debug)]
+pub(crate) struct CQuotePackageDetailOwned {
+    pub key: CString,
+    pub name: CString,
+    pub description: CString,
+    pub start_at: i64,
+    pub end_at: i64,
+}
+
+impl From<QuotePackageDetail> for CQuotePackageDetailOwned {
+    fn from(info: QuotePackageDetail) -> Self {
+        let QuotePackageDetail {
+            key,
+            name,
+            description,
+            start_at,
+            end_at,
+        } = info;
+        CQuotePackageDetailOwned {
+            key: key.into(),
+            name: name.into(),
+            description: description.into(),
+            start_at: start_at.unix_timestamp(),
+            end_at: end_at.unix_timestamp(),
+        }
+    }
+}
+
+impl ToFFI for CQuotePackageDetailOwned {
+    type FFIType = CQuotePackageDetail;
+
+    fn to_ffi_type(&self) -> Self::FFIType {
+        let CQuotePackageDetailOwned {
+            key,
+            name,
+            description,
+            start_at,
+            end_at,
+        } = self;
+        CQuotePackageDetail {
+            key: key.to_ffi_type(),
+            name: name.to_ffi_type(),
+            description: description.to_ffi_type(),
+            start_at: *start_at,
+            end_at: *end_at,
         }
     }
 }

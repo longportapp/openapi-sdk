@@ -20,7 +20,7 @@ pub use types::{
     Brokers, CalcIndex, Candlestick, CapitalDistribution, CapitalDistributionResponse,
     CapitalFlowLine, Depth, DerivativeType, FilterWarrantExpiryDate, FilterWarrantInOutBoundsType,
     IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionDirection,
-    OptionQuote, OptionType, ParticipantInfo, PrePostQuote, RealtimeQuote,
+    OptionQuote, OptionType, ParticipantInfo, PrePostQuote, QuotePackageDetail, RealtimeQuote,
     RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, SecuritiesUpdateMode, Security,
     SecurityBoard, SecurityBrokers, SecurityCalcIndex, SecurityDepth, SecurityListCategory,
     SecurityQuote, SecurityStaticInfo, SortOrderType, StrikePriceInfo, Subscription, Trade,

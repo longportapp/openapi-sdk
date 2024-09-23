@@ -20,10 +20,11 @@ use crate::{
         utils::{format_date, parse_date},
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
         IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
-        ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
-        RequestUpdateWatchlistGroup, Security, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-        SecurityListCategory, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription,
-        Trade, WarrantInfo, WarrantQuote, WarrantType, WatchlistGroup,
+        ParticipantInfo, Period, PushEvent, QuotePackageDetail, RealtimeQuote,
+        RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, Security, SecurityBrokers,
+        SecurityCalcIndex, SecurityDepth, SecurityListCategory, SecurityQuote, SecurityStaticInfo,
+        StrikePriceInfo, Subscription, Trade, WarrantInfo, WarrantQuote, WarrantType,
+        WatchlistGroup,
     },
     serde_utils, Config, Error, Language, Market, Result,
 };
@@ -48,6 +49,7 @@ pub struct QuoteContext {
     cache_trading_session: Cache<Vec<MarketTradingSession>>,
     member_id: i64,
     quote_level: String,
+    quote_package_details: Vec<QuotePackageDetail>,
 }
 
 impl QuoteContext {
@@ -62,6 +64,7 @@ impl QuoteContext {
         let core = Core::try_new(config, command_rx, push_tx).await?;
         let member_id = core.member_id();
         let quote_level = core.quote_level().to_string();
+        let quote_package_details = core.quote_package_details().to_vec();
         tokio::spawn(core.run());
         Ok((
             QuoteContext {
@@ -79,6 +82,7 @@ impl QuoteContext {
                 cache_trading_session: Cache::new(TRADING_SESSION_CACHE_TIMEOUT),
                 member_id,
                 quote_level,
+                quote_package_details,
             },
             push_rx,
         ))
@@ -94,6 +98,12 @@ impl QuoteContext {
     #[inline]
     pub fn quote_level(&self) -> &str {
         &self.quote_level
+    }
+
+    /// Returns the quote package details
+    #[inline]
+    pub fn quote_package_details(&self) -> &[QuotePackageDetail] {
+        &self.quote_package_details
     }
 
     /// Send a raw request

@@ -149,6 +149,7 @@ pub extern "system" fn Java_com_longport_SdkNative_init<'a>(
         crate::types::CreateWatchlistGroupResponse,
         longport::quote::RealtimeQuote,
         longport::quote::Security,
+        longport::quote::QuotePackageDetail,
         longport::trade::PushOrderChanged,
         longport::trade::Execution,
         longport::trade::Order,

@@ -35,6 +35,7 @@ using longport::quote::PushCandlestick;
 using longport::quote::PushDepth;
 using longport::quote::PushQuote;
 using longport::quote::PushTrades;
+using longport::quote::QuotePackageDetail;
 using longport::quote::RealtimeQuote;
 using longport::quote::SecuritiesUpdateMode;
 using longport::quote::Security;
@@ -2040,5 +2041,15 @@ convert(const lb_security_t* info)
   };
 }
 
+inline QuotePackageDetail
+convert(const lb_quote_package_detail_t* detail)
+{
+  return QuotePackageDetail{
+    detail->key,      detail->name,   detail->description,
+    detail->start_at, detail->end_at,
+  };
+}
+
 } // namespace convert
+
 } // namespace longport

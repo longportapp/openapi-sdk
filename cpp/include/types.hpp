@@ -1153,6 +1153,21 @@ enum class SecurityListCategory
   Overnight,
 };
 
+/// Quote package detail
+struct QuotePackageDetail
+{
+  /// Key
+  std::string key;
+  /// Name
+  std::string name;
+  /// Description
+  std::string description;
+  /// Start at
+  int64_t start_at;
+  /// End at
+  int64_t end_at;
+};
+
 } // namespace quote
 
 namespace trade {

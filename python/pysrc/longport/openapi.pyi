@@ -2459,6 +2459,35 @@ class SecurityCalcIndex:
     Rho
     """
 
+class QuotePackageDetail:
+    """
+    Quote package detail
+    """
+
+    key: str
+    """
+    Key
+    """
+
+    name: str
+    """
+    Name
+    """
+
+    description: str
+    """
+    Description
+    """
+
+    start_at: datetime
+    """
+    Start time
+    """
+
+    end_at: datetime
+    """
+    End time
+    """
 
 class QuoteContext:
     """
@@ -2478,6 +2507,11 @@ class QuoteContext:
     def quote_level(self) -> str:
         """
         Returns the quote level
+        """
+
+    def quote_package_details(self) -> List[QuotePackageDetail]:
+        """
+        Returns the quote package details
         """
 
     def set_on_quote(self, callback: Callable[[str, PushQuote], None]) -> None:
