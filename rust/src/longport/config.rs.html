@@ -307,7 +307,20 @@
 <a href="#307" id="307">307</a>
 <a href="#308" id="308">308</a>
 <a href="#309" id="309">309</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+    collections::HashMap,
+    fmt::{<span class="self">self</span>, Display},
+};
 
 <span class="kw">use </span>http::Method;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>http::{header, HeaderValue, Request};
@@ -344,6 +357,12 @@
             Language::ZH_HK =&gt; <span class="string">"zh-HK"</span>,
             Language::EN =&gt; <span class="string">"en"</span>,
         }
+    }
+}
+
+<span class="kw">impl </span>Display <span class="kw">for </span>Language {
+    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; fmt::Result {
+        f.write_str(<span class="self">self</span>.as_str())
     }
 }
 
@@ -525,6 +544,7 @@
     <span class="doccomment">/// Create metadata for auth/reconnect request
     </span><span class="kw">pub fn </span>create_metadata(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; HashMap&lt;String, String&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>metadata = HashMap::new();
+        metadata.insert(<span class="string">"accept-language"</span>.to_string(), <span class="self">self</span>.language.to_string());
         <span class="kw">if </span><span class="self">self</span>.enable_overnight {
             metadata.insert(<span class="string">"need_over_night_quote"</span>.to_string(), <span class="string">"true"</span>.to_string());
         }
