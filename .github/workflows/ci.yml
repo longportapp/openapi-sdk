@@ -127,7 +127,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: x86_64
-          args: -i python --release --out dist -m python/Cargo.toml
+          args: -i python --out dist -m python/Cargo.toml
       - name: Install built wheel - x86_64
         run: |
           pip install longport --no-index --find-links dist --force-reinstall
@@ -135,7 +135,7 @@ jobs:
         if: ${{ matrix.python.universal2 }}
         uses: PyO3/maturin-action@v1
         with:
-          args: -i python --release --target universal2-apple-darwin --out dist -m python/Cargo.toml
+          args: -i python --target universal2-apple-darwin --out dist -m python/Cargo.toml
       - name: Install built wheel - universal2
         if: ${{ matrix.python.universal2 }}
         run: |
@@ -174,7 +174,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: -i python --release --out dist -m python/Cargo.toml
+          args: -i python --out dist -m python/Cargo.toml
       - name: Install built wheel
         run: |
           pip install longport --no-index --find-links dist --force-reinstall
@@ -207,7 +207,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: -i python${{ matrix.python-version }} --release --out dist -m python/Cargo.toml
+          args: -i python${{ matrix.python-version }} --out dist -m python/Cargo.toml
       - name: Install built wheel
         if: matrix.target == 'x86_64'
         run: |
@@ -238,7 +238,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
           manylinux: 2_28
-          args: -i python${{ matrix.python-version }} --release --out dist -m python/Cargo.toml
+          args: -i python${{ matrix.python-version }} --out dist -m python/Cargo.toml
       - uses: uraimo/run-on-arch-action@v2.2.0
         name: Install built wheel
         with:
@@ -273,19 +273,31 @@ jobs:
       fail-fast: true
       matrix:
         settings:
+          - host: ubuntu-latest
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
+            build: |
+              yarn build:debug
+              strip -x *.node
+
+          - host: ubuntu-latest
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
+            build: |
+              yarn build:debug --target aarch64-unknown-linux-gnu
+              aarch64-unknown-linux-gnu-strip *.node
+
           - host: macos-13
             architecture: x64
             build: |
-              npm run build:debug
+              yarn build:debug
               strip -x *.node
 
           - host: windows-latest
-            build: npm run build:debug
+            build: yarn build:debug
             architecture: x64
 
           - host: ubuntu-latest
             build: |
-              npm run build:debug
+              yarn build:debug
               strip *.node
 
           - host: macos-13
@@ -296,7 +308,7 @@ jobs:
               export CXX=$(xcrun -f clang++);
               SYSROOT=$(xcrun --sdk macosx --show-sdk-path);
               export CFLAGS="-isysroot $SYSROOT -isystem $SYSROOT";
-              yarn build --target aarch64-apple-darwin
+              yarn build:debug --target aarch64-apple-darwin
               strip -x *.node
 
     runs-on: ${{ matrix.settings.host }}
@@ -307,6 +319,7 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
+        if: ${{ !matrix.settings.docker }}
         with:
           node-version: 16
           check-latest: true
@@ -314,6 +327,7 @@ jobs:
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
+        if: ${{ !matrix.settings.docker }}
         with:
           toolchain: stable
           override: true
@@ -323,12 +337,22 @@ jobs:
       - name: Check with clippy
         run: cargo clippy -p longport-nodejs --all-features
 
-      - name: Install napi-rs/cli
-        run: npm install -g @napi-rs/cli
+      - name: Install dependencies
+        working-directory: nodejs
+        run: yarn install --ignore-scripts --frozen-lockfile --registry https://registry.npmjs.org --network-timeout 300000
 
       - name: Build
+        if: ${{ !matrix.settings.docker }}
         working-directory: nodejs
         run: ${{ matrix.settings.build }}
+
+      - name: Build in Docker
+        uses: addnab/docker-run-action@v3
+        if: ${{ matrix.settings.docker }}
+        with:
+          image: ${{ matrix.settings.docker }}
+          options: "--user 0:0 -v ${{ github.workspace }}:/build -w /build/nodejs"
+          run: ${{ matrix.settings.build }}
 
   check-java-sdk:
     needs:

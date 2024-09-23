@@ -180,21 +180,44 @@ jobs:
       fail-fast: true
       matrix:
         settings:
+          - host: ubuntu-latest
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
+            build: |
+              yarn build
+              strip -x *.node
+            artifact-name: linux-x64-musl
+
+          - host: ubuntu-latest
+            docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-debian-aarch64
+            build: |
+              rustup target add aarch64-unknown-linux-gnu
+              yarn build --target aarch64-unknown-linux-gnu
+              aarch64-unknown-linux-gnu-strip *.node
+            artifact-name: linux-aarch64
+
+          #   - host: ubuntu-latest
+          #     docker: ghcr.io/napi-rs/napi-rs/nodejs-rust:lts-alpine
+          #     build: |
+          #       rustup target add aarch64-unknown-linux-musl
+          #       yarn build --target aarch64-unknown-linux-musl
+          #       /aarch64-linux-musl-cross/bin/aarch64-linux-musl-strip *.node
+          #     artifact-name: linux-aarch64-musl
+
           - host: macos-13
             architecture: x64
             build: |
-              npm run build
+              yarn build
               strip -x *.node
             artifact-name: macos
 
           - host: windows-latest
-            build: npm run build
+            build: yarn build
             architecture: x64
             artifact-name: windows
 
           - host: ubuntu-latest
             build: |
-              npm run build
+              yarn build
               strip *.node
             artifact-name: linux-x64
 
@@ -218,6 +241,7 @@ jobs:
 
       - name: Setup node
         uses: actions/setup-node@v3
+        if: ${{ !matrix.settings.docker }}
         with:
           node-version: 16
           check-latest: true
@@ -225,21 +249,29 @@ jobs:
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
+        if: ${{ !matrix.settings.docker }}
         with:
           toolchain: stable
           override: true
           components: rustfmt, clippy
           target: ${{ matrix.settings.target }}
 
-      - name: Check with clippy
-        run: cargo clippy -p longport-nodejs --all-features
-
-      - name: Install napi-rs/cli
-        run: npm install -g @napi-rs/cli
+      - name: Install dependencies
+        working-directory: nodejs
+        run: yarn install --ignore-scripts --frozen-lockfile --registry https://registry.npmjs.org --network-timeout 300000
 
       - name: Build
+        if: ${{ !matrix.settings.docker }}
         working-directory: nodejs
         run: ${{ matrix.settings.build }}
+
+      - name: Build in Docker
+        uses: addnab/docker-run-action@v3
+        if: ${{ matrix.settings.docker }}
+        with:
+          image: ${{ matrix.settings.docker }}
+          options: "--user 0:0 -v ${{ github.workspace }}:/build -w /build/nodejs"
+          run: ${{ matrix.settings.build }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -802,7 +834,6 @@ jobs:
           check-latest: true
       - name: Install napi-rs/cli
         run: npm install -g @napi-rs/cli
-
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
