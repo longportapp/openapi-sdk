@@ -101,7 +101,7 @@ jobs:
         if: ${{ matrix.settings.docker }}
         with:
           image: ${{ matrix.settings.docker }}
-          options: "--user 0:0 -v ${{ github.workspace }}/nodejs:/build -w /build"
+          options: "--user 0:0 -v ${{ github.workspace }}:/build -w /build/nodejs"
           run: ${{ matrix.settings.build }}
 
       - name: Upload artifact
