@@ -1,4 +1,7 @@
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+    fmt::{self, Display},
+};
 
 use http::Method;
 pub(crate) use http::{header, HeaderValue, Request};
@@ -35,6 +38,12 @@ impl Language {
             Language::ZH_HK => "zh-HK",
             Language::EN => "en",
         }
+    }
+}
+
+impl Display for Language {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.as_str())
     }
 }
 
@@ -216,6 +225,7 @@ impl Config {
     /// Create metadata for auth/reconnect request
     pub fn create_metadata(&self) -> HashMap<String, String> {
         let mut metadata = HashMap::new();
+        metadata.insert("accept-language".to_string(), self.language.to_string());
         if self.enable_overnight {
             metadata.insert("need_over_night_quote".to_string(), "true".to_string());
         }

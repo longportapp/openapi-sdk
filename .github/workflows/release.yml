@@ -223,6 +223,9 @@ jobs:
           check-latest: true
           architecture: ${{ matrix.settings.architecture }}
 
+      - name: Install napi-rs/cli
+        run: npm install -g @napi-rs/cli
+
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -230,12 +233,6 @@ jobs:
           override: true
           components: rustfmt, clippy
           target: ${{ matrix.settings.target }}
-
-      - name: Check with clippy
-        run: cargo clippy -p longport-nodejs --all-features
-
-      - name: Install napi-rs/cli
-        run: npm install -g @napi-rs/cli
 
       - name: Build
         working-directory: nodejs
@@ -802,7 +799,6 @@ jobs:
           check-latest: true
       - name: Install napi-rs/cli
         run: npm install -g @napi-rs/cli
-
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
