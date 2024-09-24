@@ -884,46 +884,46 @@ export class Decimal {
    */
   comparedTo(other: Decimal): number
   /** Computes the sine of a number (in radians) */
-  sin(): this
+  sin(): Decimal
   /** Computes the cosine of a number (in radians) */
-  cos(): this
+  cos(): Decimal
   /**
    * Computes the tangent of a number (in radians). Panics upon overflow or
    * upon approaching a limit.
    */
-  tan(): this
+  tan(): Decimal
   /** The square root of a Decimal. Uses a standard Babylonian method. */
-  sqrt(): this
+  sqrt(): Decimal
   /**
    * Raise self to the given Decimal exponent: x<sup>y</sup>. If `exp` is not
    * whole then the approximation e<sup>y*ln(x)</sup> is used.
    */
-  pow(exp: Decimal): this
+  pow(exp: Decimal): Decimal
   /**
    * Calculates the natural logarithm for a Decimal calculated using Taylor’s
    * series.
    */
-  ln(): this
+  ln(): Decimal
   /** Calculates the base 10 logarithm of a specified Decimal number. */
-  log10(): this
+  log10(): Decimal
   /**
    * The estimated exponential function, ex. Stops calculating when it is
    * within tolerance of roughly `0.0000002`.
    */
-  exp(): this
+  exp(): Decimal
   /**
    * The estimated exponential function, e<sup>x</sup> using the `tolerance`
    * provided as a hint as to when to stop calculating. A larger
    * tolerance will cause the number to stop calculating sooner at the
    * potential cost of a slightly less accurate result.
    */
-  expWithTolerance(tolerance: Decimal): this
+  expWithTolerance(tolerance: Decimal): Decimal
   /** Abramowitz Approximation of Error Function from [wikipedia](https://en.wikipedia.org/wiki/Error_function#Numerical_approximations) */
   erf(): Decimal
   /** The Cumulative distribution function for a Normal distribution */
   normCdf(): Decimal
   /** The Probability density function for a Normal distribution. */
-  normPdf(): this
+  normPdf(): Decimal
   toJSON(): any
 }
 export class HttpClient {
@@ -948,6 +948,12 @@ export class HttpClient {
 /** Quote context */
 export class QuoteContext {
   static new(config: Config): Promise<QuoteContext>
+  /** Returns the member ID */
+  memberId(): number
+  /** Returns the quote level */
+  quoteLevel(): string
+  /** Returns the quote package details */
+  quotePackageDetails(): Array<QuotePackageDetail>
   /**
    * Set quote callback, after receiving the quote data push, it will call
    * back to this function.
@@ -2216,6 +2222,20 @@ export class Security {
   get nameEn(): string
   /** Security name (zh-HK) */
   get nameHk(): string
+}
+export class QuotePackageDetail {
+  toString(): string
+  toJSON(): any
+  /** Key */
+  get key(): string
+  /** Name */
+  get name(): string
+  /** Description */
+  get description(): string
+  /** Start time */
+  get startAt(): Date
+  /** End time */
+  get endAt(): Date
 }
 /** Naive date type */
 export class NaiveDate {

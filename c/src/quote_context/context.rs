@@ -30,11 +30,11 @@ use crate::{
             CMarketTradingSessionOwned, COptionQuoteOwned, CParticipantInfoOwned, CPushBrokers,
             CPushBrokersOwned, CPushCandlestick, CPushCandlestickOwned, CPushDepth,
             CPushDepthOwned, CPushQuote, CPushQuoteOwned, CPushTrades, CPushTradesOwned,
-            CRealtimeQuoteOwned, CSecurityBrokersOwned, CSecurityCalcIndexOwned,
-            CSecurityDepthOwned, CSecurityOwned, CSecurityQuoteOwned, CSecurityStaticInfoOwned,
-            CStrikePriceInfoOwned, CSubscriptionOwned, CTradeOwned, CUpdateWatchlistGroup,
-            CWarrantInfoOwned, CWarrantQuoteOwned, CWatchlistGroupOwned, LB_WATCHLIST_GROUP_NAME,
-            LB_WATCHLIST_GROUP_SECURITIES,
+            CQuotePackageDetailOwned, CRealtimeQuoteOwned, CSecurityBrokersOwned,
+            CSecurityCalcIndexOwned, CSecurityDepthOwned, CSecurityOwned, CSecurityQuoteOwned,
+            CSecurityStaticInfoOwned, CStrikePriceInfoOwned, CSubscriptionOwned, CTradeOwned,
+            CUpdateWatchlistGroup, CWarrantInfoOwned, CWarrantQuoteOwned, CWatchlistGroupOwned,
+            LB_WATCHLIST_GROUP_NAME, LB_WATCHLIST_GROUP_SECURITIES,
         },
     },
     types::{cstr_array_to_rust, cstr_to_rust, CCow, CDate, CDateTime, CMarket, CVec, ToFFI},
@@ -72,6 +72,7 @@ unsafe impl Send for CQuoteContextState {}
 pub struct CQuoteContext {
     ctx: QuoteContext,
     quote_level: OnceCell<CString>,
+    quote_package_details: OnceCell<Vec<CQuotePackageDetailOwned>>,
     state: Mutex<CQuoteContextState>,
 }
 
@@ -107,6 +108,7 @@ pub unsafe extern "C" fn lb_quote_context_new(
             let arc_ctx = Arc::new(CQuoteContext {
                 ctx,
                 quote_level: OnceCell::new(),
+                quote_package_details: OnceCell::new(),
                 state,
             });
             let weak_ctx = Arc::downgrade(&arc_ctx);
@@ -256,6 +258,20 @@ pub unsafe extern "C" fn lb_quote_context_quote_level(ctx: *const CQuoteContext)
         .quote_level
         .get_or_init(|| CString::new((*ctx).ctx.quote_level()).unwrap());
     quote_level.as_ptr() as *const _
+}
+
+#[no_mangle]
+pub unsafe extern "C" fn lb_quote_context_quote_package_details(
+    ctx: *const CQuoteContext,
+    callback: CAsyncCallback,
+    userdata: *mut c_void,
+) {
+    let ctx_inner = (*ctx).ctx.clone();
+    execute_async(callback, ctx, userdata, async move {
+        let rows: CVec<CQuotePackageDetailOwned> =
+            ctx_inner.quote_package_details().to_vec().into();
+        Ok(rows)
+    });
 }
 
 /// Set quote callback, after receiving the quote data push, it will call back

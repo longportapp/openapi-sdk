@@ -35,7 +35,13 @@ public:
   int64_t member_id();
 
   /// Returns the quote level
-  std::string quote_level();
+  std::string quote_level() const;
+
+  /// Returns the quote package details
+  void quote_package_details(
+    const std::vector<std::string>& symbols,
+    AsyncCallback<QuoteContext, std::vector<QuotePackageDetail>> callback)
+    const;
 
   /// Subscribe
   void subscribe(const std::vector<std::string>& symbols,

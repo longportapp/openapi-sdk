@@ -113,6 +113,14 @@ JNIEXPORT jstring JNICALL Java_com_longport_SdkNative_quoteContextGetQuoteLevel
 
 /*
  * Class:     com_longport_SdkNative
+ * Method:    quoteContextGetQuotePackageDetails
+ * Signature: (J)[Lcom/longport/quote/QuotePackageDetail;
+ */
+JNIEXPORT jobjectArray JNICALL Java_com_longport_SdkNative_quoteContextGetQuotePackageDetails
+  (JNIEnv *, jclass, jlong);
+
+/*
+ * Class:     com_longport_SdkNative
  * Method:    quoteContextSetOnQuote
  * Signature: (JLcom/longport/quote/QuoteHandler;)V
  */

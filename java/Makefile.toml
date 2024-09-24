@@ -103,6 +103,7 @@ args = [
   "javasrc/src/main/java/com/longport/quote/QueryWarrantOptions.java",
   "javasrc/src/main/java/com/longport/quote/SecurityListCategory.java",
   "javasrc/src/main/java/com/longport/quote/Security.java",
+  "javasrc/src/main/java/com/longport/quote/QuotePackageDetail.java",
 
   "javasrc/src/main/java/com/longport/trade/AccountBalance.java",
   "javasrc/src/main/java/com/longport/trade/BalanceType.java",

@@ -1284,3 +1284,20 @@ pub(crate) struct Security {
     /// Security name (zh-HK)
     name_hk: String,
 }
+
+/// Quote package detail
+#[pyclass]
+#[derive(Debug, PyObject)]
+#[py(remote = "longport::quote::QuotePackageDetail")]
+pub(crate) struct QuotePackageDetail {
+    /// Key
+    pub key: String,
+    /// Name
+    pub name: String,
+    /// Description
+    pub description: String,
+    /// Start time
+    pub start_at: PyOffsetDateTimeWrapper,
+    /// End time
+    pub end_at: PyOffsetDateTimeWrapper,
+}

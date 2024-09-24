@@ -48,6 +48,15 @@ public class QuoteContext implements AutoCloseable {
     public String getQuoteLevel() {
         return SdkNative.quoteContextGetQuoteLevel(this.raw);
     }
+    
+    /**
+     * Returns the quote package details
+     * 
+     * @return Quote package details
+     */
+    public QuotePackageDetail[] getQuotePackageDetails() {
+        return SdkNative.quoteContextGetQuotePackageDetails(this.raw);
+    }
 
     /**
      * Set quote callback, after receiving the quote data push, it will call back to

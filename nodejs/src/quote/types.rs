@@ -1321,3 +1321,21 @@ pub struct Security {
     /// Security name (zh-HK)
     name_hk: String,
 }
+
+#[napi_derive::napi]
+#[derive(Debug, JsObject, Clone)]
+#[js(remote = "longport::quote::QuotePackageDetail")]
+pub struct QuotePackageDetail {
+    /// Key
+    key: String,
+    /// Name
+    name: String,
+    /// Description
+    description: String,
+    /// Start time
+    #[js(datetime)]
+    start_at: DateTime<Utc>,
+    /// End time
+    #[js(datetime)]
+    end_at: DateTime<Utc>,
+}

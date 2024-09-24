@@ -911,3 +911,9 @@ impl_java_class!(
     longport::trade::EstimateMaxPurchaseQuantityResponse,
     [cash_max_qty, margin_max_qty]
 );
+
+impl_java_class!(
+    "com/longport/quote/QuotePackageDetail",
+    longport::quote::QuotePackageDetail,
+    [key, name, description, start_at, end_at]
+);

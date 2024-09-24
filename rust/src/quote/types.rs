@@ -1692,3 +1692,34 @@ pub struct Security {
     /// Security name (zh-HK)
     pub name_hk: String,
 }
+
+/// Quote package detail
+#[derive(Debug, Clone)]
+pub struct QuotePackageDetail {
+    /// Key
+    pub key: String,
+    /// Name
+    pub name: String,
+    /// Description
+    pub description: String,
+    /// Start time
+    pub start_at: OffsetDateTime,
+    /// End time
+    pub end_at: OffsetDateTime,
+}
+
+impl TryFrom<quote::user_quote_level_detail::PackageDetail> for QuotePackageDetail {
+    type Error = Error;
+
+    fn try_from(quote: quote::user_quote_level_detail::PackageDetail) -> Result<Self> {
+        Ok(Self {
+            key: quote.key,
+            name: quote.name,
+            description: quote.description,
+            start_at: OffsetDateTime::from_unix_timestamp(quote.start)
+                .map_err(|err| Error::parse_field_error("start_at", err))?,
+            end_at: OffsetDateTime::from_unix_timestamp(quote.end)
+                .map_err(|err| Error::parse_field_error("end_at", err))?,
+        })
+    }
+}

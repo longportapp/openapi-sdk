@@ -26,6 +26,7 @@ use crate::{
         cmd_code,
         store::{Candlesticks, Store},
         sub_flags::SubFlags,
+        types::QuotePackageDetail,
         utils::{format_date, parse_date},
         Candlestick, PushCandlestick, PushEvent, PushEventDetail, RealtimeQuote, SecurityBoard,
         SecurityBrokers, SecurityDepth, Subscription, Trade,
@@ -147,6 +148,7 @@ pub(crate) struct Core {
     store: Store,
     member_id: i64,
     quote_level: String,
+    quote_package_details: Vec<QuotePackageDetail>,
     push_candlestick_mode: PushCandlestickMode,
 }
 
@@ -186,11 +188,24 @@ impl Core {
             .request::<_, quote::UserQuoteProfileResponse>(
                 cmd_code::QUERY_USER_QUOTE_PROFILE,
                 None,
-                quote::UserQuoteProfileRequest {},
+                quote::UserQuoteProfileRequest {
+                    language: config.language.to_string(),
+                },
             )
             .await?;
         let member_id = resp.member_id;
         let quote_level = resp.quote_level;
+        let quote_package_details = resp
+            .quote_level_detail
+            .map(|details| {
+                details
+                    .by_package_key
+                    .into_values()
+                    .map(TryInto::try_into)
+                    .collect::<Result<Vec<_>>>()
+            })
+            .transpose()?
+            .unwrap_or_default();
         let rate_limit: Vec<(u8, RateLimit)> = resp
             .rate_limit
             .iter()
@@ -227,6 +242,7 @@ impl Core {
             store: Store::default(),
             member_id,
             quote_level,
+            quote_package_details,
             push_candlestick_mode,
         })
     }
@@ -239,6 +255,11 @@ impl Core {
     #[inline]
     pub(crate) fn quote_level(&self) -> &str {
         &self.quote_level
+    }
+
+    #[inline]
+    pub(crate) fn quote_package_details(&self) -> &[QuotePackageDetail] {
+        &self.quote_package_details
     }
 
     pub(crate) async fn run(mut self) {
