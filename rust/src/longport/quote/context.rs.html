@@ -1599,6 +1599,16 @@
 <a href="#1599" id="1599">1599</a>
 <a href="#1600" id="1600">1600</a>
 <a href="#1601" id="1601">1601</a>
+<a href="#1602" id="1602">1602</a>
+<a href="#1603" id="1603">1603</a>
+<a href="#1604" id="1604">1604</a>
+<a href="#1605" id="1605">1605</a>
+<a href="#1606" id="1606">1606</a>
+<a href="#1607" id="1607">1607</a>
+<a href="#1608" id="1608">1608</a>
+<a href="#1609" id="1609">1609</a>
+<a href="#1610" id="1610">1610</a>
+<a href="#1611" id="1611">1611</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
@@ -1621,10 +1631,11 @@
         utils::{format_date, parse_date},
         AdjustType, CalcIndex, Candlestick, CapitalDistributionResponse, CapitalFlowLine,
         IntradayLine, IssuerInfo, MarketTradingDays, MarketTradingSession, OptionQuote,
-        ParticipantInfo, Period, PushEvent, RealtimeQuote, RequestCreateWatchlistGroup,
-        RequestUpdateWatchlistGroup, Security, SecurityBrokers, SecurityCalcIndex, SecurityDepth,
-        SecurityListCategory, SecurityQuote, SecurityStaticInfo, StrikePriceInfo, Subscription,
-        Trade, WarrantInfo, WarrantQuote, WarrantType, WatchlistGroup,
+        ParticipantInfo, Period, PushEvent, QuotePackageDetail, RealtimeQuote,
+        RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, Security, SecurityBrokers,
+        SecurityCalcIndex, SecurityDepth, SecurityListCategory, SecurityQuote, SecurityStaticInfo,
+        StrikePriceInfo, Subscription, Trade, WarrantInfo, WarrantQuote, WarrantType,
+        WatchlistGroup,
     },
     serde_utils, Config, Error, Language, Market, <span class="prelude-ty">Result</span>,
 };
@@ -1649,6 +1660,7 @@
     cache_trading_session: Cache&lt;Vec&lt;MarketTradingSession&gt;&gt;,
     member_id: i64,
     quote_level: String,
+    quote_package_details: Vec&lt;QuotePackageDetail&gt;,
 }
 
 <span class="kw">impl </span>QuoteContext {
@@ -1663,6 +1675,7 @@
         <span class="kw">let </span>core = Core::try_new(config, command_rx, push_tx).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="kw">let </span>member_id = core.member_id();
         <span class="kw">let </span>quote_level = core.quote_level().to_string();
+        <span class="kw">let </span>quote_package_details = core.quote_package_details().to_vec();
         tokio::spawn(core.run());
         <span class="prelude-val">Ok</span>((
             QuoteContext {
@@ -1680,6 +1693,7 @@
                 cache_trading_session: Cache::new(TRADING_SESSION_CACHE_TIMEOUT),
                 member_id,
                 quote_level,
+                quote_package_details,
             },
             push_rx,
         ))
@@ -1695,6 +1709,12 @@
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>quote_level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
         <span class="kw-2">&amp;</span><span class="self">self</span>.quote_level
+    }
+
+    <span class="doccomment">/// Returns the quote package details
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>quote_package_details(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[QuotePackageDetail] {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.quote_package_details
     }
 
     <span class="doccomment">/// Send a raw request

@@ -12,8 +12,8 @@ var searchData=
   ['deductionstatuspending_112',['DeductionStatusPending',['../longport_8h.html#a20d1ba69477473c4756e801c567ee32daa449fc6ac9e0568a0ac40e9089629aae',1,'longport.h']]],
   ['deductionstatusunknown_113',['DeductionStatusUnknown',['../longport_8h.html#a20d1ba69477473c4756e801c567ee32daf943cd05962a87e36ceed5909fff620a',1,'longport.h']]],
   ['delta_114',['delta',['../structlb__warrant__info__t.html#a2f105a5fc2cfde489c476325755fc8d8',1,'lb_warrant_info_t::delta()'],['../structlb__security__calc__index__t.html#a2f105a5fc2cfde489c476325755fc8d8',1,'lb_security_calc_index_t::delta()']]],
-  ['description_115',['description',['../structlb__cash__flow__t.html#a68344fa88cf4e86b5079fd69a5c22d57',1,'lb_cash_flow_t']]],
-  ['direction_116',['direction',['../structlb__cash__flow__t.html#ae2a616837a59c1a700858bdc8458edf6',1,'lb_cash_flow_t::direction()'],['../structlb__option__quote__t.html#af35e7059bdc52059788961179eba591b',1,'lb_option_quote_t::direction()'],['../structlb__trade__t.html#a988c85a07aef5ba692b8bb148a96111a',1,'lb_trade_t::direction()']]],
+  ['description_115',['description',['../structlb__quote__package__detail__t.html#a68344fa88cf4e86b5079fd69a5c22d57',1,'lb_quote_package_detail_t::description()'],['../structlb__cash__flow__t.html#a68344fa88cf4e86b5079fd69a5c22d57',1,'lb_cash_flow_t::description()']]],
+  ['direction_116',['direction',['../structlb__option__quote__t.html#af35e7059bdc52059788961179eba591b',1,'lb_option_quote_t::direction()'],['../structlb__cash__flow__t.html#ae2a616837a59c1a700858bdc8458edf6',1,'lb_cash_flow_t::direction()'],['../structlb__trade__t.html#a988c85a07aef5ba692b8bb148a96111a',1,'lb_trade_t::direction()']]],
   ['dividend_5fratio_5fttm_117',['dividend_ratio_ttm',['../structlb__security__calc__index__t.html#aa4f9f28b5b04c6d93f714e0d69ca5471',1,'lb_security_calc_index_t']]],
   ['dividend_5fyield_118',['dividend_yield',['../structlb__security__static__info__t.html#a1e65ffedd6eda21d4ad4788aa0517fe5',1,'lb_security_static_info_t']]]
 ];

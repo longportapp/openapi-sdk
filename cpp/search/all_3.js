@@ -22,7 +22,7 @@ var searchData=
   ['depth_129',['Depth',['../structlongport_1_1quote_1_1_depth.html',1,'longport::quote']]],
   ['derivativetype_130',['DerivativeType',['../structlongport_1_1quote_1_1_derivative_type.html',1,'longport::quote']]],
   ['descending_131',['Descending',['../namespacelongport_1_1quote.html#ae5b0516484ac8b93bb8d3c3c26ee746bae3cf5ac19407b1a62c6fccaff675a53b',1,'longport::quote']]],
-  ['description_132',['description',['../structlongport_1_1trade_1_1_cash_flow.html#abc4fd5b137b037934d43fce0774a548d',1,'longport::trade::CashFlow']]],
+  ['description_132',['description',['../structlongport_1_1trade_1_1_cash_flow.html#abc4fd5b137b037934d43fce0774a548d',1,'longport::trade::CashFlow::description()'],['../structlongport_1_1quote_1_1_quote_package_detail.html#a406493b073df28fa0fd0956b5cc3b2d5',1,'longport::quote::QuotePackageDetail::description()']]],
   ['direction_133',['direction',['../structlongport_1_1trade_1_1_cash_flow.html#a669074f8bd7a20c6cc16ffc93216a2b1',1,'longport::trade::CashFlow::direction()'],['../structlongport_1_1quote_1_1_trade.html#a20623fe9214d8bb0b10d4dc8f7771379',1,'longport::quote::Trade::direction()'],['../structlongport_1_1quote_1_1_option_quote.html#adc0def2533444ef1caa4ee1be4ecf147',1,'longport::quote::OptionQuote::direction()']]],
   ['dividend_5fratio_5fttm_134',['dividend_ratio_ttm',['../structlongport_1_1quote_1_1_security_calc_index.html#a6b25d64db3a3e2d2f8398ec6140cd133',1,'longport::quote::SecurityCalcIndex']]],
   ['dividend_5fyield_135',['dividend_yield',['../structlongport_1_1quote_1_1_security_static_info.html#a0a86d83c9093c9970c2865064b6c8f81',1,'longport::quote::SecurityStaticInfo']]],

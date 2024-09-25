@@ -1,7 +1,7 @@
 var searchData=
 [
   ['effective_5fleverage_119',['effective_leverage',['../structlb__warrant__info__t.html#aa63c71dc9fe2eb95e6056d827bc6d1a7',1,'lb_warrant_info_t::effective_leverage()'],['../structlb__security__calc__index__t.html#aa63c71dc9fe2eb95e6056d827bc6d1a7',1,'lb_security_calc_index_t::effective_leverage()']]],
-  ['end_5fat_120',['end_at',['../structlb__get__history__executions__options__t.html#aa3ddb0c019af7ae164df7e1dbd9c1d62',1,'lb_get_history_executions_options_t::end_at()'],['../structlb__get__history__orders__options__t.html#aa3ddb0c019af7ae164df7e1dbd9c1d62',1,'lb_get_history_orders_options_t::end_at()'],['../structlb__get__cash__flow__options__t.html#a90fc295e27ef422e20e3715d55d45579',1,'lb_get_cash_flow_options_t::end_at()']]],
+  ['end_5fat_120',['end_at',['../structlb__get__history__executions__options__t.html#aa3ddb0c019af7ae164df7e1dbd9c1d62',1,'lb_get_history_executions_options_t::end_at()'],['../structlb__get__history__orders__options__t.html#aa3ddb0c019af7ae164df7e1dbd9c1d62',1,'lb_get_history_orders_options_t::end_at()'],['../structlb__get__cash__flow__options__t.html#a90fc295e27ef422e20e3715d55d45579',1,'lb_get_cash_flow_options_t::end_at()'],['../structlb__quote__package__detail__t.html#a90fc295e27ef422e20e3715d55d45579',1,'lb_quote_package_detail_t::end_at()']]],
   ['end_5ftime_121',['end_time',['../structlb__trading__session__info__t.html#a78b71ef9718a96de9ebe38083a86658e',1,'lb_trading_session_info_t']]],
   ['eps_122',['eps',['../structlb__security__static__info__t.html#a63e8e93c1f637403053e586fe402c563',1,'lb_security_static_info_t']]],
   ['eps_5fttm_123',['eps_ttm',['../structlb__security__static__info__t.html#a37138de1be0c0df9ea8eb14d9e7b8117',1,'lb_security_static_info_t']]],

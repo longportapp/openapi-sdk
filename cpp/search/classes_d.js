@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['realtimequote_710',['RealtimeQuote',['../structlongport_1_1quote_1_1_realtime_quote.html',1,'longport::quote']]],
-  ['replaceorderoptions_711',['ReplaceOrderOptions',['../structlongport_1_1trade_1_1_replace_order_options.html',1,'longport::trade']]]
+  ['realtimequote_713',['RealtimeQuote',['../structlongport_1_1quote_1_1_realtime_quote.html',1,'longport::quote']]],
+  ['replaceorderoptions_714',['ReplaceOrderOptions',['../structlongport_1_1trade_1_1_replace_order_options.html',1,'longport::trade']]]
 ];

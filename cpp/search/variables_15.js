@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['year_1103',['year',['../structlongport_1_1_date.html#a318a24d6fec46d77dc4cd229ba9f8558',1,'longport::Date']]],
-  ['ytd_5fchange_5frate_1104',['ytd_change_rate',['../structlongport_1_1quote_1_1_security_calc_index.html#a7b15a1033312130036ee43c4efe76e42',1,'longport::quote::SecurityCalcIndex']]]
+  ['warrant_5fdelta_1104',['warrant_delta',['../structlongport_1_1quote_1_1_security_calc_index.html#a9ac529ba9592f89da535aa8655920fb7',1,'longport::quote::SecurityCalcIndex']]],
+  ['warrant_5ftype_1105',['warrant_type',['../structlongport_1_1quote_1_1_warrant_info.html#a37c2f753a5a4c5d038d4bc12a13d6aea',1,'longport::quote::WarrantInfo']]],
+  ['watched_5fat_1106',['watched_at',['../structlongport_1_1quote_1_1_watchlist_security.html#a0d4a02f16738d12432c8055740d92124',1,'longport::quote::WatchlistSecurity']]],
+  ['watched_5fprice_1107',['watched_price',['../structlongport_1_1quote_1_1_watchlist_security.html#a7d9cdb3d82213464d06bc26171086df2',1,'longport::quote::WatchlistSecurity']]],
+  ['withdraw_5fcash_1108',['withdraw_cash',['../structlongport_1_1trade_1_1_cash_info.html#ad858cdcb86106812c1842322989b078b',1,'longport::trade::CashInfo']]]
 ];

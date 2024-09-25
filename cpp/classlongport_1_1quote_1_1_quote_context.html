@@ -98,9 +98,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a36f063c1d634e6701269caf3ad43169a"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a36f063c1d634e6701269caf3ad43169a">member_id</a> ()</td></tr>
 <tr class="memdesc:a36f063c1d634e6701269caf3ad43169a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the member id.  <a href="classlongport_1_1quote_1_1_quote_context.html#a36f063c1d634e6701269caf3ad43169a">More...</a><br /></td></tr>
 <tr class="separator:a36f063c1d634e6701269caf3ad43169a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f82631e6051f6410bf57e8dd5cb1a4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#ad7f82631e6051f6410bf57e8dd5cb1a4">quote_level</a> ()</td></tr>
-<tr class="memdesc:ad7f82631e6051f6410bf57e8dd5cb1a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the quote level.  <a href="classlongport_1_1quote_1_1_quote_context.html#ad7f82631e6051f6410bf57e8dd5cb1a4">More...</a><br /></td></tr>
-<tr class="separator:ad7f82631e6051f6410bf57e8dd5cb1a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac72188b4df8b31dde5705357424f2e2a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#ac72188b4df8b31dde5705357424f2e2a">quote_level</a> () const</td></tr>
+<tr class="memdesc:ac72188b4df8b31dde5705357424f2e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the quote level.  <a href="classlongport_1_1quote_1_1_quote_context.html#ac72188b4df8b31dde5705357424f2e2a">More...</a><br /></td></tr>
+<tr class="separator:ac72188b4df8b31dde5705357424f2e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad84dc6de33c92e71f83b633b28d2c84c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#ad84dc6de33c92e71f83b633b28d2c84c">quote_package_details</a> (const std::vector&lt; std::string &gt; &amp;symbols, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_quote_package_detail.html">QuotePackageDetail</a> &gt;&gt; callback) const</td></tr>
+<tr class="memdesc:ad84dc6de33c92e71f83b633b28d2c84c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the quote package details.  <a href="classlongport_1_1quote_1_1_quote_context.html#ad84dc6de33c92e71f83b633b28d2c84c">More...</a><br /></td></tr>
+<tr class="separator:ad84dc6de33c92e71f83b633b28d2c84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a997d9b8dcdb2065e98fb9671e78ff945"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1quote_1_1_quote_context.html#a997d9b8dcdb2065e98fb9671e78ff945">subscribe</a> (const std::vector&lt; std::string &gt; &amp;symbols, <a class="el" href="classlongport_1_1quote_1_1_sub_flags.html">SubFlags</a> sub_flags, bool is_first_push, <a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, void &gt; callback) const</td></tr>
 <tr class="memdesc:a997d9b8dcdb2065e98fb9671e78ff945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe.  <a href="classlongport_1_1quote_1_1_quote_context.html#a997d9b8dcdb2065e98fb9671e78ff945">More...</a><br /></td></tr>
 <tr class="separator:a997d9b8dcdb2065e98fb9671e78ff945"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -944,8 +947,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad7f82631e6051f6410bf57e8dd5cb1a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7f82631e6051f6410bf57e8dd5cb1a4">&#9670;&nbsp;</a></span>quote_level()</h2>
+<a id="ac72188b4df8b31dde5705357424f2e2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac72188b4df8b31dde5705357424f2e2a">&#9670;&nbsp;</a></span>quote_level()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -954,12 +957,42 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">std::string longport::quote::QuoteContext::quote_level </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Returns the quote level. </p>
+
+</div>
+</div>
+<a id="ad84dc6de33c92e71f83b633b28d2c84c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad84dc6de33c92e71f83b633b28d2c84c">&#9670;&nbsp;</a></span>quote_package_details()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void longport::quote::QuoteContext::quote_package_details </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>symbols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacelongport.html#a5474340afc19827a58958a5af2cb33fc">AsyncCallback</a>&lt; <a class="el" href="classlongport_1_1quote_1_1_quote_context.html">QuoteContext</a>, std::vector&lt; <a class="el" href="structlongport_1_1quote_1_1_quote_package_detail.html">QuotePackageDetail</a> &gt;&gt;&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the quote package details. </p>
 
 </div>
 </div>
