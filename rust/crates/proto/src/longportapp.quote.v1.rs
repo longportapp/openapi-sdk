@@ -818,6 +818,9 @@ pub struct UserQuoteLevelDetail {
     /// 按行情包描述
     #[prost(map="string, message", tag="1")]
     pub by_package_key: ::std::collections::HashMap<::prost::alloc::string::String, user_quote_level_detail::PackageDetail>,
+    /// 按市场描述, 目前写死的, 仅有 US HK CN USOption(期权) 4个
+    #[prost(map="string, message", tag="2")]
+    pub by_market_code: ::std::collections::HashMap<::prost::alloc::string::String, user_quote_level_detail::MarketPackageDetail>,
 }
 /// Nested message and enum types in `UserQuoteLevelDetail`.
 pub mod user_quote_level_detail {
@@ -838,6 +841,15 @@ pub mod user_quote_level_detail {
         /// 行情包生效结束时间 Unix 时间戳
         #[prost(int64, tag="6")]
         pub end: i64,
+    }
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct MarketPackageDetail {
+        #[prost(message, repeated, tag="1")]
+        pub packages: ::prost::alloc::vec::Vec<PackageDetail>,
+        /// 当一个包也没有时, 会有如下, 多语言的文案
+        /// `您没有访问该市场 Open API 行情的权限，如需请前往行情商店购买`
+        #[prost(string, tag="4")]
+        pub warning_msg: ::prost::alloc::string::String,
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]

@@ -3,6 +3,8 @@ use std::{
     sync::Arc,
 };
 
+use comfy_table::Table;
+use itertools::Itertools;
 use longport_candlesticks::{IsHalfTradeDay, TickAction, Type, UpdateAction};
 use longport_httpcli::HttpClient;
 use longport_proto::quote::{
@@ -132,6 +134,13 @@ impl<'a> IsHalfTradeDay for HalfDays<'a> {
     }
 }
 
+#[derive(Debug)]
+pub(crate) struct MarketPackageDetail {
+    pub(crate) market: String,
+    pub(crate) packages: Vec<QuotePackageDetail>,
+    pub(crate) warning: String,
+}
+
 pub(crate) struct Core {
     config: Arc<Config>,
     rate_limit: Vec<(u8, RateLimit)>,
@@ -195,14 +204,31 @@ impl Core {
             .await?;
         let member_id = resp.member_id;
         let quote_level = resp.quote_level;
-        let quote_package_details = resp
+        let (quote_package_details, quote_package_details_by_market) = resp
             .quote_level_detail
             .map(|details| {
-                details
-                    .by_package_key
-                    .into_values()
-                    .map(TryInto::try_into)
-                    .collect::<Result<Vec<_>>>()
+                Ok::<_, Error>((
+                    details
+                        .by_package_key
+                        .into_values()
+                        .map(TryInto::try_into)
+                        .collect::<Result<Vec<_>>>()?,
+                    details
+                        .by_market_code
+                        .into_iter()
+                        .map(|(market, market_packages)| {
+                            Ok(MarketPackageDetail {
+                                market,
+                                packages: market_packages
+                                    .packages
+                                    .into_iter()
+                                    .map(TryInto::try_into)
+                                    .collect::<Result<Vec<_>>>()?,
+                                warning: market_packages.warning_msg,
+                            })
+                        })
+                        .collect::<Result<Vec<_>>>()?,
+                ))
             })
             .transpose()?
             .unwrap_or_default();
@@ -225,6 +251,24 @@ impl Core {
 
         let current_trade_days = fetch_current_trade_days(&ws_cli).await?;
         let push_candlestick_mode = config.push_candlestick_mode;
+
+        let mut table = Table::new();
+        dbg!(&quote_package_details_by_market);
+        for market_packages in quote_package_details_by_market {
+            if market_packages.warning.is_empty() {
+                table.add_row(vec![
+                    market_packages.market,
+                    market_packages
+                        .packages
+                        .into_iter()
+                        .map(|package| package.name)
+                        .join(", "),
+                ]);
+            } else {
+                table.add_row(vec![market_packages.market, market_packages.warning]);
+            }
+        }
+        println!("{}", table);
 
         Ok(Self {
             config,
