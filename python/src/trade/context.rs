@@ -378,6 +378,8 @@ impl TradeContext {
 
     /// Estimating the maximum purchase quantity for Hong Kong and US stocks,
     /// warrants, and options
+    #[allow(clippy::too_many_arguments)]
+    #[pyo3(signature = (symbol, order_type, side, price, currency = None, order_id = None, fractional_shares = false))]
     pub fn estimate_max_purchase_quantity(
         &self,
         symbol: String,
@@ -386,6 +388,7 @@ impl TradeContext {
         price: Option<PyDecimal>,
         currency: Option<String>,
         order_id: Option<String>,
+        fractional_shares: bool,
     ) -> PyResult<EstimateMaxPurchaseQuantityResponse> {
         let mut opts =
             EstimateMaxPurchaseQuantityOptions::new(symbol, order_type.into(), side.into());
@@ -398,6 +401,9 @@ impl TradeContext {
         }
         if let Some(order_id) = order_id {
             opts = opts.order_id(order_id);
+        }
+        if fractional_shares {
+            opts = opts.fractional_shares();
         }
 
         self.ctx
