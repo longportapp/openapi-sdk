@@ -6,8 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # [2.0.0] 2024-10-09
 
+### Added
+
+- Print the opened quote packages when connected to the server.
+
+### Breaking Changes
+
 - The quantity type in the trading API has changed from `int` to `Decimal`.
-- Print the quote packages when connected to the server.
 
 # [1.0.32] 2024-08-28
 
