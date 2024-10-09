@@ -59,7 +59,7 @@ public class TradeContext implements AutoCloseable {
      *             SubmitOrderOptions opts = new SubmitOrderOptions("700.HK",
      *                     OrderType.LO,
      *                     OrderSide.Buy,
-     *                     200,
+     *                     new BigDecimal(200),
      *                     TimeInForceType.Day).setSubmittedPrice(new BigDecimal(50));
      *             SubmitOrderResponse resp = ctx.submitOrder(opts).get();
      *             System.out.println(resp);
@@ -247,7 +247,7 @@ public class TradeContext implements AutoCloseable {
      * class Main {
      *     public static void main(String[] args) throws Exception {
      *         try (Config config = Config.fromEnv(); TradeContext ctx = TradeContext.create(config).get()) {
-     *             ReplaceOrderOptions opts = new ReplaceOrderOptions("709043056541253632", 100)
+     *             ReplaceOrderOptions opts = new ReplaceOrderOptions("709043056541253632", new BigDecimal(100))
      *                     .setPrice(new BigDecimal(300));
      *             ctx.replaceOrder(opts).get();
      *         }
@@ -282,7 +282,7 @@ public class TradeContext implements AutoCloseable {
      *                     "700.HK",
      *                     OrderType.LO,
      *                     OrderSide.Buy,
-     *                     200,
+     *                     new BigDecimal(200),
      *                     TimeInForceType.Day).setSubmittedPrice(new BigDecimal(50));
      *             SubmitOrderResponse resp = ctx.submitOrder(opts).get();
      *             System.out.println(resp);

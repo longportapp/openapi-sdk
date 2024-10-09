@@ -16,7 +16,7 @@ pub struct SubmitOrderOptions {
     /// Order side
     pub side: OrderSide,
     /// Submitted quantity
-    pub submitted_quantity: i64,
+    pub submitted_quantity: ClassInstance<Decimal>,
     /// Time in force type
     pub time_in_force: TimeInForceType,
     /// Submitted price
@@ -45,7 +45,7 @@ impl From<SubmitOrderOptions> for longport::trade::SubmitOrderOptions {
             opts.symbol,
             opts.order_type.into(),
             opts.side.into(),
-            opts.submitted_quantity,
+            opts.submitted_quantity.0,
             opts.time_in_force.into(),
         );
         if let Some(submitted_price) = opts.submitted_price {

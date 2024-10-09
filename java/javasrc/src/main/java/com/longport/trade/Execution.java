@@ -8,7 +8,7 @@ public class Execution {
     private String tradeId;
     private String symbol;
     private OffsetDateTime tradeDoneAt;
-    private long quantity;
+    private BigDecimal quantity;
     private BigDecimal price;
 
     public String getOrderId() {
@@ -27,7 +27,7 @@ public class Execution {
         return tradeDoneAt;
     }
 
-    public long getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 

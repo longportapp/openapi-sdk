@@ -2,11 +2,11 @@ use std::sync::Arc;
 
 use longport_httpcli::{HttpClient, Json, Method};
 use longport_wscli::WsClientError;
+use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use tokio::sync::{mpsc, oneshot};
 
 use crate::{
-    serde_utils,
     trade::{
         core::{Command, Core},
         AccountBalance, CashFlow, EstimateMaxPurchaseQuantityOptions, Execution,
@@ -32,11 +32,9 @@ pub struct SubmitOrderResponse {
 #[derive(Debug, Deserialize)]
 pub struct EstimateMaxPurchaseQuantityResponse {
     /// Cash available quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub cash_max_qty: i64,
+    pub cash_max_qty: Decimal,
     /// Margin available quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub margin_max_qty: i64,
+    pub margin_max_qty: Decimal,
 }
 
 /// Trade context
@@ -87,7 +85,7 @@ impl TradeContext {
     ///     "700.HK",
     ///     OrderType::LO,
     ///     OrderSide::Buy,
-    ///     200,
+    ///     decimal!(200),
     ///     TimeInForceType::Day,
     /// )
     /// .submitted_price(decimal!(50i32));
@@ -342,7 +340,8 @@ impl TradeContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = TradeContext::try_new(config).await?;
     ///
-    /// let opts = ReplaceOrderOptions::new("709043056541253632", 100).price(decimal!(300i32));
+    /// let opts =
+    ///     ReplaceOrderOptions::new("709043056541253632", decimal!(100)).price(decimal!(300i32));
     /// let resp = ctx.replace_order(opts).await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
@@ -382,7 +381,7 @@ impl TradeContext {
     ///     "700.HK",
     ///     OrderType::LO,
     ///     OrderSide::Buy,
-    ///     200,
+    ///     decimal!(200),
     ///     TimeInForceType::Day,
     /// )
     /// .submitted_price(decimal!(50i32));

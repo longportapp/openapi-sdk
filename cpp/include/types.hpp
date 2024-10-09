@@ -1186,7 +1186,7 @@ struct Execution
   std::string trade_id;
   std::string symbol;
   int64_t trade_done_at;
-  int64_t quantity;
+  Decimal quantity;
   Decimal price;
 };
 
@@ -1369,9 +1369,9 @@ struct Order
   /// Stock name
   std::string stock_name;
   /// Submitted quantity
-  int64_t quantity;
+  Decimal quantity;
   /// Executed quantity
-  int64_t executed_quantity;
+  Decimal executed_quantity;
   /// Submitted price
   std::optional<Decimal> price;
   /// Executed price
@@ -1424,7 +1424,7 @@ struct PushOrderChanged
   /// Stock name
   std::string stock_name;
   /// Submitted quantity
-  int64_t submitted_quantity;
+  Decimal submitted_quantity;
   /// Order symbol
   std::string symbol;
   /// Order type
@@ -1432,7 +1432,7 @@ struct PushOrderChanged
   /// Submitted price
   Decimal submitted_price;
   /// Executed quantity
-  int64_t executed_quantity;
+  Decimal executed_quantity;
   /// Executed price
   std::optional<Decimal> executed_price;
   /// Order ID
@@ -1509,7 +1509,7 @@ struct ReplaceOrderOptions
   /// Order ID
   std::string order_id;
   /// Quantity
-  int64_t quantity;
+  Decimal quantity;
   /// Price
   std::optional<Decimal> price;
   /// Trigger price
@@ -1534,7 +1534,7 @@ struct SubmitOrderOptions
   /// Order side
   OrderSide side;
   /// Submitted price
-  int64_t submitted_quantity;
+  Decimal submitted_quantity;
   /// Time in force type
   TimeInForceType time_in_force;
   /// Submitted price
@@ -1724,9 +1724,9 @@ struct StockPosition
   /// Stock name
   std::string symbol_name;
   /// The number of holdings
-  int64_t quantity;
+  Decimal quantity;
   /// Available quantity
-  int64_t available_quantity;
+  Decimal available_quantity;
   /// Currency
   std::string currency;
   /// Cost Price(According to the client's choice of average purchase or diluted
@@ -1735,7 +1735,7 @@ struct StockPosition
   /// Market
   Market market;
   /// Initial position before market opening
-  std::optional<int64_t> init_quantity;
+  std::optional<Decimal> init_quantity;
 };
 
 /// Stock position channel
@@ -1801,7 +1801,7 @@ struct OrderHistoryDetail
   Decimal price;
   /// Executed quantity for executed orders, remaining quantity for expired,
   /// canceled, rejected orders, etc.
-  int64_t quantity;
+  Decimal quantity;
   /// Order status
   OrderStatus status;
   /// Execution or error message
@@ -1855,9 +1855,9 @@ struct OrderDetail
   /// Stock name
   std::string stock_name;
   /// Submitted quantity
-  int64_t quantity;
+  Decimal quantity;
   /// Executed quantity
-  int64_t executed_quantity;
+  Decimal executed_quantity;
   /// Submitted price
   std::optional<Decimal> price;
   /// Executed price
@@ -1946,9 +1946,9 @@ struct EstimateMaxPurchaseQuantityOptions
 struct EstimateMaxPurchaseQuantityResponse
 {
   /// Cash available quantity
-  int64_t cash_max_qty;
+  Decimal cash_max_qty;
   /// Margin available quantity
-  int64_t margin_max_qty;
+  Decimal margin_max_qty;
 };
 
 } // namespace trade

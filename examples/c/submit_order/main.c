@@ -30,9 +30,14 @@ on_trade_context_created(const struct lb_async_result_t* res)
   *((const lb_quote_context_t**)res->userdata) = res->ctx;
 
   lb_decimal_t* submitted_price = lb_decimal_from_double(50.0);
+  lb_decimal_t* submitted_quantity = lb_decimal_from_double(200.0);
   lb_submit_order_options_t opts = {
-    "700.HK", OrderTypeLO, OrderSideBuy, 200,  TimeInForceDay, submitted_price,
-    NULL,     NULL,        NULL,         NULL, NULL,           NULL,
+    "700.HK",       OrderTypeLO,
+    OrderSideBuy,   submitted_quantity,
+    TimeInForceDay, submitted_price,
+    NULL,           NULL,
+    NULL,           NULL,
+    NULL,           NULL,
     NULL,
   };
   lb_decimal_free(submitted_price);

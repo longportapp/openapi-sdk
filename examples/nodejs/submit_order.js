@@ -16,7 +16,7 @@ TradeContext.new(config)
       side: OrderSide.Buy,
       timeInForce: TimeInForceType.Day,
       submittedPrice: new Decimal("50"),
-      submittedQuantity: 200,
+      submittedQuantity: new Decimal("200"),
     })
   )
   .then((resp) => console.log(resp.toString()));

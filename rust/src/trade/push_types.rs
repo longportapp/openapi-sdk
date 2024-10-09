@@ -29,8 +29,7 @@ pub struct PushOrderChanged {
     /// Stock name
     pub stock_name: String,
     /// Submitted quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub submitted_quantity: i64,
+    pub submitted_quantity: Decimal,
     /// Order symbol
     pub symbol: String,
     /// Order type
@@ -38,8 +37,7 @@ pub struct PushOrderChanged {
     /// Submitted price
     pub submitted_price: Decimal,
     /// Executed quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub executed_quantity: i64,
+    pub executed_quantity: Decimal,
     /// Executed price
     #[serde(with = "serde_utils::decimal_opt_0_is_none")]
     pub executed_price: Option<Decimal>,

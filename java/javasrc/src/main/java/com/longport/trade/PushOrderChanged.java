@@ -6,11 +6,11 @@ import java.time.OffsetDateTime;
 public class PushOrderChanged {
     private OrderSide side;
     private String stockName;
-    private long submittedQuantity;
+    private BigDecimal submittedQuantity;
     private String symbol;
     private OrderType orderType;
     private BigDecimal submittedPrice;
-    private long executedQuantity;
+    private BigDecimal executedQuantity;
     private BigDecimal executedPrice;
     private String orderId;
     private String currency;
@@ -38,7 +38,7 @@ public class PushOrderChanged {
         return stockName;
     }
 
-    public long getSubmittedQuantity() {
+    public BigDecimal getSubmittedQuantity() {
         return submittedQuantity;
     }
 
@@ -54,7 +54,7 @@ public class PushOrderChanged {
         return submittedPrice;
     }
 
-    public long getExecutedQuantity() {
+    public BigDecimal getExecutedQuantity() {
         return executedQuantity;
     }
 

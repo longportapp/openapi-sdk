@@ -27,7 +27,7 @@ pub struct Execution {
     #[js(datetime)]
     trade_done_at: DateTime<Utc>,
     /// Executed quantity
-    quantity: i64,
+    quantity: Decimal,
     /// Executed price
     price: Decimal,
 }
@@ -205,9 +205,9 @@ pub struct Order {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: i64,
+    quantity: Decimal,
     /// Executed quantity
-    executed_quantity: i64,
+    executed_quantity: Decimal,
     /// Submitted price
     #[js(opt)]
     price: Option<Decimal>,
@@ -322,7 +322,7 @@ pub struct OrderHistoryDetail {
     price: Decimal,
     /// Executed quantity for executed orders, remaining quantity for expired,
     /// canceled, rejected orders, etc.
-    quantity: i64,
+    quantity: Decimal,
     /// Order status
     status: OrderStatus,
     /// Execution or error message
@@ -387,9 +387,9 @@ pub struct OrderDetail {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: i64,
+    quantity: Decimal,
     /// Executed quantity
-    executed_quantity: i64,
+    executed_quantity: Decimal,
     /// Submitted price
     #[js(opt)]
     price: Option<Decimal>,
@@ -485,7 +485,7 @@ pub struct PushOrderChanged {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    submitted_quantity: i64,
+    submitted_quantity: Decimal,
     /// Order symbol
     symbol: String,
     /// Order type
@@ -493,7 +493,7 @@ pub struct PushOrderChanged {
     /// Submitted price
     submitted_price: Decimal,
     /// Executed quantity
-    executed_quantity: i64,
+    executed_quantity: Decimal,
     /// Executed price
     #[js(opt)]
     executed_price: Option<Decimal>,
@@ -725,9 +725,9 @@ pub struct StockPosition {
     /// Stock name
     symbol_name: String,
     /// The number of holdings
-    quantity: i64,
+    quantity: Decimal,
     /// Available quantity
-    available_quantity: i64,
+    available_quantity: Decimal,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or
@@ -737,7 +737,7 @@ pub struct StockPosition {
     market: Market,
     /// Initial position before market opening
     #[js(opt)]
-    init_quantity: Option<i64>,
+    init_quantity: Option<Decimal>,
 }
 
 /// Margin ratio
@@ -759,7 +759,7 @@ pub struct MarginRatio {
 #[js(remote = "longport::trade::EstimateMaxPurchaseQuantityResponse")]
 pub struct EstimateMaxPurchaseQuantityResponse {
     /// Cash available quantity
-    cash_max_qty: i64,
+    cash_max_qty: Decimal,
     /// Margin available quantity
-    margin_max_qty: i64,
+    margin_max_qty: Decimal,
 }

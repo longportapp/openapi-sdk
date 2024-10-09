@@ -205,7 +205,7 @@ impl TradeContext {
     fn replace_order(
         &self,
         order_id: String,
-        quantity: i64,
+        quantity: PyDecimal,
         price: Option<PyDecimal>,
         trigger_price: Option<PyDecimal>,
         limit_offset: Option<PyDecimal>,
@@ -213,7 +213,7 @@ impl TradeContext {
         trailing_percent: Option<PyDecimal>,
         remark: Option<String>,
     ) -> PyResult<()> {
-        let mut opts = ReplaceOrderOptions::new(order_id, quantity);
+        let mut opts = ReplaceOrderOptions::new(order_id, quantity.into());
 
         if let Some(price) = price {
             opts = opts.price(price.into());
@@ -245,7 +245,7 @@ impl TradeContext {
         symbol: String,
         order_type: OrderType,
         side: OrderSide,
-        submitted_quantity: i64,
+        submitted_quantity: PyDecimal,
         time_in_force: TimeInForceType,
         submitted_price: Option<PyDecimal>,
         trigger_price: Option<PyDecimal>,
@@ -260,7 +260,7 @@ impl TradeContext {
             symbol,
             order_type.into(),
             side.into(),
-            submitted_quantity,
+            submitted_quantity.into(),
             time_in_force.into(),
         );
 

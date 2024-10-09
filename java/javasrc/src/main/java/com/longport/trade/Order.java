@@ -8,8 +8,8 @@ public class Order {
     private String orderId;
     private OrderStatus status;
     private String stockName;
-    private long quantity;
-    private long executedQuantity;
+    private BigDecimal quantity;
+    private BigDecimal executedQuantity;
     private BigDecimal price;
     private BigDecimal executedPrice;
     private OffsetDateTime submittedAt;
@@ -44,11 +44,11 @@ public class Order {
         return stockName;
     }
 
-    public long getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public long getExecutedQuantity() {
+    public BigDecimal getExecutedQuantity() {
         return executedQuantity;
     }
 

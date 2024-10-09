@@ -30,7 +30,7 @@ pub(crate) struct Execution {
     /// Trade done time
     trade_done_at: PyOffsetDateTimeWrapper,
     /// Executed quantity
-    quantity: i64,
+    quantity: PyDecimal,
     /// Executed price
     price: PyDecimal,
 }
@@ -208,9 +208,9 @@ pub(crate) struct Order {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: i64,
+    quantity: PyDecimal,
     /// Executed quantity
-    executed_quantity: i64,
+    executed_quantity: PyDecimal,
     /// Submitted price
     #[py(opt)]
     price: Option<PyDecimal>,
@@ -326,7 +326,7 @@ pub(crate) struct OrderHistoryDetail {
     price: PyDecimal,
     /// Executed quantity for executed orders, remaining quantity for expired,
     /// canceled, rejected orders, etc.
-    quantity: i64,
+    quantity: PyDecimal,
     /// Order status
     status: OrderStatus,
     /// Execution or error message
@@ -390,9 +390,9 @@ pub(crate) struct OrderDetail {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    quantity: i64,
+    quantity: PyDecimal,
     /// Executed quantity
-    executed_quantity: i64,
+    executed_quantity: PyDecimal,
     /// Submitted price
     #[py(opt)]
     price: Option<PyDecimal>,
@@ -487,7 +487,7 @@ pub(crate) struct PushOrderChanged {
     /// Stock name
     stock_name: String,
     /// Submitted quantity
-    submitted_quantity: i64,
+    submitted_quantity: PyDecimal,
     /// Order symbol
     symbol: String,
     /// Order type
@@ -495,7 +495,7 @@ pub(crate) struct PushOrderChanged {
     /// Submitted price
     submitted_price: PyDecimal,
     /// Executed quantity
-    executed_quantity: i64,
+    executed_quantity: PyDecimal,
     /// Executed price
     #[py(opt)]
     executed_price: Option<PyDecimal>,
@@ -721,9 +721,9 @@ pub(crate) struct StockPosition {
     /// Stock name
     symbol_name: String,
     /// The number of holdings
-    quantity: i64,
+    quantity: PyDecimal,
     /// Available quantity
-    available_quantity: i64,
+    available_quantity: PyDecimal,
     /// Currency
     currency: String,
     /// Cost Price(According to the client's choice of average purchase or
@@ -733,7 +733,7 @@ pub(crate) struct StockPosition {
     market: Market,
     /// Initial position before market opening
     #[py(opt)]
-    pub init_quantity: Option<i64>,
+    pub init_quantity: Option<PyDecimal>,
 }
 
 /// Margin ratio
@@ -755,7 +755,7 @@ pub(crate) struct MarginRatio {
 #[py(remote = "longport::trade::EstimateMaxPurchaseQuantityResponse")]
 pub(crate) struct EstimateMaxPurchaseQuantityResponse {
     /// Cash available quantity
-    pub cash_max_qty: i64,
+    pub cash_max_qty: PyDecimal,
     /// Margin available quantity
-    pub margin_max_qty: i64,
+    pub margin_max_qty: PyDecimal,
 }

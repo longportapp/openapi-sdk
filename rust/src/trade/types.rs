@@ -126,8 +126,7 @@ pub struct Execution {
     #[serde(with = "serde_utils::timestamp")]
     pub trade_done_at: OffsetDateTime,
     /// Executed quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub quantity: i64,
+    pub quantity: Decimal,
     /// Executed price
     pub price: Decimal,
 }
@@ -250,11 +249,9 @@ pub struct Order {
     /// Stock name
     pub stock_name: String,
     /// Submitted quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub quantity: i64,
+    pub quantity: Decimal,
     /// Executed quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub executed_quantity: i64,
+    pub executed_quantity: Decimal,
     /// Submitted price
     #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub price: Option<Decimal>,
@@ -370,8 +367,7 @@ pub struct OrderHistoryDetail {
     pub price: Decimal,
     /// Executed quantity for executed orders, remaining quantity for expired,
     /// canceled, rejected orders, etc.
-    #[serde(with = "serde_utils::int64_str")]
-    pub quantity: i64,
+    pub quantity: Decimal,
     /// Order status
     pub status: OrderStatus,
     /// Execution or error message
@@ -427,11 +423,9 @@ pub struct OrderDetail {
     /// Stock name
     pub stock_name: String,
     /// Submitted quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub quantity: i64,
+    pub quantity: Decimal,
     /// Executed quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub executed_quantity: i64,
+    pub executed_quantity: Decimal,
     /// Submitted price
     #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
     pub price: Option<Decimal>,
@@ -706,11 +700,9 @@ pub struct StockPosition {
     /// Stock name
     pub symbol_name: String,
     /// The number of holdings
-    #[serde(with = "serde_utils::int64_str")]
-    pub quantity: i64,
+    pub quantity: Decimal,
     /// Available quantity
-    #[serde(with = "serde_utils::int64_str")]
-    pub available_quantity: i64,
+    pub available_quantity: Decimal,
     /// Currency
     pub currency: String,
     /// Cost Price(According to the client's choice of average purchase or
@@ -720,8 +712,8 @@ pub struct StockPosition {
     /// Market
     pub market: Market,
     /// Initial position before market opening
-    #[serde(with = "serde_utils::int64_str_empty_is_none")]
-    pub init_quantity: Option<i64>,
+    #[serde(with = "serde_utils::decimal_opt_empty_is_none")]
+    pub init_quantity: Option<Decimal>,
 }
 
 /// Margin ratio
@@ -849,18 +841,18 @@ mod tests {
         assert_eq!(position.symbol, "700.HK");
         assert_eq!(position.symbol_name, "腾讯控股");
         assert_eq!(position.currency, "HK");
-        assert_eq!(position.quantity, 650);
-        assert_eq!(position.available_quantity, -450);
+        assert_eq!(position.quantity, decimal!(650));
+        assert_eq!(position.available_quantity, decimal!(-450));
         assert_eq!(position.cost_price, decimal!(457.53f32));
         assert_eq!(position.market, Market::HK);
-        assert_eq!(position.init_quantity, Some(2000));
+        assert_eq!(position.init_quantity, Some(decimal!(2000)));
 
         let position = &channel.positions[0];
         assert_eq!(position.symbol, "700.HK");
         assert_eq!(position.symbol_name, "腾讯控股");
         assert_eq!(position.currency, "HK");
-        assert_eq!(position.quantity, 650);
-        assert_eq!(position.available_quantity, -450);
+        assert_eq!(position.quantity, decimal!(650));
+        assert_eq!(position.available_quantity, decimal!(-450));
         assert_eq!(position.cost_price, decimal!(457.53f32));
         assert_eq!(position.market, Market::HK);
 
@@ -868,8 +860,8 @@ mod tests {
         assert_eq!(position.symbol, "9991.HK");
         assert_eq!(position.symbol_name, "宝尊电商-SW");
         assert_eq!(position.currency, "HK");
-        assert_eq!(position.quantity, 200);
-        assert_eq!(position.available_quantity, 0);
+        assert_eq!(position.quantity, decimal!(200));
+        assert_eq!(position.available_quantity, decimal!(0));
         assert_eq!(position.cost_price, decimal!(32.25f32));
         assert_eq!(position.init_quantity, None);
     }
@@ -1053,7 +1045,7 @@ mod tests {
         let order = &resp.orders[0];
         assert_eq!(order.currency, "HKD");
         assert!(order.executed_price.is_none());
-        assert_eq!(order.executed_quantity, 0);
+        assert_eq!(order.executed_quantity, decimal!(0));
         assert!(order.expire_date.is_none());
         assert!(order.last_done.is_none());
         assert!(order.limit_offset.is_none());
@@ -1062,7 +1054,7 @@ mod tests {
         assert_eq!(order.order_type, OrderType::ELO);
         assert!(order.outside_rth.is_none());
         assert_eq!(order.price, Some("11.900".parse().unwrap()));
-        assert_eq!(order.quantity, 200);
+        assert_eq!(order.quantity, decimal!(200));
         assert_eq!(order.side, OrderSide::Buy);
         assert_eq!(order.status, OrderStatus::Rejected);
         assert_eq!(order.stock_name, "Bank of East Asia Ltd/The");
@@ -1127,7 +1119,7 @@ mod tests {
         let order = &resp.orders[0];
         assert_eq!(order.currency, "HKD");
         assert!(order.executed_price.is_none());
-        assert_eq!(order.executed_quantity, 0);
+        assert_eq!(order.executed_quantity, decimal!(0));
         assert!(order.expire_date.is_none());
         assert!(order.last_done.is_none());
         assert!(order.limit_offset.is_none());
@@ -1136,7 +1128,7 @@ mod tests {
         assert_eq!(order.order_type, OrderType::ELO);
         assert!(order.outside_rth.is_none());
         assert_eq!(order.price, Some("11.900".parse().unwrap()));
-        assert_eq!(order.quantity, 200);
+        assert_eq!(order.quantity, decimal!(200));
         assert_eq!(order.side, OrderSide::Buy);
         assert_eq!(order.status, OrderStatus::Rejected);
         assert_eq!(order.stock_name, "Bank of East Asia Ltd/The");
@@ -1182,7 +1174,7 @@ mod tests {
         let execution = &resp.trades[0];
         assert_eq!(execution.order_id, "693664675163312128");
         assert_eq!(execution.price, "388".parse().unwrap());
-        assert_eq!(execution.quantity, 100);
+        assert_eq!(execution.quantity, decimal!(100));
         assert_eq!(execution.symbol, "700.HK");
         assert_eq!(execution.trade_done_at, datetime!(2022-03-30 11:35:51 +8));
         assert_eq!(execution.trade_id, "693664675163312128-1648611351433741210");

@@ -1587,7 +1587,7 @@ typedef struct lb_push_order_changed_t {
   /**
    * Submitted quantity
    */
-  int64_t submitted_quantity;
+  const struct lb_decimal_t *submitted_quantity;
   /**
    * Order symbol
    */
@@ -1603,7 +1603,7 @@ typedef struct lb_push_order_changed_t {
   /**
    * Executed quantity
    */
-  int64_t executed_quantity;
+  const struct lb_decimal_t *executed_quantity;
   /**
    * Executed price (maybe null)
    */
@@ -1789,7 +1789,7 @@ typedef struct lb_replace_order_options_t {
   /**
    * Quantity
    */
-  int64_t quantity;
+  const struct lb_decimal_t *quantity;
   /**
    * Price (can be null)
    */
@@ -1835,7 +1835,7 @@ typedef struct lb_submit_order_options_t {
   /**
    * Submitted price
    */
-  int64_t submitted_quantity;
+  const struct lb_decimal_t *submitted_quantity;
   /**
    * Time in force type
    */
@@ -2629,7 +2629,7 @@ typedef struct lb_execution_t {
   /**
    * Executed quantity
    */
-  int64_t quantity;
+  const struct lb_decimal_t *quantity;
   /**
    * Executed price
    */
@@ -2655,11 +2655,11 @@ typedef struct lb_order_t {
   /**
    * Submitted quantity
    */
-  int64_t quantity;
+  const struct lb_decimal_t *quantity;
   /**
    * Executed quantity
    */
-  int64_t executed_quantity;
+  const struct lb_decimal_t *executed_quantity;
   /**
    * Submitted price (maybe null)
    */
@@ -2945,11 +2945,11 @@ typedef struct lb_stock_position_t {
   /**
    * The number of holdings
    */
-  int64_t quantity;
+  const struct lb_decimal_t *quantity;
   /**
    * Available quantity
    */
-  int64_t available_quantity;
+  const struct lb_decimal_t *available_quantity;
   /**
    * Currency
    */
@@ -2966,7 +2966,7 @@ typedef struct lb_stock_position_t {
   /**
    * Initial position before market opening
    */
-  const int64_t *init_quantity;
+  const struct lb_decimal_t *init_quantity;
 } lb_stock_position_t;
 
 /**
@@ -3082,7 +3082,7 @@ typedef struct lb_margin_ratio_t {
  */
 typedef struct lb_order_history_detail_t {
   const struct lb_decimal_t *price;
-  int64_t quantity;
+  const struct lb_decimal_t *quantity;
   enum lb_order_status_t status;
   const char *msg;
   int64_t time;
@@ -3173,11 +3173,11 @@ typedef struct lb_order_detail_t {
   /**
    * Submitted quantity
    */
-  int64_t quantity;
+  const struct lb_decimal_t *quantity;
   /**
    * Executed quantity
    */
-  int64_t executed_quantity;
+  const struct lb_decimal_t *executed_quantity;
   /**
    * Submitted price (maybe null)
    */
@@ -3319,11 +3319,11 @@ typedef struct lb_estimate_max_purchase_quantity_response_t {
   /**
    * Cash available quantity
    */
-  int64_t cash_max_qty;
+  const struct lb_decimal_t *cash_max_qty;
   /**
    * Margin available quantity
    */
-  int64_t margin_max_qty;
+  const struct lb_decimal_t *margin_max_qty;
 } lb_estimate_max_purchase_quantity_response_t;
 
 /**
