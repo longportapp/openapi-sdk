@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 
 public class OrderHistoryDetail {
     private BigDecimal price;
-    private long quantity;
+    private BigDecimal quantity;
     private OrderStatus status;
     private String msg;
     private OffsetDateTime time;
@@ -14,7 +14,7 @@ public class OrderHistoryDetail {
         return price;
     }
 
-    public long getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 

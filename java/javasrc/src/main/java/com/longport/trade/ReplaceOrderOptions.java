@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 @SuppressWarnings("unused")
 public class ReplaceOrderOptions {
     private String orderId;
-    private long quantity;
+    private BigDecimal quantity;
     private BigDecimal price;
     private BigDecimal triggerPrice;
     private BigDecimal limitOffset;
@@ -13,7 +13,7 @@ public class ReplaceOrderOptions {
     private BigDecimal trailingPercent;
     private String remark;
 
-    public ReplaceOrderOptions(String orderId, long quantity) {
+    public ReplaceOrderOptions(String orderId, BigDecimal quantity) {
         this.orderId = orderId;
         this.quantity = quantity;
     }

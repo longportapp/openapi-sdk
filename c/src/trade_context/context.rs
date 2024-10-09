@@ -20,12 +20,13 @@ use crate::{
         enum_types::CTopicType,
         types::{
             CAccountBalanceOwned, CCashFlowOwned, CEstimateMaxPurchaseQuantityOptions,
-            CEstimateMaxPurchaseQuantityResponse, CExecutionOwned, CFundPositionsResponseOwned,
-            CGetCashFlowOptions, CGetFundPositionsOptions, CGetHistoryExecutionsOptions,
-            CGetHistoryOrdersOptions, CGetStockPositionsOptions, CGetTodayExecutionsOptions,
-            CGetTodayOrdersOptions, CMarginRatioOwned, COrderDetailOwned, COrderOwned,
-            CPushOrderChanged, CPushOrderChangedOwned, CReplaceOrderOptions,
-            CStockPositionsResponseOwned, CSubmitOrderOptions, CSubmitOrderResponseOwned,
+            CEstimateMaxPurchaseQuantityResponseOwned, CExecutionOwned,
+            CFundPositionsResponseOwned, CGetCashFlowOptions, CGetFundPositionsOptions,
+            CGetHistoryExecutionsOptions, CGetHistoryOrdersOptions, CGetStockPositionsOptions,
+            CGetTodayExecutionsOptions, CGetTodayOrdersOptions, CMarginRatioOwned,
+            COrderDetailOwned, COrderOwned, CPushOrderChanged, CPushOrderChangedOwned,
+            CReplaceOrderOptions, CStockPositionsResponseOwned, CSubmitOrderOptions,
+            CSubmitOrderResponseOwned,
         },
     },
     types::{cstr_array_to_rust, cstr_to_rust, CCow, CVec, ToFFI},
@@ -364,7 +365,7 @@ pub unsafe extern "C" fn lb_trade_context_replace_order(
     let ctx_inner = (*ctx).ctx.clone();
     let order_id = cstr_to_rust((*opts).order_id);
     let quantity = (*opts).quantity;
-    let mut opts2 = ReplaceOrderOptions::new(order_id, quantity);
+    let mut opts2 = ReplaceOrderOptions::new(order_id, (*quantity).value);
     if !(*opts).price.is_null() {
         opts2 = opts2.price((*(*opts).price).value);
     }
@@ -405,8 +406,13 @@ pub unsafe extern "C" fn lb_trade_context_submit_order(
     let side = (*opts).side.into();
     let submitted_quantity = (*opts).submitted_quantity;
     let time_in_force = (*opts).time_in_force.into();
-    let mut opts2 =
-        SubmitOrderOptions::new(symbol, order_type, side, submitted_quantity, time_in_force);
+    let mut opts2 = SubmitOrderOptions::new(
+        symbol,
+        order_type,
+        side,
+        (*submitted_quantity).value,
+        time_in_force,
+    );
     if !(*opts).submitted_price.is_null() {
         opts2 = opts2.submitted_price((*(*opts).submitted_price).value);
     }
@@ -602,7 +608,7 @@ pub unsafe extern "C" fn lb_trade_context_estimate_max_purchase_quantity(
         opts2 = opts2.order_id(cstr_to_rust((*opts).order_id));
     }
     execute_async(callback, ctx, userdata, async move {
-        let resp: CCow<CEstimateMaxPurchaseQuantityResponse> =
+        let resp: CCow<CEstimateMaxPurchaseQuantityResponseOwned> =
             CCow::new(ctx_inner.estimate_max_purchase_quantity(opts2).await?);
         Ok(resp)
     });

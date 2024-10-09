@@ -483,7 +483,7 @@ export interface ReplaceOrderOptions {
   /** Order id */
   orderId: string
   /** Replaced quantity */
-  quantity: number
+  quantity: Decimal
   /** Replaced price */
   price?: Decimal
   /** Trigger price (`LIT` / `MIT` Order Required) */
@@ -506,7 +506,7 @@ export interface SubmitOrderOptions {
   /** Order side */
   side: OrderSide
   /** Submitted quantity */
-  submittedQuantity: number
+  submittedQuantity: Decimal
   /** Time in force type */
   timeInForce: TimeInForceType
   /** Submitted price */
@@ -2622,7 +2622,7 @@ export class Execution {
   /** Trade done time */
   get tradeDoneAt(): Date
   /** Executed quantity */
-  get quantity(): number
+  get quantity(): Decimal
   /** Executed price */
   get price(): Decimal
 }
@@ -2637,9 +2637,9 @@ export class Order {
   /** Stock name */
   get stockName(): string
   /** Submitted quantity */
-  get quantity(): number
+  get quantity(): Decimal
   /** Executed quantity */
-  get executedQuantity(): number
+  get executedQuantity(): Decimal
   /** Submitted price */
   get price(): Decimal | null
   /** Executed price */
@@ -2696,7 +2696,7 @@ export class OrderHistoryDetail {
    * Executed quantity for executed orders, remaining quantity for expired,
    * canceled, rejected orders, etc.
    */
-  get quantity(): number
+  get quantity(): Decimal
   /** Order status */
   get status(): OrderStatus
   /** Execution or error message */
@@ -2750,9 +2750,9 @@ export class OrderDetail {
   /** Stock name */
   get stockName(): string
   /** Submitted quantity */
-  get quantity(): number
+  get quantity(): Decimal
   /** Executed quantity */
-  get executedQuantity(): number
+  get executedQuantity(): Decimal
   /** Submitted price */
   get price(): Decimal | null
   /** Executed price */
@@ -2827,7 +2827,7 @@ export class PushOrderChanged {
   /** Stock name */
   get stockName(): string
   /** Submitted quantity */
-  get submittedQuantity(): number
+  get submittedQuantity(): Decimal
   /** Order symbol */
   get symbol(): string
   /** Order type */
@@ -2835,7 +2835,7 @@ export class PushOrderChanged {
   /** Submitted price */
   get submittedPrice(): Decimal
   /** Executed quantity */
-  get executedQuantity(): number
+  get executedQuantity(): Decimal
   /** Executed price */
   get executedPrice(): Decimal | null
   /** Order ID */
@@ -3003,9 +3003,9 @@ export class StockPosition {
   /** Stock name */
   get symbolName(): string
   /** The number of holdings */
-  get quantity(): number
+  get quantity(): Decimal
   /** Available quantity */
-  get availableQuantity(): number
+  get availableQuantity(): Decimal
   /** Currency */
   get currency(): string
   /**
@@ -3016,7 +3016,7 @@ export class StockPosition {
   /** Market */
   get market(): Market
   /** Initial position before market opening */
-  get initQuantity(): number | null
+  get initQuantity(): Decimal | null
 }
 /** Margin ratio */
 export class MarginRatio {
@@ -3034,7 +3034,7 @@ export class EstimateMaxPurchaseQuantityResponse {
   toString(): string
   toJSON(): any
   /** Cash available quantity */
-  get cashMaxQty(): number
+  get cashMaxQty(): Decimal
   /** Margin available quantity */
-  get marginMaxQty(): number
+  get marginMaxQty(): Decimal
 }

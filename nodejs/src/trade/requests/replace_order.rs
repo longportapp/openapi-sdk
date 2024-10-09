@@ -8,7 +8,7 @@ pub struct ReplaceOrderOptions {
     /// Order id
     pub order_id: String,
     /// Replaced quantity
-    pub quantity: i64,
+    pub quantity: ClassInstance<Decimal>,
     /// Replaced price
     pub price: Option<ClassInstance<Decimal>>,
     /// Trigger price (`LIT` / `MIT` Order Required)
@@ -26,7 +26,7 @@ pub struct ReplaceOrderOptions {
 impl From<ReplaceOrderOptions> for longport::trade::ReplaceOrderOptions {
     #[inline]
     fn from(opts: ReplaceOrderOptions) -> Self {
-        let mut opts2 = longport::trade::ReplaceOrderOptions::new(opts.order_id, opts.quantity);
+        let mut opts2 = longport::trade::ReplaceOrderOptions::new(opts.order_id, opts.quantity.0);
         if let Some(price) = opts.price {
             opts2 = opts2.price(price.0);
         }

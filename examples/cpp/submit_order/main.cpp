@@ -32,7 +32,7 @@ main(int argc, char const* argv[])
 
     SubmitOrderOptions opts{
       "700.HK",     OrderType::LO,        OrderSide::Buy,
-      200,          TimeInForceType::Day, Decimal(50.0),
+      Decimal(200), TimeInForceType::Day, Decimal(50.0),
       std::nullopt, std::nullopt,         std::nullopt,
       std::nullopt, std::nullopt,         std::nullopt,
       std::nullopt,

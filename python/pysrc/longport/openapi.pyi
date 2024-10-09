@@ -72,6 +72,7 @@ class HttpClient:
         """
         ...
 
+
 class PushCandlestickMode:
     """
     Push candlestick mode
@@ -86,6 +87,7 @@ class PushCandlestickMode:
         """
         Confirmed
         """
+
 
 class Config:
     """
@@ -144,6 +146,7 @@ class Config:
         Returns:
             Access token
         """
+
 
 class Language:
     """
@@ -479,6 +482,7 @@ class SecurityBoard:
         SG Industry Board
         """
 
+
 class Security:
     """
     Security
@@ -504,6 +508,7 @@ class Security:
     Security name (zh-HK)
     """
 
+
 class SecurityListCategory:
     """
     Security list category
@@ -513,6 +518,7 @@ class SecurityListCategory:
         """
         Overnight
         """
+
 
 class SecurityStaticInfo:
     """
@@ -1477,6 +1483,7 @@ class IssuerInfo:
     Issuer name (zh-HK)
     """
 
+
 class WarrantStatus:
     """
     Warrant status
@@ -1497,6 +1504,7 @@ class WarrantStatus:
         Normal
         """
 
+
 class SortOrderType:
     """
     Sort order type
@@ -1511,6 +1519,7 @@ class SortOrderType:
         """
         Descending
         """
+
 
 class WarrantSortBy:
     """
@@ -1551,7 +1560,7 @@ class WarrantSortBy:
         """
         Strike price
         """
-    
+
     class UpperStrikePrice(WarrantSortBy):
         """
         Upper strike price
@@ -1627,6 +1636,7 @@ class WarrantSortBy:
         Status
         """
 
+
 class FilterWarrantExpiryDate:
     """
     Filter warrant expiry date type
@@ -1652,6 +1662,7 @@ class FilterWarrantExpiryDate:
         Greater than 12 months
         """
 
+
 class FilterWarrantInOutBoundsType:
     """
     Filter warrant in/out of the bounds type
@@ -1666,6 +1677,7 @@ class FilterWarrantInOutBoundsType:
         """
         Out bounds
         """
+
 
 class WarrantInfo:
     """
@@ -1796,6 +1808,7 @@ class WarrantInfo:
     """
     Status
     """
+
 
 class TradingSessionInfo:
     """
@@ -2459,6 +2472,7 @@ class SecurityCalcIndex:
     Rho
     """
 
+
 class QuotePackageDetail:
     """
     Quote package detail
@@ -2489,6 +2503,7 @@ class QuotePackageDetail:
     End time
     """
 
+
 class QuoteContext:
     """
     Quote context
@@ -2503,7 +2518,7 @@ class QuoteContext:
         """
         Returns the member ID
         """
-    
+
     def quote_level(self) -> str:
         """
         Returns the quote level
@@ -3634,7 +3649,7 @@ class Execution:
     Trade done time
     """
 
-    quantity: int
+    quantity: Decimal
     """
     Executed quantity
     """
@@ -3660,7 +3675,7 @@ class PushOrderChanged:
     Stock name
     """
 
-    submitted_quantity: int
+    submitted_quantity: Decimal
     """
     Submitted quantity
     """
@@ -3680,7 +3695,7 @@ class PushOrderChanged:
     Submitted price
     """
 
-    executed_quantity: int
+    executed_quantity: Decimal
     """
     Executed quantity
     """
@@ -3827,6 +3842,7 @@ class OutsideRTH:
         Overnight
         """
 
+
 class Order:
     """
     Order
@@ -3847,12 +3863,12 @@ class Order:
     Stock name
     """
 
-    quantity: int
+    quantity: Decimal
     """
     Submitted quantity
     """
 
-    executed_quantity: int
+    executed_quantity: Decimal
     """
     Executed quantity
     """
@@ -4056,7 +4072,7 @@ class OrderHistoryDetail:
     Executed price for executed orders, submitted price for expired, canceled, rejected orders, etc.
     """
 
-    quantity: int
+    quantity: Decimal
     """
     Executed quantity for executed orders, remaining quantity for expired, canceled, rejected orders, etc.
     """
@@ -4165,12 +4181,12 @@ class OrderDetail:
     Stock name
     """
 
-    quantity: int
+    quantity: Decimal
     """
     Submitted quantity
     """
 
-    executed_quantity: int
+    executed_quantity: Decimal
     """
     Executed quantity
     """
@@ -4596,12 +4612,12 @@ class StockPosition:
     Stock name
     """
 
-    quantity: int
+    quantity: Decimal
     """
     The number of holdings
     """
 
-    available_quantity: int
+    available_quantity: Decimal
     """
     Available quantity
     """
@@ -4621,7 +4637,7 @@ class StockPosition:
     Market
     """
 
-    init_quantity: Optional[int]
+    init_quantity: Optional[Decimal]
     """
     Initial position before market opening
     """
@@ -4692,12 +4708,12 @@ class EstimateMaxPurchaseQuantityResponse:
     Response for estimate maximum purchase quantity
     """
 
-    cash_max_qty: int
+    cash_max_qty: Decimal
     """
     Cash available quantity
     """
 
-    margin_max_qty: int
+    margin_max_qty: Decimal
     """
     Margin available quantity
     """
@@ -4743,13 +4759,13 @@ class TradeContext:
                 ctx.subscribe([TopicType.Private])
 
                 resp = ctx.submit_order(
-                    side=OrderSide.Buy,
-                    symbol="700.HK",
-                    order_type=OrderType.LO,
-                    submitted_price=Decimal("50"),
-                    submitted_quantity=200,
-                    time_in_force=TimeInForceType.Day,
-                    remark="Hello from Python SDK",
+                    side = OrderSide.Buy,
+                    symbol = "700.HK",
+                    order_type = OrderType.LO,
+                    submitted_price = Decimal(50),
+                    submitted_quantity = Decimal(200),
+                    time_in_force = TimeInForceType.Day,
+                    remark = "Hello from Python SDK",
                 )
                 print(resp)
                 sleep(5)  # waiting for push event
@@ -4881,7 +4897,7 @@ class TradeContext:
                 print(resp)
         """
 
-    def replace_order(self, order_id: str, quantity: int, price: Optional[Decimal] = None, trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, remark: Optional[str] = None) -> None:
+    def replace_order(self, order_id: str, quantity: Decimal, price: Optional[Decimal] = None, trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, remark: Optional[str] = None) -> None:
         """
         Replace order
 
@@ -4905,12 +4921,12 @@ class TradeContext:
 
                 ctx.replace_order(
                     order_id = "709043056541253632",
-                    quantity = 100,
-                    price = Decimal("100"),
+                    quantity = Decimal(100),
+                    price = Decimal(100),
                 )
         """
 
-    def submit_order(self, symbol: str, order_type: Type[OrderType], side: Type[OrderSide], submitted_quantity: int, time_in_force: Type[TimeInForceType], submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[Type[OutsideRTH]] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
+    def submit_order(self, symbol: str, order_type: Type[OrderType], side: Type[OrderSide], submitted_quantity: Decimal, time_in_force: Type[TimeInForceType], submitted_price: Optional[Decimal] = None,  trigger_price: Optional[Decimal] = None, limit_offset: Optional[Decimal] = None, trailing_amount: Optional[Decimal] = None, trailing_percent: Optional[Decimal] = None, expire_date: Optional[date] = None,  outside_rth: Optional[Type[OutsideRTH]] = None,  remark: Optional[str] = None) -> SubmitOrderResponse:
         """
         Submit order
 
@@ -4945,8 +4961,8 @@ class TradeContext:
                     side = OrderSide.Buy,
                     symbol = "700.HK",
                     order_type = OrderType.LO,
-                    submitted_price = Decimal("50"),
-                    submitted_quantity = 200,
+                    submitted_price = Decimal(50),
+                    submitted_quantity = Decimal(200),
                     time_in_force = TimeInForceType.Day,
                     remark = "Hello from Python SDK",
                 )

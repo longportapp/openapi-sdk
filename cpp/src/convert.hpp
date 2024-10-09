@@ -1397,7 +1397,7 @@ convert(const lb_stock_position_t* position)
     position->currency,
     Decimal(position->cost_price),
     convert(position->market),
-    position->init_quantity ? std::optional{ *position->init_quantity }
+    position->init_quantity ? std::optional{ position->init_quantity }
                             : std::nullopt,
   };
 }

@@ -1,14 +1,16 @@
 package com.longport.trade;
 
-public class EstimateMaxPurchaseQuantityResponse {
-    private long cashMaxQty;
-    private long marginMaxQty;
+import java.math.BigDecimal;
 
-    public long getCashMaxQty() {
+public class EstimateMaxPurchaseQuantityResponse {
+    private BigDecimal cashMaxQty;
+    private BigDecimal marginMaxQty;
+
+    public BigDecimal getCashMaxQty() {
         return cashMaxQty;
     }
 
-    public long getMarginMaxQty() {
+    public BigDecimal getMarginMaxQty() {
         return marginMaxQty;
     }
 

@@ -7,12 +7,12 @@ import com.longport.Market;
 public class StockPosition {
     private String symbol;
     private String symbolName;
-    private long quantity;
-    private long availableQuantity;
+    private BigDecimal quantity;
+    private BigDecimal availableQuantity;
     private String currency;
     private BigDecimal costPrice;
     private Market market;
-    private long initQuantity;
+    private BigDecimal initQuantity;
 
     public String getSymbol() {
         return symbol;
@@ -22,11 +22,11 @@ public class StockPosition {
         return symbolName;
     }
 
-    public long getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public long getAvailableQuantity() {
+    public BigDecimal getAvailableQuantity() {
         return availableQuantity;
     }
 
@@ -42,7 +42,7 @@ public class StockPosition {
         return market;
     }
 
-    public long getInitQuantity() {
+    public BigDecimal getInitQuantity() {
         return initQuantity;
     }
 

@@ -8,7 +8,7 @@ public class SubmitOrderOptions {
     private String symbol;
     private OrderType orderType;
     private OrderSide side;
-    private long submittedQuantity;
+    private BigDecimal submittedQuantity;
     private TimeInForceType timeInForce;
     private BigDecimal submittedPrice;
     private BigDecimal triggerPrice;
@@ -23,7 +23,7 @@ public class SubmitOrderOptions {
             String symbol,
             OrderType orderType,
             OrderSide side,
-            long submittedQuantity,
+            BigDecimal submittedQuantity,
             TimeInForceType timeInForce) {
         this.symbol = symbol;
         this.orderType = orderType;

@@ -783,12 +783,12 @@ impl_java_class!(
 pub(crate) struct StockPosition {
     symbol: String,
     symbol_name: String,
-    quantity: i64,
-    available_quantity: i64,
+    quantity: Decimal,
+    available_quantity: Decimal,
     currency: String,
     cost_price: Decimal,
     market: Market,
-    init_quantity: i64,
+    init_quantity: Decimal,
 }
 
 impl From<longport::trade::StockPosition> for StockPosition {

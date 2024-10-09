@@ -30,7 +30,7 @@ pub struct CPushOrderChanged {
     /// Stock name
     pub stock_name: *const c_char,
     /// Submitted quantity
-    pub submitted_quantity: i64,
+    pub submitted_quantity: *const CDecimal,
     /// Order symbol
     pub symbol: *const c_char,
     /// Order type
@@ -38,7 +38,7 @@ pub struct CPushOrderChanged {
     /// Submitted price
     pub submitted_price: *const CDecimal,
     /// Executed quantity
-    pub executed_quantity: i64,
+    pub executed_quantity: *const CDecimal,
     /// Executed price (maybe null)
     pub executed_price: *const CDecimal,
     /// Order ID
@@ -80,11 +80,11 @@ pub struct CPushOrderChanged {
 pub struct CPushOrderChangedOwned {
     side: OrderSide,
     stock_name: CString,
-    submitted_quantity: i64,
+    submitted_quantity: CDecimal,
     symbol: CString,
     order_type: OrderType,
     submitted_price: CDecimal,
-    executed_quantity: i64,
+    executed_quantity: CDecimal,
     executed_price: Option<CDecimal>,
     order_id: CString,
     currency: CString,
@@ -138,11 +138,11 @@ impl From<PushOrderChanged> for CPushOrderChangedOwned {
         CPushOrderChangedOwned {
             side,
             stock_name: stock_name.into(),
-            submitted_quantity,
+            submitted_quantity: submitted_quantity.into(),
             symbol: symbol.into(),
             order_type,
             submitted_price: submitted_price.into(),
-            executed_quantity,
+            executed_quantity: executed_quantity.into(),
             executed_price: executed_price.map(Into::into),
             order_id: order_id.into(),
             currency: currency.into(),
@@ -199,11 +199,11 @@ impl ToFFI for CPushOrderChangedOwned {
         CPushOrderChanged {
             side: (*side).into(),
             stock_name: stock_name.to_ffi_type(),
-            submitted_quantity: *submitted_quantity,
+            submitted_quantity: submitted_quantity.to_ffi_type(),
             symbol: symbol.to_ffi_type(),
             order_type: (*order_type).into(),
             submitted_price: submitted_price.to_ffi_type(),
-            executed_quantity: *executed_quantity,
+            executed_quantity: executed_quantity.to_ffi_type(),
             executed_price: executed_price
                 .as_ref()
                 .map(ToFFI::to_ffi_type)
@@ -265,7 +265,7 @@ pub struct CExecution {
     /// Trade done time
     pub trade_done_at: i64,
     /// Executed quantity
-    pub quantity: i64,
+    pub quantity: *const CDecimal,
     /// Executed price
     pub price: *const CDecimal,
 }
@@ -276,7 +276,7 @@ pub(crate) struct CExecutionOwned {
     trade_id: CString,
     symbol: CString,
     trade_done_at: i64,
-    quantity: i64,
+    quantity: CDecimal,
     price: CDecimal,
 }
 
@@ -295,7 +295,7 @@ impl From<Execution> for CExecutionOwned {
             trade_id: trade_id.into(),
             symbol: symbol.into(),
             trade_done_at: trade_done_at.unix_timestamp(),
-            quantity,
+            quantity: quantity.into(),
             price: price.into(),
         }
     }
@@ -318,7 +318,7 @@ impl ToFFI for CExecutionOwned {
             trade_id: trade_id.to_ffi_type(),
             symbol: symbol.to_ffi_type(),
             trade_done_at: *trade_done_at,
-            quantity: *quantity,
+            quantity: quantity.to_ffi_type(),
             price: price.to_ffi_type(),
         }
     }
@@ -354,9 +354,9 @@ pub struct COrder {
     /// Stock name
     pub stock_name: *const c_char,
     /// Submitted quantity
-    pub quantity: i64,
+    pub quantity: *const CDecimal,
     /// Executed quantity
-    pub executed_quantity: i64,
+    pub executed_quantity: *const CDecimal,
     /// Submitted price (maybe null)
     pub price: *const CDecimal,
     /// Executed price (maybe null)
@@ -406,8 +406,8 @@ pub(crate) struct COrderOwned {
     order_id: CString,
     status: OrderStatus,
     stock_name: CString,
-    quantity: i64,
-    executed_quantity: i64,
+    quantity: CDecimal,
+    executed_quantity: CDecimal,
     price: Option<CDecimal>,
     executed_price: Option<CDecimal>,
     submitted_at: OffsetDateTime,
@@ -465,8 +465,8 @@ impl From<Order> for COrderOwned {
             order_id: order_id.into(),
             status,
             stock_name: stock_name.into(),
-            quantity,
-            executed_quantity,
+            quantity: quantity.into(),
+            executed_quantity: executed_quantity.into(),
             price: price.map(Into::into),
             executed_price: executed_price.map(Into::into),
             submitted_at,
@@ -528,8 +528,8 @@ impl ToFFI for COrderOwned {
             order_id: order_id.to_ffi_type(),
             status: (*status).into(),
             stock_name: stock_name.to_ffi_type(),
-            quantity: *quantity,
-            executed_quantity: *executed_quantity,
+            quantity: quantity.to_ffi_type(),
+            executed_quantity: executed_quantity.to_ffi_type(),
             price: price
                 .as_ref()
                 .map(ToFFI::to_ffi_type)
@@ -636,7 +636,7 @@ pub struct CReplaceOrderOptions {
     /// Order ID
     pub order_id: *const c_char,
     /// Quantity
-    pub quantity: i64,
+    pub quantity: *const CDecimal,
     /// Price (can be null)
     pub price: *const CDecimal,
     /// Trigger price (can be null)
@@ -662,7 +662,7 @@ pub struct CSubmitOrderOptions {
     /// Order side
     pub side: COrderSide,
     /// Submitted price
-    pub submitted_quantity: i64,
+    pub submitted_quantity: *const CDecimal,
     /// Time in force type
     pub time_in_force: CTimeInForceType,
     /// Submitted price (can be null)
@@ -1166,9 +1166,9 @@ pub struct CStockPosition {
     /// Stock name
     pub symbol_name: *const c_char,
     /// The number of holdings
-    pub quantity: i64,
+    pub quantity: *const CDecimal,
     /// Available quantity
-    pub available_quantity: i64,
+    pub available_quantity: *const CDecimal,
     /// Currency
     pub currency: *const c_char,
     /// Cost Price(According to the client's choice of average purchase or
@@ -1177,7 +1177,7 @@ pub struct CStockPosition {
     /// Market
     pub market: CMarket,
     /// Initial position before market opening
-    init_quantity: *const i64,
+    init_quantity: *const CDecimal,
 }
 
 pub(crate) struct CStockPositionOwned {
@@ -1186,9 +1186,9 @@ pub(crate) struct CStockPositionOwned {
     /// Stock name
     symbol_name: CString,
     /// The number of holdings
-    quantity: i64,
+    quantity: CDecimal,
     /// Available quantity
-    available_quantity: i64,
+    available_quantity: CDecimal,
     /// Currency
     currency: CString,
     /// Cost Price(According to the client's choice of average purchase or
@@ -1197,7 +1197,7 @@ pub(crate) struct CStockPositionOwned {
     /// Market
     market: Market,
     /// Initial position before market opening
-    init_quantity: Option<i64>,
+    init_quantity: Option<CDecimal>,
 }
 
 impl From<StockPosition> for CStockPositionOwned {
@@ -1215,12 +1215,12 @@ impl From<StockPosition> for CStockPositionOwned {
         Self {
             symbol: symbol.into(),
             symbol_name: symbol_name.into(),
-            quantity,
-            available_quantity,
+            quantity: quantity.into(),
+            available_quantity: available_quantity.into(),
             currency: currency.into(),
             cost_price: cost_price.into(),
             market,
-            init_quantity,
+            init_quantity: init_quantity.map(Into::into),
         }
     }
 }
@@ -1242,14 +1242,14 @@ impl ToFFI for CStockPositionOwned {
         CStockPosition {
             symbol: symbol.to_ffi_type(),
             symbol_name: symbol_name.to_ffi_type(),
-            quantity: *quantity,
-            available_quantity: *available_quantity,
+            quantity: quantity.to_ffi_type(),
+            available_quantity: available_quantity.to_ffi_type(),
             currency: currency.to_ffi_type(),
             cost_price: cost_price.to_ffi_type(),
             market: (*market).into(),
             init_quantity: init_quantity
                 .as_ref()
-                .map(|value| value as *const _)
+                .map(|value| value.to_ffi_type())
                 .unwrap_or(std::ptr::null()),
         }
     }
@@ -1397,7 +1397,7 @@ impl ToFFI for CMarginRatioOwned {
 #[repr(C)]
 pub struct COrderHistoryDetail {
     pub price: *const CDecimal,
-    pub quantity: i64,
+    pub quantity: *const CDecimal,
     pub status: COrderStatus,
     pub msg: *const c_char,
     pub time: i64,
@@ -1406,7 +1406,7 @@ pub struct COrderHistoryDetail {
 #[derive(Debug)]
 pub(crate) struct COrderHistoryDetailOwned {
     pub(crate) price: CDecimal,
-    pub(crate) quantity: i64,
+    pub(crate) quantity: CDecimal,
     pub(crate) status: COrderStatus,
     pub(crate) msg: CString,
     pub(crate) time: i64,
@@ -1416,7 +1416,7 @@ impl From<OrderHistoryDetail> for COrderHistoryDetailOwned {
     fn from(value: OrderHistoryDetail) -> Self {
         COrderHistoryDetailOwned {
             price: value.price.into(),
-            quantity: value.quantity,
+            quantity: value.quantity.into(),
             status: value.status.into(),
             msg: value.msg.into(),
             time: value.time.unix_timestamp(),
@@ -1437,7 +1437,7 @@ impl ToFFI for COrderHistoryDetailOwned {
         } = self;
         COrderHistoryDetail {
             price: price.to_ffi_type(),
-            quantity: *quantity,
+            quantity: quantity.to_ffi_type(),
             status: *status,
             msg: msg.to_ffi_type(),
             time: *time,
@@ -1596,9 +1596,9 @@ pub struct COrderDetail {
     /// Stock name
     pub stock_name: *const c_char,
     /// Submitted quantity
-    pub quantity: i64,
+    pub quantity: *const CDecimal,
     /// Executed quantity
-    pub executed_quantity: i64,
+    pub executed_quantity: *const CDecimal,
     /// Submitted price (maybe null)
     pub price: *const CDecimal,
     /// Executed price (maybe null)
@@ -1672,8 +1672,8 @@ pub(crate) struct COrderDetailOwned {
     order_id: CString,
     status: OrderStatus,
     stock_name: CString,
-    quantity: i64,
-    executed_quantity: i64,
+    quantity: CDecimal,
+    executed_quantity: CDecimal,
     price: Option<CDecimal>,
     executed_price: Option<CDecimal>,
     submitted_at: OffsetDateTime,
@@ -1753,8 +1753,8 @@ impl From<OrderDetail> for COrderDetailOwned {
             order_id: order_id.into(),
             status,
             stock_name: stock_name.into(),
-            quantity,
-            executed_quantity,
+            quantity: quantity.into(),
+            executed_quantity: executed_quantity.into(),
             price: price.map(Into::into),
             executed_price: executed_price.map(Into::into),
             submitted_at,
@@ -1838,8 +1838,8 @@ impl ToFFI for COrderDetailOwned {
             order_id: order_id.to_ffi_type(),
             status: (*status).into(),
             stock_name: stock_name.to_ffi_type(),
-            quantity: *quantity,
-            executed_quantity: *executed_quantity,
+            quantity: quantity.to_ffi_type(),
+            executed_quantity: executed_quantity.to_ffi_type(),
             price: price
                 .as_ref()
                 .map(ToFFI::to_ffi_type)
@@ -1944,28 +1944,39 @@ pub struct CEstimateMaxPurchaseQuantityOptions {
 }
 
 /// Options for estimate maximum purchase quantity
-#[derive(Debug, Copy, Clone)]
 #[repr(C)]
 pub struct CEstimateMaxPurchaseQuantityResponse {
     /// Cash available quantity
-    pub cash_max_qty: i64,
+    pub cash_max_qty: *const CDecimal,
     /// Margin available quantity
-    pub margin_max_qty: i64,
+    pub margin_max_qty: *const CDecimal,
 }
 
-impl From<EstimateMaxPurchaseQuantityResponse> for CEstimateMaxPurchaseQuantityResponse {
+impl From<EstimateMaxPurchaseQuantityResponse> for CEstimateMaxPurchaseQuantityResponseOwned {
     fn from(value: EstimateMaxPurchaseQuantityResponse) -> Self {
-        CEstimateMaxPurchaseQuantityResponse {
-            cash_max_qty: value.cash_max_qty,
-            margin_max_qty: value.margin_max_qty,
+        CEstimateMaxPurchaseQuantityResponseOwned {
+            cash_max_qty: value.cash_max_qty.into(),
+            margin_max_qty: value.margin_max_qty.into(),
         }
     }
 }
 
-impl ToFFI for CEstimateMaxPurchaseQuantityResponse {
+#[derive(Debug)]
+#[repr(C)]
+pub struct CEstimateMaxPurchaseQuantityResponseOwned {
+    /// Cash available quantity
+    pub cash_max_qty: CDecimal,
+    /// Margin available quantity
+    pub margin_max_qty: CDecimal,
+}
+
+impl ToFFI for CEstimateMaxPurchaseQuantityResponseOwned {
     type FFIType = CEstimateMaxPurchaseQuantityResponse;
 
     fn to_ffi_type(&self) -> Self::FFIType {
-        *self
+        CEstimateMaxPurchaseQuantityResponse {
+            cash_max_qty: self.cash_max_qty.to_ffi_type(),
+            margin_max_qty: self.margin_max_qty.to_ffi_type(),
+        }
     }
 }

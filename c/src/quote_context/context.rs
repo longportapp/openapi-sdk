@@ -72,7 +72,6 @@ unsafe impl Send for CQuoteContextState {}
 pub struct CQuoteContext {
     ctx: QuoteContext,
     quote_level: OnceCell<CString>,
-    quote_package_details: OnceCell<Vec<CQuotePackageDetailOwned>>,
     state: Mutex<CQuoteContextState>,
 }
 
@@ -108,7 +107,6 @@ pub unsafe extern "C" fn lb_quote_context_new(
             let arc_ctx = Arc::new(CQuoteContext {
                 ctx,
                 quote_level: OnceCell::new(),
-                quote_package_details: OnceCell::new(),
                 state,
             });
             let weak_ctx = Arc::downgrade(&arc_ctx);

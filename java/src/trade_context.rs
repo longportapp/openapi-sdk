@@ -328,7 +328,7 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_tradeContextReplaceOrd
     jni_result(&mut env, (), |env| {
         let context = &*(context as *const ContextObj);
         let order_id: String = get_field(env, &opts, "orderId")?;
-        let quantity: i64 = get_field(env, &opts, "quantity")?;
+        let quantity: Decimal = get_field(env, &opts, "quantity")?;
         let mut new_opts = ReplaceOrderOptions::new(order_id, quantity);
         let price: Option<Decimal> = get_field(env, &opts, "price")?;
         if let Some(price) = price {
@@ -375,7 +375,7 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_tradeContextSubmitOrde
         let symbol: String = get_field(env, &opts, "symbol")?;
         let quantity: OrderType = get_field(env, &opts, "orderType")?;
         let side: OrderSide = get_field(env, &opts, "side")?;
-        let submitted_quantity: i64 = get_field(env, &opts, "submittedQuantity")?;
+        let submitted_quantity: Decimal = get_field(env, &opts, "submittedQuantity")?;
         let time_in_force: TimeInForceType = get_field(env, &opts, "timeInForce")?;
         let mut new_opts =
             SubmitOrderOptions::new(symbol, quantity, side, submitted_quantity, time_in_force);

@@ -13,8 +13,7 @@ pub struct SubmitOrderOptions {
     symbol: String,
     order_type: OrderType,
     side: OrderSide,
-    #[serde(with = "serde_utils::int64_str")]
-    submitted_quantity: i64,
+    submitted_quantity: Decimal,
     time_in_force: TimeInForceType,
     #[serde(skip_serializing_if = "Option::is_none")]
     submitted_price: Option<Decimal>,
@@ -41,7 +40,7 @@ impl SubmitOrderOptions {
         symbol: impl Into<String>,
         order_type: OrderType,
         side: OrderSide,
-        submitted_quantity: i64,
+        submitted_quantity: Decimal,
         time_in_force: TimeInForceType,
     ) -> Self {
         Self {
