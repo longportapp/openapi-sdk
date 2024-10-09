@@ -8,7 +8,7 @@ var searchData=
   ['capital_5fin_955',['capital_in',['../structlb__capital__distribution__response__t.html#ad43610ff289ad7e3913da87eb31a029e',1,'lb_capital_distribution_response_t']]],
   ['capital_5fout_956',['capital_out',['../structlb__capital__distribution__response__t.html#a00896a11e24532828112ab869464d4cc',1,'lb_capital_distribution_response_t']]],
   ['cash_5finfos_957',['cash_infos',['../structlb__account__balance__t.html#acdb4594b1ecc7821b9215dc04b540f00',1,'lb_account_balance_t']]],
-  ['cash_5fmax_5fqty_958',['cash_max_qty',['../structlb__estimate__max__purchase__quantity__response__t.html#a378cad5031935648dfb01ac2f142e3e8',1,'lb_estimate_max_purchase_quantity_response_t']]],
+  ['cash_5fmax_5fqty_958',['cash_max_qty',['../structlb__estimate__max__purchase__quantity__response__t.html#a417290b4f35a5f457a2b54119fe2a189',1,'lb_estimate_max_purchase_quantity_response_t']]],
   ['category_959',['category',['../structlb__warrant__quote__t.html#a7c4577fb0b0ac5f46c7a44d61aa29057',1,'lb_warrant_quote_t']]],
   ['change_5frate_960',['change_rate',['../structlb__security__calc__index__t.html#a13a1d3b1734371890821ce5cf491bd13',1,'lb_security_calc_index_t::change_rate()'],['../structlb__warrant__info__t.html#a13a1d3b1734371890821ce5cf491bd13',1,'lb_warrant_info_t::change_rate()']]],
   ['change_5fvalue_961',['change_value',['../structlb__security__calc__index__t.html#a0886aba5014e909a2f5744e3d7d6f9c7',1,'lb_security_calc_index_t::change_value()'],['../structlb__warrant__info__t.html#a0886aba5014e909a2f5744e3d7d6f9c7',1,'lb_warrant_info_t::change_value()']]],

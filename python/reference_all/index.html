@@ -4685,7 +4685,7 @@
 
 
 <h3 id="longport.openapi.EstimateMaxPurchaseQuantityResponse.cash_max_qty" class="doc doc-heading">
-            <code class="highlight language-python">cash_max_qty: int</code>
+            <code class="highlight language-python">cash_max_qty: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -4706,7 +4706,7 @@
 
 
 <h3 id="longport.openapi.EstimateMaxPurchaseQuantityResponse.margin_max_qty" class="doc doc-heading">
-            <code class="highlight language-python">margin_max_qty: int</code>
+            <code class="highlight language-python">margin_max_qty: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -4806,7 +4806,7 @@
 
 
 <h3 id="longport.openapi.Execution.quantity" class="doc doc-heading">
-            <code class="highlight language-python">quantity: int</code>
+            <code class="highlight language-python">quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -7441,7 +7441,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.Order.executed_quantity" class="doc doc-heading">
-            <code class="highlight language-python">executed_quantity: int</code>
+            <code class="highlight language-python">executed_quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -7630,7 +7630,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.Order.quantity" class="doc doc-heading">
-            <code class="highlight language-python">quantity: int</code>
+            <code class="highlight language-python">quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -8429,7 +8429,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.OrderDetail.executed_quantity" class="doc doc-heading">
-            <code class="highlight language-python">executed_quantity: int</code>
+            <code class="highlight language-python">executed_quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -8765,7 +8765,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.OrderDetail.quantity" class="doc doc-heading">
-            <code class="highlight language-python">quantity: int</code>
+            <code class="highlight language-python">quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -9159,7 +9159,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.OrderHistoryDetail.quantity" class="doc doc-heading">
-            <code class="highlight language-python">quantity: int</code>
+            <code class="highlight language-python">quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -12502,7 +12502,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.PushOrderChanged.executed_quantity" class="doc doc-heading">
-            <code class="highlight language-python">executed_quantity: int</code>
+            <code class="highlight language-python">executed_quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -12775,7 +12775,7 @@ client.request("get", "/foo/bar", { "foo": 1, "bar": 2 });</code></pre>
 
 
 <h3 id="longport.openapi.PushOrderChanged.submitted_quantity" class="doc doc-heading">
-            <code class="highlight language-python">submitted_quantity: int</code>
+            <code class="highlight language-python">submitted_quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -20119,7 +20119,7 @@ print(resp)</code></pre>
 
 
 <h3 id="longport.openapi.StockPosition.available_quantity" class="doc doc-heading">
-            <code class="highlight language-python">available_quantity: int</code>
+            <code class="highlight language-python">available_quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -20182,7 +20182,7 @@ print(resp)</code></pre>
 
 
 <h3 id="longport.openapi.StockPosition.init_quantity" class="doc doc-heading">
-            <code class="highlight language-python">init_quantity: Optional[int]</code>
+            <code class="highlight language-python">init_quantity: Optional[Decimal]</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -20224,7 +20224,7 @@ print(resp)</code></pre>
 
 
 <h3 id="longport.openapi.StockPosition.quantity" class="doc doc-heading">
-            <code class="highlight language-python">quantity: int</code>
+            <code class="highlight language-python">quantity: Decimal</code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
@@ -22405,7 +22405,7 @@ print(resp)</code></pre>
           <tr class="doc-section-item">
             <td><code>quantity</code></td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+                  <code><a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -22514,8 +22514,8 @@ ctx = TradeContext(config)
 
 ctx.replace_order(
     order_id = "709043056541253632",
-    quantity = 100,
-    price = Decimal("100"),
+    quantity = Decimal(100),
+    price = Decimal(100),
 )</code></pre>
 
     </div>
@@ -22689,7 +22689,7 @@ print(resp)</code></pre>
           <tr class="doc-section-item">
             <td><code>submitted_quantity</code></td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+                  <code><a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -22865,8 +22865,8 @@ resp = ctx.submit_order(
     side = OrderSide.Buy,
     symbol = "700.HK",
     order_type = OrderType.LO,
-    submitted_price = Decimal("50"),
-    submitted_quantity = 200,
+    submitted_price = Decimal(50),
+    submitted_quantity = Decimal(200),
     time_in_force = TimeInForceType.Day,
     remark = "Hello from Python SDK",
 )
@@ -22936,13 +22936,13 @@ ctx.set_on_order_changed(on_order_changed)
 ctx.subscribe([TopicType.Private])
 
 resp = ctx.submit_order(
-    side=OrderSide.Buy,
-    symbol="700.HK",
-    order_type=OrderType.LO,
-    submitted_price=Decimal("50"),
-    submitted_quantity=200,
-    time_in_force=TimeInForceType.Day,
-    remark="Hello from Python SDK",
+    side = OrderSide.Buy,
+    symbol = "700.HK",
+    order_type = OrderType.LO,
+    submitted_price = Decimal(50),
+    submitted_quantity = Decimal(200),
+    time_in_force = TimeInForceType.Day,
+    remark = "Hello from Python SDK",
 )
 print(resp)
 sleep(5)  # waiting for push event</code></pre>

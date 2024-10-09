@@ -96,20 +96,14 @@
 <a href="#96" id="96">96</a>
 <a href="#97" id="97">97</a>
 <a href="#98" id="98">98</a>
-<a href="#99" id="99">99</a>
-<a href="#100" id="100">100</a>
-<a href="#101" id="101">101</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::Serialize;
-
-<span class="kw">use </span><span class="kw">crate</span>::serde_utils;
 
 <span class="doccomment">/// Options for replace order request
 </span><span class="attr">#[derive(Debug, Serialize, Clone)]
 </span><span class="kw">pub struct </span>ReplaceOrderOptions {
     order_id: String,
-    <span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span>quantity: i64,
+    quantity: Decimal,
     <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
     </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
     <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
@@ -127,7 +121,7 @@
 <span class="kw">impl </span>ReplaceOrderOptions {
     <span class="doccomment">/// Create a new `ReplaceOrderOptions`
     </span><span class="attr">#[inline]
-    </span><span class="kw">pub fn </span>new(order_id: <span class="kw">impl </span>Into&lt;String&gt;, quantity: i64) -&gt; <span class="self">Self </span>{
+    </span><span class="kw">pub fn </span>new(order_id: <span class="kw">impl </span>Into&lt;String&gt;, quantity: Decimal) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             order_id: order_id.into(),
             quantity,

@@ -7,6 +7,6 @@ var searchData=
   ['ask_5fbrokers_934',['ask_brokers',['../structlb__push__brokers__t.html#a6352db33357cab012166f960453660a0',1,'lb_push_brokers_t::ask_brokers()'],['../structlb__security__brokers__t.html#a6352db33357cab012166f960453660a0',1,'lb_security_brokers_t::ask_brokers()']]],
   ['asks_935',['asks',['../structlb__push__depth__t.html#a21507152bb0d75d3fa087dc5858fd14e',1,'lb_push_depth_t::asks()'],['../structlb__security__depth__t.html#a21507152bb0d75d3fa087dc5858fd14e',1,'lb_security_depth_t::asks()']]],
   ['available_5fcash_936',['available_cash',['../structlb__cash__info__t.html#a0a1e7ebc8ba990379fe702214f4091c5',1,'lb_cash_info_t']]],
-  ['available_5fquantity_937',['available_quantity',['../structlb__stock__position__t.html#a855d08782f0b7dd9928ecb0d607d0286',1,'lb_stock_position_t']]],
+  ['available_5fquantity_937',['available_quantity',['../structlb__stock__position__t.html#a877ab44e1c4fc82c3a56f305cf10b36c',1,'lb_stock_position_t']]],
   ['avg_5fprice_938',['avg_price',['../structlb__intraday__line__t.html#a2b4df9e8ae56b0c2b2a4bd4136a12807',1,'lb_intraday_line_t']]]
 ];

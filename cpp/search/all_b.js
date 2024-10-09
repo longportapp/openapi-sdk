@@ -2,7 +2,7 @@ var searchData=
 [
   ['maintenance_5fmargin_278',['maintenance_margin',['../structlongport_1_1trade_1_1_account_balance.html#aeca0bdf5acb4dd6b37b03cbbf8185575',1,'longport::trade::AccountBalance']]],
   ['margin_5fcall_279',['margin_call',['../structlongport_1_1trade_1_1_account_balance.html#ab2896dc1b0520c374031d9e276a84385',1,'longport::trade::AccountBalance']]],
-  ['margin_5fmax_5fqty_280',['margin_max_qty',['../structlongport_1_1trade_1_1_estimate_max_purchase_quantity_response.html#af4a665460ff7733b0dfbd1b32d88f3fb',1,'longport::trade::EstimateMaxPurchaseQuantityResponse']]],
+  ['margin_5fmax_5fqty_280',['margin_max_qty',['../structlongport_1_1trade_1_1_estimate_max_purchase_quantity_response.html#af8cdbd6fe67251ec38a746438c04deb0',1,'longport::trade::EstimateMaxPurchaseQuantityResponse']]],
   ['margin_5fratio_281',['margin_ratio',['../classlongport_1_1trade_1_1_trade_context.html#a1a4e37575828400b4cfdc782d237775f',1,'longport::trade::TradeContext']]],
   ['margincall_282',['MarginCall',['../namespacelongport_1_1trade.html#a5c5bcdd549198121bbcedba1f1bb5ef0a092e068018f610d4d8209c9d89a5ec07',1,'longport::trade']]],
   ['marginratio_283',['MarginRatio',['../structlongport_1_1trade_1_1_margin_ratio.html',1,'longport::trade']]],

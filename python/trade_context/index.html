@@ -1214,7 +1214,7 @@ print(resp)</code></pre>
           <tr class="doc-section-item">
             <td><code>quantity</code></td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+                  <code><a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1323,8 +1323,8 @@ ctx = TradeContext(config)
 
 ctx.replace_order(
     order_id = "709043056541253632",
-    quantity = 100,
-    price = Decimal("100"),
+    quantity = Decimal(100),
+    price = Decimal(100),
 )</code></pre>
 
     </div>
@@ -1498,7 +1498,7 @@ print(resp)</code></pre>
           <tr class="doc-section-item">
             <td><code>submitted_quantity</code></td>
             <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+                  <code><a class="autorefs autorefs-external" title="decimal.Decimal" href="https://docs.python.org/3/library/decimal.html#decimal.Decimal">Decimal</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1674,8 +1674,8 @@ resp = ctx.submit_order(
     side = OrderSide.Buy,
     symbol = "700.HK",
     order_type = OrderType.LO,
-    submitted_price = Decimal("50"),
-    submitted_quantity = 200,
+    submitted_price = Decimal(50),
+    submitted_quantity = Decimal(200),
     time_in_force = TimeInForceType.Day,
     remark = "Hello from Python SDK",
 )
@@ -1745,13 +1745,13 @@ ctx.set_on_order_changed(on_order_changed)
 ctx.subscribe([TopicType.Private])
 
 resp = ctx.submit_order(
-    side=OrderSide.Buy,
-    symbol="700.HK",
-    order_type=OrderType.LO,
-    submitted_price=Decimal("50"),
-    submitted_quantity=200,
-    time_in_force=TimeInForceType.Day,
-    remark="Hello from Python SDK",
+    side = OrderSide.Buy,
+    symbol = "700.HK",
+    order_type = OrderType.LO,
+    submitted_price = Decimal(50),
+    submitted_quantity = Decimal(200),
+    time_in_force = TimeInForceType.Day,
+    remark = "Hello from Python SDK",
 )
 print(resp)
 sleep(5)  # waiting for push event</code></pre>

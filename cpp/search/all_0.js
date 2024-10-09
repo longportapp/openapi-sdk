@@ -23,6 +23,6 @@ var searchData=
   ['asynccallback_20',['AsyncCallback',['../namespacelongport.html#a5474340afc19827a58958a5af2cb33fc',1,'longport']]],
   ['asyncresult_21',['AsyncResult',['../structlongport_1_1_async_result.html#a898884a50f8aa3ca3542c7af4f17a507',1,'longport::AsyncResult::AsyncResult()'],['../structlongport_1_1_async_result.html',1,'longport::AsyncResult&lt; Ctx, T &gt;']]],
   ['available_5fcash_22',['available_cash',['../structlongport_1_1trade_1_1_cash_info.html#a462ffeb320e867fed65e351bd00c74bc',1,'longport::trade::CashInfo']]],
-  ['available_5fquantity_23',['available_quantity',['../structlongport_1_1trade_1_1_stock_position.html#a91a72473e8b9d57a77bb1b3f0f5863ea',1,'longport::trade::StockPosition']]],
+  ['available_5fquantity_23',['available_quantity',['../structlongport_1_1trade_1_1_stock_position.html#a9b26df4ddc9ebc53a9a8e0fcdf5dc79a',1,'longport::trade::StockPosition']]],
   ['avg_5fprice_24',['avg_price',['../structlongport_1_1quote_1_1_intraday_line.html#a174010ef9117a66422989c310c6a0be7',1,'longport::quote::IntradayLine']]]
 ];

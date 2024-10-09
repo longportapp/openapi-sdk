@@ -716,16 +716,15 @@
 <a href="#716" id="716">716</a>
 <a href="#717" id="717">717</a>
 <a href="#718" id="718">718</a>
-<a href="#719" id="719">719</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
 <span class="kw">use </span>longport_wscli::WsClientError;
+<span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>tokio::sync::{mpsc, oneshot};
 
 <span class="kw">use crate</span>::{
-    serde_utils,
     trade::{
         core::{Command, Core},
         AccountBalance, CashFlow, EstimateMaxPurchaseQuantityOptions, Execution,
@@ -751,11 +750,9 @@
 </span><span class="attr">#[derive(Debug, Deserialize)]
 </span><span class="kw">pub struct </span>EstimateMaxPurchaseQuantityResponse {
     <span class="doccomment">/// Cash available quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>cash_max_qty: i64,
+    </span><span class="kw">pub </span>cash_max_qty: Decimal,
     <span class="doccomment">/// Margin available quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>margin_max_qty: i64,
+    </span><span class="kw">pub </span>margin_max_qty: Decimal,
 }
 
 <span class="doccomment">/// Trade context
@@ -806,7 +803,7 @@
     ///     "700.HK",
     ///     OrderType::LO,
     ///     OrderSide::Buy,
-    ///     200,
+    ///     decimal!(200),
     ///     TimeInForceType::Day,
     /// )
     /// .submitted_price(decimal!(50i32));
@@ -1061,7 +1058,8 @@
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = TradeContext::try_new(config).await?;
     ///
-    /// let opts = ReplaceOrderOptions::new("709043056541253632", 100).price(decimal!(300i32));
+    /// let opts =
+    ///     ReplaceOrderOptions::new("709043056541253632", decimal!(100)).price(decimal!(300i32));
     /// let resp = ctx.replace_order(opts).await?;
     /// println!("{:?}", resp);
     /// # Ok::&lt;_, Box&lt;dyn std::error::Error&gt;&gt;(())
@@ -1101,7 +1099,7 @@
     ///     "700.HK",
     ///     OrderType::LO,
     ///     OrderSide::Buy,
-    ///     200,
+    ///     decimal!(200),
     ///     TimeInForceType::Day,
     /// )
     /// .submitted_price(decimal!(50i32));

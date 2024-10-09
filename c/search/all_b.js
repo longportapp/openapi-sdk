@@ -2,7 +2,7 @@ var searchData=
 [
   ['maintenance_5fmargin_432',['maintenance_margin',['../structlb__account__balance__t.html#a5f0ce19209ef4b3da05a2967b2404dd8',1,'lb_account_balance_t']]],
   ['margin_5fcall_433',['margin_call',['../structlb__account__balance__t.html#a0924f3d3c1b25e82422c5551dd9b9450',1,'lb_account_balance_t']]],
-  ['margin_5fmax_5fqty_434',['margin_max_qty',['../structlb__estimate__max__purchase__quantity__response__t.html#a57fad4026f90fca36eae0de23227dfce',1,'lb_estimate_max_purchase_quantity_response_t']]],
+  ['margin_5fmax_5fqty_434',['margin_max_qty',['../structlb__estimate__max__purchase__quantity__response__t.html#a04c770659deaadcfa034a66e2b8fee18',1,'lb_estimate_max_purchase_quantity_response_t']]],
   ['market_435',['market',['../structlb__get__history__orders__options__t.html#a54f785044b1098e3368a81d7b3ad4cf0',1,'lb_get_history_orders_options_t::market()'],['../structlb__get__today__orders__options__t.html#a54f785044b1098e3368a81d7b3ad4cf0',1,'lb_get_today_orders_options_t::market()'],['../structlb__market__trading__session__t.html#acc8e8c8075e6657b385f745b97575e50',1,'lb_market_trading_session_t::market()'],['../structlb__stock__position__t.html#acc8e8c8075e6657b385f745b97575e50',1,'lb_stock_position_t::market()'],['../structlb__watchlist__security__t.html#acc8e8c8075e6657b385f745b97575e50',1,'lb_watchlist_security_t::market()']]],
   ['marketcn_436',['MarketCN',['../longport_8h.html#a314b7af320779ef1151f6cceba24aad3a271c68892160ae3e035d88ab15c5149a',1,'longport.h']]],
   ['markethk_437',['MarketHK',['../longport_8h.html#a314b7af320779ef1151f6cceba24aad3a2eee2d56f04d14beed0a81d42edf701f',1,'longport.h']]],

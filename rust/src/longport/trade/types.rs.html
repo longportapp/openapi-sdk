@@ -1251,14 +1251,6 @@
 <a href="#1251" id="1251">1251</a>
 <a href="#1252" id="1252">1252</a>
 <a href="#1253" id="1253">1253</a>
-<a href="#1254" id="1254">1254</a>
-<a href="#1255" id="1255">1255</a>
-<a href="#1256" id="1256">1256</a>
-<a href="#1257" id="1257">1257</a>
-<a href="#1258" id="1258">1258</a>
-<a href="#1259" id="1259">1259</a>
-<a href="#1260" id="1260">1260</a>
-<a href="#1261" id="1261">1261</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize, Serializer};
@@ -1387,8 +1379,7 @@
     </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>trade_done_at: OffsetDateTime,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>quantity: i64,
+    </span><span class="kw">pub </span>quantity: Decimal,
     <span class="doccomment">/// Executed price
     </span><span class="kw">pub </span>price: Decimal,
 }
@@ -1511,11 +1502,9 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>stock_name: String,
     <span class="doccomment">/// Submitted quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>quantity: i64,
+    </span><span class="kw">pub </span>quantity: Decimal,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>executed_quantity: i64,
+    </span><span class="kw">pub </span>executed_quantity: Decimal,
     <span class="doccomment">/// Submitted price
     </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
@@ -1631,8 +1620,7 @@
     </span><span class="kw">pub </span>price: Decimal,
     <span class="doccomment">/// Executed quantity for executed orders, remaining quantity for expired,
     /// canceled, rejected orders, etc.
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>quantity: i64,
+    </span><span class="kw">pub </span>quantity: Decimal,
     <span class="doccomment">/// Order status
     </span><span class="kw">pub </span>status: OrderStatus,
     <span class="doccomment">/// Execution or error message
@@ -1688,11 +1676,9 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>stock_name: String,
     <span class="doccomment">/// Submitted quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>quantity: i64,
+    </span><span class="kw">pub </span>quantity: Decimal,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>executed_quantity: i64,
+    </span><span class="kw">pub </span>executed_quantity: Decimal,
     <span class="doccomment">/// Submitted price
     </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
     </span><span class="kw">pub </span>price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
@@ -1967,11 +1953,9 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>symbol_name: String,
     <span class="doccomment">/// The number of holdings
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>quantity: i64,
+    </span><span class="kw">pub </span>quantity: Decimal,
     <span class="doccomment">/// Available quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>available_quantity: i64,
+    </span><span class="kw">pub </span>available_quantity: Decimal,
     <span class="doccomment">/// Currency
     </span><span class="kw">pub </span>currency: String,
     <span class="doccomment">/// Cost Price(According to the client's choice of average purchase or
@@ -1981,8 +1965,8 @@
     <span class="doccomment">/// Market
     </span><span class="kw">pub </span>market: Market,
     <span class="doccomment">/// Initial position before market opening
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str_empty_is_none"</span>)]
-    </span><span class="kw">pub </span>init_quantity: <span class="prelude-ty">Option</span>&lt;i64&gt;,
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_empty_is_none"</span>)]
+    </span><span class="kw">pub </span>init_quantity: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
 }
 
 <span class="doccomment">/// Margin ratio
@@ -2110,18 +2094,18 @@
         <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"700.HK"</span>);
         <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"腾讯控股"</span>);
         <span class="macro">assert_eq!</span>(position.currency, <span class="string">"HK"</span>);
-        <span class="macro">assert_eq!</span>(position.quantity, <span class="number">650</span>);
-        <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
+        <span class="macro">assert_eq!</span>(position.quantity, <span class="macro">decimal!</span>(<span class="number">650</span>));
+        <span class="macro">assert_eq!</span>(position.available_quantity, <span class="macro">decimal!</span>(-<span class="number">450</span>));
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
         <span class="macro">assert_eq!</span>(position.market, Market::HK);
-        <span class="macro">assert_eq!</span>(position.init_quantity, <span class="prelude-val">Some</span>(<span class="number">2000</span>));
+        <span class="macro">assert_eq!</span>(position.init_quantity, <span class="prelude-val">Some</span>(<span class="macro">decimal!</span>(<span class="number">2000</span>)));
 
         <span class="kw">let </span>position = <span class="kw-2">&amp;</span>channel.positions[<span class="number">0</span>];
         <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"700.HK"</span>);
         <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"腾讯控股"</span>);
         <span class="macro">assert_eq!</span>(position.currency, <span class="string">"HK"</span>);
-        <span class="macro">assert_eq!</span>(position.quantity, <span class="number">650</span>);
-        <span class="macro">assert_eq!</span>(position.available_quantity, -<span class="number">450</span>);
+        <span class="macro">assert_eq!</span>(position.quantity, <span class="macro">decimal!</span>(<span class="number">650</span>));
+        <span class="macro">assert_eq!</span>(position.available_quantity, <span class="macro">decimal!</span>(-<span class="number">450</span>));
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">457.53f32</span>));
         <span class="macro">assert_eq!</span>(position.market, Market::HK);
 
@@ -2129,8 +2113,8 @@
         <span class="macro">assert_eq!</span>(position.symbol, <span class="string">"9991.HK"</span>);
         <span class="macro">assert_eq!</span>(position.symbol_name, <span class="string">"宝尊电商-SW"</span>);
         <span class="macro">assert_eq!</span>(position.currency, <span class="string">"HK"</span>);
-        <span class="macro">assert_eq!</span>(position.quantity, <span class="number">200</span>);
-        <span class="macro">assert_eq!</span>(position.available_quantity, <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(position.quantity, <span class="macro">decimal!</span>(<span class="number">200</span>));
+        <span class="macro">assert_eq!</span>(position.available_quantity, <span class="macro">decimal!</span>(<span class="number">0</span>));
         <span class="macro">assert_eq!</span>(position.cost_price, <span class="macro">decimal!</span>(<span class="number">32.25f32</span>));
         <span class="macro">assert_eq!</span>(position.init_quantity, <span class="prelude-val">None</span>);
     }
@@ -2314,7 +2298,7 @@
         <span class="kw">let </span>order = <span class="kw-2">&amp;</span>resp.orders[<span class="number">0</span>];
         <span class="macro">assert_eq!</span>(order.currency, <span class="string">"HKD"</span>);
         <span class="macro">assert!</span>(order.executed_price.is_none());
-        <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="macro">decimal!</span>(<span class="number">0</span>));
         <span class="macro">assert!</span>(order.expire_date.is_none());
         <span class="macro">assert!</span>(order.last_done.is_none());
         <span class="macro">assert!</span>(order.limit_offset.is_none());
@@ -2323,7 +2307,7 @@
         <span class="macro">assert_eq!</span>(order.order_type, OrderType::ELO);
         <span class="macro">assert!</span>(order.outside_rth.is_none());
         <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">"11.900"</span>.parse().unwrap()));
-        <span class="macro">assert_eq!</span>(order.quantity, <span class="number">200</span>);
+        <span class="macro">assert_eq!</span>(order.quantity, <span class="macro">decimal!</span>(<span class="number">200</span>));
         <span class="macro">assert_eq!</span>(order.side, OrderSide::Buy);
         <span class="macro">assert_eq!</span>(order.status, OrderStatus::Rejected);
         <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">"Bank of East Asia Ltd/The"</span>);
@@ -2388,7 +2372,7 @@
         <span class="kw">let </span>order = <span class="kw-2">&amp;</span>resp.orders[<span class="number">0</span>];
         <span class="macro">assert_eq!</span>(order.currency, <span class="string">"HKD"</span>);
         <span class="macro">assert!</span>(order.executed_price.is_none());
-        <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="number">0</span>);
+        <span class="macro">assert_eq!</span>(order.executed_quantity, <span class="macro">decimal!</span>(<span class="number">0</span>));
         <span class="macro">assert!</span>(order.expire_date.is_none());
         <span class="macro">assert!</span>(order.last_done.is_none());
         <span class="macro">assert!</span>(order.limit_offset.is_none());
@@ -2397,7 +2381,7 @@
         <span class="macro">assert_eq!</span>(order.order_type, OrderType::ELO);
         <span class="macro">assert!</span>(order.outside_rth.is_none());
         <span class="macro">assert_eq!</span>(order.price, <span class="prelude-val">Some</span>(<span class="string">"11.900"</span>.parse().unwrap()));
-        <span class="macro">assert_eq!</span>(order.quantity, <span class="number">200</span>);
+        <span class="macro">assert_eq!</span>(order.quantity, <span class="macro">decimal!</span>(<span class="number">200</span>));
         <span class="macro">assert_eq!</span>(order.side, OrderSide::Buy);
         <span class="macro">assert_eq!</span>(order.status, OrderStatus::Rejected);
         <span class="macro">assert_eq!</span>(order.stock_name, <span class="string">"Bank of East Asia Ltd/The"</span>);
@@ -2443,7 +2427,7 @@
         <span class="kw">let </span>execution = <span class="kw-2">&amp;</span>resp.trades[<span class="number">0</span>];
         <span class="macro">assert_eq!</span>(execution.order_id, <span class="string">"693664675163312128"</span>);
         <span class="macro">assert_eq!</span>(execution.price, <span class="string">"388"</span>.parse().unwrap());
-        <span class="macro">assert_eq!</span>(execution.quantity, <span class="number">100</span>);
+        <span class="macro">assert_eq!</span>(execution.quantity, <span class="macro">decimal!</span>(<span class="number">100</span>));
         <span class="macro">assert_eq!</span>(execution.symbol, <span class="string">"700.HK"</span>);
         <span class="macro">assert_eq!</span>(execution.trade_done_at, <span class="macro">datetime!</span>(<span class="number">2022</span>-<span class="number">03</span>-<span class="number">30 11</span>:<span class="number">35</span>:<span class="number">51 </span>+<span class="number">8</span>));
         <span class="macro">assert_eq!</span>(execution.trade_id, <span class="string">"693664675163312128-1648611351433741210"</span>);

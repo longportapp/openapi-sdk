@@ -140,7 +140,6 @@
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::Serialize;
 <span class="kw">use </span>time::Date;
@@ -156,8 +155,7 @@
     symbol: String,
     order_type: OrderType,
     side: OrderSide,
-    <span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span>submitted_quantity: i64,
+    submitted_quantity: Decimal,
     time_in_force: TimeInForceType,
     <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
     </span>submitted_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,
@@ -184,7 +182,7 @@
         symbol: <span class="kw">impl </span>Into&lt;String&gt;,
         order_type: OrderType,
         side: OrderSide,
-        submitted_quantity: i64,
+        submitted_quantity: Decimal,
         time_in_force: TimeInForceType,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{

@@ -112,8 +112,6 @@
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a>
-<a href="#116" id="116">116</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::str::FromStr;
 
 <span class="kw">use </span>longport_proto::trade::Notification;
@@ -145,8 +143,7 @@
     <span class="doccomment">/// Stock name
     </span><span class="kw">pub </span>stock_name: String,
     <span class="doccomment">/// Submitted quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>submitted_quantity: i64,
+    </span><span class="kw">pub </span>submitted_quantity: Decimal,
     <span class="doccomment">/// Order symbol
     </span><span class="kw">pub </span>symbol: String,
     <span class="doccomment">/// Order type
@@ -154,8 +151,7 @@
     <span class="doccomment">/// Submitted price
     </span><span class="kw">pub </span>submitted_price: Decimal,
     <span class="doccomment">/// Executed quantity
-    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
-    </span><span class="kw">pub </span>executed_quantity: i64,
+    </span><span class="kw">pub </span>executed_quantity: Decimal,
     <span class="doccomment">/// Executed price
     </span><span class="attr">#[serde(with = <span class="string">"serde_utils::decimal_opt_0_is_none"</span>)]
     </span><span class="kw">pub </span>executed_price: <span class="prelude-ty">Option</span>&lt;Decimal&gt;,

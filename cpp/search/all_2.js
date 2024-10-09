@@ -23,7 +23,7 @@ var searchData=
   ['capitalflowline_67',['CapitalFlowLine',['../structlongport_1_1quote_1_1_capital_flow_line.html',1,'longport::quote']]],
   ['cash_68',['Cash',['../namespacelongport_1_1trade.html#ad4e703fdb2ce4e5ef37fc1bb74368507a069b30db06d047a398f9eb0940d3279c',1,'longport::trade']]],
   ['cash_5finfos_69',['cash_infos',['../structlongport_1_1trade_1_1_account_balance.html#a433d821a399a8b5f31a5f282efe77711',1,'longport::trade::AccountBalance']]],
-  ['cash_5fmax_5fqty_70',['cash_max_qty',['../structlongport_1_1trade_1_1_estimate_max_purchase_quantity_response.html#a1b2840279f6d9dc41d0a89bb7b45deab',1,'longport::trade::EstimateMaxPurchaseQuantityResponse']]],
+  ['cash_5fmax_5fqty_70',['cash_max_qty',['../structlongport_1_1trade_1_1_estimate_max_purchase_quantity_response.html#a5f88e23de51662164f6ca9fdaa8dc6ba',1,'longport::trade::EstimateMaxPurchaseQuantityResponse']]],
   ['cashflow_71',['CashFlow',['../structlongport_1_1trade_1_1_cash_flow.html',1,'longport::trade']]],
   ['cashflowdirection_72',['CashFlowDirection',['../namespacelongport_1_1trade.html#abcfbac840bf46f7df48752257f06ed00',1,'longport::trade']]],
   ['cashinfo_73',['CashInfo',['../structlongport_1_1trade_1_1_cash_info.html',1,'longport::trade']]],
