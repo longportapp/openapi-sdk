@@ -61,6 +61,16 @@
 <a href="#61" id="61">61</a>
 <a href="#62" id="62">62</a>
 <a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a>
+<a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>serde::Serialize;
 
@@ -78,6 +88,7 @@
     </span>currency: <span class="prelude-ty">Option</span>&lt;String&gt;,
     <span class="attr">#[serde(skip_serializing_if = <span class="string">"Option::is_none"</span>)]
     </span>order_id: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    fractional_shares: bool,
 }
 
 <span class="kw">impl </span>EstimateMaxPurchaseQuantityOptions {
@@ -91,6 +102,7 @@
             side,
             currency: <span class="prelude-val">None</span>,
             order_id: <span class="prelude-val">None</span>,
+            fractional_shares: <span class="bool-val">false</span>,
         }
     }
 
@@ -120,6 +132,14 @@
     </span><span class="kw">pub fn </span>order_id(<span class="self">self</span>, order_id: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             order_id: <span class="prelude-val">Some</span>(order_id.into()),
+            ..<span class="self">self
+        </span>}
+    }
+
+    <span class="doccomment">/// Get the maximum fractional share buying power
+    </span><span class="kw">pub fn </span>fractional_shares(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            fractional_shares: <span class="bool-val">true</span>,
             ..<span class="self">self
         </span>}
     }

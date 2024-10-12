@@ -21716,7 +21716,7 @@ print(resp)</code></pre>
 
 
 <h3 id="longport.openapi.TradeContext.estimate_max_purchase_quantity" class="doc doc-heading">
-            <code class="highlight language-python">estimate_max_purchase_quantity(symbol, order_type, side, price=None, currency=None, order_id=None)</code>
+            <code class="highlight language-python">estimate_max_purchase_quantity(symbol, order_type, side, price=None, currency=None, order_id=None, fractional_shares=False)</code>
 
 </h3>
 
@@ -21819,6 +21819,20 @@ print(resp)</code></pre>
             </td>
             <td>
                   <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>fractional_shares</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Get the maximum fractional share buying power</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
             </td>
           </tr>
       </tbody>

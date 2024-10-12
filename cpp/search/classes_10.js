@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['updatewatchlistgroup_734',['UpdateWatchlistGroup',['../structlongport_1_1quote_1_1_update_watchlist_group.html',1,'longport::quote']]]
+  ['updatewatchlistgroup_0',['UpdateWatchlistGroup',['../structlongport_1_1quote_1_1_update_watchlist_group.html',1,'longport::quote']]]
 ];
