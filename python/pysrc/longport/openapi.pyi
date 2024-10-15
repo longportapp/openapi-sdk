@@ -4755,7 +4755,7 @@ class TradeContext:
                 sleep(5)  # waiting for push event
         """
 
-    def unsubscribe(self, topics: List[str]) -> None:
+    def unsubscribe(self, topics: List[Type[TopicType]]) -> None:
         """
         Unsubscribe
 
