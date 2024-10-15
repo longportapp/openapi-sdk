@@ -1,0 +1,3752 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>QuoteContext - LongPort OpenAPI SDK</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">LongPort OpenAPI SDK</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Index</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Code Reference</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../config/" class="dropdown-item">Config</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">QuoteContext</a>
+</li>
+                                    
+<li>
+    <a href="../trade_context/" class="dropdown-item">TradeContext</a>
+</li>
+                                    
+<li>
+    <a href="../reference_all/" class="dropdown-item">All</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../config/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../trade_context/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#quotecontext" class="nav-link">QuoteContext</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext" class="nav-link">QuoteContext</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.brokers" class="nav-link">brokers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.calc_indexes" class="nav-link">calc_indexes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.candlesticks" class="nav-link">candlesticks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.capital_distribution" class="nav-link">capital_distribution</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.capital_flow" class="nav-link">capital_flow</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.create_watchlist_group" class="nav-link">create_watchlist_group</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.delete_watchlist_group" class="nav-link">delete_watchlist_group</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.depth" class="nav-link">depth</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.history_candlesticks_by_date" class="nav-link">history_candlesticks_by_date</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.history_candlesticks_by_offset" class="nav-link">history_candlesticks_by_offset</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.intraday" class="nav-link">intraday</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.member_id" class="nav-link">member_id</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.option_chain_expiry_date_list" class="nav-link">option_chain_expiry_date_list</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.option_chain_info_by_date" class="nav-link">option_chain_info_by_date</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.option_quote" class="nav-link">option_quote</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.participants" class="nav-link">participants</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.quote" class="nav-link">quote</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.quote_level" class="nav-link">quote_level</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.quote_package_details" class="nav-link">quote_package_details</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.realtime_brokers" class="nav-link">realtime_brokers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.realtime_candlesticks" class="nav-link">realtime_candlesticks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.realtime_depth" class="nav-link">realtime_depth</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.realtime_quote" class="nav-link">realtime_quote</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.realtime_trades" class="nav-link">realtime_trades</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.security_list" class="nav-link">security_list</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.set_on_brokers" class="nav-link">set_on_brokers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.set_on_candlestick" class="nav-link">set_on_candlestick</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.set_on_depth" class="nav-link">set_on_depth</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.set_on_quote" class="nav-link">set_on_quote</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.set_on_trades" class="nav-link">set_on_trades</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.static_info" class="nav-link">static_info</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.subscribe" class="nav-link">subscribe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.subscribe_candlesticks" class="nav-link">subscribe_candlesticks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.subscriptions" class="nav-link">subscriptions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.trades" class="nav-link">trades</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.trading_days" class="nav-link">trading_days</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.trading_session" class="nav-link">trading_session</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.unsubscribe" class="nav-link">unsubscribe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.unsubscribe_candlesticks" class="nav-link">unsubscribe_candlesticks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.update_watchlist_group" class="nav-link">update_watchlist_group</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.warrant_issuers" class="nav-link">warrant_issuers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.warrant_list" class="nav-link">warrant_list</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.warrant_quote" class="nav-link">warrant_quote</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.QuoteContext.watchlist" class="nav-link">watchlist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="quotecontext">QuoteContext</h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="longport.openapi.QuoteContext"></a>
+    <div class="doc doc-contents first">
+
+
+        <p>Quote context</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>config</code>
+            </td>
+            <td>
+                  <code>Config</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Configuration object</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.brokers" class="doc doc-heading">
+            <code class="highlight language-python">brokers(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security brokers</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>SecurityBrokers</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security brokers</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.brokers("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.calc_indexes" class="doc doc-heading">
+            <code class="highlight language-python">calc_indexes(symbols, indexes)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get calc indexes</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>indexes</code>
+            </td>
+            <td>
+                  <code>List[Type[CalcIndex]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Calc indexes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[SecurityCalcIndex]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Calc indexes of the symbols</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, CalcIndex
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.calc_indexes(["700.HK", "APPL.US"], [CalcIndex.LastDone, CalcIndex.ChangeRate])
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.candlesticks" class="doc doc-heading">
+            <code class="highlight language-python">candlesticks(symbol, period, count, adjust_type)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security candlesticks</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code>Type[Period]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Candlestick period</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of cancdlestick (Maximum is <code>1000</code>)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>adjust_type</code>
+            </td>
+            <td>
+                  <code>Type[AdjustType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Adjustment type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Candlestick]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Candlesticks</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, Period, AdjustType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.candlesticks(
+    "700.HK", Period.Day, 10, AdjustType.NoAdjust)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.capital_distribution" class="doc doc-heading">
+            <code class="highlight language-python">capital_distribution(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get capital distribution</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>CapitalDistributionResponse</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Capital distribution</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.capital_distribution("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.capital_flow" class="doc doc-heading">
+            <code class="highlight language-python">capital_flow(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get capital flow intraday</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[CapitalFlowLine]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Capital flow list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.capital_flow("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.create_watchlist_group" class="doc doc-heading">
+            <code class="highlight language-python">create_watchlist_group(name, securities=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create watchlist group</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>name</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Group name</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>securities</code>
+            </td>
+            <td>
+                  <code>Optional[List[str]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Securities</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Group ID</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+group_id = ctx.create_watchlist_group(name = "Watchlist1", securities = ["700.HK", "AAPL.US"])
+print(group_id)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.delete_watchlist_group" class="doc doc-heading">
+            <code class="highlight language-python">delete_watchlist_group(id, purge=False)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Delete watchlist group</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>id</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Group ID</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>purge</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Move securities in this group to the default group</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+ctx.delete_watchlist_group(10086)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.depth" class="doc doc-heading">
+            <code class="highlight language-python">depth(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security depth</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>SecurityDepth</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security depth</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.depth("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.history_candlesticks_by_date" class="doc doc-heading">
+            <code class="highlight language-python">history_candlesticks_by_date(symbol, period, adjust_type, start, end)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security history candlesticks by date</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code>Type[Period]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Period type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>adjust_type</code>
+            </td>
+            <td>
+                  <code>Type[AdjustType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Adjust type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>start</code>
+            </td>
+            <td>
+                  <code>Optional[date]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Start date</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>end</code>
+            </td>
+            <td>
+                  <code>Optional[date]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>End date</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.history_candlesticks_by_offset" class="doc doc-heading">
+            <code class="highlight language-python">history_candlesticks_by_offset(symbol, period, adjust_type, forward, time, count)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security history candlesticks by offset</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code>Type[Period]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Period type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>adjust_type</code>
+            </td>
+            <td>
+                  <code>Type[AdjustType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Adjust type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>forward</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>True</code>, query the latest from the specified time</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>time</code>
+            </td>
+            <td>
+                  <code>datetime</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Datetime</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of candlesticks</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.intraday" class="doc doc-heading">
+            <code class="highlight language-python">intraday(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security intraday lines</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[IntradayLine]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Intraday lines</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.intraday("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.member_id" class="doc doc-heading">
+            <code class="highlight language-python">member_id()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Returns the member ID</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.option_chain_expiry_date_list" class="doc doc-heading">
+            <code class="highlight language-python">option_chain_expiry_date_list(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get option chain expiry date list</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[date]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Option chain expiry date list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.option_chain_expiry_date_list("AAPL.US")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.option_chain_info_by_date" class="doc doc-heading">
+            <code class="highlight language-python">option_chain_info_by_date(symbol, expiry_date)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get option chain info by date</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>expiry_date</code>
+            </td>
+            <td>
+                  <code>date</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Expiry date</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[StrikePriceInfo]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Option chain info</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import date
+from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.option_chain_info_by_date(
+    "AAPL.US", date(2023, 1, 20))
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.option_quote" class="doc doc-heading">
+            <code class="highlight language-python">option_quote(symbols)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get quote of option securities</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[OptionQuote]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Option quote list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.option_quote(["AAPL230317P160000.US"])
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.participants" class="doc doc-heading">
+            <code class="highlight language-python">participants()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get participants</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[ParticipantInfo]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Participants</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.participants()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.quote" class="doc doc-heading">
+            <code class="highlight language-python">quote(symbols)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get quote of securities</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[SecurityQuote]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security quote list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.quote(["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.quote_level" class="doc doc-heading">
+            <code class="highlight language-python">quote_level()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Returns the quote level</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.quote_package_details" class="doc doc-heading">
+            <code class="highlight language-python">quote_package_details()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Returns the quote package details</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.realtime_brokers" class="doc doc-heading">
+            <code class="highlight language-python">realtime_brokers(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get real-time brokers</p>
+<p>Get real-time brokers of the subscribed symbols, it always returns the data in the local storage.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>SecurityBrokers</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security brokers</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longport.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Brokers], is_first_push = True)
+sleep(5)
+resp = ctx.realtime_brokers("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.realtime_candlesticks" class="doc doc-heading">
+            <code class="highlight language-python">realtime_candlesticks(symbol, period, count)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get real-time candlesticks</p>
+<p>Get Get real-time candlesticks of the subscribed symbols, it always returns the data in the local storage.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code>Type[Period]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Period type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of candlesticks</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Candlestick]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security candlesticks</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longport.openapi import QuoteContext, Config, Period
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe_candlesticks("AAPL.US", Period.Min_1)
+sleep(5)
+resp = ctx.realtime_candlesticks("AAPL.US", Period.Min_1, 10)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.realtime_depth" class="doc doc-heading">
+            <code class="highlight language-python">realtime_depth(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get real-time depth</p>
+<p>Get real-time depth of the subscribed symbols, it always returns the data in the local storage.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>SecurityDepth</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security depth</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longport.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Depth], is_first_push = True)
+sleep(5)
+resp = ctx.realtime_depth("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.realtime_quote" class="doc doc-heading">
+            <code class="highlight language-python">realtime_quote(symbols)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get real-time quote</p>
+<p>Get real-time quotes of the subscribed symbols, it always returns the data in the local storage.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[RealtimeQuote]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Quote list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longport.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Quote], is_first_push = True)
+sleep(5)
+resp = ctx.realtime_quote(["700.HK", "AAPL.US"])
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.realtime_trades" class="doc doc-heading">
+            <code class="highlight language-python">realtime_trades(symbol, count)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get real-time trades</p>
+<p>Get real-time trades of the subscribed symbols, it always returns the data in the local storage.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of trades</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Trade]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security trades</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longport.openapi import QuoteContext, Config, SubType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Trade], is_first_push = False)
+sleep(5)
+resp = ctx.realtime_trades("700.HK", 10)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.security_list" class="doc doc-heading">
+            <code class="highlight language-python">security_list(market, category)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security list</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>market</code>
+            </td>
+            <td>
+                  <code>Type[Market]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Market</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>category</code>
+            </td>
+            <td>
+                  <code>Type[SecurityListCategory]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security list category</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Security]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, Market, SecurityListCategory
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.security_list(Market.HK, SecurityListCategory.Overnight)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.set_on_brokers" class="doc doc-heading">
+            <code class="highlight language-python">set_on_brokers(callback)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set brokers callback, after receiving the brokers data push, it will call back to this function.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.set_on_candlestick" class="doc doc-heading">
+            <code class="highlight language-python">set_on_candlestick(callback)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set candlestick callback, after receiving the candlestick updated event, it will call back to this function.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.set_on_depth" class="doc doc-heading">
+            <code class="highlight language-python">set_on_depth(callback)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set depth callback, after receiving the depth data push, it will call back to this function.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.set_on_quote" class="doc doc-heading">
+            <code class="highlight language-python">set_on_quote(callback)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set quote callback, after receiving the quote data push, it will call back to this function.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.set_on_trades" class="doc doc-heading">
+            <code class="highlight language-python">set_on_trades(callback)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set trades callback, after receiving the trades data push, it will call back to this function.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.static_info" class="doc doc-heading">
+            <code class="highlight language-python">static_info(symbols)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get basic information of securities</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[SecurityStaticInfo]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security info list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.static_info(
+    ["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"])
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.subscribe" class="doc doc-heading">
+            <code class="highlight language-python">subscribe(symbols, sub_types, is_first_push=False)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Subscribe</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sub_types</code>
+            </td>
+            <td>
+                  <code>List[Type[SubType]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Subscribe types</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>is_first_push</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to perform a data push immediately after subscribing. (trade not supported)</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from longport.openapi import QuoteContext, Config, SubType, PushQuote
+
+def on_quote(symbol: str, event: PushQuote):
+    print(symbol, event)
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+ctx.set_on_quote(on_quote)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [
+              SubType.Quote], is_first_push = True)
+sleep(30)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.subscribe_candlesticks" class="doc doc-heading">
+            <code class="highlight language-python">subscribe_candlesticks(symbol, period)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Subscribe security candlesticks</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code>Type[Period]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Period type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, PushCandlestick
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+def on_candlestick(symbol: str, event: PushCandlestick):
+    print(symbol, event)
+
+ctx.set_on_candlestick(on_candlestick)
+ctx.subscribe_candlesticks("700.HK", Period.Min_1)
+sleep(30)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.subscriptions" class="doc doc-heading">
+            <code class="highlight language-python">subscriptions()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get subscription information</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, SubType
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
+resp = ctx.subscriptions()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.trades" class="doc doc-heading">
+            <code class="highlight language-python">trades(symbol, count)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get security trades</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>count</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of trades (Maximum is <code>1000</code>)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Trade]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trades</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.trades("700.HK", 10)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.trading_days" class="doc doc-heading">
+            <code class="highlight language-python">trading_days(market, begin, end)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get trading session of the day</p>
+<p>The interval must be less than one month, and only the most recent year is supported.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>market</code>
+            </td>
+            <td>
+                  <code>Type[Market]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Market</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>begin</code>
+            </td>
+            <td>
+                  <code>date</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Begin date</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>end</code>
+            </td>
+            <td>
+                  <code>date</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>End date</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>MarketTradingDays</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trading days</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import date
+from longport.openapi import QuoteContext, Config, Market
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.trading_days(
+    Market.HK, date(2022, 1, 1), date(2022, 2, 1))
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.trading_session" class="doc doc-heading">
+            <code class="highlight language-python">trading_session()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get trading session of the day</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[MarketTradingSession]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trading session of the day</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.trading_session()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.unsubscribe" class="doc doc-heading">
+            <code class="highlight language-python">unsubscribe(symbols, sub_types)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Unsubscribe</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sub_types</code>
+            </td>
+            <td>
+                  <code>List[Type[SubType]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Subscribe types</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, SubType
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+ctx.subscribe(["700.HK", "AAPL.US"], [SubType.Quote])
+ctx.unsubscribe(["AAPL.US"], [SubType.Quote])</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.unsubscribe_candlesticks" class="doc doc-heading">
+            <code class="highlight language-python">unsubscribe_candlesticks(symbol, period)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Subscribe security candlesticks</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>period</code>
+            </td>
+            <td>
+                  <code>Type[Period]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Period type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.update_watchlist_group" class="doc doc-heading">
+            <code class="highlight language-python">update_watchlist_group(id, name=None, securities=None, mode=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Update watchlist group</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>id</code>
+            </td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Group ID</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>name</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Group name</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>securities</code>
+            </td>
+            <td>
+                  <code>Optional[List[str]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Securities</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, SecuritiesUpdateMode
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+ctx.update_watchlist_group(10086, name = "Watchlist2", securities = ["700.HK", "AAPL.US"], SecuritiesUpdateMode.Replace)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.warrant_issuers" class="doc doc-heading">
+            <code class="highlight language-python">warrant_issuers()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get warrant issuers</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[IssuerInfo]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Warrant issuers</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.warrant_issuers()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.warrant_list" class="doc doc-heading">
+            <code class="highlight language-python">warrant_list(symbol, sort_by, sort_order, warrant_type=None, issuer=None, expiry_date=None, price_type=None, status=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get warrant list</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sort_by</code>
+            </td>
+            <td>
+                  <code>Type[WarrantSortBy]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sort by field</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sort_order</code>
+            </td>
+            <td>
+                  <code>Type[SortOrderType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sort order</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>warrant_type</code>
+            </td>
+            <td>
+                  <code>Optional[List[Type[WarrantType]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by warrant type</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>issuer</code>
+            </td>
+            <td>
+                  <code>Optional[List[int]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by issuer</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>expiry_date</code>
+            </td>
+            <td>
+                  <code>Optional[List[Type[FilterWarrantExpiryDate]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by expiry date</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>price_type</code>
+            </td>
+            <td>
+                  <code>Optional[List[Type[FilterWarrantInOutBoundsType]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by price type</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>status</code>
+            </td>
+            <td>
+                  <code>Optional[List[Type[WarrantStatus]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by status</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[WarrantInfo]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Warrant list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config, WarrantSortBy, SortOrderType
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.warrant_list("700.HK", WarrantSortBy.LastDone, SortOrderType.Ascending)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.warrant_quote" class="doc doc-heading">
+            <code class="highlight language-python">warrant_quote(symbols)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get quote of warrant securities</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>List[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security codes</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[WarrantQuote]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Warrant quote list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.warrant_quote(["21125.HK"])
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.QuoteContext.watchlist" class="doc doc-heading">
+            <code class="highlight language-python">watchlist()</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get watch list</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[WatchlistGroup]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Watch list groups</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import QuoteContext, Config
+
+config = Config.from_env()
+ctx = QuoteContext(config)
+
+resp = ctx.watchlist()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

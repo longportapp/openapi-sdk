@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>TradeContext - LongPort OpenAPI SDK</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">LongPort OpenAPI SDK</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Index</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Code Reference</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../config/" class="dropdown-item">Config</a>
+</li>
+                                    
+<li>
+    <a href="../quote_context/" class="dropdown-item">QuoteContext</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">TradeContext</a>
+</li>
+                                    
+<li>
+    <a href="../reference_all/" class="dropdown-item">All</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../quote_context/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../reference_all/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#tradecontext" class="nav-link">TradeContext</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext" class="nav-link">TradeContext</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.account_balance" class="nav-link">account_balance</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.cancel_order" class="nav-link">cancel_order</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.cash_flow" class="nav-link">cash_flow</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.estimate_max_purchase_quantity" class="nav-link">estimate_max_purchase_quantity</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.fund_positions" class="nav-link">fund_positions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.history_executions" class="nav-link">history_executions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.history_orders" class="nav-link">history_orders</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.margin_ratio" class="nav-link">margin_ratio</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.order_detail" class="nav-link">order_detail</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.replace_order" class="nav-link">replace_order</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.set_on_order_changed" class="nav-link">set_on_order_changed</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.stock_positions" class="nav-link">stock_positions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.submit_order" class="nav-link">submit_order</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.subscribe" class="nav-link">subscribe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.today_executions" class="nav-link">today_executions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.today_orders" class="nav-link">today_orders</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#longport.openapi.TradeContext.unsubscribe" class="nav-link">unsubscribe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="tradecontext">TradeContext</h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<a id="longport.openapi.TradeContext"></a>
+    <div class="doc doc-contents first">
+
+
+        <p>Trade context</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>config</code>
+            </td>
+            <td>
+                  <code>Config</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Configuration object</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.account_balance" class="doc doc-heading">
+            <code class="highlight language-python">account_balance(currency=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get account balance</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>currency</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Currency</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[AccountBalance]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Account list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.account_balance()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.cancel_order" class="doc doc-heading">
+            <code class="highlight language-python">cancel_order(order_id)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Cancel order</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order ID</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+ctx.cancel_order("709043056541253632")</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.cash_flow" class="doc doc-heading">
+            <code class="highlight language-python">cash_flow(start_at, end_at, business_type=None, symbol=None, page=None, size=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get cash flow</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>start_at</code>
+            </td>
+            <td>
+                  <code>datetime</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Start time</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>end_at</code>
+            </td>
+            <td>
+                  <code>datetime</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>End time</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>business_type</code>
+            </td>
+            <td>
+                  <code>Optional[Type[BalanceType]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Balance type</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Target security code</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>page</code>
+            </td>
+            <td>
+                  <code>Optional[int]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Start page (Default: 1)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>size</code>
+            </td>
+            <td>
+                  <code>Optional[int]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Page size (Default: 50)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[CashFlow]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Cash flow list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import datetime
+from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.cash_flow(
+    start_at = datetime(2022, 5, 9),
+    end_at = datetime(2022, 5, 12),
+)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.estimate_max_purchase_quantity" class="doc doc-heading">
+            <code class="highlight language-python">estimate_max_purchase_quantity(symbol, order_type, side, price=None, currency=None, order_id=None, fractional_shares=False)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Estimating the maximum purchase quantity for Hong Kong and US stocks, warrants, and options</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security symbol</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_type</code>
+            </td>
+            <td>
+                  <code>Type[OrderType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>side</code>
+            </td>
+            <td>
+                  <code>Type[OrderSide]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order side</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>price</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Estimated order price,</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>currency</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Settlement currency</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order ID, required when estimating the maximum purchase quantity for a modified order</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fractional_shares</code>
+            </td>
+            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Get the maximum fractional share buying power</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>EstimateMaxPurchaseQuantityResponse</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Response</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config, OrderType, OrderSide
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.estimate_max_purchase_quantity(
+    symbol = "700.HK",
+    order_type = OrderType.LO,
+    side = OrderSide.Buy,
+)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.fund_positions" class="doc doc-heading">
+            <code class="highlight language-python">fund_positions(symbols=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get fund positions</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>Optional[List[str]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by fund codes</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>FundPositionsResponse</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Fund positions</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.fund_positions()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.history_executions" class="doc doc-heading">
+            <code class="highlight language-python">history_executions(symbol=None, start_at=None, end_at=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get history executions</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by security code, example: <code>700.HK</code>, <code>AAPL.US</code></p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>start_at</code>
+            </td>
+            <td>
+                  <code>Optional[datetime]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Start time</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>end_at</code>
+            </td>
+            <td>
+                  <code>Optional[datetime]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>End time</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Execution]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Execution list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import datetime
+from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.history_executions(
+    symbol = "700.HK",
+    start_at = datetime(2022, 5, 9),
+    end_at = datetime(2022, 5, 12),
+)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.history_orders" class="doc doc-heading">
+            <code class="highlight language-python">history_orders(symbol=None, status=None, side=None, market=None, start_at=None, end_at=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get history orders</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by security code</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>status</code>
+            </td>
+            <td>
+                  <code>Optional[List[Type[OrderStatus]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by order status</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>side</code>
+            </td>
+            <td>
+                  <code>Optional[Type[OrderSide]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by order side</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>market</code>
+            </td>
+            <td>
+                  <code>Optional[Type[Market]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by market type</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>start_at</code>
+            </td>
+            <td>
+                  <code>Optional[datetime]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Start time</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>end_at</code>
+            </td>
+            <td>
+                  <code>Optional[datetime]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>End time</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Order]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from datetime import datetime
+from longport.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.history_orders(
+    symbol = "700.HK",
+    status = [OrderStatus.Filled, OrderStatus.New],
+    side = OrderSide.Buy,
+    market = Market.HK,
+    start_at = datetime(2022, 5, 9),
+    end_at = datetime(2022, 5, 12),
+)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.margin_ratio" class="doc doc-heading">
+            <code class="highlight language-python">margin_ratio(symbol)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get margin ratio</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security symbol</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>MarginRatio</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Margin ratio</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.margin_ratio("700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.order_detail" class="doc doc-heading">
+            <code class="highlight language-python">order_detail(order_id)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get order detail</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order</code>
+            </td>
+            <td>
+                  <code>id</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order id</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>OrderDetail</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order detail</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.order_detail("701276261045858304")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.replace_order" class="doc doc-heading">
+            <code class="highlight language-python">replace_order(order_id, quantity, price=None, trigger_price=None, limit_offset=None, trailing_amount=None, trailing_percent=None, remark=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Replace order</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>quantity</code>
+            </td>
+            <td>
+                  <code>Decimal</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Replaced quantity</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>price</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Replaced price</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>trigger_price</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trigger price (<code>LIT</code> / <code>MIT</code> Order Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>limit_offset</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Limit offset amount (<code>TSLPAMT</code> / <code>TSLPPCT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>trailing_amount</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trailing amount (<code>TSLPAMT</code> / <code>TSMAMT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>trailing_percent</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trailing percent (<code>TSLPPCT</code> / <code>TSMAPCT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>remark</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Remark (Maximum 64 characters)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from decimal import Decimal
+from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+ctx.replace_order(
+    order_id = "709043056541253632",
+    quantity = Decimal(100),
+    price = Decimal(100),
+)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.set_on_order_changed" class="doc doc-heading">
+            <code class="highlight language-python">set_on_order_changed(callback)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Set order changed callback, after receiving the order changed event, it will call back to this function.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.stock_positions" class="doc doc-heading">
+            <code class="highlight language-python">stock_positions(symbols=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get stock positions</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbols</code>
+            </td>
+            <td>
+                  <code>Optional[List[str]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by stock codes</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>StockPositionsResponse</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Stock positions</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.stock_positions()
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.submit_order" class="doc doc-heading">
+            <code class="highlight language-python">submit_order(symbol, order_type, side, submitted_quantity, time_in_force, submitted_price=None, trigger_price=None, limit_offset=None, trailing_amount=None, trailing_percent=None, expire_date=None, outside_rth=None, remark=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Submit order</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Security code</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_type</code>
+            </td>
+            <td>
+                  <code>Type[OrderType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>side</code>
+            </td>
+            <td>
+                  <code>Type[OrderSide]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order Side</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>submitted_quantity</code>
+            </td>
+            <td>
+                  <code>Decimal</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Submitted quantity</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>time_in_force</code>
+            </td>
+            <td>
+                  <code>Type[TimeInForceType]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Time in force type</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>submitted_price</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Submitted price</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>trigger_price</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trigger price (<code>LIT</code> / <code>MIT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>limit_offset</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Limit offset amount (<code>TSLPAMT</code> / <code>TSLPPCT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>trailing_amount</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trailing amount (<code>TSLPAMT</code> / <code>TSMAMT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>trailing_percent</code>
+            </td>
+            <td>
+                  <code>Optional[Decimal]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Trailing percent (<code>TSLPPCT</code> / <code>TSMAPCT</code> Required)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>expire_date</code>
+            </td>
+            <td>
+                  <code>Optional[date]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Long term order expire date (Required when <code>time_in_force</code> is <code>GoodTilDate</code>)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>outside_rth</code>
+            </td>
+            <td>
+                  <code>Optional[Type[OutsideRTH]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Enable or disable outside regular trading hours</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>remark</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Remark (Maximum 64 characters)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>SubmitOrderResponse</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Response</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from decimal import Decimal
+from longport.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.submit_order(
+    side = OrderSide.Buy,
+    symbol = "700.HK",
+    order_type = OrderType.LO,
+    submitted_price = Decimal(50),
+    submitted_quantity = Decimal(200),
+    time_in_force = TimeInForceType.Day,
+    remark = "Hello from Python SDK",
+)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.subscribe" class="doc doc-heading">
+            <code class="highlight language-python">subscribe(topics)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Subscribe</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>topics</code>
+            </td>
+            <td>
+                  <code>List[Type[TopicType]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Topic list</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from time import sleep
+from decimal import Decimal
+from longport.openapi import TradeContext, Config, OrderSide, OrderType, TimeInForceType, PushOrderChanged, TopicType
+
+
+def on_order_changed(event: PushOrderChanged):
+    print(event)
+
+
+config = Config.from_env()
+ctx = TradeContext(config)
+ctx.set_on_order_changed(on_order_changed)
+ctx.subscribe([TopicType.Private])
+
+resp = ctx.submit_order(
+    side = OrderSide.Buy,
+    symbol = "700.HK",
+    order_type = OrderType.LO,
+    submitted_price = Decimal(50),
+    submitted_quantity = Decimal(200),
+    time_in_force = TimeInForceType.Day,
+    remark = "Hello from Python SDK",
+)
+print(resp)
+sleep(5)  # waiting for push event</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.today_executions" class="doc doc-heading">
+            <code class="highlight language-python">today_executions(symbol=None, order_id=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get today executions</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by security code</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by Order ID</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Execution]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Execution list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.today_executions(symbol = "700.HK")
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.today_orders" class="doc doc-heading">
+            <code class="highlight language-python">today_orders(symbol=None, status=None, side=None, market=None, order_id=None)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get today orders</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>symbol</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by security code</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>status</code>
+            </td>
+            <td>
+                  <code>Optional[List[Type[OrderStatus]]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by order status</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>side</code>
+            </td>
+            <td>
+                  <code>Optional[Type[OrderSide]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by order side</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>market</code>
+            </td>
+            <td>
+                  <code>Optional[Type[Market]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by market type</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code>Optional[str]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filter by order id</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>List[Order]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Order list</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>::</p>
+<pre class="highlight"><code>from longport.openapi import TradeContext, Config, OrderStatus, OrderSide, Market
+
+config = Config.from_env()
+ctx = TradeContext(config)
+
+resp = ctx.today_orders(
+    symbol = "700.HK",
+    status = [OrderStatus.Filled, OrderStatus.New],
+    side = OrderSide.Buy,
+    market = Market.HK,
+)
+print(resp)</code></pre>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="longport.openapi.TradeContext.unsubscribe" class="doc doc-heading">
+            <code class="highlight language-python">unsubscribe(topics)</code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Unsubscribe</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>topics</code>
+            </td>
+            <td>
+                  <code>List[Type[TopicType]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Topic list</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

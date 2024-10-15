@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['quantity_1050',['quantity',['../structlongport_1_1trade_1_1_execution.html#a53a9d79b129b273fa6280e42d0e0b46c',1,'longport::trade::Execution::quantity()'],['../structlongport_1_1trade_1_1_order.html#ad37479d2b9d9b8900c693664a31e2284',1,'longport::trade::Order::quantity()'],['../structlongport_1_1trade_1_1_replace_order_options.html#a23ca4624eda7403c412a7b5da5398f8d',1,'longport::trade::ReplaceOrderOptions::quantity()'],['../structlongport_1_1trade_1_1_stock_position.html#a15e99c8933231dd5df3f7ae3db9b271f',1,'longport::trade::StockPosition::quantity()'],['../structlongport_1_1trade_1_1_order_history_detail.html#a04f3ac5d03320431a6b53452d98f100a',1,'longport::trade::OrderHistoryDetail::quantity()'],['../structlongport_1_1trade_1_1_order_detail.html#a601ceed067439a509e59c81e4dd97c6a',1,'longport::trade::OrderDetail::quantity()']]]
+];
