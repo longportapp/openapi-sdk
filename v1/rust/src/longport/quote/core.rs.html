@@ -1212,7 +1212,6 @@
 <a href="#1212" id="1212">1212</a>
 <a href="#1213" id="1213">1213</a>
 <a href="#1214" id="1214">1214</a>
-<a href="#1215" id="1215">1215</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1468,7 +1467,6 @@
         <span class="kw">let </span>push_candlestick_mode = config.push_candlestick_mode;
 
         <span class="kw">let </span><span class="kw-2">mut </span>table = Table::new();
-        <span class="macro">dbg!</span>(<span class="kw-2">&amp;</span>quote_package_details_by_market);
         <span class="kw">for </span>market_packages <span class="kw">in </span>quote_package_details_by_market {
             <span class="kw">if </span>market_packages.warning.is_empty() {
                 table.add_row(<span class="macro">vec!</span>[
