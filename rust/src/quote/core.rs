@@ -253,7 +253,6 @@ impl Core {
         let push_candlestick_mode = config.push_candlestick_mode;
 
         let mut table = Table::new();
-        dbg!(&quote_package_details_by_market);
         for market_packages in quote_package_details_by_market {
             if market_packages.warning.is_empty() {
                 table.add_row(vec![
