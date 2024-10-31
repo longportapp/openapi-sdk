@@ -72,6 +72,7 @@ class HttpClient:
         """
         ...
 
+
 class PushCandlestickMode:
     """
     Push candlestick mode
@@ -86,6 +87,7 @@ class PushCandlestickMode:
         """
         Confirmed
         """
+
 
 class Config:
     """
@@ -144,6 +146,7 @@ class Config:
         Returns:
             Access token
         """
+
 
 class Language:
     """
@@ -479,6 +482,7 @@ class SecurityBoard:
         SG Industry Board
         """
 
+
 class Security:
     """
     Security
@@ -504,6 +508,7 @@ class Security:
     Security name (zh-HK)
     """
 
+
 class SecurityListCategory:
     """
     Security list category
@@ -513,6 +518,7 @@ class SecurityListCategory:
         """
         Overnight
         """
+
 
 class SecurityStaticInfo:
     """
@@ -655,7 +661,7 @@ class TradeStatus:
         Warrant To BeListed
         """
 
-    class SuspendTrade(TradeStatus):
+    class Suspend(TradeStatus):
         """
         Suspend
         """
@@ -1477,6 +1483,7 @@ class IssuerInfo:
     Issuer name (zh-HK)
     """
 
+
 class WarrantStatus:
     """
     Warrant status
@@ -1497,6 +1504,7 @@ class WarrantStatus:
         Normal
         """
 
+
 class SortOrderType:
     """
     Sort order type
@@ -1511,6 +1519,7 @@ class SortOrderType:
         """
         Descending
         """
+
 
 class WarrantSortBy:
     """
@@ -1551,7 +1560,7 @@ class WarrantSortBy:
         """
         Strike price
         """
-    
+
     class UpperStrikePrice(WarrantSortBy):
         """
         Upper strike price
@@ -1627,6 +1636,7 @@ class WarrantSortBy:
         Status
         """
 
+
 class FilterWarrantExpiryDate:
     """
     Filter warrant expiry date type
@@ -1652,6 +1662,7 @@ class FilterWarrantExpiryDate:
         Greater than 12 months
         """
 
+
 class FilterWarrantInOutBoundsType:
     """
     Filter warrant in/out of the bounds type
@@ -1666,6 +1677,7 @@ class FilterWarrantInOutBoundsType:
         """
         Out bounds
         """
+
 
 class WarrantInfo:
     """
@@ -1796,6 +1808,7 @@ class WarrantInfo:
     """
     Status
     """
+
 
 class TradingSessionInfo:
     """
@@ -2459,6 +2472,7 @@ class SecurityCalcIndex:
     Rho
     """
 
+
 class QuotePackageDetail:
     """
     Quote package detail
@@ -2489,6 +2503,7 @@ class QuotePackageDetail:
     End time
     """
 
+
 class QuoteContext:
     """
     Quote context
@@ -2503,7 +2518,7 @@ class QuoteContext:
         """
         Returns the member ID
         """
-    
+
     def quote_level(self) -> str:
         """
         Returns the quote level
@@ -3826,6 +3841,7 @@ class OutsideRTH:
         """
         Overnight
         """
+
 
 class Order:
     """
