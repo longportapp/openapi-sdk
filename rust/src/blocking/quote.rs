@@ -459,7 +459,7 @@ impl QuoteContextSync {
         period: Period,
         adjust_type: AdjustType,
         forward: bool,
-        time: PrimitiveDateTime,
+        time: Option<PrimitiveDateTime>,
         count: usize,
     ) -> Result<Vec<Candlestick>> {
         self.rt.call(move |ctx| async move {

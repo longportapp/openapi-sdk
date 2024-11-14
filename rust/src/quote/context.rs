@@ -732,7 +732,7 @@ impl QuoteContext {
         period: Period,
         adjust_type: AdjustType,
         forward: bool,
-        time: PrimitiveDateTime,
+        time: Option<PrimitiveDateTime>,
         count: usize,
     ) -> Result<Vec<Candlestick>> {
         let resp: quote::SecurityCandlestickResponse = self
@@ -751,13 +751,19 @@ impl QuoteContext {
                                 quote::Direction::Backward
                             }
                             .into(),
-                            date: format!(
-                                "{:04}{:02}{:02}",
-                                time.year(),
-                                time.month() as u8,
-                                time.day()
-                            ),
-                            minute: format!("{:02}{:02}", time.hour(), time.minute()),
+                            date: time
+                                .map(|time| {
+                                    format!(
+                                        "{:04}{:02}{:02}",
+                                        time.year(),
+                                        time.month() as u8,
+                                        time.day()
+                                    )
+                                })
+                                .unwrap_or_default(),
+                            minute: time
+                                .map(|time| format!("{:02}{:02}", time.hour(), time.minute()))
+                                .unwrap_or_default(),
                             count: count as i32,
                         },
                     ),

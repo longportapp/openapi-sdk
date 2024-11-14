@@ -3942,7 +3942,7 @@ void lb_quote_context_history_candlesticks_by_offset(const struct lb_quote_conte
                                                      enum lb_period_t period,
                                                      enum lb_adjust_type_t adjust_type,
                                                      bool forward,
-                                                     struct lb_datetime_t time,
+                                                     const struct lb_datetime_t *time,
                                                      uintptr_t count,
                                                      lb_async_callback_t callback,
                                                      void *userdata);

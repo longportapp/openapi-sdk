@@ -275,14 +275,15 @@ impl QuoteContext {
     }
 
     /// Get security history candlesticks by offset
+    #[pyo3(signature = (symbol, period, adjust_type, forward, count, time = None))]
     fn history_candlesticks_by_offset(
         &self,
         symbol: String,
         period: Period,
         adjust_type: AdjustType,
         forward: bool,
-        time: PyOffsetDateTimeWrapper,
         count: usize,
+        time: Option<PyOffsetDateTimeWrapper>,
     ) -> PyResult<Vec<Candlestick>> {
         self.ctx
             .history_candlesticks_by_offset(
@@ -290,7 +291,7 @@ impl QuoteContext {
                 period.into(),
                 adjust_type.into(),
                 forward,
-                PrimitiveDateTime::new(time.0.date(), time.0.time()),
+                time.map(|time| PrimitiveDateTime::new(time.0.date(), time.0.time())),
                 count,
             )
             .map_err(ErrorNewType)?

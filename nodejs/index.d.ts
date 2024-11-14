@@ -1220,7 +1220,7 @@ export class QuoteContext {
    */
   candlesticks(symbol: string, period: Period, count: number, adjustType: AdjustType): Promise<Array<Candlestick>>
   /** Get security history candlesticks by offset */
-  historyCandlesticksByOffset(symbol: string, period: Period, adjustType: AdjustType, forward: boolean, datetime: NaiveDatetime, count: number): Promise<Array<Candlestick>>
+  historyCandlesticksByOffset(symbol: string, period: Period, adjustType: AdjustType, forward: boolean, datetime: NaiveDatetime | undefined | null, count: number): Promise<Array<Candlestick>>
   /** Get security history candlesticks by date */
   historyCandlesticksByDate(symbol: string, period: Period, adjustType: AdjustType, start?: NaiveDate | undefined | null, end?: NaiveDate | undefined | null): Promise<Array<Candlestick>>
   /**

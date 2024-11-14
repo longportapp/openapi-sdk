@@ -692,17 +692,25 @@ QuoteContext::history_candlesticks_by_offset(
   Period period,
   AdjustType adjust_type,
   bool forward,
-  DateTime datetime,
+  std::optional<DateTime> datetime,
   uintptr_t count,
   AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const
 {
+  lb_datetime_t ctime;
+  const lb_datetime_t* ctime_ptr = nullptr;
+
+  if (datetime) {
+    ctime = convert(&*datetime);
+    ctime_ptr = &ctime;
+  }
+
   lb_quote_context_history_candlesticks_by_offset(
     ctx_,
     symbol.c_str(),
     convert(period),
     convert(adjust_type),
     forward,
-    convert(&datetime),
+    ctime_ptr,
     count,
     [](auto res) {
       auto callback_ptr =

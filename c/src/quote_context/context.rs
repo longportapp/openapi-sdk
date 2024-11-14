@@ -636,13 +636,18 @@ pub unsafe extern "C" fn lb_quote_context_history_candlesticks_by_offset(
     period: CPeriod,
     adjust_type: CAdjustType,
     forward: bool,
-    time: CDateTime,
+    time: *const CDateTime,
     count: usize,
     callback: CAsyncCallback,
     userdata: *mut c_void,
 ) {
     let ctx_inner = (*ctx).ctx.clone();
     let symbol = cstr_to_rust(symbol);
+    let time = if !time.is_null() {
+        Some((*time).into())
+    } else {
+        None
+    };
     execute_async(callback, ctx, userdata, async move {
         let rows: CVec<CCandlestickOwned> = ctx_inner
             .history_candlesticks_by_offset(
@@ -650,7 +655,7 @@ pub unsafe extern "C" fn lb_quote_context_history_candlesticks_by_offset(
                 period.into(),
                 adjust_type.into(),
                 forward,
-                time.into(),
+                time,
                 count,
             )
             .await?

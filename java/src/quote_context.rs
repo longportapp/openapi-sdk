@@ -617,7 +617,7 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_quoteContextHistoryCan
         let symbol: String = FromJValue::from_jvalue(env, symbol.into())?;
         let period: Period = FromJValue::from_jvalue(env, period.into())?;
         let adjust_type: AdjustType = FromJValue::from_jvalue(env, adjust_type.into())?;
-        let datetime: PrimitiveDateTime = FromJValue::from_jvalue(env, datetime.into())?;
+        let datetime: Option<PrimitiveDateTime> = FromJValue::from_jvalue(env, datetime.into())?;
         async_util::execute(env, callback, async move {
             Ok(ObjectArray(
                 context

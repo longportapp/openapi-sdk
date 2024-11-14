@@ -582,7 +582,7 @@ impl QuoteContext {
         period: Period,
         adjust_type: AdjustType,
         forward: bool,
-        datetime: &NaiveDatetime,
+        datetime: Option<&NaiveDatetime>,
         count: i32,
     ) -> Result<Vec<Candlestick>> {
         self.ctx
@@ -591,7 +591,7 @@ impl QuoteContext {
                 period.into(),
                 adjust_type.into(),
                 forward,
-                datetime.0,
+                datetime.map(|datetime| datetime.0),
                 count as usize,
             )
             .await

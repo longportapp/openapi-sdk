@@ -147,7 +147,7 @@ public:
     Period period,
     AdjustType adjust_type,
     bool forward,
-    DateTime datetime,
+    std::optional<DateTime> datetime,
     uintptr_t count,
     AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
 

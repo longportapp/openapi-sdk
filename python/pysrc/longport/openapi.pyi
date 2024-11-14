@@ -2871,7 +2871,7 @@ class QuoteContext:
                 print(resp)
         """
 
-    def history_candlesticks_by_offset(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], forward: bool, time: datetime, count: int) -> List[Candlestick]:
+    def history_candlesticks_by_offset(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], forward: bool, count: int, time: Optional[datetime] = None) -> List[Candlestick]:
         """
         Get security history candlesticks by offset
 
@@ -2880,8 +2880,8 @@ class QuoteContext:
             period: Period type
             adjust_type: Adjust type
             forward: If `True`, query the latest from the specified time
-            time: Datetime
             count: Count of candlesticks
+            time: Datetime
         """
 
     def history_candlesticks_by_date(self, symbol: str, period: Type[Period], adjust_type: Type[AdjustType], start: Optional[date], end: Optional[date]) -> List[Candlestick]:
