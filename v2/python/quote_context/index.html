@@ -1189,7 +1189,7 @@ print(resp)</code></pre>
 
 
 <h2 id="longport.openapi.QuoteContext.history_candlesticks_by_offset" class="doc doc-heading">
-            <code class="highlight language-python">history_candlesticks_by_offset(symbol, period, adjust_type, forward, time, count)</code>
+            <code class="highlight language-python">history_candlesticks_by_offset(symbol, period, adjust_type, forward, count, time=None)</code>
 
 </h2>
 
@@ -1276,22 +1276,6 @@ print(resp)</code></pre>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>time</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" title="datetime.datetime" href="https://docs.python.org/3/library/datetime.html#datetime.datetime">datetime</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Datetime</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
                 <code>count</code>
             </td>
             <td>
@@ -1304,6 +1288,22 @@ print(resp)</code></pre>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>time</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="datetime.datetime" href="https://docs.python.org/3/library/datetime.html#datetime.datetime">datetime</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Datetime</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
             </td>
           </tr>
       </tbody>

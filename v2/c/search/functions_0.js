@@ -66,7 +66,7 @@ var searchData=
   ['lb_5fquote_5fcontext_5fdelete_5fwatchlist_5fgroup_862',['lb_quote_context_delete_watchlist_group',['../longport_8h.html#a217dce8f1d5aa63feb47eae708ea6180',1,'longport.h']]],
   ['lb_5fquote_5fcontext_5fdepth_863',['lb_quote_context_depth',['../longport_8h.html#aee7e22cf5e0a72ae61169081481e2da6',1,'longport.h']]],
   ['lb_5fquote_5fcontext_5fhistory_5fcandlesticks_5fby_5fdate_864',['lb_quote_context_history_candlesticks_by_date',['../longport_8h.html#a03f03c2ff44d3d1631b16a5b585009ff',1,'longport.h']]],
-  ['lb_5fquote_5fcontext_5fhistory_5fcandlesticks_5fby_5foffset_865',['lb_quote_context_history_candlesticks_by_offset',['../longport_8h.html#aa4d2715b30c44298ab7fe8a2d116b322',1,'longport.h']]],
+  ['lb_5fquote_5fcontext_5fhistory_5fcandlesticks_5fby_5foffset_865',['lb_quote_context_history_candlesticks_by_offset',['../longport_8h.html#a9afa46a4a53f057d73cfc89865b611b5',1,'longport.h']]],
   ['lb_5fquote_5fcontext_5fintraday_866',['lb_quote_context_intraday',['../longport_8h.html#a4bfbdc173e20c4b8c3db5abe92dc82bd',1,'longport.h']]],
   ['lb_5fquote_5fcontext_5fmember_5fid_867',['lb_quote_context_member_id',['../longport_8h.html#a1993ae47a76e96675bf13645dbafb225',1,'longport.h']]],
   ['lb_5fquote_5fcontext_5fnew_868',['lb_quote_context_new',['../longport_8h.html#ac0d3c6e1b8d39cd7c6f4642e8645d7b9',1,'longport.h']]],
