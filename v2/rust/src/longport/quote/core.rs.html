@@ -1216,10 +1216,6 @@
 <a href="#1216" id="1216">1216</a>
 <a href="#1217" id="1217">1217</a>
 <a href="#1218" id="1218">1218</a>
-<a href="#1219" id="1219">1219</a>
-<a href="#1220" id="1220">1220</a>
-<a href="#1221" id="1221">1221</a>
-<a href="#1222" id="1222">1222</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -1490,11 +1486,7 @@
             }
         }
 
-        <span class="kw">if </span>std::env::var(<span class="string">"LONGPORT_PRINT_QUOTE_PACKAGES"</span>)
-            .as_deref()
-            .unwrap_or(<span class="string">"true"</span>)
-            == <span class="string">"true"
-        </span>{
+        <span class="kw">if </span>config.enable_print_quote_packages {
             <span class="macro">println!</span>(<span class="string">"{}"</span>, table);
         }
 

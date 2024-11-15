@@ -853,8 +853,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ab20ada1449c2fded9e2b9c11df9fc33c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#ab20ada1449c2fded9e2b9c11df9fc33c">lb_config_from_env</a> (struct <a class="el" href="longport_8h.html#a74753f2e9628eafaece25e4f8e6ea2cc">lb_error_t</a> **error)</td></tr>
 <tr class="separator:ab20ada1449c2fded9e2b9c11df9fc33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d5e37895ae27caba8a30b8fcb56e10"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a96d5e37895ae27caba8a30b8fcb56e10">lb_config_new</a> (const char *app_key, const char *app_secret, const char *access_token, const char *http_url, const char *quote_ws_url, const char *trade_ws_url, const enum <a class="el" href="longport_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a> *language, bool enable_overight, const enum <a class="el" href="longport_8h.html#ab14fa1bbca5a7f0fc42b5c15e23e158e">lb_push_candlestick_mode_t</a> *push_candlestick_mode)</td></tr>
-<tr class="separator:a96d5e37895ae27caba8a30b8fcb56e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef3461b568c223ca69006ea8b341f2c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a4ef3461b568c223ca69006ea8b341f2c">lb_config_new</a> (const char *app_key, const char *app_secret, const char *access_token, const char *http_url, const char *quote_ws_url, const char *trade_ws_url, const enum <a class="el" href="longport_8h.html#ad746ba63a793b4e10cc564f6ae7aad1f">lb_language_t</a> *language, bool enable_overight, const enum <a class="el" href="longport_8h.html#ab14fa1bbca5a7f0fc42b5c15e23e158e">lb_push_candlestick_mode_t</a> *push_candlestick_mode, bool enable_print_quote_packages)</td></tr>
+<tr class="separator:a4ef3461b568c223ca69006ea8b341f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bde35f4be29458bded4a14ad0df22aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a2bde35f4be29458bded4a14ad0df22aa">lb_config_free</a> (struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *config)</td></tr>
 <tr class="separator:a2bde35f4be29458bded4a14ad0df22aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98beddab6e38b318e15a1936e7d97ee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="longport_8h.html#a98beddab6e38b318e15a1936e7d97ee6">lb_config_refresh_access_token</a> (struct <a class="el" href="longport_8h.html#a1dcafee980a8ac92f4de67fdb7541d55">lb_config_t</a> *config, int64_t expired_at, <a class="el" href="longport_8h.html#a5af8e7ecef5e7ac7662ccc466ab87233">lb_async_callback_t</a> callback, void *userdata)</td></tr>
@@ -4086,8 +4086,8 @@ Variables</h1>
 
 </div>
 </div>
-<a id="a96d5e37895ae27caba8a30b8fcb56e10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96d5e37895ae27caba8a30b8fcb56e10">&#9670;&nbsp;</a></span>lb_config_new()</h2>
+<a id="a4ef3461b568c223ca69006ea8b341f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef3461b568c223ca69006ea8b341f2c">&#9670;&nbsp;</a></span>lb_config_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4144,7 +4144,13 @@ Variables</h1>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const enum <a class="el" href="longport_8h.html#ab14fa1bbca5a7f0fc42b5c15e23e158e">lb_push_candlestick_mode_t</a> *&#160;</td>
-          <td class="paramname"><em>push_candlestick_mode</em>&#160;</td>
+          <td class="paramname"><em>push_candlestick_mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable_print_quote_packages</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

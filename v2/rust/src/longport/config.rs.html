@@ -319,6 +319,21 @@
 <a href="#319" id="319">319</a>
 <a href="#320" id="320">320</a>
 <a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::HashMap,
     fmt::{<span class="self">self</span>, Display},
@@ -386,6 +401,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) language: Language,
     <span class="kw">pub</span>(<span class="kw">crate</span>) enable_overnight: bool,
     <span class="kw">pub</span>(<span class="kw">crate</span>) push_candlestick_mode: PushCandlestickMode,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) enable_print_quote_packages: bool,
 }
 
 <span class="kw">impl </span>Config {
@@ -412,6 +428,7 @@
             language: Language::EN,
             enable_overnight: <span class="bool-val">false</span>,
             push_candlestick_mode: PushCandlestickMode::Realtime,
+            enable_print_quote_packages: <span class="bool-val">true</span>,
         }
     }
 
@@ -470,6 +487,10 @@
             } <span class="kw">else </span>{
                 PushCandlestickMode::Realtime
             };
+        <span class="kw">let </span>enable_print_quote_packages = std::env::var(<span class="string">"LONGPORT_PRINT_QUOTE_PACKAGES"</span>)
+            .as_deref()
+            .unwrap_or(<span class="string">"true"</span>)
+            == <span class="string">"true"</span>;
 
         <span class="prelude-val">Ok</span>(Config {
             http_cli_config,
@@ -478,6 +499,7 @@
             language: Language::EN,
             enable_overnight,
             push_candlestick_mode,
+            enable_print_quote_packages,
         })
     }
 
@@ -541,6 +563,14 @@
     </span><span class="kw">pub fn </span>push_candlestick_mode(<span class="self">self</span>, mode: PushCandlestickMode) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             push_candlestick_mode: mode,
+            ..<span class="self">self
+        </span>}
+    }
+
+    <span class="doccomment">/// Disable printing the opened quote packages when connected to the server.
+    </span><span class="kw">pub fn </span>dont_print_quote_packages(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            enable_print_quote_packages: <span class="bool-val">false</span>,
             ..<span class="self">self
         </span>}
     }
