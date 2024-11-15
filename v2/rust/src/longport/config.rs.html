@@ -317,6 +317,8 @@
 <a href="#317" id="317">317</a>
 <a href="#318" id="318">318</a>
 <a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::HashMap,
     fmt::{<span class="self">self</span>, Display},
@@ -432,6 +434,8 @@
     ///   `false` (Default: `false`)
     /// - `LONGPORT_PUSH_CANDLESTICK_MODE` - `realtime` or `confirmed` (Default:
     ///   `realtime`)
+    /// - `LONGPORT_PRINT_QUOTE_PACKAGES` - Print quote packages when connected,
+    ///   `true` or `false` (Default: `true`)
     </span><span class="kw">pub fn </span>from_env() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let _ </span>= dotenv::dotenv();
 
