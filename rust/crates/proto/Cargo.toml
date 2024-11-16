@@ -6,4 +6,5 @@ description = "LongPort Protocol"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-prost = "0.10.3"
+prost = "0.13.3"
+serde = { version = "1.0.137", features = ["derive"] }

@@ -22,7 +22,7 @@ pub struct Subscription {
 }
 
 /// Depth
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Depth {
     /// Position
     pub position: i32,
@@ -48,7 +48,7 @@ impl TryFrom<quote::Depth> for Depth {
 }
 
 /// Brokers
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Brokers {
     /// Position
     pub position: i32,
@@ -66,7 +66,7 @@ impl From<quote::Brokers> for Brokers {
 }
 
 /// Trade direction
-#[derive(Debug, FromPrimitive, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, FromPrimitive, Copy, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[repr(i32)]
 pub enum TradeDirection {
     /// Neutral
@@ -79,13 +79,14 @@ pub enum TradeDirection {
 }
 
 /// Trade
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Trade {
     /// Price
     pub price: Decimal,
     /// Volume
     pub volume: i64,
     /// Time of trading
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
     /// Trade type
     ///
@@ -137,14 +138,14 @@ impl TryFrom<quote::Trade> for Trade {
                 .map_err(|err| Error::parse_field_error("timestamp", err))?,
             trade_type: trade.trade_type,
             direction: trade.direction.into(),
-            trade_session: TradeSession::from_i32(trade.trade_session).unwrap_or_default(),
+            trade_session: TradeSession::try_from(trade.trade_session).unwrap_or_default(),
         })
     }
 }
 
 bitflags::bitflags! {
     /// Derivative type
-    #[derive(Debug, Copy, Clone)]
+    #[derive(Debug, Copy, Clone, Serialize,Deserialize)]
     pub struct DerivativeType: u8 {
         /// US stock options
         const OPTION = 0x1;
@@ -155,7 +156,7 @@ bitflags::bitflags! {
 }
 
 /// Security board
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display, Serialize, Deserialize)]
 #[allow(clippy::upper_case_acronyms)]
 pub enum SecurityBoard {
     /// Unknown
@@ -212,7 +213,7 @@ pub enum SecurityBoard {
 }
 
 /// The basic information of securities
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct SecurityStaticInfo {
     /// Security code
     pub symbol: String,
@@ -281,7 +282,7 @@ impl TryFrom<quote::StaticInfo> for SecurityStaticInfo {
 }
 
 /// Real-time quote
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RealtimeQuote {
     /// Security code
     pub symbol: String,
@@ -304,11 +305,12 @@ pub struct RealtimeQuote {
 }
 
 /// Quote of US pre/post market
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PrePostQuote {
     /// Latest price
     pub last_done: Decimal,
     /// Time of latest price
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
     /// Volume
     pub volume: i64,
@@ -340,7 +342,7 @@ impl TryFrom<quote::PrePostQuote> for PrePostQuote {
 }
 
 /// Quote of securitity
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SecurityQuote {
     /// Security code
     pub symbol: String,
@@ -355,6 +357,7 @@ pub struct SecurityQuote {
     /// Low
     pub low: Decimal,
     /// Time of latest price
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
     /// Volume
     pub volume: i64,
@@ -385,7 +388,7 @@ impl TryFrom<quote::SecurityQuote> for SecurityQuote {
                 .map_err(|err| Error::parse_field_error("timestamp", err))?,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            trade_status: TradeStatus::try_from(quote.trade_status).unwrap_or_default(),
             pre_market_quote: quote.pre_market_quote.map(TryInto::try_into).transpose()?,
             post_market_quote: quote.post_market_quote.map(TryInto::try_into).transpose()?,
             overnight_quote: quote.over_night_quote.map(TryInto::try_into).transpose()?,
@@ -394,7 +397,7 @@ impl TryFrom<quote::SecurityQuote> for SecurityQuote {
 }
 
 /// Option type
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Serialize, Deserialize)]
 pub enum OptionType {
     /// Unknown
     #[strum(disabled)]
@@ -408,7 +411,7 @@ pub enum OptionType {
 }
 
 /// Option direction
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Serialize, Deserialize)]
 pub enum OptionDirection {
     /// Unknown
     #[strum(disabled)]
@@ -422,7 +425,7 @@ pub enum OptionDirection {
 }
 
 /// Quote of option
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OptionQuote {
     /// Security code
     pub symbol: String,
@@ -437,6 +440,7 @@ pub struct OptionQuote {
     /// Low
     pub low: Decimal,
     /// Time of latest price
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
     /// Volume
     pub volume: i64,
@@ -483,7 +487,7 @@ impl TryFrom<quote::OptionQuote> for OptionQuote {
                 .map_err(|err| Error::parse_field_error("timestamp", err))?,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            trade_status: TradeStatus::try_from(quote.trade_status).unwrap_or_default(),
             implied_volatility: option_extend.implied_volatility.parse().unwrap_or_default(),
             open_interest: option_extend.open_interest,
             expiry_date: parse_date(&option_extend.expiry_date)
@@ -506,7 +510,19 @@ impl TryFrom<quote::OptionQuote> for OptionQuote {
 }
 
 /// Warrant type
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, IntoPrimitive, TryFromPrimitive)]
+#[derive(
+    Debug,
+    Copy,
+    Clone,
+    Hash,
+    Eq,
+    PartialEq,
+    EnumString,
+    IntoPrimitive,
+    TryFromPrimitive,
+    Serialize,
+    Deserialize,
+)]
 #[repr(i32)]
 pub enum WarrantType {
     /// Unknown
@@ -525,7 +541,7 @@ pub enum WarrantType {
 }
 
 /// Quote of warrant
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WarrantQuote {
     /// Security code
     pub symbol: String,
@@ -540,6 +556,7 @@ pub struct WarrantQuote {
     /// Low
     pub low: Decimal,
     /// Time of latest price
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
     /// Volume
     pub volume: i64,
@@ -590,7 +607,7 @@ impl TryFrom<quote::WarrantQuote> for WarrantQuote {
                 .map_err(|err| Error::parse_field_error("timestamp", err))?,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            trade_status: TradeStatus::try_from(quote.trade_status).unwrap_or_default(),
             implied_volatility: warrant_extend
                 .implied_volatility
                 .parse()
@@ -619,7 +636,7 @@ impl TryFrom<quote::WarrantQuote> for WarrantQuote {
 }
 
 /// Security depth
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct SecurityDepth {
     /// Ask depth
     pub asks: Vec<Depth>,
@@ -628,7 +645,7 @@ pub struct SecurityDepth {
 }
 
 /// Security brokers
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct SecurityBrokers {
     /// Ask brokers
     pub ask_brokers: Vec<Brokers>,
@@ -637,7 +654,7 @@ pub struct SecurityBrokers {
 }
 
 /// Participant info
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ParticipantInfo {
     /// Broker IDs
     pub broker_ids: Vec<i32>,
@@ -661,11 +678,12 @@ impl From<quote::ParticipantInfo> for ParticipantInfo {
 }
 
 /// Intraday line
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IntradayLine {
     /// Close price of the minute
     pub price: Decimal,
     /// Start time of the minute
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
     /// Volume
     pub volume: i64,
@@ -691,7 +709,7 @@ impl TryFrom<quote::Line> for IntradayLine {
 }
 
 /// Candlestick
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 pub struct Candlestick {
     /// Close price
     pub close: Decimal,
@@ -706,6 +724,7 @@ pub struct Candlestick {
     /// Turnover
     pub turnover: Decimal,
     /// Timestamp
+    #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
 }
 
@@ -757,7 +776,7 @@ impl From<Candlestick> for longport_candlesticks::Candlestick {
 }
 
 /// Strike price info
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StrikePriceInfo {
     /// Strike price
     pub price: Decimal,
@@ -783,7 +802,7 @@ impl TryFrom<quote::StrikePriceInfo> for StrikePriceInfo {
 }
 
 /// Issuer info
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct IssuerInfo {
     /// Issuer ID
     pub issuer_id: i32,
@@ -893,7 +912,9 @@ pub enum FilterWarrantInOutBoundsType {
 }
 
 /// Warrant status
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive, TryFromPrimitive)]
+#[derive(
+    Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive, TryFromPrimitive, Serialize, Deserialize,
+)]
 #[repr(i32)]
 pub enum WarrantStatus {
     /// Suspend
@@ -905,7 +926,7 @@ pub enum WarrantStatus {
 }
 
 /// Warrant info
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WarrantInfo {
     /// Security code
     pub symbol: String,
@@ -1060,7 +1081,7 @@ impl TryFrom<quote::FilterWarrant> for WarrantInfo {
 }
 
 /// The information of trading session
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TradingSessionInfo {
     /// Being trading time
     pub begin_time: Time,
@@ -1084,13 +1105,13 @@ impl TryFrom<quote::TradePeriod> for TradingSessionInfo {
                 .map_err(|err| Error::parse_field_error("beg_time", err))?,
             end_time: parse_time(value.end_time)
                 .map_err(|err| Error::parse_field_error("end_time", err))?,
-            trade_session: TradeSession::from_i32(value.trade_session).unwrap_or_default(),
+            trade_session: TradeSession::try_from(value.trade_session).unwrap_or_default(),
         })
     }
 }
 
 /// Market trading session
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MarketTradingSession {
     /// Market
     pub market: Market,
@@ -1114,7 +1135,7 @@ impl TryFrom<quote::MarketTradePeriod> for MarketTradingSession {
 }
 
 /// Market trading days
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MarketTradingDays {
     /// Trading days
     pub trading_days: Vec<Date>,
@@ -1123,7 +1144,7 @@ pub struct MarketTradingDays {
 }
 
 /// Capital flow line
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CapitalFlowLine {
     /// Inflow capital data
     pub inflow: Decimal,
@@ -1144,7 +1165,7 @@ impl TryFrom<quote::capital_flow_intraday_response::CapitalFlowLine> for Capital
 }
 
 /// Capital distribution
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct CapitalDistribution {
     /// Large order
     pub large: Decimal,
@@ -1167,7 +1188,7 @@ impl TryFrom<quote::capital_distribution_response::CapitalDistribution> for Capi
 }
 
 /// Capital distribution response
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CapitalDistributionResponse {
     /// Time
     pub timestamp: OffsetDateTime,
@@ -1199,7 +1220,7 @@ impl TryFrom<quote::CapitalDistributionResponse> for CapitalDistributionResponse
 }
 
 /// Watchlist security
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistSecurity {
     /// Security symbol
     pub symbol: String,
@@ -1216,7 +1237,7 @@ pub struct WatchlistSecurity {
 }
 
 /// Watchlist group
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatchlistGroup {
     /// Group id
     #[serde(with = "serde_utils::int64_str")]
@@ -1459,7 +1480,7 @@ impl From<CalcIndex> for longport_proto::quote::CalcIndex {
 }
 
 /// Security calc index response
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SecurityCalcIndex {
     /// Security code
     pub symbol: String,
@@ -1681,7 +1702,7 @@ pub enum SecurityListCategory {
 impl_serialize_for_enum_string!(SecurityListCategory);
 
 /// The basic information of securities
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Security {
     /// Security code
     pub symbol: String,

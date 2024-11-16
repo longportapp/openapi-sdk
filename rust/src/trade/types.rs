@@ -114,7 +114,7 @@ pub enum OrderStatus {
 }
 
 /// Execution
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Execution {
     /// Order ID
     pub order_id: String,
@@ -241,7 +241,7 @@ pub enum OutsideRTH {
 }
 
 /// Order
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Order {
     /// Order ID
     pub order_id: String,
@@ -362,7 +362,7 @@ pub enum ChargeCategoryCode {
 }
 
 /// Order history detail
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrderHistoryDetail {
     /// Executed price for executed orders, submitted price for expired,
     /// canceled, rejected orders, etc.
@@ -382,7 +382,7 @@ pub struct OrderHistoryDetail {
 }
 
 /// Order charge fee
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrderChargeFee {
     /// Charge code
     pub code: String,
@@ -396,7 +396,7 @@ pub struct OrderChargeFee {
 }
 
 /// Order charge item
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrderChargeItem {
     /// Charge category code
     pub code: ChargeCategoryCode,
@@ -407,7 +407,7 @@ pub struct OrderChargeItem {
 }
 
 /// Order charge detail
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrderChargeDetail {
     /// Total charges amount
     pub total_amount: Decimal,
@@ -418,7 +418,7 @@ pub struct OrderChargeDetail {
 }
 
 /// Order detail
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct OrderDetail {
     /// Order ID
     pub order_id: String,
@@ -518,7 +518,7 @@ pub struct OrderDetail {
 }
 
 /// Cash info
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CashInfo {
     /// Withdraw cash
     pub withdraw_cash: Decimal,
@@ -533,7 +533,7 @@ pub struct CashInfo {
 }
 
 /// Account balance
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AccountBalance {
     /// Total cash
     pub total_cash: Decimal,
@@ -595,7 +595,7 @@ impl<'de> Deserialize<'de> for BalanceType {
 }
 
 /// Cash flow direction
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, FromPrimitive)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, FromPrimitive, Serialize)]
 #[repr(i32)]
 pub enum CashFlowDirection {
     /// Unknown
@@ -615,7 +615,7 @@ impl<'de> Deserialize<'de> for CashFlowDirection {
 }
 
 /// Cash flow
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CashFlow {
     /// Cash flow name
     pub transaction_flow_name: String,
@@ -638,7 +638,7 @@ pub struct CashFlow {
 }
 
 /// Fund positions response
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FundPositionsResponse {
     /// Channels
     #[serde(rename = "list")]
@@ -646,7 +646,7 @@ pub struct FundPositionsResponse {
 }
 
 /// Fund position channel
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FundPositionChannel {
     /// Account type
     pub account_channel: String,
@@ -657,7 +657,7 @@ pub struct FundPositionChannel {
 }
 
 /// Fund position
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FundPosition {
     /// Fund ISIN code
     pub symbol: String,
@@ -680,7 +680,7 @@ pub struct FundPosition {
 }
 
 /// Stock positions response
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StockPositionsResponse {
     /// Channels
     #[serde(rename = "list")]
@@ -688,7 +688,7 @@ pub struct StockPositionsResponse {
 }
 
 /// Stock position channel
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StockPositionChannel {
     /// Account type
     pub account_channel: String,
@@ -699,7 +699,7 @@ pub struct StockPositionChannel {
 }
 
 /// Stock position
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StockPosition {
     /// Stock code
     pub symbol: String,
@@ -725,7 +725,7 @@ pub struct StockPosition {
 }
 
 /// Margin ratio
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MarginRatio {
     /// Initial margin ratio
     pub im_factor: Decimal,

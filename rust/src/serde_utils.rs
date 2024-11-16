@@ -23,7 +23,7 @@ pub(crate) mod timestamp {
     where
         S: Serializer,
     {
-        serializer.serialize_str(&datetime.unix_timestamp().to_string())
+        serializer.collect_str(&datetime.unix_timestamp())
     }
 }
 
@@ -55,7 +55,7 @@ pub(crate) mod timestamp_opt {
         S: Serializer,
     {
         match datetime {
-            Some(datetime) => serializer.serialize_str(&datetime.unix_timestamp().to_string()),
+            Some(datetime) => serializer.collect_str(&datetime.unix_timestamp()),
             None => serializer.serialize_none(),
         }
     }
@@ -99,6 +99,13 @@ pub(crate) mod date_opt {
 pub(crate) mod risk_level {
     use super::*;
 
+    pub(crate) fn serialize<S>(value: &i32, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.collect_str(value)
+    }
+
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<i32, D::Error>
     where
         D: Deserializer<'de>,
@@ -118,6 +125,13 @@ pub(crate) mod decimal_empty_is_0 {
     use rust_decimal::Decimal;
 
     use super::*;
+
+    pub(crate) fn serialize<S>(value: &Decimal, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.collect_str(&value)
+    }
 
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Decimal, D::Error>
     where
@@ -140,6 +154,16 @@ pub(crate) mod decimal_opt_empty_is_none {
 
     use super::*;
 
+    pub(crate) fn serialize<S>(value: &Option<Decimal>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match value {
+            Some(value) => serializer.collect_str(&value),
+            _ => serializer.serialize_none(),
+        }
+    }
+
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<Decimal>, D::Error>
     where
         D: Deserializer<'de>,
@@ -161,6 +185,16 @@ pub(crate) mod decimal_opt_0_is_none {
 
     use super::*;
 
+    pub(crate) fn serialize<S>(value: &Option<Decimal>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match value {
+            Some(value) => serializer.collect_str(&value),
+            _ => serializer.serialize_none(),
+        }
+    }
+
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<Decimal>, D::Error>
     where
         D: Deserializer<'de>,
@@ -181,6 +215,19 @@ pub(crate) mod trigger_status {
     use super::*;
     use crate::trade::TriggerStatus;
 
+    pub(crate) fn serialize<S>(
+        value: &Option<TriggerStatus>,
+        serializer: S,
+    ) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match value {
+            Some(value) => serializer.collect_str(value),
+            None => serializer.serialize_none(),
+        }
+    }
+
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<TriggerStatus>, D::Error>
     where
         D: Deserializer<'de>,
@@ -199,6 +246,16 @@ pub(crate) mod outside_rth {
     use super::*;
     use crate::trade::OutsideRTH;
 
+    pub(crate) fn serialize<S>(value: &Option<OutsideRTH>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match value {
+            Some(value) => serializer.collect_str(value),
+            None => serializer.serialize_none(),
+        }
+    }
+
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<OutsideRTH>, D::Error>
     where
         D: Deserializer<'de>,
@@ -215,6 +272,16 @@ pub(crate) mod outside_rth {
 
 pub(crate) mod symbol_opt {
     use super::*;
+
+    pub(crate) fn serialize<S>(value: &Option<String>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match value {
+            Some(value) => serializer.serialize_str(value),
+            None => serializer.serialize_none(),
+        }
+    }
 
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<String>, D::Error>
     where

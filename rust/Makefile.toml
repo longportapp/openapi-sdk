@@ -7,7 +7,7 @@ script_runner = "@rust"
 script = '''
 //! ```cargo
 //! [dependencies]
-//! prost-build = "0.10.3"
+//! prost-build = "0.13.3"
 //! ```
 use prost_build::Config;
 
@@ -15,6 +15,7 @@ fn main() {
     Config::new()
         .out_dir("rust/crates/proto/src")
         .protoc_arg("--experimental_allow_proto3_optional")
+        .type_attribute(".", "#[derive(serde::Serialize, serde::Deserialize)]")
         .compile_protos(
             &[
                 "rust/crates/proto/openapi-protobufs/control/control.proto",
