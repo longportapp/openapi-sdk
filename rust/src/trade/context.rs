@@ -22,14 +22,14 @@ use crate::{
 struct EmptyResponse {}
 
 /// Response for submit order request
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct SubmitOrderResponse {
     /// Order id
     pub order_id: String,
 }
 
 /// Response for estimate maximum purchase quantity
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct EstimateMaxPurchaseQuantityResponse {
     /// Cash available quantity
     pub cash_max_qty: Decimal,

@@ -47,7 +47,7 @@ impl From<Vec<i32>> for SubFlags {
         let mut flags = SubFlags::empty();
 
         for sub_type in sub_types {
-            if let Some(sub_type) = SubType::from_i32(sub_type) {
+            if let Ok(sub_type) = SubType::try_from(sub_type) {
                 match sub_type {
                     SubType::Quote => flags |= SubFlags::QUOTE,
                     SubType::Depth => flags |= SubFlags::DEPTH,

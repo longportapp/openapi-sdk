@@ -20,7 +20,7 @@ tokio-tungstenite = { version = "0.21.0", features = [
 ] }
 thiserror = "1.0.31"
 futures-util = "0.3.21"
-prost = "0.10.3"
+prost = "0.13.3"
 byteorder = "1.4.3"
 num_enum = "0.5.7"
 url = "2.2.2"

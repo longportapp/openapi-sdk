@@ -139,11 +139,11 @@ fn parse_push_quote(data: &[u8]) -> Result<(PushEvent, PushQuoteTag)> {
                     .map_err(|err| Error::parse_field_error("timestamp", err))?,
                 volume: push_quote.volume,
                 turnover: push_quote.turnover.parse().unwrap_or_default(),
-                trade_status: TradeStatus::from_i32(push_quote.trade_status).unwrap_or_default(),
-                trade_session: TradeSession::from_i32(push_quote.trade_session).unwrap_or_default(),
+                trade_status: TradeStatus::try_from(push_quote.trade_status).unwrap_or_default(),
+                trade_session: TradeSession::try_from(push_quote.trade_session).unwrap_or_default(),
             }),
         },
-        PushQuoteTag::from_i32(push_quote.tag).unwrap_or_default(),
+        PushQuoteTag::try_from(push_quote.tag).unwrap_or_default(),
     ))
 }
 
