@@ -1367,7 +1367,7 @@
 }
 
 <span class="doccomment">/// Execution
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Execution {
     <span class="doccomment">/// Order ID
     </span><span class="kw">pub </span>order_id: String,
@@ -1493,7 +1493,7 @@
 }
 
 <span class="doccomment">/// Order
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Order {
     <span class="doccomment">/// Order ID
     </span><span class="kw">pub </span>order_id: String,
@@ -1612,7 +1612,7 @@
 }
 
 <span class="doccomment">/// Order history detail
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>OrderHistoryDetail {
     <span class="doccomment">/// Executed price for executed orders, submitted price for expired,
     /// canceled, rejected orders, etc.
@@ -1631,7 +1631,7 @@
 }
 
 <span class="doccomment">/// Order charge fee
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>OrderChargeFee {
     <span class="doccomment">/// Charge code
     </span><span class="kw">pub </span>code: String,
@@ -1645,7 +1645,7 @@
 }
 
 <span class="doccomment">/// Order charge item
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>OrderChargeItem {
     <span class="doccomment">/// Charge category code
     </span><span class="kw">pub </span>code: ChargeCategoryCode,
@@ -1656,7 +1656,7 @@
 }
 
 <span class="doccomment">/// Order charge detail
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>OrderChargeDetail {
     <span class="doccomment">/// Total charges amount
     </span><span class="kw">pub </span>total_amount: Decimal,
@@ -1667,7 +1667,7 @@
 }
 
 <span class="doccomment">/// Order detail
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>OrderDetail {
     <span class="doccomment">/// Order ID
     </span><span class="kw">pub </span>order_id: String,
@@ -1765,7 +1765,7 @@
 }
 
 <span class="doccomment">/// Cash info
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>CashInfo {
     <span class="doccomment">/// Withdraw cash
     </span><span class="kw">pub </span>withdraw_cash: Decimal,
@@ -1780,7 +1780,7 @@
 }
 
 <span class="doccomment">/// Account balance
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>AccountBalance {
     <span class="doccomment">/// Total cash
     </span><span class="kw">pub </span>total_cash: Decimal,
@@ -1842,7 +1842,7 @@
 }
 
 <span class="doccomment">/// Cash flow direction
-</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, FromPrimitive)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, FromPrimitive, Serialize)]
 #[repr(i32)]
 </span><span class="kw">pub enum </span>CashFlowDirection {
     <span class="doccomment">/// Unknown
@@ -1862,7 +1862,7 @@
 }
 
 <span class="doccomment">/// Cash flow
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>CashFlow {
     <span class="doccomment">/// Cash flow name
     </span><span class="kw">pub </span>transaction_flow_name: String,
@@ -1885,7 +1885,7 @@
 }
 
 <span class="doccomment">/// Fund positions response
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>FundPositionsResponse {
     <span class="doccomment">/// Channels
     </span><span class="attr">#[serde(rename = <span class="string">"list"</span>)]
@@ -1893,7 +1893,7 @@
 }
 
 <span class="doccomment">/// Fund position channel
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>FundPositionChannel {
     <span class="doccomment">/// Account type
     </span><span class="kw">pub </span>account_channel: String,
@@ -1904,7 +1904,7 @@
 }
 
 <span class="doccomment">/// Fund position
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>FundPosition {
     <span class="doccomment">/// Fund ISIN code
     </span><span class="kw">pub </span>symbol: String,
@@ -1927,7 +1927,7 @@
 }
 
 <span class="doccomment">/// Stock positions response
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>StockPositionsResponse {
     <span class="doccomment">/// Channels
     </span><span class="attr">#[serde(rename = <span class="string">"list"</span>)]
@@ -1935,7 +1935,7 @@
 }
 
 <span class="doccomment">/// Stock position channel
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>StockPositionChannel {
     <span class="doccomment">/// Account type
     </span><span class="kw">pub </span>account_channel: String,
@@ -1946,7 +1946,7 @@
 }
 
 <span class="doccomment">/// Stock position
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>StockPosition {
     <span class="doccomment">/// Stock code
     </span><span class="kw">pub </span>symbol: String,
@@ -1970,7 +1970,7 @@
 }
 
 <span class="doccomment">/// Margin ratio
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>MarginRatio {
     <span class="doccomment">/// Initial margin ratio
     </span><span class="kw">pub </span>im_factor: Decimal,

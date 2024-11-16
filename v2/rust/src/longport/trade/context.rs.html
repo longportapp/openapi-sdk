@@ -740,14 +740,14 @@
 </span><span class="kw">struct </span>EmptyResponse {}
 
 <span class="doccomment">/// Response for submit order request
-</span><span class="attr">#[derive(Debug, Deserialize)]
+</span><span class="attr">#[derive(Debug, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SubmitOrderResponse {
     <span class="doccomment">/// Order id
     </span><span class="kw">pub </span>order_id: String,
 }
 
 <span class="doccomment">/// Response for estimate maximum purchase quantity
-</span><span class="attr">#[derive(Debug, Deserialize)]
+</span><span class="attr">#[derive(Debug, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>EstimateMaxPurchaseQuantityResponse {
     <span class="doccomment">/// Cash available quantity
     </span><span class="kw">pub </span>cash_max_qty: Decimal,

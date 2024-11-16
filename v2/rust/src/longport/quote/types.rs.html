@@ -1723,6 +1723,27 @@
 <a href="#1723" id="1723">1723</a>
 <a href="#1724" id="1724">1724</a>
 <a href="#1725" id="1725">1725</a>
+<a href="#1726" id="1726">1726</a>
+<a href="#1727" id="1727">1727</a>
+<a href="#1728" id="1728">1728</a>
+<a href="#1729" id="1729">1729</a>
+<a href="#1730" id="1730">1730</a>
+<a href="#1731" id="1731">1731</a>
+<a href="#1732" id="1732">1732</a>
+<a href="#1733" id="1733">1733</a>
+<a href="#1734" id="1734">1734</a>
+<a href="#1735" id="1735">1735</a>
+<a href="#1736" id="1736">1736</a>
+<a href="#1737" id="1737">1737</a>
+<a href="#1738" id="1738">1738</a>
+<a href="#1739" id="1739">1739</a>
+<a href="#1740" id="1740">1740</a>
+<a href="#1741" id="1741">1741</a>
+<a href="#1742" id="1742">1742</a>
+<a href="#1743" id="1743">1743</a>
+<a href="#1744" id="1744">1744</a>
+<a href="#1745" id="1745">1745</a>
+<a href="#1746" id="1746">1746</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, TradeSession, TradeStatus};
 <span class="kw">use </span>num_enum::{FromPrimitive, IntoPrimitive, TryFromPrimitive};
 <span class="kw">use </span>rust_decimal::Decimal;
@@ -1747,7 +1768,7 @@
 }
 
 <span class="doccomment">/// Depth
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Depth {
     <span class="doccomment">/// Position
     </span><span class="kw">pub </span>position: i32,
@@ -1773,7 +1794,7 @@
 }
 
 <span class="doccomment">/// Brokers
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Brokers {
     <span class="doccomment">/// Position
     </span><span class="kw">pub </span>position: i32,
@@ -1791,7 +1812,7 @@
 }
 
 <span class="doccomment">/// Trade direction
-</span><span class="attr">#[derive(Debug, FromPrimitive, Copy, Clone, Hash, Eq, PartialEq)]
+</span><span class="attr">#[derive(Debug, FromPrimitive, Copy, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
 #[repr(i32)]
 </span><span class="kw">pub enum </span>TradeDirection {
     <span class="doccomment">/// Neutral
@@ -1804,13 +1825,14 @@
 }
 
 <span class="doccomment">/// Trade
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Trade {
     <span class="doccomment">/// Price
     </span><span class="kw">pub </span>price: Decimal,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
     <span class="doccomment">/// Time of trading
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
     <span class="doccomment">/// Trade type
     ///
@@ -1862,14 +1884,14 @@
                 .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             trade_type: trade.trade_type,
             direction: trade.direction.into(),
-            trade_session: TradeSession::from_i32(trade.trade_session).unwrap_or_default(),
+            trade_session: TradeSession::try_from(trade.trade_session).unwrap_or_default(),
         })
     }
 }
 
 <span class="macro">bitflags::bitflags!</span> {
     <span class="doccomment">/// Derivative type
-    </span><span class="attr">#[derive(Debug, Copy, Clone)]
+    </span><span class="attr">#[derive(Debug, Copy, Clone, Serialize,Deserialize)]
     </span><span class="kw">pub struct </span>DerivativeType: u8 {
         <span class="doccomment">/// US stock options
         </span><span class="kw">const </span>OPTION = <span class="number">0x1</span>;
@@ -1880,7 +1902,7 @@
 }
 
 <span class="doccomment">/// Security board
-</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display, Serialize, Deserialize)]
 #[allow(clippy::upper_case_acronyms)]
 </span><span class="kw">pub enum </span>SecurityBoard {
     <span class="doccomment">/// Unknown
@@ -1937,7 +1959,7 @@
 }
 
 <span class="doccomment">/// The basic information of securities
-</span><span class="attr">#[derive(Debug)]
+</span><span class="attr">#[derive(Debug, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SecurityStaticInfo {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -2006,7 +2028,7 @@
 }
 
 <span class="doccomment">/// Real-time quote
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>RealtimeQuote {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -2029,11 +2051,12 @@
 }
 
 <span class="doccomment">/// Quote of US pre/post market
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>PrePostQuote {
     <span class="doccomment">/// Latest price
     </span><span class="kw">pub </span>last_done: Decimal,
     <span class="doccomment">/// Time of latest price
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
@@ -2065,7 +2088,7 @@
 }
 
 <span class="doccomment">/// Quote of securitity
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SecurityQuote {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -2080,6 +2103,7 @@
     <span class="doccomment">/// Low
     </span><span class="kw">pub </span>low: Decimal,
     <span class="doccomment">/// Time of latest price
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
@@ -2110,7 +2134,7 @@
                 .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            trade_status: TradeStatus::try_from(quote.trade_status).unwrap_or_default(),
             pre_market_quote: quote.pre_market_quote.map(TryInto::try_into).transpose()<span class="question-mark">?</span>,
             post_market_quote: quote.post_market_quote.map(TryInto::try_into).transpose()<span class="question-mark">?</span>,
             overnight_quote: quote.over_night_quote.map(TryInto::try_into).transpose()<span class="question-mark">?</span>,
@@ -2119,7 +2143,7 @@
 }
 
 <span class="doccomment">/// Option type
-</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Serialize, Deserialize)]
 </span><span class="kw">pub enum </span>OptionType {
     <span class="doccomment">/// Unknown
     </span><span class="attr">#[strum(disabled)]
@@ -2133,7 +2157,7 @@
 }
 
 <span class="doccomment">/// Option direction
-</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Serialize, Deserialize)]
 </span><span class="kw">pub enum </span>OptionDirection {
     <span class="doccomment">/// Unknown
     </span><span class="attr">#[strum(disabled)]
@@ -2147,7 +2171,7 @@
 }
 
 <span class="doccomment">/// Quote of option
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>OptionQuote {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -2162,6 +2186,7 @@
     <span class="doccomment">/// Low
     </span><span class="kw">pub </span>low: Decimal,
     <span class="doccomment">/// Time of latest price
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
@@ -2208,7 +2233,7 @@
                 .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            trade_status: TradeStatus::try_from(quote.trade_status).unwrap_or_default(),
             implied_volatility: option_extend.implied_volatility.parse().unwrap_or_default(),
             open_interest: option_extend.open_interest,
             expiry_date: parse_date(<span class="kw-2">&amp;</span>option_extend.expiry_date)
@@ -2231,7 +2256,19 @@
 }
 
 <span class="doccomment">/// Warrant type
-</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, IntoPrimitive, TryFromPrimitive)]
+</span><span class="attr">#[derive(
+    Debug,
+    Copy,
+    Clone,
+    Hash,
+    Eq,
+    PartialEq,
+    EnumString,
+    IntoPrimitive,
+    TryFromPrimitive,
+    Serialize,
+    Deserialize,
+)]
 #[repr(i32)]
 </span><span class="kw">pub enum </span>WarrantType {
     <span class="doccomment">/// Unknown
@@ -2250,7 +2287,7 @@
 }
 
 <span class="doccomment">/// Quote of warrant
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>WarrantQuote {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -2265,6 +2302,7 @@
     <span class="doccomment">/// Low
     </span><span class="kw">pub </span>low: Decimal,
     <span class="doccomment">/// Time of latest price
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
@@ -2315,7 +2353,7 @@
                 .map_err(|err| Error::parse_field_error(<span class="string">"timestamp"</span>, err))<span class="question-mark">?</span>,
             volume: quote.volume,
             turnover: quote.turnover.parse().unwrap_or_default(),
-            trade_status: TradeStatus::from_i32(quote.trade_status).unwrap_or_default(),
+            trade_status: TradeStatus::try_from(quote.trade_status).unwrap_or_default(),
             implied_volatility: warrant_extend
                 .implied_volatility
                 .parse()
@@ -2344,7 +2382,7 @@
 }
 
 <span class="doccomment">/// Security depth
-</span><span class="attr">#[derive(Debug, Clone, Default)]
+</span><span class="attr">#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SecurityDepth {
     <span class="doccomment">/// Ask depth
     </span><span class="kw">pub </span>asks: Vec&lt;Depth&gt;,
@@ -2353,7 +2391,7 @@
 }
 
 <span class="doccomment">/// Security brokers
-</span><span class="attr">#[derive(Debug, Clone, Default)]
+</span><span class="attr">#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SecurityBrokers {
     <span class="doccomment">/// Ask brokers
     </span><span class="kw">pub </span>ask_brokers: Vec&lt;Brokers&gt;,
@@ -2362,7 +2400,7 @@
 }
 
 <span class="doccomment">/// Participant info
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>ParticipantInfo {
     <span class="doccomment">/// Broker IDs
     </span><span class="kw">pub </span>broker_ids: Vec&lt;i32&gt;,
@@ -2386,11 +2424,12 @@
 }
 
 <span class="doccomment">/// Intraday line
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>IntradayLine {
     <span class="doccomment">/// Close price of the minute
     </span><span class="kw">pub </span>price: Decimal,
     <span class="doccomment">/// Start time of the minute
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
     <span class="doccomment">/// Volume
     </span><span class="kw">pub </span>volume: i64,
@@ -2416,7 +2455,7 @@
 }
 
 <span class="doccomment">/// Candlestick
-</span><span class="attr">#[derive(Debug, Copy, Clone)]
+</span><span class="attr">#[derive(Debug, Copy, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Candlestick {
     <span class="doccomment">/// Close price
     </span><span class="kw">pub </span>close: Decimal,
@@ -2431,6 +2470,7 @@
     <span class="doccomment">/// Turnover
     </span><span class="kw">pub </span>turnover: Decimal,
     <span class="doccomment">/// Timestamp
+    </span><span class="attr">#[serde(with = <span class="string">"serde_utils::timestamp"</span>)]
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
 }
 
@@ -2482,7 +2522,7 @@
 }
 
 <span class="doccomment">/// Strike price info
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>StrikePriceInfo {
     <span class="doccomment">/// Strike price
     </span><span class="kw">pub </span>price: Decimal,
@@ -2508,7 +2548,7 @@
 }
 
 <span class="doccomment">/// Issuer info
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>IssuerInfo {
     <span class="doccomment">/// Issuer ID
     </span><span class="kw">pub </span>issuer_id: i32,
@@ -2618,7 +2658,9 @@
 }
 
 <span class="doccomment">/// Warrant status
-</span><span class="attr">#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive, TryFromPrimitive)]
+</span><span class="attr">#[derive(
+    Debug, Copy, Clone, Hash, Eq, PartialEq, IntoPrimitive, TryFromPrimitive, Serialize, Deserialize,
+)]
 #[repr(i32)]
 </span><span class="kw">pub enum </span>WarrantStatus {
     <span class="doccomment">/// Suspend
@@ -2630,7 +2672,7 @@
 }
 
 <span class="doccomment">/// Warrant info
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>WarrantInfo {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -2785,7 +2827,7 @@
 }
 
 <span class="doccomment">/// The information of trading session
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>TradingSessionInfo {
     <span class="doccomment">/// Being trading time
     </span><span class="kw">pub </span>begin_time: Time,
@@ -2809,13 +2851,13 @@
                 .map_err(|err| Error::parse_field_error(<span class="string">"beg_time"</span>, err))<span class="question-mark">?</span>,
             end_time: parse_time(value.end_time)
                 .map_err(|err| Error::parse_field_error(<span class="string">"end_time"</span>, err))<span class="question-mark">?</span>,
-            trade_session: TradeSession::from_i32(value.trade_session).unwrap_or_default(),
+            trade_session: TradeSession::try_from(value.trade_session).unwrap_or_default(),
         })
     }
 }
 
 <span class="doccomment">/// Market trading session
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>MarketTradingSession {
     <span class="doccomment">/// Market
     </span><span class="kw">pub </span>market: Market,
@@ -2839,7 +2881,7 @@
 }
 
 <span class="doccomment">/// Market trading days
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>MarketTradingDays {
     <span class="doccomment">/// Trading days
     </span><span class="kw">pub </span>trading_days: Vec&lt;Date&gt;,
@@ -2848,7 +2890,7 @@
 }
 
 <span class="doccomment">/// Capital flow line
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>CapitalFlowLine {
     <span class="doccomment">/// Inflow capital data
     </span><span class="kw">pub </span>inflow: Decimal,
@@ -2869,7 +2911,7 @@
 }
 
 <span class="doccomment">/// Capital distribution
-</span><span class="attr">#[derive(Debug, Clone, Default)]
+</span><span class="attr">#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>CapitalDistribution {
     <span class="doccomment">/// Large order
     </span><span class="kw">pub </span>large: Decimal,
@@ -2892,7 +2934,7 @@
 }
 
 <span class="doccomment">/// Capital distribution response
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>CapitalDistributionResponse {
     <span class="doccomment">/// Time
     </span><span class="kw">pub </span>timestamp: OffsetDateTime,
@@ -2924,7 +2966,7 @@
 }
 
 <span class="doccomment">/// Watchlist security
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>WatchlistSecurity {
     <span class="doccomment">/// Security symbol
     </span><span class="kw">pub </span>symbol: String,
@@ -2941,7 +2983,7 @@
 }
 
 <span class="doccomment">/// Watchlist group
-</span><span class="attr">#[derive(Debug, Clone, Deserialize)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>WatchlistGroup {
     <span class="doccomment">/// Group id
     </span><span class="attr">#[serde(with = <span class="string">"serde_utils::int64_str"</span>)]
@@ -3184,7 +3226,7 @@
 }
 
 <span class="doccomment">/// Security calc index response
-</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>SecurityCalcIndex {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
@@ -3406,7 +3448,7 @@
 <span class="macro">impl_serialize_for_enum_string!</span>(SecurityListCategory);
 
 <span class="doccomment">/// The basic information of securities
-</span><span class="attr">#[derive(Debug, Deserialize)]
+</span><span class="attr">#[derive(Debug, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>Security {
     <span class="doccomment">/// Security code
     </span><span class="kw">pub </span>symbol: String,
