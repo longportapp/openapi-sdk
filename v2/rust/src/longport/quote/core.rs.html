@@ -1142,6 +1142,17 @@
 <a href="#1142" id="1142">1142</a>
 <a href="#1143" id="1143">1143</a>
 <a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
+<a href="#1155" id="1155">1155</a>
 </pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
@@ -2277,7 +2288,7 @@
 }
 
 <span class="kw">fn </span>parse_market_from_symbol(symbol: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Market&gt; {
-    <span class="kw">let </span>market = symbol.find(<span class="string">'.'</span>).map(|idx| <span class="kw-2">&amp;</span>symbol[idx + <span class="number">1</span>..])<span class="question-mark">?</span>;
+    <span class="kw">let </span>market = symbol.rfind(<span class="string">'.'</span>).map(|idx| <span class="kw-2">&amp;</span>symbol[idx + <span class="number">1</span>..])<span class="question-mark">?</span>;
     <span class="prelude-val">Some</span>(<span class="kw">match </span>market {
         <span class="string">"US" </span>=&gt; Market::US,
         <span class="string">"HK" </span>=&gt; Market::HK,
@@ -2285,5 +2296,16 @@
         <span class="string">"SH" </span>| <span class="string">"SZ" </span>=&gt; Market::CN,
         <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">None</span>,
     })
+}
+
+<span class="attr">#[cfg(test)]
+</span><span class="kw">mod </span>tests {
+    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>test_parse_market_from_symbol() {
+        <span class="macro">assert_eq!</span>(parse_market_from_symbol(<span class="string">"AAPL.US"</span>), <span class="prelude-val">Some</span>(Market::US));
+        <span class="macro">assert_eq!</span>(parse_market_from_symbol(<span class="string">"BRK.A.US"</span>), <span class="prelude-val">Some</span>(Market::US));
+    }
 }
 </code></pre></div></section></main></body></html>
