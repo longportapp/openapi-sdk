@@ -1129,7 +1129,7 @@ fn update_and_push_candlestick(
 }
 
 fn parse_market_from_symbol(symbol: &str) -> Option<Market> {
-    let market = symbol.find('.').map(|idx| &symbol[idx + 1..])?;
+    let market = symbol.rfind('.').map(|idx| &symbol[idx + 1..])?;
     Some(match market {
         "US" => Market::US,
         "HK" => Market::HK,
@@ -1137,4 +1137,15 @@ fn parse_market_from_symbol(symbol: &str) -> Option<Market> {
         "SH" | "SZ" => Market::CN,
         _ => return None,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parse_market_from_symbol() {
+        assert_eq!(parse_market_from_symbol("AAPL.US"), Some(Market::US));
+        assert_eq!(parse_market_from_symbol("BRK.A.US"), Some(Market::US));
+    }
 }
