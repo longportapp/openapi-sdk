@@ -9,10 +9,7 @@ pub const HK: Market = Market {
         (time!(9:30:00), time!(12:00:00), Duration::ZERO),
         (time!(13:00:00), time!(16:00:00), Duration::minutes(10)),
     ],
-    half_trade_sessions: &[
-        (time!(9:30:00), time!(12:00:00), Duration::ZERO),
-        (time!(13:00:00), time!(16:00:00), Duration::minutes(10)),
-    ],
+    half_trade_sessions: &[(time!(9:30:00), time!(12:00:00), Duration::minutes(10))],
     lot_size: 1,
 };
 
