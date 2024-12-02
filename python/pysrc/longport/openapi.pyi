@@ -117,6 +117,7 @@ class Config:
         language: Optional[Type[Language]] = None,
         enable_overnight: bool = False,
         push_candlestick_mode: Type[PushCandlestickMode] = PushCandlestickMode.Realtime,
+        enable_print_quote_packages: bool = True,
     ) -> None: ...
 
     @classmethod
