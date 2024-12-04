@@ -6,7 +6,8 @@ dependencies = ["install-maturin"]
 
 [tasks.install-maturin]
 command = "pip"
-args = ["install", "maturin>=1.0,<2.0"]
+#args = ["install", "maturin>=1.0,<2.0"]
+args = ["install", "maturin>=1.7.5"]
 
 [tasks.install-python-sdk.windows]
 command = "pip"
