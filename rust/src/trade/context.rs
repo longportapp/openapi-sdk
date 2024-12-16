@@ -391,14 +391,18 @@ impl TradeContext {
     /// # });
     /// ```
     pub async fn submit_order(&self, options: SubmitOrderOptions) -> Result<SubmitOrderResponse> {
-        Ok(self
+        let resp: SubmitOrderResponse = self
             .http_cli
             .request(Method::POST, "/v1/trade/order")
             .body(Json(options))
             .response::<Json<_>>()
             .send()
             .await?
-            .0)
+            .0;
+        _ = self.command_tx.send(Command::SubmittedOrder {
+            order_id: resp.order_id.clone(),
+        });
+        Ok(resp)
     }
 
     /// Cancel order
