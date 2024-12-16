@@ -716,7 +716,11 @@
 <a href="#715" id="715">715</a>
 <a href="#716" id="716">716</a>
 <a href="#717" id="717">717</a>
-<a href="#718" id="718">718</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
 <span class="kw">use </span>longport_wscli::WsClientError;
@@ -1109,14 +1113,18 @@
     /// # });
     /// ```
     </span><span class="kw">pub async fn </span>submit_order(<span class="kw-2">&amp;</span><span class="self">self</span>, options: SubmitOrderOptions) -&gt; <span class="prelude-ty">Result</span>&lt;SubmitOrderResponse&gt; {
-        <span class="prelude-val">Ok</span>(<span class="self">self
+        <span class="kw">let </span>resp: SubmitOrderResponse = <span class="self">self
             </span>.http_cli
             .request(Method::POST, <span class="string">"/v1/trade/order"</span>)
             .body(Json(options))
             .response::&lt;Json&lt;<span class="kw">_</span>&gt;&gt;()
             .send()
             .<span class="kw">await</span><span class="question-mark">?
-            </span>.<span class="number">0</span>)
+            </span>.<span class="number">0</span>;
+        <span class="kw">_ </span>= <span class="self">self</span>.command_tx.send(Command::SubmittedOrder {
+            order_id: resp.order_id.clone(),
+        });
+        <span class="prelude-val">Ok</span>(resp)
     }
 
     <span class="doccomment">/// Cancel order

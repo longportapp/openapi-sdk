@@ -257,17 +257,64 @@
 <a href="#256" id="256">256</a>
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{collections::HashSet, sync::Arc, time::Duration};
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+    collections::{HashSet, VecDeque},
+    sync::Arc,
+    time::Duration,
+};
 
 <span class="kw">use </span>longport_httpcli::HttpClient;
 <span class="kw">use </span>longport_proto::trade::{Sub, SubResponse, Unsub, UnsubResponse};
 <span class="kw">use </span>longport_wscli::{
     CodecType, Platform, ProtocolVersion, WsClient, WsClientError, WsEvent, WsSession,
 };
-<span class="kw">use </span>tokio::sync::{mpsc, oneshot};
+<span class="kw">use </span>tokio::{
+    sync::{mpsc, oneshot},
+    time::Instant,
+};
 
 <span class="kw">use crate</span>::{
-    trade::{cmd_code, PushEvent, TopicType},
+    trade::{cmd_code, PushEvent, PushOrderChanged, TopicType},
     Config, <span class="prelude-ty">Result</span>,
 };
 
@@ -282,6 +329,9 @@
         topics: Vec&lt;TopicType&gt;,
         reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;()&gt;&gt;,
     },
+    SubmittedOrder {
+        order_id: String,
+    },
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>Core {
@@ -295,6 +345,7 @@
     session: <span class="prelude-ty">Option</span>&lt;WsSession&gt;,
     close: bool,
     subscriptions: HashSet&lt;String&gt;,
+    unknown_orders: VecDeque&lt;(Instant, PushOrderChanged)&gt;,
 }
 
 <span class="kw">impl </span>Core {
@@ -339,6 +390,7 @@
             session: <span class="prelude-val">Some</span>(session),
             close: <span class="bool-val">false</span>,
             subscriptions: HashSet::new(),
+            unknown_orders: VecDeque::new(),
         })
     }
 
@@ -429,6 +481,8 @@
 
     <span class="attr">#[tracing::instrument(level = <span class="string">"debug"</span>, skip(<span class="self">self</span>))]
     </span><span class="kw">async fn </span>main_loop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>tick = tokio::time::interval(Duration::from_millis(<span class="number">500</span>));
+
         <span class="kw">loop </span>{
             <span class="macro">tokio::select!</span> {
                 item = <span class="self">self</span>.event_rx.recv() =&gt; {
@@ -446,6 +500,7 @@
                         }
                     }
                 }
+                now = tick.tick() =&gt; <span class="self">self</span>.handle_tick(now),
             }
         }
     }
@@ -470,6 +525,17 @@
         <span class="prelude-val">Ok</span>(())
     }
 
+    <span class="kw">fn </span>handle_tick(<span class="kw-2">&amp;mut </span><span class="self">self</span>, now: Instant) {
+        <span class="kw">while let </span><span class="prelude-val">Some</span>((t, <span class="kw">_</span>)) = <span class="self">self</span>.unknown_orders.front() {
+            <span class="kw">if </span>now - <span class="kw-2">*</span>t &gt; Duration::from_secs(<span class="number">1</span>) {
+                <span class="kw">let </span>(<span class="kw">_</span>, order_changed) = <span class="self">self</span>.unknown_orders.pop_front().unwrap();
+                <span class="kw">_ </span>= <span class="self">self</span>.push_tx.send(PushEvent::OrderChanged(order_changed));
+            } <span class="kw">else </span>{
+                <span class="kw">break</span>;
+            }
+        }
+    }
+
     <span class="kw">async fn </span>handle_command(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command: Command) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">match </span>command {
             Command::Subscribe { topics, reply_tx } =&gt; {
@@ -480,6 +546,20 @@
             Command::Unsubscribe { topics, reply_tx } =&gt; {
                 <span class="kw">let </span>res = <span class="self">self</span>.handle_unsubscribe(topics).<span class="kw">await</span>;
                 <span class="kw">let _ </span>= reply_tx.send(res);
+                <span class="prelude-val">Ok</span>(())
+            }
+            Command::SubmittedOrder { order_id } =&gt; {
+                <span class="kw">while let </span><span class="prelude-val">Some</span>((idx, <span class="kw">_</span>)) = <span class="self">self
+                    </span>.unknown_orders
+                    .iter()
+                    .enumerate()
+                    .find(|(<span class="kw">_</span>, (<span class="kw">_</span>, order_changed))| order_changed.order_id == order_id)
+                {
+                    <span class="kw">let </span><span class="prelude-val">Some</span>((<span class="kw">_</span>, order_changed)) = <span class="self">self</span>.unknown_orders.remove(idx) <span class="kw">else </span>{
+                        <span class="macro">unreachable!</span>();
+                    };
+                    <span class="kw">let _ </span>= <span class="self">self</span>.push_tx.send(PushEvent::OrderChanged(order_changed));
+                }
                 <span class="prelude-val">Ok</span>(())
             }
         }
