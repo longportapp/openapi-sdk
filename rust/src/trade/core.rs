@@ -1,14 +1,21 @@
-use std::{collections::HashSet, sync::Arc, time::Duration};
+use std::{
+    collections::{HashSet, VecDeque},
+    sync::Arc,
+    time::Duration,
+};
 
 use longport_httpcli::HttpClient;
 use longport_proto::trade::{Sub, SubResponse, Unsub, UnsubResponse};
 use longport_wscli::{
     CodecType, Platform, ProtocolVersion, WsClient, WsClientError, WsEvent, WsSession,
 };
-use tokio::sync::{mpsc, oneshot};
+use tokio::{
+    sync::{mpsc, oneshot},
+    time::Instant,
+};
 
 use crate::{
-    trade::{cmd_code, PushEvent, TopicType},
+    trade::{cmd_code, PushEvent, PushOrderChanged, TopicType},
     Config, Result,
 };
 
@@ -23,6 +30,9 @@ pub(crate) enum Command {
         topics: Vec<TopicType>,
         reply_tx: oneshot::Sender<Result<()>>,
     },
+    SubmittedOrder {
+        order_id: String,
+    },
 }
 
 pub(crate) struct Core {
@@ -36,6 +46,7 @@ pub(crate) struct Core {
     session: Option<WsSession>,
     close: bool,
     subscriptions: HashSet<String>,
+    unknown_orders: VecDeque<(Instant, PushOrderChanged)>,
 }
 
 impl Core {
@@ -80,6 +91,7 @@ impl Core {
             session: Some(session),
             close: false,
             subscriptions: HashSet::new(),
+            unknown_orders: VecDeque::new(),
         })
     }
 
@@ -170,6 +182,8 @@ impl Core {
 
     #[tracing::instrument(level = "debug", skip(self))]
     async fn main_loop(&mut self) -> Result<()> {
+        let mut tick = tokio::time::interval(Duration::from_millis(500));
+
         loop {
             tokio::select! {
                 item = self.event_rx.recv() => {
@@ -187,6 +201,7 @@ impl Core {
                         }
                     }
                 }
+                now = tick.tick() => self.handle_tick(now),
             }
         }
     }
@@ -211,6 +226,17 @@ impl Core {
         Ok(())
     }
 
+    fn handle_tick(&mut self, now: Instant) {
+        while let Some((t, _)) = self.unknown_orders.front() {
+            if now - *t > Duration::from_secs(1) {
+                let (_, order_changed) = self.unknown_orders.pop_front().unwrap();
+                _ = self.push_tx.send(PushEvent::OrderChanged(order_changed));
+            } else {
+                break;
+            }
+        }
+    }
+
     async fn handle_command(&mut self, command: Command) -> Result<()> {
         match command {
             Command::Subscribe { topics, reply_tx } => {
@@ -221,6 +247,20 @@ impl Core {
             Command::Unsubscribe { topics, reply_tx } => {
                 let res = self.handle_unsubscribe(topics).await;
                 let _ = reply_tx.send(res);
+                Ok(())
+            }
+            Command::SubmittedOrder { order_id } => {
+                while let Some((idx, _)) = self
+                    .unknown_orders
+                    .iter()
+                    .enumerate()
+                    .find(|(_, (_, order_changed))| order_changed.order_id == order_id)
+                {
+                    let Some((_, order_changed)) = self.unknown_orders.remove(idx) else {
+                        unreachable!();
+                    };
+                    let _ = self.push_tx.send(PushEvent::OrderChanged(order_changed));
+                }
                 Ok(())
             }
         }
