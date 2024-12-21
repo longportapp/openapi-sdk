@@ -47,6 +47,8 @@ jobs:
           default: true
       - name: Build wheels - x86_64
         uses: PyO3/maturin-action@v1
+        env:
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os-version }}
         with:
           target: x86_64
           args: -i python --out dist -m python/Cargo.toml
