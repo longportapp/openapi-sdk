@@ -96,6 +96,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        os-version:
+          - "11.0"
+          - "13.0"
         python:
           - version: "3.7"
             universal2: false
@@ -137,6 +140,8 @@ jobs:
       - name: Build wheels - universal2
         if: ${{ matrix.python.universal2 }}
         uses: PyO3/maturin-action@v1
+        env:
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os-version }}
         with:
           args: -i python --target universal2-apple-darwin --out dist -m python/Cargo.toml
       - name: Install built wheel - universal2
@@ -146,7 +151,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-macos-${{ matrix.python.version }}
+          name: wheels-macos-${{ matrix.os-version }}-${{ matrix.python.version }}
           path: dist
 
   build-python-sdk-windows:
