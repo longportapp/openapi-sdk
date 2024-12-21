@@ -1501,6 +1501,10 @@ typedef struct lb_push_candlestick_t {
    * Candlestick
    */
   struct lb_candlestick_t candlestick;
+  /**
+   * Is confirmed
+   */
+  bool is_confirmed;
 } lb_push_candlestick_t;
 
 typedef void (*lb_candlestick_callback_t)(const struct lb_quote_context_t*,

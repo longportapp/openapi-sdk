@@ -3,6 +3,7 @@ package com.longport.quote;
 public class PushCandlestick {
     private Period period;
     private Candlestick candlestick;
+    private boolean isConfirmed;
 
     public Period getPeriod() {
         return period;
@@ -10,6 +11,10 @@ public class PushCandlestick {
 
     public Candlestick getCandlestick() {
         return candlestick;
+    }
+
+    public boolean isConfirmed() {
+        return isConfirmed;
     }
 
     @Override

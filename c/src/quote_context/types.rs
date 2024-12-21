@@ -531,12 +531,15 @@ pub struct CPushCandlestick {
     pub period: CPeriod,
     /// Candlestick
     pub candlestick: CCandlestick,
+    /// Is confirmed
+    pub is_confirmed: bool,
 }
 
 pub(crate) struct CPushCandlestickOwned {
     symbol: CString,
     period: Period,
     candlestick: CCandlestickOwned,
+    is_confirmed: bool,
 }
 
 impl From<(String, PushCandlestick)> for CPushCandlestickOwned {
@@ -544,11 +547,13 @@ impl From<(String, PushCandlestick)> for CPushCandlestickOwned {
         let PushCandlestick {
             period,
             candlestick,
+            is_confirmed,
         } = candlestick;
         CPushCandlestickOwned {
             symbol: symbol.into(),
             period,
             candlestick: candlestick.into(),
+            is_confirmed,
         }
     }
 }
@@ -561,11 +566,13 @@ impl ToFFI for CPushCandlestickOwned {
             symbol,
             period,
             candlestick,
+            is_confirmed,
         } = self;
         CPushCandlestick {
             symbol: symbol.to_ffi_type(),
             period: (*period).into(),
             candlestick: candlestick.to_ffi_type(),
+            is_confirmed: *is_confirmed,
         }
     }
 }

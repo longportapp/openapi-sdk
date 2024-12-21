@@ -2056,6 +2056,8 @@ export class PushCandlestick {
   get period(): Period
   /** Candlestick */
   get candlestick(): Candlestick
+  /** Is confirmed */
+  get isConfirmed(): boolean
 }
 /** Market trading days */
 export class MarketTradingDays {

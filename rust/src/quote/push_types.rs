@@ -79,6 +79,8 @@ pub struct PushCandlestick {
     pub period: Period,
     /// Candlestick
     pub candlestick: Candlestick,
+    /// Is confirmed
+    pub is_confirmed: bool,
 }
 
 /// Push event detail
