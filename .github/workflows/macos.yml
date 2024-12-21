@@ -8,25 +8,26 @@ on:
 
 jobs:
   build-python-sdk-macos:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.platform.os }}
     strategy:
       fail-fast: true
       matrix:
-        os:
-          - "10.12"
-          - "13.0"
-          - "14.0"
+        platform:
+          - os: macos-11
+            deployment-target: 10.12
+          - os: macos-13
+            deployment-target: 10.12
         python:
-          #   - version: "3.7"
-          #     universal2: false
-          #   - version: "3.8"
-          #     universal2: true
-          #   - version: "3.9"
-          #     universal2: true
-          #   - version: "3.10"
-          #     universal2: true
-          #   - version: "3.11"
-          #     universal2: true
+          - version: "3.7"
+            universal2: false
+          - version: "3.8"
+            universal2: true
+          - version: "3.9"
+            universal2: true
+          - version: "3.10"
+            universal2: true
+          - version: "3.11"
+            universal2: true
           - version: "3.12"
             universal2: true
           - version: "3.13"
@@ -40,35 +41,37 @@ jobs:
         with:
           python-version: ${{ matrix.python.version }}
           architecture: x64
-      - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
-          default: true
-      - name: Build wheels - x86_64
-        uses: PyO3/maturin-action@v1
-        env:
-          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os }}
-        with:
-          target: x86_64
-          args: -i python --out dist -m python/Cargo.toml
       - name: Install built wheel - x86_64
-        run: |
-          pip install longport --no-index --find-links dist --force-reinstall
-      - name: Build wheels - universal2
-        if: ${{ matrix.python.universal2 }}
-        uses: PyO3/maturin-action@v1
-        env:
-          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os }}
-        with:
-          args: -i python --target universal2-apple-darwin --out dist -m python/Cargo.toml
-      - name: Install built wheel - universal2
-        if: ${{ matrix.python.universal2 }}
-        run: |
-          pip install longport --no-index --find-links dist --force-reinstall
-      - name: Upload wheels
-        uses: actions/upload-artifact@v4
-        with:
-          name: wheels-macos-${{ matrix.os }}-${{ matrix.python.version }}
-          path: dist
+        run: pip debug --verbose
+    #   - name: Install Rust toolchain
+    #     uses: actions-rs/toolchain@v1
+    #     with:
+    #       toolchain: stable
+    #       profile: minimal
+    #       default: true
+    #   - name: Build wheels - x86_64
+    #     uses: PyO3/maturin-action@v1
+    #     env:
+    #       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.platform.deployment-target }}
+    #     with:
+    #       target: x86_64
+    #       args: -i python --out dist -m python/Cargo.toml
+    #   - name: Install built wheel - x86_64
+    #     run: |
+    #       pip install longport --no-index --find-links dist --force-reinstall
+    #   - name: Build wheels - universal2
+    #     if: ${{ matrix.python.universal2 }}
+    #     uses: PyO3/maturin-action@v1
+    #     env:
+    #       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.platform.deployment-target }}
+    #     with:
+    #       args: -i python --target universal2-apple-darwin --out dist -m python/Cargo.toml
+    #   - name: Install built wheel - universal2
+    #     if: ${{ matrix.python.universal2 }}
+    #     run: |
+    #       pip install longport --no-index --find-links dist --force-reinstall
+    #   - name: Upload wheels
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: wheels-macos-${{ matrix.platform.os }}-${{ matrix.python.version }}
+    #       path: dist
