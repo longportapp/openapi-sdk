@@ -983,6 +983,8 @@ pub struct PushCandlestick {
     period: Period,
     /// Candlestick
     candlestick: Candlestick,
+    /// Is confirmed
+    is_confirmed: bool,
 }
 
 /// Market trading days

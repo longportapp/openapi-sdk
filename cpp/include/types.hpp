@@ -547,6 +547,8 @@ struct PushCandlestick
   Period period;
   /// Candlestick
   Candlestick candlestick;
+  /// Is confirmed
+  bool is_confirmed;
 };
 
 /// Warrant type

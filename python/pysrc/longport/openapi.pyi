@@ -311,6 +311,11 @@ class PushCandlestick:
     Candlestick
     """
 
+    is_confirmed: bool
+    """
+    Is confirmed
+    """
+
 
 class SubType:
     """

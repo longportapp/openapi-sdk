@@ -628,6 +628,7 @@ convert(const lb_push_candlestick_t* info)
     info->symbol,
     convert(info->period),
     convert(&info->candlestick),
+    info->is_confirmed,
   };
 }
 

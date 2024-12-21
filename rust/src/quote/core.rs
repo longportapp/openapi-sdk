@@ -1090,12 +1090,13 @@ fn update_and_push_candlestick(
     push_candlestick_mode: PushCandlestickMode,
     tx: &mut mpsc::UnboundedSender<PushEvent>,
 ) {
-    let candlestick = match action {
+    let mut push_candlesticks = Vec::new();
+
+    match action {
         UpdateAction::UpdateLast(candlestick) => {
             *candlesticks.candlesticks.last_mut().unwrap() = candlestick.into();
-            match push_candlestick_mode {
-                PushCandlestickMode::Realtime => Some(candlestick.into()),
-                PushCandlestickMode::Confirmed => None,
+            if push_candlestick_mode == PushCandlestickMode::Realtime {
+                push_candlesticks.push((candlestick.into(), false));
             }
         }
         UpdateAction::AppendNew { confirmed, new } => {
@@ -1106,27 +1107,36 @@ fn update_and_push_candlestick(
             }
 
             match push_candlestick_mode {
-                PushCandlestickMode::Realtime => Some(new.into()),
-                PushCandlestickMode::Confirmed => confirmed.map(Into::into),
+                PushCandlestickMode::Realtime => {
+                    if let Some(confirmed) = confirmed {
+                        push_candlesticks.push((confirmed.into(), true));
+                    }
+                    push_candlesticks.push((new.into(), false));
+                }
+                PushCandlestickMode::Confirmed => {
+                    if let Some(confirmed) = confirmed {
+                        push_candlesticks.push((confirmed.into(), true));
+                    }
+                }
             }
         }
         UpdateAction::Confirm(candlestick) => {
             candlesticks.confirmed = true;
-            match push_candlestick_mode {
-                PushCandlestickMode::Realtime => None,
-                PushCandlestickMode::Confirmed => Some(candlestick.into()),
+            if push_candlestick_mode == PushCandlestickMode::Confirmed {
+                push_candlesticks.push((candlestick.into(), true));
             }
         }
-        UpdateAction::None => None,
+        UpdateAction::None => {}
     };
 
-    if let Some(candlestick) = candlestick {
+    for (candlestick, is_confirmed) in push_candlesticks {
         let _ = tx.send(PushEvent {
             sequence: 0,
             symbol: symbol.to_string(),
             detail: PushEventDetail::Candlestick(PushCandlestick {
                 period,
                 candlestick,
+                is_confirmed,
             }),
         });
     }
