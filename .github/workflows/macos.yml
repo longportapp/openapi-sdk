@@ -15,7 +15,6 @@ jobs:
         os-version:
           - "11.0"
           - "13.0"
-          - "14.0"
         python:
           - version: "3.7"
             universal2: false
