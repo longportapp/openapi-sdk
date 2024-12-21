@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-python-sdk-macos:
-    runs-on: macos-13
+    runs-on: macos-14
     strategy:
       fail-fast: true
       matrix:
