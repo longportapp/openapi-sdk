@@ -1,0 +1,71 @@
+name: MACOS CI
+
+on:
+  push:
+    branches:
+      - macos
+  pull_request: {}
+
+jobs:
+  build-python-sdk-macos:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        os-version:
+          - "11.0"
+          - "13.0"
+        python:
+          - version: "3.7"
+            universal2: false
+          - version: "3.8"
+            universal2: true
+          - version: "3.9"
+            universal2: true
+          - version: "3.10"
+            universal2: true
+          - version: "3.11"
+            universal2: true
+          - version: "3.12"
+            universal2: true
+          - version: "3.13"
+            universal2: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python.version }}
+          architecture: x64
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          default: true
+      - name: Build wheels - x86_64
+        uses: PyO3/maturin-action@v1
+        with:
+          target: x86_64
+          args: -i python --out dist -m python/Cargo.toml
+      - name: Install built wheel - x86_64
+        run: |
+          pip install longport --no-index --find-links dist --force-reinstall
+      - name: Build wheels - universal2
+        if: ${{ matrix.python.universal2 }}
+        uses: PyO3/maturin-action@v1
+        env:
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.os-version }}
+        with:
+          args: -i python --target universal2-apple-darwin --out dist -m python/Cargo.toml
+      - name: Install built wheel - universal2
+        if: ${{ matrix.python.universal2 }}
+        run: |
+          pip install longport --no-index --find-links dist --force-reinstall
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-macos-${{ matrix.os-version }}-${{ matrix.python.version }}
+          path: dist
