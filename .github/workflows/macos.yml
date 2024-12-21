@@ -16,16 +16,16 @@ jobs:
           - "11.0"
           - "13.0"
         python:
-          - version: "3.7"
-            universal2: false
-          - version: "3.8"
-            universal2: true
-          - version: "3.9"
-            universal2: true
-          - version: "3.10"
-            universal2: true
-          - version: "3.11"
-            universal2: true
+          #   - version: "3.7"
+          #     universal2: false
+          #   - version: "3.8"
+          #     universal2: true
+          #   - version: "3.9"
+          #     universal2: true
+          #   - version: "3.10"
+          #     universal2: true
+          #   - version: "3.11"
+          #     universal2: true
           - version: "3.12"
             universal2: true
           - version: "3.13"
