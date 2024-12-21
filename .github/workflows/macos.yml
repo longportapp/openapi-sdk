@@ -8,13 +8,14 @@ on:
 
 jobs:
   build-python-sdk-macos:
-    runs-on: macos-latest
+    runs-on: macos-13
     strategy:
       fail-fast: true
       matrix:
         os-version:
           - "11.0"
           - "13.0"
+          - "14.0"
         python:
           - version: "3.7"
             universal2: false
