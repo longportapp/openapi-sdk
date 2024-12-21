@@ -13,8 +13,9 @@ jobs:
       fail-fast: true
       matrix:
         os-version:
-          - "11.0"
+          - "10.12"
           - "13.0"
+          - "14.0"
         python:
           #   - version: "3.7"
           #     universal2: false
