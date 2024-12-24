@@ -288,7 +288,16 @@
 <a href="#287" id="287">287</a>
 <a href="#288" id="288">288</a>
 <a href="#289" id="289">289</a>
-<a href="#290" id="290">290</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>longport_candlesticks::{Days, InputCandlestick, UpdateAction, UpdateFields};
 <span class="kw">use </span>longport_proto::quote::Period;
@@ -568,13 +577,22 @@
     <span class="kw">match </span>period {
         Period::UnknownPeriod =&gt; <span class="macro">unreachable!</span>(),
         Period::OneMinute =&gt; Min_1,
+        Period::TwoMinute =&gt; Min_2,
+        Period::ThreeMinute =&gt; Min_3,
         Period::FiveMinute =&gt; Min_5,
+        Period::TenMinute =&gt; Min_10,
         Period::FifteenMinute =&gt; Min_15,
+        Period::TwentyMinute =&gt; Min_20,
         Period::ThirtyMinute =&gt; Min_30,
+        Period::FortyFiveMinute =&gt; Min_45,
         Period::SixtyMinute =&gt; Min_60,
+        Period::TwoHour =&gt; Min_120,
+        Period::ThreeHour =&gt; Min_180,
+        Period::FourHour =&gt; Min_240,
         Period::Day =&gt; Day,
         Period::Week =&gt; Week,
         Period::Month =&gt; Month,
+        Period::Quarter =&gt; Quarter,
         Period::Year =&gt; Year,
     }
 }

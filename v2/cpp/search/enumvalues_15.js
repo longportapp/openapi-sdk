@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['zh_5fcn_1335',['ZH_CN',['../namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473ca9cc61ca372493f8167ec2a481ed90584',1,'longport']]],
-  ['zh_5fhk_1336',['ZH_HK',['../namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473ca876dd8e94539fbd16df679f081727328',1,'longport']]]
+  ['year_1352',['Year',['../namespacelongport_1_1quote.html#a60167d694ea9a5fec686d08fa21dae17a537c66b24ef5c83b7382cdc3f34885f2',1,'longport::quote']]],
+  ['ytdchangerate_1353',['YtdChangeRate',['../namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbea6f3601e08bc5e8390f2abd4db47ae922',1,'longport::quote']]]
 ];
