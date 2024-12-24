@@ -126,25 +126,43 @@ struct DerivativeType
 /// Candlestick period
 enum class Period
 {
-  /// Unknown,
+  /// Unknown
   Unknown,
   /// One Minute
   Min1,
+  /// Two Minutes
+  Min2,
+  /// Three Minutes
+  Min3,
   /// Five Minutes
   Min5,
+  /// Ten Minutes
+  Min10,
   /// Fifteen Minutes
   Min15,
+  /// Twenty Minutes
+  Min20,
   /// Thirty Minutes
   Min30,
-  /// Sixty Minutes
+  /// Forty-Five Minutes
+  Min45,
+  /// One Hour
   Min60,
-  /// One Day
+  /// Two Hours
+  Min120,
+  /// Three Hours
+  Min180,
+  /// Four Hours
+  Min240,
+  /// Daily
   Day,
-  /// One Week
+  /// Weekly
   Week,
-  /// One Month
+  /// Monthly
   Month,
-  /// One Year
+  /// Quarterly
+  Quarter,
+  /// Yearly
   Year,
 };
 

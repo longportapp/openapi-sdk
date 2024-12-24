@@ -1398,9 +1398,24 @@ class Period:
         One Minute
         """
 
+    class Min_2(Period):
+        """
+        Two Minutes
+        """
+
+    class Min_3(Period):
+        """
+        Three Minutes
+        """
+
     class Min_5(Period):
         """
         Five Minutes
+        """
+
+    class Min_10(Period):
+        """
+        Ten Minutes
         """
 
     class Min_15(Period):
@@ -1408,9 +1423,19 @@ class Period:
         Fifteen Minutes
         """
 
+    class Min_20(Period):
+        """
+        Twenty Minutes
+        """
+
     class Min_30(Period):
         """
         Thirty Minutes
+        """
+
+    class Min_45(Period):
+        """
+        Forty-Five Minutes
         """
 
     class Min_60(Period):
@@ -1418,24 +1443,44 @@ class Period:
         Sixty Minutes
         """
 
+    class Min_120(Period):
+        """
+        Two Hours
+        """
+
+    class Min_180(Period):
+        """
+        Three Hours
+        """
+
+    class Min_240(Period):
+        """
+        Four Hours
+        """
+
     class Day(Period):
         """
-        One Day
+        Daily
         """
 
     class Week(Period):
         """
-        One Week
+        Weekly
         """
 
     class Month(Period):
         """
-        One Month
+        Monthly
+        """
+
+    class Quarter(Period):
+        """
+        Quarterly
         """
 
     class Year(Period):
         """
-        One Year
+        Yearly
         """
 
 

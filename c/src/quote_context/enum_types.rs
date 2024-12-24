@@ -247,28 +247,55 @@ pub enum CPeriod {
     /// One Minute
     #[c(remote = "OneMinute")]
     PeriodMin1,
+    /// Two Minutes
+    #[c(remote = "TwoMinute")]
+    PeriodMin2,
+    /// Three Minutes
+    #[c(remote = "ThreeMinute")]
+    PeriodMin3,
     /// Five Minutes
     #[c(remote = "FiveMinute")]
     PeriodMin5,
+    /// Ten Minutes
+    #[c(remote = "TenMinute")]
+    PeriodMin10,
     /// Fifteen Minutes
     #[c(remote = "FifteenMinute")]
     PeriodMin15,
+    /// Twenty Minutes
+    #[c(remote = "TwentyMinute")]
+    PeriodMin20,
     /// Thirty Minutes
     #[c(remote = "ThirtyMinute")]
     PeriodMin30,
-    /// Sixty Minutes
+    /// Forty-Five Minutes
+    #[c(remote = "FortyFiveMinute")]
+    PeriodMin45,
+    /// One Hour
     #[c(remote = "SixtyMinute")]
     PeriodMin60,
-    /// One Day
+    /// Two Hours
+    #[c(remote = "TwoHour")]
+    PeriodMin120,
+    /// Three Hours
+    #[c(remote = "ThreeHour")]
+    PeriodMin180,
+    /// Four Hours
+    #[c(remote = "FourHour")]
+    PeriodMin240,
+    /// Daily
     #[c(remote = "Day")]
     PeriodDay,
-    /// One Week
+    /// Weekly
     #[c(remote = "Week")]
     PeriodWeek,
-    /// One Month
+    /// Monthly
     #[c(remote = "Month")]
     PeriodMonth,
-    /// One Year
+    /// Quarterly
+    #[c(remote = "Quarter")]
+    PeriodQuarter,
+    /// Yearly
     #[c(remote = "Year")]
     PeriodYear,
 }

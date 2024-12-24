@@ -278,13 +278,22 @@ fn convert_period(period: Period) -> longport_candlesticks::Period {
     match period {
         Period::UnknownPeriod => unreachable!(),
         Period::OneMinute => Min_1,
+        Period::TwoMinute => Min_2,
+        Period::ThreeMinute => Min_3,
         Period::FiveMinute => Min_5,
+        Period::TenMinute => Min_10,
         Period::FifteenMinute => Min_15,
+        Period::TwentyMinute => Min_20,
         Period::ThirtyMinute => Min_30,
+        Period::FortyFiveMinute => Min_45,
         Period::SixtyMinute => Min_60,
+        Period::TwoHour => Min_120,
+        Period::ThreeHour => Min_180,
+        Period::FourHour => Min_240,
         Period::Day => Day,
         Period::Week => Week,
         Period::Month => Month,
+        Period::Quarter => Quarter,
         Period::Year => Year,
     }
 }
