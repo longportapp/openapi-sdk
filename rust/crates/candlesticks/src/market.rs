@@ -1,7 +1,7 @@
 use std::collections::HashSet;
 
 use rust_decimal::{prelude::FromPrimitive, Decimal};
-use time::{macros::time, Date, Duration, Month, OffsetDateTime, Time, Weekday};
+use time::{macros::time, Date, Duration, OffsetDateTime, Time, Weekday};
 use time_tz::{OffsetDateTimeExt, PrimitiveDateTimeExt, Tz};
 
 use crate::{
@@ -74,6 +74,8 @@ impl Market {
     where
         H: Days,
     {
+        use Period::*;
+
         let t = t.to_timezone(self.timezone);
         let time = t.time();
         let trade_sessions = if !half_days.contains(t.date()) {
@@ -95,22 +97,18 @@ impl Market {
         }?;
 
         Some(match period {
-            Period::Min_1 => t.replace_time(Time::from_hms(time.hour(), time.minute(), 0).ok()?),
-            Period::Min_5 | Period::Min_15 | Period::Min_30 => {
-                let n = period.minutes() as i64;
-                let minutes = time.hour() as i64 * 60 + time.minute() as i64;
-                let minutes = (minutes / n) * n;
-                t.replace_time(Time::from_hms((minutes / 60) as u8, (minutes % 60) as u8, 0).ok()?)
-            }
-            Period::Min_60 => {
+            Min_1 => t.replace_time(Time::from_hms(time.hour(), time.minute(), 0).ok()?),
+            Min_2 | Min_3 | Min_5 | Min_10 | Min_15 | Min_20 | Min_30 | Min_45 | Min_60
+            | Min_120 | Min_180 | Min_240 => {
+                let minutes = period.minutes() as i64;
                 let (start, _, _) = &trade_sessions[n];
                 let start_minutes = start.hour() as i64 * 60 + start.minute() as i64;
                 let current_minutes = time.hour() as i64 * 60 + time.minute() as i64;
-                let offset_minutes = ((current_minutes - start_minutes) / 60) * 60;
+                let offset_minutes = ((current_minutes - start_minutes) / minutes) * minutes;
                 t.replace_time(*start + Duration::minutes(offset_minutes))
             }
-            Period::Day => t.replace_time(time!(00:00:00)),
-            Period::Week => {
+            Day => t.replace_time(time!(00:00:00)),
+            Week => {
                 let week = t.iso_week();
                 Date::from_iso_week_date(t.year(), week, Weekday::Monday)
                     .ok()?
@@ -119,9 +117,18 @@ impl Market {
                     .assume_timezone(self.timezone)
                     .take_first()?
             }
-            Period::Month => t.replace_day(1).ok()?.replace_time(time!(00:00:00)),
-            Period::Year => t
-                .replace_month(Month::January)
+            Month => t.replace_day(1).ok()?.replace_time(time!(00:00:00)),
+            Quarter => {
+                let month = t.month();
+                let quarter = (month as u8 - 1) / 3;
+                t.replace_month(time::Month::try_from(quarter * 3 + 1).ok()?)
+                    .ok()?
+                    .replace_day(1)
+                    .ok()?
+                    .replace_time(time!(00:00:00))
+            }
+            Year => t
+                .replace_month(time::Month::January)
                 .ok()?
                 .replace_day(1)
                 .ok()?
@@ -288,6 +295,8 @@ impl Market {
         H: Days,
         N: Days,
     {
+        use Period::*;
+
         let current_time = current_time.to_timezone(self.timezone) - TICK_TIMEOUT;
         if !normal_days.contains(current_time.date()) && !half_days.contains(current_time.date()) {
             return UpdateAction::None;
@@ -300,57 +309,56 @@ impl Market {
 
         let res = trade_sessions.find_session(current_time.time());
         match period {
-            Period::Min_1 | Period::Min_5 | Period::Min_15 | Period::Min_30 | Period::Min_60 => {
-                match (res, input) {
-                    (
-                        FindSessionResult::Between(_),
-                        InputCandlestick::Normal(candlestick)
-                        | InputCandlestick::Confirmed(candlestick),
-                    ) => {
-                        let current_candlestick_time = self
-                            .candlestick_time(half_days, period, current_time)
-                            .unwrap();
-                        if current_candlestick_time > candlestick.time {
-                            make_append_new(current_candlestick_time, input)
-                        } else {
-                            UpdateAction::None
-                        }
+            Min_1 | Min_2 | Min_3 | Min_5 | Min_10 | Min_15 | Min_20 | Min_30 | Min_45 | Min_60
+            | Min_120 | Min_180 | Min_240 => match (res, input) {
+                (
+                    FindSessionResult::Between(_),
+                    InputCandlestick::Normal(candlestick)
+                    | InputCandlestick::Confirmed(candlestick),
+                ) => {
+                    let current_candlestick_time = self
+                        .candlestick_time(half_days, period, current_time)
+                        .unwrap();
+                    if current_candlestick_time > candlestick.time {
+                        make_append_new(current_candlestick_time, input)
+                    } else {
+                        UpdateAction::None
                     }
-                    (FindSessionResult::After(_), InputCandlestick::Normal(candlestick)) => {
-                        let Some(current_candlestick_time) =
-                            self.candlestick_time(half_days, period, current_time)
-                        else {
-                            return UpdateAction::Confirm(candlestick);
-                        };
-                        if current_candlestick_time > candlestick.time {
-                            make_append_new(current_candlestick_time, input)
-                        } else {
-                            UpdateAction::None
-                        }
-                    }
-                    (
-                        _,
-                        InputCandlestick::Normal(candlestick)
-                        | InputCandlestick::Confirmed(candlestick),
-                    ) => {
-                        if current_time.date() > candlestick.time.date() {
-                            make_append_new(
-                                self.candlestick_time(
-                                    half_days,
-                                    period,
-                                    current_time.replace_time(trade_sessions[0].0),
-                                )
-                                .unwrap(),
-                                input,
-                            )
-                        } else {
-                            UpdateAction::None
-                        }
-                    }
-                    _ => UpdateAction::None,
                 }
-            }
-            Period::Day | Period::Week | Period::Month | Period::Year => match (res, input) {
+                (FindSessionResult::After(_), InputCandlestick::Normal(candlestick)) => {
+                    let Some(current_candlestick_time) =
+                        self.candlestick_time(half_days, period, current_time)
+                    else {
+                        return UpdateAction::Confirm(candlestick);
+                    };
+                    if current_candlestick_time > candlestick.time {
+                        make_append_new(current_candlestick_time, input)
+                    } else {
+                        UpdateAction::None
+                    }
+                }
+                (
+                    _,
+                    InputCandlestick::Normal(candlestick)
+                    | InputCandlestick::Confirmed(candlestick),
+                ) => {
+                    if current_time.date() > candlestick.time.date() {
+                        make_append_new(
+                            self.candlestick_time(
+                                half_days,
+                                period,
+                                current_time.replace_time(trade_sessions[0].0),
+                            )
+                            .unwrap(),
+                            input,
+                        )
+                    } else {
+                        UpdateAction::None
+                    }
+                }
+                _ => UpdateAction::None,
+            },
+            Day | Week | Month | Quarter | Year => match (res, input) {
                 (FindSessionResult::After(n), InputCandlestick::Normal(candlestick))
                     if n == trade_sessions.len() - 1 =>
                 {

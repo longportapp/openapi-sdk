@@ -237,31 +237,58 @@ pub enum WarrantType {
 #[derive(Debug, JsEnum, Hash, Eq, PartialEq)]
 #[js(remote = "longport::quote::Period")]
 pub enum Period {
-    /// One Minute
+    /// Unknown
     #[js(remote = "UnknownPeriod")]
     Unknown,
     /// One Minute
     #[js(remote = "OneMinute")]
     Min_1,
+    /// Two Minute
+    #[js(remote = "TwoMinute")]
+    Min_2,
+    /// Three Minutes
+    #[js(remote = "ThreeMinute")]
+    Min_3,
     /// Five Minutes
     #[js(remote = "FiveMinute")]
     Min_5,
+    /// Ten Minutes
+    #[js(remote = "TenMinute")]
+    Min_10,
     /// Fifteen Minutes
     #[js(remote = "FifteenMinute")]
     Min_15,
+    /// Twenty Minutes
+    #[js(remote = "TwentyMinute")]
+    Min_20,
     /// Thirty Minutes
     #[js(remote = "ThirtyMinute")]
     Min_30,
-    /// Sixty Minutes
+    /// Forty-Five Minutes
+    #[js(remote = "FortyFiveMinute")]
+    Min_45,
+    /// One Hour
     #[js(remote = "SixtyMinute")]
     Min_60,
-    /// One Day
+    /// Two Hours
+    #[js(remote = "TwoHour")]
+    Min_120,
+    /// Three Hours
+    #[js(remote = "ThreeHour")]
+    Min_180,
+    /// Four Hours
+    #[js(remote = "FourHour")]
+    Min_240,
+    /// Daily
     Day,
-    /// One Week
+    /// Weekly
     Week,
-    /// One Month
+    /// Monthly
     Month,
-    /// One Year
+    /// Quarterly
+    #[js(remote = "Quarter")]
+    Quarter,
+    /// Yearly
     Year,
 }
 

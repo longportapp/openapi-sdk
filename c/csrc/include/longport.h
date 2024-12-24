@@ -691,35 +691,71 @@ typedef enum lb_period_t {
    */
   PeriodMin1,
   /**
+   * Two Minute
+   */
+  PeriodMin2,
+  /**
+   * Three Minutes
+   */
+  PeriodMin3,
+  /**
    * Five Minutes
    */
   PeriodMin5,
+  /**
+   * Ten Minutes
+   */
+  PeriodMin10,
   /**
    * Fifteen Minutes
    */
   PeriodMin15,
   /**
+   * Twenty Minutes
+   */
+  PeriodMin20,
+  /**
    * Thirty Minutes
    */
   PeriodMin30,
   /**
-   * Sixty Minutes
+   * Forty-Five Minutes
+   */
+  PeriodMin45,
+  /**
+   * One Hour
    */
   PeriodMin60,
   /**
-   * One Day
+   * Two Hours
+   */
+  PeriodMin120,
+  /**
+   * Three Hours
+   */
+  PeriodMin180,
+  /**
+   * Four Hours
+   */
+  PeriodMin240,
+  /**
+   * Daily
    */
   PeriodDay,
   /**
-   * One Week
+   * Weekly
    */
   PeriodWeek,
   /**
-   * One Month
+   * Monthly
    */
   PeriodMonth,
   /**
-   * One Year
+   * Quarterly
+   */
+  PeriodQuarter,
+  /**
+   * Yearly
    */
   PeriodYear,
 } lb_period_t;

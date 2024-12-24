@@ -23,6 +23,56 @@ fn sh_min1() {
 }
 
 #[test]
+fn sh_min2() {
+    let t = TestCandlestickTime::new(&CN, Period::Min_2);
+    t.check_time(time!(09:20:00), None);
+    t.check_time(time!(09:29:59), None);
+    t.check_time(time!(09:30:00), time!(09:30:00));
+    t.check_time(time!(09:30:01), time!(09:30:00));
+    t.check_time(time!(09:31:00), time!(09:30:00));
+    t.check_time(time!(09:31:01), time!(09:30:00));
+    t.check_time(time!(09:32:00), time!(09:32:00));
+    t.check_time(time!(09:32:01), time!(09:32:00));
+    t.check_time(time!(11:29:59), time!(11:28:00));
+    t.check_time(time!(11:30:00), None);
+    t.check_time(time!(11:31:00), None);
+    t.check_time(time!(13:00:00), time!(13:00:00));
+    t.check_time(time!(13:00:01), time!(13:00:00));
+    t.check_time(time!(13:01:00), time!(13:00:00));
+    t.check_time(time!(14:59:59), time!(14:58:00));
+    t.check_time(time!(15:00:00), time!(15:00:00));
+    t.check_time(time!(15:01:00), time!(15:00:00));
+    t.check_time(time!(15:09:59), time!(15:00:00));
+    t.check_time(time!(15:10:00), None);
+}
+
+#[test]
+fn sh_min3() {
+    let t = TestCandlestickTime::new(&CN, Period::Min_3);
+    t.check_time(time!(09:20:00), None);
+    t.check_time(time!(09:29:59), None);
+    t.check_time(time!(09:30:00), time!(09:30:00));
+    t.check_time(time!(09:30:01), time!(09:30:00));
+    t.check_time(time!(09:31:00), time!(09:30:00));
+    t.check_time(time!(09:31:01), time!(09:30:00));
+    t.check_time(time!(09:32:00), time!(09:30:00));
+    t.check_time(time!(09:32:01), time!(09:30:00));
+    t.check_time(time!(09:33:00), time!(09:33:00));
+    t.check_time(time!(09:33:01), time!(09:33:00));
+    t.check_time(time!(11:29:59), time!(11:27:00));
+    t.check_time(time!(11:30:00), None);
+    t.check_time(time!(11:31:00), None);
+    t.check_time(time!(13:00:00), time!(13:00:00));
+    t.check_time(time!(13:00:01), time!(13:00:00));
+    t.check_time(time!(13:01:00), time!(13:00:00));
+    t.check_time(time!(14:59:59), time!(14:57:00));
+    t.check_time(time!(15:00:00), time!(15:00:00));
+    t.check_time(time!(15:01:00), time!(15:00:00));
+    t.check_time(time!(15:09:59), time!(15:00:00));
+    t.check_time(time!(15:10:00), None);
+}
+
+#[test]
 fn sh_min5() {
     let t = TestCandlestickTime::new(&CN, Period::Min_5);
     t.check_time(time!(09:29:59), None);
@@ -44,6 +94,46 @@ fn sh_min5() {
 }
 
 #[test]
+fn sh_min10() {
+    let t = TestCandlestickTime::new(&CN, Period::Min_10);
+    t.check_time(time!(09:29:59), None);
+    t.check_time(time!(09:30:00), time!(09:30:00));
+    t.check_time(time!(09:39:59), time!(09:30:00));
+    t.check_time(time!(09:40:00), time!(09:40:00));
+    t.check_time(time!(09:40:01), time!(09:40:00));
+    t.check_time(time!(10:29:59), time!(10:20:00));
+    t.check_time(time!(10:30:00), time!(10:30:00));
+    t.check_time(time!(10:31:00), time!(10:30:00));
+    t.check_time(time!(10:37:00), time!(10:30:00));
+    t.check_time(time!(13:00:00), time!(13:00:00));
+    t.check_time(time!(13:00:05), time!(13:00:00));
+    t.check_time(time!(13:09:59), time!(13:00:00));
+    t.check_time(time!(14:59:59), time!(14:50:00));
+    t.check_time(time!(15:00:00), time!(15:00:00));
+    t.check_time(time!(15:01:00), time!(15:00:00));
+}
+
+#[test]
+fn sh_min45() {
+    let t = TestCandlestickTime::new(&CN, Period::Min_45);
+    t.check_time(time!(09:29:59), None);
+    t.check_time(time!(09:30:00), time!(09:30:00));
+    t.check_time(time!(09:59:59), time!(09:30:00));
+    t.check_time(time!(10:00:00), time!(09:30:00));
+    t.check_time(time!(10:00:01), time!(09:30:00));
+    t.check_time(time!(10:15:0), time!(10:15:00));
+    t.check_time(time!(10:30:00), time!(10:15:00));
+    t.check_time(time!(10:31:00), time!(10:15:00));
+    t.check_time(time!(10:37:00), time!(10:15:00));
+    t.check_time(time!(13:00:00), time!(13:00:00));
+    t.check_time(time!(13:00:05), time!(13:00:00));
+    t.check_time(time!(13:09:59), time!(13:00:00));
+    t.check_time(time!(14:59:59), time!(14:30:00));
+    t.check_time(time!(15:00:00), time!(14:30:00));
+    t.check_time(time!(15:01:00), time!(14:30:00));
+}
+
+#[test]
 fn sh_min60() {
     let t = TestCandlestickTime::new(&CN, Period::Min_60);
     t.check_time(time!(09:10:00), None);
@@ -57,6 +147,24 @@ fn sh_min60() {
     t.check_time(time!(14:59:59), time!(14:00:00));
     t.check_time(time!(15:00:00), time!(15:00:00));
     t.check_time(time!(15:05:00), time!(15:00:00));
+    t.check_time(time!(15:10:00), None);
+}
+
+#[test]
+fn sh_min240() {
+    let t = TestCandlestickTime::new(&CN, Period::Min_240);
+    t.check_time(time!(09:10:00), None);
+    t.check_time(time!(09:29:59), None);
+    t.check_time(time!(09:30:00), time!(09:30:00));
+    t.check_time(time!(10:49:00), time!(09:30:00));
+    t.check_time(time!(10:49:00), time!(09:30:00));
+    t.check_time(time!(11:26:00), time!(09:30:00));
+    t.check_time(time!(13:00:00), time!(13:00:00));
+    t.check_time(time!(13:59:59), time!(13:00:00));
+    t.check_time(time!(14:00:00), time!(13:00:00));
+    t.check_time(time!(14:59:59), time!(13:00:00));
+    t.check_time(time!(15:00:00), time!(13:00:00));
+    t.check_time(time!(15:05:00), time!(13:00:00));
     t.check_time(time!(15:10:00), None);
 }
 
@@ -96,6 +204,24 @@ fn sh_month() {
     t.check_datetime(datetime!(2022-1-6 9:30:0 +8), datetime!(2022-1-1 0:0:0 +8));
     t.check_datetime(datetime!(2022-1-10 9:30:0 +8), datetime!(2022-1-1 0:0:0 +8));
     t.check_datetime(datetime!(2022-5-10 9:30:0 +8), datetime!(2022-5-1 0:0:0 +8));
+}
+
+#[test]
+fn sh_quarter() {
+    let t = TestCandlestickTime::new(&CN, Period::Quarter);
+    t.check_datetime(datetime!(2022-1-6 9:30:0 +8), datetime!(2022-1-1 0:0:0 +8));
+    t.check_datetime(datetime!(2022-4-6 9:30:0 +8), datetime!(2022-4-1 0:0:0 +8));
+    t.check_datetime(datetime!(2022-6-6 9:30:0 +8), datetime!(2022-4-1 0:0:0 +8));
+    t.check_datetime(datetime!(2022-7-6 9:30:0 +8), datetime!(2022-7-1 0:0:0 +8));
+    t.check_datetime(datetime!(2022-9-6 9:30:0 +8), datetime!(2022-7-1 0:0:0 +8));
+    t.check_datetime(
+        datetime!(2022-10-6 9:30:0 +8),
+        datetime!(2022-10-1 0:0:0 +8),
+    );
+    t.check_datetime(
+        datetime!(2022-12-6 9:30:0 +8),
+        datetime!(2022-10-1 0:0:0 +8),
+    );
 }
 
 #[test]

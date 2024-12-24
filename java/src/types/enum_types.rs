@@ -136,18 +136,36 @@ impl_java_enum!(
         Unknown,
         #[java(remote = "OneMinute")]
         Min_1,
+        #[java(remote = "TwoMinute")]
+        Min_2,
+        #[java(remote = "ThreeMinute")]
+        Min_3,
         #[java(remote = "FiveMinute")]
         Min_5,
+        #[java(remote = "TenMinute")]
+        Min_10,
         #[java(remote = "FifteenMinute")]
         Min_15,
+        #[java(remote = "TwentyMinute")]
+        Min_20,
         #[java(remote = "ThirtyMinute")]
         Min_30,
+        #[java(remote = "FortyFiveMinute")]
+        Min_45,
         #[java(remote = "SixtyMinute")]
         Min_60,
+        #[java(remote = "TwoHour")]
+        Min_120,
+        #[java(remote = "ThreeHour")]
+        Min_180,
+        #[java(remote = "FourHour")]
+        Min_240,
         Day,
         Week,
         Month,
-        Year
+        #[java(remote = "Quarter")]
+        Quarter,
+        Year,
     ]
 );
 
