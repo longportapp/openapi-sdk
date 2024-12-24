@@ -191,25 +191,52 @@ pub(crate) enum Period {
     /// One Minute
     #[py(remote = "OneMinute")]
     Min_1,
+    /// Two Minutes
+    #[py(remote = "TwoMinute")]
+    Min_2,
+    /// Three Minutes
+    #[py(remote = "ThreeMinute")]
+    Min_3,
     /// Five Minutes
     #[py(remote = "FiveMinute")]
     Min_5,
+    /// Ten Minutes
+    #[py(remote = "TenMinute")]
+    Min_10,
     /// Fifteen Minutes
     #[py(remote = "FifteenMinute")]
     Min_15,
+    /// Twenty Minutes
+    #[py(remote = "TwentyMinute")]
+    Min_20,
     /// Thirty Minutes
     #[py(remote = "ThirtyMinute")]
     Min_30,
-    /// Sixty Minutes
+    /// Forty-Five Minutes
+    #[py(remote = "FortyFiveMinute")]
+    Min_45,
+    /// One Hour
     #[py(remote = "SixtyMinute")]
     Min_60,
-    /// One Day
+    /// Two Hours
+    #[py(remote = "TwoHour")]
+    Min_120,
+    /// Three Hours
+    #[py(remote = "ThreeHour")]
+    Min_180,
+    /// Four Hours
+    #[py(remote = "FourHour")]
+    Min_240,
+    /// Daily
     Day,
-    /// One Week
+    /// Weekly
     Week,
-    /// One Month
+    /// Monthly
     Month,
-    /// One Year
+    /// Quarterly
+    #[py(remote = "Quarter")]
+    Quarter,
+    /// Yearly
     Year,
 }
 

@@ -172,20 +172,38 @@ convert(Period period)
       return PeriodUnknown;
     case Period::Min1:
       return PeriodMin1;
+    case Period::Min2:
+      return PeriodMin2;
+    case Period::Min3:
+      return PeriodMin3;
     case Period::Min5:
       return PeriodMin5;
+    case Period::Min10:
+      return PeriodMin10;
     case Period::Min15:
       return PeriodMin15;
+    case Period::Min20:
+      return PeriodMin20;
     case Period::Min30:
       return PeriodMin30;
+    case Period::Min45:
+      return PeriodMin45;
     case Period::Min60:
       return PeriodMin60;
+    case Period::Min120:
+      return PeriodMin120;
+    case Period::Min180:
+      return PeriodMin180;
+    case Period::Min240:
+      return PeriodMin240;
     case Period::Day:
       return PeriodDay;
     case Period::Week:
       return PeriodWeek;
     case Period::Month:
       return PeriodMonth;
+    case Period::Quarter:
+      return PeriodQuarter;
     case Period::Year:
       return PeriodYear;
     default:
@@ -201,20 +219,36 @@ convert(lb_period_t period)
       return Period::Unknown;
     case PeriodMin1:
       return Period::Min1;
+    case PeriodMin2:
+      return Period::Min2;
+    case PeriodMin3:
+      return Period::Min3;
     case PeriodMin5:
       return Period::Min5;
     case PeriodMin15:
       return Period::Min15;
+    case PeriodMin20:
+      return Period::Min20;
     case PeriodMin30:
       return Period::Min30;
+    case PeriodMin45:
+      return Period::Min45;
     case PeriodMin60:
       return Period::Min60;
+    case PeriodMin120:
+      return Period::Min120;
+    case PeriodMin180:
+      return Period::Min180;
+    case PeriodMin240:
+      return Period::Min240;
     case PeriodDay:
       return Period::Day;
     case PeriodWeek:
       return Period::Week;
     case PeriodMonth:
       return Period::Month;
+    case PeriodQuarter:
+      return Period::Quarter;
     case PeriodYear:
       return Period::Year;
     default:

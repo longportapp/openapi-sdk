@@ -152,26 +152,44 @@ export const enum WarrantType {
 }
 /** Candlestick period */
 export const enum Period {
-  /** One Minute */
+  /** Unknown */
   Unknown = 0,
   /** One Minute */
   Min_1 = 1,
+  /** Two Minutes */
+  Min_2 = 2,
+  /** Three Minutes */
+  Min_3 = 3,
   /** Five Minutes */
-  Min_5 = 2,
+  Min_5 = 4,
+  /** Ten Minutes */
+  Min_10 = 5,
   /** Fifteen Minutes */
-  Min_15 = 3,
+  Min_15 = 6,
+  /** Twenty Minutes */
+  Min_20 = 7,
   /** Thirty Minutes */
-  Min_30 = 4,
-  /** Sixty Minutes */
-  Min_60 = 5,
-  /** One Day */
-  Day = 6,
-  /** One Week */
-  Week = 7,
-  /** One Month */
-  Month = 8,
-  /** One Year */
-  Year = 9
+  Min_30 = 8,
+  /** Forty-Five Minutes */
+  Min_45 = 9,
+  /** One Hour */
+  Min_60 = 10,
+  /** Two Hours */
+  Min_120 = 11,
+  /** Three Hours */
+  Min_180 = 12,
+  /** Four Hours */
+  Min_240 = 13,
+  /** Daily */
+  Day = 14,
+  /** Weekly */
+  Week = 15,
+  /** Monthly */
+  Month = 16,
+  /** Quarterly */
+  Quarter = 17,
+  /** Yearly */
+  Year = 18
 }
 /** Candlestick adjustment type */
 export const enum AdjustType {
