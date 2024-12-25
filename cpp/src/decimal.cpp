@@ -90,7 +90,7 @@ Decimal::operator*(const Decimal& other) const
 Decimal&
 Decimal::operator*=(const Decimal& other)
 {
-  lb_decimal_sub(value_, other);
+  lb_decimal_mul(value_, other);
   return *this;
 }
 
