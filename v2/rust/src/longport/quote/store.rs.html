@@ -297,7 +297,9 @@
 <a href="#296" id="296">296</a>
 <a href="#297" id="297">297</a>
 <a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 
 <span class="kw">use </span>longport_candlesticks::{Days, InputCandlestick, UpdateAction, UpdateFields};
 <span class="kw">use </span>longport_proto::quote::Period;
@@ -516,6 +518,8 @@
         turnover: <span class="macro">merge_decimal!</span>(prev_quote, quote, turnover),
         trade_status: quote.trade_status,
         trade_session: quote.trade_session,
+        current_volume: quote.current_volume,
+        current_turnover: quote.current_turnover,
     };
     data.quote = new_quote.clone();
     <span class="kw-2">*</span>quote = new_quote;

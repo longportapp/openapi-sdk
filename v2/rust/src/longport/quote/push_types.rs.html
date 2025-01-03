@@ -204,7 +204,15 @@
 <a href="#203" id="203">203</a>
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a></pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, PushQuoteTag, TradeSession, TradeStatus};
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a></pre></div><pre class="rust"><code><span class="kw">use </span>longport_proto::quote::{<span class="self">self</span>, Period, PushQuoteTag, TradeSession, TradeStatus};
 <span class="kw">use </span>prost::Message;
 <span class="kw">use </span>rust_decimal::Decimal;
 <span class="kw">use </span>time::OffsetDateTime;
@@ -235,6 +243,10 @@
     </span><span class="kw">pub </span>trade_status: TradeStatus,
     <span class="doccomment">/// Trade session
     </span><span class="kw">pub </span>trade_session: TradeSession,
+    <span class="doccomment">/// Increase volume between pushes
+    </span><span class="kw">pub </span>current_volume: i64,
+    <span class="doccomment">/// Increase turnover between pushes
+    </span><span class="kw">pub </span>current_turnover: Decimal,
 }
 
 <span class="kw">impl </span>Default <span class="kw">for </span>PushQuote {
@@ -249,6 +261,8 @@
             turnover: Default::default(),
             trade_status: Default::default(),
             trade_session: Default::default(),
+            current_volume: Default::default(),
+            current_turnover: Default::default(),
         }
     }
 }
@@ -349,6 +363,8 @@
                 turnover: push_quote.turnover.parse().unwrap_or_default(),
                 trade_status: TradeStatus::try_from(push_quote.trade_status).unwrap_or_default(),
                 trade_session: TradeSession::try_from(push_quote.trade_session).unwrap_or_default(),
+                current_volume: push_quote.current_volume,
+                current_turnover: push_quote.current_turnover.parse().unwrap_or_default(),
             }),
         },
         PushQuoteTag::try_from(push_quote.tag).unwrap_or_default(),
