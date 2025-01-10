@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [1.1.6] 2024-01-10
 
 - Add Serialize/Deserialize to response types.
+- add support for more candlesticks periods
+- add PushQuote.current_volume, PushQuote.current_turnover
 
 # [1.1.5] 2024-12-21
 
