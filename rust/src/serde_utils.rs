@@ -317,6 +317,16 @@ pub(crate) mod int64_str {
 pub(crate) mod int64_str_empty_is_none {
     use super::*;
 
+    pub(crate) fn serialize<S>(value: &Option<i64>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match value {
+            Some(value) => serializer.collect_str(value),
+            None => serializer.serialize_str(""),
+        }
+    }
+
     pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<i64>, D::Error>
     where
         D: Deserializer<'de>,
