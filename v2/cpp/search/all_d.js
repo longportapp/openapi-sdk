@@ -27,7 +27,7 @@ var searchData=
   ['operator_3c_359',['operator&lt;',['../classlongport_1_1_decimal.html#ac8262755141595d73db52e51c3095a15',1,'longport::Decimal']]],
   ['operator_3c_3c_360',['operator&lt;&lt;',['../namespacelongport.html#abb32d8b65b035255710a7faa9acdd74b',1,'longport']]],
   ['operator_3c_3d_361',['operator&lt;=',['../classlongport_1_1_decimal.html#aff1393af4980163884262bcd56ea7aec',1,'longport::Decimal']]],
-  ['operator_3d_362',['operator=',['../classlongport_1_1quote_1_1_quote_context.html#ae88352b0becaf2d6bbdf744fb4157e0c',1,'longport::quote::QuoteContext::operator=()'],['../classlongport_1_1trade_1_1_trade_context.html#a096930b5cdb8da36df0e6f405dde4367',1,'longport::trade::TradeContext::operator=()']]],
+  ['operator_3d_362',['operator=',['../classlongport_1_1_decimal.html#a934595a7d18cb6b9fb9ed383ca4a711d',1,'longport::Decimal::operator=()'],['../classlongport_1_1quote_1_1_quote_context.html#ae88352b0becaf2d6bbdf744fb4157e0c',1,'longport::quote::QuoteContext::operator=()'],['../classlongport_1_1trade_1_1_trade_context.html#a096930b5cdb8da36df0e6f405dde4367',1,'longport::trade::TradeContext::operator=()']]],
   ['operator_3d_3d_363',['operator==',['../classlongport_1_1_decimal.html#ad12ac64bb869cfd07722e87d4dee619e',1,'longport::Decimal::operator==()'],['../classlongport_1_1quote_1_1_sub_flags.html#af67782e18c0ef31a9b3c81dbec4e4105',1,'longport::quote::SubFlags::operator==()']]],
   ['operator_3e_364',['operator&gt;',['../classlongport_1_1_decimal.html#ae8d70ac98827182d464ec443e7044dcb',1,'longport::Decimal']]],
   ['operator_3e_3d_365',['operator&gt;=',['../classlongport_1_1_decimal.html#a64ae8354a06cfcd90784ef99b89ad523',1,'longport::Decimal']]],
