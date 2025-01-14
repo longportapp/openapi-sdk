@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/serde_utils.rs`."><title>serde_utils.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-b0742ba02757f159.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0 (90b35a623 2024-11-26)" data-channel="1.83.0" data-search-js="search-f0d225181b97f9a4.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-f070b9041d14864c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">longport/</div>serde_utils.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `rust/src/serde_utils.rs`."><title>serde_utils.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="longport" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0 (9fc6b4312 2025-01-07)" data-channel="1.84.0" data-search-js="search-92e6798f.js" data-settings-js="settings-0f613d39.js" ><script src="../../static.files/storage-59e33391.js"></script><script defer src="../../static.files/src-script-56102188.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">longport/</div>serde_utils.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -266,7 +266,84 @@
 <a href="#265" id="265">265</a>
 <a href="#266" id="266">266</a>
 <a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a></pre></div><pre class="rust"><code><span class="attr">#![allow(dead_code)]
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a></pre></div><pre class="rust"><code><span class="attr">#![allow(dead_code)]
 
 </span><span class="kw">use </span>std::str::FromStr;
 
@@ -291,7 +368,7 @@
     <span class="kw">where
         </span>S: Serializer,
     {
-        serializer.serialize_str(<span class="kw-2">&amp;</span>datetime.unix_timestamp().to_string())
+        serializer.collect_str(<span class="kw-2">&amp;</span>datetime.unix_timestamp())
     }
 }
 
@@ -323,7 +400,7 @@
         </span>S: Serializer,
     {
         <span class="kw">match </span>datetime {
-            <span class="prelude-val">Some</span>(datetime) =&gt; serializer.serialize_str(<span class="kw-2">&amp;</span>datetime.unix_timestamp().to_string()),
+            <span class="prelude-val">Some</span>(datetime) =&gt; serializer.collect_str(<span class="kw-2">&amp;</span>datetime.unix_timestamp()),
             <span class="prelude-val">None </span>=&gt; serializer.serialize_none(),
         }
     }
@@ -367,6 +444,13 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>risk_level {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span>i32, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        serializer.collect_str(value)
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;i32, D::Error&gt;
     <span class="kw">where
         </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
@@ -386,6 +470,13 @@
     <span class="kw">use </span>rust_decimal::Decimal;
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span>Decimal, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        serializer.collect_str(<span class="kw-2">&amp;</span>value)
+    }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;Decimal, D::Error&gt;
     <span class="kw">where
@@ -408,6 +499,16 @@
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Decimal&gt;, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">match </span>value {
+            <span class="prelude-val">Some</span>(value) =&gt; serializer.collect_str(<span class="kw-2">&amp;</span>value),
+            <span class="kw">_ </span>=&gt; serializer.serialize_none(),
+        }
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Decimal&gt;, D::Error&gt;
     <span class="kw">where
         </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
@@ -429,6 +530,16 @@
 
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Decimal&gt;, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">match </span>value {
+            <span class="prelude-val">Some</span>(value) =&gt; serializer.collect_str(<span class="kw-2">&amp;</span>value),
+            <span class="kw">_ </span>=&gt; serializer.serialize_none(),
+        }
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Decimal&gt;, D::Error&gt;
     <span class="kw">where
         </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
@@ -449,6 +560,19 @@
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::trade::TriggerStatus;
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(
+        value: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;TriggerStatus&gt;,
+        serializer: S,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">match </span>value {
+            <span class="prelude-val">Some</span>(value) =&gt; serializer.collect_str(value),
+            <span class="prelude-val">None </span>=&gt; serializer.serialize_none(),
+        }
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;TriggerStatus&gt;, D::Error&gt;
     <span class="kw">where
         </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
@@ -467,6 +591,16 @@
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::trade::OutsideRTH;
 
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;OutsideRTH&gt;, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">match </span>value {
+            <span class="prelude-val">Some</span>(value) =&gt; serializer.collect_str(value),
+            <span class="prelude-val">None </span>=&gt; serializer.serialize_none(),
+        }
+    }
+
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;OutsideRTH&gt;, D::Error&gt;
     <span class="kw">where
         </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
@@ -483,6 +617,16 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>symbol_opt {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">match </span>value {
+            <span class="prelude-val">Some</span>(value) =&gt; serializer.serialize_str(value),
+            <span class="prelude-val">None </span>=&gt; serializer.serialize_none(),
+        }
+    }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;, D::Error&gt;
     <span class="kw">where
@@ -517,6 +661,16 @@
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>int64_str_empty_is_none {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>serialize&lt;S&gt;(value: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;i64&gt;, serializer: S) -&gt; <span class="prelude-ty">Result</span>&lt;S::Ok, S::Error&gt;
+    <span class="kw">where
+        </span>S: Serializer,
+    {
+        <span class="kw">match </span>value {
+            <span class="prelude-val">Some</span>(value) =&gt; serializer.collect_str(value),
+            <span class="prelude-val">None </span>=&gt; serializer.serialize_str(<span class="string">""</span>),
+        }
+    }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deserialize&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;i64&gt;, D::Error&gt;
     <span class="kw">where

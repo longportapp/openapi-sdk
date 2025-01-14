@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['waittocancel_1325',['WaitToCancel',['../namespacelongport_1_1trade.html#afcaefb5ea049d0d57d50576e58c1872eaeb9ea6f9cc675c610ecc5e9073500cb0',1,'longport::trade']]],
-  ['waittonew_1326',['WaitToNew',['../namespacelongport_1_1trade.html#afcaefb5ea049d0d57d50576e58c1872eac6fbc935f6c6061d11c28a4997c75ba1',1,'longport::trade']]],
-  ['waittoreplace_1327',['WaitToReplace',['../namespacelongport_1_1trade.html#afcaefb5ea049d0d57d50576e58c1872ea59779acbe7e693505d8db550c7524bd1',1,'longport::trade']]],
-  ['warrantdelta_1328',['WarrantDelta',['../namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbea5bf66b3fed4ba1ae21fdcb48b1121384',1,'longport::quote']]],
-  ['warrantpreparelist_1329',['WarrantPrepareList',['../namespacelongport_1_1quote.html#a6ead1faa00772e4d59f678c774007949af7c250f64a12a710b6d1d4c69c48f602',1,'longport::quote']]],
-  ['week_1330',['Week',['../namespacelongport_1_1quote.html#a60167d694ea9a5fec686d08fa21dae17ad2ce009594dcc60befa6a4e6cbeb71fc',1,'longport::quote']]]
+  ['varietiesnotreported_1346',['VarietiesNotReported',['../namespacelongport_1_1trade.html#afcaefb5ea049d0d57d50576e58c1872ea9991be986b7823ebd4248bac70729815',1,'longport::trade']]],
+  ['vega_1347',['Vega',['../namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbeabb8efcd4ab24730b7cd34e88ac390878',1,'longport::quote']]],
+  ['volume_1348',['Volume',['../namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbeabd7a9717d29c5ddcab1bc175eda1e298',1,'longport::quote::Volume()'],['../namespacelongport_1_1quote.html#aaf9b79be6c85e5972d5a043fc2abf001abd7a9717d29c5ddcab1bc175eda1e298',1,'longport::quote::Volume()']]],
+  ['volumeratio_1349',['VolumeRatio',['../namespacelongport_1_1quote.html#a1057d28d1b3ec4b2f7847b2f53a4fbbeae68a2031d2f63bb393f2a335671e07f4',1,'longport::quote']]]
 ];
