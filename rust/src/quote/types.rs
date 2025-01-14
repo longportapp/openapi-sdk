@@ -499,7 +499,7 @@ impl TryFrom<quote::OptionQuote> for OptionQuote {
                 .unwrap_or_default(),
             contract_type: option_extend.contract_type.parse().unwrap_or_default(),
             contract_size: option_extend.contract_size.parse().unwrap_or_default(),
-            direction: option_extend.contract_type.parse().unwrap_or_default(),
+            direction: option_extend.direction.parse().unwrap_or_default(),
             historical_volatility: option_extend
                 .historical_volatility
                 .parse()
