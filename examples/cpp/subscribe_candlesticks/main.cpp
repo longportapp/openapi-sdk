@@ -1,5 +1,6 @@
 #include <iostream>
 #include <longport.hpp>
+#include <ctime>
 
 #ifdef WIN32
 #include <windows.h>
@@ -36,7 +37,7 @@ main(int argc, char const* argv[])
     ctx = res.context();
 
     res.context().set_on_candlestick([](auto event) {
-      std::cout << event->symbol
+      std::cout << "[" << time(0) << "]"
                 << " timestamp=" << event->candlestick.timestamp
                 << " close=" << (double)event->candlestick.close
                 << " open=" << (double)event->candlestick.open

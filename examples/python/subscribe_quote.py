@@ -4,11 +4,11 @@ from longport.openapi import QuoteContext, Config, SubType, PushQuote, Period, A
 
 def on_quote(symbol: str, event: PushQuote):
     print(symbol, event)
+    sleep(1)
 
 
 config = Config.from_env()
 ctx = QuoteContext(config)
 ctx.set_on_quote(on_quote)
-ctx.subscribe(
-    ["700.HK", "AAPL.US", "TSLA.US", "NFLX.US"], [SubType.Quote], is_first_push=True)
-sleep(10)
+ctx.subscribe(["TSLA.US"], [SubType.Quote], is_first_push=True)
+sleep(10000)
