@@ -260,6 +260,13 @@ impl Core {
             println!("{}", table);
         }
 
+        tracing::info!(
+            member_id = member_id,
+            quote_level = quote_level,
+            quote_package_details = ?quote_package_details,
+            "quote context initialized",
+        );
+
         Ok(Self {
             config,
             rate_limit,
