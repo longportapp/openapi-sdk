@@ -86,8 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7816a9cb0811b17c02b548fffd59e300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae19c732c885f94fff6c3f12c1da097fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#ae19c732c885f94fff6c3f12c1da097fe">Config</a> (<a class="el" href="classlongport_1_1_config.html">Config</a> &amp;&amp;other)</td></tr>
 <tr class="separator:ae19c732c885f94fff6c3f12c1da097fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37d1aaab45f1f7d5c40fbb4df492a913"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#a37d1aaab45f1f7d5c40fbb4df492a913">Config</a> (const std::string &amp;app_key, const std::string &amp;app_secret, const std::string &amp;access_token, const std::optional&lt; std::string &gt; &amp;http_url=std::nullopt, const std::optional&lt; std::string &gt; &amp;quote_ws_url=std::nullopt, const std::optional&lt; std::string &gt; &amp;trade_ws_url=std::nullopt, const std::optional&lt; <a class="el" href="namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473c">Language</a> &gt; &amp;language=std::nullopt, bool enable_overnight=false, const std::optional&lt; <a class="el" href="namespacelongport.html#a621d07b7224fb0157acd5be0f100a4ba">PushCandlestickMode</a> &gt; &amp;push_candlestick_mode=std::nullopt, bool enable_print_quote_packages=true)</td></tr>
-<tr class="separator:a37d1aaab45f1f7d5c40fbb4df492a913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a302fd4aa901fbcd96e169e4616b569f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#a302fd4aa901fbcd96e169e4616b569f0">Config</a> (const std::string &amp;app_key, const std::string &amp;app_secret, const std::string &amp;access_token, const std::optional&lt; std::string &gt; &amp;http_url=std::nullopt, const std::optional&lt; std::string &gt; &amp;quote_ws_url=std::nullopt, const std::optional&lt; std::string &gt; &amp;trade_ws_url=std::nullopt, const std::optional&lt; <a class="el" href="namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473c">Language</a> &gt; &amp;language=std::nullopt, bool enable_overnight=false, const std::optional&lt; <a class="el" href="namespacelongport.html#a621d07b7224fb0157acd5be0f100a4ba">PushCandlestickMode</a> &gt; &amp;push_candlestick_mode=std::nullopt, bool enable_print_quote_packages=true, const std::optional&lt; std::string &gt; &amp;log_path=std::nullopt)</td></tr>
+<tr class="separator:a302fd4aa901fbcd96e169e4616b569f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae225067b780bcf595885c9f5aa61b9a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#ae225067b780bcf595885c9f5aa61b9a4">~Config</a> ()</td></tr>
 <tr class="separator:ae225067b780bcf595885c9f5aa61b9a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e443bbce0f361514770943c01026c88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlongport_1_1_config.html#a1e443bbce0f361514770943c01026c88">operator const lb_config_t *</a> () const</td></tr>
@@ -181,8 +181,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a37d1aaab45f1f7d5c40fbb4df492a913"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37d1aaab45f1f7d5c40fbb4df492a913">&#9670;&nbsp;</a></span>Config() <span class="overload">[5/5]</span></h2>
+<a id="a302fd4aa901fbcd96e169e4616b569f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302fd4aa901fbcd96e169e4616b569f0">&#9670;&nbsp;</a></span>Config() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +245,13 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enable_print_quote_packages</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>enable_print_quote_packages</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>log_path</em> = <code>std::nullopt</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -265,6 +271,7 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">trade_ws_url</td><td>Trade websocket endpoint url (Default: wss://openapi-trade.longportapp.com/v2) </td></tr>
     <tr><td class="paramname">language</td><td>Language identifer (Default: <a class="el" href="namespacelongport.html#afcd559ca15df3b8c6ca500d2b3a3473caaa85f1840e282d8a8304dbc2c0d7c9b2" title="en">Language::EN</a>) </td></tr>
     <tr><td class="paramname">push_candlestick_mode</td><td>Push candlestick mode (Default: <a class="el" href="namespacelongport.html#a621d07b7224fb0157acd5be0f100a4baaa5ff58bda67e2160b5e5d5a47a4333c3" title="Real-time.">PushCandlestickMode::Realtime</a>) </td></tr>
+    <tr><td class="paramname">enable_print_quote_packages</td><td>Print quote packages when connected (Default: true) </td></tr>
   </table>
   </dd>
 </dl>
@@ -325,7 +332,8 @@ Variables</h1>
 <li><code>LONGPORT_TRADE_WS_URL</code> - Trade websocket endpoint url (Default: <code>wss://openapi-trade.longportapp.com/v2</code>)</li>
 <li><code>LONGPORT_ENABLE_OVERNIGHT</code> - Enable overnight quote, <code>true</code> or <code>false</code> (Default: <code>false</code>)</li>
 <li><code>LONGPORT_PUSH_CANDLESTICK_MODE</code> - <code>realtime</code> or <code>confirmed</code> (Default: <code>realtime</code>)</li>
-<li><code>LONGPORT_PRINT_QUOTE_PACKAGES</code> - Print quote packages when connected, <code>true</code> or <code>false</code> (Default: <code>true</code>) </li>
+<li><code>LONGPORT_PRINT_QUOTE_PACKAGES</code> - Print quote packages when connected, <code>true</code> or <code>false</code> (Default: <code>true</code>)</li>
+<li><code>LONGPORT_LOG_PATH</code> - Set the path of the log files (Default: <code>no logs</code>) </li>
 </ul>
 
 </div>

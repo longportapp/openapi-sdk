@@ -1619,7 +1619,24 @@
 <a href="#1618" id="1618">1618</a>
 <a href="#1619" id="1619">1619</a>
 <a href="#1620" id="1620">1620</a>
-<a href="#1621" id="1621">1621</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
+<a href="#1621" id="1621">1621</a>
+<a href="#1622" id="1622">1622</a>
+<a href="#1623" id="1623">1623</a>
+<a href="#1624" id="1624">1624</a>
+<a href="#1625" id="1625">1625</a>
+<a href="#1626" id="1626">1626</a>
+<a href="#1627" id="1627">1627</a>
+<a href="#1628" id="1628">1628</a>
+<a href="#1629" id="1629">1629</a>
+<a href="#1630" id="1630">1630</a>
+<a href="#1631" id="1631">1631</a>
+<a href="#1632" id="1632">1632</a>
+<a href="#1633" id="1633">1633</a>
+<a href="#1634" id="1634">1634</a>
+<a href="#1635" id="1635">1635</a>
+<a href="#1636" id="1636">1636</a>
+<a href="#1637" id="1637">1637</a>
+<a href="#1638" id="1638">1638</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
 <span class="kw">use </span>longport_proto::quote;
@@ -1627,6 +1644,7 @@
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>time::{Date, PrimitiveDateTime};
 <span class="kw">use </span>tokio::sync::{mpsc, oneshot};
+<span class="kw">use </span>tracing::{instrument::WithSubscriber, Subscriber};
 
 <span class="kw">use crate</span>::{
     quote::{
@@ -1671,6 +1689,7 @@
     member_id: i64,
     quote_level: String,
     quote_package_details: Vec&lt;QuotePackageDetail&gt;,
+    log_subscriber: Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt;,
 }
 
 <span class="kw">impl </span>QuoteContext {
@@ -1678,15 +1697,19 @@
     </span><span class="kw">pub async fn </span>try_new(
         config: Arc&lt;Config&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(<span class="self">Self</span>, mpsc::UnboundedReceiver&lt;PushEvent&gt;)&gt; {
-        <span class="kw">let </span>language = config.language;
+        <span class="kw">let </span>log_subscriber = config.create_log_subscriber(<span class="string">"quote"</span>);
+        <span class="kw">let </span>language = config.language.unwrap_or_default();
         <span class="kw">let </span>http_cli = config.create_http_client();
         <span class="kw">let </span>(command_tx, command_rx) = mpsc::unbounded_channel();
         <span class="kw">let </span>(push_tx, push_rx) = mpsc::unbounded_channel();
-        <span class="kw">let </span>core = Core::try_new(config, command_rx, push_tx).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>core = Core::try_new(config, command_rx, push_tx)
+            .with_subscriber(log_subscriber.clone())
+            .<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="kw">let </span>member_id = core.member_id();
         <span class="kw">let </span>quote_level = core.quote_level().to_string();
         <span class="kw">let </span>quote_package_details = core.quote_package_details().to_vec();
-        tokio::spawn(core.run());
+        tokio::spawn(core.run().with_subscriber(log_subscriber.clone()));
+
         <span class="prelude-val">Ok</span>((
             QuoteContext {
                 language,
@@ -1704,9 +1727,16 @@
                 member_id,
                 quote_level,
                 quote_package_details,
+                log_subscriber,
             },
             push_rx,
         ))
+    }
+
+    <span class="doccomment">/// Returns the log subscriber
+    </span><span class="attr">#[inline]
+    </span><span class="kw">pub fn </span>log_subscriber(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt; {
+        <span class="self">self</span>.log_subscriber.clone()
     }
 
     <span class="doccomment">/// Returns the member ID
@@ -2850,6 +2880,7 @@
             .request(Method::GET, <span class="string">"/v1/watchlist/groups"</span>)
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
+            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(resp.<span class="number">0</span>.groups)
     }
@@ -2901,6 +2932,7 @@
             }))
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
+            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(id)
@@ -2937,6 +2969,7 @@
             .request(Method::DELETE, <span class="string">"/v1/watchlist/groups"</span>)
             .query_params(Request { id, purge })
             .send()
+            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>)
     }
 
@@ -2986,6 +3019,7 @@
                 securities: req.securities,
             }))
             .send()
+            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())

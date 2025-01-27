@@ -289,15 +289,7 @@
 <a href="#288" id="288">288</a>
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
-<a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a>
-<a href="#293" id="293">293</a>
-<a href="#294" id="294">294</a>
-<a href="#295" id="295">295</a>
-<a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+<a href="#291" id="291">291</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashSet, VecDeque},
     sync::Arc,
     time::Duration,
@@ -359,14 +351,11 @@
 
         <span class="kw">let </span>(event_tx, event_rx) = mpsc::unbounded_channel();
 
-        <span class="macro">tracing::debug!</span>(
-            url = config.trade_ws_url.as_str(),
-            <span class="string">"connecting to trade server"</span>,
-        );
+        <span class="macro">tracing::info!</span>(<span class="string">"connecting to trade server"</span>);
+        <span class="kw">let </span>(url, res) = config.create_trade_ws_request().<span class="kw">await</span>;
+        <span class="kw">let </span>request = res.map_err(WsClientError::from)<span class="question-mark">?</span>;
         <span class="kw">let </span>ws_cli = WsClient::open(
-            config
-                .create_trade_ws_request()
-                .map_err(WsClientError::from)<span class="question-mark">?</span>,
+            request,
             ProtocolVersion::Version1,
             CodecType::Protobuf,
             Platform::OpenAPI,
@@ -375,7 +364,7 @@
         )
         .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="macro">tracing::debug!</span>(url = config.trade_ws_url.as_str(), <span class="string">"trade server connected"</span>);
+        <span class="macro">tracing::info!</span>(url = url, <span class="string">"trade server connected"</span>);
 
         <span class="kw">let </span>session = ws_cli.request_auth(otp, Default::default()).<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -405,13 +394,12 @@
                 <span class="comment">// reconnect
                 </span>tokio::time::sleep(RECONNECT_DELAY).<span class="kw">await</span>;
 
-                <span class="macro">tracing::debug!</span>(
-                    url = <span class="self">self</span>.config.trade_ws_url.as_str(),
-                    <span class="string">"connecting to trade server"</span>,
-                );
+                <span class="macro">tracing::info!</span>(<span class="string">"connecting to trade server"</span>);
+                <span class="kw">let </span>(url, res) = <span class="self">self</span>.config.create_trade_ws_request().<span class="kw">await</span>;
+                <span class="kw">let </span>request = res.expect(<span class="string">"BUG: failed to create trade ws request"</span>);
 
                 <span class="kw">match </span>WsClient::open(
-                    <span class="self">self</span>.config.create_trade_ws_request().unwrap(),
+                    request,
                     ProtocolVersion::Version1,
                     CodecType::Protobuf,
                     Platform::OpenAPI,
@@ -427,10 +415,7 @@
                     }
                 }
 
-                <span class="macro">tracing::debug!</span>(
-                    url = <span class="self">self</span>.config.trade_ws_url.as_str(),
-                    <span class="string">"trade server connected"
-                </span>);
+                <span class="macro">tracing::info!</span>(url = url, <span class="string">"trade server connected"</span>);
 
                 <span class="comment">// request new session
                 </span><span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.session {
@@ -479,8 +464,7 @@
         }
     }
 
-    <span class="attr">#[tracing::instrument(level = <span class="string">"debug"</span>, skip(<span class="self">self</span>))]
-    </span><span class="kw">async fn </span>main_loop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
+    <span class="kw">async fn </span>main_loop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>tick = tokio::time::interval(Duration::from_millis(<span class="number">500</span>));
 
         <span class="kw">loop </span>{

@@ -334,9 +334,55 @@
 <a href="#333" id="333">333</a>
 <a href="#334" id="334">334</a>
 <a href="#335" id="335">335</a>
-<a href="#336" id="336">336</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::HashMap,
     fmt::{<span class="self">self</span>, Display},
+    path::{Path, PathBuf},
+    sync::Arc,
 };
 
 <span class="kw">use </span>http::Method;
@@ -346,16 +392,19 @@
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>time::OffsetDateTime;
 <span class="kw">use </span>tokio_tungstenite::tungstenite::client::IntoClientRequest;
+<span class="kw">use </span>tracing::{subscriber::NoSubscriber, Level, Subscriber};
+<span class="kw">use </span>tracing_appender::rolling::{RollingFileAppender, Rotation};
+<span class="kw">use </span>tracing_subscriber::{filter::Targets, layer::SubscriberExt};
 
 <span class="kw">use </span><span class="kw">crate</span>::error::Result;
 
-<span class="kw">const </span>QUOTE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-quote.longportapp.com/v2"</span>;
-<span class="kw">const </span>TRADE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-trade.longportapp.com/v2"</span>;
-<span class="kw">const </span>CN_QUOTE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-quote.longportapp.cn/v2"</span>;
-<span class="kw">const </span>CN_TRADE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-trade.longportapp.cn/v2"</span>;
+<span class="kw">const </span>DEFAULT_QUOTE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-quote.longportapp.com/v2"</span>;
+<span class="kw">const </span>DEFAULT_TRADE_WS_URL: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-trade.longportapp.com/v2"</span>;
+<span class="kw">const </span>DEFAULT_QUOTE_WS_URL_CN: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-quote.longportapp.cn/v2"</span>;
+<span class="kw">const </span>DEFAULT_TRADE_WS_URL_CN: <span class="kw-2">&amp;</span>str = <span class="string">"wss://openapi-trade.longportapp.cn/v2"</span>;
 
 <span class="doccomment">/// Language identifier
-</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq, IntoPrimitive)]
+</span><span class="attr">#[derive(Debug, Default, Copy, Clone, PartialEq, Eq, IntoPrimitive)]
 #[allow(non_camel_case_types)]
 #[repr(i32)]
 </span><span class="kw">pub enum </span>Language {
@@ -364,6 +413,7 @@
     <span class="doccomment">/// zh-HK
     </span>ZH_HK = <span class="number">2</span>,
     <span class="doccomment">/// en
+    </span><span class="attr">#[default]
     </span>EN = <span class="number">1</span>,
 }
 
@@ -384,9 +434,10 @@
 }
 
 <span class="doccomment">/// Push mode for candlestick
-</span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+</span><span class="attr">#[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]
 </span><span class="kw">pub enum </span>PushCandlestickMode {
     <span class="doccomment">/// Realtime mode
+    </span><span class="attr">#[default]
     </span>Realtime,
     <span class="doccomment">/// Confirmed mode
     </span>Confirmed,
@@ -396,12 +447,13 @@
 </span><span class="attr">#[derive(Debug, Clone)]
 </span><span class="kw">pub struct </span>Config {
     <span class="kw">pub</span>(<span class="kw">crate</span>) http_cli_config: HttpClientConfig,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) quote_ws_url: String,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) trade_ws_url: String,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) language: Language,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) enable_overnight: bool,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) push_candlestick_mode: PushCandlestickMode,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) quote_ws_url: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) trade_ws_url: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) enable_overnight: <span class="prelude-ty">Option</span>&lt;bool&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) push_candlestick_mode: <span class="prelude-ty">Option</span>&lt;PushCandlestickMode&gt;,
     <span class="kw">pub</span>(<span class="kw">crate</span>) enable_print_quote_packages: bool,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) language: <span class="prelude-ty">Option</span>&lt;Language&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) log_path: <span class="prelude-ty">Option</span>&lt;PathBuf&gt;,
 }
 
 <span class="kw">impl </span>Config {
@@ -413,22 +465,13 @@
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             http_cli_config: HttpClientConfig::new(app_key, app_secret, access_token),
-            quote_ws_url: <span class="kw">if </span>is_cn() {
-                CN_QUOTE_WS_URL
-            } <span class="kw">else </span>{
-                QUOTE_WS_URL
-            }
-            .to_string(),
-            trade_ws_url: <span class="kw">if </span>is_cn() {
-                CN_TRADE_WS_URL
-            } <span class="kw">else </span>{
-                TRADE_WS_URL
-            }
-            .to_string(),
-            language: Language::EN,
-            enable_overnight: <span class="bool-val">false</span>,
-            push_candlestick_mode: PushCandlestickMode::Realtime,
+            quote_ws_url: <span class="prelude-val">None</span>,
+            trade_ws_url: <span class="prelude-val">None</span>,
+            language: <span class="prelude-val">None</span>,
+            enable_overnight: <span class="prelude-val">None</span>,
+            push_candlestick_mode: <span class="prelude-val">None</span>,
             enable_print_quote_packages: <span class="bool-val">true</span>,
+            log_path: <span class="prelude-val">None</span>,
         }
     }
 
@@ -453,53 +496,38 @@
     ///   `realtime`)
     /// - `LONGPORT_PRINT_QUOTE_PACKAGES` - Print quote packages when connected,
     ///   `true` or `false` (Default: `true`)
+    /// - `LONGPORT_LOG_PATH` - Set the path of the log files (Default: `no
+    ///   logs`)
     </span><span class="kw">pub fn </span>from_env() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>&gt; {
         <span class="kw">let _ </span>= dotenv::dotenv();
 
         <span class="kw">let </span>http_cli_config = HttpClientConfig::from_env()<span class="question-mark">?</span>;
-        <span class="kw">let </span>quote_ws_url = std::env::var(<span class="string">"LONGBRIDGE_QUOTE_WS_URL"</span>)
-            .or_else(|<span class="kw">_</span>| std::env::var(<span class="string">"LONGPORT_QUOTE_WS_URL"</span>))
-            .unwrap_or_else(|<span class="kw">_</span>| {
-                <span class="kw">if </span>is_cn() {
-                    CN_QUOTE_WS_URL
-                } <span class="kw">else </span>{
-                    QUOTE_WS_URL
-                }
-                .to_string()
-            });
-        <span class="kw">let </span>trade_ws_url = std::env::var(<span class="string">"LONGBRIDGE_TRADE_WS_URL"</span>)
-            .or_else(|<span class="kw">_</span>| std::env::var(<span class="string">"LONGPORT_TRADE_WS_URL"</span>))
-            .unwrap_or_else(|<span class="kw">_</span>| {
-                <span class="kw">if </span>is_cn() {
-                    CN_TRADE_WS_URL
-                } <span class="kw">else </span>{
-                    TRADE_WS_URL
-                }
-                .to_string()
-            });
+        <span class="kw">let </span>quote_ws_url = std::env::var(<span class="string">"LONGPORT_QUOTE_WS_URL"</span>).ok();
+        <span class="kw">let </span>trade_ws_url = std::env::var(<span class="string">"LONGPORT_TRADE_WS_URL"</span>).ok();
         <span class="kw">let </span>enable_overnight = std::env::var(<span class="string">"LONGPORT_ENABLE_OVERNIGHT"</span>)
-            .ok()
-            .map(|var| var == <span class="string">"true"</span>)
-            .unwrap_or_default();
-        <span class="kw">let </span>push_candlestick_mode =
-            <span class="kw">if </span>std::env::var(<span class="string">"LONGPORT_PUSH_CANDLESTICK_MODE"</span>).as_deref() == <span class="prelude-val">Ok</span>(<span class="string">"confirmed"</span>) {
-                PushCandlestickMode::Confirmed
-            } <span class="kw">else </span>{
-                PushCandlestickMode::Realtime
-            };
+            .map(|value| value == <span class="string">"true"</span>)
+            .ok();
+        <span class="kw">let </span>push_candlestick_mode = std::env::var(<span class="string">"LONGPORT_PUSH_CANDLESTICK_MODE"</span>)
+            .map(|value| <span class="kw">match </span>value.as_str() {
+                <span class="string">"confirmed" </span>=&gt; PushCandlestickMode::Confirmed,
+                <span class="kw">_ </span>=&gt; PushCandlestickMode::Realtime,
+            })
+            .ok();
         <span class="kw">let </span>enable_print_quote_packages = std::env::var(<span class="string">"LONGPORT_PRINT_QUOTE_PACKAGES"</span>)
             .as_deref()
             .unwrap_or(<span class="string">"true"</span>)
             == <span class="string">"true"</span>;
+        <span class="kw">let </span>log_path = std::env::var(<span class="string">"LONGPORT_LOG_PATH"</span>).ok().map(PathBuf::from);
 
         <span class="prelude-val">Ok</span>(Config {
             http_cli_config,
             quote_ws_url,
             trade_ws_url,
-            language: Language::EN,
+            language: <span class="prelude-val">None</span>,
             enable_overnight,
             push_candlestick_mode,
             enable_print_quote_packages,
+            log_path,
         })
     }
 
@@ -522,7 +550,7 @@
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>quote_ws_url(<span class="self">self</span>, url: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            quote_ws_url: url.into(),
+            quote_ws_url: <span class="prelude-val">Some</span>(url.into()),
             ..<span class="self">self
         </span>}
     }
@@ -535,7 +563,7 @@
     </span><span class="attr">#[must_use]
     </span><span class="kw">pub fn </span>trade_ws_url(<span class="self">self</span>, url: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            trade_ws_url: url.into(),
+            trade_ws_url: <span class="prelude-val">Some</span>(url.into()),
             ..<span class="self">self
         </span>}
     }
@@ -544,7 +572,10 @@
     ///
     /// Default: `Language::EN`
     </span><span class="kw">pub fn </span>language(<span class="self">self</span>, language: Language) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{ language, ..<span class="self">self </span>}
+        <span class="self">Self </span>{
+            language: <span class="prelude-val">Some</span>(language),
+            ..<span class="self">self
+        </span>}
     }
 
     <span class="doccomment">/// Enable overnight quote
@@ -552,7 +583,7 @@
     /// Default: `false`
     </span><span class="kw">pub fn </span>enable_overnight(<span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            enable_overnight: <span class="bool-val">true</span>,
+            enable_overnight: <span class="prelude-val">Some</span>(<span class="bool-val">true</span>),
             ..<span class="self">self
         </span>}
     }
@@ -562,7 +593,7 @@
     /// Default: `PushCandlestickMode::Realtime`
     </span><span class="kw">pub fn </span>push_candlestick_mode(<span class="self">self</span>, mode: PushCandlestickMode) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            push_candlestick_mode: mode,
+            push_candlestick_mode: <span class="prelude-val">Some</span>(mode),
             ..<span class="self">self
         </span>}
     }
@@ -578,8 +609,11 @@
     <span class="doccomment">/// Create metadata for auth/reconnect request
     </span><span class="kw">pub fn </span>create_metadata(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; HashMap&lt;String, String&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>metadata = HashMap::new();
-        metadata.insert(<span class="string">"accept-language"</span>.to_string(), <span class="self">self</span>.language.to_string());
-        <span class="kw">if </span><span class="self">self</span>.enable_overnight {
+        metadata.insert(
+            <span class="string">"accept-language"</span>.to_string(),
+            <span class="self">self</span>.language.unwrap_or_default().to_string(),
+        );
+        <span class="kw">if </span><span class="self">self</span>.enable_overnight.unwrap_or_default() {
             metadata.insert(<span class="string">"need_over_night_quote"</span>.to_string(), <span class="string">"true"</span>.to_string());
         }
         metadata
@@ -587,31 +621,51 @@
 
     <span class="attr">#[inline]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_http_client(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; HttpClient {
-        HttpClient::new(<span class="self">self</span>.http_cli_config.clone())
-            .header(header::ACCEPT_LANGUAGE, <span class="self">self</span>.language.as_str())
+        HttpClient::new(<span class="self">self</span>.http_cli_config.clone()).header(
+            header::ACCEPT_LANGUAGE,
+            <span class="self">self</span>.language.unwrap_or_default().as_str(),
+        )
     }
 
     <span class="kw">fn </span>create_ws_request(<span class="kw-2">&amp;</span><span class="self">self</span>, url: <span class="kw-2">&amp;</span>str) -&gt; tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>request = url.into_client_request()<span class="question-mark">?</span>;
         request.headers_mut().append(
             header::ACCEPT_LANGUAGE,
-            HeaderValue::from_str(<span class="self">self</span>.language.as_str()).unwrap(),
+            HeaderValue::from_str(<span class="self">self</span>.language.unwrap_or_default().as_str()).unwrap(),
         );
         <span class="prelude-val">Ok</span>(request)
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_quote_ws_request(
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>create_quote_ws_request(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt; {
-        <span class="self">self</span>.create_ws_request(<span class="kw-2">&amp;</span><span class="self">self</span>.quote_ws_url)
+    ) -&gt; (<span class="kw-2">&amp;</span>str, tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt;) {
+        <span class="kw">match </span><span class="self">self</span>.quote_ws_url.as_deref() {
+            <span class="prelude-val">Some</span>(url) =&gt; (url, <span class="self">self</span>.create_ws_request(url)),
+            <span class="prelude-val">None </span>=&gt; {
+                <span class="kw">let </span>url = <span class="kw">if </span>is_cn().<span class="kw">await </span>{
+                    DEFAULT_QUOTE_WS_URL_CN
+                } <span class="kw">else </span>{
+                    DEFAULT_QUOTE_WS_URL
+                };
+                (url, <span class="self">self</span>.create_ws_request(url))
+            }
+        }
     }
 
-    <span class="attr">#[inline]
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_trade_ws_request(
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>create_trade_ws_request(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt; {
-        <span class="self">self</span>.create_ws_request(<span class="kw-2">&amp;</span><span class="self">self</span>.trade_ws_url)
+    ) -&gt; (<span class="kw-2">&amp;</span>str, tokio_tungstenite::tungstenite::Result&lt;Request&lt;()&gt;&gt;) {
+        <span class="kw">match </span><span class="self">self</span>.trade_ws_url.as_deref() {
+            <span class="prelude-val">Some</span>(url) =&gt; (url, <span class="self">self</span>.create_ws_request(url)),
+            <span class="prelude-val">None </span>=&gt; {
+                <span class="kw">let </span>url = <span class="kw">if </span>is_cn().<span class="kw">await </span>{
+                    DEFAULT_TRADE_WS_URL_CN
+                } <span class="kw">else </span>{
+                    DEFAULT_TRADE_WS_URL
+                };
+                (url, <span class="self">self</span>.create_ws_request(url))
+            }
+        }
     }
 
     <span class="doccomment">/// Gets a new `access_token`
@@ -668,6 +722,40 @@
             .build()
             .expect(<span class="string">"create tokio runtime"</span>)
             .block_on(<span class="self">self</span>.refresh_access_token(expired_at))
+    }
+
+    <span class="doccomment">/// Specifies the path of the log file
+    ///
+    /// Default: `None`
+    </span><span class="kw">pub fn </span>log_path(<span class="kw-2">mut </span><span class="self">self</span>, path: <span class="kw">impl </span>Into&lt;PathBuf&gt;) -&gt; <span class="self">Self </span>{
+        <span class="self">self</span>.log_path = <span class="prelude-val">Some</span>(path.into());
+        <span class="self">self
+    </span>}
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_log_subscriber(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        path: <span class="kw">impl </span>AsRef&lt;Path&gt;,
+    ) -&gt; Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt; {
+        <span class="kw">fn </span>internal_create_log_subscriber(
+            config: <span class="kw-2">&amp;</span>Config,
+            path: <span class="kw">impl </span>AsRef&lt;Path&gt;,
+        ) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt;&gt; {
+            <span class="kw">let </span>log_path = config.log_path.as_ref()<span class="question-mark">?</span>;
+            <span class="kw">let </span>appender = RollingFileAppender::builder()
+                .rotation(Rotation::DAILY)
+                .filename_suffix(<span class="string">"log"</span>)
+                .build(log_path.join(path))
+                .ok()<span class="question-mark">?</span>;
+            <span class="prelude-val">Some</span>(Arc::new(
+                tracing_subscriber::fmt()
+                    .with_writer(appender)
+                    .with_ansi(<span class="bool-val">false</span>)
+                    .finish()
+                    .with(Targets::new().with_targets([(<span class="string">"longport"</span>, Level::INFO)])),
+            ))
+        }
+
+        internal_create_log_subscriber(<span class="self">self</span>, path).unwrap_or_else(|| Arc::new(NoSubscriber::new()))
     }
 }
 </code></pre></div></section></main></body></html>

@@ -2,7 +2,7 @@ var searchData=
 [
   ['lb_5fconfig_5ffree_811',['lb_config_free',['../longport_8h.html#a2bde35f4be29458bded4a14ad0df22aa',1,'longport.h']]],
   ['lb_5fconfig_5ffrom_5fenv_812',['lb_config_from_env',['../longport_8h.html#ab20ada1449c2fded9e2b9c11df9fc33c',1,'longport.h']]],
-  ['lb_5fconfig_5fnew_813',['lb_config_new',['../longport_8h.html#a4ef3461b568c223ca69006ea8b341f2c',1,'longport.h']]],
+  ['lb_5fconfig_5fnew_813',['lb_config_new',['../longport_8h.html#ab0cf1ee96439b70646db4bd0a707114e',1,'longport.h']]],
   ['lb_5fconfig_5frefresh_5faccess_5ftoken_814',['lb_config_refresh_access_token',['../longport_8h.html#a98beddab6e38b318e15a1936e7d97ee6',1,'longport.h']]],
   ['lb_5fdecimal_5fabs_815',['lb_decimal_abs',['../longport_8h.html#a30e2270af5af79a753361795a04b889b',1,'longport.h']]],
   ['lb_5fdecimal_5fadd_816',['lb_decimal_add',['../longport_8h.html#a09989088056f6822a91e8d125223785c',1,'longport.h']]],
