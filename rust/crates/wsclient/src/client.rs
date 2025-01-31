@@ -393,10 +393,13 @@ impl WsClient {
         T: prost::Message,
         R: prost::Message + Default,
     {
+        tracing::info!(message = ?req, "ws request");
         let resp = self
             .request_raw(command_code, timeout, req.encode_to_vec())
             .await?;
-        Ok(R::decode(&*resp)?)
+        let resp = R::decode(&*resp)?;
+        tracing::info!(message = ?resp, "ws response");
+        Ok(resp)
     }
 }
 

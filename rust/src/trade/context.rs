@@ -5,7 +5,7 @@ use longport_wscli::WsClientError;
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use tokio::sync::{mpsc, oneshot};
-use tracing::{instrument::WithSubscriber, Subscriber};
+use tracing::{dispatcher, instrument::WithSubscriber, Subscriber};
 
 use crate::{
     trade::{
@@ -46,12 +46,25 @@ pub struct TradeContext {
     log_subscriber: Arc<dyn Subscriber + Send + Sync>,
 }
 
+impl Drop for TradeContext {
+    fn drop(&mut self) {
+        dispatcher::with_default(&self.log_subscriber.clone().into(), || {
+            tracing::info!("trade context dropped");
+        });
+    }
+}
+
 impl TradeContext {
     /// Create a `TradeContext`
     pub async fn try_new(
         config: Arc<Config>,
     ) -> Result<(Self, mpsc::UnboundedReceiver<PushEvent>)> {
         let log_subscriber = config.create_log_subscriber("trade");
+
+        dispatcher::with_default(&log_subscriber.clone().into(), || {
+            tracing::info!(language = ?config.language, "creating trade context");
+        });
+
         let http_cli = config.create_http_client();
         let (command_tx, command_rx) = mpsc::unbounded_channel();
         let (push_tx, push_rx) = mpsc::unbounded_channel();
@@ -59,6 +72,10 @@ impl TradeContext {
             .with_subscriber(log_subscriber.clone())
             .await?;
         tokio::spawn(core.run().with_subscriber(log_subscriber.clone()));
+
+        dispatcher::with_default(&log_subscriber.clone().into(), || {
+            tracing::info!("trade context created");
+        });
 
         Ok((
             TradeContext {

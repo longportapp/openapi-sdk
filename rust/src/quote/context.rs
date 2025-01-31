@@ -6,7 +6,7 @@ use longport_wscli::WsClientError;
 use serde::{Deserialize, Serialize};
 use time::{Date, PrimitiveDateTime};
 use tokio::sync::{mpsc, oneshot};
-use tracing::{instrument::WithSubscriber, Subscriber};
+use tracing::{dispatcher, instrument::WithSubscriber, Subscriber};
 
 use crate::{
     quote::{
@@ -54,12 +54,31 @@ pub struct QuoteContext {
     log_subscriber: Arc<dyn Subscriber + Send + Sync>,
 }
 
+impl Drop for QuoteContext {
+    fn drop(&mut self) {
+        dispatcher::with_default(&self.log_subscriber.clone().into(), || {
+            tracing::info!("quote context dropped");
+        });
+    }
+}
+
 impl QuoteContext {
     /// Create a `QuoteContext`
     pub async fn try_new(
         config: Arc<Config>,
     ) -> Result<(Self, mpsc::UnboundedReceiver<PushEvent>)> {
         let log_subscriber = config.create_log_subscriber("quote");
+
+        dispatcher::with_default(&log_subscriber.clone().into(), || {
+            tracing::info!(
+                language = ?config.language,
+                enable_overnight = ?config.enable_overnight,
+                push_candlestick_mode = ?config.push_candlestick_mode,
+                enable_print_quote_packages = ?config.enable_print_quote_packages,
+                "creating quote context"
+            );
+        });
+
         let language = config.language.unwrap_or_default();
         let http_cli = config.create_http_client();
         let (command_tx, command_rx) = mpsc::unbounded_channel();
@@ -71,6 +90,10 @@ impl QuoteContext {
         let quote_level = core.quote_level().to_string();
         let quote_package_details = core.quote_package_details().to_vec();
         tokio::spawn(core.run().with_subscriber(log_subscriber.clone()));
+
+        dispatcher::with_default(&log_subscriber.clone().into(), || {
+            tracing::info!("quote context created");
+        });
 
         Ok((
             QuoteContext {

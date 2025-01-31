@@ -520,8 +520,6 @@ impl Core {
         sub_types: SubFlags,
         is_first_push: bool,
     ) -> Result<()> {
-        tracing::info!(symbols = ?symbols, sub_types = ?sub_types, "subscribe");
-
         // send request
         let req = SubscribeRequest {
             symbol: symbols.clone(),
@@ -613,16 +611,21 @@ impl Core {
         symbol: String,
         period: Period,
     ) -> Result<Vec<Candlestick>> {
+        tracing::info!(symbol = symbol, period = ?period, "subscribe candlesticks");
+
         if let Some(candlesticks) = self
             .store
             .securities
             .get(&symbol)
             .map(|data| data.candlesticks.get(&period))
         {
+            tracing::info!(symbol = symbol, period = ?period, "subscribed, returns candlesticks in memory");
             return Ok(candlesticks
                 .map(|candlesticks| candlesticks.candlesticks.clone())
                 .unwrap_or_default());
         }
+
+        tracing::info!(symbol = symbol, "fetch symbol board");
 
         let security_data = self.store.securities.entry(symbol.clone()).or_default();
         if security_data.board != SecurityBoard::Unknown {
@@ -645,7 +648,10 @@ impl Core {
             security_data.board = resp.secu_static_info[0].board.parse().unwrap_or_default();
         }
 
+        tracing::info!(symbol = symbol, board = ?security_data.board, "got the symbol board");
+
         // pull candlesticks
+        tracing::info!(symbol = symbol, period = ?period, "pull history candlesticks");
         let resp: SecurityCandlestickResponse = self
             .ws_cli
             .request(
@@ -659,6 +665,7 @@ impl Core {
                 },
             )
             .await?;
+        tracing::info!(symbol = symbol, period = ?period, len = resp.candlesticks.len(), "got history candlesticks");
 
         let candlesticks = resp
             .candlesticks
@@ -690,8 +697,10 @@ impl Core {
             return Ok(candlesticks);
         }
 
+        tracing::info!(symbol = symbol, period = ?period, sub_flags = ?sub_flags, "subscribe for candlesticks");
+
         let req = SubscribeRequest {
-            symbol: vec![symbol],
+            symbol: vec![symbol.clone()],
             sub_type: sub_flags.into(),
             is_first_push: true,
         };
@@ -699,6 +708,7 @@ impl Core {
             .request::<_, ()>(cmd_code::SUBSCRIBE, None, req)
             .await?;
 
+        tracing::info!(symbol = symbol, period = ?period, sub_flags = ?sub_flags, "subscribed for candlesticks");
         Ok(candlesticks)
     }
 
@@ -1130,6 +1140,13 @@ fn update_and_push_candlestick(
     };
 
     for (candlestick, is_confirmed) in push_candlesticks {
+        tracing::info!(
+            symbol = symbol,
+            period = ?period,
+            is_confirmed = is_confirmed,
+            candlestick = ?candlestick,
+            "push candlestick"
+        );
         let _ = tx.send(PushEvent {
             sequence: 0,
             symbol: symbol.to_string(),

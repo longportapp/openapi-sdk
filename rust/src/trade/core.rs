@@ -208,6 +208,7 @@ impl Core {
     async fn handle_push(&mut self, command_code: u8, body: Vec<u8>) -> Result<()> {
         match PushEvent::parse(command_code, &body) {
             Ok(Some(event)) => {
+                tracing::info!(event = ?event, "push event");
                 let _ = self.push_tx.send(event);
             }
             Ok(None) => {}
@@ -262,6 +263,7 @@ impl Core {
         let req = Sub {
             topics: topics.iter().map(ToString::to_string).collect(),
         };
+        tracing::info!(topics = ?req.topics, "subscribing topics");
         let resp: SubResponse = self.ws_cli.request(cmd_code::SUBSCRIBE, None, req).await?;
         self.subscriptions = resp.current.into_iter().collect();
         Ok(())
@@ -271,6 +273,7 @@ impl Core {
         let req = Unsub {
             topics: topics.iter().map(ToString::to_string).collect(),
         };
+        tracing::info!(topics = ?req.topics, "unsubscribing topics");
         let resp: UnsubResponse = self
             .ws_cli
             .request(cmd_code::UNSUBSCRIBE, None, req)
