@@ -38,21 +38,23 @@ pub struct EstimateMaxPurchaseQuantityResponse {
     pub margin_max_qty: Decimal,
 }
 
-/// Trade context
-#[derive(Clone)]
-pub struct TradeContext {
+struct InnerTradeContext {
     command_tx: mpsc::UnboundedSender<Command>,
     http_cli: HttpClient,
     log_subscriber: Arc<dyn Subscriber + Send + Sync>,
 }
 
-impl Drop for TradeContext {
+impl Drop for InnerTradeContext {
     fn drop(&mut self) {
         dispatcher::with_default(&self.log_subscriber.clone().into(), || {
             tracing::info!("trade context dropped");
         });
     }
 }
+
+/// Trade context
+#[derive(Clone)]
+pub struct TradeContext(Arc<InnerTradeContext>);
 
 impl TradeContext {
     /// Create a `TradeContext`
@@ -78,11 +80,11 @@ impl TradeContext {
         });
 
         Ok((
-            TradeContext {
+            TradeContext(Arc::new(InnerTradeContext {
                 http_cli,
                 command_tx,
                 log_subscriber,
-            },
+            })),
             push_rx,
         ))
     }
@@ -90,7 +92,7 @@ impl TradeContext {
     /// Returns the log subscriber
     #[inline]
     pub fn log_subscriber(&self) -> Arc<dyn Subscriber + Send + Sync> {
-        self.log_subscriber.clone()
+        self.0.log_subscriber.clone()
     }
 
     /// Subscribe
@@ -135,7 +137,8 @@ impl TradeContext {
         I: IntoIterator<Item = TopicType>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::Subscribe {
                 topics: topics.into_iter().collect(),
                 reply_tx,
@@ -152,7 +155,8 @@ impl TradeContext {
         I: IntoIterator<Item = TopicType>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::Unsubscribe {
                 topics: topics.into_iter().collect(),
                 reply_tx,
@@ -199,12 +203,13 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/trade/execution/history")
             .query_params(options.into().unwrap_or_default())
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .trades)
@@ -244,12 +249,13 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/trade/execution/today")
             .query_params(options.into().unwrap_or_default())
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .trades)
@@ -296,12 +302,13 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/trade/order/history")
             .query_params(options.into().unwrap_or_default())
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .orders)
@@ -345,12 +352,13 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/trade/order/today")
             .query_params(options.into().unwrap_or_default())
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .orders)
@@ -384,12 +392,13 @@ impl TradeContext {
     /// ```
     pub async fn replace_order(&self, options: ReplaceOrderOptions) -> Result<()> {
         Ok(self
+            .0
             .http_cli
             .request(Method::PUT, "/v1/trade/order")
             .body(Json(options))
             .response::<Json<EmptyResponse>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await
             .map(|_| ())?)
     }
@@ -428,15 +437,16 @@ impl TradeContext {
     /// ```
     pub async fn submit_order(&self, options: SubmitOrderOptions) -> Result<SubmitOrderResponse> {
         let resp: SubmitOrderResponse = self
+            .0
             .http_cli
             .request(Method::POST, "/v1/trade/order")
             .body(Json(options))
             .response::<Json<_>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0;
-        _ = self.command_tx.send(Command::SubmittedOrder {
+        _ = self.0.command_tx.send(Command::SubmittedOrder {
             order_id: resp.order_id.clone(),
         });
         Ok(resp)
@@ -468,6 +478,7 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::DELETE, "/v1/trade/order")
             .response::<Json<EmptyResponse>>()
@@ -475,7 +486,7 @@ impl TradeContext {
                 order_id: order_id.into(),
             })
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await
             .map(|_| ())?)
     }
@@ -512,12 +523,13 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/asset/account")
             .query_params(Request { currency })
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .list)
@@ -555,12 +567,13 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/asset/cashflow")
             .query_params(options)
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .list)
@@ -591,12 +604,13 @@ impl TradeContext {
         opts: impl Into<Option<GetFundPositionsOptions>>,
     ) -> Result<FundPositionsResponse> {
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/asset/fund")
             .query_params(opts.into().unwrap_or_default())
             .response::<Json<FundPositionsResponse>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0)
     }
@@ -626,12 +640,13 @@ impl TradeContext {
         opts: impl Into<Option<GetStockPositionsOptions>>,
     ) -> Result<StockPositionsResponse> {
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/asset/stock")
             .query_params(opts.into().unwrap_or_default())
             .response::<Json<StockPositionsResponse>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0)
     }
@@ -663,6 +678,7 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/risk/margin-ratio")
             .query_params(Request {
@@ -670,7 +686,7 @@ impl TradeContext {
             })
             .response::<Json<MarginRatio>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0)
     }
@@ -706,6 +722,7 @@ impl TradeContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/trade/order")
             .response::<Json<OrderDetail>>()
@@ -713,7 +730,7 @@ impl TradeContext {
                 order_id: order_id.into(),
             })
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0)
     }
@@ -755,12 +772,13 @@ impl TradeContext {
         opts: EstimateMaxPurchaseQuantityOptions,
     ) -> Result<EstimateMaxPurchaseQuantityResponse> {
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/trade/estimate/buy_limit")
             .query_params(opts)
             .response::<Json<EstimateMaxPurchaseQuantityResponse>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0)
     }

@@ -508,8 +508,7 @@ impl Core {
         body: Vec<u8>,
         reply_tx: oneshot::Sender<Result<Vec<u8>>>,
     ) -> Result<()> {
-        let ws_cli = self.ws_cli.clone();
-        let res = ws_cli.request_raw(command_code, None, body).await;
+        let res = self.ws_cli.request_raw(command_code, None, body).await;
         let _ = reply_tx.send(res.map_err(Into::into));
         Ok(())
     }
@@ -617,12 +616,10 @@ impl Core {
             .store
             .securities
             .get(&symbol)
-            .map(|data| data.candlesticks.get(&period))
+            .and_then(|data| data.candlesticks.get(&period))
         {
             tracing::info!(symbol = symbol, period = ?period, "subscribed, returns candlesticks in memory");
-            return Ok(candlesticks
-                .map(|candlesticks| candlesticks.candlesticks.clone())
-                .unwrap_or_default());
+            return Ok(candlesticks.candlesticks.clone());
         }
 
         tracing::info!(symbol = symbol, "fetch symbol board");
@@ -717,8 +714,7 @@ impl Core {
         symbol: String,
         period: Period,
     ) -> Result<()> {
-        let mut unsubscribe_quote = false;
-        let unsubscribe_sub_flags = if period == Period::Day {
+        let mut unsubscribe_sub_flags = if period == Period::Day {
             SubFlags::QUOTE
         } else {
             SubFlags::TRADE
@@ -730,11 +726,17 @@ impl Core {
             .get_mut(&symbol)
             .map(|data| &mut data.candlesticks)
         {
-            if periods.remove(&period).is_some() && period == Period::Day {
-                unsubscribe_quote = true;
+            periods.remove(&period);
+
+            for period in periods.keys() {
+                if period == &Period::Day {
+                    unsubscribe_sub_flags.remove(SubFlags::QUOTE);
+                } else {
+                    unsubscribe_sub_flags.remove(SubFlags::TRADE);
+                }
             }
 
-            if unsubscribe_quote
+            if !unsubscribe_sub_flags.is_empty()
                 && !self
                     .subscriptions
                     .get(&symbol)

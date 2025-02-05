@@ -61,6 +61,17 @@ impl Error {
         }
     }
 
+    /// Returns the OpenAPI error code
+    pub fn openapi_error_code(&self) -> Option<i64> {
+        match self {
+            Error::HttpClient(HttpClientError::OpenApi { code, .. }) => Some(*code as i64),
+            Error::WsClient(WsClientError::ResponseError { detail, .. }) => {
+                detail.as_ref().map(|detail| detail.code as i64)
+            }
+            _ => None,
+        }
+    }
+
     /// Consumes this error and returns a simple error
     pub fn into_simple_error(self) -> SimpleError {
         match self {

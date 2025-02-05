@@ -37,9 +37,7 @@ const OPTION_CHAIN_EXPIRY_DATE_LIST_CACHE_TIMEOUT: Duration = Duration::from_sec
 const OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(30 * 60);
 const TRADING_SESSION_CACHE_TIMEOUT: Duration = Duration::from_secs(60 * 60 * 2);
 
-/// Quote context
-#[derive(Clone)]
-pub struct QuoteContext {
+struct InnerQuoteContext {
     language: Language,
     http_cli: HttpClient,
     command_tx: mpsc::UnboundedSender<Command>,
@@ -54,13 +52,17 @@ pub struct QuoteContext {
     log_subscriber: Arc<dyn Subscriber + Send + Sync>,
 }
 
-impl Drop for QuoteContext {
+impl Drop for InnerQuoteContext {
     fn drop(&mut self) {
         dispatcher::with_default(&self.log_subscriber.clone().into(), || {
             tracing::info!("quote context dropped");
         });
     }
 }
+
+/// Quote context
+#[derive(Clone)]
+pub struct QuoteContext(Arc<InnerQuoteContext>);
 
 impl QuoteContext {
     /// Create a `QuoteContext`
@@ -96,7 +98,7 @@ impl QuoteContext {
         });
 
         Ok((
-            QuoteContext {
+            QuoteContext(Arc::new(InnerQuoteContext {
                 language,
                 http_cli,
                 command_tx,
@@ -113,7 +115,7 @@ impl QuoteContext {
                 quote_level,
                 quote_package_details,
                 log_subscriber,
-            },
+            })),
             push_rx,
         ))
     }
@@ -121,32 +123,33 @@ impl QuoteContext {
     /// Returns the log subscriber
     #[inline]
     pub fn log_subscriber(&self) -> Arc<dyn Subscriber + Send + Sync> {
-        self.log_subscriber.clone()
+        self.0.log_subscriber.clone()
     }
 
     /// Returns the member ID
     #[inline]
     pub fn member_id(&self) -> i64 {
-        self.member_id
+        self.0.member_id
     }
 
     /// Returns the quote level
     #[inline]
     pub fn quote_level(&self) -> &str {
-        &self.quote_level
+        &self.0.quote_level
     }
 
     /// Returns the quote package details
     #[inline]
     pub fn quote_package_details(&self) -> &[QuotePackageDetail] {
-        &self.quote_package_details
+        &self.0.quote_package_details
     }
 
     /// Send a raw request
     async fn request_raw(&self, command_code: u8, body: Vec<u8>) -> Result<Vec<u8>> {
         for _ in 0..RETRY_COUNT {
             let (reply_tx, reply_rx) = oneshot::channel();
-            self.command_tx
+            self.0
+                .command_tx
                 .send(Command::Request {
                     command_code,
                     body: body.clone(),
@@ -221,7 +224,8 @@ impl QuoteContext {
         T: AsRef<str>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::Subscribe {
                 symbols: symbols
                     .into_iter()
@@ -265,7 +269,8 @@ impl QuoteContext {
         T: AsRef<str>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::Unsubscribe {
                 symbols: symbols
                     .into_iter()
@@ -311,7 +316,8 @@ impl QuoteContext {
         T: AsRef<str>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::SubscribeCandlesticks {
                 symbol: normalize_symbol(symbol.as_ref()).into(),
                 period,
@@ -327,7 +333,8 @@ impl QuoteContext {
         T: AsRef<str>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::UnsubscribeCandlesticks {
                 symbol: normalize_symbol(symbol.as_ref()).into(),
                 period,
@@ -362,7 +369,8 @@ impl QuoteContext {
     /// ```
     pub async fn subscriptions(&self) -> Result<Vec<Subscription>> {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::Subscriptions { reply_tx })
             .map_err(|_| WsClientError::ClientClosed)?;
         Ok(reply_rx.await.map_err(|_| WsClientError::ClientClosed)?)
@@ -618,7 +626,8 @@ impl QuoteContext {
     /// # });
     /// ```
     pub async fn participants(&self) -> Result<Vec<ParticipantInfo>> {
-        self.cache_participants
+        self.0
+            .cache_participants
             .get_or_update(|| async {
                 let resp = self
                     .request_without_body::<quote::ParticipantBrokerIdsResponse>(
@@ -890,7 +899,8 @@ impl QuoteContext {
         &self,
         symbol: impl Into<String>,
     ) -> Result<Vec<Date>> {
-        self.cache_option_chain_expiry_date_list
+        self.0
+            .cache_option_chain_expiry_date_list
             .get_or_update(symbol.into(), |symbol| async {
                 let resp: quote::OptionChainDateListResponse = self
                     .request(
@@ -936,7 +946,8 @@ impl QuoteContext {
         symbol: impl Into<String>,
         expiry_date: Date,
     ) -> Result<Vec<StrikePriceInfo>> {
-        self.cache_option_chain_strike_info
+        self.0
+            .cache_option_chain_strike_info
             .get_or_update(
                 (symbol.into(), expiry_date),
                 |(symbol, expiry_date)| async move {
@@ -979,7 +990,8 @@ impl QuoteContext {
     /// # });
     /// ```
     pub async fn warrant_issuers(&self) -> Result<Vec<IssuerInfo>> {
-        self.cache_issuers
+        self.0
+            .cache_issuers
             .get_or_update(|| async {
                 let resp = self
                     .request_without_body::<quote::IssuerInfoResponse>(
@@ -1028,7 +1040,7 @@ impl QuoteContext {
                             .map(|status| status.iter().map(|status| (*status).into()).collect())
                             .unwrap_or_default(),
                     }),
-                    language: self.language.into(),
+                    language: self.0.language.into(),
                 },
             )
             .await?;
@@ -1059,7 +1071,8 @@ impl QuoteContext {
     /// # });
     /// ```
     pub async fn trading_session(&self) -> Result<Vec<MarketTradingSession>> {
-        self.cache_trading_session
+        self.0
+            .cache_trading_session
             .get_or_update(|| async {
                 let resp = self
                     .request_without_body::<quote::MarketTradePeriodResponse>(
@@ -1261,11 +1274,12 @@ impl QuoteContext {
         }
 
         let resp = self
+            .0
             .http_cli
             .request(Method::GET, "/v1/watchlist/groups")
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?;
         Ok(resp.0.groups)
     }
@@ -1309,6 +1323,7 @@ impl QuoteContext {
         }
 
         let Json(Response { id }) = self
+            .0
             .http_cli
             .request(Method::POST, "/v1/watchlist/groups")
             .body(Json(RequestCreate {
@@ -1317,7 +1332,7 @@ impl QuoteContext {
             }))
             .response::<Json<Response>>()
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?;
 
         Ok(id)
@@ -1350,11 +1365,12 @@ impl QuoteContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::DELETE, "/v1/watchlist/groups")
             .query_params(Request { id, purge })
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?)
     }
 
@@ -1395,7 +1411,8 @@ impl QuoteContext {
             mode: Option<SecuritiesUpdateMode>,
         }
 
-        self.http_cli
+        self.0
+            .http_cli
             .request(Method::PUT, "/v1/watchlist/groups")
             .body(Json(RequestUpdate {
                 id: req.id,
@@ -1404,7 +1421,7 @@ impl QuoteContext {
                 securities: req.securities,
             }))
             .send()
-            .with_subscriber(self.log_subscriber.clone())
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?;
 
         Ok(())
@@ -1428,11 +1445,13 @@ impl QuoteContext {
         }
 
         Ok(self
+            .0
             .http_cli
             .request(Method::GET, "/v1/quote/get_security_list")
             .query_params(Request { market, category })
             .response::<Json<Resposne>>()
             .send()
+            .with_subscriber(self.0.log_subscriber.clone())
             .await?
             .0
             .list)
@@ -1472,7 +1491,8 @@ impl QuoteContext {
         T: Into<String>,
     {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::GetRealtimeQuote {
                 symbols: symbols.into_iter().map(Into::into).collect(),
                 reply_tx,
@@ -1511,7 +1531,8 @@ impl QuoteContext {
     /// ```
     pub async fn realtime_depth(&self, symbol: impl Into<String>) -> Result<SecurityDepth> {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::GetRealtimeDepth {
                 symbol: symbol.into(),
                 reply_tx,
@@ -1554,7 +1575,8 @@ impl QuoteContext {
         count: usize,
     ) -> Result<Vec<Trade>> {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::GetRealtimeTrade {
                 symbol: symbol.into(),
                 count,
@@ -1595,7 +1617,8 @@ impl QuoteContext {
     /// ```
     pub async fn realtime_brokers(&self, symbol: impl Into<String>) -> Result<SecurityBrokers> {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::GetRealtimeBrokers {
                 symbol: symbol.into(),
                 reply_tx,
@@ -1641,7 +1664,8 @@ impl QuoteContext {
         count: usize,
     ) -> Result<Vec<Candlestick>> {
         let (reply_tx, reply_rx) = oneshot::channel();
-        self.command_tx
+        self.0
+            .command_tx
             .send(Command::GetRealtimeCandlesticks {
                 symbol: symbol.into(),
                 period,

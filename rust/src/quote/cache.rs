@@ -1,7 +1,6 @@
 use std::{
     collections::HashMap,
     hash::Hash,
-    sync::Arc,
     time::{Duration, Instant},
 };
 
@@ -18,9 +17,8 @@ struct Inner<K, V> {
     values: HashMap<K, Item<V>>,
 }
 
-#[derive(Clone)]
 pub(crate) struct CacheWithKey<K, V> {
-    inner: Arc<Mutex<Inner<K, V>>>,
+    inner: Mutex<Inner<K, V>>,
 }
 
 impl<K, V> CacheWithKey<K, V>
@@ -30,10 +28,10 @@ where
 {
     pub(crate) fn new(timeout: Duration) -> Self {
         CacheWithKey {
-            inner: Arc::new(Mutex::new(Inner {
+            inner: Mutex::new(Inner {
                 timeout,
                 values: HashMap::new(),
-            })),
+            }),
         }
     }
 
@@ -61,7 +59,6 @@ where
     }
 }
 
-#[derive(Clone)]
 pub(crate) struct Cache<V> {
     inner: CacheWithKey<(), V>,
 }

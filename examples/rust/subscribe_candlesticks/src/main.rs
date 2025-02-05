@@ -12,11 +12,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_env_filter(EnvFilter::from_default_env())
         .init();
 
-    let config =
-        Arc::new(Config::from_env()?.push_candlestick_mode(PushCandlestickMode::Confirmed));
+    let config = Arc::new(Config::from_env()?);
     let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
     println!("member id: {}", ctx.member_id());
-    ctx.subscribe_candlesticks("600000.SH", Period::FiveMinute)
+    ctx.subscribe_candlesticks("700.HK", Period::OneMinute)
         .await?;
 
     while let Some(event) = receiver.recv().await {

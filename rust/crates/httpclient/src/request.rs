@@ -118,8 +118,8 @@ struct OpenApiResponse {
 }
 
 /// A request builder
-pub struct RequestBuilder<T, Q, R> {
-    client: HttpClient,
+pub struct RequestBuilder<'a, T, Q, R> {
+    client: &'a HttpClient,
     method: Method,
     path: String,
     headers: HeaderMap,
@@ -128,8 +128,8 @@ pub struct RequestBuilder<T, Q, R> {
     mark_resp: PhantomData<R>,
 }
 
-impl RequestBuilder<(), (), ()> {
-    pub(crate) fn new(client: HttpClient, method: Method, path: impl Into<String>) -> Self {
+impl<'a> RequestBuilder<'a, (), (), ()> {
+    pub(crate) fn new(client: &'a HttpClient, method: Method, path: impl Into<String>) -> Self {
         Self {
             client,
             method,
@@ -142,10 +142,10 @@ impl RequestBuilder<(), (), ()> {
     }
 }
 
-impl<T, Q, R> RequestBuilder<T, Q, R> {
+impl<'a, T, Q, R> RequestBuilder<'a, T, Q, R> {
     /// Set the request body
     #[must_use]
-    pub fn body<T2>(self, body: T2) -> RequestBuilder<T2, Q, R>
+    pub fn body<T2>(self, body: T2) -> RequestBuilder<'a, T2, Q, R>
     where
         T2: ToPayload,
     {
@@ -177,7 +177,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
 
     /// Set the query string
     #[must_use]
-    pub fn query_params<Q2>(self, params: Q2) -> RequestBuilder<T, Q2, R>
+    pub fn query_params<Q2>(self, params: Q2) -> RequestBuilder<'a, T, Q2, R>
     where
         Q2: Serialize + Send + Sync,
     {
@@ -194,7 +194,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
 
     /// Set the response body type
     #[must_use]
-    pub fn response<R2>(self) -> RequestBuilder<T, Q, R2>
+    pub fn response<R2>(self) -> RequestBuilder<'a, T, Q, R2>
     where
         R2: FromPayload,
     {
@@ -210,7 +210,7 @@ impl<T, Q, R> RequestBuilder<T, Q, R> {
     }
 }
 
-impl<T, Q, R> RequestBuilder<T, Q, R>
+impl<T, Q, R> RequestBuilder<'_, T, Q, R>
 where
     T: ToPayload,
     Q: Serialize + Send,

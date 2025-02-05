@@ -257,7 +257,6 @@ impl WsSession {
 }
 
 /// LongPort Websocket client
-#[derive(Clone)]
 pub struct WsClient {
     command_tx: mpsc::UnboundedSender<Command>,
     rate_limit: Arc<HashMap<u8, RateLimiter>>,

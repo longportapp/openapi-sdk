@@ -9,7 +9,6 @@ use serde::Deserialize;
 use crate::{HttpClientConfig, HttpClientError, HttpClientResult, Json, RequestBuilder};
 
 /// LongPort HTTP client
-#[derive(Clone)]
 pub struct HttpClient {
     pub(crate) http_cli: Client,
     pub(crate) config: Arc<HttpClientConfig>,
@@ -54,8 +53,12 @@ impl HttpClient {
 
     /// Create a new request builder
     #[inline]
-    pub fn request(&self, method: Method, path: impl Into<String>) -> RequestBuilder<(), (), ()> {
-        RequestBuilder::new(self.clone(), method, path)
+    pub fn request(
+        &self,
+        method: Method,
+        path: impl Into<String>,
+    ) -> RequestBuilder<'_, (), (), ()> {
+        RequestBuilder::new(self, method, path)
     }
 
     /// Get the socket OTP(One Time Password)
