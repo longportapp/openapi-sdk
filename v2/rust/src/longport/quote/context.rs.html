@@ -1659,7 +1659,31 @@
 <a href="#1658" id="1658">1658</a>
 <a href="#1659" id="1659">1659</a>
 <a href="#1660" id="1660">1660</a>
-<a href="#1661" id="1661">1661</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
+<a href="#1661" id="1661">1661</a>
+<a href="#1662" id="1662">1662</a>
+<a href="#1663" id="1663">1663</a>
+<a href="#1664" id="1664">1664</a>
+<a href="#1665" id="1665">1665</a>
+<a href="#1666" id="1666">1666</a>
+<a href="#1667" id="1667">1667</a>
+<a href="#1668" id="1668">1668</a>
+<a href="#1669" id="1669">1669</a>
+<a href="#1670" id="1670">1670</a>
+<a href="#1671" id="1671">1671</a>
+<a href="#1672" id="1672">1672</a>
+<a href="#1673" id="1673">1673</a>
+<a href="#1674" id="1674">1674</a>
+<a href="#1675" id="1675">1675</a>
+<a href="#1676" id="1676">1676</a>
+<a href="#1677" id="1677">1677</a>
+<a href="#1678" id="1678">1678</a>
+<a href="#1679" id="1679">1679</a>
+<a href="#1680" id="1680">1680</a>
+<a href="#1681" id="1681">1681</a>
+<a href="#1682" id="1682">1682</a>
+<a href="#1683" id="1683">1683</a>
+<a href="#1684" id="1684">1684</a>
+<a href="#1685" id="1685">1685</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{sync::Arc, time::Duration};
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
 <span class="kw">use </span>longport_proto::quote;
@@ -1698,9 +1722,7 @@
 <span class="kw">const </span>OPTION_CHAIN_STRIKE_INFO_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">30 </span>* <span class="number">60</span>);
 <span class="kw">const </span>TRADING_SESSION_CACHE_TIMEOUT: Duration = Duration::from_secs(<span class="number">60 </span>* <span class="number">60 </span>* <span class="number">2</span>);
 
-<span class="doccomment">/// Quote context
-</span><span class="attr">#[derive(Clone)]
-</span><span class="kw">pub struct </span>QuoteContext {
+<span class="kw">struct </span>InnerQuoteContext {
     language: Language,
     http_cli: HttpClient,
     command_tx: mpsc::UnboundedSender&lt;Command&gt;,
@@ -1715,13 +1737,17 @@
     log_subscriber: Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt;,
 }
 
-<span class="kw">impl </span>Drop <span class="kw">for </span>QuoteContext {
+<span class="kw">impl </span>Drop <span class="kw">for </span>InnerQuoteContext {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         dispatcher::with_default(<span class="kw-2">&amp;</span><span class="self">self</span>.log_subscriber.clone().into(), || {
             <span class="macro">tracing::info!</span>(<span class="string">"quote context dropped"</span>);
         });
     }
 }
+
+<span class="doccomment">/// Quote context
+</span><span class="attr">#[derive(Clone)]
+</span><span class="kw">pub struct </span>QuoteContext(Arc&lt;InnerQuoteContext&gt;);
 
 <span class="kw">impl </span>QuoteContext {
     <span class="doccomment">/// Create a `QuoteContext`
@@ -1757,7 +1783,7 @@
         });
 
         <span class="prelude-val">Ok</span>((
-            QuoteContext {
+            QuoteContext(Arc::new(InnerQuoteContext {
                 language,
                 http_cli,
                 command_tx,
@@ -1774,7 +1800,7 @@
                 quote_level,
                 quote_package_details,
                 log_subscriber,
-            },
+            })),
             push_rx,
         ))
     }
@@ -1782,32 +1808,33 @@
     <span class="doccomment">/// Returns the log subscriber
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>log_subscriber(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt; {
-        <span class="self">self</span>.log_subscriber.clone()
+        <span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone()
     }
 
     <span class="doccomment">/// Returns the member ID
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>member_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
-        <span class="self">self</span>.member_id
+        <span class="self">self</span>.<span class="number">0</span>.member_id
     }
 
     <span class="doccomment">/// Returns the quote level
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>quote_level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>str {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.quote_level
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.quote_level
     }
 
     <span class="doccomment">/// Returns the quote package details
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>quote_package_details(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[QuotePackageDetail] {
-        <span class="kw-2">&amp;</span><span class="self">self</span>.quote_package_details
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.quote_package_details
     }
 
     <span class="doccomment">/// Send a raw request
     </span><span class="kw">async fn </span>request_raw(<span class="kw-2">&amp;</span><span class="self">self</span>, command_code: u8, body: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt; {
         <span class="kw">for _ in </span><span class="number">0</span>..RETRY_COUNT {
             <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-            <span class="self">self</span>.command_tx
+            <span class="self">self</span>.<span class="number">0
+                </span>.command_tx
                 .send(Command::Request {
                     command_code,
                     body: body.clone(),
@@ -1882,7 +1909,8 @@
         T: AsRef&lt;str&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::Subscribe {
                 symbols: symbols
                     .into_iter()
@@ -1926,7 +1954,8 @@
         T: AsRef&lt;str&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::Unsubscribe {
                 symbols: symbols
                     .into_iter()
@@ -1972,7 +2001,8 @@
         </span>T: AsRef&lt;str&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::SubscribeCandlesticks {
                 symbol: normalize_symbol(symbol.as_ref()).into(),
                 period,
@@ -1988,7 +2018,8 @@
         </span>T: AsRef&lt;str&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::UnsubscribeCandlesticks {
                 symbol: normalize_symbol(symbol.as_ref()).into(),
                 period,
@@ -2023,7 +2054,8 @@
     /// ```
     </span><span class="kw">pub async fn </span>subscriptions(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Subscription&gt;&gt; {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::Subscriptions { reply_tx })
             .map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(reply_rx.<span class="kw">await</span>.map_err(|<span class="kw">_</span>| WsClientError::ClientClosed)<span class="question-mark">?</span>)
@@ -2279,7 +2311,8 @@
     /// # });
     /// ```
     </span><span class="kw">pub async fn </span>participants(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;ParticipantInfo&gt;&gt; {
-        <span class="self">self</span>.cache_participants
+        <span class="self">self</span>.<span class="number">0
+            </span>.cache_participants
             .get_or_update(|| <span class="kw">async </span>{
                 <span class="kw">let </span>resp = <span class="self">self
                     </span>.request_without_body::&lt;quote::ParticipantBrokerIdsResponse&gt;(
@@ -2551,7 +2584,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         symbol: <span class="kw">impl </span>Into&lt;String&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Date&gt;&gt; {
-        <span class="self">self</span>.cache_option_chain_expiry_date_list
+        <span class="self">self</span>.<span class="number">0
+            </span>.cache_option_chain_expiry_date_list
             .get_or_update(symbol.into(), |symbol| <span class="kw">async </span>{
                 <span class="kw">let </span>resp: quote::OptionChainDateListResponse = <span class="self">self
                     </span>.request(
@@ -2597,7 +2631,8 @@
         symbol: <span class="kw">impl </span>Into&lt;String&gt;,
         expiry_date: Date,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;StrikePriceInfo&gt;&gt; {
-        <span class="self">self</span>.cache_option_chain_strike_info
+        <span class="self">self</span>.<span class="number">0
+            </span>.cache_option_chain_strike_info
             .get_or_update(
                 (symbol.into(), expiry_date),
                 |(symbol, expiry_date)| <span class="kw">async move </span>{
@@ -2640,7 +2675,8 @@
     /// # });
     /// ```
     </span><span class="kw">pub async fn </span>warrant_issuers(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;IssuerInfo&gt;&gt; {
-        <span class="self">self</span>.cache_issuers
+        <span class="self">self</span>.<span class="number">0
+            </span>.cache_issuers
             .get_or_update(|| <span class="kw">async </span>{
                 <span class="kw">let </span>resp = <span class="self">self
                     </span>.request_without_body::&lt;quote::IssuerInfoResponse&gt;(
@@ -2689,7 +2725,7 @@
                             .map(|status| status.iter().map(|status| (<span class="kw-2">*</span>status).into()).collect())
                             .unwrap_or_default(),
                     }),
-                    language: <span class="self">self</span>.language.into(),
+                    language: <span class="self">self</span>.<span class="number">0</span>.language.into(),
                 },
             )
             .<span class="kw">await</span><span class="question-mark">?</span>;
@@ -2720,7 +2756,8 @@
     /// # });
     /// ```
     </span><span class="kw">pub async fn </span>trading_session(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;MarketTradingSession&gt;&gt; {
-        <span class="self">self</span>.cache_trading_session
+        <span class="self">self</span>.<span class="number">0
+            </span>.cache_trading_session
             .get_or_update(|| <span class="kw">async </span>{
                 <span class="kw">let </span>resp = <span class="self">self
                     </span>.request_without_body::&lt;quote::MarketTradePeriodResponse&gt;(
@@ -2922,11 +2959,12 @@
         }
 
         <span class="kw">let </span>resp = <span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/watchlist/groups"</span>)
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(resp.<span class="number">0</span>.groups)
     }
@@ -2970,6 +3008,7 @@
         }
 
         <span class="kw">let </span>Json(Response { id }) = <span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::POST, <span class="string">"/v1/watchlist/groups"</span>)
             .body(Json(RequestCreate {
@@ -2978,7 +3017,7 @@
             }))
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(id)
@@ -3011,11 +3050,12 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::DELETE, <span class="string">"/v1/watchlist/groups"</span>)
             .query_params(Request { id, purge })
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>)
     }
 
@@ -3056,7 +3096,8 @@
             </span>mode: <span class="prelude-ty">Option</span>&lt;SecuritiesUpdateMode&gt;,
         }
 
-        <span class="self">self</span>.http_cli
+        <span class="self">self</span>.<span class="number">0
+            </span>.http_cli
             .request(Method::PUT, <span class="string">"/v1/watchlist/groups"</span>)
             .body(Json(RequestUpdate {
                 id: req.id,
@@ -3065,7 +3106,7 @@
                 securities: req.securities,
             }))
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
@@ -3089,11 +3130,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/quote/get_security_list"</span>)
             .query_params(Request { market, category })
             .response::&lt;Json&lt;Resposne&gt;&gt;()
             .send()
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.list)
@@ -3133,7 +3176,8 @@
         T: Into&lt;String&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::GetRealtimeQuote {
                 symbols: symbols.into_iter().map(Into::into).collect(),
                 reply_tx,
@@ -3172,7 +3216,8 @@
     /// ```
     </span><span class="kw">pub async fn </span>realtime_depth(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;SecurityDepth&gt; {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::GetRealtimeDepth {
                 symbol: symbol.into(),
                 reply_tx,
@@ -3215,7 +3260,8 @@
         count: usize,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Trade&gt;&gt; {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::GetRealtimeTrade {
                 symbol: symbol.into(),
                 count,
@@ -3256,7 +3302,8 @@
     /// ```
     </span><span class="kw">pub async fn </span>realtime_brokers(<span class="kw-2">&amp;</span><span class="self">self</span>, symbol: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;SecurityBrokers&gt; {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::GetRealtimeBrokers {
                 symbol: symbol.into(),
                 reply_tx,
@@ -3302,7 +3349,8 @@
         count: usize,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Candlestick&gt;&gt; {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::GetRealtimeCandlesticks {
                 symbol: symbol.into(),
                 period,

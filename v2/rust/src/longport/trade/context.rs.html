@@ -765,7 +765,25 @@
 <a href="#764" id="764">764</a>
 <a href="#765" id="765">765</a>
 <a href="#766" id="766">766</a>
-<a href="#767" id="767">767</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span>longport_httpcli::{HttpClient, Json, Method};
 <span class="kw">use </span>longport_wscli::WsClientError;
@@ -805,21 +823,23 @@
     </span><span class="kw">pub </span>margin_max_qty: Decimal,
 }
 
-<span class="doccomment">/// Trade context
-</span><span class="attr">#[derive(Clone)]
-</span><span class="kw">pub struct </span>TradeContext {
+<span class="kw">struct </span>InnerTradeContext {
     command_tx: mpsc::UnboundedSender&lt;Command&gt;,
     http_cli: HttpClient,
     log_subscriber: Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt;,
 }
 
-<span class="kw">impl </span>Drop <span class="kw">for </span>TradeContext {
+<span class="kw">impl </span>Drop <span class="kw">for </span>InnerTradeContext {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         dispatcher::with_default(<span class="kw-2">&amp;</span><span class="self">self</span>.log_subscriber.clone().into(), || {
             <span class="macro">tracing::info!</span>(<span class="string">"trade context dropped"</span>);
         });
     }
 }
+
+<span class="doccomment">/// Trade context
+</span><span class="attr">#[derive(Clone)]
+</span><span class="kw">pub struct </span>TradeContext(Arc&lt;InnerTradeContext&gt;);
 
 <span class="kw">impl </span>TradeContext {
     <span class="doccomment">/// Create a `TradeContext`
@@ -845,11 +865,11 @@
         });
 
         <span class="prelude-val">Ok</span>((
-            TradeContext {
+            TradeContext(Arc::new(InnerTradeContext {
                 http_cli,
                 command_tx,
                 log_subscriber,
-            },
+            })),
             push_rx,
         ))
     }
@@ -857,7 +877,7 @@
     <span class="doccomment">/// Returns the log subscriber
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>log_subscriber(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Arc&lt;<span class="kw">dyn </span>Subscriber + Send + Sync&gt; {
-        <span class="self">self</span>.log_subscriber.clone()
+        <span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone()
     }
 
     <span class="doccomment">/// Subscribe
@@ -902,7 +922,8 @@
         </span>I: IntoIterator&lt;Item = TopicType&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::Subscribe {
                 topics: topics.into_iter().collect(),
                 reply_tx,
@@ -919,7 +940,8 @@
         </span>I: IntoIterator&lt;Item = TopicType&gt;,
     {
         <span class="kw">let </span>(reply_tx, reply_rx) = oneshot::channel();
-        <span class="self">self</span>.command_tx
+        <span class="self">self</span>.<span class="number">0
+            </span>.command_tx
             .send(Command::Unsubscribe {
                 topics: topics.into_iter().collect(),
                 reply_tx,
@@ -966,12 +988,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/execution/history"</span>)
             .query_params(options.into().unwrap_or_default())
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.trades)
@@ -1011,12 +1034,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/execution/today"</span>)
             .query_params(options.into().unwrap_or_default())
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.trades)
@@ -1063,12 +1087,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/order/history"</span>)
             .query_params(options.into().unwrap_or_default())
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.orders)
@@ -1112,12 +1137,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/order/today"</span>)
             .query_params(options.into().unwrap_or_default())
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.orders)
@@ -1151,12 +1177,13 @@
     /// ```
     </span><span class="kw">pub async fn </span>replace_order(<span class="kw-2">&amp;</span><span class="self">self</span>, options: ReplaceOrderOptions) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::PUT, <span class="string">"/v1/trade/order"</span>)
             .body(Json(options))
             .response::&lt;Json&lt;EmptyResponse&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await
             </span>.map(|<span class="kw">_</span>| ())<span class="question-mark">?</span>)
     }
@@ -1195,15 +1222,16 @@
     /// ```
     </span><span class="kw">pub async fn </span>submit_order(<span class="kw-2">&amp;</span><span class="self">self</span>, options: SubmitOrderOptions) -&gt; <span class="prelude-ty">Result</span>&lt;SubmitOrderResponse&gt; {
         <span class="kw">let </span>resp: SubmitOrderResponse = <span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::POST, <span class="string">"/v1/trade/order"</span>)
             .body(Json(options))
             .response::&lt;Json&lt;<span class="kw">_</span>&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0</span>;
-        <span class="kw">_ </span>= <span class="self">self</span>.command_tx.send(Command::SubmittedOrder {
+        <span class="kw">_ </span>= <span class="self">self</span>.<span class="number">0</span>.command_tx.send(Command::SubmittedOrder {
             order_id: resp.order_id.clone(),
         });
         <span class="prelude-val">Ok</span>(resp)
@@ -1235,6 +1263,7 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::DELETE, <span class="string">"/v1/trade/order"</span>)
             .response::&lt;Json&lt;EmptyResponse&gt;&gt;()
@@ -1242,7 +1271,7 @@
                 order_id: order_id.into(),
             })
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await
             </span>.map(|<span class="kw">_</span>| ())<span class="question-mark">?</span>)
     }
@@ -1279,12 +1308,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/asset/account"</span>)
             .query_params(Request { currency })
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.list)
@@ -1322,12 +1352,13 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/asset/cashflow"</span>)
             .query_params(options)
             .response::&lt;Json&lt;Response&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0
             </span>.list)
@@ -1358,12 +1389,13 @@
         opts: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetFundPositionsOptions&gt;&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;FundPositionsResponse&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/asset/fund"</span>)
             .query_params(opts.into().unwrap_or_default())
             .response::&lt;Json&lt;FundPositionsResponse&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0</span>)
     }
@@ -1393,12 +1425,13 @@
         opts: <span class="kw">impl </span>Into&lt;<span class="prelude-ty">Option</span>&lt;GetStockPositionsOptions&gt;&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;StockPositionsResponse&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/asset/stock"</span>)
             .query_params(opts.into().unwrap_or_default())
             .response::&lt;Json&lt;StockPositionsResponse&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0</span>)
     }
@@ -1430,6 +1463,7 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/risk/margin-ratio"</span>)
             .query_params(Request {
@@ -1437,7 +1471,7 @@
             })
             .response::&lt;Json&lt;MarginRatio&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0</span>)
     }
@@ -1473,6 +1507,7 @@
         }
 
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/order"</span>)
             .response::&lt;Json&lt;OrderDetail&gt;&gt;()
@@ -1480,7 +1515,7 @@
                 order_id: order_id.into(),
             })
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0</span>)
     }
@@ -1522,12 +1557,13 @@
         opts: EstimateMaxPurchaseQuantityOptions,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;EstimateMaxPurchaseQuantityResponse&gt; {
         <span class="prelude-val">Ok</span>(<span class="self">self
+            </span>.<span class="number">0
             </span>.http_cli
             .request(Method::GET, <span class="string">"/v1/trade/estimate/buy_limit"</span>)
             .query_params(opts)
             .response::&lt;Json&lt;EstimateMaxPurchaseQuantityResponse&gt;&gt;()
             .send()
-            .with_subscriber(<span class="self">self</span>.log_subscriber.clone())
+            .with_subscriber(<span class="self">self</span>.<span class="number">0</span>.log_subscriber.clone())
             .<span class="kw">await</span><span class="question-mark">?
             </span>.<span class="number">0</span>)
     }

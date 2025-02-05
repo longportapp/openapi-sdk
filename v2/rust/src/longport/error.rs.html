@@ -147,7 +147,18 @@
 <a href="#146" id="146">146</a>
 <a href="#147" id="147">147</a>
 <a href="#148" id="148">148</a>
-<a href="#149" id="149">149</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Display;
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::fmt::Display;
 
 <span class="kw">use </span>longport_httpcli::HttpClientError;
 <span class="kw">use </span>longport_wscli::WsClientError;
@@ -207,6 +218,17 @@
         <span class="self">Self</span>::ParseField {
             name,
             error: error.to_string(),
+        }
+    }
+
+    <span class="doccomment">/// Returns the OpenAPI error code
+    </span><span class="kw">pub fn </span>openapi_error_code(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;i64&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            Error::HttpClient(HttpClientError::OpenApi { code, .. }) =&gt; <span class="prelude-val">Some</span>(<span class="kw-2">*</span>code <span class="kw">as </span>i64),
+            Error::WsClient(WsClientError::ResponseError { detail, .. }) =&gt; {
+                detail.as_ref().map(|detail| detail.code <span class="kw">as </span>i64)
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         }
     }
 

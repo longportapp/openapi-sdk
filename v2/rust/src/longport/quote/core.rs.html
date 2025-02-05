@@ -1180,7 +1180,9 @@
 <a href="#1179" id="1179">1179</a>
 <a href="#1180" id="1180">1180</a>
 <a href="#1181" id="1181">1181</a>
-<a href="#1182" id="1182">1182</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a></pre></div><pre class="rust"><code><span class="kw">use </span>std::{
     collections::{HashMap, HashSet},
     sync::Arc,
 };
@@ -1690,8 +1692,7 @@
         body: Vec&lt;u8&gt;,
         reply_tx: oneshot::Sender&lt;<span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;&gt;&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">let </span>ws_cli = <span class="self">self</span>.ws_cli.clone();
-        <span class="kw">let </span>res = ws_cli.request_raw(command_code, <span class="prelude-val">None</span>, body).<span class="kw">await</span>;
+        <span class="kw">let </span>res = <span class="self">self</span>.ws_cli.request_raw(command_code, <span class="prelude-val">None</span>, body).<span class="kw">await</span>;
         <span class="kw">let _ </span>= reply_tx.send(res.map_err(Into::into));
         <span class="prelude-val">Ok</span>(())
     }
@@ -1799,12 +1800,10 @@
             </span>.store
             .securities
             .get(<span class="kw-2">&amp;</span>symbol)
-            .map(|data| data.candlesticks.get(<span class="kw-2">&amp;</span>period))
+            .and_then(|data| data.candlesticks.get(<span class="kw-2">&amp;</span>period))
         {
             <span class="macro">tracing::info!</span>(symbol = symbol, period = <span class="question-mark">?</span>period, <span class="string">"subscribed, returns candlesticks in memory"</span>);
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(candlesticks
-                .map(|candlesticks| candlesticks.candlesticks.clone())
-                .unwrap_or_default());
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(candlesticks.candlesticks.clone());
         }
 
         <span class="macro">tracing::info!</span>(symbol = symbol, <span class="string">"fetch symbol board"</span>);
@@ -1899,8 +1898,7 @@
         symbol: String,
         period: Period,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
-        <span class="kw">let </span><span class="kw-2">mut </span>unsubscribe_quote = <span class="bool-val">false</span>;
-        <span class="kw">let </span>unsubscribe_sub_flags = <span class="kw">if </span>period == Period::Day {
+        <span class="kw">let </span><span class="kw-2">mut </span>unsubscribe_sub_flags = <span class="kw">if </span>period == Period::Day {
             SubFlags::QUOTE
         } <span class="kw">else </span>{
             SubFlags::TRADE
@@ -1912,11 +1910,17 @@
             .get_mut(<span class="kw-2">&amp;</span>symbol)
             .map(|data| <span class="kw-2">&amp;mut </span>data.candlesticks)
         {
-            <span class="kw">if </span>periods.remove(<span class="kw-2">&amp;</span>period).is_some() &amp;&amp; period == Period::Day {
-                unsubscribe_quote = <span class="bool-val">true</span>;
+            periods.remove(<span class="kw-2">&amp;</span>period);
+
+            <span class="kw">for </span>period <span class="kw">in </span>periods.keys() {
+                <span class="kw">if </span>period == <span class="kw-2">&amp;</span>Period::Day {
+                    unsubscribe_sub_flags.remove(SubFlags::QUOTE);
+                } <span class="kw">else </span>{
+                    unsubscribe_sub_flags.remove(SubFlags::TRADE);
+                }
             }
 
-            <span class="kw">if </span>unsubscribe_quote
+            <span class="kw">if </span>!unsubscribe_sub_flags.is_empty()
                 &amp;&amp; !<span class="self">self
                     </span>.subscriptions
                     .get(<span class="kw-2">&amp;</span>symbol)
