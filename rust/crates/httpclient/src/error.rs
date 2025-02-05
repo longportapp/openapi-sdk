@@ -1,3 +1,5 @@
+use std::error::Error;
+
 use reqwest::StatusCode;
 
 use crate::qs::QsError;
@@ -61,8 +63,31 @@ pub enum HttpClientError {
 
     /// Http error
     #[error(transparent)]
-    Http(#[from] reqwest::Error),
+    Http(#[from] HttpError),
 }
+
+/// Represents an HTTP error
+#[derive(Debug)]
+pub struct HttpError(pub reqwest::Error);
+
+impl From<reqwest::Error> for HttpError {
+    #[inline]
+    fn from(err: reqwest::Error) -> Self {
+        Self(err)
+    }
+}
+
+impl std::fmt::Display for HttpError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let Some(source) = self.0.source() {
+            write!(f, "{}: {}", self.0, source)
+        } else {
+            self.0.fmt(f)
+        }
+    }
+}
+
+impl std::error::Error for HttpError {}
 
 /// Http client result type
 pub type HttpClientResult<T, E = HttpClientError> = std::result::Result<T, E>;

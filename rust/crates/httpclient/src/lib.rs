@@ -16,7 +16,7 @@ mod timestamp;
 
 pub use client::HttpClient;
 pub use config::HttpClientConfig;
-pub use error::{HttpClientError, HttpClientResult};
+pub use error::{HttpClientError, HttpClientResult, HttpError};
 pub use geo::is_cn;
 pub use qs::QsError;
 pub use request::{FromPayload, Json, RequestBuilder, ToPayload};

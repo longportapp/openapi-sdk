@@ -295,7 +295,10 @@ where
 
         // send request
         let (status, trace_id, text) = tokio::time::timeout(REQUEST_TIMEOUT, async move {
-            let resp = http_cli.execute(request).await?;
+            let resp = http_cli
+                .execute(request)
+                .await
+                .map_err(|err| HttpClientError::Http(err.into()))?;
             let status = resp.status();
             let trace_id = resp
                 .headers()
@@ -303,7 +306,10 @@ where
                 .and_then(|value| value.to_str().ok())
                 .unwrap_or_default()
                 .to_string();
-            let text = resp.text().await.map_err(HttpClientError::from)?;
+            let text = resp
+                .text()
+                .await
+                .map_err(|err| HttpClientError::Http(err.into()))?;
             Ok::<_, HttpClientError>((status, trace_id, text))
         })
         .await
