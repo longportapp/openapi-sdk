@@ -1242,6 +1242,11 @@ class TradeSession:
         Post-Trading
         """
 
+    class Overnight(TradeSession):
+        """
+        Overnight
+        """
+
 
 class Trade:
     """
