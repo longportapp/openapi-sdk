@@ -3881,6 +3881,7 @@ void lb_quote_context_unsubscribe(const struct lb_quote_context_t *ctx,
 void lb_quote_context_subscribe_candlesticks(const struct lb_quote_context_t *ctx,
                                              const char *symbol,
                                              enum lb_period_t period,
+                                             bool extended,
                                              lb_async_callback_t callback,
                                              void *userdata);
 
