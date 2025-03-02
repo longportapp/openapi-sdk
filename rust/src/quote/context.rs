@@ -311,6 +311,7 @@ impl QuoteContext {
         &self,
         symbol: T,
         period: Period,
+        extended: bool,
     ) -> Result<Vec<Candlestick>>
     where
         T: AsRef<str>,
@@ -321,6 +322,7 @@ impl QuoteContext {
             .send(Command::SubscribeCandlesticks {
                 symbol: normalize_symbol(symbol.as_ref()).into(),
                 period,
+                extended,
                 reply_tx,
             })
             .map_err(|_| WsClientError::ClientClosed)?;

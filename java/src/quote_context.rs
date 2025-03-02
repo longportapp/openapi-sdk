@@ -348,6 +348,7 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_quoteContextSubscribeC
     context: i64,
     symbol: JString,
     period: JObject,
+    extended: jboolean,
     callback: JObject,
 ) {
     jni_result(&mut env, (), |env| {
@@ -356,7 +357,10 @@ pub unsafe extern "system" fn Java_com_longport_SdkNative_quoteContextSubscribeC
         let period: Period = FromJValue::from_jvalue(env, period.into())?;
         async_util::execute(env, callback, async move {
             Ok(ObjectArray(
-                context.ctx.subscribe_candlesticks(symbol, period).await?,
+                context
+                    .ctx
+                    .subscribe_candlesticks(symbol, period, extended > 0)
+                    .await?,
             ))
         })?;
         Ok(())

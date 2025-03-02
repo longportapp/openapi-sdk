@@ -178,12 +178,14 @@ void
 QuoteContext::subscribe_candlesticks(
   const std::string& symbol,
   Period period,
+  bool extended,
   AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const
 {
   lb_quote_context_subscribe_candlesticks(
     ctx_,
     symbol.c_str(),
     convert(period),
+    extended,
     [](auto res) {
       auto callback_ptr =
         callback::get_async_callback<QuoteContext, std::vector<Candlestick>>(

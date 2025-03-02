@@ -143,12 +143,18 @@ impl QuoteContextSync {
     /// # Ok(())
     /// # }
     /// ```
-    pub fn subscribe_candlesticks<T>(&self, symbol: T, period: Period) -> Result<Vec<Candlestick>>
+    pub fn subscribe_candlesticks<T>(
+        &self,
+        symbol: T,
+        period: Period,
+        extended: bool,
+    ) -> Result<Vec<Candlestick>>
     where
         T: AsRef<str> + Send + 'static,
     {
-        self.rt
-            .call(move |ctx| async move { ctx.subscribe_candlesticks(symbol, period).await })
+        self.rt.call(move |ctx| async move {
+            ctx.subscribe_candlesticks(symbol, period, extended).await
+        })
     }
 
     /// Unsubscribe security candlesticks

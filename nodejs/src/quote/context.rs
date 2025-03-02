@@ -258,9 +258,10 @@ impl QuoteContext {
         &self,
         symbol: String,
         period: Period,
+        extended: bool,
     ) -> Result<Vec<Candlestick>> {
         self.ctx
-            .subscribe_candlesticks(symbol, period.into())
+            .subscribe_candlesticks(symbol, period.into(), extended)
             .await
             .map_err(ErrorNewType)?
             .into_iter()

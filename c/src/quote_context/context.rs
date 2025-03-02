@@ -464,6 +464,7 @@ pub unsafe extern "C" fn lb_quote_context_subscribe_candlesticks(
     ctx: *const CQuoteContext,
     symbol: *const c_char,
     period: CPeriod,
+    extended: bool,
     callback: CAsyncCallback,
     userdata: *mut c_void,
 ) {
@@ -471,7 +472,7 @@ pub unsafe extern "C" fn lb_quote_context_subscribe_candlesticks(
     let symbol = cstr_to_rust(symbol);
     execute_async(callback, ctx, userdata, async move {
         let rows: CVec<CCandlestickOwned> = ctx_inner
-            .subscribe_candlesticks(symbol, period.into())
+            .subscribe_candlesticks(symbol, period.into(), extended)
             .await?
             .into();
         Ok(rows)
