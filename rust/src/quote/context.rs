@@ -24,8 +24,8 @@ use crate::{
         ParticipantInfo, Period, PushEvent, QuotePackageDetail, RealtimeQuote,
         RequestCreateWatchlistGroup, RequestUpdateWatchlistGroup, Security, SecurityBrokers,
         SecurityCalcIndex, SecurityDepth, SecurityListCategory, SecurityQuote, SecurityStaticInfo,
-        StrikePriceInfo, Subscription, Trade, WarrantInfo, WarrantQuote, WarrantType,
-        WatchlistGroup,
+        StrikePriceInfo, Subscription, Trade, TradeSessions, WarrantInfo, WarrantQuote,
+        WarrantType, WatchlistGroup,
     },
     serde_utils, Config, Error, Language, Market, Result,
 };
@@ -291,7 +291,7 @@ impl QuoteContext {
     /// use std::sync::Arc;
     ///
     /// use longport::{
-    ///     quote::{Period, QuoteContext},
+    ///     quote::{Period, QuoteContext, TradeSessions},
     ///     Config,
     /// };
     ///
@@ -299,7 +299,7 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, mut receiver) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe_candlesticks("AAPL.US", Period::OneMinute)
+    /// ctx.subscribe_candlesticks("AAPL.US", Period::OneMinute, TradeSessions::Normal)
     ///     .await?;
     /// while let Some(msg) = receiver.recv().await {
     ///     println!("{:?}", msg);
@@ -311,7 +311,7 @@ impl QuoteContext {
         &self,
         symbol: T,
         period: Period,
-        extended: bool,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>>
     where
         T: AsRef<str>,
@@ -322,7 +322,7 @@ impl QuoteContext {
             .send(Command::SubscribeCandlesticks {
                 symbol: normalize_symbol(symbol.as_ref()).into(),
                 period,
-                extended,
+                trade_sessions,
                 reply_tx,
             })
             .map_err(|_| WsClientError::ClientClosed)?;
@@ -731,7 +731,7 @@ impl QuoteContext {
     /// use std::sync::Arc;
     ///
     /// use longport::{
-    ///     quote::{AdjustType, Period, QuoteContext},
+    ///     quote::{AdjustType, Period, QuoteContext, TradeSessions},
     ///     Config,
     /// };
     ///
@@ -740,7 +740,13 @@ impl QuoteContext {
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
     /// let resp = ctx
-    ///     .candlesticks("700.HK", Period::Day, 10, AdjustType::NoAdjust)
+    ///     .candlesticks(
+    ///         "700.HK",
+    ///         Period::Day,
+    ///         10,
+    ///         AdjustType::NoAdjust,
+    ///         TradeSessions::Normal,
+    ///     )
     ///     .await?;
     /// println!("{:?}", resp);
     /// # Ok::<_, Box<dyn std::error::Error>>(())
@@ -752,6 +758,7 @@ impl QuoteContext {
         period: Period,
         count: usize,
         adjust_type: AdjustType,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         let resp: quote::SecurityCandlestickResponse = self
             .request(
@@ -761,6 +768,7 @@ impl QuoteContext {
                     period: period.into(),
                     count: count as i32,
                     adjust_type: adjust_type.into(),
+                    trade_session: trade_sessions as i32,
                 },
             )
             .await?;
@@ -781,6 +789,7 @@ impl QuoteContext {
         forward: bool,
         time: Option<PrimitiveDateTime>,
         count: usize,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         let resp: quote::SecurityCandlestickResponse = self
             .request(
@@ -815,6 +824,7 @@ impl QuoteContext {
                         },
                     ),
                     date_request: None,
+                    trade_session: trade_sessions as i32,
                 },
             )
             .await?;
@@ -834,6 +844,7 @@ impl QuoteContext {
         adjust_type: AdjustType,
         start: Option<Date>,
         end: Option<Date>,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         let resp: quote::SecurityCandlestickResponse = self
             .request(
@@ -866,6 +877,7 @@ impl QuoteContext {
                             })
                             .unwrap_or_default(),
                     }),
+                    trade_session: trade_sessions as i32,
                 },
             )
             .await?;
@@ -1640,7 +1652,7 @@ impl QuoteContext {
     /// use std::{sync::Arc, time::Duration};
     ///
     /// use longport::{
-    ///     quote::{Period, QuoteContext},
+    ///     quote::{Period, QuoteContext, TradeSessions},
     ///     Config,
     /// };
     ///
@@ -1648,7 +1660,7 @@ impl QuoteContext {
     /// let config = Arc::new(Config::from_env()?);
     /// let (ctx, _) = QuoteContext::try_new(config).await?;
     ///
-    /// ctx.subscribe_candlesticks("AAPL.US", Period::OneMinute)
+    /// ctx.subscribe_candlesticks("AAPL.US", Period::OneMinute, TradeSessions::Normal)
     ///     .await?;
     /// tokio::time::sleep(Duration::from_secs(5)).await;
     ///

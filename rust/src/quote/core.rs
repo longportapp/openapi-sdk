@@ -10,7 +10,7 @@ use longport_httpcli::HttpClient;
 use longport_proto::quote::{
     self, AdjustType, MarketTradeDayRequest, MarketTradeDayResponse, MultiSecurityRequest, Period,
     PushQuoteTag, SecurityCandlestickRequest, SecurityCandlestickResponse,
-    SecurityStaticInfoResponse, SubscribeRequest, UnsubscribeRequest,
+    SecurityStaticInfoResponse, SubscribeRequest, TradeSession, UnsubscribeRequest,
 };
 use longport_wscli::{
     CodecType, Platform, ProtocolVersion, RateLimit, WsClient, WsClientError, WsEvent, WsSession,
@@ -31,7 +31,7 @@ use crate::{
         types::QuotePackageDetail,
         utils::{convert_trade_session, format_date, parse_date},
         Candlestick, PushCandlestick, PushEvent, PushEventDetail, PushQuote, RealtimeQuote,
-        SecurityBoard, SecurityBrokers, SecurityDepth, Subscription, Trade,
+        SecurityBoard, SecurityBrokers, SecurityDepth, Subscription, Trade, TradeSessions,
     },
     Config, Error, Market, Result,
 };
@@ -58,7 +58,7 @@ pub(crate) enum Command {
     SubscribeCandlesticks {
         symbol: String,
         period: Period,
-        extended: bool,
+        trade_sessions: TradeSessions,
         reply_tx: oneshot::Sender<Result<Vec<Candlestick>>>,
     },
     UnsubscribeCandlesticks {
@@ -446,11 +446,11 @@ impl Core {
             Command::SubscribeCandlesticks {
                 symbol,
                 period,
-                extended,
+                trade_sessions,
                 reply_tx,
             } => {
                 let _ = reply_tx.send(
-                    self.handle_subscribe_candlesticks(symbol, period, extended)
+                    self.handle_subscribe_candlesticks(symbol, period, trade_sessions)
                         .await,
                 );
                 Ok(())
@@ -603,25 +603,20 @@ impl Core {
         &mut self,
         symbol: String,
         period: Period,
-        extended: bool,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         tracing::info!(symbol = symbol, period = ?period, "subscribe candlesticks");
 
-        let Some(market) = parse_market_from_symbol(&symbol) else {
-            return Err(Error::UnknownMarket { symbol });
-        };
-
-        if let Some((candlesticks, board)) = self
+        if let Some(candlesticks) = self
             .store
             .securities
             .get_mut(&symbol)
-            .and_then(|data| data.candlesticks.get_mut(&period).zip(Some(data.board)))
+            .and_then(|data| data.candlesticks.get_mut(&period))
+            .filter(|candlesticks| candlesticks.trade_sessions == trade_sessions)
         {
-            candlesticks.extended = extended;
-            tracing::info!(symbol = symbol, period = ?period, extended = extended, "subscribed, returns candlesticks in memory");
-            return Ok(candlesticks
-                .candlesticks(market, board, extended)
-                .into_owned());
+            candlesticks.trade_sessions = trade_sessions;
+            tracing::info!(symbol = symbol, period = ?period, trade_sessions = ?trade_sessions, "subscribed, returns candlesticks in memory");
+            return Ok(candlesticks.candlesticks.clone());
         }
 
         tracing::info!(symbol = symbol, "fetch symbol board");
@@ -649,7 +644,9 @@ impl Core {
 
         tracing::info!(symbol = symbol, board = ?security_data.board, "got the symbol board");
 
-        let Some(market) = get_market(market, security_data.board) else {
+        let Some(market) = parse_market_from_symbol(&symbol)
+            .and_then(|market| get_market(market, security_data.board))
+        else {
             return Err(Error::UnknownMarket { symbol });
         };
 
@@ -665,6 +662,7 @@ impl Core {
                     period: period.into(),
                     count: 1000,
                     adjust_type: AdjustType::NoAdjust.into(),
+                    trade_session: trade_sessions as i32,
                 },
             )
             .await?;
@@ -702,7 +700,7 @@ impl Core {
             .candlesticks
             .entry(period)
             .or_insert_with(|| Candlesticks {
-                extended,
+                trade_sessions,
                 candlesticks: candlesticks.clone(),
                 tails,
             });
@@ -859,6 +857,7 @@ impl Core {
             update_and_push_candlestick(
                 candlesticks,
                 ts,
+                push_quote.trade_session,
                 symbol,
                 *period,
                 action,
@@ -1025,6 +1024,7 @@ async fn fetch_trading_days(cli: &WsClient) -> Result<TradingDays> {
 fn update_and_push_candlestick(
     candlesticks: &mut Candlesticks,
     ts: TradeSessionType,
+    ts1: TradeSession,
     symbol: &str,
     period: Period,
     action: UpdateAction,
@@ -1087,7 +1087,7 @@ fn update_and_push_candlestick(
     };
 
     for (candlestick, is_confirmed) in push_candlesticks {
-        if candlesticks.extended || ts.is_normal() {
+        if candlesticks.trade_sessions.contains(ts1) {
             tracing::info!(
                 symbol = symbol,
                 period = ?period,
@@ -1100,6 +1100,7 @@ fn update_and_push_candlestick(
                 sequence: 0,
                 symbol: symbol.to_string(),
                 detail: PushEventDetail::Candlestick(PushCandlestick {
+                    trade_session: ts1,
                     period,
                     candlestick,
                     is_confirmed,

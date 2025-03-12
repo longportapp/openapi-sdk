@@ -72,7 +72,6 @@ pub const TRADE_SESSION_OVERNIGHT: TradeSessionType = TradeSessionType(3);
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub struct Market {
     pub timezone: &'static Tz,
-    pub session_types: &'static [TradeSessionType],
     pub trade_sessions: &'static [&'static [TradeSession]],
     pub half_trade_sessions: &'static [&'static [TradeSession]],
     pub lot_size: i64,
@@ -124,9 +123,9 @@ impl Market {
         let t = t.to_timezone(self.timezone);
         let time = t.time();
         let trade_sessions = if !half_days.contains(t.date()) {
-            self.trade_sessions[ts.0]
+            self.trade_sessions.get(ts.0)?
         } else {
-            self.half_trade_sessions[ts.0]
+            self.half_trade_sessions.get(ts.0)?
         };
         let res = trade_sessions.find_session(time);
         let (time, n) = match res {
@@ -295,10 +294,8 @@ impl Market {
                     if time >= *start && time < *end {
                         return Some(TradeSessionType(idx));
                     }
-                } else {
-                    if time >= *start && time <= *end {
-                        return Some(TradeSessionType(idx));
-                    }
+                } else if time >= *start && time <= *end {
+                    return Some(TradeSessionType(idx));
                 }
             }
         }

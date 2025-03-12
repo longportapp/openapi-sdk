@@ -1,14 +1,10 @@
 use time::{macros::time, Duration};
 use time_tz::timezones::db;
 
-use crate::{
-    market::Market, TradeSession, TRADE_SESSION_NORMAL, TRADE_SESSION_OVERNIGHT,
-    TRADE_SESSION_POST, TRADE_SESSION_PRE,
-};
+use crate::{market::Market, TradeSession};
 
 pub const HK: Market = Market {
     timezone: db::asia::HONG_KONG,
-    session_types: &[TRADE_SESSION_NORMAL],
     trade_sessions: &[
         // Normal
         &[
@@ -25,7 +21,6 @@ pub const HK: Market = Market {
 
 pub const SG: Market = Market {
     timezone: db::asia::SINGAPORE,
-    session_types: &[TRADE_SESSION_NORMAL],
     trade_sessions: &[
         // Normal
         &[
@@ -42,7 +37,6 @@ pub const SG: Market = Market {
 
 pub const CN: Market = Market {
     timezone: db::asia::SHANGHAI,
-    session_types: &[TRADE_SESSION_NORMAL],
     trade_sessions: &[
         // Normal
         &[
@@ -56,12 +50,6 @@ pub const CN: Market = Market {
 
 pub const US: Market = Market {
     timezone: db::america::NEW_YORK,
-    session_types: &[
-        TRADE_SESSION_NORMAL,
-        TRADE_SESSION_PRE,
-        TRADE_SESSION_POST,
-        TRADE_SESSION_OVERNIGHT,
-    ],
     trade_sessions: &[
         // Normal
         &[TradeSession::new(time!(9:30:00), time!(16:00:00))],
@@ -93,7 +81,6 @@ pub const US: Market = Market {
 
 pub const US_OPTION: Market = Market {
     timezone: db::america::NEW_YORK,
-    session_types: &[TRADE_SESSION_NORMAL],
     trade_sessions: &[
         // Normal
         &[TradeSession::new(time!(9:30:00), time!(16:15:00))],

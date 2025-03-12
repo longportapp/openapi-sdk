@@ -37,16 +37,14 @@ impl FindSession for &[TradeSession] {
                 } else if time < *end {
                     return FindSessionResult::Between(idx);
                 }
-            } else {
-                if time < *start {
-                    if idx == 0 {
-                        return FindSessionResult::BeforeFirst;
-                    } else {
-                        return FindSessionResult::After(idx - 1);
-                    }
-                } else if time <= *end {
-                    return FindSessionResult::Between(idx);
+            } else if time < *start {
+                if idx == 0 {
+                    return FindSessionResult::BeforeFirst;
+                } else {
+                    return FindSessionResult::After(idx - 1);
                 }
+            } else if time <= *end {
+                return FindSessionResult::Between(idx);
             }
         }
 

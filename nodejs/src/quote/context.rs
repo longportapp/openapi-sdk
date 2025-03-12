@@ -18,8 +18,8 @@ use crate::{
             MarketTradingDays, MarketTradingSession, OptionQuote, ParticipantInfo, Period,
             QuotePackageDetail, RealtimeQuote, Security, SecurityBrokers, SecurityCalcIndex,
             SecurityDepth, SecurityListCategory, SecurityQuote, SecurityStaticInfo, SortOrderType,
-            StrikePriceInfo, SubType, SubTypes, Subscription, Trade, WarrantInfo, WarrantQuote,
-            WarrantSortBy, WarrantStatus, WarrantType, WatchlistGroup,
+            StrikePriceInfo, SubType, SubTypes, Subscription, Trade, TradeSessions, WarrantInfo,
+            WarrantQuote, WarrantSortBy, WarrantStatus, WarrantType, WatchlistGroup,
         },
     },
     time::{NaiveDate, NaiveDatetime},
@@ -258,10 +258,10 @@ impl QuoteContext {
         &self,
         symbol: String,
         period: Period,
-        extended: bool,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         self.ctx
-            .subscribe_candlesticks(symbol, period.into(), extended)
+            .subscribe_candlesticks(symbol, period.into(), trade_sessions.into())
             .await
             .map_err(ErrorNewType)?
             .into_iter()
@@ -542,11 +542,11 @@ impl QuoteContext {
     /// #### Example
     ///
     /// ```javascript
-    /// const { Config, QuoteContext, Period, AdjustType } = require("longport")
+    /// const { Config, QuoteContext, Period, AdjustType, TradeSessions } = require("longport")
     ///
     /// let config = Config.fromEnv()
     /// QuoteContext.new(config)
-    ///   .then((ctx) => ctx.candlesticks("700.HK", Period.Day, 10, AdjustType.NoAdjust))
+    ///   .then((ctx) => ctx.candlesticks("700.HK", Period.Day, 10, AdjustType.NoAdjust, TradeSessions.Normal))
     ///   .then((resp) => {
     ///     for (let obj of resp) {
     ///       console.log(obj.toString());
@@ -560,6 +560,7 @@ impl QuoteContext {
         period: Period,
         count: i32,
         adjust_type: AdjustType,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         self.ctx
             .candlesticks(
@@ -567,6 +568,7 @@ impl QuoteContext {
                 period.into(),
                 count.max(0) as usize,
                 adjust_type.into(),
+                trade_sessions.into(),
             )
             .await
             .map_err(ErrorNewType)?
@@ -585,6 +587,7 @@ impl QuoteContext {
         forward: bool,
         datetime: Option<&NaiveDatetime>,
         count: i32,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         self.ctx
             .history_candlesticks_by_offset(
@@ -594,6 +597,7 @@ impl QuoteContext {
                 forward,
                 datetime.map(|datetime| datetime.0),
                 count as usize,
+                trade_sessions.into(),
             )
             .await
             .map_err(ErrorNewType)?
@@ -611,6 +615,7 @@ impl QuoteContext {
         adjust_type: AdjustType,
         start: Option<&NaiveDate>,
         end: Option<&NaiveDate>,
+        trade_sessions: TradeSessions,
     ) -> Result<Vec<Candlestick>> {
         self.ctx
             .history_candlesticks_by_date(
@@ -619,6 +624,7 @@ impl QuoteContext {
                 adjust_type.into(),
                 start.map(|date| date.0),
                 end.map(|date| date.0),
+                trade_sessions.into(),
             )
             .await
             .map_err(ErrorNewType)?
