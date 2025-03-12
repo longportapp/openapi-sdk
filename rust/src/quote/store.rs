@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::HashMap};
+use std::collections::HashMap;
 
 use longport_candlesticks::{Days, TradeSessionType, UpdateAction};
 use longport_proto::quote::Period;
@@ -7,7 +7,7 @@ use crate::{
     quote::{
         push_types::{PushEventDetail, PushQuote},
         Brokers, Candlestick, Depth, PushBrokers, PushDepth, PushEvent, PushTrades, SecurityBoard,
-        Trade,
+        Trade, TradeSessions,
     },
     Market,
 };
@@ -43,39 +43,12 @@ pub(crate) struct TailCandlestick {
 
 #[derive(Debug)]
 pub(crate) struct Candlesticks {
-    pub(crate) extended: bool,
+    pub(crate) trade_sessions: TradeSessions,
     pub(crate) candlesticks: Vec<Candlestick>,
     pub(crate) tails: HashMap<TradeSessionType, TailCandlestick>,
 }
 
 impl Candlesticks {
-    pub(crate) fn candlesticks(
-        &self,
-        market: Market,
-        board: SecurityBoard,
-        extended: bool,
-    ) -> Cow<[Candlestick]> {
-        if extended {
-            Cow::Borrowed(&self.candlesticks)
-        } else {
-            let Some(market) = get_market(market, board) else {
-                return Cow::Borrowed(&[]);
-            };
-            Cow::Owned(
-                self.candlesticks
-                    .iter()
-                    .filter(|candlestick| {
-                        market
-                            .candlestick_trade_session(candlestick.timestamp)
-                            .map(|ts| ts.is_normal())
-                            == Some(true)
-                    })
-                    .copied()
-                    .collect(),
-            )
-        }
-    }
-
     #[inline]
     fn merge_input(&self, ts: TradeSessionType) -> Option<longport_candlesticks::Candlestick> {
         self.tails.get(&ts).map(|tail| tail.candlestick.into())

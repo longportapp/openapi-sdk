@@ -5,8 +5,7 @@ on:
       - main
 
 jobs:
-  build-api-docs:
-    name: Build API docs
+  rust:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -17,58 +16,67 @@ jobs:
         with:
           toolchain: stable
           components: rust-docs
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          check-latest: true
-
-      - name: Install JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: "11"
-          distribution: "temurin"
-
-      - name: Install Doxygen
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y doxygen
-
       - name: Build Rust doc
         run: cargo doc -p longport --no-deps
 
-      - name: Build Python wheels
-        uses: PyO3/maturin-action@v1
+  nodejs:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          target: "x86_64"
-          args: -i python3.13 --out dist -m python/Cargo.toml
-      - name: Install built wheel
-        run: |
-          pip install longport --no-index --find-links dist --force-reinstall
-          python -c "import longport"
-      - name: Build Python docs
-        run: |
-          pip install -r docs/requirements.txt
-          mkdocs build
-        working-directory: ./python
-
+          submodules: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          check-latest: true
       - name: Build Node.js docs
         run: |
           npm install -g typedoc
           typedoc
         working-directory: ./nodejs
 
+  java:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+          distribution: "temurin"
       - name: Build Java docs
         working-directory: ./java/javasrc
         run: mvn javadoc:javadoc
 
+  c:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen
       - name: Build C docs
         working-directory: ./c
         run: doxygen
 
+  cpp:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen
       - name: Build C++ docs
         working-directory: ./cpp
         run: doxygen

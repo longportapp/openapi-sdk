@@ -295,10 +295,8 @@ impl Market {
                     if time >= *start && time < *end {
                         return Some(TradeSessionType(idx));
                     }
-                } else {
-                    if time >= *start && time <= *end {
-                        return Some(TradeSessionType(idx));
-                    }
+                } else if time >= *start && time <= *end {
+                    return Some(TradeSessionType(idx));
                 }
             }
         }

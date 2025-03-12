@@ -58,7 +58,7 @@ public:
   void subscribe_candlesticks(
     const std::string& symbol,
     Period period,
-    bool extended,
+    TradeSessions trade_sessions,
     AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
 
   /// Unsubscribe security candlesticks
@@ -140,6 +140,7 @@ public:
     Period period,
     uintptr_t count,
     AdjustType adjust_type,
+    TradeSessions trade_sessions,
     AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
 
   /// Get security history candlesticks by offset
@@ -150,6 +151,7 @@ public:
     bool forward,
     std::optional<DateTime> datetime,
     uintptr_t count,
+    TradeSessions trade_sessions,
     AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
 
   /// Get security history candlesticks by date
@@ -159,6 +161,7 @@ public:
     AdjustType adjust_type,
     std::optional<Date> start,
     std::optional<Date> end,
+    TradeSessions trade_sessions,
     AsyncCallback<QuoteContext, std::vector<Candlestick>> callback) const;
 
   /// Get option chain expiry date list
