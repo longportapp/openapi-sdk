@@ -11,7 +11,6 @@ use crate::{serde_utils, Market};
 #[allow(clippy::upper_case_acronyms)]
 pub enum OrderType {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Limit Order
     #[strum(serialize = "LO")]
@@ -58,7 +57,6 @@ pub enum OrderType {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum OrderStatus {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Not reported
     #[strum(serialize = "NotReported")]
@@ -135,7 +133,6 @@ pub struct Execution {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum OrderSide {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Buy
     #[strum(serialize = "Buy")]
@@ -149,7 +146,6 @@ pub enum OrderSide {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum TriggerPriceType {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Limit If Touched
     #[strum(serialize = "LIT")]
@@ -163,7 +159,6 @@ pub enum TriggerPriceType {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum OrderTag {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Normal Order
     #[strum(serialize = "Normal")]
@@ -192,7 +187,6 @@ pub enum OrderTag {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum TimeInForceType {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Day Order
     #[strum(serialize = "Day")]
@@ -209,7 +203,6 @@ pub enum TimeInForceType {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum TriggerStatus {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Deactive
     #[strum(serialize = "DEACTIVE")]
@@ -226,7 +219,6 @@ pub enum TriggerStatus {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum OutsideRTH {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Regular trading hour only
     #[strum(serialize = "RTH_ONLY")]
@@ -313,7 +305,6 @@ pub struct Order {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum CommissionFreeStatus {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// None
     None,
@@ -329,7 +320,6 @@ pub enum CommissionFreeStatus {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum DeductionStatus {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Pending Settlement
     #[strum(serialize = "NONE")]
@@ -349,7 +339,6 @@ pub enum DeductionStatus {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum ChargeCategoryCode {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Broker
     #[strum(serialize = "BROKER_FEES")]

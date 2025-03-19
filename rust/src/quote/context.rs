@@ -781,6 +781,7 @@ impl QuoteContext {
     }
 
     /// Get security history candlesticks by offset
+    #[allow(clippy::too_many_arguments)]
     pub async fn history_candlesticks_by_offset(
         &self,
         symbol: impl Into<String>,

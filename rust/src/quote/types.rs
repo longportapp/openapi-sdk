@@ -160,7 +160,6 @@ bitflags::bitflags! {
 #[allow(clippy::upper_case_acronyms)]
 pub enum SecurityBoard {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// US Main Board
     USMain,
@@ -400,7 +399,6 @@ impl TryFrom<quote::SecurityQuote> for SecurityQuote {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Serialize, Deserialize)]
 pub enum OptionType {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// American
     #[strum(serialize = "A")]
@@ -414,7 +412,6 @@ pub enum OptionType {
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Serialize, Deserialize)]
 pub enum OptionDirection {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// Put
     #[strum(serialize = "P")]
@@ -526,7 +523,6 @@ impl TryFrom<quote::OptionQuote> for OptionQuote {
 #[repr(i32)]
 pub enum WarrantType {
     /// Unknown
-    #[strum(disabled)]
     Unknown = -1,
     /// Call
     Call = 0,

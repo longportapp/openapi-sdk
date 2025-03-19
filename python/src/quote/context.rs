@@ -290,6 +290,7 @@ impl QuoteContext {
 
     /// Get security history candlesticks by offset
     #[pyo3(signature = (symbol, period, adjust_type, forward, count, time = None, trade_sessions = TradeSessions::Normal))]
+    #[allow(clippy::too_many_arguments)]
     fn history_candlesticks_by_offset(
         &self,
         symbol: String,

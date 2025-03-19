@@ -4,7 +4,6 @@ use strum_macros::{Display, EnumString};
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, EnumString, Display)]
 pub enum Market {
     /// Unknown
-    #[strum(disabled)]
     Unknown,
     /// US market
     US,

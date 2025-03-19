@@ -1,0 +1,74 @@
+name: MCP
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        settings:
+          - host: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            cross: true
+            bin: longport-mcp
+          - host: ubuntu-22.04
+            target: aarch64-unknown-linux-gnu
+            cross: true
+            bin: longport-mcp
+          - host: windows-latest
+            target: x86_64-pc-windows-msvc
+            bin: longport-mcp
+            bin_suffix: .exe
+          - host: macos-13
+            target: x86_64-apple-darwin
+            bin: longport-mcp
+          - host: macos-13
+            target: aarch64-apple-darwin
+            bin: longport-mcp
+    runs-on: ${{ matrix.settings.host }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
+          target: ${{ matrix.settings.target }}
+
+      - name: Build
+        if: ${{ !matrix.settings.cross }}
+        run: |
+          cargo build --release -p longport-mcp --target ${{ matrix.settings.target }}
+
+      - name: Install latest cross binary
+        if: ${{ matrix.settings.cross }}
+        uses: st3iny/install-cross-binary@v2
+
+      - name: Build with Cross
+        if: ${{ matrix.settings.cross }}
+        run: |
+          cross build --release -p longport-mcp --target ${{ matrix.settings.target }}
+
+      - name: Archive artifact
+        if: ${{ !contains(matrix.settings.target, 'windows') }}
+        run: |
+          zip -j longport-mcp-${{ matrix.settings.target }}.zip target/${{ matrix.settings.target }}/release/${{ matrix.settings.bin }}${{ matrix.settings.bin_suffix }}
+
+      - name: Archive artifact(Windows)
+        if: ${{ contains(matrix.settings.target, 'windows') }}
+        run: |
+          Compress-Archive -Path target/${{ matrix.settings.target }}/release/${{ matrix.settings.bin }}${{ matrix.settings.bin_suffix }} -DestinationPath longport-mcp-${{ matrix.settings.target }}.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: longport-mcp-${{ matrix.settings.target }}
+          path: longport-mcp-${{ matrix.settings.target }}.zip
