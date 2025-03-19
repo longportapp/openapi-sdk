@@ -1021,6 +1021,7 @@ async fn fetch_trading_days(cli: &WsClient) -> Result<TradingDays> {
     Ok(days)
 }
 
+#[allow(clippy::too_many_arguments)]
 fn update_and_push_candlestick(
     candlesticks: &mut Candlesticks,
     ts: TradeSessionType,

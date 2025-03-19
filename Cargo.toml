@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["rust", "python", "nodejs", "java", "c"]
+members = ["rust", "python", "nodejs", "java", "c", "mcp"]
 
 [profile.release]
 lto = true
