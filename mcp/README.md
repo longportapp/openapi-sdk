@@ -52,3 +52,13 @@ Default bind address is `127.0.0.1:8000`, you can change it by using the `--bind
 ```bash
 longport-mcp --sse --bind 127.0.0.1:3000
 ```
+
+## Configuration
+
+### Enable logging
+
+To enable logging, set the flag `--log-dir` to the directory where you want to store the logs:
+
+```bash
+longport-mcp --log-dir /path/to/log/dir
+```
