@@ -9,7 +9,7 @@ classifiers = [
 ]
 description = "A Python library for LongPort Open API"
 readme = "README.md"
-repository = "https://github.com/longportapp/openapi-sdk"
+repository = "https://github.com/longportapp/openapi"
 requires-python = ">=3.7"
 dependencies = []
 
@@ -24,8 +24,8 @@ build-backend = "maturin"
 [project.urls]
 homepage = "https://open.longportapp.com/en/"
 documentation = "https://open.longportapp.com/en/docs"
-repository = "https://github.com/longportapp/openapi-sdk"
-changelog = "https://github.com/longportapp/openapi-sdk/blob/master/python/CHANGELOG.md"
+repository = "https://github.com/longportapp/openapi"
+changelog = "https://github.com/longportapp/openapi/blob/master/python/CHANGELOG.md"
 
 [tool.maturin]
 python-source = "pysrc"

@@ -9,13 +9,13 @@
   <version>0.0.1</version>
   <name>longport-openapi</name>
   <description>LongPort OpenAPI SDK for Java</description>
-  <url>https://github.com/longportapp/openapi-sdk</url>
+  <url>https://github.com/longportapp/openapi</url>
   <packaging>jar</packaging>
 
   <scm>
-    <connection>scm:git:git@github.com:longportapp/openapi-sdk.git</connection>
-    <developerConnection>scm:git:git@github.com:longportapp/openapi-sdk.git</developerConnection>
-    <url>https://github.com/longportapp/openapi-sdk</url>
+    <connection>scm:git:git@github.com:longportapp/openapi.git</connection>
+    <developerConnection>scm:git:git@github.com:longportapp/openapi.git</developerConnection>
+    <url>https://github.com/longportapp/openapi</url>
   </scm>
 
   <developers>

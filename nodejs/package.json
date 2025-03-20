@@ -17,7 +17,7 @@
   "description": "A Node.js library for LongPort Open API",
   "repository": {
     "type": "git",
-    "url": "https://github.com/longportapp/openapi-sdk"
+    "url": "https://github.com/longportapp/openapi"
   },
   "homepage": "https://open.longportapp.com/en/",
   "devDependencies": {

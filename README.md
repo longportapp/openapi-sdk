@@ -25,7 +25,7 @@ LongPort OpenAPI provides programmatic quote trading interfaces for investors wi
 
 ## SDK Documenation
 
-https://longportapp.github.io/openapi-sdk
+https://longportapp.github.io/openapi
 
 ## Resources
 

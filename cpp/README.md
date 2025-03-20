@@ -6,7 +6,7 @@
 
 _Install LongPort OpenAPI SDK_
 
-[`Download C++ SDK`]([`Download C SDK`](https://github.com/longportapp/openapi-sdk/releases))
+[`Download C++ SDK`]([`Download C SDK`](https://github.com/longportapp/openapi/releases))
 
 _Setting environment variables(MacOS/Linux)_
 
