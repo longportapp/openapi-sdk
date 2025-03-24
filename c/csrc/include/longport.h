@@ -1541,6 +1541,10 @@ typedef struct lb_candlestick_t {
    * Timestamp
    */
   int64_t timestamp;
+  /**
+   * Trade session
+   */
+  enum lb_trade_session_t trade_session;
 } lb_candlestick_t;
 
 /**

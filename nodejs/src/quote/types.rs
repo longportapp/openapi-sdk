@@ -686,6 +686,8 @@ pub struct Candlestick {
     /// Timestamp
     #[js(datetime)]
     timestamp: DateTime<Utc>,
+    /// Trade session
+    trade_session: TradeSession,
 }
 
 /// Strike price info

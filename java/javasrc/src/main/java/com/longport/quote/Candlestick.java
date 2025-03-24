@@ -11,6 +11,7 @@ public class Candlestick {
     private long volume;
     private BigDecimal turnover;
     private OffsetDateTime timestamp;
+    private TradeSession tradeSession;
 
     public BigDecimal getClose() {
         return close;
@@ -40,9 +41,15 @@ public class Candlestick {
         return timestamp;
     }
 
+    public TradeSession getTradeSession() {
+        return tradeSession;
+    }
+
     @Override
     public String toString() {
-        return "Candlestick [close=" + close + ", high=" + high + ", low=" + low + ", open=" + open + ", timestamp="
-                + timestamp + ", turnover=" + turnover + ", volume=" + volume + "]";
+        return "Candlestick [close=" + close + ", open=" + open + ", low=" + low + ", high=" + high + ", volume="
+                + volume + ", turnover=" + turnover + ", timestamp=" + timestamp + ", tradeSession=" + tradeSession
+                + "]";
     }
+
 }

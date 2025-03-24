@@ -78,21 +78,7 @@ impl Longport {
         /// max 1000
         count: usize,
     ) -> Result<impl IntoContent, Error> {
-        Ok(self
-            .quote_context
-            .trades(symbol, count)
-            .await?
-            .into_iter()
-            .map(|trade| {
-                Json(serde_json::json!({
-                    "price": trade.price,
-                    "volume": trade.volume,
-                    "time": trade.timestamp.format(&time::format_description::well_known::Rfc3339).unwrap(),
-                    "direction": trade.direction,
-                    "trade_session": trade.trade_session,
-                }))
-            })
-            .collect::<Vec<_>>())
+        Ok(Json(self.quote_context.trades(symbol, count).await?))
     }
 
     /// Get the latest n candlesticks of the security.
@@ -149,32 +135,21 @@ impl Longport {
             }
         };
 
-        Ok(self
-            .quote_context
-            .candlesticks(
-                symbol,
-                period,
-                count,
-                if forward_adjust {
-                    AdjustType::ForwardAdjust
-                } else {
-                    AdjustType::NoAdjust
-                },
-                trade_sessions,
-            )
-            .await?
-            .into_iter()
-            .map(|candlestick| {
-                Json(serde_json::json!({
-                    "time": candlestick.timestamp.format(&time::format_description::well_known::Rfc3339).unwrap(),
-                    "open": candlestick.open,
-                    "high": candlestick.high,
-                    "low": candlestick.low,
-                    "close": candlestick.close,
-                    "volume": candlestick.volume,
-                }))
-            })
-            .collect::<Vec<_>>())
+        Ok(Json(
+            self.quote_context
+                .candlesticks(
+                    symbol,
+                    period,
+                    count,
+                    if forward_adjust {
+                        AdjustType::ForwardAdjust
+                    } else {
+                        AdjustType::NoAdjust
+                    },
+                    trade_sessions,
+                )
+                .await?,
+        ))
     }
 
     /// Get the trading days between the specified dates.
@@ -207,13 +182,7 @@ impl Longport {
         Ok(Json(
             self.quote_context
                 .trading_days(market, start_date, end_date)
-                .await
-                .map(|resp| {
-                    serde_json::json!({
-                        "trading_days": resp.trading_days.into_iter().map(|date| date.format(date_format).unwrap()).collect::<Vec<_>>(),
-                        "half_trading_days": resp.half_trading_days.into_iter().map(|date| date.format(date_format).unwrap()).collect::<Vec<_>>(),
-                    })
-                })?,
+                .await?,
         ))
     }
 

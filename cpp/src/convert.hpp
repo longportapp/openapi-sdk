@@ -654,7 +654,7 @@ convert(const lb_candlestick_t* candlestick)
     Decimal(candlestick->close), Decimal(candlestick->open),
     Decimal(candlestick->low),   Decimal(candlestick->high),
     candlestick->volume,         Decimal(candlestick->turnover),
-    candlestick->timestamp,
+    candlestick->timestamp,      convert(candlestick->trade_session)
   };
 }
 

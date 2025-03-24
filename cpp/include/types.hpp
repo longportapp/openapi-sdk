@@ -558,6 +558,8 @@ struct Candlestick
   Decimal turnover;
   /// Timestamp
   int64_t timestamp;
+  /// Trade session
+  TradeSession trade_session;
 };
 
 /// Candlestick updated message

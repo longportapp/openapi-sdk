@@ -1037,26 +1037,28 @@ fn update_and_push_candlestick(
     match action {
         UpdateAction::UpdateLast(candlestick) => {
             let tail = candlesticks.tails.get_mut(&ts).unwrap();
-            candlesticks.candlesticks[tail.index] = candlestick.into();
-            tail.candlestick = candlestick.into();
+            candlesticks.candlesticks[tail.index] = (candlestick, ts1).into();
+            tail.candlestick = (candlestick, ts1).into();
 
             if push_candlestick_mode == PushCandlestickMode::Realtime {
-                push_candlesticks.push((candlestick.into(), false));
+                push_candlesticks.push(((candlestick, ts1).into(), false));
             }
         }
         UpdateAction::AppendNew { confirmed, new } => {
             let index = if let Some(tail) = candlesticks.tails.get_mut(&ts) {
-                candlesticks.candlesticks.insert(tail.index + 1, new.into());
+                candlesticks
+                    .candlesticks
+                    .insert(tail.index + 1, (new, ts1).into());
                 tail.index += 1;
-                tail.candlestick = new.into();
+                tail.candlestick = (new, ts1).into();
                 tail.index
             } else {
-                let index = candlesticks.insert_candlestick_by_time(new.into());
+                let index = candlesticks.insert_candlestick_by_time((new, ts1).into());
                 candlesticks.tails.insert(
                     ts,
                     TailCandlestick {
                         index,
-                        candlestick: new.into(),
+                        candlestick: (new, ts1).into(),
                     },
                 );
                 index
@@ -1073,13 +1075,13 @@ fn update_and_push_candlestick(
             match push_candlestick_mode {
                 PushCandlestickMode::Realtime => {
                     if let Some(confirmed) = confirmed {
-                        push_candlesticks.push((confirmed.into(), true));
+                        push_candlesticks.push(((confirmed, ts1).into(), true));
                     }
-                    push_candlesticks.push((new.into(), false));
+                    push_candlesticks.push(((new, ts1).into(), false));
                 }
                 PushCandlestickMode::Confirmed => {
                     if let Some(confirmed) = confirmed {
-                        push_candlesticks.push((confirmed.into(), true));
+                        push_candlesticks.push(((confirmed, ts1).into(), true));
                     }
                 }
             }

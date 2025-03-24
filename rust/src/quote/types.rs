@@ -722,6 +722,8 @@ pub struct Candlestick {
     /// Timestamp
     #[serde(with = "serde_utils::timestamp")]
     pub timestamp: OffsetDateTime,
+    /// Trade session
+    pub trade_session: TradeSession,
 }
 
 impl TryFrom<quote::Candlestick> for Candlestick {
@@ -737,13 +739,17 @@ impl TryFrom<quote::Candlestick> for Candlestick {
             turnover: value.turnover.parse().unwrap_or_default(),
             timestamp: OffsetDateTime::from_unix_timestamp(value.timestamp)
                 .map_err(|err| Error::parse_field_error("timestamp", err))?,
+            trade_session: TradeSession::try_from(value.trade_session)
+                .map_err(|err| Error::parse_field_error("trade_session", err))?,
         })
     }
 }
 
-impl From<longport_candlesticks::Candlestick> for Candlestick {
+impl From<(longport_candlesticks::Candlestick, TradeSession)> for Candlestick {
     #[inline]
-    fn from(candlestick: longport_candlesticks::Candlestick) -> Self {
+    fn from(
+        (candlestick, trade_session): (longport_candlesticks::Candlestick, TradeSession),
+    ) -> Self {
         Self {
             close: candlestick.close,
             open: candlestick.open,
@@ -752,6 +758,7 @@ impl From<longport_candlesticks::Candlestick> for Candlestick {
             volume: candlestick.volume,
             turnover: candlestick.turnover,
             timestamp: candlestick.time,
+            trade_session,
         }
     }
 }

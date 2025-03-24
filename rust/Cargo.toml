@@ -38,6 +38,7 @@ time = { version = "0.3.36", features = [
   "macros",
   "formatting",
   "serde",
+  "serde-human-readable",
 ] }
 flume = { version = "0.10.12", optional = true }
 thiserror = "1.0.31"

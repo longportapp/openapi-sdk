@@ -652,6 +652,8 @@ pub(crate) struct Candlestick {
     turnover: PyDecimal,
     /// Timestamp
     timestamp: PyOffsetDateTimeWrapper,
+    /// Trade session
+    trade_session: TradeSession,
 }
 
 /// Strike price info

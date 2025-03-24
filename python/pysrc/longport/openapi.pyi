@@ -1391,6 +1391,11 @@ class Candlestick:
     Timestamp
     """
 
+    trade_session: TradeSession
+    """
+    Trade session
+    """
+
 
 class AdjustType:
     """

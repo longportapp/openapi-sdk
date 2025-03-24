@@ -5,6 +5,41 @@ use std::str::FromStr;
 use serde::{de::Error, Deserialize, Deserializer, Serializer};
 use time::{Date, OffsetDateTime};
 
+pub(crate) mod date_opt {
+    use super::*;
+
+    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<Date>, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let value = String::deserialize(deserializer)?;
+        if !value.is_empty() {
+            let datetime = Date::parse(
+                &value,
+                time::macros::format_description!("[year]-[month]-[day]"),
+            )
+            .map_err(|_| Error::custom("invalid date"))?;
+            Ok(Some(datetime))
+        } else {
+            Ok(None)
+        }
+    }
+
+    pub(crate) fn serialize<S>(datetime: &Option<Date>, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        match datetime {
+            Some(date) => serializer.serialize_str(
+                &date
+                    .format(time::macros::format_description!("[year]-[month]-[day]"))
+                    .unwrap(),
+            ),
+            None => serializer.serialize_none(),
+        }
+    }
+}
+
 pub(crate) mod timestamp {
     use super::*;
 
@@ -56,41 +91,6 @@ pub(crate) mod timestamp_opt {
     {
         match datetime {
             Some(datetime) => serializer.collect_str(&datetime.unix_timestamp()),
-            None => serializer.serialize_none(),
-        }
-    }
-}
-
-pub(crate) mod date_opt {
-    use super::*;
-
-    pub(crate) fn deserialize<'de, D>(deserializer: D) -> Result<Option<Date>, D::Error>
-    where
-        D: Deserializer<'de>,
-    {
-        let value = String::deserialize(deserializer)?;
-        if !value.is_empty() {
-            let datetime = Date::parse(
-                &value,
-                time::macros::format_description!("[year]-[month]-[day]"),
-            )
-            .map_err(|_| Error::custom("invalid date"))?;
-            Ok(Some(datetime))
-        } else {
-            Ok(None)
-        }
-    }
-
-    pub(crate) fn serialize<S>(datetime: &Option<Date>, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        match datetime {
-            Some(date) => serializer.serialize_str(
-                &date
-                    .format(time::macros::format_description!("[year]-[month]-[day]"))
-                    .unwrap(),
-            ),
             None => serializer.serialize_none(),
         }
     }

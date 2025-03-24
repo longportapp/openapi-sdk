@@ -476,6 +476,8 @@ pub struct CCandlestick {
     pub turnover: *const CDecimal,
     /// Timestamp
     pub timestamp: i64,
+    /// Trade session
+    pub trade_session: CTradeSession,
 }
 
 pub(crate) struct CCandlestickOwned {
@@ -486,6 +488,7 @@ pub(crate) struct CCandlestickOwned {
     volume: i64,
     turnover: CDecimal,
     timestamp: i64,
+    trade_session: CTradeSession,
 }
 
 impl From<Candlestick> for CCandlestickOwned {
@@ -498,6 +501,7 @@ impl From<Candlestick> for CCandlestickOwned {
             volume,
             turnover,
             timestamp,
+            trade_session,
         } = candlestick;
         CCandlestickOwned {
             close: close.into(),
@@ -507,6 +511,7 @@ impl From<Candlestick> for CCandlestickOwned {
             volume,
             turnover: turnover.into(),
             timestamp: timestamp.unix_timestamp(),
+            trade_session: trade_session.into(),
         }
     }
 }
@@ -523,6 +528,7 @@ impl ToFFI for CCandlestickOwned {
             volume,
             turnover,
             timestamp,
+            trade_session,
         } = self;
         CCandlestick {
             close,
@@ -532,6 +538,7 @@ impl ToFFI for CCandlestickOwned {
             volume: *volume,
             turnover,
             timestamp: *timestamp,
+            trade_session: *trade_session,
         }
     }
 }

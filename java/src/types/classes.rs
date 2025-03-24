@@ -254,7 +254,16 @@ impl_java_class!(
 impl_java_class!(
     "com/longport/quote/Candlestick",
     longport::quote::Candlestick,
-    [close, open, low, high, volume, turnover, timestamp]
+    [
+        close,
+        open,
+        low,
+        high,
+        volume,
+        turnover,
+        timestamp,
+        trade_session
+    ]
 );
 
 impl_java_class!(
