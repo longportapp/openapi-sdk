@@ -1,7 +1,7 @@
 [package]
 name = "longport-wscli"
 version = "3.0.0"
-edition = "2021"
+edition.workspace = true
 description = "LongPort Websocket SDK for Rust"
 license = "MIT OR Apache-2.0"
 

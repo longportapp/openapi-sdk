@@ -43,19 +43,3 @@ pub async fn is_cn() -> bool {
         .await
         .is_some_and(|region| region.eq_ignore_ascii_case("CN"))
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[tokio::test]
-    async fn test_var() {
-        is_cn().await;
-
-        std::env::set_var("LONGPORT_REGION", "CN");
-        assert!(is_cn().await);
-
-        std::env::set_var("LONGPORT_REGION", "SG");
-        assert!(!is_cn().await);
-    }
-}

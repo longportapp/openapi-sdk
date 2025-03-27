@@ -1,5 +1,5 @@
 [package]
-edition = "2021"
+edition.workspace = true
 name = "longport-candlesticks"
 version = "3.0.0"
 description = "LongPort candlestick utils for Rust"

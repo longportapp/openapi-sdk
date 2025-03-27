@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 
-use longport_candlesticks::{Days, TradeSessionType, UpdateAction, UpdateFields};
+use longport_candlesticks::{
+    Days, TradeSessionType, UpdateAction, UpdateFields, TRADE_SESSION_POST, TRADE_SESSION_PRE,
+};
 use longport_proto::quote::Period;
 
 use crate::{
@@ -111,6 +113,10 @@ impl Candlesticks {
                 "F" => UpdateFields::all(),
                 "G" => UpdateFields::VOLUME,
                 "H" => UpdateFields::VOLUME,
+                "I" if board == SecurityBoard::USOption || board == SecurityBoard::USOptionS => {
+                    UpdateFields::all()
+                }
+                "I" if ts == TRADE_SESSION_PRE || ts == TRADE_SESSION_POST => UpdateFields::all(),
                 "I" => UpdateFields::VOLUME,
                 "K" => UpdateFields::all(),
                 "M" => UpdateFields::empty(),

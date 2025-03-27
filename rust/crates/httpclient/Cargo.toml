@@ -1,5 +1,5 @@
 [package]
-edition = "2021"
+edition.workspace = true
 name = "longport-httpcli"
 version = "3.0.0"
 description = "LongPort HTTP SDK for Rust"

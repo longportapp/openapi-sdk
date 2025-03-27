@@ -1,4 +1,5 @@
 [workspace]
+package.edition = "2021"
 resolver = "2"
 members = [
     "account_asset",
