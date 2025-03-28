@@ -2,7 +2,7 @@ name: Docs
 on:
   push:
     branches:
-      - release
+      - docs
 
 jobs:
   build-api-docs:
@@ -76,6 +76,12 @@ jobs:
       - name: Copy to gh-pages
         run: |
           mkdir -p gh-pages
+          zip -r gh-pages/rust.zip target/doc
+          zip -r gh-pages/python.zip python/site
+          zip -r gh-pages/nodejs.zip nodejs/docs
+          zip -r gh-pages/java.zip java/javasrc/target/reports/apidocs
+          zip -r gh-pages/c.zip c/html
+          zip -r gh-pages/cpp.zip cpp/html
           mv -f target/doc gh-pages/rust
           mv -f python/site gh-pages/python
           mv -f nodejs/docs gh-pages/nodejs
@@ -83,12 +89,3 @@ jobs:
           mv -f c/html gh-pages/c
           mv -f cpp/html gh-pages/cpp
           cp .github/misc/templates/docs.html gh-pages/index.html
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2.5.1
-        with:
-          emptyCommits: true
-          keepFiles: false
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: gh-pages
